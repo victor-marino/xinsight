@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:local_auth/local_auth.dart';
+import 'package:local_auth/auth_strings.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -7,13 +8,23 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final LocalAuthentication _localAuthentication = LocalAuthentication();
+  final LocalAuthentication localAuthentication = LocalAuthentication();
+  final AndroidAuthMessages androidStrings = AndroidAuthMessages(
+    fingerprintHint: "",
+    fingerprintNotRecognized: "User not recognised",
+    fingerprintSuccess: "User authenticated",
+    cancelButton: "Cancel",
+    signInTitle: "Biometric Authentication",
+    fingerprintRequiredTitle: "Biometric Authentication Required",
+    goToSettingsButton: "Go to Settings",
+    goToSettingsDescription: "Biometric authentication not configured in this device. Please go to your device Settings to configure.",
+  );
 
-  Future _supportsBiometrics() async {
+  Future supportsBiometrics() async {
     bool supportsBiometrics = false;
     try {
       print("Checking support...");
-      supportsBiometrics = await _localAuthentication.canCheckBiometrics;
+      supportsBiometrics = await localAuthentication.canCheckBiometrics;
     } on Exception catch (e) {
       print(e);
     }
@@ -25,10 +36,10 @@ class _LoginScreenState extends State<LoginScreen> {
     return supportsBiometrics;
   }
 
-  Future<void> _getListOfBiometricTypes() async {
+  Future<void> getListOfBiometricTypes() async {
     List<BiometricType> listOfBiometrics;
     try {
-      listOfBiometrics = await _localAuthentication.getAvailableBiometrics();
+      listOfBiometrics = await localAuthentication.getAvailableBiometrics();
     } on Exception catch (e) {
       print(e);
     }
@@ -38,14 +49,15 @@ class _LoginScreenState extends State<LoginScreen> {
     print(listOfBiometrics);
   }
 
-  Future _authenticateUser() async {
+  Future authenticateUser() async {
     bool isAuthenticated = false;
     try {
       print("Trying to authenticate...");
-      isAuthenticated = await _localAuthentication.authenticateWithBiometrics(
-          localizedReason: "Please authenticate",
-          useErrorDialogs: true,
-          stickyAuth: true,
+      isAuthenticated = await localAuthentication.authenticateWithBiometrics(
+        androidAuthStrings: androidStrings,
+        localizedReason: "Please authenticate",
+        useErrorDialogs: true,
+        stickyAuth: true,
       );
     } on Exception catch (e) {
       print(e);
@@ -54,13 +66,15 @@ class _LoginScreenState extends State<LoginScreen> {
     if (isAuthenticated) {
       print("User authenticated");
     }
-    isAuthenticated ? print("User authenticated") : print("User not authenticated");
+    isAuthenticated
+        ? print("User authenticated")
+        : print("User not authenticated");
   }
 
   void tryToAuthenticate() async {
-    if (await _supportsBiometrics()) {
-      await _getListOfBiometricTypes();
-      await _authenticateUser();
+    if (await supportsBiometrics()) {
+      await getListOfBiometricTypes();
+      await authenticateUser();
     }
   }
 
@@ -69,6 +83,7 @@ class _LoginScreenState extends State<LoginScreen> {
     super.initState();
     tryToAuthenticate();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
