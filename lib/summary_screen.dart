@@ -1,8 +1,30 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:charts_flutter/flutter.dart' as charts;
+import 'chart_data.dart';
 
 class SummaryScreen extends StatelessWidget {
+  static final data = [
+    new AccountBalance('2018', 2000),
+    new AccountBalance('2019', 2020),
+    new AccountBalance('2020', 2040),
+  ];
+
+  static final series = [
+    new charts.Series(
+      id: 'Balance',
+      domainFn: (AccountBalance balanceData, _) => balanceData.date,
+      measureFn: (AccountBalance balanceData, _) => balanceData.amount,
+      data: data,
+    ),
+  ];
+
+  final chart = new charts.BarChart(
+    series,
+    animate: true,
+  );
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -128,6 +150,17 @@ class SummaryScreen extends StatelessWidget {
                     ),
                   ),
                 ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Expanded(
+                child: Card(
+                  margin: EdgeInsets.all(0),
+                  color: Colors.lightBlueAccent,
+                  elevation: 5,
+                  child: chart,
+                ),
               )
             ],
           ),
