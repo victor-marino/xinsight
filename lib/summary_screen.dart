@@ -42,7 +42,7 @@ class SummaryScreen extends StatelessWidget {
                               textBaseline: TextBaseline.ideographic,
                               children: <Widget>[
                                 Text(
-                                  '2444',
+                                  '2.444',
                                   textAlign: TextAlign.right,
                                   style: TextStyle(
                                     fontSize: 36,
@@ -60,7 +60,7 @@ class SummaryScreen extends StatelessWidget {
                               ],
                             ),
                             Text(
-                              'Aportado: 2400€',
+                              'Aportado: 2.400€',
                               textAlign: TextAlign.right,
                               style: TextStyle(
                                 fontSize: 18,
