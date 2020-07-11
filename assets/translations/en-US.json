@@ -1,0 +1,12 @@
+{
+  "app_title": "App title",
+  "user_not_recognized": "User not recognized",
+  "user_authenticated": "User authenticated",
+  "cancel": "Cancel",
+  "biometric_authentication": "Biometric Authentication",
+  "biometrics_required": "Biometric Authentication Required",
+  "go_to_settings": "Go to Settings",
+  "go_to_settings_description": "Biometric authentication not configured in this device. Please go to your device Settings to configure.",
+  "please_authenticate": "Please authenticate",
+  "good_morning": "Good morning!"
+}

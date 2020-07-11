@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:local_auth/auth_strings.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'summary_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -11,13 +13,13 @@ class _LoginScreenState extends State<LoginScreen> {
   final LocalAuthentication localAuthentication = LocalAuthentication();
   final AndroidAuthMessages androidStrings = AndroidAuthMessages(
     fingerprintHint: "",
-    fingerprintNotRecognized: "User not recognised",
-    fingerprintSuccess: "User authenticated",
-    cancelButton: "Cancel",
-    signInTitle: "Biometric Authentication",
-    fingerprintRequiredTitle: "Biometric Authentication Required",
-    goToSettingsButton: "Go to Settings",
-    goToSettingsDescription: "Biometric authentication not configured in this device. Please go to your device Settings to configure.",
+    fingerprintNotRecognized: "user_not_recognized".tr(),
+    fingerprintSuccess: "user_authenticated".tr(),
+    cancelButton: "cancel".tr(),
+    signInTitle: "biometric_authentication".tr(),
+    fingerprintRequiredTitle: "biometrics_required".tr(),
+    goToSettingsButton: "go_to_settings".tr(),
+    goToSettingsDescription: "go_to_settings_description".tr(),
   );
 
   Future supportsBiometrics() async {
@@ -55,7 +57,7 @@ class _LoginScreenState extends State<LoginScreen> {
       print("Trying to authenticate...");
       isAuthenticated = await localAuthentication.authenticateWithBiometrics(
         androidAuthStrings: androidStrings,
-        localizedReason: "Please authenticate",
+        localizedReason: "please_authenticate".tr(),
         useErrorDialogs: true,
         stickyAuth: true,
       );
@@ -65,16 +67,24 @@ class _LoginScreenState extends State<LoginScreen> {
 
     if (isAuthenticated) {
       print("User authenticated");
+      return true;
+    } else {
+      print("User not authenticated");
+      return false;
     }
-    isAuthenticated
-        ? print("User authenticated")
-        : print("User not authenticated");
+//    isAuthenticated
+//        ? print("User authenticated")
+//        : print("User not authenticated");
   }
 
   void tryToAuthenticate() async {
+    bool authenticated = false;
     if (await supportsBiometrics()) {
       await getListOfBiometricTypes();
-      await authenticateUser();
+      authenticated = await authenticateUser();
+      if (authenticated) {
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => SummaryScreen()));
+      }
     }
   }
 
@@ -89,11 +99,11 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Indexa Dashboard",
+          'app_title'.tr(),
         ),
       ),
       body: SafeArea(
-        child: Text("Hey!"),
+        child: Text("good_morning".tr()),
       ),
     );
   }

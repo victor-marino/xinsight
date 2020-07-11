@@ -1,0 +1,12 @@
+{
+  "app_title": "Título de la app",
+  "user_not_recognized": "Usuario no reconocido",
+  "user_authenticated": "Usuario identificado",
+  "cancel": "Cancelar",
+  "biometric_authentication": "Identificación biométrica",
+  "biometrics_required": "Identificación biométrica requerida",
+  "go_to_settings": "Ir a ajustes",
+  "go_to_settings_description": "Identificación biométrica no configurada en este dispositivo. Por favor, ve a los ajustes de tu dispositivo para configurarla.",
+  "please_authenticate": "Por favor identifícate",
+  "good_morning": "¡Buenos días!"
+}
