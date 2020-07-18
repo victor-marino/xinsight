@@ -2,9 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
-import 'chart_data.dart';
+import '../chart_data.dart';
+import '../services/indexa_data.dart';
 
-class SummaryScreen extends StatelessWidget {
+class SummaryScreen extends StatefulWidget {
   static final data = [
     new AccountBalance('2018', 2000),
     new AccountBalance('2019', 2020),
@@ -20,11 +21,29 @@ class SummaryScreen extends StatelessWidget {
     ),
   ];
 
+  @override
+  _SummaryScreenState createState() => _SummaryScreenState();
+}
+
+class _SummaryScreenState extends State<SummaryScreen> {
   final chart = new charts.BarChart(
-    series,
+    SummaryScreen.series,
     animate: true,
   );
 
+  @override
+  void initState() {
+    super.initState();
+    getUserData();
+  }
+
+  void getUserData() async {
+    IndexaDataModel indexaData = IndexaDataModel();
+    var userAccounts = await indexaData.getUserAccounts();
+    print(userAccounts);
+    var accountBalance = await indexaData.getAccountData(userAccounts[0]);
+    print(accountBalance);
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
