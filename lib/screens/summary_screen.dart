@@ -4,6 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import '../chart_data.dart';
 import '../services/indexa_data.dart';
+import '../services/account.dart';
 
 class SummaryScreen extends StatefulWidget {
   @override
@@ -11,7 +12,7 @@ class SummaryScreen extends StatefulWidget {
 }
 
 class _SummaryScreenState extends State<SummaryScreen> {
-  Future<double> accountBalance = getAccountBalance();
+  Future<Account> accountData = getAccountData();
 
   static final data = [
     new AccountBalance('2018', 2000),
@@ -36,16 +37,15 @@ class _SummaryScreenState extends State<SummaryScreen> {
   @override
   void initState() {
     super.initState();
-    //getUserData();
   }
 
-  static Future<double> getAccountBalance() async {
+  static Future<Account> getAccountData() async {
     IndexaDataModel indexaData = IndexaDataModel();
     var userAccounts = await indexaData.getUserAccounts();
-    print(userAccounts);
-    var currentAccountBalance =
+    var currentAccountData =
         await indexaData.getAccountData(userAccounts[0]);
-    return currentAccountBalance;
+    Account currentAccount = Account(accountData: currentAccountData);
+    return currentAccount;
   }
 
   @override
@@ -81,10 +81,10 @@ class _SummaryScreenState extends State<SummaryScreen> {
                                 fontSize: 15,
                               ),
                             ),
-                            FutureBuilder<double>(
-                                future: accountBalance,
+                            FutureBuilder<Account>(
+                                future: accountData,
                                 builder: (BuildContext context,
-                                    AsyncSnapshot<double> snapshot) {
+                                    AsyncSnapshot<Account> snapshot) {
                                   Widget child;
                                   if (snapshot.hasData) {
                                     child = Row(
@@ -96,14 +96,14 @@ class _SummaryScreenState extends State<SummaryScreen> {
                                         RichText(
                                             text: TextSpan(children: [
                                           TextSpan(
-                                            text: snapshot.data.toStringAsFixed(2).split('.')[0],
+                                            text: snapshot.data.getTotalAmount().toStringAsFixed(2).split('.')[0],
                                             style: TextStyle(
                                                 color: Colors.black,
                                                 fontSize: 36,
                                                 fontWeight: FontWeight.bold),
                                           ),
                                           TextSpan(
-                                            text: ',' + snapshot.data.toStringAsFixed(2).split('.')[1] + ' €',
+                                            text: ',' + snapshot.data.getTotalAmount().toStringAsFixed(2).split('.')[1] + ' €',
                                             style: TextStyle(
                                               color: Colors.black,
                                               fontSize: 20,
@@ -114,6 +114,7 @@ class _SummaryScreenState extends State<SummaryScreen> {
                                       ],
                                     );
                                   } else if (snapshot.hasError) {
+                                    print(snapshot.error);
                                     child = Row(
                                       mainAxisAlignment: MainAxisAlignment.end,
                                       crossAxisAlignment:

@@ -16,25 +16,11 @@ class IndexaDataModel {
     return userAccounts;
   }
 
-  Future<double> getAccountData(accountNumber) async {
-    String url = '$indexaURL/accounts/$accountNumber';
+  Future<dynamic> getAccountData(accountNumber) async {
+    String url = '$indexaURL/accounts/$accountNumber/performance';
     double totalAmount;
     NetworkHelper networkHelper = NetworkHelper(url, token);
     var accountData = await networkHelper.getData();
-    totalAmount = accountData['total_amount'];
-    return totalAmount;
+    return accountData;
   }
-//
-//  Future<dynamic> getLocationWeather() async {
-//    Location location = Location();
-//    await location.getCurrentLocation();
-//
-//    String url = '$openWeatherMapURL?lat=${location.latitude}&lon=${location.longitude}&appid=$apiKey&units=metric';
-//
-//    NetworkHelper networkHelper = NetworkHelper(url);
-//    var weatherData = await networkHelper.getData();
-//
-//    return weatherData;
-//  }
-
 }
