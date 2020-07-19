@@ -6,6 +6,13 @@ import '../chart_data.dart';
 import '../services/indexa_data.dart';
 
 class SummaryScreen extends StatefulWidget {
+  @override
+  _SummaryScreenState createState() => _SummaryScreenState();
+}
+
+class _SummaryScreenState extends State<SummaryScreen> {
+  Future<double> accountBalance = getAccountBalance();
+
   static final data = [
     new AccountBalance('2018', 2000),
     new AccountBalance('2019', 2020),
@@ -21,29 +28,26 @@ class SummaryScreen extends StatefulWidget {
     ),
   ];
 
-  @override
-  _SummaryScreenState createState() => _SummaryScreenState();
-}
-
-class _SummaryScreenState extends State<SummaryScreen> {
   final chart = new charts.BarChart(
-    SummaryScreen.series,
+    series,
     animate: true,
   );
 
   @override
   void initState() {
     super.initState();
-    getUserData();
+    //getUserData();
   }
 
-  void getUserData() async {
+  static Future<double> getAccountBalance() async {
     IndexaDataModel indexaData = IndexaDataModel();
     var userAccounts = await indexaData.getUserAccounts();
     print(userAccounts);
-    var accountBalance = await indexaData.getAccountData(userAccounts[0]);
-    print(accountBalance);
+    var currentAccountBalance =
+        await indexaData.getAccountData(userAccounts[0]);
+    return currentAccountBalance;
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -77,29 +81,61 @@ class _SummaryScreenState extends State<SummaryScreen> {
                                 fontSize: 15,
                               ),
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              crossAxisAlignment: CrossAxisAlignment.baseline,
-                              textBaseline: TextBaseline.ideographic,
-                              children: <Widget>[
-                                Text(
-                                  '2.444',
-                                  textAlign: TextAlign.right,
-                                  style: TextStyle(
-                                    fontSize: 36,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                Text(
-                                  ',17€',
-                                  textAlign: TextAlign.right,
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
-                            ),
+                            FutureBuilder<double>(
+                                future: accountBalance,
+                                builder: (BuildContext context,
+                                    AsyncSnapshot<double> snapshot) {
+                                  Widget child;
+                                  if (snapshot.hasData) {
+                                    child = Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.baseline,
+                                      textBaseline: TextBaseline.ideographic,
+                                      children: <Widget>[
+                                        RichText(
+                                            text: TextSpan(children: [
+                                          TextSpan(
+                                            text: snapshot.data.toStringAsFixed(2).split('.')[0],
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 36,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          TextSpan(
+                                            text: ',' + snapshot.data.toStringAsFixed(2).split('.')[1] + ' €',
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ]))
+                                      ],
+                                    );
+                                  } else if (snapshot.hasError) {
+                                    child = Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.baseline,
+                                      textBaseline: TextBaseline.ideographic,
+                                      children: <Widget>[
+                                        Text("Error loading data"),
+                                      ],
+                                    );
+                                  } else {
+                                    child = Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.baseline,
+                                      textBaseline: TextBaseline.ideographic,
+                                      children: <Widget>[
+                                        Text("Loading..."),
+                                      ],
+                                    );
+                                  }
+                                  return child;
+                                }),
                             Text(
                               'Aportado: 2.400€',
                               textAlign: TextAlign.right,
