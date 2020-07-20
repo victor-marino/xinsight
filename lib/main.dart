@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'file:///C:/Users/donvi/Documents/FlutterProjects/indexa_dashboard/lib/screens/login_screen.dart';
+import 'screens/login_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 void main() {
