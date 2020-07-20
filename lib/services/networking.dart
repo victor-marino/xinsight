@@ -18,7 +18,6 @@ class NetworkHelper {
     );
 
     if (result.statusCode == 200) {
-      print("good");
       return (jsonDecode(result.body));
     } else {
       print("oops");

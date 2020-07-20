@@ -72,9 +72,6 @@ class _LoginScreenState extends State<LoginScreen> {
       print("User not authenticated");
       return false;
     }
-//    isAuthenticated
-//        ? print("User authenticated")
-//        : print("User not authenticated");
   }
 
   void tryToAuthenticate() async {
@@ -84,6 +81,8 @@ class _LoginScreenState extends State<LoginScreen> {
       authenticated = await authenticateUser();
       if (authenticated) {
         Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => SummaryScreen()));
+      } else {
+        tryToAuthenticate();
       }
     }
   }

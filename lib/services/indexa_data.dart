@@ -18,7 +18,6 @@ class IndexaDataModel {
 
   Future<dynamic> getAccountData(accountNumber) async {
     String url = '$indexaURL/accounts/$accountNumber/performance';
-    double totalAmount;
     NetworkHelper networkHelper = NetworkHelper(url, token);
     var accountData = await networkHelper.getData();
     return accountData;
