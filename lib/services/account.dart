@@ -1,19 +1,21 @@
 class Account {
   final accountData;
-  final double totalAmount;
-  final double investment;
-  final double timeReturn;
-  final double moneyReturn;
-  final double profitLoss;
+  final double _totalAmount;
+  final double _investment;
+  final double _timeReturn;
+  final double _moneyReturn;
+  final double _profitLoss;
 
   Account({this.accountData})
-      : totalAmount = accountData['return']['total_amount'].toDouble(),
-        investment = accountData['return']['investment'].toDouble(),
-        timeReturn = accountData['return']['time_return'].toDouble(),
-        moneyReturn = accountData['return']['money_return'].toDouble(),
-        profitLoss = accountData['return']['pl'].toDouble();
+      : _totalAmount = accountData['return']['total_amount'].toDouble(),
+        _investment = accountData['return']['investment'].toDouble(),
+        _timeReturn = accountData['return']['time_return'].toDouble(),
+        _moneyReturn = accountData['return']['money_return'].toDouble(),
+        _profitLoss = accountData['return']['pl'].toDouble();
 
-  double getTotalAmount() {
-    return totalAmount;
-  }
+  double get totalAmount => _totalAmount;
+  double get investment => _investment;
+  double get profitLoss => _profitLoss;
+  double get moneyReturn => _moneyReturn;
+  double get timeReturn => _timeReturn;
 }
