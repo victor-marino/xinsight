@@ -11,8 +11,19 @@ String getCurrentLocale() {
   return locale.languageCode;
 }
 
-String getNumberAsString(num number) {
+String getBalanceAsString(num number) {
   String numberString = NumberFormat.currency(locale: getCurrentLocale(), symbol: '€', decimalDigits: 2).format(number);
+  return numberString;
+}
+
+String getInvestmentAsString(num number) {
+  int decimalPlaces;
+  if (number == number.roundToDouble()) {
+    decimalPlaces = 0;
+  } else {
+    decimalPlaces = 2;
+  }
+  String numberString = NumberFormat.currency(locale: getCurrentLocale(), symbol: '€', decimalDigits: decimalPlaces).format(number);
   return numberString;
 }
 

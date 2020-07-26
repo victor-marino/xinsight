@@ -1,15 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/services.dart';
-import '../chart_data.dart';
 import '../services/indexa_data.dart';
-import '../services/account.dart';
+import '../models/account.dart';
 import '../tools/number_formatting.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../tools/constants.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:fl_chart/fl_chart.dart';
+import '../models/amounts_chart_data.dart';
 
 const int nbsp = 0x00A0;
 
@@ -35,26 +34,6 @@ class _SummaryScreenState extends State<SummaryScreen> {
     });
     return accountData;
   }
-
-  static final data = [
-    new AccountBalance('2018', 2000),
-    new AccountBalance('2019', 2020),
-    new AccountBalance('2020', 2040),
-  ];
-
-  static final series = [
-    new charts.Series(
-      id: 'Balance',
-      domainFn: (AccountBalance balanceData, _) => balanceData.date,
-      measureFn: (AccountBalance balanceData, _) => balanceData.amount,
-      data: data,
-    ),
-  ];
-
-  final chart = new charts.BarChart(
-    series,
-    animate: true,
-  );
 
   @override
   void initState() {
@@ -94,13 +73,13 @@ class _SummaryScreenState extends State<SummaryScreen> {
                     child = Padding(
                       padding: const EdgeInsets.all(20),
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: <Widget>[
                           SizedBox(
                             height: 30.0,
                           ),
                           Text(
-                            'Vista general',
+                            'Tu cuenta',
                             style: kTitleTextStyle,
                             textAlign: TextAlign.left,
                           ),
@@ -136,15 +115,15 @@ class _SummaryScreenState extends State<SummaryScreen> {
                                           RichText(
                                             text: TextSpan(children: [
                                               TextSpan(
-                                                text: getNumberAsString(
-                                                        snapshot.data.totalAmount)
+                                                text: getBalanceAsString(snapshot
+                                                        .data.totalAmount)
                                                     .split(',')[0],
                                                 style:
                                                     kCardPrimaryContentTextStyle,
                                               ),
                                               TextSpan(
                                                 text: ',' +
-                                                    getNumberAsString(snapshot
+                                                    getBalanceAsString(snapshot
                                                             .data.totalAmount)
                                                         .split(',')[1],
                                                 style:
@@ -154,7 +133,7 @@ class _SummaryScreenState extends State<SummaryScreen> {
                                           ),
                                           Text(
                                             'Aportado: ' +
-                                                getNumberAsString(
+                                                getInvestmentAsString(
                                                     snapshot.data.investment),
                                             textAlign: TextAlign.left,
                                             style: kCardSubTextStyle,
@@ -189,11 +168,14 @@ class _SummaryScreenState extends State<SummaryScreen> {
                                           RichText(
                                             text: TextSpan(children: [
                                               TextSpan(
-                                                text: getPLAsString(
-                                                        snapshot.data.profitLoss)
+                                                text: getPLAsString(snapshot
+                                                        .data.profitLoss)
                                                     .split(',')[0],
                                                 style:
-                                                    kCardPrimaryContentTextStyle,
+                                                    kCardPrimaryContentTextStyle
+                                                        .copyWith(
+                                                            color: snapshot.data
+                                                                .profitLossColor),
                                               ),
                                               TextSpan(
                                                 text: ',' +
@@ -201,26 +183,15 @@ class _SummaryScreenState extends State<SummaryScreen> {
                                                             .data.profitLoss)
                                                         .split(',')[1],
                                                 style:
-                                                    kCardSecondaryContentTextStyle,
+                                                    kCardSecondaryContentTextStyle
+                                                        .copyWith(
+                                                            color: snapshot.data
+                                                                .profitLossColor),
                                               ),
                                             ]),
                                           ),
                                           Row(
                                             children: <Widget>[
-                                              Icon(
-                                                Icons.euro_symbol,
-                                                color: Colors.grey,
-                                                size: 14.0,
-                                              ),
-                                              Text(
-                                                getPLPercentAsString(
-                                                    snapshot.data.moneyReturn),
-                                                textAlign: TextAlign.left,
-                                                style: kCardSubTextStyle,
-                                              ),
-                                              SizedBox(
-                                                width: 10.0,
-                                              ),
                                               Icon(
                                                 Icons.access_time,
                                                 color: Colors.grey,
@@ -230,7 +201,27 @@ class _SummaryScreenState extends State<SummaryScreen> {
                                                 getPLPercentAsString(
                                                     snapshot.data.timeReturn),
                                                 textAlign: TextAlign.left,
-                                                style: kCardSubTextStyle,
+                                                style:
+                                                    kCardSubTextStyle.copyWith(
+                                                        color: snapshot.data
+                                                            .timeReturnColor),
+                                              ),
+                                              SizedBox(
+                                                width: 10.0,
+                                              ),
+                                              Icon(
+                                                Icons.euro_symbol,
+                                                color: Colors.grey,
+                                                size: 14.0,
+                                              ),
+                                              Text(
+                                                getPLPercentAsString(
+                                                    snapshot.data.moneyReturn),
+                                                textAlign: TextAlign.left,
+                                                style:
+                                                    kCardSubTextStyle.copyWith(
+                                                        color: snapshot.data
+                                                            .moneyReturnColor),
                                               ),
                                             ],
                                           )
@@ -243,14 +234,19 @@ class _SummaryScreenState extends State<SummaryScreen> {
                             ),
                           ),
                           SizedBox(
-                            height: 10,
+                            height: 30,
                           ),
                           Expanded(
                             child: Card(
                               margin: EdgeInsets.all(0),
-                              color: Colors.lightBlueAccent,
-                              elevation: 5,
-                              child: chart,
+                              color: Colors.white,
+                              elevation: 10,
+                              child: Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: LineChart(
+                                  amountsChartData(snapshot.data.amountsSeries),
+                                ),
+                              ),
                             ),
                           )
                         ],
