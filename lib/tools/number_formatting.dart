@@ -16,7 +16,28 @@ String getNumberAsString(num number) {
   return numberString;
 }
 
+String getPLAsString(num number) {
+  String numberString;
+  if (number <0) {
+    numberString = '-' + NumberFormat.currency(locale: getCurrentLocale(), symbol: '€', decimalDigits: 2).format(number);
+  } else {
+    numberString = '+' + NumberFormat.currency(locale: getCurrentLocale(), symbol: '€', decimalDigits: 2).format(number);
+  }
+  return numberString;
+}
+
 String getPercentAsString(num number) {
   String numberString = NumberFormat.decimalPercentPattern(locale: getCurrentLocale(), decimalDigits: 1).format(number);
+  return numberString;
+}
+
+String getPLPercentAsString(num number) {
+  String numberString;
+  if (number < 0) {
+    numberString = '-' + NumberFormat.decimalPercentPattern(
+        locale: getCurrentLocale(), decimalDigits: 1).format(number);
+  } else {
+    numberString = '+' + NumberFormat.decimalPercentPattern(locale: getCurrentLocale(), decimalDigits: 1).format(number);
+  }
   return numberString;
 }

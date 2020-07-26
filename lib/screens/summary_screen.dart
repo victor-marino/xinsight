@@ -6,8 +6,10 @@ import 'package:flutter/services.dart';
 import '../chart_data.dart';
 import '../services/indexa_data.dart';
 import '../services/account.dart';
-import '../services/number_formatting.dart';
+import '../tools/number_formatting.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import '../tools/constants.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 const int nbsp = 0x00A0;
 
@@ -20,7 +22,7 @@ class _SummaryScreenState extends State<SummaryScreen> {
   Future<Account> accountData;
   RefreshController _refreshController =
       RefreshController(initialRefresh: true);
-  void _onRefresh() async{
+  void _onRefresh() async {
     // monitor network fetch
     await loadData();
     // if failed,use refreshFailed()
@@ -57,7 +59,6 @@ class _SummaryScreenState extends State<SummaryScreen> {
   @override
   void initState() {
     super.initState();
-    accountData = getAccountData();
   }
 
   static Future<Account> getAccountData() async {
@@ -79,179 +80,192 @@ class _SummaryScreenState extends State<SummaryScreen> {
       body: SafeArea(
         child: SmartRefresher(
           enablePullDown: true,
-          header: WaterDropMaterialHeader(),
           controller: _refreshController,
           onRefresh: _onRefresh,
           child: Container(
-            height: MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top,
+            height: MediaQuery.of(context).size.height -
+                MediaQuery.of(context).padding.top,
             child: FutureBuilder<Account>(
-              future: accountData,
-              builder: (BuildContext context, AsyncSnapshot<Account> snapshot) {
-                Widget child;
-                if (snapshot.hasData) {
-                  child = Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: Column(
-                      children: <Widget>[
-                        Row(
-                          children: <Widget>[
-                            Expanded(
-                              flex: 3,
-                              child: Card(
-                                margin: EdgeInsets.all(0),
-                                color: Colors.lightBlueAccent,
-                                elevation: 5,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.stretch,
-                                    children: <Widget>[
-                                      Text(
-                                        'VALOR',
-                                        textAlign: TextAlign.left,
-                                        style: TextStyle(
-                                          fontSize: 15,
-                                        ),
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.baseline,
-                                        textBaseline: TextBaseline.ideographic,
-                                        children: <Widget>[
-                                          RichText(
-                                              text: TextSpan(children: [
-                                            TextSpan(
-                                              text: getNumberAsString(
-                                                      snapshot.data.totalAmount)
-                                                  .split(',')[0],
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 36,
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                            TextSpan(
-                                              text: ',' +
-                                                  getNumberAsString(snapshot
-                                                          .data.totalAmount)
-                                                      .split(',')[1],
-                                              style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                          ]))
-                                        ],
-                                      ),
-                                      Text(
-                                        getNumberAsString(
-                                            snapshot.data.investment),
-                                        textAlign: TextAlign.right,
-                                        style: TextStyle(
-                                          fontSize: 18,
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Expanded(
-                              flex: 2,
-                              child: Card(
-                                margin: EdgeInsets.all(0),
-                                color: Colors.lightBlueAccent,
-                                elevation: 5,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.stretch,
-                                    children: <Widget>[
-                                      Text(
-                                        'GANANCIA',
-                                        textAlign: TextAlign.left,
-                                        style: TextStyle(
-                                          fontSize: 15,
-                                        ),
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.baseline,
-                                        textBaseline: TextBaseline.ideographic,
-                                        children: <Widget>[
-                                          Text(
-                                            getPercentAsString(
-                                                    snapshot.data.moneyReturn)
-                                                .split(String.fromCharCode(
-                                                    nbsp))[0],
-                                            textAlign: TextAlign.right,
-                                            style: TextStyle(
-                                              fontSize: 36,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                          Text(
-                                            getPercentAsString(
-                                                    snapshot.data.moneyReturn)
-                                                .split(String.fromCharCode(
-                                                    nbsp))[1],
-                                            textAlign: TextAlign.right,
-                                            style: TextStyle(
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Text(
-                                        getNumberAsString(
-                                            snapshot.data.profitLoss),
-                                        textAlign: TextAlign.right,
-                                        style: TextStyle(
-                                          fontSize: 18,
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Expanded(
-                          child: Card(
-                            margin: EdgeInsets.all(0),
-                            color: Colors.lightBlueAccent,
-                            elevation: 5,
-                            child: chart,
+                future: accountData,
+                builder:
+                    (BuildContext context, AsyncSnapshot<Account> snapshot) {
+                  Widget child;
+                  if (snapshot.hasData) {
+                    child = Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          SizedBox(
+                            height: 30.0,
                           ),
-                        )
-                      ],
-                    ),
-                  );
-                } else if (snapshot.hasError) {
-                  print(snapshot.error);
-                  child =
-                      Text("Error loading data");
-                } else {
-                  child = Container();
-                }
-                return child;
-              }),
+                          Text(
+                            'Vista general',
+                            style: kTitleTextStyle,
+                            textAlign: TextAlign.left,
+                          ),
+                          SizedBox(
+                            height: 30.0,
+                          ),
+                          Card(
+                            margin: EdgeInsets.all(0),
+                            color: Colors.white,
+                            elevation: 10,
+                            child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: IntrinsicHeight(
+                                child: Row(
+//                                crossAxisAlignment:
+//                                    CrossAxisAlignment.baseline,
+//                                textBaseline: TextBaseline.ideographic,
+                                  children: <Widget>[
+                                    Expanded(
+                                      //flex: 5,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          Text(
+                                            'VALOR',
+                                            textAlign: TextAlign.left,
+                                            style: kCardTitleTextStyle,
+                                          ),
+                                          SizedBox(
+                                            height: 20.0,
+                                          ),
+                                          RichText(
+                                            text: TextSpan(children: [
+                                              TextSpan(
+                                                text: getNumberAsString(
+                                                        snapshot.data.totalAmount)
+                                                    .split(',')[0],
+                                                style:
+                                                    kCardPrimaryContentTextStyle,
+                                              ),
+                                              TextSpan(
+                                                text: ',' +
+                                                    getNumberAsString(snapshot
+                                                            .data.totalAmount)
+                                                        .split(',')[1],
+                                                style:
+                                                    kCardSecondaryContentTextStyle,
+                                              ),
+                                            ]),
+                                          ),
+                                          Text(
+                                            'Aportado: ' +
+                                                getNumberAsString(
+                                                    snapshot.data.investment),
+                                            textAlign: TextAlign.left,
+                                            style: kCardSubTextStyle,
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                    Container(
+                                      width: 20,
+                                      child: VerticalDivider(
+                                        color: Colors.black12,
+                                        thickness: 1,
+                                        //width: 50,
+                                        indent: 5,
+                                        endIndent: 5,
+                                      ),
+                                    ),
+                                    Expanded(
+                                      //flex: 4,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          Text(
+                                            'RENTABILIDAD',
+                                            textAlign: TextAlign.left,
+                                            style: kCardTitleTextStyle,
+                                          ),
+                                          SizedBox(
+                                            height: 20.0,
+                                          ),
+                                          RichText(
+                                            text: TextSpan(children: [
+                                              TextSpan(
+                                                text: getPLAsString(
+                                                        snapshot.data.profitLoss)
+                                                    .split(',')[0],
+                                                style:
+                                                    kCardPrimaryContentTextStyle,
+                                              ),
+                                              TextSpan(
+                                                text: ',' +
+                                                    getPLAsString(snapshot
+                                                            .data.profitLoss)
+                                                        .split(',')[1],
+                                                style:
+                                                    kCardSecondaryContentTextStyle,
+                                              ),
+                                            ]),
+                                          ),
+                                          Row(
+                                            children: <Widget>[
+                                              Icon(
+                                                Icons.euro_symbol,
+                                                color: Colors.grey,
+                                                size: 14.0,
+                                              ),
+                                              Text(
+                                                getPLPercentAsString(
+                                                    snapshot.data.moneyReturn),
+                                                textAlign: TextAlign.left,
+                                                style: kCardSubTextStyle,
+                                              ),
+                                              SizedBox(
+                                                width: 10.0,
+                                              ),
+                                              Icon(
+                                                Icons.access_time,
+                                                color: Colors.grey,
+                                                size: 14.0,
+                                              ),
+                                              Text(
+                                                getPLPercentAsString(
+                                                    snapshot.data.timeReturn),
+                                                textAlign: TextAlign.left,
+                                                style: kCardSubTextStyle,
+                                              ),
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Expanded(
+                            child: Card(
+                              margin: EdgeInsets.all(0),
+                              color: Colors.lightBlueAccent,
+                              elevation: 5,
+                              child: chart,
+                            ),
+                          )
+                        ],
+                      ),
+                    );
+                  } else if (snapshot.hasError) {
+                    print(snapshot.error);
+                    child = Text("Error loading data");
+                  } else {
+                    child = Container();
+                  }
+                  return child;
+                }),
           ),
-          ),
+        ),
       ),
     );
   }
