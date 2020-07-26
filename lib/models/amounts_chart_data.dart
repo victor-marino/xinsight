@@ -25,27 +25,22 @@ LineChartData amountsChartData(List<AmountsDataPoint> amountsSeries) {
     titlesData: FlTitlesData(
       bottomTitles: SideTitles(
         showTitles: true,
+        interval: 40,
         reservedSize: 22,
+        rotateAngle: -15,
         textStyle: const TextStyle(
           color: Color(0xff72719b),
           fontWeight: FontWeight.bold,
           fontSize: 16,
         ),
         margin: 10,
-//        getTitles: (value) {
-//          switch (value.toInt()) {
-//            case 2:
-//              return 'SEPT';
-//            case 7:
-//              return 'OCT';
-//            case 12:
-//              return 'DEC';
-//          }
-//          return '';
-//        },
+        getTitles: (value) {
+          return value.toStringAsFixed(0);
+        },
       ),
       leftTitles: SideTitles(
         showTitles: true,
+        interval: 200,
         textStyle: const TextStyle(
           color: Color(0xff75729e),
           fontWeight: FontWeight.bold,
