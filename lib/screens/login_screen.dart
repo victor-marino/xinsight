@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:indexa_dashboard/screens/root_screen.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:local_auth/auth_strings.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -80,7 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
       await getListOfBiometricTypes();
       authenticated = await authenticateUser();
       if (authenticated) {
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => SummaryScreen()));
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => RootScreen()));
       } else {
         tryToAuthenticate();
       }

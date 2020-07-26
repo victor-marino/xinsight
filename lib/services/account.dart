@@ -7,7 +7,8 @@ class Account {
   final double _profitLoss;
 
   Account({this.accountData})
-      : _totalAmount = accountData['return']['total_amount'].toDouble(),
+      : //_totalAmount = accountData['return']['total_amount'].toDouble(),
+        _totalAmount = new DateTime.now().second.toDouble(),
         _investment = accountData['return']['investment'].toDouble(),
         _timeReturn = accountData['return']['time_return'].toDouble(),
         _moneyReturn = accountData['return']['money_return'].toDouble(),
