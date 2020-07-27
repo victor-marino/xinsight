@@ -58,231 +58,290 @@ class _SummaryScreenState extends State<SummaryScreen> {
 //        ),
 //      ),
       body: SafeArea(
-        child: SmartRefresher(
-          enablePullDown: true,
-          controller: _refreshController,
-          onRefresh: _onRefresh,
-          child: Container(
-            height: MediaQuery.of(context).size.height -
-                MediaQuery.of(context).padding.top,
-            child: FutureBuilder<Account>(
-                future: accountData,
-                builder:
-                    (BuildContext context, AsyncSnapshot<Account> snapshot) {
-                  Widget child;
-                  if (snapshot.hasData) {
-                    child = Padding(
-                      padding: const EdgeInsets.all(20),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: <Widget>[
-                          //SizedBox(
-                          //  height: 10.0,
-                          //),
-                          Text(
-                            'Inicio',
-                            style: kTitleTextStyle,
-                            textAlign: TextAlign.left,
-                          ),
-                          SizedBox(
-                            height: 30.0,
-                          ),
-                          Card(
-                            margin: EdgeInsets.all(0),
-                            color: Colors.white,
-                            elevation: 10,
-                            child: Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: IntrinsicHeight(
-                                child: Row(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+              child: Text(
+                'Inicio',
+                style: kTitleTextStyle,
+                textAlign: TextAlign.left,
+              ),
+            ),
+            Expanded(
+              child: SmartRefresher(
+                enablePullDown: true,
+                controller: _refreshController,
+                onRefresh: _onRefresh,
+                child: SingleChildScrollView(
+                  child: FutureBuilder<Account>(
+                      future: accountData,
+                      builder: (BuildContext context,
+                          AsyncSnapshot<Account> snapshot) {
+                        Widget child;
+                        if (snapshot.hasData) {
+                          child = Padding(
+                            padding: const EdgeInsets.all(20),
+                            child: Column(
+                              children: <Widget>[
+                                //SizedBox(
+                                //  height: 10.0,
+                                //),
+                                SizedBox(
+                                  height: 10.0,
+                                ),
+                                Card(
+                                  margin: EdgeInsets.all(0),
+                                  color: Colors.white,
+                                  elevation: 10,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(10.0),
+                                    child: IntrinsicHeight(
+                                      child: Row(
 //                                crossAxisAlignment:
 //                                    CrossAxisAlignment.baseline,
 //                                textBaseline: TextBaseline.ideographic,
-                                  children: <Widget>[
-                                    Expanded(
-                                      //flex: 5,
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
                                         children: <Widget>[
-                                          Text(
-                                            'VALOR',
-                                            textAlign: TextAlign.left,
-                                            style: kCardTitleTextStyle,
-                                          ),
-                                          SizedBox(
-                                            height: 20.0,
-                                          ),
-                                          RichText(
-                                            text: TextSpan(children: [
-                                              TextSpan(
-                                                text: getBalanceAsString(snapshot
-                                                        .data.totalAmount)
-                                                    .split(',')[0],
-                                                style:
-                                                    kCardPrimaryContentTextStyle,
-                                              ),
-                                              TextSpan(
-                                                text: ',' +
-                                                    getBalanceAsString(snapshot
-                                                            .data.totalAmount)
-                                                        .split(',')[1],
-                                                style:
-                                                    kCardSecondaryContentTextStyle,
-                                              ),
-                                            ]),
-                                          ),
-                                          Text(
-                                            'Aportado: ' +
-                                                getInvestmentAsString(
-                                                    snapshot.data.investment),
-                                            textAlign: TextAlign.left,
-                                            style: kCardSubTextStyle,
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                    Container(
-                                      width: 20,
-                                      child: VerticalDivider(
-                                        color: Colors.black12,
-                                        thickness: 1,
-                                        //width: 50,
-                                        indent: 5,
-                                        endIndent: 5,
-                                      ),
-                                    ),
-                                    Expanded(
-                                      //flex: 4,
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: <Widget>[
-                                          Text(
-                                            'RENTABILIDAD',
-                                            textAlign: TextAlign.left,
-                                            style: kCardTitleTextStyle,
-                                          ),
-                                          SizedBox(
-                                            height: 20.0,
-                                          ),
-                                          RichText(
-                                            text: TextSpan(children: [
-                                              TextSpan(
-                                                text: getPLAsString(snapshot
-                                                        .data.profitLoss)
-                                                    .split(',')[0],
-                                                style:
-                                                    kCardPrimaryContentTextStyle
-                                                        .copyWith(
-                                                            color: snapshot.data
-                                                                .profitLossColor,
+                                          Expanded(
+                                            //flex: 5,
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: <Widget>[
+                                                Text(
+                                                  'VALOR',
+                                                  textAlign: TextAlign.left,
+                                                  style: kCardTitleTextStyle,
+                                                ),
+                                                SizedBox(
+                                                  height: 20.0,
+                                                ),
+                                                RichText(
+                                                  text: TextSpan(children: [
+                                                    TextSpan(
+                                                      text: getBalanceAsString(
+                                                              snapshot.data
+                                                                  .totalAmount)
+                                                          .split(',')[0],
+                                                      style:
+                                                          kCardPrimaryContentTextStyle,
                                                     ),
-                                              ),
-                                              TextSpan(
-                                                text: ',' +
-                                                    getPLAsString(snapshot
-                                                            .data.profitLoss)
-                                                        .split(',')[1],
-                                                style:
-                                                    kCardSecondaryContentTextStyle
-                                                        .copyWith(
-                                                            color: snapshot.data
-                                                                .profitLossColor,
-                                                        ),
-                                              ),
-                                            ]),
+                                                    TextSpan(
+                                                      text: ',' +
+                                                          getBalanceAsString(
+                                                                  snapshot.data
+                                                                      .totalAmount)
+                                                              .split(',')[1],
+                                                      style:
+                                                          kCardSecondaryContentTextStyle,
+                                                    ),
+                                                  ]),
+                                                ),
+                                                Text(
+                                                  'Aportado: ' +
+                                                      getInvestmentAsString(
+                                                          snapshot
+                                                              .data.investment),
+                                                  textAlign: TextAlign.left,
+                                                  style: kCardSubTextStyle,
+                                                )
+                                              ],
+                                            ),
                                           ),
-                                          Row(
-                                            children: <Widget>[
-                                              Icon(
-                                                Icons.access_time,
-                                                color: Colors.grey,
-                                                size: 14.0,
-                                              ),
-                                              Text(
-                                                getPLPercentAsString(
-                                                    snapshot.data.timeReturn),
-                                                textAlign: TextAlign.left,
-                                                style:
-                                                    kCardSubTextStyle.copyWith(
+                                          Container(
+                                            width: 20,
+                                            child: VerticalDivider(
+                                              color: Colors.black12,
+                                              thickness: 1,
+                                              //width: 50,
+                                              indent: 5,
+                                              endIndent: 5,
+                                            ),
+                                          ),
+                                          Expanded(
+                                            //flex: 4,
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: <Widget>[
+                                                Text(
+                                                  'RENTABILIDAD',
+                                                  textAlign: TextAlign.left,
+                                                  style: kCardTitleTextStyle,
+                                                ),
+                                                SizedBox(
+                                                  height: 20.0,
+                                                ),
+                                                RichText(
+                                                  text: TextSpan(children: [
+                                                    TextSpan(
+                                                      text: getPLAsString(
+                                                              snapshot.data
+                                                                  .profitLoss)
+                                                          .split(',')[0],
+                                                      style:
+                                                          kCardPrimaryContentTextStyle
+                                                              .copyWith(
                                                         color: snapshot.data
-                                                            .timeReturnColor),
-                                              ),
-                                              SizedBox(
-                                                width: 10.0,
-                                              ),
-                                              Icon(
-                                                Icons.euro_symbol,
-                                                color: Colors.grey,
-                                                size: 14.0,
-                                              ),
-                                              Text(
-                                                getPLPercentAsString(
-                                                    snapshot.data.moneyReturn),
-                                                textAlign: TextAlign.left,
-                                                style:
-                                                    kCardSubTextStyle.copyWith(
+                                                            .profitLossColor,
+                                                      ),
+                                                    ),
+                                                    TextSpan(
+                                                      text: ',' +
+                                                          getPLAsString(snapshot
+                                                                  .data
+                                                                  .profitLoss)
+                                                              .split(',')[1],
+                                                      style:
+                                                          kCardSecondaryContentTextStyle
+                                                              .copyWith(
                                                         color: snapshot.data
-                                                            .moneyReturnColor),
-                                              ),
-                                            ],
+                                                            .profitLossColor,
+                                                      ),
+                                                    ),
+                                                  ]),
+                                                ),
+                                                Row(
+                                                  children: <Widget>[
+                                                    Icon(
+                                                      Icons.access_time,
+                                                      color: Colors.grey,
+                                                      size: 14.0,
+                                                    ),
+                                                    Text(
+                                                      getPLPercentAsString(
+                                                          snapshot
+                                                              .data.timeReturn),
+                                                      textAlign: TextAlign.left,
+                                                      style: kCardSubTextStyle
+                                                          .copyWith(
+                                                              color: snapshot
+                                                                  .data
+                                                                  .timeReturnColor),
+                                                    ),
+                                                    SizedBox(
+                                                      width: 10.0,
+                                                    ),
+                                                    Icon(
+                                                      Icons.euro_symbol,
+                                                      color: Colors.grey,
+                                                      size: 14.0,
+                                                    ),
+                                                    Text(
+                                                      getPLPercentAsString(
+                                                          snapshot.data
+                                                              .moneyReturn),
+                                                      textAlign: TextAlign.left,
+                                                      style: kCardSubTextStyle
+                                                          .copyWith(
+                                                              color: snapshot
+                                                                  .data
+                                                                  .moneyReturnColor),
+                                                    ),
+                                                  ],
+                                                )
+                                              ],
+                                            ),
                                           )
                                         ],
                                       ),
-                                    )
-                                  ],
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 30,
-                          ),
-                          Expanded(
-                            child: Card(
-                              margin: EdgeInsets.all(0),
-                              color: Colors.white,
-                              elevation: 10,
-                              child: Padding(
-                                padding: const EdgeInsets.all(10.0),
+                                SizedBox(
+                                  height: 30,
+                                ),
+                                Card(
+                                  margin: EdgeInsets.all(0),
+                                  color: Colors.white,
+                                  elevation: 10,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(10.0),
 //                                child: LineChart(
 //                                  amountsChartData(snapshot.data.amountsSeries),
 //                                ),
-                              child: SfCartesianChart(
-                                // Initialize category axis
-                                  primaryXAxis: DateTimeAxis(),
-
-                                  series: <LineSeries<AmountsDataPoint, DateTime>>[
-                                    LineSeries<AmountsDataPoint, DateTime>(
-                                      // Bind data source
-                                        dataSource:  snapshot.data.amountsSeries,
-                                        xValueMapper: (AmountsDataPoint amounts, _) => amounts.date,
-                                        yValueMapper: (AmountsDataPoint amounts, _) => amounts.totalAmount,
-                                    ),
-                                    LineSeries<AmountsDataPoint, DateTime>(
-                                      // Bind data source
-                                      dataSource:  snapshot.data.amountsSeries,
-                                      xValueMapper: (AmountsDataPoint amounts, _) => amounts.date,
-                                      yValueMapper: (AmountsDataPoint amounts, _) => amounts.netAmount,
-                                    ),
-                                  ]
-                              ),
-                              ),
+                                    child: SfCartesianChart(
+                                        primaryYAxis: NumericAxis(
+                                            labelFormat: '{value} €'),
+                                        trackballBehavior: TrackballBehavior(
+                                          enable: true,
+                                          activationMode: ActivationMode.singleTap,
+                                          tooltipDisplayMode: TrackballDisplayMode.groupAllPoints,
+                                          tooltipAlignment: ChartAlignment.near,
+                                          tooltipSettings: InteractiveTooltip(
+                                            enable: true,
+                                            decimalPlaces: 2,
+                                          ),
+                                        ),
+//                                        tooltipBehavior: TooltipBehavior(
+//                                          enable: true,
+//                                          shared: true,
+//                                          decimalPlaces: 2,
+//                                        ),
+                                        legend: Legend(
+                                            isVisible: true,
+                                            position: LegendPosition.top),
+                                        // Initialize DateTime axis
+                                        primaryXAxis: DateTimeAxis(),
+                                        series: <
+                                            LineSeries<AmountsDataPoint,
+                                                DateTime>>[
+                                          LineSeries<AmountsDataPoint,
+                                              DateTime>(
+                                            name: 'Total',
+                                            // Bind data source
+                                            dataSource:
+                                                snapshot.data.amountsSeries,
+                                            xValueMapper:
+                                                (AmountsDataPoint amounts, _) =>
+                                                    amounts.date,
+                                            yValueMapper:
+                                                (AmountsDataPoint amounts, _) =>
+                                                    amounts.totalAmount,
+                                          ),
+                                          LineSeries<AmountsDataPoint,
+                                              DateTime>(
+                                            name: 'Aportado',
+                                            // Bind data source
+                                            dataSource:
+                                                snapshot.data.amountsSeries,
+                                            xValueMapper:
+                                                (AmountsDataPoint amounts, _) =>
+                                                    amounts.date,
+                                            yValueMapper:
+                                                (AmountsDataPoint amounts, _) =>
+                                                    amounts.netAmount,
+                                          ),
+                                        ]),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 30,
+                                ),
+                                Card(
+                                  margin: EdgeInsets.all(0),
+                                  color: Colors.white,
+                                  elevation: 10,
+                                  child: Container(
+                                    height: 200,
+                                  ),
+                                ),
+                              ],
                             ),
-                          )
-                        ],
-                      ),
-                    );
-                  } else if (snapshot.hasError) {
-                    print(snapshot.error);
-                    child = Text("Error loading data");
-                  } else {
-                    child = Container();
-                  }
-                  return child;
-                }),
-          ),
+                          );
+                        } else if (snapshot.hasError) {
+                          print(snapshot.error);
+                          child = Text("Error loading data");
+                        } else {
+                          child = Container();
+                        }
+                        return child;
+                      }),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
