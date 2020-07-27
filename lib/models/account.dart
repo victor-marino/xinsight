@@ -24,7 +24,7 @@ class Account {
   static List<AmountsDataPoint> _createAmountsSeries (netAmountsList, totalAmountsList) {
     List<AmountsDataPoint> newAmountSeries = [];
     netAmountsList.keys.forEach((k) {
-      AmountsDataPoint newPoint = AmountsDataPoint(date: double.parse(k), netAmount: netAmountsList[k].toDouble(), totalAmount: totalAmountsList[k].toDouble());
+      AmountsDataPoint newPoint = AmountsDataPoint(date: DateTime.parse(k), netAmount: netAmountsList[k].toDouble(), totalAmount: totalAmountsList[k].toDouble());
       newAmountSeries.add(newPoint);
 
     });

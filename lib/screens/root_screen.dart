@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:indexa_dashboard/screens/login_screen.dart';
 import 'summary_screen.dart';
+import 'package:syncfusion_flutter_core/core.dart';
+import 'package:indexa_dashboard/tools/constants.dart';
 
 class RootScreen extends StatefulWidget {
   @override
@@ -25,12 +27,19 @@ class _RootScreenState extends State<RootScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: PageView(
-        controller: _pageController,
-        children: <Widget>[
-          SummaryScreen(),
-        ],
+    SyncfusionLicense.registerLicense(SYNCFUSION_LICENSE);
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+        value: SystemUiOverlayStyle(
+        statusBarColor: Theme.of(context).canvasColor,
+        statusBarBrightness: Brightness.light, // iOS
+        statusBarIconBrightness: Brightness.dark),// Android
+      child: Scaffold(
+        body: PageView(
+          controller: _pageController,
+          children: <Widget>[
+            SummaryScreen(),
+          ],
+        ),
       ),
     );
   }

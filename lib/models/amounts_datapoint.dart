@@ -1,5 +1,5 @@
 class AmountsDataPoint {
-  final double date;
+  final DateTime date;
   final double netAmount;
   final double totalAmount;
 

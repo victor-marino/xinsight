@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+const String SYNCFUSION_LICENSE = 'NT8mJyc2IWhia31hfWN9Z2doYmF8YGJ8ampqanNiYmlmamlmanMDHmglOjAnPCE+MiE6PTwTND4yOj99MDw+';
+
 TextStyle kTitleTextStyle = GoogleFonts.oxygen(
   textStyle: TextStyle(
-    fontSize: 30.0,
+    fontSize: 40.0,
     color: Colors.black,
     fontWeight: FontWeight.bold,
   ),

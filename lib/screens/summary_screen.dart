@@ -2,13 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/services.dart';
+import 'package:indexa_dashboard/models/amounts_datapoint.dart';
 import '../services/indexa_data.dart';
 import '../models/account.dart';
 import '../tools/number_formatting.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../tools/constants.dart';
 import 'package:fl_chart/fl_chart.dart';
-import '../models/amounts_chart_data.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
 const int nbsp = 0x00A0;
 
@@ -75,11 +76,11 @@ class _SummaryScreenState extends State<SummaryScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: <Widget>[
-                          SizedBox(
-                            height: 30.0,
-                          ),
+                          //SizedBox(
+                          //  height: 10.0,
+                          //),
                           Text(
-                            'Tu cuenta',
+                            'Inicio',
                             style: kTitleTextStyle,
                             textAlign: TextAlign.left,
                           ),
@@ -175,7 +176,8 @@ class _SummaryScreenState extends State<SummaryScreen> {
                                                     kCardPrimaryContentTextStyle
                                                         .copyWith(
                                                             color: snapshot.data
-                                                                .profitLossColor),
+                                                                .profitLossColor,
+                                                    ),
                                               ),
                                               TextSpan(
                                                 text: ',' +
@@ -186,7 +188,8 @@ class _SummaryScreenState extends State<SummaryScreen> {
                                                     kCardSecondaryContentTextStyle
                                                         .copyWith(
                                                             color: snapshot.data
-                                                                .profitLossColor),
+                                                                .profitLossColor,
+                                                        ),
                                               ),
                                             ]),
                                           ),
@@ -243,9 +246,28 @@ class _SummaryScreenState extends State<SummaryScreen> {
                               elevation: 10,
                               child: Padding(
                                 padding: const EdgeInsets.all(10.0),
-                                child: LineChart(
-                                  amountsChartData(snapshot.data.amountsSeries),
-                                ),
+//                                child: LineChart(
+//                                  amountsChartData(snapshot.data.amountsSeries),
+//                                ),
+                              child: SfCartesianChart(
+                                // Initialize category axis
+                                  primaryXAxis: DateTimeAxis(),
+
+                                  series: <LineSeries<AmountsDataPoint, DateTime>>[
+                                    LineSeries<AmountsDataPoint, DateTime>(
+                                      // Bind data source
+                                        dataSource:  snapshot.data.amountsSeries,
+                                        xValueMapper: (AmountsDataPoint amounts, _) => amounts.date,
+                                        yValueMapper: (AmountsDataPoint amounts, _) => amounts.totalAmount,
+                                    ),
+                                    LineSeries<AmountsDataPoint, DateTime>(
+                                      // Bind data source
+                                      dataSource:  snapshot.data.amountsSeries,
+                                      xValueMapper: (AmountsDataPoint amounts, _) => amounts.date,
+                                      yValueMapper: (AmountsDataPoint amounts, _) => amounts.netAmount,
+                                    ),
+                                  ]
+                              ),
                               ),
                             ),
                           )
