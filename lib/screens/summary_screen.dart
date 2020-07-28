@@ -10,6 +10,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../tools/constants.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+import 'dart:math';
 
 const int nbsp = 0x00A0;
 
@@ -51,6 +52,18 @@ class _SummaryScreenState extends State<SummaryScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final List<Color> color = <Color>[];
+    color.add(Colors.blue[50]);
+    color.add(Colors.blue);
+
+
+    final List<double> stops = <double>[];
+    stops.add(0.0);
+    stops.add(0.5);
+
+    final LinearGradient gradientColors =
+    LinearGradient(transform: GradientRotation(pi*1.5), colors: color, stops: stops);
+
     return Scaffold(
 //      appBar: AppBar(
 //        title: Text(
@@ -262,6 +275,7 @@ class _SummaryScreenState extends State<SummaryScreen> {
 //                                  amountsChartData(snapshot.data.amountsSeries),
 //                                ),
                                     child: SfCartesianChart(
+                                      margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
                                         primaryYAxis: NumericAxis(
                                             labelFormat: '{value} €'),
                                         trackballBehavior: TrackballBehavior(
@@ -274,6 +288,10 @@ class _SummaryScreenState extends State<SummaryScreen> {
                                             decimalPlaces: 2,
                                           ),
                                         ),
+                                        palette: <Color>[
+                                          Colors.blue,
+                                          Colors.blueGrey,
+                                        ],
 //                                        tooltipBehavior: TooltipBehavior(
 //                                          enable: true,
 //                                          shared: true,
@@ -281,15 +299,18 @@ class _SummaryScreenState extends State<SummaryScreen> {
 //                                        ),
                                         legend: Legend(
                                             isVisible: true,
-                                            position: LegendPosition.top),
+                                            position: LegendPosition.top,
+                                        padding: 4,
+                                        itemPadding: 10),
                                         // Initialize DateTime axis
                                         primaryXAxis: DateTimeAxis(),
                                         series: <
-                                            LineSeries<AmountsDataPoint,
+                                            ChartSeries<AmountsDataPoint,
                                                 DateTime>>[
-                                          LineSeries<AmountsDataPoint,
+                                          AreaSeries<AmountsDataPoint,
                                               DateTime>(
                                             name: 'Total',
+                                            opacity: 0.7,
                                             // Bind data source
                                             dataSource:
                                                 snapshot.data.amountsSeries,
@@ -299,6 +320,7 @@ class _SummaryScreenState extends State<SummaryScreen> {
                                             yValueMapper:
                                                 (AmountsDataPoint amounts, _) =>
                                                     amounts.totalAmount,
+                                            gradient: gradientColors,
                                           ),
                                           LineSeries<AmountsDataPoint,
                                               DateTime>(
