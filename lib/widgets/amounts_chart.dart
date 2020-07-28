@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-import 'package:indexa_dashboard/models/account.dart';
 import 'dart:math';
 import 'package:indexa_dashboard/models/amounts_datapoint.dart';
 

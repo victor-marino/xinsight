@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/services.dart';
-import 'package:indexa_dashboard/models/amounts_datapoint.dart';
 import '../services/indexa_data.dart';
 import '../models/account.dart';
 import '../tools/number_formatting.dart';
