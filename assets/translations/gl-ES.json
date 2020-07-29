@@ -8,5 +8,9 @@
   "go_to_settings": "Vai á configuración",
   "go_to_settings_description": "A identificación biométrica non está configurada neste dispositivo. Ve á configuración do teu dispositivo para configurala.",
   "please_authenticate": "Por favor identifícate",
-  "good_morning": "¡Bos días!"
+  "good_morning": "¡Bos días!",
+  "InstrumentType.equity": "Acciones",
+  "InstrumentType.fixed": "Bonos",
+  "InstrumentType.cash": "Efectivo",
+  "InstrumentType.other": "Otros"
 }

@@ -8,5 +8,9 @@
   "go_to_settings": "Ir a ajustes",
   "go_to_settings_description": "Identificación biométrica no configurada en este dispositivo. Por favor, ve a los ajustes de tu dispositivo para configurarla.",
   "please_authenticate": "Por favor identifícate",
-  "good_morning": "¡Buenos días!"
+  "good_morning": "¡Buenos días!",
+  "InstrumentType.equity": "Acciones",
+  "InstrumentType.fixed": "Bonos",
+  "InstrumentType.cash": "Efectivo",
+  "InstrumentType.other": "Otros"
 }

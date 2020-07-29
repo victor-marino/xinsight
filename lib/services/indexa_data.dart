@@ -15,10 +15,19 @@ class IndexaDataModel {
     return userAccounts;
   }
 
-  Future<dynamic> getAccountData(accountNumber) async {
+  Future<dynamic> getAccountPerformanceData(accountNumber) async {
     String url = '$indexaURL/accounts/$accountNumber/performance';
     NetworkHelper networkHelper = NetworkHelper(url, token);
-    var accountData = await networkHelper.getData();
-    return accountData;
+    var accountPerformanceData = await networkHelper.getData();
+    //print('performanceData: ' + accountPerformanceData.toString());
+    return accountPerformanceData;
+  }
+
+  Future<dynamic> getAccountPortfolioData(accountNumber) async {
+    String url = '$indexaURL/accounts/$accountNumber/portfolio';
+    NetworkHelper networkHelper = NetworkHelper(url, token);
+    var accountPortfolioData = await networkHelper.getData();
+    //print('portfolioData: ' + accountPortfolioData.toString());
+    return accountPortfolioData;
   }
 }

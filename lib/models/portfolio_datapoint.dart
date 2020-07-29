@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
 
 class PortfolioDataPoint {
+  final InstrumentType instrumentType;
   final String instrumentName;
   final double amount;
-  final Color color;
+  final double percentage;
 
-  PortfolioDataPoint({this.instrumentName, this.amount, this.color});
+  PortfolioDataPoint({this.instrumentType, this.instrumentName, this.amount, this.percentage});
+}
+
+enum InstrumentType {
+  fixed,
+  equity,
+  cash,
+  other,
 }

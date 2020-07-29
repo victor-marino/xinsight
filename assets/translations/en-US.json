@@ -8,5 +8,9 @@
   "go_to_settings": "Go to Settings",
   "go_to_settings_description": "Biometric authentication not configured in this device. Please go to your device Settings to configure.",
   "please_authenticate": "Please authenticate",
-  "good_morning": "Good morning!"
+  "good_morning": "Good morning!",
+  "InstrumentType.equity": "Stock",
+  "InstrumentType.fixed": "Bonds",
+  "InstrumentType.cash": "Cash",
+  "InstrumentType.other": "Other"
 }

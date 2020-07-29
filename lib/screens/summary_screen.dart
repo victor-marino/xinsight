@@ -10,7 +10,7 @@ import '../tools/constants.dart';
 import 'package:indexa_dashboard/widgets/amounts_chart.dart';
 import 'package:indexa_dashboard/widgets/account_summary.dart';
 import 'package:indexa_dashboard/widgets/reusable_card.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:indexa_dashboard/widgets/portfolio_chart.dart';
 
 const int nbsp = 0x00A0;
 
@@ -45,25 +45,14 @@ class _SummaryScreenState extends State<SummaryScreen> {
   static Future<Account> getAccountData() async {
     IndexaDataModel indexaData = IndexaDataModel();
     var userAccounts = await indexaData.getUserAccounts();
-    var currentAccountData = await indexaData.getAccountData(userAccounts[0]);
-    Account currentAccount = Account(accountData: currentAccountData);
+    var currentAccountPerformanceData = await indexaData.getAccountPerformanceData(userAccounts[0]);
+    var currentAccountPortfolioData = await indexaData.getAccountPortfolioData(userAccounts[0]);
+    Account currentAccount = Account(accountPerformanceData: currentAccountPerformanceData, accountPortfolioData: currentAccountPortfolioData);
     return currentAccount;
   }
 
   @override
   Widget build(BuildContext context) {
-    final List<PortfolioDataPoint> chartData = [
-      PortfolioDataPoint(
-          instrumentName: 'Vanguard Global Stk Idx Eur -Ins',
-          amount: 1249.73,
-          color: Colors.redAccent),
-      PortfolioDataPoint(
-          instrumentName: 'Vanguard Global Bnd Idx Eur -Ins',
-          amount: 1171.96,
-          color: Colors.blue),
-      PortfolioDataPoint(
-          instrumentName: 'Efectivo', amount: 17.00, color: Colors.grey),
-    ];
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -112,26 +101,61 @@ class _SummaryScreenState extends State<SummaryScreen> {
                                   height: 30,
                                 ),
                                 ReusableCard(
-                                  childWidget: Container(
-                                    height: 300,
-                                    child: SfCircularChart(
-                                      series: <CircularSeries>[
-                                        // Renders doughnut chart
-                                        DoughnutSeries<PortfolioDataPoint,
-                                            String>(
-                                          dataSource: chartData,
-                                          pointColorMapper:
-                                              (PortfolioDataPoint data, _) =>
-                                                  data.color,
-                                          xValueMapper:
-                                              (PortfolioDataPoint data, _) =>
-                                                  data.instrumentName,
-                                          yValueMapper:
-                                              (PortfolioDataPoint data, _) =>
-                                                  data.amount,
-                                        ),
-                                      ],
-                                    ),
+                                  childWidget: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: <Widget>[
+                                      PortfolioChart(portfolioData: snapshot.data.portfolioData),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                        children: <Widget>[
+                                          Row(
+                                            children: <Widget>[
+                                              Icon(
+                                                Icons.fiber_manual_record,
+                                                size: 12,
+                                                color: Colors.red,
+                                              ),
+                                              Text(
+                                                'Acciones',
+                                                style: TextStyle(
+                                                  fontSize: 13,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          Row(
+                                            children: <Widget>[
+                                              Icon(
+                                                Icons.fiber_manual_record,
+                                                size: 12,
+                                                color: Colors.blue,
+                                              ),
+                                              Text(
+                                                'Bonos',
+                                                style: TextStyle(
+                                                  fontSize: 13,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          Row(
+                                            children: <Widget>[
+                                              Icon(
+                                                Icons.fiber_manual_record,
+                                                size: 12,
+                                                color: Colors.grey,
+                                              ),
+                                              Text(
+                                                'Efectivo',
+                                                style: TextStyle(
+                                                  fontSize: 13,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ],
