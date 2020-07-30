@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:indexa_dashboard/models/portfolio_datapoint.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:easy_localization/easy_localization.dart';
+import '../tools/constants.dart';
 
 class PortfolioChart extends StatelessWidget {
   const PortfolioChart({
@@ -12,9 +13,44 @@ class PortfolioChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    int equityCount = 0;
+    int fixedCount = 0;
+    List<Color> colorList = [];
+
+    for (var element in portfolioData) {
+      switch(element.instrumentType) {
+        case InstrumentType.equity: {
+          colorList.add(equityColors[equityCount]);
+          equityCount++;
+        }
+        break;
+
+        case InstrumentType.fixed: {
+          colorList.add(fixedColors[fixedCount]);
+          fixedCount++;
+        }
+        break;
+
+        case InstrumentType.cash: {
+          colorList.add(cashColor);
+        }
+        break;
+
+        case InstrumentType.other: {
+          colorList.add(otherColor);
+        }
+        break;
+
+        default: {
+          colorList.add(otherColor);
+        }
+        break;
+      }
+    }
     return Container(
       height: 230,
       child: SfCircularChart(
+        palette: colorList,
         //backgroundColor: Colors.blueGrey,
         tooltipBehavior: TooltipBehavior(
           enable: true,

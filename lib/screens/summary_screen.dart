@@ -11,6 +11,7 @@ import 'package:indexa_dashboard/widgets/amounts_chart.dart';
 import 'package:indexa_dashboard/widgets/account_summary.dart';
 import 'package:indexa_dashboard/widgets/reusable_card.dart';
 import 'package:indexa_dashboard/widgets/portfolio_chart.dart';
+import 'package:indexa_dashboard/widgets/portfolio_legend.dart';
 
 const int nbsp = 0x00A0;
 
@@ -105,56 +106,7 @@ class _SummaryScreenState extends State<SummaryScreen> {
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: <Widget>[
                                       PortfolioChart(portfolioData: snapshot.data.portfolioData),
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                        children: <Widget>[
-                                          Row(
-                                            children: <Widget>[
-                                              Icon(
-                                                Icons.fiber_manual_record,
-                                                size: 12,
-                                                color: Colors.red,
-                                              ),
-                                              Text(
-                                                'Acciones',
-                                                style: TextStyle(
-                                                  fontSize: 13,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          Row(
-                                            children: <Widget>[
-                                              Icon(
-                                                Icons.fiber_manual_record,
-                                                size: 12,
-                                                color: Colors.blue,
-                                              ),
-                                              Text(
-                                                'Bonos',
-                                                style: TextStyle(
-                                                  fontSize: 13,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          Row(
-                                            children: <Widget>[
-                                              Icon(
-                                                Icons.fiber_manual_record,
-                                                size: 12,
-                                                color: Colors.grey,
-                                              ),
-                                              Text(
-                                                'Efectivo',
-                                                style: TextStyle(
-                                                  fontSize: 13,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
+                                      PortfolioChartLegend(portfolioData: snapshot.data.portfolioData),
                                     ],
                                   ),
                                 ),
