@@ -23,7 +23,8 @@ class SummaryScreen extends StatefulWidget {
 class _SummaryScreenState extends State<SummaryScreen> {
   Future<Account> accountData;
   RefreshController _refreshController =
-      RefreshController(initialRefresh: true);
+      RefreshController(
+          initialRefresh: true);
   void _onRefresh() async {
     // monitor network fetch
     await loadData();
@@ -38,18 +39,25 @@ class _SummaryScreenState extends State<SummaryScreen> {
     return accountData;
   }
 
-  @override
-  void initState() {
-    super.initState();
-  }
-
   static Future<Account> getAccountData() async {
     IndexaDataModel indexaData = IndexaDataModel();
     var userAccounts = await indexaData.getUserAccounts();
-    var currentAccountPerformanceData = await indexaData.getAccountPerformanceData(userAccounts[0]);
-    var currentAccountPortfolioData = await indexaData.getAccountPortfolioData(userAccounts[0]);
-    Account currentAccount = Account(accountPerformanceData: currentAccountPerformanceData, accountPortfolioData: currentAccountPortfolioData);
+    var currentAccountPerformanceData =
+        await indexaData.getAccountPerformanceData(userAccounts[0]);
+    var currentAccountPortfolioData =
+        await indexaData.getAccountPortfolioData(userAccounts[0]);
+    Account currentAccount = Account(
+        accountPerformanceData: currentAccountPerformanceData,
+        accountPortfolioData: currentAccountPortfolioData);
     return currentAccount;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+//    if (accountData == null) {
+//      loadData();
+//    }
   }
 
   @override
@@ -74,53 +82,57 @@ class _SummaryScreenState extends State<SummaryScreen> {
                 onRefresh: _onRefresh,
                 child: SingleChildScrollView(
                   child: FutureBuilder<Account>(
-                      future: accountData,
-                      builder: (BuildContext context,
-                          AsyncSnapshot<Account> snapshot) {
-                        Widget child;
-                        if (snapshot.hasData) {
-                          child = Padding(
-                            padding: const EdgeInsets.all(20),
-                            child: Column(
-                              children: <Widget>[
-                                SizedBox(
-                                  height: 10.0,
+                    future: accountData,
+                    builder: (BuildContext context,
+                        AsyncSnapshot<Account> snapshot) {
+                      Widget child;
+                      if (snapshot.hasData) {
+                        child = Padding(
+                          padding: const EdgeInsets.all(20),
+                          child: Column(
+                            children: <Widget>[
+                              SizedBox(
+                                height: 10.0,
+                              ),
+                              ReusableCard(
+                                childWidget:
+                                    AccountSummary(accountData: snapshot.data),
+                              ),
+                              SizedBox(
+                                height: 30,
+                              ),
+                              ReusableCard(
+                                childWidget: AmountsChart(
+                                    amountsSeries: snapshot.data.amountsSeries),
+                              ),
+                              SizedBox(
+                                height: 30,
+                              ),
+                              ReusableCard(
+                                childWidget: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: <Widget>[
+                                    PortfolioChart(
+                                        portfolioData:
+                                            snapshot.data.portfolioData),
+                                    PortfolioChartLegend(
+                                        portfolioData:
+                                            snapshot.data.portfolioData),
+                                  ],
                                 ),
-                                ReusableCard(
-                                  childWidget: AccountSummary(
-                                      accountData: snapshot.data),
-                                ),
-                                SizedBox(
-                                  height: 30,
-                                ),
-                                ReusableCard(
-                                  childWidget: AmountsChart(
-                                      amountsSeries:
-                                          snapshot.data.amountsSeries),
-                                ),
-                                SizedBox(
-                                  height: 30,
-                                ),
-                                ReusableCard(
-                                  childWidget: Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: <Widget>[
-                                      PortfolioChart(portfolioData: snapshot.data.portfolioData),
-                                      PortfolioChartLegend(portfolioData: snapshot.data.portfolioData),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          );
-                        } else if (snapshot.hasError) {
-                          print(snapshot.error);
-                          child = Text("Error loading data");
-                        } else {
-                          child = Container();
-                        }
-                        return child;
-                      }),
+                              ),
+                            ],
+                          ),
+                        );
+                      } else if (snapshot.hasError) {
+                        print(snapshot.error);
+                        child = Text("Error loading data");
+                      } else {
+                        child = Container();
+                      }
+                      return child;
+                    },
+                  ),
                 ),
               ),
             ),

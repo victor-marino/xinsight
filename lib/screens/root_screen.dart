@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:indexa_dashboard/models/account.dart';
+import 'package:indexa_dashboard/screens/projection_screen.dart';
 import 'summary_screen.dart';
 import 'package:syncfusion_flutter_core/core.dart';
 import 'package:indexa_dashboard/tools/constants.dart';
@@ -37,6 +39,7 @@ class _RootScreenState extends State<RootScreen> {
           controller: _pageController,
           children: <Widget>[
             SummaryScreen(),
+            ProjectionScreen(),
           ],
         ),
       ),
