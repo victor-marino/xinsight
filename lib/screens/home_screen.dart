@@ -1,15 +1,19 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:indexa_dashboard/models/account.dart';
+import 'package:easy_localization/easy_localization.dart';
+import '../models/account.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../tools/constants.dart';
-import 'package:indexa_dashboard/widgets/reusable_card.dart';
 import 'package:indexa_dashboard/widgets/amounts_chart.dart';
+import 'package:indexa_dashboard/widgets/account_summary.dart';
+import 'package:indexa_dashboard/widgets/reusable_card.dart';
 import 'package:indexa_dashboard/widgets/portfolio_chart.dart';
 import 'package:indexa_dashboard/widgets/portfolio_legend.dart';
-import 'package:indexa_dashboard/widgets/account_summary.dart';
 
-class ProjectionScreen extends StatefulWidget {
-  const ProjectionScreen({
+const int nbsp = 0x00A0;
+
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({
     Key key,
     this.accountData,
     this.loadData,
@@ -18,12 +22,12 @@ class ProjectionScreen extends StatefulWidget {
   final Function loadData;
 
   @override
-  _ProjectionScreenState createState() => _ProjectionScreenState();
+  _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _ProjectionScreenState extends State<ProjectionScreen> {
+class _HomeScreenState extends State<HomeScreen> {
   RefreshController _refreshController =
-  RefreshController(initialRefresh: false);
+      RefreshController(initialRefresh: false);
   void _onRefresh() async {
     // monitor network fetch
     await widget.loadData();
@@ -61,7 +65,7 @@ class _ProjectionScreenState extends State<ProjectionScreen> {
 //                        ),
                         ReusableCard(
                           childWidget:
-                          AccountSummary(accountData: widget.accountData),
+                              AccountSummary(accountData: widget.accountData),
                         ),
                         SizedBox(
                           height: 30,
@@ -79,10 +83,10 @@ class _ProjectionScreenState extends State<ProjectionScreen> {
                             children: <Widget>[
                               PortfolioChart(
                                   portfolioData:
-                                  widget.accountData.portfolioData),
+                                      widget.accountData.portfolioData),
                               PortfolioChartLegend(
                                   portfolioData:
-                                  widget.accountData.portfolioData),
+                                      widget.accountData.portfolioData),
                             ],
                           ),
                         ),

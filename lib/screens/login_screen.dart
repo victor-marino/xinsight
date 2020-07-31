@@ -3,7 +3,7 @@ import 'package:indexa_dashboard/screens/root_screen.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:local_auth/auth_strings.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'summary_screen.dart';
+import 'home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -97,13 +97,8 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'app_title'.tr(),
-        ),
-      ),
       body: SafeArea(
-        child: Text("good_morning".tr()),
+        child: Center(),
       ),
     );
   }

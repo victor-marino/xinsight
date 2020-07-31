@@ -28,6 +28,7 @@ class AmountsChart extends StatelessWidget {
     return SfCartesianChart(
       margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
       primaryYAxis: NumericAxis(labelFormat: '{value} €'),
+      tooltipBehavior: TooltipBehavior(elevation: 10),
       trackballBehavior: TrackballBehavior(
         enable: true,
         activationMode: ActivationMode.singleTap,
@@ -36,6 +37,7 @@ class AmountsChart extends StatelessWidget {
         tooltipSettings: InteractiveTooltip(
           enable: true,
           decimalPlaces: 2,
+          color: Colors.black,
         ),
       ),
       zoomPanBehavior: ZoomPanBehavior(

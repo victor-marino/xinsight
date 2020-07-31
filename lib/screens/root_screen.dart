@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:indexa_dashboard/models/account.dart';
-import 'package:indexa_dashboard/screens/projection_screen.dart';
-import 'summary_screen.dart';
+import 'package:indexa_dashboard/screens/performance_screen.dart';
+import 'home_screen.dart';
 import 'package:syncfusion_flutter_core/core.dart';
 import 'package:indexa_dashboard/tools/constants.dart';
 import '../services/indexa_data.dart';
@@ -26,7 +26,7 @@ class _RootScreenState extends State<RootScreen> {
   }
 
   static Future<Account> getAccountData() async {
-    IndexaDataModel indexaData = IndexaDataModel();
+    IndexaData indexaData = IndexaData();
     var userAccounts = await indexaData.getUserAccounts();
     var currentAccountPerformanceData =
         await indexaData.getAccountPerformanceData(userAccounts[0]);
@@ -65,7 +65,7 @@ class _RootScreenState extends State<RootScreen> {
           items: [
             BottomNavigationBarItem(
                 icon: Icon(Icons.home), title: Text('Inicio')),
-            BottomNavigationBarItem(icon: Icon(Icons.trending_up), title: Text('Proyección')),
+            BottomNavigationBarItem(icon: Icon(Icons.trending_up), title: Text('Desempeño')),
 //            BottomNavigationBarItem(
 //                icon: Icon(Icons.compare_arrows), title: Text('Transactions'))
           ],
@@ -82,8 +82,8 @@ class _RootScreenState extends State<RootScreen> {
               child = PageView(
                 controller: _pageController,
                 children: <Widget>[
-                  SummaryScreen(accountData: snapshot.data, loadData: loadData),
-                  ProjectionScreen(
+                  HomeScreen(accountData: snapshot.data, loadData: loadData),
+                  PerformanceScreen(
                       accountData: snapshot.data, loadData: loadData),
                 ],
                 onPageChanged: (page) {
