@@ -60,8 +60,8 @@ class Account {
   }
 
   Account({@required this.accountPerformanceData, @required this.accountPortfolioData})
-      : _totalAmount = accountPerformanceData['return']['total_amount'].toDouble(),
-        //_totalAmount = new DateTime.now().second.toDouble(),
+      : //_totalAmount = accountPerformanceData['return']['total_amount'].toDouble(),
+        _totalAmount = new DateTime.now().second.toDouble(),
         //_totalAmount = 999999.99,
         _investment = accountPerformanceData['return']['investment'].toDouble(),
         _timeReturn = accountPerformanceData['return']['time_return'].toDouble(),
