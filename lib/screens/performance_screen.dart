@@ -1,11 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:indexa_dashboard/models/account.dart';
+import 'package:indexa_dashboard/tools/number_formatting.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../tools/constants.dart';
 import 'package:indexa_dashboard/widgets/reusable_card.dart';
 import 'package:indexa_dashboard/widgets/amounts_chart.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
+import 'package:indexa_dashboard/widgets/performance_chart.dart';
+import 'package:indexa_dashboard/widgets/risk_chart.dart';
 
 class PerformanceScreen extends StatefulWidget {
   const PerformanceScreen({
@@ -28,6 +31,12 @@ class _PerformanceScreenState extends State<PerformanceScreen> {
     await widget.loadData();
     // if failed,use refreshFailed()
     _refreshController.refreshCompleted();
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
   }
 
   @override
@@ -65,70 +74,11 @@ class _PerformanceScreenState extends State<PerformanceScreen> {
                                 textAlign: TextAlign.left,
                                 style: kCardTitleTextStyle,
                               ),
-                              SfRadialGauge(
-                                enableLoadingAnimation: true,
-                                animationDuration: 1000,
-                                axes: <RadialAxis>[
-                                  RadialAxis(
-                                    startAngle: 180,
-                                    endAngle: 0,
-                                    radiusFactor: 0.8,
-                                    minimum: 1,
-                                    maximum: 10,
-                                    labelsPosition: ElementsPosition.outside,
-                                    ticksPosition: ElementsPosition.outside,
-                                    interval: 1,
-                                    canScaleToFit: true,
-                                    minorTicksPerInterval: 0,
-                                    majorTickStyle: MinorTickStyle(
-                                        length: 0.05,
-                                        lengthUnit: GaugeSizeUnit.factor,
-                                        thickness: 0.5,
-                                        color: Colors.black),
-                                    axisLabelStyle: GaugeTextStyle(
-                                      fontSize: 15,
-                                    ),
-                                    ranges: <GaugeRange>[
-                                      GaugeRange(
-                                          startWidth: 50,
-                                          endWidth: 50,
-                                          startValue: 0,
-                                          endValue: 4,
-                                          color: Colors.green),
-                                      GaugeRange(
-                                          startWidth: 50,
-                                          endWidth: 50,
-                                          startValue: 4,
-                                          endValue: 7,
-                                          color: Colors.orange),
-                                      GaugeRange(
-                                          startWidth: 50,
-                                          endWidth: 50,
-                                          startValue: 7,
-                                          endValue: 10,
-                                          color: Colors.red)
-                                    ],
-                                    pointers: <GaugePointer>[
-                                      NeedlePointer(value: 6)
-                                    ],
-                                    annotations: <GaugeAnnotation>[
-                                      GaugeAnnotation(
-                                          widget: Text(
-                                            '6/10',
-                                            style: TextStyle(
-                                                fontSize: 40,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                          angle: 90,
-                                          positionFactor: 0.5)
-                                    ],
-                                  ),
-                                ],
-                              ),
+                              RiskChart(risk: 6),
                               Padding(
                                 padding: const EdgeInsets.all(10.0),
                                 child: Text(
-                                  'La rentabilidad anual esperada media de tu plan de inversiones es del +2,3%.\n\nCalculamos que con un 95% de probabilidad, al cabo de un año la rentabilidad estará entre un -12,0% y un +19,5%, y al cabo de 10 años entre un -20,9% y un +100,7%.\n\nRecuerda que estos cálculos son expectativas, por lo que no hay ninguna garantía ni seguridad de que las rentabilidades acaben en el rango indicado.'
+                                  'La rentabilidad anual esperada media de tu plan de inversiones es del ${getPLPercentAsString(widget.accountData.expectedReturn)}.\n\nCalculamos que con un 95% de probabilidad, al cabo de un año la rentabilidad estará entre un ${getPLPercentAsString(widget.accountData.worstReturn1yr)} y un ${getPLPercentAsString(widget.accountData.bestReturn1yr)}, y al cabo de 10 años entre un ${getPLPercentAsString(widget.accountData.worstReturn10yr)} y un ${getPLPercentAsString(widget.accountData.bestReturn10yr)}.\n\nRecuerda que estos cálculos son expectativas, por lo que no hay ninguna garantía ni seguridad de que las rentabilidades acaben en el rango indicado.'
                                 ),
                               ),
                             ],
@@ -138,8 +88,18 @@ class _PerformanceScreenState extends State<PerformanceScreen> {
                           height: 30,
                         ),
                         ReusableCard(
-                          childWidget: AmountsChart(
-                              amountsSeries: widget.accountData.amountsSeries),
+                          childWidget: Column(
+                            children: <Widget>[
+                              PerformanceChart(
+                                  performanceSeries: widget.accountData.performanceSeries),
+                              Padding(
+                                padding: const EdgeInsets.all(10),
+                                child: Text(
+                                  'Escenarios: hay una probabilidad estimada de 97,5% que la rentabilidad esté por encima del escenario negativo, de 2,5% que esté por encima del escenario positivo y de 95% que esté entre ambos escenarios.\n\nRecuerda que los mercados pueden ser volátiles en el corto plazo, pero tienden a revertir a la media y crecer en el largo plazo.',
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),

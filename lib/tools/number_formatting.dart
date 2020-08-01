@@ -30,7 +30,7 @@ String getInvestmentAsString(num number) {
 String getPLAsString(num number) {
   String numberString;
   if (number <0) {
-    numberString = '-' + NumberFormat.currency(locale: getCurrentLocale(), symbol: '€', decimalDigits: 2).format(number);
+    numberString = NumberFormat.currency(locale: getCurrentLocale(), symbol: '€', decimalDigits: 2).format(number);
   } else {
     numberString = '+' + NumberFormat.currency(locale: getCurrentLocale(), symbol: '€', decimalDigits: 2).format(number);
   }
@@ -45,7 +45,7 @@ String getPercentAsString(num number) {
 String getPLPercentAsString(num number) {
   String numberString;
   if (number < 0) {
-    numberString = '-' + NumberFormat.decimalPercentPattern(
+    numberString = NumberFormat.decimalPercentPattern(
         locale: getCurrentLocale(), decimalDigits: 1).format(number);
   } else {
     numberString = '+' + NumberFormat.decimalPercentPattern(locale: getCurrentLocale(), decimalDigits: 1).format(number);
