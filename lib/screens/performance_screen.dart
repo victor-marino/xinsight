@@ -5,8 +5,6 @@ import 'package:indexa_dashboard/tools/number_formatting.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../tools/constants.dart';
 import 'package:indexa_dashboard/widgets/reusable_card.dart';
-import 'package:indexa_dashboard/widgets/amounts_chart.dart';
-import 'package:syncfusion_flutter_gauges/gauges.dart';
 import 'package:indexa_dashboard/widgets/performance_chart.dart';
 import 'package:indexa_dashboard/widgets/risk_chart.dart';
 
@@ -31,12 +29,6 @@ class _PerformanceScreenState extends State<PerformanceScreen> {
     await widget.loadData();
     // if failed,use refreshFailed()
     _refreshController.refreshCompleted();
-  }
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
   }
 
   @override
