@@ -47,7 +47,9 @@ class PerformanceChart extends StatelessWidget {
           padding: 4,
           itemPadding: 10),
       // Initialize DateTime axis
-      primaryXAxis: DateTimeAxis(),
+      primaryXAxis: DateTimeAxis(
+        edgeLabelPlacement: EdgeLabelPlacement.shift,
+      ),
       series: <ChartSeries<PerformanceDataPoint, DateTime>>[
         LineSeries<PerformanceDataPoint, DateTime>(
           name: 'Positivo',

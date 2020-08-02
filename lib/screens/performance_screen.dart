@@ -70,7 +70,28 @@ class _PerformanceScreenState extends State<PerformanceScreen> {
                               Padding(
                                 padding: const EdgeInsets.all(10.0),
                                 child: Text(
-                                  'La rentabilidad anual esperada media de tu plan de inversiones es del ${getPLPercentAsString(widget.accountData.expectedReturn)}.\n\nCalculamos que con un 95% de probabilidad, al cabo de un año la rentabilidad estará entre un ${getPLPercentAsString(widget.accountData.worstReturn1yr)} y un ${getPLPercentAsString(widget.accountData.bestReturn1yr)}, y al cabo de 10 años entre un ${getPLPercentAsString(widget.accountData.worstReturn10yr)} y un ${getPLPercentAsString(widget.accountData.bestReturn10yr)}.\n\nRecuerda que estos cálculos son expectativas, por lo que no hay ninguna garantía ni seguridad de que las rentabilidades acaben en el rango indicado.'
+                                    'Rentabilidad anual esperada media: ${getPLPercentAsString(widget.accountData.expectedReturn)}.\n\nProbabilidad del 95 % de que la rentabilidad esté:\n· Entre ${getPLPercentAsString(widget.accountData.worstReturn1yr)} y ${getPLPercentAsString(widget.accountData.bestReturn1yr)} al cabo de 1 año.\n· Entre ${getPLPercentAsString(widget.accountData.worstReturn10yr)} y ${getPLPercentAsString(widget.accountData.bestReturn10yr)} al cabo de 10 años.'),
+                              ),
+                              Container(
+                                alignment: Alignment.bottomRight,
+                                child: InkWell(
+                                  onTap: () {
+                                    showDialog(
+                                      context: context,
+                                      child: SimpleDialog(
+                                        children: <Widget>[
+                                          SimpleDialogOption(
+                                            child: Text(
+                                                'Recuerda que estos cálculos son expectativas, por lo que no hay ninguna garantía ni seguridad de que las rentabilidades acaben en el rango indicado.'),
+                                          )
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                  child: Icon(
+                                    Icons.info_outline,
+                                    color: Colors.grey,
+                                  ),
                                 ),
                               ),
                             ],
@@ -83,11 +104,34 @@ class _PerformanceScreenState extends State<PerformanceScreen> {
                           childWidget: Column(
                             children: <Widget>[
                               PerformanceChart(
-                                  performanceSeries: widget.accountData.performanceSeries),
+                                  performanceSeries:
+                                      widget.accountData.performanceSeries),
                               Padding(
                                 padding: const EdgeInsets.all(10),
                                 child: Text(
-                                  'Escenarios: hay una probabilidad estimada de 97,5% que la rentabilidad esté por encima del escenario negativo, de 2,5% que esté por encima del escenario positivo y de 95% que esté entre ambos escenarios.\n\nRecuerda que los mercados pueden ser volátiles en el corto plazo, pero tienden a revertir a la media y crecer en el largo plazo.',
+                                  'Probabilidades:\n· Por encima del escenario negativo: 97,5%\n· Por encima del escenario positivo: 2,5%\n· Entre ambos escenarios: 95%.',
+                                ),
+                              ),
+                              Container(
+                                alignment: Alignment.bottomRight,
+                                child: InkWell(
+                                  onTap: () {
+                                    showDialog(
+                                      context: context,
+                                      child: SimpleDialog(
+                                        children: <Widget>[
+                                          SimpleDialogOption(
+                                            child: Text(
+                                                'Recuerda que los mercados pueden ser volátiles en el corto plazo, pero tienden a revertir a la media y crecer en el largo plazo.'),
+                                          )
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                  child: Icon(
+                                    Icons.info_outline,
+                                    color: Colors.grey,
+                                  ),
                                 ),
                               ),
                             ],

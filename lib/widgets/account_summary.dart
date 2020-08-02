@@ -19,8 +19,7 @@ class AccountSummary extends StatelessWidget {
           Expanded(
             //flex: 5,
             child: Column(
-              crossAxisAlignment:
-              CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
                   'VALOR',
@@ -33,28 +32,20 @@ class AccountSummary extends StatelessWidget {
                 RichText(
                   text: TextSpan(children: [
                     TextSpan(
-                      text: getBalanceAsString(
-                          accountData
-                              .totalAmount)
+                      text: getBalanceAsString(accountData.totalAmount)
                           .split(',')[0],
-                      style:
-                      kCardPrimaryContentTextStyle,
+                      style: kCardPrimaryContentTextStyle,
                     ),
                     TextSpan(
                       text: ',' +
-                          getBalanceAsString(
-                              accountData
-                                  .totalAmount)
+                          getBalanceAsString(accountData.totalAmount)
                               .split(',')[1],
-                      style:
-                      kCardSecondaryContentTextStyle,
+                      style: kCardSecondaryContentTextStyle,
                     ),
                   ]),
                 ),
                 Text(
-                  'Aportado: ' +
-                      getInvestmentAsString(
-                          accountData.investment),
+                  'Aportado: ' + getInvestmentAsString(accountData.investment),
                   textAlign: TextAlign.left,
                   style: kCardSubTextStyle,
                 )
@@ -74,8 +65,7 @@ class AccountSummary extends StatelessWidget {
           Expanded(
             //flex: 4,
             child: Column(
-              crossAxisAlignment:
-              CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
                   'RENTABILIDAD',
@@ -88,67 +78,98 @@ class AccountSummary extends StatelessWidget {
                 RichText(
                   text: TextSpan(children: [
                     TextSpan(
-                      text: getPLAsString(
-                          accountData
-                              .profitLoss)
-                          .split(',')[0],
-                      style:
-                      kCardPrimaryContentTextStyle
-                          .copyWith(
-                        color: accountData
-                            .profitLossColor,
+                      text: getPLAsString(accountData.profitLoss).split(',')[0],
+                      style: kCardPrimaryContentTextStyle.copyWith(
+                        color: accountData.profitLossColor,
                       ),
                     ),
                     TextSpan(
                       text: ',' +
-                          getPLAsString(accountData
-                              .profitLoss)
-                              .split(',')[1],
-                      style:
-                      kCardSecondaryContentTextStyle
-                          .copyWith(
-                        color: accountData
-                            .profitLossColor,
+                          getPLAsString(accountData.profitLoss).split(',')[1],
+                      style: kCardSecondaryContentTextStyle.copyWith(
+                        color: accountData.profitLossColor,
                       ),
                     ),
                   ]),
                 ),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Icon(
-                      Icons.access_time,
-                      color: Colors.grey,
-                      size: 14.0,
+                    Row(
+                      children: <Widget>[
+                        Icon(
+                          Icons.access_time,
+                          color: Colors.grey,
+                          size: 14.0,
+                        ),
+                        Text(
+                          getPLPercentAsString(accountData.timeReturn),
+                          textAlign: TextAlign.left,
+                          style: kCardSubTextStyle.copyWith(
+                              color: accountData.timeReturnColor),
+                        ),
+                        SizedBox(
+                          width: 10.0,
+                        ),
+                        Icon(
+                          Icons.euro_symbol,
+                          color: Colors.grey,
+                          size: 14.0,
+                        ),
+                        Text(
+                          getPLPercentAsString(accountData.moneyReturn),
+                          textAlign: TextAlign.left,
+                          style: kCardSubTextStyle.copyWith(
+                              color: accountData.moneyReturnColor),
+                        ),
+                      ],
                     ),
-                    Text(
-                      getPLPercentAsString(
-                          accountData.timeReturn),
-                      textAlign: TextAlign.left,
-                      style: kCardSubTextStyle
-                          .copyWith(
-                          color: accountData
-                              .timeReturnColor),
-                    ),
-                    SizedBox(
-                      width: 10.0,
-                    ),
-                    Icon(
-                      Icons.euro_symbol,
-                      color: Colors.grey,
-                      size: 14.0,
-                    ),
-                    Text(
-                      getPLPercentAsString(
-                          accountData
-                              .moneyReturn),
-                      textAlign: TextAlign.left,
-                      style: kCardSubTextStyle
-                          .copyWith(
-                          color: accountData
-                              .moneyReturnColor),
-                    ),
+                    InkWell(
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          child: SimpleDialog(
+                            children: <Widget>[
+                              SimpleDialogOption(
+                                child: Column(
+                                  children: <Widget>[
+                                    Row(
+                                      children: <Widget>[
+                                        Icon(
+                                          Icons.access_time,
+                                          color: Colors.grey,
+                                          size: 20,
+                                        ),
+                                        Text(
+                                          'Rentabilidad ponderada por tiempo, neta de comisiones. Es la mejor forma de comparar la rentabilidad entre diferentes gestoras, ya que ignora el momento de tus aportaciones o reembolsos.',
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: <Widget>[
+                                        Icon(
+                                          Icons.euro_symbol,
+                                          color: Colors.grey,
+                                          size: 20,
+                                        ),
+                                        Text(
+                                            'Rentabilidad ponderada por dinero, neta de comisiones. Es la forma más común de evaluar el desempeño de la cuenta, ya que tiene en cuenta tu patrón específico de aportaciones y retiradas.'),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                        );
+                      },
+                      child: Icon(
+                        Icons.help_outline,
+                        color: Colors.grey,
+                      ),
+                    )
                   ],
-                )
+                ),
               ],
             ),
           )

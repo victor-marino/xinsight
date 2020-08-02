@@ -55,7 +55,9 @@ class AmountsChart extends StatelessWidget {
           padding: 4,
           itemPadding: 10),
       // Initialize DateTime axis
-      primaryXAxis: DateTimeAxis(),
+      primaryXAxis: DateTimeAxis(
+        edgeLabelPlacement: EdgeLabelPlacement.shift,
+      ),
       series: <ChartSeries<AmountsDataPoint, DateTime>>[
         AreaSeries<AmountsDataPoint, DateTime>(
           name: 'Total',

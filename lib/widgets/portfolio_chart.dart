@@ -48,7 +48,7 @@ class PortfolioChart extends StatelessWidget {
       }
     }
     return Container(
-      height: 230,
+      height: 280,
       child: SfCircularChart(
         palette: colorList,
         //backgroundColor: Colors.blueGrey,
@@ -103,6 +103,7 @@ class PortfolioChart extends StatelessWidget {
                 // Type of the connector line
                   type:
                   ConnectorType.line),
+              labelIntersectAction: LabelIntersectAction.none,
             ),
           ),
         ],
