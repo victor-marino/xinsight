@@ -140,10 +140,19 @@ class AccountSummary extends StatelessWidget {
                                           color: Colors.grey,
                                           size: 20,
                                         ),
-                                        Text(
-                                          'Rentabilidad ponderada por tiempo, neta de comisiones. Es la mejor forma de comparar la rentabilidad entre diferentes gestoras, ya que ignora el momento de tus aportaciones o reembolsos.',
+                                        SizedBox(
+                                          width: 20,
+                                        ),
+                                        Flexible(
+                                          child: Text(
+                                            'Rentabilidad ponderada por tiempo, neta de comisiones. Es la mejor forma de comparar la rentabilidad entre diferentes gestoras, ya que ignora el momento de tus aportaciones o reembolsos.',
+                                          ),
                                         ),
                                       ],
+                                    ),
+                                    Divider(
+                                      height: 40,
+                                      color: Colors.black54,
                                     ),
                                     Row(
                                       children: <Widget>[
@@ -152,8 +161,13 @@ class AccountSummary extends StatelessWidget {
                                           color: Colors.grey,
                                           size: 20,
                                         ),
-                                        Text(
-                                            'Rentabilidad ponderada por dinero, neta de comisiones. Es la forma más común de evaluar el desempeño de la cuenta, ya que tiene en cuenta tu patrón específico de aportaciones y retiradas.'),
+                                        SizedBox(
+                                          width: 20,
+                                        ),
+                                        Flexible(
+                                          child: Text(
+                                              'Rentabilidad ponderada por dinero, neta de comisiones. Es la forma más común de evaluar el desempeño de la cuenta, ya que tiene en cuenta tu patrón específico de aportaciones y retiradas.'),
+                                        ),
                                       ],
                                     ),
                                   ],
