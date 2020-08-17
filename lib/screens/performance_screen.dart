@@ -72,7 +72,7 @@ class _PerformanceScreenState extends State<PerformanceScreen> {
                                       ),
                                       Icon(
                                         Icons.info_outline,
-                                        color: Colors.grey,
+                                        color: Colors.black54,
                                       ),
                                     ],
                                   ),
@@ -137,7 +137,7 @@ class _PerformanceScreenState extends State<PerformanceScreen> {
                                       ),
                                       Icon(
                                         Icons.info_outline,
-                                        color: Colors.grey,
+                                        color: Colors.black54,
                                       ),
                                     ],
                                   ),

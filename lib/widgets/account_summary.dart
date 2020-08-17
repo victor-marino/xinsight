@@ -79,7 +79,7 @@ class AccountSummary extends StatelessWidget {
                         ),
                         Icon(
                           Icons.info_outline,
-                          color: Colors.grey,
+                          color: Colors.black54,
                         ),
                       ],
                     ),
