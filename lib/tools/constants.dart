@@ -41,6 +41,34 @@ TextStyle kCardSubTextStyle = GoogleFonts.roboto(
   ),
 );
 
+TextStyle kPopUpTitleTextStyle = GoogleFonts.roboto(
+  textStyle: TextStyle(
+    fontSize: 20,
+    fontWeight: FontWeight.bold,
+  ),
+);
+
+TextStyle kPopUpSubtitleTextStyle = GoogleFonts.roboto(
+  textStyle: TextStyle(
+    color: Colors.black54,
+    fontWeight: FontWeight.bold,
+  ),
+);
+
+TextStyle kPopUpNormalTextStyle = GoogleFonts.roboto(
+  textStyle: TextStyle(
+    color: Colors.black54,
+  ),
+);
+
+TextStyle kPopUpFootnoteTextStyle = GoogleFonts.roboto(
+  textStyle: TextStyle(
+    color: Colors.grey,
+    fontStyle: FontStyle.italic,
+    //fontSize: 14,
+  ),
+);
+
 List<Color> equityColors = [Colors.purple[400], Colors.purple[300], Colors.purple[200], Colors.purple[100], Colors.purple[50]];
 List<Color> fixedColors = [Colors.indigo[400], Colors.indigo[300], Colors.indigo[200], Colors.indigo[100]];
 Color cashColor = Colors.blueGrey;
