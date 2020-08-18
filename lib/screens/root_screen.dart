@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:indexa_dashboard/models/account.dart';
 import 'package:indexa_dashboard/screens/performance_screen.dart';
 import 'home_screen.dart';
+import 'settings_screen.dart';
 import 'package:syncfusion_flutter_core/core.dart';
 import 'package:indexa_dashboard/tools/constants.dart';
 import '../services/indexa_data.dart';
@@ -46,6 +47,7 @@ class _RootScreenState extends State<RootScreen> {
   void initState() {
     super.initState();
     loadData();
+    _selectedIndex = 0;
     _pageController = PageController(initialPage: 0);
   }
 
@@ -70,6 +72,7 @@ class _RootScreenState extends State<RootScreen> {
             BottomNavigationBarItem(
                 icon: Icon(Icons.home), title: Text('Inicio')),
             BottomNavigationBarItem(icon: Icon(Icons.trending_up), title: Text('Desempeño')),
+            BottomNavigationBarItem(icon: Icon(Icons.settings), title: Text('Ajustes')),
 //            BottomNavigationBarItem(
 //                icon: Icon(Icons.compare_arrows), title: Text('Transactions'))
           ],
@@ -89,6 +92,7 @@ class _RootScreenState extends State<RootScreen> {
                   HomeScreen(accountData: snapshot.data, loadData: loadData),
                   PerformanceScreen(
                       accountData: snapshot.data, loadData: loadData),
+                  SettingsScreen(),
                 ],
                 onPageChanged: (page) {
                   //print(page);

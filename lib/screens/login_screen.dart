@@ -1,14 +1,10 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
+import 'dart:io';
 import 'package:indexa_dashboard/screens/root_screen.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:local_auth/auth_strings.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-
-const token =
-    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdXRoX2J5IjoiYXBpK2luZGV4YV9vMiIsImVuZHBvaW50IjoiaHR0cDpcL1wvYXBpLmluZGV4YWNhcGl0YWwuY29tIiwiaWF0IjoxNTkzNTkxNTk3LCJpc3MiOiJJbmRleGEgQ2FwaXRhbCIsInN1YiI6InZpY3Rvcm1hcmlub0BnbWFpbC5jb20ifQ.w9uteOcIV15cX1kH8hzmCMBKvv5ufwqcC_jn58Vy0aA';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -16,9 +12,10 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final _storage = FlutterSecureStorage();
+
   bool rememberToken = false;
   final tokenTextController = TextEditingController();
-
   final LocalAuthentication localAuthentication = LocalAuthentication();
   final AndroidAuthMessages androidStrings = AndroidAuthMessages(
     fingerprintHint: "",
@@ -83,26 +80,84 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
-  void tryToAuthenticate() async {
+  Future<bool> tryToAuthenticate() async {
     bool authenticated = false;
     if (await supportsBiometrics()) {
       await getListOfBiometricTypes();
       authenticated = await authenticateUser();
-      if (authenticated) {
-        Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-                builder: (BuildContext context) => RootScreen(token: token)));
-      } else {
-        tryToAuthenticate();
-      }
     }
+    return (authenticated);
+  }
+
+  void enableRememberToken() async {
+    if (await tryToAuthenticate()) {
+      setState(() {
+        rememberToken = true;
+      });
+    }
+  }
+
+  void disableRememberToken() async {
+    setState(() {
+      rememberToken = false;
+    });
+  }
+
+  Future<Map<String, String>> _readAll() async {
+    final all = await _storage.readAll();
+    return (all);
+  }
+
+  Future<void> _storeKey(String value) async {
+    await _storage.write(key: 'indexaToken', value: value);
+    _readAll();
+  }
+
+  void tryToLoginWithLocalToken() async {
+    Map<String, String> tokens = await _readAll();
+    if (tokens['indexaToken'] != null) {
+      print('Existing token: ' + tokens['indexaToken']);
+      authenticateAndGoToHome(token: tokens['indexaToken']);
+    } else {
+      print('No existing token');
+    }
+  }
+
+  void authenticateAndGoToHome({String token}) async {
+    if (await tryToAuthenticate()) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (BuildContext context) => RootScreen(token: token),
+        ),
+      );
+    }
+  }
+
+  void goToHome({String token}) {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (BuildContext context) => RootScreen(token: token),
+      ),
+    );
+  }
+
+  void saveTokenAndGoToHome() async {
+    await _storeKey(tokenTextController.text);
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (BuildContext context) => RootScreen(token: tokenTextController.text),
+      ),
+    );
   }
 
   @override
   void initState() {
     super.initState();
-    //tryToAuthenticate();
+    //authenticateAndGoToHome();
+    tryToLoginWithLocalToken();
   }
 
   @override
@@ -122,7 +177,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   maxLines: null,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                    labelText: 'Indexa API token',
+                    labelText: 'API token',
                     hintText: 'Tu token de Indexa',
                   ),
                 ),
@@ -138,26 +193,29 @@ class _LoginScreenState extends State<LoginScreen> {
                   textColor: Colors.white,
                   elevation: 8,
                   onPressed: () {
-                    print(tokenTextController.text);
-                    Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (BuildContext context) => RootScreen(token: tokenTextController.text)));
+                    if (rememberToken) {
+                      saveTokenAndGoToHome();
+                    } else {
+                      goToHome();
+                    }
                   },
                 ),
                 CheckboxListTile(
                   title: Text(
                     'Recordar token',
-                    textAlign: Platform.isIOS ? TextAlign.left: TextAlign.right,
+                    textAlign:
+                        Platform.isIOS ? TextAlign.left : TextAlign.right,
                   ),
                   value: rememberToken,
                   controlAffinity: ListTileControlAffinity.platform,
-                  contentPadding: EdgeInsets.symmetric(vertical: 20, horizontal: 0),
+                  contentPadding:
+                      EdgeInsets.symmetric(vertical: 20, horizontal: 0),
                   onChanged: (newValue) {
-                    print(newValue);
-                    setState(() {
-                      rememberToken = newValue;
-                    });
+                    if (newValue) {
+                      enableRememberToken();
+                    } else {
+                      disableRememberToken();
+                    }
                   },
                 ),
               ],
