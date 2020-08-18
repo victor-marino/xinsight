@@ -35,6 +35,7 @@ dependencies:
   fl_chart: ^0.10.1
   syncfusion_flutter_charts: ^18.2.46
   syncfusion_flutter_gauges: ^18.2.47
+  flutter_secure_storage: ^3.3.3
 
 dev_dependencies:
   flutter_test:

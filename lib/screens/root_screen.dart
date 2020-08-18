@@ -10,6 +10,9 @@ import '../services/indexa_data.dart';
 int _selectedIndex = 0;
 
 class RootScreen extends StatefulWidget {
+  RootScreen({this.token});
+  final String token;
+
   @override
   _RootScreenState createState() => _RootScreenState();
 }
@@ -20,13 +23,14 @@ class _RootScreenState extends State<RootScreen> {
 
   Future<void> loadData() {
     setState(() {
-      accountData = getAccountData();
+      accountData = getAccountData(widget.token);
     });
     return accountData;
   }
 
-  static Future<Account> getAccountData() async {
-    IndexaData indexaData = IndexaData();
+  static Future<Account> getAccountData(String token) async {
+
+    IndexaData indexaData = IndexaData(token: token);
     var userAccounts = await indexaData.getUserAccounts();
     var currentAccountPerformanceData =
         await indexaData.getAccountPerformanceData(userAccounts[0]);
