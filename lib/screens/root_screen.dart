@@ -7,8 +7,9 @@ import 'settings_screen.dart';
 import 'package:syncfusion_flutter_core/core.dart';
 import 'package:indexa_dashboard/tools/constants.dart';
 import '../services/indexa_data.dart';
-
-int _selectedIndex = 0;
+import 'package:provider/provider.dart';
+import '../tools/bottom_navigation_bar_provider.dart';
+import '../widgets/bottom_navigation_bar.dart';
 
 class RootScreen extends StatefulWidget {
   RootScreen({this.token});
@@ -20,6 +21,7 @@ class RootScreen extends StatefulWidget {
 
 class _RootScreenState extends State<RootScreen> {
   PageController _pageController;
+
   Future<Account> accountData;
 
   Future<void> loadData() {
@@ -30,7 +32,6 @@ class _RootScreenState extends State<RootScreen> {
   }
 
   static Future<Account> getAccountData(String token) async {
-
     IndexaData indexaData = IndexaData(token: token);
     var userAccounts = await indexaData.getUserAccounts();
     var currentAccountPerformanceData =
@@ -47,8 +48,9 @@ class _RootScreenState extends State<RootScreen> {
   void initState() {
     super.initState();
     loadData();
-    _selectedIndex = 0;
-    _pageController = PageController(initialPage: 0);
+    _pageController = PageController(initialPage: 0, viewportFraction: 0.99);
+    Provider.of<BottomNavigationBarProvider>(context, listen: false)
+        .currentIndex = 0;
   }
 
   @override
@@ -67,20 +69,6 @@ class _RootScreenState extends State<RootScreen> {
           statusBarBrightness: Brightness.light, // iOS
           statusBarIconBrightness: Brightness.dark), // Android
       child: Scaffold(
-        bottomNavigationBar: BottomNavigationBar(
-          items: [
-            BottomNavigationBarItem(
-                icon: Icon(Icons.home), title: Text('Inicio')),
-            BottomNavigationBarItem(icon: Icon(Icons.trending_up), title: Text('Desempeño')),
-            BottomNavigationBarItem(icon: Icon(Icons.settings), title: Text('Ajustes')),
-//            BottomNavigationBarItem(
-//                icon: Icon(Icons.compare_arrows), title: Text('Transactions'))
-          ],
-          onTap: _onTappedBar,
-//          selectedItemColor: Colors.orange,
-          currentIndex: _selectedIndex,
-
-        ),
         body: FutureBuilder<Account>(
           future: accountData,
           builder: (BuildContext context, AsyncSnapshot<Account> snapshot) {
@@ -88,6 +76,7 @@ class _RootScreenState extends State<RootScreen> {
             if (snapshot.hasData) {
               child = PageView(
                 controller: _pageController,
+                //physics: AlwaysScrollableScrollPhysics(),
                 children: <Widget>[
                   HomeScreen(accountData: snapshot.data, loadData: loadData),
                   PerformanceScreen(
@@ -95,35 +84,39 @@ class _RootScreenState extends State<RootScreen> {
                   SettingsScreen(),
                 ],
                 onPageChanged: (page) {
-                  //print(page);
-                  setState(() {
-                    _selectedIndex = page;
-                  });
+                  Provider.of<BottomNavigationBarProvider>(context,
+                          listen: false)
+                      .currentIndex = page;
                 },
               );
             } else if (snapshot.hasError) {
               print(snapshot.error);
-              child = Center(child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Icon(Icons.cloud_off,
-                  ),
-                  Text("Error loading data"),
-                ],
-              ));
+              child = Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Icon(
+                      Icons.cloud_off,
+                    ),
+                    Text("Error loading data"),
+                  ],
+                ),
+              );
             } else {
               child = Center(child: CircularProgressIndicator());
             }
             return child;
           },
         ),
+        bottomNavigationBar: MyBottomNavigationBar(onTapped: _onTappedBar),
       ),
     );
   }
+
   void _onTappedBar(int value) {
-    setState(() {
-      _selectedIndex = value;
-    });
-    _pageController.animateToPage(value, duration: Duration(milliseconds: 500), curve: Curves.ease);
+    Provider.of<BottomNavigationBarProvider>(context, listen: false)
+        .currentIndex = value;
+    _pageController.animateToPage(value,
+        duration: Duration(milliseconds: 500), curve: Curves.ease);
   }
 }

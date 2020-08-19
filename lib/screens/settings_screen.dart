@@ -39,7 +39,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         child: Center(
           child: MaterialButton(
             child: Text(
-              'Borrar token y salir',
+              'Olvidar token y salir',
             ),
             color: Colors.blue,
             textColor: Colors.white,
