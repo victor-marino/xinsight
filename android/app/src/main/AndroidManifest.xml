@@ -9,7 +9,8 @@
         android:name="io.flutter.app.FlutterApplication"
         android:label="indexa_dashboard"
         android:icon="@mipmap/ic_launcher"
-        android:allowBackup="false">
+        android:allowBackup="false"
+        android:fullBackupContent="false">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

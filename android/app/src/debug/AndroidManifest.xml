@@ -5,5 +5,8 @@
     -->
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.USE_FINGERPRINT"/>
-    <application android:allowBackup="false"></application>
+    <application
+        android:allowBackup="false"
+        android:fullBackupContent="false">
+    </application>
 </manifest>
