@@ -10,26 +10,38 @@ class IndexaData {
     String url = '$indexaURL/users/me';
     List<String> userAccounts = List<String>();
     NetworkHelper networkHelper = NetworkHelper(url, token);
-    var userData = await networkHelper.getData();
-    for (var account in userData['accounts']) {
-      userAccounts.add(account['account_number'].toString());
+    try {
+      var userData = await networkHelper.getData();
+      for (var account in userData['accounts']) {
+        userAccounts.add(account['account_number'].toString());
+      }
+      return userAccounts;
+    } on Exception catch (e) {
+      print(e);
     }
-    return userAccounts;
   }
 
   Future<dynamic> getAccountPerformanceData(accountNumber) async {
     String url = '$indexaURL/accounts/$accountNumber/performance';
     NetworkHelper networkHelper = NetworkHelper(url, token);
-    var accountPerformanceData = await networkHelper.getData();
-    //print('performanceData: ' + accountPerformanceData.toString());
-    return accountPerformanceData;
+    try {
+      var accountPerformanceData = await networkHelper.getData();
+      //print('performanceData: ' + accountPerformanceData.toString());
+      return accountPerformanceData;
+    } on Exception catch (e) {
+      print(e);
+    }
   }
 
   Future<dynamic> getAccountPortfolioData(accountNumber) async {
     String url = '$indexaURL/accounts/$accountNumber/portfolio';
     NetworkHelper networkHelper = NetworkHelper(url, token);
-    var accountPortfolioData = await networkHelper.getData();
-    //print('portfolioData: ' + accountPortfolioData.toString());
-    return accountPortfolioData;
+    try {
+      var accountPortfolioData = await networkHelper.getData();
+      //print('portfolioData: ' + accountPortfolioData.toString());
+      return accountPortfolioData;
+    } on Exception catch (e) {
+      print(e);
+    }
   }
 }

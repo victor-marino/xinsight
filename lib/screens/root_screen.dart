@@ -24,28 +24,37 @@ class _RootScreenState extends State<RootScreen> {
 
   Future<Account> accountData;
 
+  bool reloading = false;
+
   Future<void> loadData() {
     setState(() {
       accountData = getAccountData(widget.token);
     });
+    print(accountData);
     return accountData;
   }
 
-  void reloadData() {
-    loadData();
-    Provider.of<BottomNavigationBarProvider>(context, listen: false).currentIndex = 0;
+  void reloadData() async {
+    setState(() {
+      reloading = true;
+    });
+    await loadData();
+    Provider.of<BottomNavigationBarProvider>(context, listen: false)
+        .currentIndex = 0;
   }
 
   static Future<Account> getAccountData(String token) async {
+    Account currentAccount;
     IndexaData indexaData = IndexaData(token: token);
     var userAccounts = await indexaData.getUserAccounts();
     var currentAccountPerformanceData =
         await indexaData.getAccountPerformanceData(userAccounts[0]);
     var currentAccountPortfolioData =
         await indexaData.getAccountPortfolioData(userAccounts[0]);
-    Account currentAccount = Account(
+    currentAccount = Account(
         accountPerformanceData: currentAccountPerformanceData,
         accountPortfolioData: currentAccountPortfolioData);
+
     return currentAccount;
   }
 
@@ -54,8 +63,6 @@ class _RootScreenState extends State<RootScreen> {
     super.initState();
     loadData();
     _pageController = PageController(initialPage: 0, viewportFraction: 0.99);
-    //Provider.of<BottomNavigationBarProvider>(context, listen: false)
-    //    .currentIndex = 0;
   }
 
   @override
@@ -78,10 +85,10 @@ class _RootScreenState extends State<RootScreen> {
           future: accountData,
           builder: (BuildContext context, AsyncSnapshot<Account> snapshot) {
             Widget child;
-//            if (snapshot.connectionState != ConnectionState.done) {
-//              child = Center(child: CircularProgressIndicator());
-//            } else
-              if  (snapshot.hasData) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              reloading = false;
+            }
+            if (snapshot.hasData) {
               child = PageView(
                 controller: _pageController,
                 //physics: AlwaysScrollableScrollPhysics(),
@@ -99,25 +106,29 @@ class _RootScreenState extends State<RootScreen> {
               );
             } else if (snapshot.hasError) {
               print(snapshot.error);
-              child = Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Icon(
-                      Icons.cloud_off,
-                    ),
-                    Text("Error loading data"),
-                    MaterialButton(
-                      child: Text(
-                        'REINTENTAR',
+              if (reloading) {
+                child = Center(child: CircularProgressIndicator());
+              } else {
+                child = Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Icon(
+                        Icons.cloud_off,
                       ),
-                      color: Colors.blue,
-                      textColor: Colors.white,
-                      onPressed: reloadData,
-                    )
-                  ],
-                ),
-              );
+                      Text("Error loading data"),
+                      MaterialButton(
+                        child: Text(
+                          'REINTENTAR',
+                        ),
+                        color: Colors.blue,
+                        textColor: Colors.white,
+                        onPressed: reloadData,
+                      )
+                    ],
+                  ),
+                );
+              }
             } else {
               child = Center(child: CircularProgressIndicator());
             }
