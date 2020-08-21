@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:indexa_dashboard/screens/login_screen.dart';
+import 'package:provider/provider.dart';
+import '../tools/bottom_navigation_bar_provider.dart';
 
 class SettingsScreen extends StatefulWidget {
   @override
@@ -26,8 +28,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   void _deleteAndLogout() async {
-    await _storage.deleteAll();
+    _deleteAll();
     _readAll();
+    Provider.of<BottomNavigationBarProvider>(context, listen: false).currentIndex = 0;
     Navigator.pushReplacement(context, MaterialPageRoute(
         builder: (BuildContext context) => LoginScreen()));
   }

@@ -31,6 +31,11 @@ class _RootScreenState extends State<RootScreen> {
     return accountData;
   }
 
+  void reloadData() {
+    loadData();
+    Provider.of<BottomNavigationBarProvider>(context, listen: false).currentIndex = 0;
+  }
+
   static Future<Account> getAccountData(String token) async {
     IndexaData indexaData = IndexaData(token: token);
     var userAccounts = await indexaData.getUserAccounts();
@@ -49,8 +54,8 @@ class _RootScreenState extends State<RootScreen> {
     super.initState();
     loadData();
     _pageController = PageController(initialPage: 0, viewportFraction: 0.99);
-    Provider.of<BottomNavigationBarProvider>(context, listen: false)
-        .currentIndex = 0;
+    //Provider.of<BottomNavigationBarProvider>(context, listen: false)
+    //    .currentIndex = 0;
   }
 
   @override
@@ -73,7 +78,10 @@ class _RootScreenState extends State<RootScreen> {
           future: accountData,
           builder: (BuildContext context, AsyncSnapshot<Account> snapshot) {
             Widget child;
-            if (snapshot.hasData) {
+//            if (snapshot.connectionState != ConnectionState.done) {
+//              child = Center(child: CircularProgressIndicator());
+//            } else
+              if  (snapshot.hasData) {
               child = PageView(
                 controller: _pageController,
                 //physics: AlwaysScrollableScrollPhysics(),
@@ -99,6 +107,14 @@ class _RootScreenState extends State<RootScreen> {
                       Icons.cloud_off,
                     ),
                     Text("Error loading data"),
+                    MaterialButton(
+                      child: Text(
+                        'REINTENTAR',
+                      ),
+                      color: Colors.blue,
+                      textColor: Colors.white,
+                      onPressed: reloadData,
+                    )
                   ],
                 ),
               );

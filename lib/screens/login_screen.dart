@@ -1,12 +1,15 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:io';
 import 'package:indexa_dashboard/screens/root_screen.dart';
+import 'package:indexa_dashboard/tools/constants.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:local_auth/auth_strings.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -195,36 +198,131 @@ class _LoginScreenState extends State<LoginScreen> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 5),
-                          child:
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  Container(),
-                                  InkWell(
-                                    onTap: () {
-                                      print('tap');
-                                    },
-                                    child: Row(
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(horizontal: 5),
-                                          child: Text(
-                                            'Cómo obtener token',
-                                            style: TextStyle(
-                                              color: Colors.black38,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Container(),
+                              InkWell(
+                                onTap: () {
+                                  showDialog(
+                                    context: context,
+                                    child: AlertDialog(
+                                      title: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text('Obtener token'),
+                                          Icon(
+                                            Icons.help_outline,
+                                            color: Colors.black54,
+                                          )
+                                        ],
+                                      ),
+                                      content: SingleChildScrollView(
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              'En tu área de cliente de Indexa Capital:\n',
+                                              style: kPopUpNormalTextStyle,
                                             ),
-                                          ),
+                                            Row(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  '1. ',
+                                                  style: kPopUpNormalTextStyle
+                                                      .copyWith(
+                                                          //fontSize: 12,
+                                                          ),
+                                                ),
+                                                Expanded(
+                                                  child: Text.rich(
+                                                    TextSpan(
+                                                      children: [
+                                                        TextSpan(
+                                                          text:
+                                                              'Ve a "',
+                                                        ),
+                                                        TextSpan(
+                                                            text: 'Configuración de Usuario',
+                                                            recognizer:
+                                                                TapGestureRecognizer()
+                                                                  ..onTap = () {
+                                                                    launch(
+                                                                        'https://indexacapital.com/es/u/user');
+                                                                  },
+                                                            style: TextStyle(
+                                                              color: Colors.blue,
+                                                            )),
+                                                        TextSpan(
+                                                          text: '"',
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    style: kPopUpNormalTextStyle,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Row(
+                                              children: [
+                                                Text(
+                                                  '2. ',
+                                                  style: kPopUpNormalTextStyle,
+                                                ),
+                                                Text(
+                                                  'Ve a "Aplicaciones"',
+                                                  style: kPopUpNormalTextStyle,
+                                                ),
+                                              ],
+                                            ),
+                                            Row(
+                                              children: [
+                                                Text(
+                                                  '3. ',
+                                                  style: kPopUpNormalTextStyle,
+                                                ),
+                                                Text(
+                                                  'Pulsa "GENERAR TOKEN"',
+                                                  style: kPopUpNormalTextStyle,
+                                                ),
+                                              ],
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.only(top: 10),
+                                              child: Image.asset('assets/images/token_indexa_highlighted.png'),
+                                            )
+                                          ],
                                         ),
-                                        Icon(
-                                          Icons.help_outline,
-                                          color: Colors.black38,
-                                          size: 20,
-                                        ),
-                                      ],
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                  );
+                                },
+                                child: Row(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 5),
+                                      child: Text(
+                                        'Cómo obtener token',
+                                        style: TextStyle(
+                                          color: Colors.black38,
+                                        ),
+                                      ),
+                                    ),
+                                    Icon(
+                                      Icons.help_outline,
+                                      color: Colors.black38,
+                                      size: 20,
+                                    ),
+                                  ],
+                                ),
                               ),
+                            ],
+                          ),
                         ),
                         TextField(
                           controller: tokenTextController,
@@ -244,7 +342,9 @@ class _LoginScreenState extends State<LoginScreen> {
                               child: Row(
                                 children: [
                                   Icon(
-                                    rememberToken ? Icons.lock_outline : Icons.lock_open,
+                                    rememberToken
+                                        ? Icons.lock_outline
+                                        : Icons.lock_open,
                                     color: Colors.black54,
                                   ),
                                   SizedBox(
@@ -324,8 +424,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ],
                     ),
-                      ],
-                    ),
+                  ],
+                ),
 //                MaterialButton(
 //                  child: Text(
 //                    'ENTRAR',
@@ -342,7 +442,6 @@ class _LoginScreenState extends State<LoginScreen> {
 //                    }
 //                  },
 //                ),
-
               ),
             ),
           ),
