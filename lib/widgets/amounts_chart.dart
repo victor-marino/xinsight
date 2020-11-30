@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'dart:math';
@@ -57,6 +58,9 @@ class AmountsChart extends StatelessWidget {
       // Initialize DateTime axis
       primaryXAxis: DateTimeAxis(
         edgeLabelPlacement: EdgeLabelPlacement.shift,
+        //minimum: DateTime(2020, 05, 01),
+        dateFormat: DateFormat("d/M/yy"),
+        //rangePadding: ChartRangePadding.round,
       ),
       series: <ChartSeries<AmountsDataPoint, DateTime>>[
         AreaSeries<AmountsDataPoint, DateTime>(
