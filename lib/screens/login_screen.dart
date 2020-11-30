@@ -68,6 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
     try {
       print("Trying to authenticate...");
       isAuthenticated = await localAuthentication.authenticateWithBiometrics(
+        sensitiveTransaction: false,
         androidAuthStrings: androidStrings,
         localizedReason: "please_authenticate".tr(),
         useErrorDialogs: true,
