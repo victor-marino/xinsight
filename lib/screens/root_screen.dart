@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:indexa_dashboard/models/account.dart';
-import 'package:indexa_dashboard/screens/performance_screen.dart';
+import 'package:indexa_dashboard/screens/projection_screen.dart';
+import 'evolution_screen.dart';
 import 'home_screen.dart';
 import 'settings_screen.dart';
 import 'package:syncfusion_flutter_core/core.dart';
@@ -94,7 +95,9 @@ class _RootScreenState extends State<RootScreen> {
                 //physics: AlwaysScrollableScrollPhysics(),
                 children: <Widget>[
                   HomeScreen(accountData: snapshot.data, loadData: loadData),
-                  PerformanceScreen(
+                  EvolutionScreen(
+                      accountData: snapshot.data, loadData: loadData),
+                  ProjectionScreen(
                       accountData: snapshot.data, loadData: loadData),
                   SettingsScreen(),
                 ],

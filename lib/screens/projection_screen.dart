@@ -8,8 +8,8 @@ import 'package:indexa_dashboard/widgets/reusable_card.dart';
 import 'package:indexa_dashboard/widgets/performance_chart.dart';
 import 'package:indexa_dashboard/widgets/risk_chart.dart';
 
-class PerformanceScreen extends StatefulWidget {
-  const PerformanceScreen({
+class ProjectionScreen extends StatefulWidget {
+  const ProjectionScreen({
     Key key,
     this.accountData,
     this.loadData,
@@ -18,10 +18,10 @@ class PerformanceScreen extends StatefulWidget {
   final Function loadData;
 
   @override
-  _PerformanceScreenState createState() => _PerformanceScreenState();
+  _ProjectionScreenState createState() => _ProjectionScreenState();
 }
 
-class _PerformanceScreenState extends State<PerformanceScreen> {
+class _ProjectionScreenState extends State<ProjectionScreen> {
   RefreshController _refreshController =
       RefreshController(initialRefresh: false);
   void _onRefresh() async {
@@ -41,7 +41,7 @@ class _PerformanceScreenState extends State<PerformanceScreen> {
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
               child: Text(
-                'Desempeño',
+                'Proyección',
                 style: kTitleTextStyle,
                 textAlign: TextAlign.left,
               ),

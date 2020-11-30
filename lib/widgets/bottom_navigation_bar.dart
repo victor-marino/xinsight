@@ -12,10 +12,15 @@ class MyBottomNavigationBar extends StatelessWidget {
 
   Widget build(BuildContext context) {
     return BottomNavigationBar(
+      selectedItemColor: Colors.blue,
+      unselectedItemColor: Colors.black54,
+
       items: [
         BottomNavigationBarItem(icon: Icon(Icons.home), title: Text('Inicio')),
         BottomNavigationBarItem(
-            icon: Icon(Icons.trending_up), title: Text('Desempeño')),
+            icon: Icon(Icons.trending_up), title: Text('Evolución')),
+        BottomNavigationBarItem(
+            icon: Icon(Icons.assessment), title: Text('Proyección')),
         BottomNavigationBarItem(
             icon: Icon(Icons.settings), title: Text('Ajustes')),
 //            BottomNavigationBarItem(

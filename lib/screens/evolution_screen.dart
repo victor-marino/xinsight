@@ -1,19 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:easy_localization/easy_localization.dart';
-import '../models/account.dart';
+import 'package:indexa_dashboard/models/account.dart';
+import 'package:indexa_dashboard/tools/number_formatting.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../tools/constants.dart';
-import 'package:indexa_dashboard/widgets/amounts_chart.dart';
-import 'package:indexa_dashboard/widgets/account_summary.dart';
 import 'package:indexa_dashboard/widgets/reusable_card.dart';
-import 'package:indexa_dashboard/widgets/portfolio_chart.dart';
-import 'package:indexa_dashboard/widgets/portfolio_legend.dart';
+import 'package:indexa_dashboard/widgets/performance_chart.dart';
+import 'package:indexa_dashboard/widgets/risk_chart.dart';
+import '../widgets/amounts_chart.dart';
 
-const int nbsp = 0x00A0;
-
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({
+class EvolutionScreen extends StatefulWidget {
+  const EvolutionScreen({
     Key key,
     this.accountData,
     this.loadData,
@@ -22,10 +19,10 @@ class HomeScreen extends StatefulWidget {
   final Function loadData;
 
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  _EvolutionScreenState createState() => _EvolutionScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _EvolutionScreenState extends State<EvolutionScreen> {
   RefreshController _refreshController =
       RefreshController(initialRefresh: false);
   void _onRefresh() async {
@@ -45,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
               child: Text(
-                'Inicio',
+                'Evolución',
                 style: kTitleTextStyle,
                 textAlign: TextAlign.left,
               ),
@@ -60,28 +57,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     padding: const EdgeInsets.all(20),
                     child: Column(
                       children: <Widget>[
-//                        SizedBox(
-//                          height: 10.0,
-//                        ),
                         ReusableCard(
-                          childWidget:
-                              AccountSummary(accountData: widget.accountData),
+                          childWidget: AmountsChart(
+                              amountsSeries: widget.accountData.amountsSeries),
                         ),
                         SizedBox(
                           height: 30,
-                        ),
-                        ReusableCard(
-                          childWidget: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: <Widget>[
-                              PortfolioChart(
-                                  portfolioData:
-                                      widget.accountData.portfolioData),
-                              PortfolioChartLegend(
-                                  portfolioData:
-                                      widget.accountData.portfolioData),
-                            ],
-                          ),
                         ),
                       ],
                     ),

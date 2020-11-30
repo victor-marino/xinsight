@@ -11,13 +11,13 @@ class RiskChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SfRadialGauge(
-      title: GaugeTitle(
-        text: 'Tu riesgo',
-        textStyle: TextStyle(
-          fontSize: 35,
-          fontWeight: FontWeight.bold,
-        )
-      ),
+      // title: GaugeTitle(
+      //   text: 'Tu riesgo',
+      //   textStyle: TextStyle(
+      //     fontSize: 35,
+      //     fontWeight: FontWeight.bold,
+      //   )
+      // ),
       enableLoadingAnimation: true,
       animationDuration: 1000,
       axes: <RadialAxis>[
@@ -30,7 +30,7 @@ class RiskChart extends StatelessWidget {
           labelsPosition: ElementsPosition.outside,
           ticksPosition: ElementsPosition.outside,
           interval: 1,
-          canScaleToFit: true,
+          canScaleToFit: false,
           minorTicksPerInterval: 0,
           majorTickStyle: MinorTickStyle(
               length: 0.05,
