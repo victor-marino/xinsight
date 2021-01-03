@@ -9,20 +9,23 @@ class NetworkHelper {
   NetworkHelper(this.url, this.token);
 
   Future getData() async {
-    http.Response result = await http.get(
-      url,
-      headers: {
-        'X-AUTH-TOKEN': token,
-        HttpHeaders.acceptHeader: '*/*',
-      },
-    );
+    try {
+      http.Response result = await http.get(
+        url,
+        headers: {
+          'X-AUTH-TOKEN': token,
+          HttpHeaders.acceptHeader: '*/*',
+        },
+      );
 
-    if (result.statusCode == 200) {
-      return (jsonDecode(result.body));
-    } else {
-      print("oops");
-      print(result.statusCode);
-      print(result.reasonPhrase);
+      if (result.statusCode == 200) {
+        return (jsonDecode(result.body));
+      } else {
+
+        throw HttpException('${result.statusCode}');
+      }
+    } on Exception catch (e) {
+      print(e);
     }
   }
 }

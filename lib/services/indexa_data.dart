@@ -12,12 +12,15 @@ class IndexaData {
     NetworkHelper networkHelper = NetworkHelper(url, token);
     try {
       var userData = await networkHelper.getData();
-      for (var account in userData['accounts']) {
-        userAccounts.add(account['account_number'].toString());
+      if (userData != null) {
+        for (var account in userData['accounts']) {
+          userAccounts.add(account['account_number'].toString());
+        }
+        return userAccounts;
       }
-      return userAccounts;
     } on Exception catch (e) {
       print(e);
+      return null;
     }
   }
 

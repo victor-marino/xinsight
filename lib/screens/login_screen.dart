@@ -3,8 +3,10 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:io';
+import 'package:indexa_dashboard/services/indexa_data.dart';
 import 'package:indexa_dashboard/screens/root_screen.dart';
 import 'package:indexa_dashboard/tools/constants.dart';
+import 'package:indexa_dashboard/models/account.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:local_auth/auth_strings.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -20,6 +22,8 @@ class _LoginScreenState extends State<LoginScreen> {
   final _storage = FlutterSecureStorage();
 
   bool rememberToken = false;
+
+  String loginErrors = "";
 
   final tokenTextController = TextEditingController();
   final LocalAuthentication localAuthentication = LocalAuthentication();
@@ -63,7 +67,7 @@ class _LoginScreenState extends State<LoginScreen> {
     print(listOfBiometrics);
   }
 
-  Future authenticateUser() async {
+  Future authenticateUserLocally() async {
     bool isAuthenticated = false;
     try {
       print("Trying to authenticate...");
@@ -87,17 +91,17 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
-  Future<bool> tryToAuthenticate() async {
+  Future<bool> tryToAuthenticateLocally() async {
     bool authenticated = false;
     if (await supportsBiometrics()) {
       await getListOfBiometricTypes();
-      authenticated = await authenticateUser();
+      authenticated = await authenticateUserLocally();
     }
     return (authenticated);
   }
 
   void enableRememberToken() async {
-    if (await tryToAuthenticate()) {
+    if (await tryToAuthenticateLocally()) {
       setState(() {
         rememberToken = true;
       });
@@ -124,41 +128,89 @@ class _LoginScreenState extends State<LoginScreen> {
     Map<String, String> tokens = await _readAll();
     if (tokens['indexaToken'] != null) {
       print('Existing token: ' + tokens['indexaToken']);
-      authenticateAndGoToHome(token: tokens['indexaToken']);
+      tokenTextController.text = tokens['indexaToken'];
+
+      authenticateLocallyAndGoToHome(token: tokens['indexaToken']);
     } else {
       print('No existing token');
     }
   }
 
-  void authenticateAndGoToHome({String token}) async {
-    if (await tryToAuthenticate()) {
+  Future<bool> validateToken({String token}) async {
+    Account currentAccount;
+    IndexaData indexaData = IndexaData(token: token);
+    var userAccounts = await indexaData.getUserAccounts();
+    if (userAccounts != null) {
+      print("Token authenticated!");
+      return true;
+    } else {
+      print("Couldn't authenticate user");
+      return false;
+    }
+  }
+
+  void authenticateLocallyAndGoToHome({String token}) async {
+    if (await tryToAuthenticateLocally()) {
+      bool validatedToken = await validateToken(token: token);
+      if (validatedToken) {
+        setState(() {
+          loginErrors = "";
+        });
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (BuildContext context) => RootScreen(token: token),
+          ),
+        );
+      } else {
+        setState(() {
+          loginErrors = "Server error. Token may be invalid.";
+        });
+        print("Couldn't authenticate. Is the token valid?");
+      }
+    }
+  }
+
+  void goToHome({String token}) async {
+    bool validatedToken = await validateToken(token: token);
+    if (validatedToken) {
+      setState(() {
+        loginErrors = "";
+      });
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
           builder: (BuildContext context) => RootScreen(token: token),
         ),
       );
+    } else {
+      setState(() {
+        loginErrors = "Server error. Token may be invalid.";
+      });
+      print("Couldn't authenticate. Is the token valid?");
     }
-  }
-
-  void goToHome({String token}) {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-        builder: (BuildContext context) => RootScreen(token: token),
-      ),
-    );
   }
 
   void saveTokenAndGoToHome() async {
     await _storeKey(tokenTextController.text);
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-        builder: (BuildContext context) =>
-            RootScreen(token: tokenTextController.text),
-      ),
-    );
+    bool validatedToken = await validateToken(token: tokenTextController.text);
+    if (validatedToken) {
+      setState(() {
+        loginErrors = "";
+      });
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (BuildContext context) =>
+              RootScreen(token: tokenTextController.text),
+        ),
+      );
+    } else {
+      setState(() {
+        loginErrors = "Server error. Token may be invalid.";
+      });
+      print("Couldn't authenticate. Is the token valid?");
+    }
   }
 
   @override
@@ -222,7 +274,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                       content: SingleChildScrollView(
                                         child: Column(
                                           mainAxisSize: MainAxisSize.min,
-                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           children: [
                                             Text(
                                               'En tu área de cliente de Indexa Capital:\n',
@@ -244,11 +297,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                                     TextSpan(
                                                       children: [
                                                         TextSpan(
-                                                          text:
-                                                              'Ve a "',
+                                                          text: 'Ve a "',
                                                         ),
                                                         TextSpan(
-                                                            text: 'Configuración de Usuario',
+                                                            text:
+                                                                'Configuración de Usuario',
                                                             recognizer:
                                                                 TapGestureRecognizer()
                                                                   ..onTap = () {
@@ -256,14 +309,16 @@ class _LoginScreenState extends State<LoginScreen> {
                                                                         'https://indexacapital.com/es/u/user');
                                                                   },
                                                             style: TextStyle(
-                                                              color: Colors.blue,
+                                                              color:
+                                                                  Colors.blue,
                                                             )),
                                                         TextSpan(
                                                           text: '"',
                                                         ),
                                                       ],
                                                     ),
-                                                    style: kPopUpNormalTextStyle,
+                                                    style:
+                                                        kPopUpNormalTextStyle,
                                                   ),
                                                 ),
                                               ],
@@ -293,8 +348,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                               ],
                                             ),
                                             Padding(
-                                              padding: const EdgeInsets.only(top: 10),
-                                              child: Image.asset('assets/images/token_indexa_highlighted.png'),
+                                              padding: const EdgeInsets.only(
+                                                  top: 10),
+                                              child: Image.asset(
+                                                  'assets/images/token_indexa_highlighted.png'),
                                             )
                                           ],
                                         ),
@@ -398,6 +455,13 @@ class _LoginScreenState extends State<LoginScreen> {
 //                ),
                         SizedBox(
                           height: 40,
+                          child: Container(
+                            alignment: Alignment.center,
+                            child: Text(
+                              loginErrors,
+                              style: kLoginErrorsTextStyle,
+                            ),
+                          ),
                         ),
                         SizedBox(
                           width: 60,
@@ -417,7 +481,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               if (rememberToken) {
                                 saveTokenAndGoToHome();
                               } else {
-                                goToHome();
+                                goToHome(token: tokenTextController.text);
                               }
                             },
                             shape: CircleBorder(),
