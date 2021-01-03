@@ -127,11 +127,15 @@ class _LoginScreenState extends State<LoginScreen> {
   void tryToLoginWithLocalToken() async {
     Map<String, String> tokens = await _readAll();
     if (tokens['indexaToken'] != null) {
+      setState(() {
+        rememberToken = true;
+      });
       print('Existing token: ' + tokens['indexaToken']);
-      tokenTextController.text = tokens['indexaToken'];
-
       authenticateLocallyAndGoToHome(token: tokens['indexaToken']);
     } else {
+      setState(() {
+        rememberToken = false;
+      });
       print('No existing token');
     }
   }
@@ -165,6 +169,7 @@ class _LoginScreenState extends State<LoginScreen> {
       } else {
         setState(() {
           loginErrors = "Server error. Token may be invalid.";
+          tokenTextController.text = token;
         });
         print("Couldn't authenticate. Is the token valid?");
       }

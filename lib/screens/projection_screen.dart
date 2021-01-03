@@ -26,7 +26,7 @@ class _ProjectionScreenState extends State<ProjectionScreen> {
       RefreshController(initialRefresh: false);
   void _onRefresh() async {
     // monitor network fetch
-    await widget.loadData();
+    await widget.loadData(0);
     // if failed,use refreshFailed()
     _refreshController.refreshCompleted();
   }

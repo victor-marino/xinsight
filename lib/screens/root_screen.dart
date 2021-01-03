@@ -23,13 +23,15 @@ class RootScreen extends StatefulWidget {
 class _RootScreenState extends State<RootScreen> {
   PageController _pageController;
 
+  List<String> userAccounts = [];
   Future<Account> accountData;
 
   bool reloading = false;
 
-  Future<void> loadData() {
+  Future<void> loadData(int accountNumber) async {
+    userAccounts = await getUserAccounts(widget.token);
     setState(() {
-      accountData = getAccountData(widget.token);
+      accountData = getAccountData(widget.token, accountNumber);
     });
     print(accountData);
     return accountData;
@@ -39,19 +41,25 @@ class _RootScreenState extends State<RootScreen> {
     setState(() {
       reloading = true;
     });
-    await loadData();
+    await loadData(0);
     Provider.of<BottomNavigationBarProvider>(context, listen: false)
         .currentIndex = 0;
   }
 
-  static Future<Account> getAccountData(String token) async {
+  Future<List<String>> getUserAccounts(String token) async {
+    IndexaData indexaData = IndexaData(token: token);
+    var userAccounts = await indexaData.getUserAccounts();
+    return userAccounts;
+  }
+
+  static Future<Account> getAccountData(String token, int accountNumber) async {
     Account currentAccount;
     IndexaData indexaData = IndexaData(token: token);
     var userAccounts = await indexaData.getUserAccounts();
     var currentAccountPerformanceData =
-        await indexaData.getAccountPerformanceData(userAccounts[0]);
+        await indexaData.getAccountPerformanceData(userAccounts[accountNumber]);
     var currentAccountPortfolioData =
-        await indexaData.getAccountPortfolioData(userAccounts[0]);
+        await indexaData.getAccountPortfolioData(userAccounts[accountNumber]);
     currentAccount = Account(
         accountPerformanceData: currentAccountPerformanceData,
         accountPortfolioData: currentAccountPortfolioData);
@@ -62,7 +70,7 @@ class _RootScreenState extends State<RootScreen> {
   @override
   void initState() {
     super.initState();
-    loadData();
+    loadData(0);
     _pageController = PageController(initialPage: 0, viewportFraction: 0.99);
   }
 
@@ -74,7 +82,7 @@ class _RootScreenState extends State<RootScreen> {
 
   @override
   Widget build(BuildContext context) {
-    SyncfusionLicense.registerLicense(SYNCFUSION_LICENSE);
+    //SyncfusionLicense.registerLicense(SYNCFUSION_LICENSE);
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle(
@@ -94,7 +102,7 @@ class _RootScreenState extends State<RootScreen> {
                 controller: _pageController,
                 //physics: AlwaysScrollableScrollPhysics(),
                 children: <Widget>[
-                  HomeScreen(accountData: snapshot.data, loadData: loadData),
+                  HomeScreen(accountData: snapshot.data, userAccounts: userAccounts,loadData: loadData),
                   EvolutionScreen(
                       accountData: snapshot.data, loadData: loadData),
                   ProjectionScreen(

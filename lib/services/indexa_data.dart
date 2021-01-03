@@ -16,6 +16,8 @@ class IndexaData {
         for (var account in userData['accounts']) {
           userAccounts.add(account['account_number'].toString());
         }
+        userAccounts.add(userAccounts.last);
+        print(userAccounts);
         return userAccounts;
       }
     } on Exception catch (e) {
@@ -30,9 +32,12 @@ class IndexaData {
     try {
       var accountPerformanceData = await networkHelper.getData();
       //print('performanceData: ' + accountPerformanceData.toString());
-      return accountPerformanceData;
+      if (accountPerformanceData != null) {
+        return accountPerformanceData;
+      }
     } on Exception catch (e) {
       print(e);
+      return null;
     }
   }
 
@@ -42,9 +47,12 @@ class IndexaData {
     try {
       var accountPortfolioData = await networkHelper.getData();
       //print('portfolioData: ' + accountPortfolioData.toString());
-      return accountPortfolioData;
+      if (accountPortfolioData != null) {
+        return accountPortfolioData;
+      }
     } on Exception catch (e) {
       print(e);
+      return null;
     }
   }
 }
