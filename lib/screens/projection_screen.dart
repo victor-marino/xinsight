@@ -12,23 +12,35 @@ class ProjectionScreen extends StatefulWidget {
   const ProjectionScreen({
     Key key,
     this.accountData,
-    this.loadData,
+    this.userAccounts,
+    this.refreshData,
   }) : super(key: key);
   final Account accountData;
-  final Function loadData;
+  final List<String> userAccounts;
+  final Function refreshData;
 
   @override
   _ProjectionScreenState createState() => _ProjectionScreenState();
 }
 
 class _ProjectionScreenState extends State<ProjectionScreen> {
+  Account accountData;
+  Function refreshData;
+
   RefreshController _refreshController =
       RefreshController(initialRefresh: false);
   void _onRefresh() async {
     // monitor network fetch
-    await widget.loadData(0);
+    await refreshData(0);
     // if failed,use refreshFailed()
     _refreshController.refreshCompleted();
+  }
+
+  @override
+  void initState() {
+    accountData = widget.accountData;
+    refreshData = widget.refreshData;
+    super.initState();
   }
 
   @override
@@ -61,10 +73,11 @@ class _ProjectionScreenState extends State<ProjectionScreen> {
                             onTap: () {
                               showDialog(
                                 context: context,
-                                child: AlertDialog(
+                              builder: (BuildContext context) {
+                                return AlertDialog(
                                   title: Row(
                                     mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                    MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
                                         'Riesgo',
@@ -80,7 +93,8 @@ class _ProjectionScreenState extends State<ProjectionScreen> {
                                     'Recuerda que estos cálculos son expectativas, por lo que no hay ninguna garantía ni seguridad de que las rentabilidades acaben en el rango indicado.',
                                     style: kPopUpNormalTextStyle,
                                   ),
-                                  contentPadding: EdgeInsets.fromLTRB(24, 24, 24, 0),
+                                  contentPadding: EdgeInsets.fromLTRB(
+                                      24, 24, 24, 0),
                                   actions: [
                                     FlatButton(
                                       child: Text('OK'),
@@ -89,7 +103,8 @@ class _ProjectionScreenState extends State<ProjectionScreen> {
                                       },
                                     ),
                                   ],
-                                ),
+                                );
+                              }
                               );
                             },
                             child: Column(
@@ -126,10 +141,11 @@ class _ProjectionScreenState extends State<ProjectionScreen> {
                             onTap: () {
                               showDialog(
                                 context: context,
-                                child: AlertDialog(
+                              builder: (BuildContext context) {
+                                return AlertDialog(
                                   title: Row(
                                     mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                    MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
                                         'Proyección',
@@ -142,10 +158,11 @@ class _ProjectionScreenState extends State<ProjectionScreen> {
                                     ],
                                   ),
                                   content: Text(
-                                      'Recuerda que los mercados pueden ser volátiles en el corto plazo, pero tienden a revertir a la media y crecer en el largo plazo.',
-                                      style: kPopUpNormalTextStyle,
+                                    'Recuerda que los mercados pueden ser volátiles en el corto plazo, pero tienden a revertir a la media y crecer en el largo plazo.',
+                                    style: kPopUpNormalTextStyle,
                                   ),
-                                  contentPadding: EdgeInsets.fromLTRB(24, 24, 24, 0),
+                                  contentPadding: EdgeInsets.fromLTRB(
+                                      24, 24, 24, 0),
                                   actions: [
                                     FlatButton(
                                       child: Text('OK'),
@@ -154,14 +171,15 @@ class _ProjectionScreenState extends State<ProjectionScreen> {
                                       },
                                     ),
                                   ],
-                                ),
+                                );
+                              }
                               );
                             },
                             child: Column(
                               children: <Widget>[
                                 PerformanceChart(
                                     performanceSeries:
-                                        widget.accountData.performanceSeries),
+                                        accountData.performanceSeries),
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: Text(

@@ -7,6 +7,7 @@ import 'package:indexa_dashboard/services/indexa_data.dart';
 import 'package:indexa_dashboard/screens/root_screen.dart';
 import 'package:indexa_dashboard/tools/constants.dart';
 import 'package:indexa_dashboard/models/account.dart';
+import 'package:indexa_dashboard/tools/constants.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:local_auth/auth_strings.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -163,7 +164,7 @@ class _LoginScreenState extends State<LoginScreen> {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (BuildContext context) => RootScreen(token: token),
+            builder: (BuildContext context) => RootScreen(token: token, accountNumber: 0),
           ),
         );
       } else {
@@ -185,7 +186,7 @@ class _LoginScreenState extends State<LoginScreen> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (BuildContext context) => RootScreen(token: token),
+          builder: (BuildContext context) => RootScreen(token: token, accountNumber: 0),
         ),
       );
     } else {
@@ -207,7 +208,7 @@ class _LoginScreenState extends State<LoginScreen> {
         context,
         MaterialPageRoute(
           builder: (BuildContext context) =>
-              RootScreen(token: tokenTextController.text),
+              RootScreen(token: tokenTextController.text, accountNumber: 0),
         ),
       );
     } else {
@@ -264,7 +265,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 onTap: () {
                                   showDialog(
                                     context: context,
-                                    child: AlertDialog(
+                                    builder: (BuildContext context) => AlertDialog(
                                       title: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,

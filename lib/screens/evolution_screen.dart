@@ -13,25 +13,36 @@ class EvolutionScreen extends StatefulWidget {
   const EvolutionScreen({
     Key key,
     this.accountData,
-    this.loadData,
+    this.userAccounts,
+    this.refreshData,
   }) : super(key: key);
   final Account accountData;
-  final Function loadData;
+  final List<String> userAccounts;
+  final Function refreshData;
 
   @override
   _EvolutionScreenState createState() => _EvolutionScreenState();
 }
 
 class _EvolutionScreenState extends State<EvolutionScreen> {
+  Account accountData;
+  Function refreshData;
+
   RefreshController _refreshController =
       RefreshController(initialRefresh: false);
   void _onRefresh() async {
     // monitor network fetch
-    await widget.loadData(0);
+    await refreshData(0);
     // if failed,use refreshFailed()
     _refreshController.refreshCompleted();
   }
 
+  @override
+  void initState() {
+    accountData = widget.accountData;
+    refreshData = widget.refreshData;
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,7 +70,7 @@ class _EvolutionScreenState extends State<EvolutionScreen> {
                       children: <Widget>[
                         ReusableCard(
                           childWidget: AmountsChart(
-                              amountsSeries: widget.accountData.amountsSeries),
+                              amountsSeries: accountData.amountsSeries),
                         ),
                         SizedBox(
                           height: 30,

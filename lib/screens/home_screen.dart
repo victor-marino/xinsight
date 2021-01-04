@@ -19,41 +19,54 @@ class HomeScreen extends StatefulWidget {
     Key key,
     this.accountData,
     this.userAccounts,
-    this.loadData,
+    this.refreshData,
+    this.reloadPage,
+    this.currentAccountNumber,
   }) : super(key: key);
   final Account accountData;
   final List<String> userAccounts;
-  final Function loadData;
+  final Function refreshData;
+  final Function reloadPage;
+  final int currentAccountNumber;
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int currentAccountNumber = 0;
+  Account accountData;
+  Function refreshData;
+  int currentAccountNumber;
   List<DropdownMenuItem> accountDropdownItems = [];
-
 
   RefreshController _refreshController =
       RefreshController(initialRefresh: false);
 
-  void manualRefresh(int accountNumber) {
-    currentAccountNumber = accountNumber;
-    setState(() {
-      _refreshController.requestRefresh();
-    });
+  void manualRefresh() async {
+    //accountDropdownItems.clear();
+    //currentAccountNumber = accountNumber;
+    //accountData = await widget.refreshData(currentAccountNumber);
+    //accountData = await refreshData(currentAccountNumber);
+    //setState(() {
+    _refreshController.requestRefresh();
+    //});
     //_onRefresh();
   }
 
   void _onRefresh() async {
     // monitor network fetch
-    await widget.loadData(currentAccountNumber);
+    accountData = await refreshData(currentAccountNumber);
+    setState(() {});
     // if failed,use refreshFailed()
     _refreshController.refreshCompleted();
   }
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    currentAccountNumber = widget.currentAccountNumber;
+    accountData = widget.accountData;
+    refreshData = widget.refreshData;
+
     for(var account in widget.userAccounts) {
       accountDropdownItems.add(
         DropdownMenuItem(
@@ -62,7 +75,10 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       );
     }
-
+    super.initState();
+  }
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -79,16 +95,19 @@ class _HomeScreenState extends State<HomeScreen> {
                     textAlign: TextAlign.left,
                   ),
                   DropdownButton(
-                      value: 1,
+                      value: currentAccountNumber,
                       items: accountDropdownItems,
                       onChanged: (value) {
-                        manualRefresh(value);
-                        accountDropdownItems = [];
+                        setState(() {
+                          currentAccountNumber = value;
+                        });
+                        //manualRefresh();
+                        widget.reloadPage(currentAccountNumber);
                       }),
                   MaterialButton(
                       child: Text("Manual refresh"),
                       onPressed: () {
-                        manualRefresh(0);
+                        manualRefresh();
                       }),
                 ],
               ),
@@ -109,7 +128,7 @@ class _HomeScreenState extends State<HomeScreen> {
 //                        ),
                         ReusableCard(
                           childWidget:
-                              AccountSummary(accountData: widget.accountData),
+                              AccountSummary(accountData: accountData),
                         ),
                         SizedBox(
                           height: 30,
@@ -120,10 +139,10 @@ class _HomeScreenState extends State<HomeScreen> {
                             children: <Widget>[
                               PortfolioChart(
                                   portfolioData:
-                                      widget.accountData.portfolioData),
+                                      accountData.portfolioData),
                               PortfolioChartLegend(
                                   portfolioData:
-                                      widget.accountData.portfolioData),
+                                      accountData.portfolioData),
                             ],
                           ),
                         ),

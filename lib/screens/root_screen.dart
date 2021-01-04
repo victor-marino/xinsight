@@ -13,8 +13,12 @@ import '../tools/bottom_navigation_bar_provider.dart';
 import '../widgets/bottom_navigation_bar.dart';
 
 class RootScreen extends StatefulWidget {
-  RootScreen({this.token});
+  RootScreen({
+    this.token,
+    this.accountNumber,
+  });
   final String token;
+  final int accountNumber;
 
   @override
   _RootScreenState createState() => _RootScreenState();
@@ -33,7 +37,12 @@ class _RootScreenState extends State<RootScreen> {
     setState(() {
       accountData = getAccountData(widget.token, accountNumber);
     });
-    print(accountData);
+    return accountData;
+  }
+
+  Future<void> refreshData(int accountNumber) {
+    //accountData = getAccountData(widget.token, accountNumber);
+    accountData = getAccountData(widget.token, accountNumber);
     return accountData;
   }
 
@@ -44,6 +53,12 @@ class _RootScreenState extends State<RootScreen> {
     await loadData(0);
     Provider.of<BottomNavigationBarProvider>(context, listen: false)
         .currentIndex = 0;
+  }
+
+  void reloadPage(int accountNumber) async {
+    Provider.of<BottomNavigationBarProvider>(context, listen: false).currentIndex = 0;
+    Navigator.pushReplacement(context, MaterialPageRoute(
+        builder: (BuildContext context) => RootScreen(token: widget.token, accountNumber: accountNumber)));
   }
 
   Future<List<String>> getUserAccounts(String token) async {
@@ -63,14 +78,13 @@ class _RootScreenState extends State<RootScreen> {
     currentAccount = Account(
         accountPerformanceData: currentAccountPerformanceData,
         accountPortfolioData: currentAccountPortfolioData);
-
     return currentAccount;
   }
 
   @override
   void initState() {
     super.initState();
-    loadData(0);
+    loadData(widget.accountNumber);
     _pageController = PageController(initialPage: 0, viewportFraction: 0.99);
   }
 
@@ -98,15 +112,16 @@ class _RootScreenState extends State<RootScreen> {
               reloading = false;
             }
             if (snapshot.hasData) {
+              print(userAccounts);
               child = PageView(
                 controller: _pageController,
                 //physics: AlwaysScrollableScrollPhysics(),
                 children: <Widget>[
-                  HomeScreen(accountData: snapshot.data, userAccounts: userAccounts,loadData: loadData),
+                  HomeScreen(accountData: snapshot.data, userAccounts: userAccounts, refreshData: refreshData, reloadPage: reloadPage, currentAccountNumber: widget.accountNumber),
                   EvolutionScreen(
-                      accountData: snapshot.data, loadData: loadData),
+                      accountData: snapshot.data, userAccounts: userAccounts, refreshData: refreshData),
                   ProjectionScreen(
-                      accountData: snapshot.data, loadData: loadData),
+                      accountData: snapshot.data, userAccounts: userAccounts, refreshData: refreshData),
                   SettingsScreen(),
                 ],
                 onPageChanged: (page) {
