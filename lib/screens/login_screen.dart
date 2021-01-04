@@ -164,7 +164,7 @@ class _LoginScreenState extends State<LoginScreen> {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (BuildContext context) => RootScreen(token: token, accountNumber: 0),
+            builder: (BuildContext context) => RootScreen(token: token, pageNumber: 0, accountNumber: 0),
           ),
         );
       } else {
@@ -186,7 +186,7 @@ class _LoginScreenState extends State<LoginScreen> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (BuildContext context) => RootScreen(token: token, accountNumber: 0),
+          builder: (BuildContext context) => RootScreen(token: token, pageNumber: 0, accountNumber: 0),
         ),
       );
     } else {
@@ -208,7 +208,7 @@ class _LoginScreenState extends State<LoginScreen> {
         context,
         MaterialPageRoute(
           builder: (BuildContext context) =>
-              RootScreen(token: tokenTextController.text, accountNumber: 0),
+              RootScreen(token: tokenTextController.text, pageNumber: 0, accountNumber: 0),
         ),
       );
     } else {

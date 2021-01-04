@@ -16,9 +16,11 @@ class RootScreen extends StatefulWidget {
   RootScreen({
     this.token,
     this.accountNumber,
+    this.pageNumber,
   });
   final String token;
   final int accountNumber;
+  final int pageNumber;
 
   @override
   _RootScreenState createState() => _RootScreenState();
@@ -50,15 +52,14 @@ class _RootScreenState extends State<RootScreen> {
     setState(() {
       reloading = true;
     });
-    await loadData(0);
+    await loadData(widget.pageNumber);
     Provider.of<BottomNavigationBarProvider>(context, listen: false)
-        .currentIndex = 0;
+        .currentIndex = widget.pageNumber;
   }
 
-  void reloadPage(int accountNumber) async {
-    Provider.of<BottomNavigationBarProvider>(context, listen: false).currentIndex = 0;
+  void reloadPage(int accountNumber, int pageNumber) async {
     Navigator.pushReplacement(context, MaterialPageRoute(
-        builder: (BuildContext context) => RootScreen(token: widget.token, accountNumber: accountNumber)));
+        builder: (BuildContext context) => RootScreen(token: widget.token, accountNumber: accountNumber, pageNumber: pageNumber)));
   }
 
   Future<List<String>> getUserAccounts(String token) async {
@@ -85,7 +86,7 @@ class _RootScreenState extends State<RootScreen> {
   void initState() {
     super.initState();
     loadData(widget.accountNumber);
-    _pageController = PageController(initialPage: 0, viewportFraction: 0.99);
+    _pageController = PageController(initialPage: widget.pageNumber, viewportFraction: 0.99);
   }
 
   @override
@@ -119,9 +120,9 @@ class _RootScreenState extends State<RootScreen> {
                 children: <Widget>[
                   HomeScreen(accountData: snapshot.data, userAccounts: userAccounts, refreshData: refreshData, reloadPage: reloadPage, currentAccountNumber: widget.accountNumber),
                   EvolutionScreen(
-                      accountData: snapshot.data, userAccounts: userAccounts, refreshData: refreshData),
+                      accountData: snapshot.data, userAccounts: userAccounts, refreshData: refreshData, reloadPage: reloadPage, currentAccountNumber: widget.accountNumber),
                   ProjectionScreen(
-                      accountData: snapshot.data, userAccounts: userAccounts, refreshData: refreshData),
+                      accountData: snapshot.data, userAccounts: userAccounts, refreshData: refreshData, reloadPage: reloadPage, currentAccountNumber: widget.accountNumber),
                   SettingsScreen(),
                 ],
                 onPageChanged: (page) {

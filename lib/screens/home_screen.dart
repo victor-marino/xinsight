@@ -11,6 +11,7 @@ import 'package:indexa_dashboard/widgets/reusable_card.dart';
 import 'package:indexa_dashboard/widgets/portfolio_chart.dart';
 import 'package:indexa_dashboard/widgets/portfolio_legend.dart';
 import 'package:indexa_dashboard/widgets/profit_popup.dart';
+import 'package:indexa_dashboard/widgets/build_account_switcher.dart';
 
 const int nbsp = 0x00A0;
 
@@ -34,6 +35,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  int currentPage = 0;
   Account accountData;
   Function refreshData;
   int currentAccountNumber;
@@ -41,17 +43,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   RefreshController _refreshController =
       RefreshController(initialRefresh: false);
-
-  void manualRefresh() async {
-    //accountDropdownItems.clear();
-    //currentAccountNumber = accountNumber;
-    //accountData = await widget.refreshData(currentAccountNumber);
-    //accountData = await refreshData(currentAccountNumber);
-    //setState(() {
-    _refreshController.requestRefresh();
-    //});
-    //_onRefresh();
-  }
 
   void _onRefresh() async {
     // monitor network fetch
@@ -61,22 +52,30 @@ class _HomeScreenState extends State<HomeScreen> {
     _refreshController.refreshCompleted();
   }
 
+  void reloadPageFromAccountSwitcher(int selectedAccount) {
+    currentAccountNumber = selectedAccount;
+    widget.reloadPage(selectedAccount, currentPage);
+  }
+
   @override
   void initState() {
     currentAccountNumber = widget.currentAccountNumber;
     accountData = widget.accountData;
     refreshData = widget.refreshData;
 
-    for(var account in widget.userAccounts) {
+    for (var account in widget.userAccounts) {
       accountDropdownItems.add(
         DropdownMenuItem(
-          child: Text((accountDropdownItems.length + 1).toString() + ". " + account),
+          child: Text(
+              (accountDropdownItems.length + 1).toString() + ". " + account),
           value: accountDropdownItems.length,
         ),
       );
     }
+
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -94,21 +93,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     style: kTitleTextStyle,
                     textAlign: TextAlign.left,
                   ),
-                  DropdownButton(
-                      value: currentAccountNumber,
-                      items: accountDropdownItems,
-                      onChanged: (value) {
-                        setState(() {
-                          currentAccountNumber = value;
-                        });
-                        //manualRefresh();
-                        widget.reloadPage(currentAccountNumber);
-                      }),
-                  MaterialButton(
-                      child: Text("Manual refresh"),
-                      onPressed: () {
-                        manualRefresh();
-                      }),
+                  buildAccountSwitcher(currentAccountNumber: currentAccountNumber, accountDropdownItems: accountDropdownItems, reloadPageFromAccountSwitcher: reloadPageFromAccountSwitcher),
                 ],
               ),
             ),
@@ -127,8 +112,7 @@ class _HomeScreenState extends State<HomeScreen> {
 //                          height: 10.0,
 //                        ),
                         ReusableCard(
-                          childWidget:
-                              AccountSummary(accountData: accountData),
+                          childWidget: AccountSummary(accountData: accountData),
                         ),
                         SizedBox(
                           height: 30,
@@ -138,11 +122,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: <Widget>[
                               PortfolioChart(
-                                  portfolioData:
-                                      accountData.portfolioData),
+                                  portfolioData: accountData.portfolioData),
                               PortfolioChartLegend(
-                                  portfolioData:
-                                      accountData.portfolioData),
+                                  portfolioData: accountData.portfolioData),
                             ],
                           ),
                         ),

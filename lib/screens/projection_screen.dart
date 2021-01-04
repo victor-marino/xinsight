@@ -7,6 +7,7 @@ import '../tools/constants.dart';
 import 'package:indexa_dashboard/widgets/reusable_card.dart';
 import 'package:indexa_dashboard/widgets/performance_chart.dart';
 import 'package:indexa_dashboard/widgets/risk_chart.dart';
+import 'package:indexa_dashboard/widgets/build_account_switcher.dart';
 
 class ProjectionScreen extends StatefulWidget {
   const ProjectionScreen({
@@ -14,32 +15,56 @@ class ProjectionScreen extends StatefulWidget {
     this.accountData,
     this.userAccounts,
     this.refreshData,
+    this.reloadPage,
+    this.currentAccountNumber,
   }) : super(key: key);
   final Account accountData;
   final List<String> userAccounts;
   final Function refreshData;
+  final Function reloadPage;
+  final int currentAccountNumber;
 
   @override
   _ProjectionScreenState createState() => _ProjectionScreenState();
 }
 
 class _ProjectionScreenState extends State<ProjectionScreen> {
+  int currentPage = 2;
   Account accountData;
   Function refreshData;
+  int currentAccountNumber;
+  List<DropdownMenuItem> accountDropdownItems = [];
 
   RefreshController _refreshController =
       RefreshController(initialRefresh: false);
+
   void _onRefresh() async {
     // monitor network fetch
-    await refreshData(0);
+    accountData = await refreshData(currentAccountNumber);
+    setState(() {});
     // if failed,use refreshFailed()
     _refreshController.refreshCompleted();
   }
 
+  void reloadPageFromAccountSwitcher(int selectedAccount) {
+    currentAccountNumber = selectedAccount;
+    widget.reloadPage(selectedAccount, currentPage);
+  }
+
   @override
   void initState() {
+    currentAccountNumber = widget.currentAccountNumber;
     accountData = widget.accountData;
     refreshData = widget.refreshData;
+
+    for(var account in widget.userAccounts) {
+      accountDropdownItems.add(
+        DropdownMenuItem(
+          child: Text((accountDropdownItems.length + 1).toString() + ". " + account),
+          value: accountDropdownItems.length,
+        ),
+      );
+    }
     super.initState();
   }
 
@@ -52,10 +77,16 @@ class _ProjectionScreenState extends State<ProjectionScreen> {
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-              child: Text(
-                'Proyección',
-                style: kTitleTextStyle,
-                textAlign: TextAlign.left,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Proyección',
+                    style: kTitleTextStyle,
+                    textAlign: TextAlign.left,
+                  ),
+                  buildAccountSwitcher(currentAccountNumber: currentAccountNumber, accountDropdownItems: accountDropdownItems, reloadPageFromAccountSwitcher: reloadPageFromAccountSwitcher),
+                ],
               ),
             ),
             Expanded(
