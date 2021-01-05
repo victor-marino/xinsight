@@ -8,6 +8,7 @@ import 'package:indexa_dashboard/widgets/reusable_card.dart';
 import 'package:indexa_dashboard/widgets/performance_chart.dart';
 import 'package:indexa_dashboard/widgets/risk_chart.dart';
 import 'package:indexa_dashboard/widgets/build_account_switcher.dart';
+import 'package:indexa_dashboard/models/account_dropdown_items.dart';
 
 class ProjectionScreen extends StatefulWidget {
   const ProjectionScreen({
@@ -33,7 +34,7 @@ class _ProjectionScreenState extends State<ProjectionScreen> {
   Account accountData;
   Function refreshData;
   int currentAccountNumber;
-  List<DropdownMenuItem> accountDropdownItems = [];
+  List<DropdownMenuItem> dropdownItems = [];
 
   RefreshController _refreshController =
       RefreshController(initialRefresh: false);
@@ -46,26 +47,14 @@ class _ProjectionScreenState extends State<ProjectionScreen> {
     _refreshController.refreshCompleted();
   }
 
-  void reloadPageFromAccountSwitcher(int selectedAccount) {
-    currentAccountNumber = selectedAccount;
-    widget.reloadPage(selectedAccount, currentPage);
-  }
-
   @override
   void initState() {
     currentAccountNumber = widget.currentAccountNumber;
     accountData = widget.accountData;
     refreshData = widget.refreshData;
 
-    for(var account in widget.userAccounts) {
-      accountDropdownItems.add(
-        DropdownMenuItem(
-          child: Text((accountDropdownItems.length + 1).toString() + ". " + account),
-          value: accountDropdownItems.length,
-        ),
-      );
-    }
-    super.initState();
+    dropdownItems =
+        AccountDropdownItems(userAccounts: widget.userAccounts).dropdownItems;
   }
 
   @override
@@ -79,13 +68,14 @@ class _ProjectionScreenState extends State<ProjectionScreen> {
               padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Text(
                     'Proyección',
                     style: kTitleTextStyle,
                     textAlign: TextAlign.left,
                   ),
-                  buildAccountSwitcher(currentAccountNumber: currentAccountNumber, accountDropdownItems: accountDropdownItems, reloadPageFromAccountSwitcher: reloadPageFromAccountSwitcher),
+                  buildAccountSwitcher(currentAccountNumber: currentAccountNumber, currentPage: currentPage, accountDropdownItems: dropdownItems, reloadPage: widget.reloadPage),
                 ],
               ),
             ),

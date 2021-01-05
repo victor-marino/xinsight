@@ -12,6 +12,7 @@ import 'package:indexa_dashboard/widgets/portfolio_chart.dart';
 import 'package:indexa_dashboard/widgets/portfolio_legend.dart';
 import 'package:indexa_dashboard/widgets/profit_popup.dart';
 import 'package:indexa_dashboard/widgets/build_account_switcher.dart';
+import 'package:indexa_dashboard/models/account_dropdown_items.dart';
 
 const int nbsp = 0x00A0;
 
@@ -39,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Account accountData;
   Function refreshData;
   int currentAccountNumber;
-  List<DropdownMenuItem> accountDropdownItems = [];
+  List<DropdownMenuItem> dropdownItems = [];
 
   RefreshController _refreshController =
       RefreshController(initialRefresh: false);
@@ -51,27 +52,14 @@ class _HomeScreenState extends State<HomeScreen> {
     // if failed,use refreshFailed()
     _refreshController.refreshCompleted();
   }
-
-  void reloadPageFromAccountSwitcher(int selectedAccount) {
-    currentAccountNumber = selectedAccount;
-    widget.reloadPage(selectedAccount, currentPage);
-  }
-
+  
   @override
   void initState() {
     currentAccountNumber = widget.currentAccountNumber;
     accountData = widget.accountData;
     refreshData = widget.refreshData;
 
-    for (var account in widget.userAccounts) {
-      accountDropdownItems.add(
-        DropdownMenuItem(
-          child: Text(
-              (accountDropdownItems.length + 1).toString() + ". " + account),
-          value: accountDropdownItems.length,
-        ),
-      );
-    }
+    dropdownItems = AccountDropdownItems(userAccounts: widget.userAccounts).dropdownItems;
 
     super.initState();
   }
@@ -87,13 +75,15 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Text(
                     'Inicio',
                     style: kTitleTextStyle,
                     textAlign: TextAlign.left,
                   ),
-                  buildAccountSwitcher(currentAccountNumber: currentAccountNumber, accountDropdownItems: accountDropdownItems, reloadPageFromAccountSwitcher: reloadPageFromAccountSwitcher),
+                  SizedBox(),
+                  buildAccountSwitcher(currentAccountNumber: currentAccountNumber, currentPage: currentPage, accountDropdownItems: dropdownItems, reloadPage: widget.reloadPage),
                 ],
               ),
             ),
