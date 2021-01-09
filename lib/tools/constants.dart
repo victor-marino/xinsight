@@ -80,10 +80,39 @@ TextStyle kLoginErrorsTextStyle = GoogleFonts.roboto(
 TextStyle kAccountSwitcherTextStyle = GoogleFonts.roboto(
   textStyle: TextStyle(
     color: Colors.black,
+    //fontWeight: FontWeight.bold,
+    fontSize: 15.0,
+  ),
+);
+
+TextStyle kAccountSwitcherSelectedTextStyle = GoogleFonts.roboto(
+  textStyle: TextStyle(
+    color: Colors.black,
     fontWeight: FontWeight.bold,
     fontSize: 15.0,
   ),
 );
+
+TextStyle kAccountSwitcherDisabledSelectedTextStyle = GoogleFonts.roboto(
+  textStyle: TextStyle(
+    color: Colors.black,
+    fontWeight: FontWeight.bold,
+    fontSize: 17.0,
+  ),
+);
+
+Decoration kEnabledAccountSwitcherBoxDecoration = ShapeDecoration(
+  color: Colors.blueGrey[100],
+  shape: RoundedRectangleBorder(
+    borderRadius: BorderRadius.all(Radius.circular(20.0)),
+  ),
+);
+
+Decoration kDisabledAccountSwitcherBoxDecoration = ShapeDecoration(
+//color: Colors.blueGrey[100],
+shape: RoundedRectangleBorder(
+borderRadius: BorderRadius.all(Radius.circular(20.0)),
+));
 
 List<Color> equityColors = [Colors.purple[400], Colors.purple[300], Colors.purple[200], Colors.purple[100], Colors.purple[50]];
 List<Color> fixedColors = [Colors.indigo[400], Colors.indigo[300], Colors.indigo[200], Colors.indigo[100]];

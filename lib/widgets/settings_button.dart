@@ -11,6 +11,7 @@ class SettingsButton extends StatelessWidget {
     return MaterialButton(
       child: Icon(
         Icons.settings,
+        color: Colors.blue[600],
       ),
       height: 40,
       minWidth: 40,

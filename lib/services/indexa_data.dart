@@ -32,10 +32,10 @@ class IndexaData {
     try {
       var accountPerformanceData = await networkHelper.getData();
       //print('performanceData: ' + accountPerformanceData.toString());
-      if (accountPerformanceData != null && accountNumber != "TestAccount") {
+      if (accountPerformanceData != null && accountNumber != "Test") {
         //print(accountPerformanceData);
         return accountPerformanceData;
-      } else if (accountPerformanceData != null && accountNumber == "TestAccount") {
+      } else if (accountPerformanceData != null && accountNumber == "Test") {
         accountPerformanceData['return']['total_amount'] = 9999.99;
         accountPerformanceData['return']['investment'] = 1000.00;
         return accountPerformanceData;
