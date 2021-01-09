@@ -168,8 +168,6 @@ class _RootScreenState extends State<RootScreen> {
   }
 
   void _onTappedBar(int value) {
-    Provider.of<BottomNavigationBarProvider>(context, listen: false)
-        .currentIndex = value;
     _pageController.animateToPage(value,
         duration: Duration(milliseconds: 500), curve: Curves.ease);
   }
