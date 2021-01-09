@@ -13,6 +13,7 @@ import 'package:indexa_dashboard/widgets/portfolio_legend.dart';
 import 'package:indexa_dashboard/widgets/profit_popup.dart';
 import 'package:indexa_dashboard/widgets/build_account_switcher.dart';
 import 'package:indexa_dashboard/models/account_dropdown_items.dart';
+import 'package:indexa_dashboard/widgets/settings_button.dart';
 
 const int nbsp = 0x00A0;
 
@@ -74,7 +75,7 @@ class _HomeScreenState extends State<HomeScreen> {
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Text(
@@ -82,8 +83,11 @@ class _HomeScreenState extends State<HomeScreen> {
                     style: kTitleTextStyle,
                     textAlign: TextAlign.left,
                   ),
-                  SizedBox(),
+                  Flexible(
+                    child: Container(),
+                  ),
                   buildAccountSwitcher(currentAccountNumber: currentAccountNumber, currentPage: currentPage, accountDropdownItems: dropdownItems, reloadPage: widget.reloadPage),
+                  SettingsButton(),
                 ],
               ),
             ),

@@ -10,6 +10,7 @@ import 'package:indexa_dashboard/widgets/risk_chart.dart';
 import '../widgets/amounts_chart.dart';
 import 'package:indexa_dashboard/widgets/build_account_switcher.dart';
 import 'package:indexa_dashboard/models/account_dropdown_items.dart';
+import 'package:indexa_dashboard/widgets/settings_button.dart';
 
 class EvolutionScreen extends StatefulWidget {
   const EvolutionScreen({
@@ -76,7 +77,11 @@ class _EvolutionScreenState extends State<EvolutionScreen> {
                     style: kTitleTextStyle,
                     textAlign: TextAlign.left,
                   ),
+                  Flexible(
+                    child: Container(),
+                  ),
                   buildAccountSwitcher(currentAccountNumber: currentAccountNumber, currentPage: currentPage, accountDropdownItems: dropdownItems, reloadPage: widget.reloadPage),
+                  SettingsButton(),
                 ],
               ),
             ),
