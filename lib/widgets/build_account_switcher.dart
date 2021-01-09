@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:indexa_dashboard/tools/constants.dart';
 
 Widget buildAccountSwitcher({int currentAccountNumber, int currentPage, List<DropdownMenuItem> accountDropdownItems, Function reloadPage}) {
   return Column(
@@ -29,6 +30,7 @@ Widget buildAccountSwitcher({int currentAccountNumber, int currentPage, List<Dro
               //isExpanded: true,
               value: currentAccountNumber,
               items: accountDropdownItems,
+              style: kAccountSwitcherTextStyle,
               // selectedItemBuilder: (BuildContext context) {
               //   return accountDropdownItems.map<Widget>((DropdownMenuItem item) {
               //     return item.child;

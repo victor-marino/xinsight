@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:indexa_dashboard/models/account.dart';
+import 'package:indexa_dashboard/screens/home_screen.dart';
+import 'package:indexa_dashboard/screens/evolution_screen.dart';
 import 'package:indexa_dashboard/screens/projection_screen.dart';
-import 'evolution_screen.dart';
-import 'home_screen.dart';
+import 'package:indexa_dashboard/screens/planning_screen.dart';
+import 'package:indexa_dashboard/screens/stats_screen.dart';
 import 'settings_screen.dart';
 import 'package:syncfusion_flutter_core/core.dart';
 import 'package:indexa_dashboard/tools/constants.dart';
@@ -62,6 +64,11 @@ class _RootScreenState extends State<RootScreen> {
         builder: (BuildContext context) => RootScreen(token: widget.token, accountNumber: accountNumber, pageNumber: pageNumber)));
   }
 
+  void loadSettings() {
+    Navigator.pushReplacement(context, MaterialPageRoute(
+        builder: (BuildContext context) => SettingsScreen())
+    );
+  }
   Future<List<String>> getUserAccounts(String token) async {
     IndexaData indexaData = IndexaData(token: token);
     var userAccounts = await indexaData.getUserAccounts();
@@ -86,7 +93,8 @@ class _RootScreenState extends State<RootScreen> {
   void initState() {
     super.initState();
     loadData(widget.accountNumber);
-    _pageController = PageController(initialPage: widget.pageNumber, viewportFraction: 0.99);
+    //_pageController = PageController(initialPage: widget.pageNumber, viewportFraction: 0.99);
+    _pageController = PageController(initialPage: widget.pageNumber, viewportFraction: 1);
   }
 
   @override
@@ -123,7 +131,10 @@ class _RootScreenState extends State<RootScreen> {
                       accountData: snapshot.data, userAccounts: userAccounts, refreshData: refreshData, reloadPage: reloadPage, currentAccountNumber: widget.accountNumber),
                   ProjectionScreen(
                       accountData: snapshot.data, userAccounts: userAccounts, refreshData: refreshData, reloadPage: reloadPage, currentAccountNumber: widget.accountNumber),
-                  SettingsScreen(),
+                  PlanningScreen(
+                      accountData: snapshot.data, userAccounts: userAccounts, refreshData: refreshData, reloadPage: reloadPage, currentAccountNumber: widget.accountNumber),
+                  StatsScreen(
+                      accountData: snapshot.data, userAccounts: userAccounts, refreshData: refreshData, reloadPage: reloadPage, currentAccountNumber: widget.accountNumber),
                 ],
                 onPageChanged: (page) {
                   Provider.of<BottomNavigationBarProvider>(context,

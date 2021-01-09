@@ -16,7 +16,7 @@ class IndexaData {
         for (var account in userData['accounts']) {
           userAccounts.add(account['account_number'].toString());
         }
-        userAccounts.add("TestAccount");
+        userAccounts.add("Test");
         return userAccounts;
       }
     } on Exception catch (e) {

@@ -19,13 +19,13 @@ class MyBottomNavigationBar extends StatelessWidget {
       items: [
         BottomNavigationBarItem(icon: Icon(Icons.home), title: Text('Inicio')),
         BottomNavigationBarItem(
-            icon: Icon(Icons.trending_up), title: Text('Evolución')),
+            icon: Icon(Icons.assessment), title: Text('Evolución')),
         BottomNavigationBarItem(
-            icon: Icon(Icons.assessment), title: Text('Proyección')),
+            icon: Icon(Icons.trending_up), title: Text('Proyección')),
         BottomNavigationBarItem(
-            icon: Icon(Icons.settings), title: Text('Ajustes')),
-//            BottomNavigationBarItem(
-//                icon: Icon(Icons.compare_arrows), title: Text('Transactions'))
+            icon: Icon(Icons.alt_route), title: Text('Plan')),
+        BottomNavigationBarItem(
+            icon: Icon(Icons.history), title: Text('Estadísticas')),
       ],
       onTap: onTapped,
       currentIndex:
