@@ -21,6 +21,30 @@ TextStyle kCardTitleTextStyle = GoogleFonts.roboto(
 TextStyle kCardPrimaryContentTextStyle = GoogleFonts.ubuntu(
   textStyle: TextStyle(
     color: Colors.black,
+    fontSize: 40.0,
+    fontWeight: FontWeight.bold,
+  ),
+);
+
+TextStyle kCardPLTextStyle = GoogleFonts.ubuntu(
+  textStyle: TextStyle(
+    color: Colors.black,
+    fontSize: 20.0,
+    fontWeight: FontWeight.bold,
+  ),
+);
+
+TextStyle kCardPLTextStyleSmaller = GoogleFonts.ubuntu(
+  textStyle: TextStyle(
+    color: Colors.black,
+    fontSize: 20.0,
+    fontWeight: FontWeight.bold,
+  ),
+);
+
+TextStyle kCardPrimaryContentTextStyleSmaller = GoogleFonts.ubuntu(
+  textStyle: TextStyle(
+    color: Colors.black,
     fontSize: 30.0,
     fontWeight: FontWeight.bold,
   ),

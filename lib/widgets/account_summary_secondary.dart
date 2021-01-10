@@ -5,8 +5,8 @@ import 'package:indexa_dashboard/tools/constants.dart';
 import 'package:indexa_dashboard/tools/number_formatting.dart';
 import 'package:indexa_dashboard/models/account.dart';
 
-class AccountSummary extends StatelessWidget {
-  const AccountSummary({
+class AccountSummarySecondary extends StatelessWidget {
+  const AccountSummarySecondary({
     Key key,
     @required this.accountData,
   }) : super(key: key);
@@ -17,58 +17,8 @@ class AccountSummary extends StatelessWidget {
     return Column(
       children: [
         Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Align(
-              alignment: Alignment.topLeft,
-              child: Text(
-                'VALOR',
-                textAlign: TextAlign.left,
-                style: kCardTitleTextStyle,
-              ),
-            ),
-            RichText(
-              text: TextSpan(children: [
-                TextSpan(
-                  text:
-                      getBalanceAsString(accountData.totalAmount).split(',')[0],
-                  style: kCardPrimaryContentTextStyle,
-                ),
-                TextSpan(
-                  text: ',' +
-                      getBalanceAsString(accountData.totalAmount).split(',')[1],
-                  style: kCardSecondaryContentTextStyle,
-                ),
-              ]),
-            ),
-            RichText(
-              text: TextSpan(children: [
-                TextSpan(
-                  text: 'Aportado: ' +
-                      getInvestmentAsString(accountData.investment),
-                  //textAlign: TextAlign.left,
-                  style: kCardSubTextStyle,
-                ),
-              ]),
-            ),
-            RichText(
-              text: TextSpan(children: [
-                // TextSpan(
-                //   text: "Ganancia: ",
-                //   style: kCardSubTextStyle,
-                // ),
-                TextSpan(
-                  text: getPLAsString(accountData.profitLoss),
-                  style: kCardSubTextStyle.copyWith(
-                    color: accountData.profitLossColor,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ]),
-            )
-          ],
-        ),
-        Divider(),
         IntrinsicHeight(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -177,11 +127,29 @@ class AccountSummary extends StatelessWidget {
                     ),
                   ],
                 ),
-              )
+              ),
             ],
           ),
         ),
+            SizedBox(
+              height: 3,
+            ),
+            RichText(
+              text: TextSpan(children: [
+                // TextSpan(
+                //   text: "Ganancia: ",
+                //   style: kCardSubTextStyle,
+                // ),
+                TextSpan(
+                  text: getPLAsString(accountData.profitLoss),
+                  style: kCardSubTextStyle.copyWith(
+                    color: accountData.profitLossColor,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ]),
+            )
       ],
-    );
+    )]);
   }
 }

@@ -9,6 +9,7 @@ class SettingsButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialButton(
+      shape: CircleBorder(),
       child: Icon(
         Icons.settings,
         color: Colors.blue[600],
