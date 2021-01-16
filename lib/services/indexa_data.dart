@@ -25,6 +25,23 @@ class IndexaData {
     }
   }
 
+  Future<dynamic> getAccountInfo(accountNumber) async {
+    String url = '$indexaURL/accounts/FHGNB6LM';
+    //String url = '$indexaURL/accounts/$accountNumber/performance';
+    NetworkHelper networkHelper = NetworkHelper(url, token);
+    try {
+      var accountInfo = await networkHelper.getData();
+      //print('performanceData: ' + accountPerformanceData.toString());
+      if (accountInfo != null) {
+        //print(accountPerformanceData);
+        return accountInfo;
+      }
+    } on Exception catch (e) {
+      print(e);
+      return null;
+    }
+  }
+
   Future<dynamic> getAccountPerformanceData(accountNumber) async {
     String url = '$indexaURL/accounts/FHGNB6LM/performance';
     //String url = '$indexaURL/accounts/$accountNumber/performance';

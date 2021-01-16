@@ -6,6 +6,8 @@ import 'performance_datapoint.dart';
 class Account {
   final accountPerformanceData;
   final accountPortfolioData;
+  final accountInfo;
+  final int _selectedRisk;
   final double _totalAmount;
   final double _investment;
   final double _timeReturn;
@@ -83,8 +85,9 @@ class Account {
     return(newPerformanceSeries);
   }
 
-  Account({@required this.accountPerformanceData, @required this.accountPortfolioData})
-      : _totalAmount = accountPerformanceData['return']['total_amount'].toDouble(),
+  Account({@required this.accountInfo, @required this.accountPerformanceData, @required this.accountPortfolioData})
+      : _selectedRisk = accountInfo['profile']['selected_risk'],
+        _totalAmount = accountPerformanceData['return']['total_amount'].toDouble(),
         //_totalAmount = new DateTime.now().second.toDouble(),
         //_totalAmount = 999999.99,
         _investment = accountPerformanceData['return']['investment'].toDouble(),
@@ -104,6 +107,7 @@ class Account {
         _portfolioData = _createPortfolioData(accountPortfolioData['portfolio'], accountPortfolioData['comparison']),
         _performanceSeries = _createPerformanceSeries(accountPerformanceData['performance']['period'], accountPerformanceData['performance']['best_return'], accountPerformanceData['performance']['worst_return'], accountPerformanceData['performance']['expected_return'], accountPerformanceData['performance']['real']);
 
+  int get selectedRisk => _selectedRisk;
   double get totalAmount => _totalAmount;
   double get investment => _investment;
   double get profitLoss => _profitLoss;

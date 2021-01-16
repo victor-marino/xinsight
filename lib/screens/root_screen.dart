@@ -79,11 +79,13 @@ class _RootScreenState extends State<RootScreen> {
     Account currentAccount;
     IndexaData indexaData = IndexaData(token: token);
     var userAccounts = await indexaData.getUserAccounts();
+    var currentAccountInfo =
+    await indexaData.getAccountInfo(userAccounts[accountNumber]);
     var currentAccountPerformanceData =
         await indexaData.getAccountPerformanceData(userAccounts[accountNumber]);
     var currentAccountPortfolioData =
         await indexaData.getAccountPortfolioData(userAccounts[accountNumber]);
-    currentAccount = Account(
+    currentAccount = Account(accountInfo: currentAccountInfo,
         accountPerformanceData: currentAccountPerformanceData,
         accountPortfolioData: currentAccountPortfolioData);
     return currentAccount;

@@ -6,7 +6,7 @@ class RiskChart extends StatelessWidget {
     Key key,
     @required this.risk,
   }) : super(key: key);
-  final double risk;
+  final int risk;
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +61,7 @@ class RiskChart extends StatelessWidget {
                 color: Colors.red)
           ],
           pointers: <GaugePointer>[
-            NeedlePointer(value: risk)
+            NeedlePointer(value: risk.toDouble())
           ],
           annotations: <GaugeAnnotation>[
             GaugeAnnotation(

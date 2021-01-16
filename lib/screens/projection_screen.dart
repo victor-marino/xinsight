@@ -100,6 +100,7 @@ class _ProjectionScreenState extends State<ProjectionScreen> {
                                 context: context,
                               builder: (BuildContext context) {
                                 return AlertDialog(
+                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                                   title: Row(
                                     mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -141,7 +142,7 @@ class _ProjectionScreenState extends State<ProjectionScreen> {
                                   textAlign: TextAlign.left,
                                   style: kCardTitleTextStyle,
                                 ),
-                                RiskChart(risk: 6),
+                                RiskChart(risk: widget.accountData.selectedRisk),
                                 Padding(
                                   padding: const EdgeInsets.all(10.0),
                                   child: Text(
@@ -168,6 +169,7 @@ class _ProjectionScreenState extends State<ProjectionScreen> {
                                 context: context,
                               builder: (BuildContext context) {
                                 return AlertDialog(
+                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                                   title: Row(
                                     mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,

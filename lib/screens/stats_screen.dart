@@ -102,51 +102,7 @@ class _StatsScreenState extends State<StatsScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: <Widget>[
-//                        SizedBox(
-//                          height: 10.0,
-//                        ),
-                        ReusableCard(
-                          childWidget: AccountSummary(accountData: accountData),
-                        ),
-                        SizedBox(
-                          height: 30,
-                        ),
-                        ReusableCard(
-                          childWidget: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: <Widget>[
-                              PortfolioChart(
-                                  portfolioData: accountData.portfolioData),
-                              PortfolioChartLegend(
-                                  portfolioData: accountData.portfolioData),
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          height: 30,
-                        ),
-                        MaterialButton(
-                          height: 40,
-                          minWidth: 40,
-                          materialTapTargetSize:
-                              MaterialTapTargetSize.shrinkWrap,
-                          padding: EdgeInsets.zero,
-                          color: Colors.blue[600],
-                          child: Icon(
-                            Icons.info_outline,
-                            color: Colors.white,
-                          ),
-                          elevation: 5,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          onPressed: () {
-                            showDialog(
-                                context: context,
-                                builder: (BuildContext context) =>
-                                    ProfitPopUp());
-                          },
-                        ),
+
                       ],
                     ),
                   ),

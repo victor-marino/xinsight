@@ -7,10 +7,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../tools/constants.dart';
 import 'package:indexa_dashboard/widgets/amounts_chart.dart';
 import 'package:indexa_dashboard/widgets/account_summary.dart';
-import 'package:indexa_dashboard/widgets/account_summary_primary.dart';
-import 'package:indexa_dashboard/widgets/account_summary_secondary.dart';
 import 'package:indexa_dashboard/widgets/reusable_card.dart';
-import 'package:indexa_dashboard/widgets/reusable_secondary_card.dart';
 import 'package:indexa_dashboard/widgets/portfolio_chart.dart';
 import 'package:indexa_dashboard/widgets/portfolio_legend.dart';
 import 'package:indexa_dashboard/widgets/profit_popup.dart';
@@ -103,9 +100,31 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Padding(
                     padding: const EdgeInsets.all(20),
                     child: Column(
-                      verticalDirection: VerticalDirection.up,
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: <Widget>[
+                       // SizedBox(
+                       //   height: 10.0,
+                       // ),
+                        ReusableCard(
+                          childWidget: AccountSummary(accountData: accountData),
+                        ),
+                        SizedBox(
+                          height: 30,
+                        ),
+                        ReusableCard(
+                          childWidget: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: <Widget>[
+                              PortfolioChart(
+                                  portfolioData: accountData.portfolioData),
+                              PortfolioChartLegend(
+                                  portfolioData: accountData.portfolioData),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 30,
+                        ),
                         MaterialButton(
                           height: 40,
                           minWidth: 40,
@@ -127,35 +146,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                 builder: (BuildContext context) =>
                                     ProfitPopUp());
                           },
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        ReusableCard(
-                          childWidget: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: <Widget>[
-                              PortfolioChart(
-                                  portfolioData: accountData.portfolioData),
-                              PortfolioChartLegend(
-                                  portfolioData: accountData.portfolioData),
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
-                          child: ReusableSecondaryCard(
-                            childWidget: AccountSummarySecondary(accountData: accountData),
-                          ),
-                        ),
-//                        SizedBox(
-//                          height: 10.0,
-//                        ),
-                        ReusableCard(
-                          childWidget: AccountSummaryPrimary(accountData: accountData),
                         ),
                       ],
                     ),

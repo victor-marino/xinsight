@@ -29,7 +29,7 @@ TextStyle kCardPrimaryContentTextStyle = GoogleFonts.ubuntu(
 TextStyle kCardPLTextStyle = GoogleFonts.ubuntu(
   textStyle: TextStyle(
     color: Colors.black,
-    fontSize: 20.0,
+    fontSize: 25.0,
     fontWeight: FontWeight.bold,
   ),
 );
