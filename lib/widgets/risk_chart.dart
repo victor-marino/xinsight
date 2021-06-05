@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 
@@ -10,7 +11,9 @@ class RiskChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SfRadialGauge(
+    return SfLinearGauge(
+      //animateAxis: true,
+      //animateRange: true,
       // title: GaugeTitle(
       //   text: 'Tu riesgo',
       //   textStyle: TextStyle(
@@ -18,64 +21,45 @@ class RiskChart extends StatelessWidget {
       //     fontWeight: FontWeight.bold,
       //   )
       // ),
-      enableLoadingAnimation: true,
+      //enableLoadingAnimation: true,
       animationDuration: 1000,
-      axes: <RadialAxis>[
-        RadialAxis(
-          startAngle: 180,
-          endAngle: 0,
-          radiusFactor: 0.8,
-          minimum: 1,
-          maximum: 10,
-          labelsPosition: ElementsPosition.outside,
-          ticksPosition: ElementsPosition.outside,
-          interval: 1,
-          canScaleToFit: false,
-          minorTicksPerInterval: 0,
-          majorTickStyle: MinorTickStyle(
-              length: 0.05,
-              lengthUnit: GaugeSizeUnit.factor,
-              thickness: 0.5,
-              color: Colors.black),
-          axisLabelStyle: GaugeTextStyle(
-            fontSize: 15,
-          ),
-          ranges: <GaugeRange>[
-            GaugeRange(
-                startWidth: 50,
-                endWidth: 50,
-                startValue: 0,
-                endValue: 4,
-                color: Colors.green),
-            GaugeRange(
-                startWidth: 50,
-                endWidth: 50,
-                startValue: 4,
-                endValue: 7,
-                color: Colors.orange),
-            GaugeRange(
-                startWidth: 50,
-                endWidth: 50,
-                startValue: 7,
-                endValue: 10,
-                color: Colors.red)
-          ],
-          pointers: <GaugePointer>[
-            NeedlePointer(value: risk.toDouble())
-          ],
-          annotations: <GaugeAnnotation>[
-            GaugeAnnotation(
-                widget: Text(
-                  '${risk.toStringAsFixed(0)}/10',
-                  style: TextStyle(
-                      fontSize: 40,
-                      fontWeight: FontWeight.bold),
-                ),
-                angle: 90,
-                positionFactor: 0.3)
-          ],
-        ),
+      minimum: 1,
+      maximum: 10,
+
+      interval: 1,
+      minorTicksPerInterval: 0,
+      ranges: <LinearGaugeRange>[
+        LinearGaugeRange(
+            startWidth: 5,
+            endWidth: 5,
+            startValue: 0,
+            endValue: 4,
+            rangeShapeType: LinearRangeShapeType.curve,
+            position: LinearElementPosition.cross,
+            color: Colors.green),
+        LinearGaugeRange(
+            startWidth: 5,
+            endWidth: 5,
+            startValue: 4,
+            endValue: 7,
+            rangeShapeType: LinearRangeShapeType.curve,
+            position: LinearElementPosition.cross,
+            color: Colors.orange),
+        LinearGaugeRange(
+            startWidth: 5,
+            endWidth: 5,
+            startValue: 7,
+            endValue: 10,
+            rangeShapeType: LinearRangeShapeType.curve,
+            position: LinearElementPosition.cross,
+            color: Colors.red)
       ],
+      markerPointers: [LinearShapePointer(
+          value: risk.toDouble(),
+        shapeType: LinearShapePointerType.invertedTriangle,
+      )],
+      //barPointers: [LinearBarPointer(value: 8)],
+
     );
   }
 }
