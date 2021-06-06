@@ -110,8 +110,7 @@ class _ProjectionScreenState extends State<ProjectionScreen> {
                                 textAlign: TextAlign.left,
                                 style: kCardTitleTextStyle,
                               ),
-                              RiskChart(
-                                  risk: widget.accountData.selectedRisk),
+                              RiskChart(risk: widget.accountData.selectedRisk),
                               // Padding(
                               //   padding: const EdgeInsets.all(10.0),
                               //   child: Text(
@@ -151,18 +150,19 @@ class _ProjectionScreenState extends State<ProjectionScreen> {
                                 // 'Rentabilidad anual media esperada: ${getPLPercentAsString(widget.accountData.expectedReturn)}\n95% de probabilidad de estar entre ambos escenarios.',
                                 //'Rentabilidad anual media esperada: ${getPLPercentAsString(widget.accountData.expectedReturn)}',
                                 child: RichText(
-                                    text: TextSpan(
-                                  children: [
-                                    TextSpan(
-                                        text:
-                                            "Rentabilidad anual media esperada: ",
-                                        style: kCardSubTextStyle),
-                                    TextSpan(
-                                        text: getPLPercentAsString(
-                                            widget.accountData.expectedReturn),
-                                        style: kCardSecondaryContentTextStyle)
-                                  ],
-                                )),
+                                  text: TextSpan(
+                                    children: [
+                                      TextSpan(
+                                          text:
+                                              "Rentabilidad anual media esperada: ",
+                                          style: kCardSubTextStyle),
+                                      TextSpan(
+                                          text: getPLPercentAsString(widget
+                                              .accountData.expectedReturn),
+                                          style: kCardSecondaryContentTextStyle)
+                                    ],
+                                  ),
+                                ),
                               ),
                               // Container(
                               //   alignment: Alignment.bottomRight,

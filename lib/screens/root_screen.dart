@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:indexa_dashboard/models/account.dart';
-import 'package:indexa_dashboard/screens/home_screen.dart';
+import 'package:indexa_dashboard/screens/portfolio_screen.dart';
 import 'package:indexa_dashboard/screens/evolution_screen.dart';
 import 'package:indexa_dashboard/screens/projection_screen.dart';
-import 'package:indexa_dashboard/screens/planning_screen.dart';
+import 'package:indexa_dashboard/screens/transactions_screen.dart';
 import 'package:indexa_dashboard/screens/stats_screen.dart';
 import 'settings_screen.dart';
 import 'package:syncfusion_flutter_core/core.dart';
@@ -128,12 +128,12 @@ class _RootScreenState extends State<RootScreen> {
                 controller: _pageController,
                 //physics: AlwaysScrollableScrollPhysics(),
                 children: <Widget>[
-                  HomeScreen(accountData: snapshot.data, userAccounts: userAccounts, refreshData: refreshData, reloadPage: reloadPage, currentAccountNumber: widget.accountNumber),
+                  PortfolioScreen(accountData: snapshot.data, userAccounts: userAccounts, refreshData: refreshData, reloadPage: reloadPage, currentAccountNumber: widget.accountNumber),
                   EvolutionScreen(
                       accountData: snapshot.data, userAccounts: userAccounts, refreshData: refreshData, reloadPage: reloadPage, currentAccountNumber: widget.accountNumber),
-                  ProjectionScreen(
+                  TransactionsScreen(
                       accountData: snapshot.data, userAccounts: userAccounts, refreshData: refreshData, reloadPage: reloadPage, currentAccountNumber: widget.accountNumber),
-                  PlanningScreen(
+                  ProjectionScreen(
                       accountData: snapshot.data, userAccounts: userAccounts, refreshData: refreshData, reloadPage: reloadPage, currentAccountNumber: widget.accountNumber),
                   StatsScreen(
                       accountData: snapshot.data, userAccounts: userAccounts, refreshData: refreshData, reloadPage: reloadPage, currentAccountNumber: widget.accountNumber),

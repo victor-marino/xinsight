@@ -17,8 +17,8 @@ import 'package:indexa_dashboard/widgets/settings_button.dart';
 
 const int nbsp = 0x00A0;
 
-class PlanningScreen extends StatefulWidget {
-  const PlanningScreen({
+class TransactionsScreen extends StatefulWidget {
+  const TransactionsScreen({
     Key key,
     this.accountData,
     this.userAccounts,
@@ -33,10 +33,10 @@ class PlanningScreen extends StatefulWidget {
   final int currentAccountNumber;
 
   @override
-  _PlanningScreenState createState() => _PlanningScreenState();
+  _TransactionsScreenState createState() => _TransactionsScreenState();
 }
 
-class _PlanningScreenState extends State<PlanningScreen> {
+class _TransactionsScreenState extends State<TransactionsScreen> {
   int currentPage = 3;
   Account accountData;
   Function refreshData;
@@ -79,7 +79,7 @@ class _PlanningScreenState extends State<PlanningScreen> {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Text(
-                    'Plan',
+                    'Movimientos',
                     style: kTitleTextStyle,
                     textAlign: TextAlign.left,
                   ),

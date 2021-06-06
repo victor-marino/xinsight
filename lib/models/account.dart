@@ -21,6 +21,8 @@ class Account {
   final double _worstReturn1yr;
   final double _bestReturn10yr;
   final double _worstReturn10yr;
+  final bool _hasActiveRewards;
+  final double _feeFreeAmount;
   final List<AmountsDataPoint> _amountsSeries;
   final List<PortfolioDataPoint> _portfolioData;
   final List<PerformanceDataPoint> _performanceSeries;
@@ -103,6 +105,8 @@ class Account {
         _profitLoss = accountPerformanceData['return']['pl'].toDouble(),
         _profitLossColor = _obtainColor(accountPerformanceData['return']['pl'].toDouble()),
         //_profitLoss = 9999.99
+        _hasActiveRewards = accountInfo['has_active_rewards'],
+        _feeFreeAmount = accountInfo['fee_free_amount'].toDouble(),
         _amountsSeries = _createAmountsSeries(accountPerformanceData['return']['net_amounts'], accountPerformanceData['return']['total_amounts']),
         _portfolioData = _createPortfolioData(accountPortfolioData['portfolio'], accountPortfolioData['comparison']),
         _performanceSeries = _createPerformanceSeries(accountPerformanceData['performance']['period'], accountPerformanceData['performance']['best_return'], accountPerformanceData['performance']['worst_return'], accountPerformanceData['performance']['expected_return'], accountPerformanceData['performance']['real']);
@@ -121,6 +125,8 @@ class Account {
   Color get moneyReturnColor => _moneyReturnColor;
   Color get timeReturnColor => _timeReturnColor;
   Color get profitLossColor => _profitLossColor;
+  bool get hasActiveRewards => _hasActiveRewards;
+  double get feeFreeAmount => _feeFreeAmount;
   List<AmountsDataPoint> get amountsSeries => _amountsSeries;
   List<PortfolioDataPoint> get portfolioData => _portfolioData;
   List<PerformanceDataPoint> get performanceSeries => _performanceSeries;

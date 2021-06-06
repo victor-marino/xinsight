@@ -110,7 +110,7 @@ class _EvolutionScreenState extends State<EvolutionScreen> {
                               Container(
                                 alignment: Alignment.center,
                                 child: Text(
-                                  "Utiliza dos dedos para hacer zoom",
+                                  "Toca con dos dedos para ampliar",
                                   textAlign: TextAlign.center,
                                   style: kCardSubTextStyle,
                                 ),
@@ -119,7 +119,21 @@ class _EvolutionScreenState extends State<EvolutionScreen> {
                           ),
                         ),
                         SizedBox(
-                          height: 30,
+                          height: 20,
+                        ),
+                        ReusableCard(
+                          childWidget: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "RENTABILIDADES",
+                                textAlign: TextAlign.left,
+                                style: kCardTitleTextStyle,
+                              ),
+                              Container(),
+                            ],
+                          ),
                         ),
                       ],
                     ),

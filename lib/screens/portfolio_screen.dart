@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/widgets.dart';
+import 'package:indexa_dashboard/tools/number_formatting.dart';
 import '../models/account.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../tools/constants.dart';
@@ -17,8 +18,8 @@ import 'package:indexa_dashboard/widgets/settings_button.dart';
 
 const int nbsp = 0x00A0;
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({
+class PortfolioScreen extends StatefulWidget {
+  const PortfolioScreen({
     Key key,
     this.accountData,
     this.userAccounts,
@@ -33,10 +34,10 @@ class HomeScreen extends StatefulWidget {
   final int currentAccountNumber;
 
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  _PortfolioScreenState createState() => _PortfolioScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _PortfolioScreenState extends State<PortfolioScreen> {
   int currentPage = 0;
   Account accountData;
   Function refreshData;
@@ -130,27 +131,45 @@ class _HomeScreenState extends State<HomeScreen> {
                         SizedBox(
                           height: 20,
                         ),
-                        MaterialButton(
-                          height: 40,
-                          minWidth: 40,
-                          materialTapTargetSize:
-                          MaterialTapTargetSize.shrinkWrap,
-                          padding: EdgeInsets.zero,
-                          color: Colors.blue[600],
-                          child: Icon(
-                            Icons.info_outline,
-                            color: Colors.white,
-                          ),
-                          elevation: 5,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          onPressed: () {
-                            showDialog(
-                                context: context,
-                                builder: (BuildContext context) =>
-                                    ProfitPopUp());
-                          },
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            RichText(
+                                text: TextSpan(
+                                  children: [
+                                    TextSpan(
+                                        text:
+                                        "Activos gestionados gratis: ",
+                                        style: kCardSubTextStyle),
+                                    TextSpan(
+                                        //text: "10.000€",
+                                      text: getInvestmentAsString(widget.accountData.feeFreeAmount),
+                                        style: kCardSecondaryContentTextStyle)
+                                  ],
+                                )),
+                            MaterialButton(
+                              height: 40,
+                              minWidth: 40,
+                              materialTapTargetSize:
+                              MaterialTapTargetSize.shrinkWrap,
+                              padding: EdgeInsets.zero,
+                              color: Colors.blue[600],
+                              child: Icon(
+                                Icons.info_outline,
+                                color: Colors.white,
+                              ),
+                              elevation: 5,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              onPressed: () {
+                                showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) =>
+                                        ProfitPopUp());
+                              },
+                            ),
+                          ],
                         ),
                       ],
                     ),

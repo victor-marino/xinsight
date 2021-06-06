@@ -5,7 +5,7 @@ const String SYNCFUSION_LICENSE = 'NT8mJyc2IWhia31hfWN9Z2doYmF8YGJ8ampqanNiYmlma
 
 TextStyle kTitleTextStyle = GoogleFonts.oxygen(
   textStyle: TextStyle(
-    fontSize: 35.0,
+    fontSize: 33.0,
     color: Colors.black,
     fontWeight: FontWeight.bold,
   ),
