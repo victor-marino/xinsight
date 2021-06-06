@@ -80,8 +80,13 @@ class _ProjectionScreenState extends State<ProjectionScreen> {
                   Flexible(
                     child: Container(),
                   ),
-                  buildAccountSwitcher(currentAccountNumber: currentAccountNumber, currentPage: currentPage, accountDropdownItems: dropdownItems, reloadPage: widget.reloadPage),
-                  SettingsButton(),                ],
+                  buildAccountSwitcher(
+                      currentAccountNumber: currentAccountNumber,
+                      currentPage: currentPage,
+                      accountDropdownItems: dropdownItems,
+                      reloadPage: widget.reloadPage),
+                  SettingsButton(),
+                ],
               ),
             ),
             Expanded(
@@ -96,123 +101,87 @@ class _ProjectionScreenState extends State<ProjectionScreen> {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: <Widget>[
                         ReusableCard(
-                          childWidget: InkWell(
-                            // onTap: () {
-                            //   showDialog(
-                            //     context: context,
-                            //   builder: (BuildContext context) {
-                            //     return AlertDialog(
-                            //       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                            //       title: Row(
-                            //         mainAxisAlignment:
-                            //         MainAxisAlignment.spaceBetween,
-                            //         children: [
-                            //           Text(
-                            //             'Riesgo',
-                            //             //style: kPopUpTitleTextStyle,
-                            //           ),
-                            //           Icon(
-                            //             Icons.info_outline,
-                            //             color: Colors.black54,
-                            //           ),
-                            //         ],
-                            //       ),
-                            //       content: Text(
-                            //         'Recuerda que estos cálculos son expectativas, por lo que no hay ninguna garantía ni seguridad de que las rentabilidades acaben en el rango indicado.\n\nLos mercados pueden ser volátiles en el corto plazo, pero tienden a revertir a la media y crecer en el largo plazo.',
-                            //         style: kPopUpNormalTextStyle,
-                            //       ),
-                            //       contentPadding: EdgeInsets.fromLTRB(
-                            //           24, 24, 24, 0),
-                            //       actions: [
-                            //         FlatButton(
-                            //           child: Text('OK'),
-                            //           onPressed: () {
-                            //             Navigator.of(context).pop();
-                            //           },
-                            //         ),
-                            //       ],
-                            //     );
-                            //   }
-                            //  );
-                            //},
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Text(
-                                  'RIESGO',
-                                  textAlign: TextAlign.left,
-                                  style: kCardTitleTextStyle,
-                                ),
-                                RiskChart(risk: widget.accountData.selectedRisk),
-                                // Padding(
-                                //   padding: const EdgeInsets.all(10.0),
-                                //   child: Text(
-                                //       //'Rentabilidad anual media esperada: ${getPLPercentAsString(widget.accountData.expectedReturn)}.\n\nProbabilidad del 95 %:\n· Entre ${getPLPercentAsString(widget.accountData.worstReturn1yr)} y ${getPLPercentAsString(widget.accountData.bestReturn1yr)} al cabo de 1 año.\n· Entre ${getPLPercentAsString(widget.accountData.worstReturn10yr)} y ${getPLPercentAsString(widget.accountData.bestReturn10yr)} al cabo de 10 años.'),
-                                //       'Rentabilidad anual media esperada: ${getPLPercentAsString(widget.accountData.expectedReturn)}'),
-                                // ),
-                                // Container(
-                                //   alignment: Alignment.bottomRight,
-                                //   child: Icon(
-                                //     Icons.info_outline,
-                                //     color: Colors.grey,
-                                //   ),
-                                // ),
-                              ],
-                            ),
+                          childWidget: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text(
+                                'RIESGO',
+                                textAlign: TextAlign.left,
+                                style: kCardTitleTextStyle,
+                              ),
+                              RiskChart(
+                                  risk: widget.accountData.selectedRisk),
+                              // Padding(
+                              //   padding: const EdgeInsets.all(10.0),
+                              //   child: Text(
+                              //       //'Rentabilidad anual media esperada: ${getPLPercentAsString(widget.accountData.expectedReturn)}.\n\nProbabilidad del 95 %:\n· Entre ${getPLPercentAsString(widget.accountData.worstReturn1yr)} y ${getPLPercentAsString(widget.accountData.bestReturn1yr)} al cabo de 1 año.\n· Entre ${getPLPercentAsString(widget.accountData.worstReturn10yr)} y ${getPLPercentAsString(widget.accountData.bestReturn10yr)} al cabo de 10 años.'),
+                              //       'Rentabilidad anual media esperada: ${getPLPercentAsString(widget.accountData.expectedReturn)}'),
+                              // ),
+                              // Container(
+                              //   alignment: Alignment.bottomRight,
+                              //   child: Icon(
+                              //     Icons.info_outline,
+                              //     color: Colors.grey,
+                              //   ),
+                              // ),
+                            ],
                           ),
                         ),
                         SizedBox(
-                          height: 30,
+                          height: 20,
                         ),
                         ReusableCard(
-                          childWidget: InkWell(
-                            onTap: () {
-                              showDialog(
-                                context: context,
-                              builder: (BuildContext context) {
-                                return ExpectationsPopUp();
-                              }
-                              );
-                            },
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Text(
-                                  'PROYECCIÓN',
-                                  textAlign: TextAlign.left,
-                                  style: kCardTitleTextStyle,
-                                ),
-                                PerformanceChart(
-                                    performanceSeries:
-                                        accountData.performanceSeries),
-                                Padding(
-                                  padding: const EdgeInsets.all(10),
-                                  child: Text(
-                                  //  'Rentabilidad anual media esperada: ${getPLPercentAsString(widget.accountData.expectedReturn)}\nProbabilidades:\n· Por encima del escenario negativo: 97,5%\n· Por encima del escenario positivo: 2,5%\n· Entre ambos escenarios: 95%.',
-                                    'Rentabilidad anual media esperada: ${getPLPercentAsString(widget.accountData.expectedReturn)}\n95% de probabilidad de estar entre ambos escenarios.',
-                                  ),
-                                ),
-                                // Container(
-                                //   alignment: Alignment.bottomRight,
-                                //   child: Icon(
-                                //     Icons.info_outline,
-                                //     color: Colors.grey,
-                                //   ),
-                                // ),
-                              ],
-                            ),
+                          childWidget: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text(
+                                'PROYECCIÓN',
+                                textAlign: TextAlign.left,
+                                style: kCardTitleTextStyle,
+                              ),
+                              PerformanceChart(
+                                  performanceSeries:
+                                      accountData.performanceSeries),
+                              Padding(
+                                padding: const EdgeInsets.all(10),
+                                //child: Text(
+                                //  'Rentabilidad anual media esperada: ${getPLPercentAsString(widget.accountData.expectedReturn)}\nProbabilidades:\n· Por encima del escenario negativo: 97,5%\n· Por encima del escenario positivo: 2,5%\n· Entre ambos escenarios: 95%.',
+                                // 'Rentabilidad anual media esperada: ${getPLPercentAsString(widget.accountData.expectedReturn)}\n95% de probabilidad de estar entre ambos escenarios.',
+                                //'Rentabilidad anual media esperada: ${getPLPercentAsString(widget.accountData.expectedReturn)}',
+                                child: RichText(
+                                    text: TextSpan(
+                                  children: [
+                                    TextSpan(
+                                        text:
+                                            "Rentabilidad anual media esperada: ",
+                                        style: kCardSubTextStyle),
+                                    TextSpan(
+                                        text: getPLPercentAsString(
+                                            widget.accountData.expectedReturn),
+                                        style: kCardSecondaryContentTextStyle)
+                                  ],
+                                )),
+                              ),
+                              // Container(
+                              //   alignment: Alignment.bottomRight,
+                              //   child: Icon(
+                              //     Icons.info_outline,
+                              //     color: Colors.grey,
+                              //   ),
+                              // ),
+                            ],
                           ),
                         ),
                         SizedBox(
-                          height: 30,
+                          height: 20,
                         ),
                         MaterialButton(
                           height: 40,
                           minWidth: 40,
                           materialTapTargetSize:
-                          MaterialTapTargetSize.shrinkWrap,
+                              MaterialTapTargetSize.shrinkWrap,
                           padding: EdgeInsets.zero,
                           color: Colors.blue[600],
                           child: Icon(
@@ -242,5 +211,3 @@ class _ProjectionScreenState extends State<ProjectionScreen> {
     );
   }
 }
-
-

@@ -79,7 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Text(
-                    'Inicio',
+                    'Cartera',
                     style: kTitleTextStyle,
                     textAlign: TextAlign.left,
                   ),
@@ -109,12 +109,17 @@ class _HomeScreenState extends State<HomeScreen> {
                           childWidget: AccountSummary(accountData: accountData),
                         ),
                         SizedBox(
-                          height: 30,
+                          height: 20,
                         ),
                         ReusableCard(
                           childWidget: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
+                              Text(
+                                "DISTRIBUCIÓN",
+                                style: kCardTitleTextStyle,
+                              ),
                               PortfolioChart(
                                   portfolioData: accountData.portfolioData),
                               PortfolioChartLegend(
@@ -123,7 +128,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                         SizedBox(
-                          height: 30,
+                          height: 20,
                         ),
                         MaterialButton(
                           height: 40,

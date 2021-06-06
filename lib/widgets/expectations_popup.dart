@@ -25,7 +25,7 @@ class ExpectationsPopUp extends StatelessWidget {
         ],
       ),
       content: Text(
-        'Recuerda que estos cálculos son expectativas, por lo que no hay ninguna garantía ni seguridad de que las rentabilidades acaben en el rango indicado.\n\nLos mercados pueden ser volátiles en el corto plazo, pero tienden a revertir a la media y crecer en el largo plazo.',
+        'Recuerda que estos cálculos son expectativas, por lo que no hay ninguna garantía ni seguridad de que las rentabilidades acaben en el rango indicado. Calculamos que hay un 95% de probabilidad de que tu rentabilidad esté comprendida entre el escenario positivo y el negativo.\n\nTen en cuenta que los mercados pueden ser volátiles en el corto plazo, pero tienden a revertir a la media y crecer en el largo plazo.',
         style: kPopUpNormalTextStyle,
       ),
       contentPadding: EdgeInsets.fromLTRB(

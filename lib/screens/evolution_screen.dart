@@ -96,8 +96,27 @@ class _EvolutionScreenState extends State<EvolutionScreen> {
                     child: Column(
                       children: <Widget>[
                         ReusableCard(
-                          childWidget: AmountsChart(
-                              amountsSeries: accountData.amountsSeries),
+                          childWidget: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "EVOLUCIÓN",
+                                textAlign: TextAlign.left,
+                                style: kCardTitleTextStyle,
+                              ),
+                              AmountsChart(
+                                  amountsSeries: accountData.amountsSeries),
+                              Container(
+                                alignment: Alignment.center,
+                                child: Text(
+                                  "Utiliza dos dedos para hacer zoom",
+                                  textAlign: TextAlign.center,
+                                  style: kCardSubTextStyle,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                         SizedBox(
                           height: 30,
