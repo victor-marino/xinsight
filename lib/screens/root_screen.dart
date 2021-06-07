@@ -13,16 +13,21 @@ import '../services/indexa_data.dart';
 import 'package:provider/provider.dart';
 import '../tools/bottom_navigation_bar_provider.dart';
 import '../widgets/bottom_navigation_bar.dart';
+import '../widgets/build_account_switcher.dart';
+import '../models/account_dropdown_items.dart';
+import '../widgets/settings_button.dart';
 
 class RootScreen extends StatefulWidget {
   RootScreen({
     this.token,
     this.accountNumber,
     this.pageNumber,
+    this.previousUserAccounts,
   });
   final String token;
   final int accountNumber;
   final int pageNumber;
+  final List<String> previousUserAccounts;
 
   @override
   _RootScreenState createState() => _RootScreenState();
@@ -34,10 +39,17 @@ class _RootScreenState extends State<RootScreen> {
   List<String> userAccounts = [];
   Future<Account> accountData;
 
+  List<String> pageTitles = ["Cartera", "Evolución", "Movimientos", "Proyección", "Estadísticas"];
+
+  List<DropdownMenuItem> dropdownItems = AccountDropdownItems(userAccounts: ["Loading..."]).dropdownItems;
+  //List<DropdownMenuItem> dropdownItems = [];
+
+
   bool reloading = false;
 
   Future<void> loadData(int accountNumber) async {
     userAccounts = await getUserAccounts(widget.token);
+    //dropdownItems = AccountDropdownItems(userAccounts: userAccounts).dropdownItems;
     setState(() {
       accountData = getAccountData(widget.token, accountNumber);
     });
@@ -60,8 +72,10 @@ class _RootScreenState extends State<RootScreen> {
   }
 
   void reloadPage(int accountNumber, int pageNumber) async {
+    pageNumber = _pageController.page.toInt();
+    print(pageNumber);
     Navigator.pushReplacement(context, MaterialPageRoute(
-        builder: (BuildContext context) => RootScreen(token: widget.token, accountNumber: accountNumber, pageNumber: pageNumber)));
+        builder: (BuildContext context) => RootScreen(token: widget.token, accountNumber: accountNumber, pageNumber: pageNumber, previousUserAccounts: userAccounts)));
   }
 
   void loadSettings() {
@@ -72,6 +86,7 @@ class _RootScreenState extends State<RootScreen> {
   Future<List<String>> getUserAccounts(String token) async {
     IndexaData indexaData = IndexaData(token: token);
     var userAccounts = await indexaData.getUserAccounts();
+    dropdownItems = AccountDropdownItems(userAccounts: userAccounts).dropdownItems;
     return userAccounts;
   }
 
@@ -94,6 +109,10 @@ class _RootScreenState extends State<RootScreen> {
   @override
   void initState() {
     super.initState();
+    if (widget.previousUserAccounts != null) {
+      userAccounts = widget.previousUserAccounts;
+      dropdownItems = AccountDropdownItems(userAccounts: widget.previousUserAccounts).dropdownItems;
+    }
     loadData(widget.accountNumber);
     //_pageController = PageController(initialPage: widget.pageNumber, viewportFraction: 0.99);
     _pageController = PageController(initialPage: widget.pageNumber, viewportFraction: 1);
@@ -115,6 +134,24 @@ class _RootScreenState extends State<RootScreen> {
           statusBarBrightness: Brightness.light, // iOS
           statusBarIconBrightness: Brightness.dark), // Android
       child: Scaffold(
+        appBar: AppBar(
+          titleSpacing: 20,
+          backgroundColor: Theme.of(context).canvasColor,
+          foregroundColor: Theme.of(context).canvasColor,
+          elevation: 0,
+          toolbarHeight: 100,
+          title: Text(
+            pageTitles[Provider.of<BottomNavigationBarProvider>(context,
+                listen: true)
+                .currentIndex],
+            style: kTitleTextStyle,
+          ),
+          actions: <Widget>[
+            buildAccountSwitcher(currentAccountNumber: widget.accountNumber, currentPage: widget.pageNumber, accountDropdownItems: dropdownItems, reloadPage: reloadPage),
+            SettingsButton(),
+            SizedBox(width: 10)
+          ],
+        ),
         body: FutureBuilder<Account>(
           future: accountData,
           builder: (BuildContext context, AsyncSnapshot<Account> snapshot) {

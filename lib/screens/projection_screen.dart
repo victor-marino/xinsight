@@ -66,29 +66,29 @@ class _ProjectionScreenState extends State<ProjectionScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Text(
-                    'Proyección',
-                    style: kTitleTextStyle,
-                    textAlign: TextAlign.left,
-                  ),
-                  Flexible(
-                    child: Container(),
-                  ),
-                  buildAccountSwitcher(
-                      currentAccountNumber: currentAccountNumber,
-                      currentPage: currentPage,
-                      accountDropdownItems: dropdownItems,
-                      reloadPage: widget.reloadPage),
-                  SettingsButton(),
-                ],
-              ),
-            ),
+            // Padding(
+            //   padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //     crossAxisAlignment: CrossAxisAlignment.end,
+            //     children: [
+            //       Text(
+            //         'Proyección',
+            //         style: kTitleTextStyle,
+            //         textAlign: TextAlign.left,
+            //       ),
+            //       Flexible(
+            //         child: Container(),
+            //       ),
+            //       buildAccountSwitcher(
+            //           currentAccountNumber: currentAccountNumber,
+            //           currentPage: currentPage,
+            //           accountDropdownItems: dropdownItems,
+            //           reloadPage: widget.reloadPage),
+            //       SettingsButton(),
+            //     ],
+            //   ),
+            // ),
             Expanded(
               child: SmartRefresher(
                 enablePullDown: true,
@@ -96,7 +96,7 @@ class _ProjectionScreenState extends State<ProjectionScreen> {
                 onRefresh: _onRefresh,
                 child: SingleChildScrollView(
                   child: Padding(
-                    padding: const EdgeInsets.all(20),
+                    padding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: <Widget>[
