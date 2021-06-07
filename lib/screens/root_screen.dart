@@ -24,6 +24,7 @@ class RootScreen extends StatefulWidget {
     this.pageNumber,
     this.previousUserAccounts,
   });
+
   final String token;
   final int accountNumber;
   final int pageNumber;
@@ -39,11 +40,18 @@ class _RootScreenState extends State<RootScreen> {
   List<String> userAccounts = [];
   Future<Account> accountData;
 
-  List<String> pageTitles = ["Cartera", "Evolución", "Movimientos", "Proyección", "Estadísticas"];
+  List<String> pageTitles = [
+    "Cartera",
+    "Evolución",
+    "Movimientos",
+    "Proyección",
+    "Estadísticas"
+  ];
 
-  List<DropdownMenuItem> dropdownItems = AccountDropdownItems(userAccounts: ["Loading..."]).dropdownItems;
+  List<DropdownMenuItem> dropdownItems =
+      AccountDropdownItems(userAccounts: [""]).dropdownItems;
+
   //List<DropdownMenuItem> dropdownItems = [];
-
 
   bool reloading = false;
 
@@ -74,19 +82,26 @@ class _RootScreenState extends State<RootScreen> {
   void reloadPage(int accountNumber, int pageNumber) async {
     pageNumber = _pageController.page.toInt();
     print(pageNumber);
-    Navigator.pushReplacement(context, MaterialPageRoute(
-        builder: (BuildContext context) => RootScreen(token: widget.token, accountNumber: accountNumber, pageNumber: pageNumber, previousUserAccounts: userAccounts)));
+    Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+            builder: (BuildContext context) => RootScreen(
+                token: widget.token,
+                accountNumber: accountNumber,
+                pageNumber: pageNumber,
+                previousUserAccounts: userAccounts)));
   }
 
   void loadSettings() {
-    Navigator.pushReplacement(context, MaterialPageRoute(
-        builder: (BuildContext context) => SettingsScreen())
-    );
+    Navigator.pushReplacement(context,
+        MaterialPageRoute(builder: (BuildContext context) => SettingsScreen()));
   }
+
   Future<List<String>> getUserAccounts(String token) async {
     IndexaData indexaData = IndexaData(token: token);
     var userAccounts = await indexaData.getUserAccounts();
-    dropdownItems = AccountDropdownItems(userAccounts: userAccounts).dropdownItems;
+    dropdownItems =
+        AccountDropdownItems(userAccounts: userAccounts).dropdownItems;
     return userAccounts;
   }
 
@@ -95,12 +110,13 @@ class _RootScreenState extends State<RootScreen> {
     IndexaData indexaData = IndexaData(token: token);
     var userAccounts = await indexaData.getUserAccounts();
     var currentAccountInfo =
-    await indexaData.getAccountInfo(userAccounts[accountNumber]);
+        await indexaData.getAccountInfo(userAccounts[accountNumber]);
     var currentAccountPerformanceData =
         await indexaData.getAccountPerformanceData(userAccounts[accountNumber]);
     var currentAccountPortfolioData =
         await indexaData.getAccountPortfolioData(userAccounts[accountNumber]);
-    currentAccount = Account(accountInfo: currentAccountInfo,
+    currentAccount = Account(
+        accountInfo: currentAccountInfo,
         accountPerformanceData: currentAccountPerformanceData,
         accountPortfolioData: currentAccountPortfolioData);
     return currentAccount;
@@ -111,11 +127,14 @@ class _RootScreenState extends State<RootScreen> {
     super.initState();
     if (widget.previousUserAccounts != null) {
       userAccounts = widget.previousUserAccounts;
-      dropdownItems = AccountDropdownItems(userAccounts: widget.previousUserAccounts).dropdownItems;
+      dropdownItems =
+          AccountDropdownItems(userAccounts: widget.previousUserAccounts)
+              .dropdownItems;
     }
     loadData(widget.accountNumber);
     //_pageController = PageController(initialPage: widget.pageNumber, viewportFraction: 0.99);
-    _pageController = PageController(initialPage: widget.pageNumber, viewportFraction: 1);
+    _pageController =
+        PageController(initialPage: widget.pageNumber, viewportFraction: 1);
   }
 
   @override
@@ -140,14 +159,19 @@ class _RootScreenState extends State<RootScreen> {
           foregroundColor: Theme.of(context).canvasColor,
           elevation: 0,
           toolbarHeight: 100,
-          title: Text(
-            pageTitles[Provider.of<BottomNavigationBarProvider>(context,
-                listen: true)
-                .currentIndex],
-            style: kTitleTextStyle,
-          ),
+          title:
+              Text(
+                pageTitles[Provider.of<BottomNavigationBarProvider>(context,
+                    listen: true)
+                    .currentIndex],
+                style: kTitleTextStyle,
+              ),
           actions: <Widget>[
-            buildAccountSwitcher(currentAccountNumber: widget.accountNumber, currentPage: widget.pageNumber, accountDropdownItems: dropdownItems, reloadPage: reloadPage),
+            buildAccountSwitcher(
+                currentAccountNumber: widget.accountNumber,
+                currentPage: widget.pageNumber,
+                accountDropdownItems: dropdownItems,
+                reloadPage: reloadPage),
             SettingsButton(),
             SizedBox(width: 10)
           ],
@@ -165,15 +189,36 @@ class _RootScreenState extends State<RootScreen> {
                 controller: _pageController,
                 //physics: AlwaysScrollableScrollPhysics(),
                 children: <Widget>[
-                  PortfolioScreen(accountData: snapshot.data, userAccounts: userAccounts, refreshData: refreshData, reloadPage: reloadPage, currentAccountNumber: widget.accountNumber),
+                  PortfolioScreen(
+                      accountData: snapshot.data,
+                      userAccounts: userAccounts,
+                      refreshData: refreshData,
+                      reloadPage: reloadPage,
+                      currentAccountNumber: widget.accountNumber),
                   EvolutionScreen(
-                      accountData: snapshot.data, userAccounts: userAccounts, refreshData: refreshData, reloadPage: reloadPage, currentAccountNumber: widget.accountNumber),
+                      accountData: snapshot.data,
+                      userAccounts: userAccounts,
+                      refreshData: refreshData,
+                      reloadPage: reloadPage,
+                      currentAccountNumber: widget.accountNumber),
                   TransactionsScreen(
-                      accountData: snapshot.data, userAccounts: userAccounts, refreshData: refreshData, reloadPage: reloadPage, currentAccountNumber: widget.accountNumber),
+                      accountData: snapshot.data,
+                      userAccounts: userAccounts,
+                      refreshData: refreshData,
+                      reloadPage: reloadPage,
+                      currentAccountNumber: widget.accountNumber),
                   ProjectionScreen(
-                      accountData: snapshot.data, userAccounts: userAccounts, refreshData: refreshData, reloadPage: reloadPage, currentAccountNumber: widget.accountNumber),
+                      accountData: snapshot.data,
+                      userAccounts: userAccounts,
+                      refreshData: refreshData,
+                      reloadPage: reloadPage,
+                      currentAccountNumber: widget.accountNumber),
                   StatsScreen(
-                      accountData: snapshot.data, userAccounts: userAccounts, refreshData: refreshData, reloadPage: reloadPage, currentAccountNumber: widget.accountNumber),
+                      accountData: snapshot.data,
+                      userAccounts: userAccounts,
+                      refreshData: refreshData,
+                      reloadPage: reloadPage,
+                      currentAccountNumber: widget.accountNumber),
                 ],
                 onPageChanged: (page) {
                   Provider.of<BottomNavigationBarProvider>(context,

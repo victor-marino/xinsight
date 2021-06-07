@@ -30,11 +30,11 @@ class PerformanceChart extends StatelessWidget {
           color: Colors.black,
         ),
       ),
-      zoomPanBehavior: ZoomPanBehavior(
-          // Enables pinch zooming
-          enablePinching: true,
-          zoomMode: ZoomMode.x,
-          enablePanning: true),
+      // zoomPanBehavior: ZoomPanBehavior(
+      //     // Enables pinch zooming
+      //     enablePinching: true,
+      //     zoomMode: ZoomMode.x,
+      //     enablePanning: true),
       palette: <Color>[
         Colors.green,
         Colors.red,

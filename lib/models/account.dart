@@ -74,15 +74,25 @@ class Account {
     List<PerformanceDataPoint> newPerformanceSeries = [];
     int currentPeriod = 0;
     double currentRealReturn;
+    double currentRealMonthlyReturn;
     for (var period in performancePeriodList) {
       if (currentPeriod < realPerformanceList.length) {
         currentRealReturn = (realPerformanceList[currentPeriod] - 100).toDouble();
+        if (currentPeriod == 0) {
+          currentRealMonthlyReturn = 0.00;
+        } else {
+          currentRealMonthlyReturn = (realPerformanceList[currentPeriod] - realPerformanceList[currentPeriod - 1]).toDouble();
+        }
       } else {
+        currentRealMonthlyReturn = null;
         currentRealReturn = null;
       }
-      PerformanceDataPoint newPoint = PerformanceDataPoint(date: DateTime.parse(period), bestReturn: (bestPerformanceList[currentPeriod] - 100).toDouble(), worstReturn: (worstPerformanceList[currentPeriod] - 100).toDouble(), expectedReturn: (expectedPerformanceList[currentPeriod] - 100).toDouble(), realReturn: currentRealReturn);
+      PerformanceDataPoint newPoint = PerformanceDataPoint(date: DateTime.parse(period), bestReturn: (bestPerformanceList[currentPeriod] - 100).toDouble(), worstReturn: (worstPerformanceList[currentPeriod] - 100).toDouble(), expectedReturn: (expectedPerformanceList[currentPeriod] - 100).toDouble(), realReturn: currentRealReturn, realMonthlyReturn: currentRealMonthlyReturn);
       newPerformanceSeries.add(newPoint);
-      currentPeriod++;
+      print(currentPeriod);
+      print(period);
+      print(currentRealReturn);
+      print(currentRealMonthlyReturn);
     }
     return(newPerformanceSeries);
   }

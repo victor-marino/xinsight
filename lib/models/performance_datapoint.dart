@@ -4,6 +4,7 @@ class PerformanceDataPoint {
   final double worstReturn;
   final double expectedReturn;
   final double realReturn;
+  final double realMonthlyReturn;
 
-  PerformanceDataPoint({this.date, this.bestReturn, this.worstReturn, this.expectedReturn, this.realReturn});
+  PerformanceDataPoint({this.date, this.bestReturn, this.worstReturn, this.expectedReturn, this.realReturn, this.realMonthlyReturn});
 }

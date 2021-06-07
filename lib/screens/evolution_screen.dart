@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:indexa_dashboard/models/account.dart';
+import 'package:indexa_dashboard/models/performance_datapoint.dart';
 import 'package:indexa_dashboard/tools/number_formatting.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../tools/constants.dart';
@@ -11,6 +12,7 @@ import '../widgets/amounts_chart.dart';
 import 'package:indexa_dashboard/widgets/build_account_switcher.dart';
 import 'package:indexa_dashboard/models/account_dropdown_items.dart';
 import 'package:indexa_dashboard/widgets/settings_button.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
 class EvolutionScreen extends StatefulWidget {
   const EvolutionScreen({
@@ -55,10 +57,12 @@ class _EvolutionScreenState extends State<EvolutionScreen> {
     accountData = widget.accountData;
     refreshData = widget.refreshData;
 
-    dropdownItems = AccountDropdownItems(userAccounts: widget.userAccounts).dropdownItems;
+    dropdownItems =
+        AccountDropdownItems(userAccounts: widget.userAccounts).dropdownItems;
 
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -131,7 +135,30 @@ class _EvolutionScreenState extends State<EvolutionScreen> {
                                 textAlign: TextAlign.left,
                                 style: kCardTitleTextStyle,
                               ),
-                              Container(),
+                              SfCartesianChart(
+                                primaryXAxis: DateTimeAxis(
+                                  //edgeLabelPlacement: EdgeLabelPlacement.shift,
+                                ),
+                                zoomPanBehavior: ZoomPanBehavior(
+                                    // Enables pinch zooming
+                                    enablePinching: true,
+                                    zoomMode: ZoomMode.x,
+                                    enablePanning: true),
+                                series: <
+                                    ChartSeries<PerformanceDataPoint,
+                                        DateTime>>[
+                                  // Renders column chart
+                                  ColumnSeries<PerformanceDataPoint, DateTime>(
+                                    dataSource: accountData.performanceSeries,
+                                    xValueMapper:
+                                        (PerformanceDataPoint performance, _) =>
+                                            performance.date,
+                                    yValueMapper:
+                                        (PerformanceDataPoint performance, _) =>
+                                            performance.realMonthlyReturn,
+                                  ),
+                                ],
+                              ),
                             ],
                           ),
                         ),
