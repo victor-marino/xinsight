@@ -81,7 +81,7 @@ class Account {
         if (currentPeriod == 0) {
           currentRealMonthlyReturn = 0.00;
         } else {
-          currentRealMonthlyReturn = (realPerformanceList[currentPeriod] - realPerformanceList[currentPeriod - 1]).toDouble();
+          currentRealMonthlyReturn = ((realPerformanceList[currentPeriod] - realPerformanceList[currentPeriod - 1]) / 100).toDouble();
         }
       } else {
         currentRealMonthlyReturn = null;
@@ -89,10 +89,7 @@ class Account {
       }
       PerformanceDataPoint newPoint = PerformanceDataPoint(date: DateTime.parse(period), bestReturn: (bestPerformanceList[currentPeriod] - 100).toDouble(), worstReturn: (worstPerformanceList[currentPeriod] - 100).toDouble(), expectedReturn: (expectedPerformanceList[currentPeriod] - 100).toDouble(), realReturn: currentRealReturn, realMonthlyReturn: currentRealMonthlyReturn);
       newPerformanceSeries.add(newPoint);
-      print(currentPeriod);
-      print(period);
-      print(currentRealReturn);
-      print(currentRealMonthlyReturn);
+      currentPeriod++;
     }
     return(newPerformanceSeries);
   }

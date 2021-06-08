@@ -13,6 +13,7 @@ import 'package:indexa_dashboard/widgets/build_account_switcher.dart';
 import 'package:indexa_dashboard/models/account_dropdown_items.dart';
 import 'package:indexa_dashboard/widgets/settings_button.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:indexa_dashboard/widgets/profit_loss_chart.dart';
 
 class EvolutionScreen extends StatefulWidget {
   const EvolutionScreen({
@@ -135,30 +136,7 @@ class _EvolutionScreenState extends State<EvolutionScreen> {
                                 textAlign: TextAlign.left,
                                 style: kCardTitleTextStyle,
                               ),
-                              SfCartesianChart(
-                                primaryXAxis: DateTimeAxis(
-                                  //edgeLabelPlacement: EdgeLabelPlacement.shift,
-                                ),
-                                zoomPanBehavior: ZoomPanBehavior(
-                                    // Enables pinch zooming
-                                    enablePinching: true,
-                                    zoomMode: ZoomMode.x,
-                                    enablePanning: true),
-                                series: <
-                                    ChartSeries<PerformanceDataPoint,
-                                        DateTime>>[
-                                  // Renders column chart
-                                  ColumnSeries<PerformanceDataPoint, DateTime>(
-                                    dataSource: accountData.performanceSeries,
-                                    xValueMapper:
-                                        (PerformanceDataPoint performance, _) =>
-                                            performance.date,
-                                    yValueMapper:
-                                        (PerformanceDataPoint performance, _) =>
-                                            performance.realMonthlyReturn,
-                                  ),
-                                ],
-                              ),
+                              ProfitLossChart(performanceSeries: accountData.performanceSeries),
                             ],
                           ),
                         ),
