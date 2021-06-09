@@ -16,6 +16,7 @@ import '../widgets/bottom_navigation_bar.dart';
 import '../widgets/build_account_switcher.dart';
 import '../models/account_dropdown_items.dart';
 import '../widgets/settings_button.dart';
+import '../widgets/page_title.dart';
 
 class RootScreen extends StatefulWidget {
   RootScreen({
@@ -39,14 +40,6 @@ class _RootScreenState extends State<RootScreen> {
 
   List<String> userAccounts = [];
   Future<Account> accountData;
-
-  List<String> pageTitles = [
-    "Cartera",
-    "Evolución",
-    "Movimientos",
-    "Proyección",
-    "Estadísticas"
-  ];
 
   List<DropdownMenuItem> dropdownItems =
       AccountDropdownItems(userAccounts: [""]).dropdownItems;
@@ -160,12 +153,7 @@ class _RootScreenState extends State<RootScreen> {
           elevation: 0,
           toolbarHeight: 100,
           title:
-              Text(
-                pageTitles[Provider.of<BottomNavigationBarProvider>(context,
-                    listen: true)
-                    .currentIndex],
-                style: kTitleTextStyle,
-              ),
+              PageTitle(),
           actions: <Widget>[
             buildAccountSwitcher(
                 currentAccountNumber: widget.accountNumber,
@@ -224,6 +212,9 @@ class _RootScreenState extends State<RootScreen> {
                   Provider.of<BottomNavigationBarProvider>(context,
                           listen: false)
                       .currentIndex = page;
+                  // setState(() {
+                  //   currentPage = page;
+                  // });
                 },
               );
             } else if (snapshot.hasError) {
