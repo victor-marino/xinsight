@@ -27,6 +27,7 @@ class Account {
   final List<PortfolioDataPoint> _portfolioData;
   final Map<InstrumentType, double> _portfolioDistribution;
   final List<PerformanceDataPoint> _performanceSeries;
+  final Map<String, Map<String, double>> _profitLossSeries;
 
   static Color _obtainColor(double variable) {
     if (variable < 0) {
@@ -125,6 +126,49 @@ class Account {
     return(newPerformanceSeries);
   }
 
+  static Map<String, Map<String, double>> _createProfitLossSeries(performancePeriodList, realPerformanceList) {
+    Map<String, Map<String, double>> profitLossSeries = {};
+    List<String> months = ["E", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D"];
+
+    performancePeriodList = performancePeriodList.sublist(0, realPerformanceList.length);
+
+    print(performancePeriodList);
+
+    List<String> years = [];
+
+    performancePeriodList.forEach((element) {
+      //print(DateTime.parse(element));
+      years.add(DateTime.parse(element).year.toString());
+    });
+
+    years = years.toSet().toList();
+    years.sort();
+
+    print(years);
+
+    // years.forEach((year) {
+    //   profitLossSeries[year] = {};
+    // });
+    //
+    // performancePeriodList.forEach((element) {
+    //   profitLossSeries[]
+    // });
+
+    //
+    // //var profitLossYearSeries = {};
+    //
+    // Map<int, List<PerformanceDataPoint>> profitLossYearSeries = {};
+    //
+    // years.forEach((year) {
+    //   profitLossYearSeries[year] = [];
+    // });
+    //
+    // profitLossSeries.forEach((element) {
+    //   profitLossYearSeries[element.date.year].add(element) as PerformanceDataPoint;
+    // }
+    // );
+  }
+
   Account({@required this.accountInfo, @required this.accountPerformanceData, @required this.accountPortfolioData})
       : _selectedRisk = accountInfo['profile']['selected_risk'],
         _totalAmount = accountPerformanceData['return']['total_amount'].toDouble(),
@@ -148,7 +192,8 @@ class Account {
         _amountsSeries = _createAmountsSeries(accountPerformanceData['return']['net_amounts'], accountPerformanceData['return']['total_amounts']),
         _portfolioData = _createPortfolioData(accountPortfolioData['portfolio'], accountPortfolioData['comparison']),
         _portfolioDistribution = _createPortfolioDistribution(accountPortfolioData['portfolio'], accountPortfolioData['comparison']),
-        _performanceSeries = _createPerformanceSeries(accountPerformanceData['performance']['period'], accountPerformanceData['performance']['best_return'], accountPerformanceData['performance']['worst_return'], accountPerformanceData['performance']['expected_return'], accountPerformanceData['performance']['real']);
+        _performanceSeries = _createPerformanceSeries(accountPerformanceData['performance']['period'], accountPerformanceData['performance']['best_return'], accountPerformanceData['performance']['worst_return'], accountPerformanceData['performance']['expected_return'], accountPerformanceData['performance']['real']),
+        _profitLossSeries = _createProfitLossSeries(accountPerformanceData['performance']['period'], accountPerformanceData['performance']['real']);
 
   int get selectedRisk => _selectedRisk;
   double get totalAmount => _totalAmount;
@@ -170,4 +215,5 @@ class Account {
   List<PortfolioDataPoint> get portfolioData => _portfolioData;
   Map<InstrumentType, double> get portfolioDistribution => _portfolioDistribution;
   List<PerformanceDataPoint> get performanceSeries => _performanceSeries;
+  Map<String, Map<String, double>> get profitLossSeries => _profitLossSeries;
 }
