@@ -25,6 +25,7 @@ class Account {
   final double _feeFreeAmount;
   final List<AmountsDataPoint> _amountsSeries;
   final List<PortfolioDataPoint> _portfolioData;
+  final Map<InstrumentType, double> _portfolioDistribution;
   final List<PerformanceDataPoint> _performanceSeries;
 
   static Color _obtainColor(double variable) {
@@ -68,6 +69,36 @@ class Account {
     newPortfolioData.add(PortfolioDataPoint(instrumentType: InstrumentType.cash, instrumentName: 'cash', amount: _doubleWithTwoDecimalPlaces(portfolio['cash_amount'].toDouble()), percentage: portfolio['cash_amount'] / portfolio['total_amount']));
 
     return(newPortfolioData);
+  }
+
+  static Map<InstrumentType, double> _createPortfolioDistribution (portfolio, instruments) {
+    Map<InstrumentType, double> portfolioDistribution = {};
+
+    if (instruments.any((element) => element['instrument']['asset_class'].toString().contains('equity'))) {
+      portfolioDistribution[InstrumentType.equity] = 0;
+    }
+    if (instruments.any((element) => element['instrument']['asset_class'].toString().contains('fixed'))) {
+      portfolioDistribution[InstrumentType.fixed] = 0;
+    } else {
+      portfolioDistribution[InstrumentType.other] = 0;
+    }
+
+    portfolioDistribution[InstrumentType.cash] = 0;
+
+    for (var instrument in instruments) {
+      double currentInstrumentPercentage = instrument['amount'] /
+          portfolio['total_amount'];
+
+      if (instrument['instrument']['asset_class'].contains('equity')) {
+        portfolioDistribution[InstrumentType.equity] += currentInstrumentPercentage;
+      } else if (instrument['instrument']['asset_class'].contains('fixed')) {
+        portfolioDistribution[InstrumentType.fixed] += currentInstrumentPercentage;
+      } else {
+        portfolioDistribution[InstrumentType.other] += currentInstrumentPercentage;
+      }
+    }
+    portfolioDistribution[InstrumentType.cash] += portfolio['cash_amount'] / portfolio['total_amount'];
+    return(portfolioDistribution);
   }
 
   static List<PerformanceDataPoint> _createPerformanceSeries(performancePeriodList, bestPerformanceList, worstPerformanceList, expectedPerformanceList, realPerformanceList) {
@@ -116,6 +147,7 @@ class Account {
         _feeFreeAmount = accountInfo['fee_free_amount'].toDouble(),
         _amountsSeries = _createAmountsSeries(accountPerformanceData['return']['net_amounts'], accountPerformanceData['return']['total_amounts']),
         _portfolioData = _createPortfolioData(accountPortfolioData['portfolio'], accountPortfolioData['comparison']),
+        _portfolioDistribution = _createPortfolioDistribution(accountPortfolioData['portfolio'], accountPortfolioData['comparison']),
         _performanceSeries = _createPerformanceSeries(accountPerformanceData['performance']['period'], accountPerformanceData['performance']['best_return'], accountPerformanceData['performance']['worst_return'], accountPerformanceData['performance']['expected_return'], accountPerformanceData['performance']['real']);
 
   int get selectedRisk => _selectedRisk;
@@ -136,5 +168,6 @@ class Account {
   double get feeFreeAmount => _feeFreeAmount;
   List<AmountsDataPoint> get amountsSeries => _amountsSeries;
   List<PortfolioDataPoint> get portfolioData => _portfolioData;
+  Map<InstrumentType, double> get portfolioDistribution => _portfolioDistribution;
   List<PerformanceDataPoint> get performanceSeries => _performanceSeries;
 }

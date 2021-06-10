@@ -54,14 +54,15 @@ class _PortfolioScreenState extends State<PortfolioScreen> {
     // if failed,use refreshFailed()
     _refreshController.refreshCompleted();
   }
-  
+
   @override
   void initState() {
     currentAccountNumber = widget.currentAccountNumber;
     accountData = widget.accountData;
     refreshData = widget.refreshData;
 
-    dropdownItems = AccountDropdownItems(userAccounts: widget.userAccounts).dropdownItems;
+    dropdownItems =
+        AccountDropdownItems(userAccounts: widget.userAccounts).dropdownItems;
 
     super.initState();
   }
@@ -103,9 +104,9 @@ class _PortfolioScreenState extends State<PortfolioScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: <Widget>[
-                       // SizedBox(
-                       //   height: 10.0,
-                       // ),
+                        // SizedBox(
+                        //   height: 10.0,
+                        // ),
                         ReusableCard(
                           childWidget: AccountSummary(accountData: accountData),
                         ),
@@ -124,7 +125,8 @@ class _PortfolioScreenState extends State<PortfolioScreen> {
                               PortfolioChart(
                                   portfolioData: accountData.portfolioData),
                               PortfolioChartLegend(
-                                  portfolioData: accountData.portfolioData),
+                                  portfolioDistribution:
+                                      accountData.portfolioDistribution),
                             ],
                           ),
                         ),
@@ -135,23 +137,24 @@ class _PortfolioScreenState extends State<PortfolioScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             RichText(
-                                text: TextSpan(
-                                  children: [
-                                    TextSpan(
-                                        text:
-                                        "Activos gestionados gratis: ",
-                                        style: kCardSubTextStyle),
-                                    TextSpan(
-                                        //text: "10.000€",
-                                      text: getInvestmentAsString(widget.accountData.feeFreeAmount),
-                                        style: kCardSecondaryContentTextStyle)
-                                  ],
-                                )),
+                              text: TextSpan(
+                                children: [
+                                  TextSpan(
+                                      text: "Activos gestionados gratis: ",
+                                      style: kCardSubTextStyle),
+                                  TextSpan(
+                                      //text: "10.000€",
+                                      text: getInvestmentAsString(
+                                          widget.accountData.feeFreeAmount),
+                                      style: kCardSecondaryContentTextStyle)
+                                ],
+                              ),
+                            ),
                             MaterialButton(
                               height: 40,
                               minWidth: 40,
                               materialTapTargetSize:
-                              MaterialTapTargetSize.shrinkWrap,
+                                  MaterialTapTargetSize.shrinkWrap,
                               padding: EdgeInsets.zero,
                               color: Colors.blue[600],
                               child: Icon(

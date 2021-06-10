@@ -132,6 +132,20 @@ Decoration kEnabledAccountSwitcherBoxDecoration = ShapeDecoration(
   ),
 );
 
+TextStyle kLegendMainTextStyle = GoogleFonts.roboto(
+  textStyle: TextStyle(
+    color: Colors.black,
+    fontSize: 12.0,
+  ),
+);
+
+TextStyle kLegendSecondaryTextStyle = GoogleFonts.roboto(
+  textStyle: TextStyle(
+    color: Colors.grey,
+    fontSize: 12.0,
+  ),
+);
+
 Decoration kDisabledAccountSwitcherBoxDecoration = ShapeDecoration(
 //color: Colors.blueGrey[100],
 shape: RoundedRectangleBorder(
