@@ -27,7 +27,7 @@ class Account {
   final List<PortfolioDataPoint> _portfolioData;
   final Map<InstrumentType, double> _portfolioDistribution;
   final List<PerformanceDataPoint> _performanceSeries;
-  final Map<String, Map<String, double>> _profitLossSeries;
+  final Map<int, List<List>> _profitLossSeries;
 
   static Color _obtainColor(double variable) {
     if (variable < 0) {
@@ -126,51 +126,48 @@ class Account {
     return(newPerformanceSeries);
   }
 
-  static Map<String, Map<String, double>> _createProfitLossSeries(performancePeriodList, realPerformanceList) {
-    Map<int, List<double>> profitLossSeries = {};
-    //List<List> profitLossSeries = [];
+  static Map<int, List<List>> _createProfitLossSeries(performancePeriodList, realPerformanceList) {
+    Map<int, List<List>> profitLossSeries = {};
     List<String> monthList = ["E", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D", "Σ"];
-    List<List<double>> yearRealPerformanceList = [];
 
     performancePeriodList = performancePeriodList.sublist(0, realPerformanceList.length);
 
-    List<int> years = [2020, 2021];
+    for (int i=realPerformanceList.length-1; i>0; i--) {
+      realPerformanceList[i] = (realPerformanceList[i] - realPerformanceList[i-1]) / 100;
+    }
+    realPerformanceList[0] = 0.0;
 
-    // years = years.toSet().toList();
-    // years.sort();
+    List<int> years = [];
+    performancePeriodList.forEach((element) {
+      years.add(DateTime.parse(element).year);
+    });
+
+    years = years.toSet().toList();
+
     years.forEach((year) {
-      profitLossSeries[year] = List<double>.filled(13, 0.0, growable: false);
+      profitLossSeries.putIfAbsent(year, () => []);
+      profitLossSeries[year] = List<List>.generate(13, (index) => ["", 0.0]);
+      profitLossSeries[year].asMap().forEach((index, value) {
+        profitLossSeries[year][index][0] = monthList[index];
+      });
     });
 
     for (int i=0; i<realPerformanceList.length; i++) {
-          profitLossSeries[DateTime
-              .parse(performancePeriodList[i]).year][DateTime
-              .parse(performancePeriodList[i]).month - 1] = realPerformanceList[i].toDouble();
+      profitLossSeries[DateTime
+          .parse(performancePeriodList[i]).year][DateTime
+          .parse(performancePeriodList[i]).month - 1][1] = realPerformanceList[i].toDouble();
     }
-    print(profitLossSeries);
 
+    years.forEach((year) {
+      double totalProfit = 0;
+      for (int i = 0; i<profitLossSeries[year].length-2; i++) {
+        totalProfit += profitLossSeries[year][i][1];
+      }
+      profitLossSeries[year][12][1] = totalProfit;
+    });
 
+    return(profitLossSeries);
 
-    // performancePeriodList.forEach((element) {
-    //   int month = DateTime.parse(element).month;
-    //
-    //
-    // });
-
-
-    //
-    // //var profitLossYearSeries = {};
-    //
-    // Map<int, List<PerformanceDataPoint>> profitLossYearSeries = {};
-    //
-    // years.forEach((year) {
-    //   profitLossYearSeries[year] = [];
-    // });
-    //
-    // profitLossSeries.forEach((element) {
-    //   profitLossYearSeries[element.date.year].add(element) as PerformanceDataPoint;
-    // }
-    // );
   }
 
   Account({@required this.accountInfo, @required this.accountPerformanceData, @required this.accountPortfolioData})
@@ -219,5 +216,5 @@ class Account {
   List<PortfolioDataPoint> get portfolioData => _portfolioData;
   Map<InstrumentType, double> get portfolioDistribution => _portfolioDistribution;
   List<PerformanceDataPoint> get performanceSeries => _performanceSeries;
-  Map<String, Map<String, double>> get profitLossSeries => _profitLossSeries;
+  Map<int, List<List>> get profitLossSeries => _profitLossSeries;
 }
