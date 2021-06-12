@@ -128,7 +128,7 @@ class Account {
 
   static Map<int, List<List>> _createProfitLossSeries(performancePeriodList, realPerformanceList) {
     Map<int, List<List>> profitLossSeries = {};
-    List<String> monthList = ["E", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D", "Σ"];
+    List<String> monthList = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic", "Σ"];
 
     performancePeriodList = performancePeriodList.sublist(0, realPerformanceList.length);
 
@@ -166,6 +166,7 @@ class Account {
       profitLossSeries[year][12][1] = totalProfit;
     });
 
+    print(profitLossSeries);
     return(profitLossSeries);
 
   }

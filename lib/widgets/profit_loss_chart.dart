@@ -14,9 +14,9 @@ class ProfitLossChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<String> monthList = ["E", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D", "Σ"];
 
     return SfCartesianChart(
+      plotAreaBorderWidth: 0,
       axes: [],
       primaryXAxis: CategoryAxis(
         interval: 1,
@@ -30,17 +30,22 @@ class ProfitLossChart extends StatelessWidget {
         crossesAt: 0,
       ),
       series: <
-          ChartSeries<List<List<dynamic>>,
+          ChartSeries<List,
               String>>[
         // Renders column chart
-        ColumnSeries<List<List<double>>, String>(
+        ColumnSeries<List, String>(
+          spacing: 0,
+          width: 0.7,
+          dataLabelSettings: DataLabelSettings(
+              isVisible: true),
+          enableTooltip: true,
           dataSource: profitLossSeries[2020],
           xValueMapper:
-              (List datapoint, _) =>
-          datapoint[0],
+              (List month, _) =>
+          month[0],
           yValueMapper:
-              (List datapoint, _) =>
-          datapoint[1],
+              (List month, _) =>
+    num.parse((month[1] * 100).toStringAsFixed(1)),
           borderRadius: BorderRadius.all(Radius.circular(10)),
         ),
       ],

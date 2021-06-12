@@ -136,7 +136,9 @@ class _EvolutionScreenState extends State<EvolutionScreen> {
                                 textAlign: TextAlign.left,
                                 style: kCardTitleTextStyle,
                               ),
-                              ProfitLossChart(profitLossSeries: accountData.profitLossSeries),
+                              Container(
+                                height: 150,
+                                  child: ProfitLossChart(profitLossSeries: accountData.profitLossSeries)),
                             ],
                           ),
                         ),
