@@ -127,32 +127,36 @@ class Account {
   }
 
   static Map<String, Map<String, double>> _createProfitLossSeries(performancePeriodList, realPerformanceList) {
-    Map<String, Map<String, double>> profitLossSeries = {};
-    List<String> months = ["E", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D"];
+    Map<int, List<double>> profitLossSeries = {};
+    //List<List> profitLossSeries = [];
+    List<String> monthList = ["E", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D", "Σ"];
+    List<List<double>> yearRealPerformanceList = [];
 
     performancePeriodList = performancePeriodList.sublist(0, realPerformanceList.length);
 
-    print(performancePeriodList);
+    List<int> years = [2020, 2021];
 
-    List<String> years = [];
-
-    performancePeriodList.forEach((element) {
-      //print(DateTime.parse(element));
-      years.add(DateTime.parse(element).year.toString());
+    // years = years.toSet().toList();
+    // years.sort();
+    years.forEach((year) {
+      profitLossSeries[year] = List<double>.filled(13, 0.0, growable: false);
     });
 
-    years = years.toSet().toList();
-    years.sort();
+    for (int i=0; i<realPerformanceList.length; i++) {
+          profitLossSeries[DateTime
+              .parse(performancePeriodList[i]).year][DateTime
+              .parse(performancePeriodList[i]).month - 1] = realPerformanceList[i].toDouble();
+    }
+    print(profitLossSeries);
 
-    print(years);
 
-    // years.forEach((year) {
-    //   profitLossSeries[year] = {};
-    // });
-    //
+
     // performancePeriodList.forEach((element) {
-    //   profitLossSeries[]
+    //   int month = DateTime.parse(element).month;
+    //
+    //
     // });
+
 
     //
     // //var profitLossYearSeries = {};
