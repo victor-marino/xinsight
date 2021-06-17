@@ -133,7 +133,7 @@ class Account {
     performancePeriodList = performancePeriodList.sublist(0, realPerformanceList.length);
 
     for (int i=realPerformanceList.length-1; i>0; i--) {
-      realPerformanceList[i] = (realPerformanceList[i] - realPerformanceList[i-1]) / 100;
+      realPerformanceList[i] = (realPerformanceList[i] / realPerformanceList[i-1]) - 1;
     }
     realPerformanceList[0] = 0.0;
 
@@ -159,11 +159,11 @@ class Account {
     }
 
     years.forEach((year) {
-      double totalProfit = 0;
+      double totalProfit = 1;
       for (int i = 0; i<profitLossSeries[year].length-2; i++) {
-        totalProfit += profitLossSeries[year][i][1];
+        totalProfit *= ((profitLossSeries[year][i][1] / 100) + 1);
       }
-      profitLossSeries[year][12][1] = totalProfit;
+      profitLossSeries[year][12][1] = (totalProfit - 1) * 100;
     });
 
     print(profitLossSeries);
