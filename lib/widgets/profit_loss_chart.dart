@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:indexa_dashboard/tools/constants.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:indexa_dashboard/models/performance_datapoint.dart';
 import 'package:indexa_dashboard/models/account.dart';
@@ -26,6 +27,8 @@ class ProfitLossChart extends StatelessWidget {
         //edgeLabelPlacement: EdgeLabelPlacement.shift,
       ),
       primaryYAxis: NumericAxis(
+        numberFormat: NumberFormat("#0.0"),
+        labelFormat: ' {value}%',
         isVisible: false,
         crossesAt: 0,
       ),
@@ -37,16 +40,19 @@ class ProfitLossChart extends StatelessWidget {
           spacing: 0,
           width: 0.7,
           dataLabelSettings: DataLabelSettings(
-              isVisible: true),
-          enableTooltip: true,
+              isVisible: true,
+          textStyle: kChartLabelTextStyle,
+          ),
+          enableTooltip: false,
           dataSource: profitLossSeries[2020],
           xValueMapper:
               (List month, _) =>
           month[0],
           yValueMapper:
               (List month, _) =>
-    num.parse((month[1] * 100).toStringAsFixed(1)),
-          borderRadius: BorderRadius.all(Radius.circular(10)),
+    //num.parse((month[1] * 100).toStringAsFixed(1)),
+              month[1],
+          //borderRadius: BorderRadius.all(Radius.circular(10)),
         ),
       ],
     );

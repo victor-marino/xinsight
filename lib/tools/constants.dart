@@ -125,6 +125,14 @@ TextStyle kAccountSwitcherDisabledSelectedTextStyle = GoogleFonts.roboto(
   ),
 );
 
+TextStyle kChartLabelTextStyle = GoogleFonts.roboto(
+  textStyle: TextStyle(
+    color: Colors.black,
+    fontWeight: FontWeight.normal,
+    fontSize: 9.0,
+  ),
+);
+
 Decoration kEnabledAccountSwitcherBoxDecoration = ShapeDecoration(
   color: Colors.blueGrey[100],
   shape: RoundedRectangleBorder(

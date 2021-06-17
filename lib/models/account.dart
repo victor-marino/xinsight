@@ -146,7 +146,7 @@ class Account {
 
     years.forEach((year) {
       profitLossSeries.putIfAbsent(year, () => []);
-      profitLossSeries[year] = List<List>.generate(13, (index) => ["", 0.0]);
+      profitLossSeries[year] = List<List>.generate(13, (index) => ["", null]);
       profitLossSeries[year].asMap().forEach((index, value) {
         profitLossSeries[year][index][0] = monthList[index];
       });
@@ -160,10 +160,20 @@ class Account {
 
     years.forEach((year) {
       double totalProfit = 1;
-      for (int i = 0; i<profitLossSeries[year].length-2; i++) {
-        totalProfit *= ((profitLossSeries[year][i][1] / 100) + 1);
+      for (int i = 0; i<profitLossSeries[year].length-1; i++) {
+        if (profitLossSeries[year][i][1] != null) {
+          totalProfit *= (profitLossSeries[year][i][1]) + 1;
+        }
       }
-      profitLossSeries[year][12][1] = (totalProfit - 1) * 100;
+      profitLossSeries[year][12][1] = totalProfit - 1;
+    });
+
+    years.forEach((year) {
+      for (int i = 0; i<profitLossSeries[year].length; i++) {
+        if (profitLossSeries[year][i][1] != null) {
+          profitLossSeries[year][i][1] = num.parse((profitLossSeries[year][i][1] * 100).toStringAsFixed(1));
+        }
+      }
     });
 
     print(profitLossSeries);
