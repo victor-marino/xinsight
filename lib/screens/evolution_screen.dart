@@ -66,6 +66,7 @@ class _EvolutionScreenState extends State<EvolutionScreen> {
 
   @override
   Widget build(BuildContext context) {
+    List<Text> monthList = [Text("E"), Text("F"), Text("M"), Text("A"), Text("M"), Text("J"), Text("J"), Text("A"), Text("S"), Text("O"), Text("N"), Text("D"), Text("Σ")];
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -136,9 +137,23 @@ class _EvolutionScreenState extends State<EvolutionScreen> {
                                 textAlign: TextAlign.left,
                                 style: kCardTitleTextStyle,
                               ),
-                              Container(
-                                height: 150,
-                                  child: ProfitLossChart(profitLossSeries: accountData.profitLossSeries)),
+                              Column(
+                                children: [
+                                  Container(
+                                    height: 140,
+                                    child: ProfitLossChart(
+                                        profitLossSeries:
+                                            accountData.profitLossSeries),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 10, right: 10),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                      children: monthList,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ],
                           ),
                         ),

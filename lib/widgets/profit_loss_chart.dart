@@ -20,6 +20,7 @@ class ProfitLossChart extends StatelessWidget {
       plotAreaBorderWidth: 0,
       axes: [],
       primaryXAxis: CategoryAxis(
+        labelStyle: TextStyle(fontSize: 0),
         interval: 1,
         crossesAt: 0,
         majorGridLines: MajorGridLines(width: 0),
