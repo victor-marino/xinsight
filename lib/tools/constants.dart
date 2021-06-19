@@ -128,7 +128,7 @@ TextStyle kAccountSwitcherDisabledSelectedTextStyle = GoogleFonts.roboto(
 TextStyle kChartLabelTextStyle = GoogleFonts.roboto(
   textStyle: TextStyle(
     color: Colors.black,
-    fontWeight: FontWeight.normal,
+    fontWeight: FontWeight.bold,
     fontSize: 9.0,
   ),
 );
@@ -151,6 +151,14 @@ TextStyle kLegendSecondaryTextStyle = GoogleFonts.roboto(
   textStyle: TextStyle(
     color: Colors.grey,
     fontSize: 12.0,
+  ),
+);
+
+TextStyle kProfitLossChartLabelTextStyle = GoogleFonts.roboto(
+  textStyle: TextStyle(
+    color: Colors.black,
+    fontWeight: FontWeight.bold,
+    fontSize: 10.0,
   ),
 );
 

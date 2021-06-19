@@ -14,6 +14,7 @@ import 'package:indexa_dashboard/models/account_dropdown_items.dart';
 import 'package:indexa_dashboard/widgets/settings_button.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:indexa_dashboard/widgets/profit_loss_chart.dart';
+import 'package:indexa_dashboard/widgets/build_profit_loss_year_switcher.dart';
 
 class EvolutionScreen extends StatefulWidget {
   const EvolutionScreen({
@@ -39,7 +40,9 @@ class _EvolutionScreenState extends State<EvolutionScreen> {
   Account accountData;
   Function refreshData;
   int currentAccountNumber;
-  List<DropdownMenuItem> dropdownItems = [];
+  //List<DropdownMenuItem> dropdownItems = [];
+  int currentYear;
+  List<DropdownMenuItem> profitLossYearDropdownItems = [];
 
   RefreshController _refreshController =
       RefreshController(initialRefresh: false);
@@ -52,14 +55,26 @@ class _EvolutionScreenState extends State<EvolutionScreen> {
     _refreshController.refreshCompleted();
   }
 
+  void reloadProfitLossChart(int year) {
+    setState(() {
+      print("setting state");
+      currentYear = year;
+    });
+  }
+
   @override
   void initState() {
     currentAccountNumber = widget.currentAccountNumber;
     accountData = widget.accountData;
     refreshData = widget.refreshData;
 
-    dropdownItems =
-        AccountDropdownItems(userAccounts: widget.userAccounts).dropdownItems;
+    currentYear = accountData.profitLossSeries.keys.toList().last;
+    accountData.profitLossSeries.forEach((key, value) {
+      profitLossYearDropdownItems.add(DropdownMenuItem(child: Text(key.toString()), value: key));
+    });
+    profitLossYearDropdownItems.sort((b, a) => a.value.compareTo(b.value));
+    //dropdownItems =
+    //    AccountDropdownItems(userAccounts: widget.userAccounts).dropdownItems;
 
     super.initState();
   }
@@ -132,27 +147,22 @@ class _EvolutionScreenState extends State<EvolutionScreen> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                "RENTABILIDADES",
-                                textAlign: TextAlign.left,
-                                style: kCardTitleTextStyle,
-                              ),
-                              Column(
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Container(
-                                    height: 140,
-                                    child: ProfitLossChart(
-                                        profitLossSeries:
-                                            accountData.profitLossSeries),
+                                  Text(
+                                    "RENTABILIDADES",
+                                    textAlign: TextAlign.left,
+                                    style: kCardTitleTextStyle,
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 10, right: 10),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                      children: monthList,
-                                    ),
-                                  ),
+                                  buildProfitLossYearSwitcher(profitLossYearDropdownItems: profitLossYearDropdownItems, currentYear: currentYear, reloadProfitLossChart: reloadProfitLossChart),
                                 ],
+                              ),
+                              Container(
+                                height: 150,
+                                child: ProfitLossChart(
+                                    profitLossSeries:
+                                        accountData.profitLossSeries, currentYear: currentYear),
                               ),
                             ],
                           ),
