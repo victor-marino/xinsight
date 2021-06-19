@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-const String SYNCFUSION_LICENSE = 'NT8mJyc2IWhia31hfWN9Z2doYmF8YGJ8ampqanNiYmlmamlmanMDHmglOjAnPCE+MiE6PTwTND4yOj99MDw+';
+const String SYNCFUSION_LICENSE =
+    'NT8mJyc2IWhia31hfWN9Z2doYmF8YGJ8ampqanNiYmlmamlmanMDHmglOjAnPCE+MiE6PTwTND4yOj99MDw+';
 
 TextStyle kTitleTextStyle = GoogleFonts.oxygen(
   textStyle: TextStyle(
@@ -121,7 +122,7 @@ TextStyle kAccountSwitcherDisabledSelectedTextStyle = GoogleFonts.roboto(
   textStyle: TextStyle(
     color: Colors.black,
     fontWeight: FontWeight.bold,
-    fontSize: 17.0,
+    fontSize: 15.0,
   ),
 );
 
@@ -130,13 +131,6 @@ TextStyle kChartLabelTextStyle = GoogleFonts.roboto(
     color: Colors.black,
     fontWeight: FontWeight.bold,
     fontSize: 9.0,
-  ),
-);
-
-Decoration kEnabledAccountSwitcherBoxDecoration = ShapeDecoration(
-  color: Colors.blueGrey[100],
-  shape: RoundedRectangleBorder(
-    borderRadius: BorderRadius.all(Radius.circular(20.0)),
   ),
 );
 
@@ -156,19 +150,38 @@ TextStyle kLegendSecondaryTextStyle = GoogleFonts.roboto(
 
 TextStyle kProfitLossChartLabelTextStyle = GoogleFonts.roboto(
   textStyle: TextStyle(
-    color: Colors.black,
-    fontWeight: FontWeight.bold,
+    color: Colors.black54,
+    fontWeight: FontWeight.normal,
     fontSize: 10.0,
+  ),
+);
+
+Decoration kEnabledAccountSwitcherBoxDecoration = ShapeDecoration(
+  color: Colors.blueGrey[100],
+  shape: RoundedRectangleBorder(
+    borderRadius: BorderRadius.all(Radius.circular(20.0)),
   ),
 );
 
 Decoration kDisabledAccountSwitcherBoxDecoration = ShapeDecoration(
 //color: Colors.blueGrey[100],
-shape: RoundedRectangleBorder(
-borderRadius: BorderRadius.all(Radius.circular(20.0)),
-));
+  shape: RoundedRectangleBorder(
+    borderRadius: BorderRadius.all(Radius.circular(20.0)),
+  ),
+);
 
-List<Color> equityColors = [Colors.purple[400], Colors.purple[300], Colors.purple[200], Colors.purple[100], Colors.purple[50]];
-List<Color> fixedColors = [Colors.indigo[400], Colors.indigo[300], Colors.indigo[200], Colors.indigo[100]];
+List<Color> equityColors = [
+  Colors.purple[400],
+  Colors.purple[300],
+  Colors.purple[200],
+  Colors.purple[100],
+  Colors.purple[50]
+];
+List<Color> fixedColors = [
+  Colors.indigo[400],
+  Colors.indigo[300],
+  Colors.indigo[200],
+  Colors.indigo[100]
+];
 Color cashColor = Colors.blueGrey;
 Color otherColor = Colors.black12;

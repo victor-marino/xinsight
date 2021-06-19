@@ -8,7 +8,7 @@ class IndexaData {
 
   Future<dynamic> getUserAccounts() async {
     String url = '$indexaURL/users/me';
-    List<String> userAccounts = List<String>();
+    List<String> userAccounts = [];
     NetworkHelper networkHelper = NetworkHelper(url, token);
     try {
       var userData = await networkHelper.getData();
@@ -16,7 +16,7 @@ class IndexaData {
         for (var account in userData['accounts']) {
           userAccounts.add(account['account_number'].toString());
         }
-        userAccounts.add("Test");
+        //userAccounts.add("Test");
         return userAccounts;
       }
     } on Exception catch (e) {
@@ -26,8 +26,8 @@ class IndexaData {
   }
 
   Future<dynamic> getAccountInfo(accountNumber) async {
-    String url = '$indexaURL/accounts/FHGNB6LM';
-    //String url = '$indexaURL/accounts/$accountNumber/performance';
+    //String url = '$indexaURL/accounts/FHGNB6LM';
+    String url = '$indexaURL/accounts/$accountNumber';
     NetworkHelper networkHelper = NetworkHelper(url, token);
     try {
       var accountInfo = await networkHelper.getData();
@@ -43,8 +43,8 @@ class IndexaData {
   }
 
   Future<dynamic> getAccountPerformanceData(accountNumber) async {
-    String url = '$indexaURL/accounts/FHGNB6LM/performance';
-    //String url = '$indexaURL/accounts/$accountNumber/performance';
+    //String url = '$indexaURL/accounts/FHGNB6LM/performance';
+    String url = '$indexaURL/accounts/$accountNumber/performance';
     NetworkHelper networkHelper = NetworkHelper(url, token);
     try {
       var accountPerformanceData = await networkHelper.getData();
@@ -64,8 +64,8 @@ class IndexaData {
   }
 
   Future<dynamic> getAccountPortfolioData(accountNumber) async {
-    String url = '$indexaURL/accounts/FHGNB6LM/portfolio';
-    //String url = '$indexaURL/accounts/$accountNumber/portfolio';
+    //String url = '$indexaURL/accounts/FHGNB6LM/portfolio';
+    String url = '$indexaURL/accounts/$accountNumber/portfolio';
     NetworkHelper networkHelper = NetworkHelper(url, token);
     try {
       var accountPortfolioData = await networkHelper.getData();

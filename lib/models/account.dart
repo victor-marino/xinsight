@@ -177,7 +177,6 @@ class Account {
       }
     });
 
-    print(profitLossSeries);
     return(profitLossSeries);
 
   }

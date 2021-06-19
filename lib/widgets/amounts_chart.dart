@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:indexa_dashboard/tools/constants.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'dart:math';
 import 'package:indexa_dashboard/models/amounts_datapoint.dart';
@@ -28,7 +29,9 @@ class AmountsChart extends StatelessWidget {
 
     return SfCartesianChart(
       margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
-      primaryYAxis: NumericAxis(labelFormat: '{value} €'),
+      primaryYAxis: NumericAxis(
+        labelFormat: '{value} €',
+      labelStyle: kProfitLossChartLabelTextStyle),
       tooltipBehavior: TooltipBehavior(elevation: 10),
       trackballBehavior: TrackballBehavior(
         enable: true,
@@ -57,9 +60,19 @@ class AmountsChart extends StatelessWidget {
           itemPadding: 10),
       // Initialize DateTime axis
       primaryXAxis: DateTimeAxis(
-        edgeLabelPlacement: EdgeLabelPlacement.shift,
+        minimum: DateTime(amountsSeries[0].date.year, 01),
+        //edgeLabelPlacement: EdgeLabelPlacement.shift,
         //minimum: DateTime(2020, 05, 01),
-        dateFormat: DateFormat("d/M/yy"),
+        dateFormat: DateFormat("dd/MM/yyyy"),
+        labelStyle: kProfitLossChartLabelTextStyle,
+        intervalType: DateTimeIntervalType.months,
+        //maximumLabels: 1,
+        majorGridLines: MajorGridLines(
+            width: 1,
+            color: Colors.black12,
+        ),
+        enableAutoIntervalOnZooming: true,
+        //maximumLabels: 1,
         //rangePadding: ChartRangePadding.round,
       ),
       series: <ChartSeries<AmountsDataPoint, DateTime>>[
@@ -78,6 +91,8 @@ class AmountsChart extends StatelessWidget {
           dataSource: amountsSeries,
           xValueMapper: (AmountsDataPoint amounts, _) => amounts.date,
           yValueMapper: (AmountsDataPoint amounts, _) => amounts.netAmount,
+          //color: Colors.black12,
+          width: 2,
         ),
       ],
     );
