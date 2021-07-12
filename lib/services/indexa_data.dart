@@ -14,7 +14,9 @@ class IndexaData {
       var userData = await networkHelper.getData();
       if (userData != null) {
         for (var account in userData['accounts']) {
-          userAccounts.add(account['account_number'].toString());
+          if (account['status'].toString() == "active") {
+            userAccounts.add(account['account_number'].toString());
+          }
         }
         //userAccounts.add("Test");
         return userAccounts;

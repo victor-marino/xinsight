@@ -175,13 +175,15 @@ List<Color> equityColors = [
   Colors.purple[300],
   Colors.purple[200],
   Colors.purple[100],
-  Colors.purple[50]
+  Colors.purple[50],
+  Colors.purple
 ];
 List<Color> fixedColors = [
   Colors.indigo[400],
   Colors.indigo[300],
   Colors.indigo[200],
-  Colors.indigo[100]
+  Colors.indigo[100],
+  Colors.indigo[50]
 ];
 Color cashColor = Colors.blueGrey;
 Color otherColor = Colors.black12;
