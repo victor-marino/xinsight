@@ -80,4 +80,36 @@ class IndexaData {
       return null;
     }
   }
+
+  Future<dynamic> getAccountInstrumentTransactionData(accountNumber) async {
+    //String url = '$indexaURL/accounts/FHGNB6LM/portfolio';
+    String url = '$indexaURL/accounts/$accountNumber/instrument-transactions';
+    NetworkHelper networkHelper = NetworkHelper(url, token);
+    try {
+      var accountInstrumentTransactionData = await networkHelper.getData();
+      //print('accountInstrumentTransactionData: ' + accountInstrumentTransactionData.toString());
+      if (accountInstrumentTransactionData != null) {
+        return accountInstrumentTransactionData;
+      }
+    } on Exception catch (e) {
+      print(e);
+      return null;
+    }
+  }
+
+  Future<dynamic> getAccountCashTransactionData(accountNumber) async {
+    //String url = '$indexaURL/accounts/FHGNB6LM/portfolio';
+    String url = '$indexaURL/accounts/$accountNumber/cash-transactions';
+    NetworkHelper networkHelper = NetworkHelper(url, token);
+    try {
+      var accountCashTransactionData = await networkHelper.getData();
+      //print('accountCashTransactionData: ' + accountCashTransactionData.toString());
+      if (accountCashTransactionData != null) {
+        return accountCashTransactionData;
+      }
+    } on Exception catch (e) {
+      print(e);
+      return null;
+    }
+  }
 }

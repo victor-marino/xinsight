@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import '../models/account.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -14,6 +15,8 @@ import 'package:indexa_dashboard/widgets/profit_popup.dart';
 import 'package:indexa_dashboard/widgets/build_account_switcher.dart';
 import 'package:indexa_dashboard/models/account_dropdown_items.dart';
 import 'package:indexa_dashboard/widgets/settings_button.dart';
+import 'package:indexa_dashboard/models/transaction.dart';
+import 'package:indexa_dashboard/widgets/transaction_tile.dart';
 
 const int nbsp = 0x00A0;
 
@@ -69,47 +72,20 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            // Padding(
-            //   padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-            //   child: Row(
-            //     mainAxisAlignment: MainAxisAlignment.start,
-            //     crossAxisAlignment: CrossAxisAlignment.end,
-            //     children: [
-            //       Text(
-            //         'Movimientos',
-            //         style: kTitleTextStyle,
-            //         textAlign: TextAlign.left,
-            //       ),
-            //       Flexible(
-            //         child: Container(),
-            //       ),
-            //       buildAccountSwitcher(currentAccountNumber: currentAccountNumber, currentPage: currentPage, accountDropdownItems: dropdownItems, reloadPage: widget.reloadPage),
-            //       SettingsButton(),
-            //     ],
-            //   ),
-            // ),
-            Expanded(
-              child: SmartRefresher(
-                enablePullDown: true,
-                controller: _refreshController,
-                onRefresh: _onRefresh,
-                child: SingleChildScrollView(
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: <Widget>[
-
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ],
+        child: SmartRefresher(
+          enablePullDown: true,
+          controller: _refreshController,
+          onRefresh: _onRefresh,
+          child: ListView.builder(
+          padding: const EdgeInsets.all(20),
+            itemCount: widget.accountData.transactionList.length,
+            itemBuilder: (BuildContext context, int index) {
+              return Container(
+                height: 50,
+                child: TransactionTile(transactionData: widget.accountData.transactionList[index]),
+              );
+            }
+          ),
         ),
       ),
     );

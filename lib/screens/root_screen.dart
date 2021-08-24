@@ -17,6 +17,7 @@ import '../widgets/build_account_switcher.dart';
 import '../models/account_dropdown_items.dart';
 import '../widgets/settings_button.dart';
 import '../widgets/page_title.dart';
+import '../models/transaction.dart';
 
 class RootScreen extends StatefulWidget {
   RootScreen({
@@ -108,10 +109,16 @@ class _RootScreenState extends State<RootScreen> {
         await indexaData.getAccountPerformanceData(userAccounts[accountNumber]);
     var currentAccountPortfolioData =
         await indexaData.getAccountPortfolioData(userAccounts[accountNumber]);
+    var currentAccountInstrumentTransactionData =
+        await indexaData.getAccountInstrumentTransactionData(userAccounts[accountNumber]);
+    var currentAccountCashTransactionData =
+        await indexaData.getAccountCashTransactionData(userAccounts[accountNumber]);
     currentAccount = Account(
         accountInfo: currentAccountInfo,
         accountPerformanceData: currentAccountPerformanceData,
-        accountPortfolioData: currentAccountPortfolioData);
+        accountPortfolioData: currentAccountPortfolioData,
+        accountInstrumentTransactionData: currentAccountInstrumentTransactionData,
+        accountCashTransactionData: currentAccountCashTransactionData);
     return currentAccount;
   }
 
