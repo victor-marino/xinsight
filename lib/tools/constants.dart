@@ -156,6 +156,22 @@ TextStyle kProfitLossChartLabelTextStyle = GoogleFonts.roboto(
   ),
 );
 
+TextStyle kTransactionListTitleTextStyle = GoogleFonts.roboto(
+  textStyle: TextStyle(
+    color: Colors.black87,
+    fontSize: 15.0,
+    fontWeight: FontWeight.bold,
+  ),
+);
+
+TextStyle kTransactionListAmountTextStyle = GoogleFonts.ubuntu(
+  textStyle: TextStyle(
+    color: Colors.black54,
+    fontSize: 17.0,
+    fontWeight: FontWeight.bold,
+  ),
+);
+
 TextStyle kDividerTextStyle = GoogleFonts.roboto(
   textStyle: TextStyle(
     color: Colors.grey,

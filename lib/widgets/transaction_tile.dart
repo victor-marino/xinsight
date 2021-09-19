@@ -20,7 +20,6 @@ class TransactionTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Widget> tileElements = [];
-    // IconData tileIcon;
 
     if (firstTransactionOfMonth) {
       tileElements.add(
@@ -43,14 +42,6 @@ class TransactionTile extends StatelessWidget {
       );
     }
 
-    // if (transactionData.accountType == "Cuenta de valores") {
-    //   tileIcon = Icons.show_chart;
-    // } else if (transactionData.accountType == "Cuenta de efectivo") {
-    //   tileIcon = Icons.euro;
-    // } else {
-    //   tileIcon = Icons.help_outline;
-    // }
-
     tileElements.add(
       ReusableCard(
         childWidget: Row(
@@ -69,9 +60,7 @@ class TransactionTile extends StatelessWidget {
                   Text(
                     transactionData.operationType,
                     textAlign: TextAlign.left,
-                    style: kCardSubTextStyle.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: kTransactionListTitleTextStyle,
                   ),
                   RichText(
                     text: TextSpan(children: [
@@ -98,7 +87,7 @@ class TransactionTile extends StatelessWidget {
               child: Text(
                 transactionData.amount.toStringAsFixed(2) + " €",
                 textAlign: TextAlign.right,
-                style: kCardSubTextStyle,
+                style: kTransactionListAmountTextStyle.copyWith(fontWeight: FontWeight.normal),
               ),
             ),
           ],
