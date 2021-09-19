@@ -189,61 +189,78 @@ class Account {
     List<Transaction> newTransactionList = [];
     for (var transaction in accountInstrumentTransactionData) {
       String operationType;
+      IconData icon;
       switch(transaction['operation_code']) {
         case 20: {
           operationType = "Suscripción de fondos";
+          icon = Icons.trending_up;
         }
         break;
 
         case 21: {
           operationType = "Reembolso de fondos";
+          icon = Icons.trending_down;
         }
         break;
 
         case 67: {
-          operationType = "Suscripción de fondos (traspaso)";
+          operationType = "Suscripción por traspaso";
+          icon = Icons.sync_alt;
         }
         break;
 
         case 72: {
-          operationType = "Reembolso de fondos (traspaso)";
+          operationType = "Reembolso por traspaso";
+          icon = Icons.sync_alt;
         }
         break;
 
         default: {
           operationType = transaction['operation_type'];
+          icon = Icons.help_outline;
         }
         break;
       }
-      Transaction newTransaction = Transaction(date: DateTime.parse(transaction['date']), valueDate: DateTime.parse(transaction['value_date']), fiscalDate: DateTime.parse(transaction['fiscal_date']), accountType: "Cuenta de valores", operationCode: transaction['operation_code'], operationType: operationType, instrumentCode: transaction['instrument']['identifier'], instrumentName: transaction['instrument']['name'], titles: transaction['titles'].toDouble(), price: transaction['price'].toDouble(), amount: transaction['amount'].toDouble(), status: transaction['status']);
+      Transaction newTransaction = Transaction(date: DateTime.parse(transaction['date']), valueDate: DateTime.parse(transaction['value_date']), fiscalDate: DateTime.parse(transaction['fiscal_date']), accountType: "Cuenta de valores", operationCode: transaction['operation_code'], operationType: operationType, icon: icon, instrumentCode: transaction['instrument']['identifier'], instrumentName: transaction['instrument']['name'], titles: transaction['titles'].toDouble(), price: transaction['price'].toDouble(), amount: transaction['amount'].toDouble(), status: transaction['status']);
       newTransactionList.add(newTransaction);
     }
 
     for (var transaction in accountCashTransactionData) {
       String operationType;
+      IconData icon;
       //print(transaction['operation_type']);
       switch(transaction['operation_code']) {
         case 9200: {
           operationType = "Operación de valores";
+          icon = Icons.pie_chart;
         }
         break;
 
         case 285: {
           operationType = "Comisión de custodia";
+          icon = Icons.toll;
         }
         break;
 
         case 4589: {
-          operationType = "Transferencia SEPA";
+          operationType = "Ingreso por transferencia";
+          icon = Icons.download_outlined;
+        }
+        break;
+
+        case 4597: {
+          operationType = "Retirada por transferencia";
+          icon = Icons.upload_outlined;
         }
         break;
 
         default: {
           operationType = transaction['operation_type'];
+          icon = Icons.help_outline;
         }
         break;
       }
-      Transaction newTransaction = Transaction(date: DateTime.parse(transaction['date']), valueDate: null, fiscalDate: null, accountType: "Cuenta de efectivo", operationCode: transaction['operation_code'], operationType: operationType, instrumentCode: null, instrumentName: null, titles: null, price: null, amount: transaction['amount'].toDouble(), status: transaction['status']);
+      Transaction newTransaction = Transaction(date: DateTime.parse(transaction['date']), valueDate: null, fiscalDate: null, accountType: "Cuenta de efectivo", operationCode: transaction['operation_code'], operationType: operationType, icon: icon, instrumentCode: null, instrumentName: null, titles: null, price: null, amount: transaction['amount'].toDouble(), status: transaction['status']);
       newTransactionList.add(newTransaction);
     }
 

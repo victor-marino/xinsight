@@ -20,11 +20,12 @@ class TransactionTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Widget> tileElements = [];
+    // IconData tileIcon;
 
     if (firstTransactionOfMonth) {
       tileElements.add(
         Padding(
-          padding: const EdgeInsets.only(top: 20, bottom: 5),
+          padding: const EdgeInsets.only(top: 20, bottom: 10),
           child: Row(
             children: [
               Expanded(child: Divider()),
@@ -42,30 +43,55 @@ class TransactionTile extends StatelessWidget {
       );
     }
 
+    // if (transactionData.accountType == "Cuenta de valores") {
+    //   tileIcon = Icons.show_chart;
+    // } else if (transactionData.accountType == "Cuenta de efectivo") {
+    //   tileIcon = Icons.euro;
+    // } else {
+    //   tileIcon = Icons.help_outline;
+    // }
+
     tileElements.add(
       ReusableCard(
         childWidget: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            RichText(
-              text: TextSpan(children: [
-                TextSpan(
-                  text: DateFormat("dd/MM/yyyy").format(transactionData.date),
-                  //textAlign: TextAlign.left,
-                  style: kCardSubTextStyle.copyWith(
-                    fontSize: 12,
+            Icon(
+              transactionData.icon,
+              color: Colors.blueAccent,
+              size: 20,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    transactionData.operationType,
+                    textAlign: TextAlign.left,
+                    style: kCardSubTextStyle.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-              ]),
-            ),
-            SizedBox(
-              width: 10,
-            ),
-            Text(
-              transactionData.operationType,
-              textAlign: TextAlign.left,
-              style: kCardSubTextStyle.copyWith(
-                fontWeight: FontWeight.bold,
+                  RichText(
+                    text: TextSpan(children: [
+                      TextSpan(
+                        text: DateFormat("dd/MM").format(transactionData.date).replaceAll(".", ""),
+                        //textAlign: TextAlign.left,
+                        style: kCardSubTextStyle.copyWith(
+                          fontSize: 12,
+                        ),
+                      ),
+                      TextSpan(
+                        text: " · " + transactionData.accountType,
+                        //textAlign: TextAlign.left,
+                        style: kCardSubTextStyle.copyWith(
+                          fontSize: 12,
+                        ),
+                      ),
+                    ]),
+                  ),
+                ],
               ),
             ),
             Expanded(
