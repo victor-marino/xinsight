@@ -42,60 +42,226 @@ class TransactionTile extends StatelessWidget {
       );
     }
 
+    List<Widget> transactionDetails = [];
+
+    transactionDetails.add(
+        Text(
+          "Cuenta:",
+              style: kTransactionDetailTitleTextStyle,
+        )
+    );
+    transactionDetails.add(
+        Text(
+          transactionData.accountType,
+          style: kTransactionDetailValueTextStyle,
+        )
+    );
+    transactionDetails.add(
+        Text(
+          "Concepto:",
+          style: kTransactionListTitleTextStyle,
+        )
+    );
+    transactionDetails.add(
+        Text(
+          transactionData.operationType,
+          style: kTransactionDetailValueTextStyle,
+        )
+    );
+    transactionDetails.add(
+      Text(
+        "Fecha:",
+        style: kTransactionListTitleTextStyle,
+      ),
+    );
+
+    transactionDetails.add(
+      Text(
+        DateFormat("dd/MM/yyyy").format(transactionData.date),
+        style: kTransactionDetailValueTextStyle,
+      ),
+    );
+    if (transactionData.accountType == "Cuenta de valores") {
+      transactionDetails.add(
+        Text(
+          "Fecha valor:",
+          style: kTransactionListTitleTextStyle,
+        )
+      );
+      transactionDetails.add(
+          Text(
+            DateFormat("dd/MM/yyyy").format(transactionData.valueDate),
+            style: kTransactionDetailValueTextStyle,
+          )
+      );
+      transactionDetails.add(
+          Text(
+            "Fecha fiscal:",
+            style: kTransactionListTitleTextStyle,
+          )
+      );
+      transactionDetails.add(
+          Text(
+            DateFormat("dd/MM/yyyy").format(transactionData.fiscalDate),
+            style: kTransactionDetailValueTextStyle,
+          )
+      );
+      transactionDetails.add(
+          Text(
+            "\nFondo:",
+            style: kTransactionListTitleTextStyle,
+          )
+      );
+      transactionDetails.add(
+          Text(
+            transactionData.instrumentName,
+            style: kTransactionDetailValueTextStyle,
+          )
+      );
+      transactionDetails.add(
+          Text(
+            "ISIN:",
+            style: kTransactionListTitleTextStyle,
+          )
+      );
+      transactionDetails.add(
+          Text(
+            transactionData.instrumentCode,
+            style: kTransactionDetailValueTextStyle,
+          )
+      );
+      transactionDetails.add(
+          Text(
+            "Participaciones:",
+            style: kTransactionListTitleTextStyle,
+          )
+      );
+      transactionDetails.add(
+          Text(
+            transactionData.titles.toString(),
+            style: kTransactionDetailValueTextStyle,
+          )
+      );
+      transactionDetails.add(
+          Text(
+            "Precio:",
+            style: kTransactionListTitleTextStyle,
+          )
+      );
+      transactionDetails.add(
+          Text(
+            transactionData.price.toString() + " €",
+            style: kTransactionDetailValueTextStyle,
+          )
+      );
+      transactionDetails.add(
+          Text(
+            "Coste:",
+            style: kTransactionListTitleTextStyle,
+          )
+      );
+      transactionDetails.add(
+          Text(
+            transactionData.amount.toString() + " €",
+            style: kTransactionDetailValueTextStyle,
+          )
+      );
+    }
+    transactionDetails.add(
+      Text(
+        "\nEstado:",
+        style: kTransactionListTitleTextStyle,
+      ),
+    );
+    transactionDetails.add(
+      Text(
+        transactionData.status,
+        style: kTransactionDetailValueTextStyle,
+      ),
+    );
     tileElements.add(
       ReusableCard(
-        childWidget: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Icon(
-              transactionData.icon,
-              color: Colors.blueAccent,
-              size: 20,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    transactionData.operationType,
-                    textAlign: TextAlign.left,
-                    style: kTransactionListTitleTextStyle,
-                  ),
-                  RichText(
-                    text: TextSpan(children: [
-                      TextSpan(
-                        text: DateFormat("dd/MM").format(transactionData.date).replaceAll(".", ""),
-                        //textAlign: TextAlign.left,
-                        style: kCardSubTextStyle.copyWith(
-                          fontSize: 12,
-                        ),
-                      ),
-                      TextSpan(
-                        text: " · " + transactionData.accountType,
-                        //textAlign: TextAlign.left,
-                        style: kCardSubTextStyle.copyWith(
-                          fontSize: 12,
-                        ),
-                      ),
-                    ]),
-                  ),
-                ],
+        childWidget: InkWell(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Icon(
+                transactionData.icon,
+                color: Colors.blueAccent,
+                size: 20,
               ),
-            ),
-            Expanded(
-              child: Text(
-                transactionData.amount.toStringAsFixed(2) + " €",
-                textAlign: TextAlign.right,
-                style: kTransactionListAmountTextStyle.copyWith(fontWeight: FontWeight.normal),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      transactionData.operationType,
+                      textAlign: TextAlign.left,
+                      style: kTransactionListTitleTextStyle,
+                    ),
+                    RichText(
+                      text: TextSpan(children: [
+                        TextSpan(
+                          text: DateFormat("dd/MM").format(transactionData.date).replaceAll(".", ""),
+                          //textAlign: TextAlign.left,
+                          style: kCardSubTextStyle.copyWith(
+                            fontSize: 12,
+                          ),
+                        ),
+                        TextSpan(
+                          text: " · " + transactionData.accountType,
+                          //textAlign: TextAlign.left,
+                          style: kCardSubTextStyle.copyWith(
+                            fontSize: 12,
+                          ),
+                        ),
+                      ]),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+              Expanded(
+                child: Text(
+                  transactionData.amount.toStringAsFixed(2) + " €",
+                  textAlign: TextAlign.right,
+                  style: kTransactionListAmountTextStyle.copyWith(fontWeight: FontWeight.normal),
+                ),
+              ),
+            ],
+          ),
+          onTap: () {
+            showDialog(
+                context: context,
+                builder: (BuildContext context) =>
+                    AlertDialog(
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                        title: Text(
+                          "Detalles",
+                          //style: kTransactionListAmountTextStyle,
+                        ),
+                        content: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children:
+                          transactionDetails,
+                    ),
+                      contentPadding: EdgeInsets.fromLTRB(24, 24, 24, 0),
+                      actions: [
+                        TextButton(
+                          child: Text('OK'),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                      ],            ),
+            );
+          },
         ),
         flatTop: firstTransactionOfMonth ? false : true,
         flatBottom: lastTransactionOfMonth ? false : true,
-      ));
-
+      )
+    );
       return Column(
       children: tileElements,
     );

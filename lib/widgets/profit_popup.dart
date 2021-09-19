@@ -88,7 +88,7 @@ class ProfitPopUp extends StatelessWidget {
       ),
       contentPadding: EdgeInsets.fromLTRB(24, 24, 24, 0),
       actions: [
-        FlatButton(
+        TextButton(
           child: Text('OK'),
           onPressed: () {
             Navigator.of(context).pop();

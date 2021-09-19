@@ -172,6 +172,22 @@ TextStyle kTransactionListAmountTextStyle = GoogleFonts.ubuntu(
   ),
 );
 
+TextStyle kTransactionDetailTitleTextStyle = GoogleFonts.roboto(
+  textStyle: TextStyle(
+    color: Colors.black87,
+    fontSize: 15.0,
+    fontWeight: FontWeight.bold,
+  ),
+);
+
+TextStyle kTransactionDetailValueTextStyle = GoogleFonts.roboto(
+  textStyle: TextStyle(
+    color: Colors.black54,
+    fontSize: 15.0,
+    //fontWeight: FontWeight.bold,
+  ),
+);
+
 TextStyle kDividerTextStyle = GoogleFonts.roboto(
   textStyle: TextStyle(
     color: Colors.grey,

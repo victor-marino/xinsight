@@ -29,6 +29,7 @@ class ReusableCard extends StatelessWidget {
       ),
       color: Colors.white,
       elevation: 10,
+      clipBehavior: Clip.antiAlias,
       child: Padding(
         padding: const EdgeInsets.all(15.0),
         child: childWidget,
