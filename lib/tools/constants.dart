@@ -156,6 +156,13 @@ TextStyle kProfitLossChartLabelTextStyle = GoogleFonts.roboto(
   ),
 );
 
+TextStyle kDividerTextStyle = GoogleFonts.roboto(
+  textStyle: TextStyle(
+    color: Colors.grey,
+    fontSize: 13.0,
+  ),
+);
+
 Decoration kEnabledAccountSwitcherBoxDecoration = ShapeDecoration(
   color: Colors.blueGrey[100],
   shape: RoundedRectangleBorder(

@@ -80,9 +80,21 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
           padding: const EdgeInsets.all(20),
             itemCount: widget.accountData.transactionList.length,
             itemBuilder: (BuildContext context, int index) {
+            bool firstTransactionOfMonth = false;
+            bool lastTransactionOfMonth = false;
+            if (index == 0) {
+              firstTransactionOfMonth = true;
+            } else if (widget.accountData.transactionList[index].date.month != widget.accountData.transactionList[index-1].date.month) {
+              firstTransactionOfMonth = true;
+            }
+            if (index == (widget.accountData.transactionList.length - 1)) {
+              lastTransactionOfMonth = true;
+            } else if (widget.accountData.transactionList[index].date.month != widget.accountData.transactionList[index+1].date.month) {
+              lastTransactionOfMonth = true;
+            }
               return Container(
-                height: 50,
-                child: TransactionTile(transactionData: widget.accountData.transactionList[index]),
+                //height: 50,
+                child: TransactionTile(transactionData: widget.accountData.transactionList[index], firstTransactionOfMonth: firstTransactionOfMonth, lastTransactionOfMonth: lastTransactionOfMonth),
               );
             }
           ),
