@@ -81,10 +81,11 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
           padding: const EdgeInsets.all(20),
             itemCount: widget.accountData.transactionList.length,
             itemBuilder: (BuildContext context, int index) {
+            bool firstTransaction = false;
             bool firstTransactionOfMonth = false;
             bool lastTransactionOfMonth = false;
             if (index == 0) {
-              firstTransactionOfMonth = true;
+              firstTransaction = true;
             } else if (widget.accountData.transactionList[index].date.month != widget.accountData.transactionList[index-1].date.month) {
               firstTransactionOfMonth = true;
             }
@@ -95,7 +96,7 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
             }
               return Container(
                 //height: 50,
-                child: TransactionTile(transactionData: widget.accountData.transactionList[index], firstTransactionOfMonth: firstTransactionOfMonth, lastTransactionOfMonth: lastTransactionOfMonth),
+                child: TransactionTile(transactionData: widget.accountData.transactionList[index], firstTransaction: firstTransaction, firstTransactionOfMonth: firstTransactionOfMonth, lastTransactionOfMonth: lastTransactionOfMonth),
               );
             }
           ),

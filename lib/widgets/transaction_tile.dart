@@ -10,21 +10,30 @@ class TransactionTile extends StatelessWidget {
   const TransactionTile({
     Key key,
     @required this.transactionData,
+    @required this.firstTransaction,
     @required this.firstTransactionOfMonth,
     @required this.lastTransactionOfMonth,
   }) : super(key: key);
   final Transaction transactionData;
+  final bool firstTransaction;
   final bool firstTransactionOfMonth;
   final bool lastTransactionOfMonth;
 
   @override
   Widget build(BuildContext context) {
     List<Widget> tileElements = [];
+    double topPadding;
+
+    if (firstTransactionOfMonth && !firstTransaction) {
+      topPadding = 30;
+    } else {
+      topPadding = 0;
+    }
 
     if (firstTransactionOfMonth) {
       tileElements.add(
         Padding(
-          padding: const EdgeInsets.only(top: 20, bottom: 10),
+          padding: EdgeInsets.only(top: topPadding, bottom: 5),
           child: Row(
             children: [
               Expanded(child: Divider()),
@@ -180,55 +189,57 @@ class TransactionTile extends StatelessWidget {
       ),
     );
     tileElements.add(
-      ReusableCard(
-        childWidget: InkWell(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Icon(
-                transactionData.icon,
-                color: Colors.blueAccent,
-                size: 20,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      transactionData.operationType,
-                      textAlign: TextAlign.left,
-                      style: kTransactionListTitleTextStyle,
-                    ),
-                    RichText(
-                      text: TextSpan(children: [
-                        TextSpan(
-                          text: DateFormat("dd/MM").format(transactionData.date).replaceAll(".", ""),
-                          //textAlign: TextAlign.left,
-                          style: kCardSubTextStyle.copyWith(
-                            fontSize: 12,
-                          ),
-                        ),
-                        TextSpan(
-                          text: " · " + transactionData.accountType,
-                          //textAlign: TextAlign.left,
-                          style: kCardSubTextStyle.copyWith(
-                            fontSize: 12,
-                          ),
-                        ),
-                      ]),
-                    ),
-                  ],
+        InkWell(
+          child: Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Icon(
+                  transactionData.icon,
+                  color: Colors.blueAccent,
+                  size: 20,
                 ),
-              ),
-              Expanded(
-                child: Text(
-                  transactionData.amount.toStringAsFixed(2) + " €",
-                  textAlign: TextAlign.right,
-                  style: kTransactionListAmountTextStyle.copyWith(fontWeight: FontWeight.normal),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        transactionData.operationType,
+                        textAlign: TextAlign.left,
+                        style: kTransactionListTitleTextStyle,
+                      ),
+                      RichText(
+                        text: TextSpan(children: [
+                          TextSpan(
+                            text: DateFormat("dd/MM").format(transactionData.date).replaceAll(".", ""),
+                            //textAlign: TextAlign.left,
+                            style: kCardSubTextStyle.copyWith(
+                              fontSize: 12,
+                            ),
+                          ),
+                          TextSpan(
+                            text: " · " + transactionData.accountType,
+                            //textAlign: TextAlign.left,
+                            style: kCardSubTextStyle.copyWith(
+                              fontSize: 12,
+                            ),
+                          ),
+                        ]),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+                Expanded(
+                  child: Text(
+                    transactionData.amount.toStringAsFixed(2) + " €",
+                    textAlign: TextAlign.right,
+                    style: kTransactionListAmountTextStyle.copyWith(fontWeight: FontWeight.normal),
+                  ),
+                ),
+              ],
+            ),
           ),
           onTap: () {
             showDialog(
@@ -258,9 +269,6 @@ class TransactionTile extends StatelessWidget {
             );
           },
         ),
-        flatTop: firstTransactionOfMonth ? false : true,
-        flatBottom: lastTransactionOfMonth ? false : true,
-      )
     );
       return Column(
       children: tileElements,
