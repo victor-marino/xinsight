@@ -221,7 +221,20 @@ class Account {
         }
         break;
       }
-      Transaction newTransaction = Transaction(date: DateTime.parse(transaction['date']), valueDate: DateTime.parse(transaction['value_date']), fiscalDate: DateTime.parse(transaction['fiscal_date']), accountType: "Cuenta de valores", operationCode: transaction['operation_code'], operationType: operationType, icon: icon, instrumentCode: transaction['instrument']['identifier'], instrumentName: transaction['instrument']['name'], titles: transaction['titles'].toDouble(), price: transaction['price'].toDouble(), amount: transaction['amount'].toDouble(), status: transaction['status']);
+
+      String operationStatus;
+      switch(transaction['status']) {
+        case 'closed': {
+          operationStatus = "Completado";
+        }
+        break;
+
+        default: {
+          operationStatus = transaction['status'];
+        }
+        break;
+      }
+      Transaction newTransaction = Transaction(date: DateTime.parse(transaction['date']), valueDate: DateTime.parse(transaction['value_date']), fiscalDate: DateTime.parse(transaction['fiscal_date']), accountType: "Cuenta de valores", operationCode: transaction['operation_code'], operationType: operationType, icon: icon, instrumentCode: transaction['instrument']['identifier'], instrumentName: transaction['instrument']['name'], titles: transaction['titles'].toDouble(), price: transaction['price'].toDouble(), amount: transaction['amount'].toDouble(), status: operationStatus);
       newTransactionList.add(newTransaction);
     }
 
@@ -260,7 +273,20 @@ class Account {
         }
         break;
       }
-      Transaction newTransaction = Transaction(date: DateTime.parse(transaction['date']), valueDate: null, fiscalDate: null, accountType: "Cuenta de efectivo", operationCode: transaction['operation_code'], operationType: operationType, icon: icon, instrumentCode: null, instrumentName: null, titles: null, price: null, amount: transaction['amount'].toDouble(), status: transaction['status']);
+
+      String operationStatus;
+      switch(transaction['status']) {
+        case 'closed': {
+          operationStatus = "Completado";
+        }
+        break;
+
+        default: {
+          operationStatus = transaction['status'];
+        }
+        break;
+      }
+      Transaction newTransaction = Transaction(date: DateTime.parse(transaction['date']), valueDate: null, fiscalDate: null, accountType: "Cuenta de efectivo", operationCode: transaction['operation_code'], operationType: operationType, icon: icon, instrumentCode: null, instrumentName: null, titles: null, price: null, amount: transaction['amount'].toDouble(), status: operationStatus);
       newTransactionList.add(newTransaction);
     }
 

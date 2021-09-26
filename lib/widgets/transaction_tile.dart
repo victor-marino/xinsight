@@ -79,7 +79,7 @@ class TransactionTile extends StatelessWidget {
     );
     transactionDetails.add(
       Text(
-        "Fecha:",
+        "Fecha operación:",
         style: kTransactionListTitleTextStyle,
       ),
     );
@@ -92,10 +92,10 @@ class TransactionTile extends StatelessWidget {
     );
     if (transactionData.accountType == "Cuenta de valores") {
       transactionDetails.add(
-        Text(
-          "Fecha valor:",
-          style: kTransactionListTitleTextStyle,
-        )
+          Text(
+            "Fecha valor:",
+            style: kTransactionListTitleTextStyle,
+          )
       );
       transactionDetails.add(
           Text(
@@ -115,9 +115,16 @@ class TransactionTile extends StatelessWidget {
             style: kTransactionDetailValueTextStyle,
           )
       );
+    }
+
+    transactionDetails.add(
+      Divider(),
+    );
+
+    if (transactionData.accountType == "Cuenta de valores") {
       transactionDetails.add(
           Text(
-            "\nFondo:",
+            "Fondo:",
             style: kTransactionListTitleTextStyle,
           )
       );
@@ -153,7 +160,7 @@ class TransactionTile extends StatelessWidget {
       );
       transactionDetails.add(
           Text(
-            "Precio:",
+            "Valor liquidativo:",
             style: kTransactionListTitleTextStyle,
           )
       );
@@ -175,10 +182,13 @@ class TransactionTile extends StatelessWidget {
             style: kTransactionDetailValueTextStyle,
           )
       );
+      transactionDetails.add(
+        Divider(),
+      );
     }
     transactionDetails.add(
       Text(
-        "\nEstado:",
+        "Estado:",
         style: kTransactionListTitleTextStyle,
       ),
     );
