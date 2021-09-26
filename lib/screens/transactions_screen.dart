@@ -86,6 +86,7 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
             bool lastTransactionOfMonth = false;
             if (index == 0) {
               firstTransaction = true;
+              firstTransactionOfMonth = true;
             } else if (widget.accountData.transactionList[index].date.month != widget.accountData.transactionList[index-1].date.month) {
               firstTransactionOfMonth = true;
             }
