@@ -100,11 +100,11 @@ class TransactionDetailsPopup extends StatelessWidget {
         style: kTransactionDetailValueTextStyle,
       ));
       transactionDetails.add(Text(
-        "Coste:",
+        "Importe:",
         style: kTransactionListTitleTextStyle,
       ));
       transactionDetails.add(Text(
-        transactionData.amount.toString() + " €",
+        transactionData.amount.toStringAsFixed(2) + " €",
         style: kTransactionDetailValueTextStyle,
       ));
       transactionDetails.add(
