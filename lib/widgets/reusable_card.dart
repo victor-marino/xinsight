@@ -9,6 +9,7 @@ class ReusableCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Card(
       margin: EdgeInsets.all(0),
       shape: RoundedRectangleBorder(
@@ -16,6 +17,7 @@ class ReusableCard extends StatelessWidget {
       ),
       color: Colors.white,
       elevation: 10,
+      clipBehavior: Clip.antiAlias,
       child: Padding(
         padding: const EdgeInsets.all(15.0),
         child: childWidget,

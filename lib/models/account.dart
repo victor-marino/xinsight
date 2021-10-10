@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'amounts_datapoint.dart';
 import 'portfolio_datapoint.dart';
 import 'performance_datapoint.dart';
+import 'transaction.dart';
 
 class Account {
   final accountPerformanceData;
   final accountPortfolioData;
   final accountInfo;
+  final accountInstrumentTransactionData;
+  final accountCashTransactionData;
   final int _selectedRisk;
   final double _totalAmount;
   final double _investment;
@@ -28,6 +31,7 @@ class Account {
   final Map<InstrumentType, double> _portfolioDistribution;
   final List<PerformanceDataPoint> _performanceSeries;
   final Map<int, List<List>> _profitLossSeries;
+  final List<Transaction> _transactionList;
 
   static Color _obtainColor(double variable) {
     if (variable < 0) {
@@ -181,7 +185,119 @@ class Account {
 
   }
 
-  Account({@required this.accountInfo, @required this.accountPerformanceData, @required this.accountPortfolioData})
+  static List<Transaction> _createTransactionList(accountInstrumentTransactionData, accountCashTransactionData) {
+    List<Transaction> newTransactionList = [];
+    for (var transaction in accountInstrumentTransactionData) {
+      String operationType;
+      IconData icon;
+      switch(transaction['operation_code']) {
+        case 20: {
+          operationType = "Suscripción de fondos";
+          icon = Icons.trending_up;
+        }
+        break;
+
+        case 21: {
+          operationType = "Reembolso de fondos";
+          icon = Icons.trending_down;
+        }
+        break;
+
+        case 67: {
+          operationType = "Suscripción por traspaso";
+          icon = Icons.sync_alt;
+        }
+        break;
+
+        case 72: {
+          operationType = "Reembolso por traspaso";
+          icon = Icons.sync_alt;
+        }
+        break;
+
+        default: {
+          operationType = transaction['operation_type'];
+          icon = Icons.help_outline;
+        }
+        break;
+      }
+
+      String operationStatus;
+      switch(transaction['status']) {
+        case 'closed': {
+          operationStatus = "Completado";
+        }
+        break;
+
+        default: {
+          operationStatus = transaction['status'];
+        }
+        break;
+      }
+      Transaction newTransaction = Transaction(date: DateTime.parse(transaction['date']), valueDate: DateTime.parse(transaction['value_date']), fiscalDate: DateTime.parse(transaction['fiscal_date']), accountType: "Cuenta de valores", operationCode: transaction['operation_code'], operationType: operationType, icon: icon, instrumentCode: transaction['instrument']['identifier'], instrumentName: transaction['instrument']['name'], titles: transaction['titles'].toDouble(), price: transaction['price'].toDouble(), amount: transaction['amount'].toDouble(), status: operationStatus);
+      newTransactionList.add(newTransaction);
+    }
+
+    for (var transaction in accountCashTransactionData) {
+      String operationType;
+      IconData icon;
+      //print(transaction['operation_type']);
+      switch(transaction['operation_code']) {
+        case 9200: {
+          operationType = "Operación de valores";
+          icon = Icons.pie_chart;
+        }
+        break;
+
+        case 285: {
+          operationType = "Comisión de custodia";
+          icon = Icons.toll;
+        }
+        break;
+
+        case 4589: {
+          operationType = "Ingreso por transferencia";
+          icon = Icons.download_outlined;
+        }
+        break;
+
+        case 4597: {
+          operationType = "Retirada por transferencia";
+          icon = Icons.upload_outlined;
+        }
+        break;
+
+        default: {
+          operationType = transaction['operation_type'];
+          icon = Icons.help_outline;
+        }
+        break;
+      }
+
+      String operationStatus;
+      switch(transaction['status']) {
+        case 'closed': {
+          operationStatus = "Completado";
+        }
+        break;
+
+        default: {
+          operationStatus = transaction['status'];
+        }
+        break;
+      }
+      Transaction newTransaction = Transaction(date: DateTime.parse(transaction['date']), valueDate: null, fiscalDate: null, accountType: "Cuenta de efectivo", operationCode: transaction['operation_code'], operationType: operationType, icon: icon, instrumentCode: null, instrumentName: null, titles: null, price: null, amount: transaction['amount'].toDouble(), status: operationStatus);
+      newTransactionList.add(newTransaction);
+    }
+
+    newTransactionList.sort((a, b) => b.date.compareTo(a.date));
+    // for (var transaction in newTransactionList) {
+    //   print(transaction.date.toString() + ": " + transaction.accountType);
+    // }
+    return(newTransactionList);
+  }
+
+  Account({@required this.accountInfo, @required this.accountPerformanceData, @required this.accountPortfolioData, @required this.accountInstrumentTransactionData, @required this.accountCashTransactionData})
       : _selectedRisk = accountInfo['profile']['selected_risk'],
         _totalAmount = accountPerformanceData['return']['total_amount'].toDouble(),
         //_totalAmount = new DateTime.now().second.toDouble(),
@@ -205,7 +321,9 @@ class Account {
         _portfolioData = _createPortfolioData(accountPortfolioData['portfolio'], accountPortfolioData['comparison']),
         _portfolioDistribution = _createPortfolioDistribution(accountPortfolioData['portfolio'], accountPortfolioData['comparison']),
         _performanceSeries = _createPerformanceSeries(accountPerformanceData['performance']['period'], accountPerformanceData['performance']['best_return'], accountPerformanceData['performance']['worst_return'], accountPerformanceData['performance']['expected_return'], accountPerformanceData['performance']['real']),
-        _profitLossSeries = _createProfitLossSeries(accountPerformanceData['performance']['period'], accountPerformanceData['performance']['real']);
+        _profitLossSeries = _createProfitLossSeries(accountPerformanceData['performance']['period'], accountPerformanceData['performance']['real']),
+        _transactionList = _createTransactionList(accountInstrumentTransactionData, accountCashTransactionData);
+
 
   int get selectedRisk => _selectedRisk;
   double get totalAmount => _totalAmount;
@@ -228,4 +346,5 @@ class Account {
   Map<InstrumentType, double> get portfolioDistribution => _portfolioDistribution;
   List<PerformanceDataPoint> get performanceSeries => _performanceSeries;
   Map<int, List<List>> get profitLossSeries => _profitLossSeries;
+  List<Transaction> get transactionList => _transactionList;
 }

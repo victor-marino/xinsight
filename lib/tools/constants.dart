@@ -156,6 +156,45 @@ TextStyle kProfitLossChartLabelTextStyle = GoogleFonts.roboto(
   ),
 );
 
+TextStyle kTransactionListTitleTextStyle = GoogleFonts.roboto(
+  textStyle: TextStyle(
+    color: Colors.black87,
+    fontSize: 15.0,
+    fontWeight: FontWeight.bold,
+  ),
+);
+
+TextStyle kTransactionListAmountTextStyle = GoogleFonts.ubuntu(
+  textStyle: TextStyle(
+    color: Colors.black54,
+    fontSize: 17.0,
+    fontWeight: FontWeight.bold,
+  ),
+);
+
+TextStyle kTransactionDetailTitleTextStyle = GoogleFonts.roboto(
+  textStyle: TextStyle(
+    color: Colors.black87,
+    fontSize: 15.0,
+    fontWeight: FontWeight.bold,
+  ),
+);
+
+TextStyle kTransactionDetailValueTextStyle = GoogleFonts.roboto(
+  textStyle: TextStyle(
+    color: Colors.black54,
+    fontSize: 15.0,
+    //fontWeight: FontWeight.bold,
+  ),
+);
+
+TextStyle kDividerTextStyle = GoogleFonts.roboto(
+  textStyle: TextStyle(
+    color: Colors.grey,
+    fontSize: 13.0,
+  ),
+);
+
 Decoration kEnabledAccountSwitcherBoxDecoration = ShapeDecoration(
   color: Colors.blueGrey[100],
   shape: RoundedRectangleBorder(
