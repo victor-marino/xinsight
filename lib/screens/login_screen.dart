@@ -24,12 +24,12 @@ class _LoginScreenState extends State<LoginScreen> {
   final tokenTextController = TextEditingController();
   final LocalAuthentication localAuthentication = LocalAuthentication();
   final AndroidAuthMessages androidStrings = AndroidAuthMessages(
-    fingerprintHint: "",
-    fingerprintNotRecognized: "user_not_recognized".tr(),
-    fingerprintSuccess: "user_authenticated".tr(),
+    biometricHint: "",
+    biometricNotRecognized: "user_not_recognized".tr(),
+    biometricSuccess: "user_authenticated".tr(),
     cancelButton: "cancel".tr(),
     signInTitle: "biometric_authentication".tr(),
-    fingerprintRequiredTitle: "biometrics_required".tr(),
+    biometricRequiredTitle: "biometrics_required".tr(),
     goToSettingsButton: "go_to_settings".tr(),
     goToSettingsDescription: "go_to_settings_description".tr(),
   );
@@ -67,7 +67,8 @@ class _LoginScreenState extends State<LoginScreen> {
     bool isAuthenticated = false;
     try {
       print("Trying to authenticate...");
-      isAuthenticated = await localAuthentication.authenticateWithBiometrics(
+      //isAuthenticated = await localAuthentication.authenticateWithBiometrics(
+      isAuthenticated = await localAuthentication.authenticate(
         sensitiveTransaction: false,
         androidAuthStrings: androidStrings,
         localizedReason: "please_authenticate".tr(),

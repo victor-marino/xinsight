@@ -17,15 +17,15 @@ class MyBottomNavigationBar extends StatelessWidget {
       unselectedItemColor: Colors.black54,
 
       items: [
-        BottomNavigationBarItem(icon: Icon(Icons.pie_chart), title: Text('Cartera')),
+        BottomNavigationBarItem(icon: Icon(Icons.pie_chart), label: 'Cartera'),
         BottomNavigationBarItem(
-            icon: Icon(Icons.assessment), title: Text('Evolución')),
+            icon: Icon(Icons.assessment), label: 'Evolución'),
         BottomNavigationBarItem(
-            icon: Icon(Icons.list), title: Text('Movimientos')),
+            icon: Icon(Icons.list), label: 'Movimientos'),
         BottomNavigationBarItem(
-            icon: Icon(Icons.trending_up), title: Text('Proyección')),
+            icon: Icon(Icons.trending_up), label: 'Proyección'),
         BottomNavigationBarItem(
-            icon: Icon(Icons.history), title: Text('Estadísticas')),
+            icon: Icon(Icons.history), label: 'Estadísticas'),
       ],
       onTap: onTapped,
       currentIndex:
