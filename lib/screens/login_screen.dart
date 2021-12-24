@@ -24,8 +24,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   bool rememberToken = false;
 
-  String loginErrors = "";
-
   final tokenTextController = TextEditingController();
   final LocalAuthentication localAuthentication = LocalAuthentication();
   final AndroidAuthMessages androidStrings = AndroidAuthMessages(
@@ -144,32 +142,39 @@ class _LoginScreenState extends State<LoginScreen> {
   Future<bool> validateToken({String token}) async {
     Account currentAccount;
     IndexaData indexaData = IndexaData(token: token);
-    var userAccounts = await indexaData.getUserAccounts();
-    if (userAccounts != null) {
-      print("Token authenticated!");
-      return true;
-    } else {
-      print("Couldn't authenticate user");
+    try {
+      var userAccounts = await indexaData.getUserAccounts();
+      if (userAccounts != null) {
+        print("Token authenticated!");
+        return true;
+      }
+    } on Exception catch (e) {
+      print("Couldn't validate token");
+      print(e);
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(e.toString()),
+      ));
       return false;
     }
   }
 
   void authenticateLocallyAndGoToHome({String token}) async {
     if (await tryToAuthenticateLocally()) {
-      bool validatedToken = await validateToken(token: token);
-      if (validatedToken) {
+      try {
+        bool validatedToken = await validateToken(token: token);
+        if ((validatedToken != null) && (validatedToken == true)) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (BuildContext context) => RootScreen(token: token, pageNumber: 0, accountNumber: 0),
+            ),
+          );
+        }
+      } on Exception catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(e.toString()),
+        ));
         setState(() {
-          loginErrors = "";
-        });
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (BuildContext context) => RootScreen(token: token, pageNumber: 0, accountNumber: 0),
-          ),
-        );
-      } else {
-        setState(() {
-          loginErrors = "Server error. Token may be invalid.";
           tokenTextController.text = token;
         });
         print("Couldn't authenticate. Is the token valid?");
@@ -180,9 +185,6 @@ class _LoginScreenState extends State<LoginScreen> {
   void goToHome({String token}) async {
     bool validatedToken = await validateToken(token: token);
     if (validatedToken) {
-      setState(() {
-        loginErrors = "";
-      });
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
@@ -190,10 +192,10 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       );
     } else {
-      setState(() {
-        loginErrors = "Server error. Token may be invalid.";
-      });
       print("Couldn't authenticate. Is the token valid?");
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text("Server error. Token may be invalid."),
+      ));
     }
   }
 
@@ -201,9 +203,6 @@ class _LoginScreenState extends State<LoginScreen> {
     await _storeKey(tokenTextController.text);
     bool validatedToken = await validateToken(token: tokenTextController.text);
     if (validatedToken) {
-      setState(() {
-        loginErrors = "";
-      });
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
@@ -212,10 +211,10 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       );
     } else {
-      setState(() {
-        loginErrors = "Server error. Token may be invalid.";
-      });
       print("Couldn't authenticate. Is the token valid?");
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text("Server error. Token may be invalid."),
+      ));
     }
   }
 
@@ -461,13 +460,6 @@ class _LoginScreenState extends State<LoginScreen> {
 //                ),
                         SizedBox(
                           height: 40,
-                          child: Container(
-                            alignment: Alignment.center,
-                            child: Text(
-                              loginErrors,
-                              style: kLoginErrorsTextStyle,
-                            ),
-                          ),
                         ),
                         SizedBox(
                           width: 60,

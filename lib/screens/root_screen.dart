@@ -102,24 +102,30 @@ class _RootScreenState extends State<RootScreen> {
   static Future<Account> getAccountData(String token, int accountNumber) async {
     Account currentAccount;
     IndexaData indexaData = IndexaData(token: token);
-    var userAccounts = await indexaData.getUserAccounts();
-    var currentAccountInfo =
-        await indexaData.getAccountInfo(userAccounts[accountNumber]);
-    var currentAccountPerformanceData =
-        await indexaData.getAccountPerformanceData(userAccounts[accountNumber]);
-    var currentAccountPortfolioData =
-        await indexaData.getAccountPortfolioData(userAccounts[accountNumber]);
-    var currentAccountInstrumentTransactionData =
-        await indexaData.getAccountInstrumentTransactionData(userAccounts[accountNumber]);
-    var currentAccountCashTransactionData =
-        await indexaData.getAccountCashTransactionData(userAccounts[accountNumber]);
-    currentAccount = Account(
-        accountInfo: currentAccountInfo,
-        accountPerformanceData: currentAccountPerformanceData,
-        accountPortfolioData: currentAccountPortfolioData,
-        accountInstrumentTransactionData: currentAccountInstrumentTransactionData,
-        accountCashTransactionData: currentAccountCashTransactionData);
-    return currentAccount;
+    try {
+      var userAccounts = await indexaData.getUserAccounts();
+      var currentAccountInfo =
+          await indexaData.getAccountInfo(userAccounts[accountNumber]);
+      var currentAccountPerformanceData =
+          await indexaData.getAccountPerformanceData(userAccounts[accountNumber]);
+      var currentAccountPortfolioData =
+          await indexaData.getAccountPortfolioData(userAccounts[accountNumber]);
+      var currentAccountInstrumentTransactionData =
+          await indexaData.getAccountInstrumentTransactionData(userAccounts[accountNumber]);
+      var currentAccountCashTransactionData =
+          await indexaData.getAccountCashTransactionData(userAccounts[accountNumber]);
+      currentAccount = Account(
+          accountInfo: currentAccountInfo,
+          accountPerformanceData: currentAccountPerformanceData,
+          accountPortfolioData: currentAccountPortfolioData,
+          accountInstrumentTransactionData: currentAccountInstrumentTransactionData,
+          accountCashTransactionData: currentAccountCashTransactionData);
+      return currentAccount;
+    } on Exception catch (e) {
+      print("Couldn't fetch account data");
+      print(e);
+      throw(e);
+    }
   }
 
   @override

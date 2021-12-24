@@ -43,7 +43,15 @@ class _ProjectionScreenState extends State<ProjectionScreen> {
 
   void _onRefresh() async {
     // monitor network fetch
-    accountData = await refreshData(currentAccountNumber);
+    try {
+      accountData = await refreshData(currentAccountNumber);
+    } on Exception catch (e) {
+      print("Couldn't refresh data");
+      print(e);
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(e.toString()),
+      ));
+    }
     setState(() {});
     // if failed,use refreshFailed()
     _refreshController.refreshCompleted();

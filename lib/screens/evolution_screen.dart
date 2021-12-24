@@ -49,7 +49,15 @@ class _EvolutionScreenState extends State<EvolutionScreen> {
 
   void _onRefresh() async {
     // monitor network fetch
-    accountData = await refreshData(currentAccountNumber);
+    try {
+      accountData = await refreshData(currentAccountNumber);
+    } on Exception catch (e) {
+      print("Couldn't refresh data");
+      print(e);
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(e.toString()),
+      ));
+    }
     setState(() {});
     // if failed,use refreshFailed()
     _refreshController.refreshCompleted();
@@ -81,7 +89,6 @@ class _EvolutionScreenState extends State<EvolutionScreen> {
 
   @override
   Widget build(BuildContext context) {
-    List<Text> monthList = [Text("E"), Text("F"), Text("M"), Text("A"), Text("M"), Text("J"), Text("J"), Text("A"), Text("S"), Text("O"), Text("N"), Text("D"), Text("Σ")];
     return Scaffold(
       body: SafeArea(
         child: Column(

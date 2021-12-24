@@ -96,8 +96,8 @@ TextStyle kPopUpFootnoteTextStyle = GoogleFonts.roboto(
 
 TextStyle kLoginErrorsTextStyle = GoogleFonts.roboto(
   textStyle: TextStyle(
-    color: Colors.red,
-    fontWeight: FontWeight.bold,
+    color: Colors.red[400],
+    //fontWeight: FontWeight.bold,
     //fontSize: 14,
   ),
 );

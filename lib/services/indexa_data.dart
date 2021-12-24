@@ -23,6 +23,7 @@ class IndexaData {
       }
     } on Exception catch (e) {
       print(e);
+      throw(e);
       return null;
     }
   }
@@ -40,7 +41,7 @@ class IndexaData {
       }
     } on Exception catch (e) {
       print(e);
-      return null;
+      throw(e);
     }
   }
 
@@ -61,7 +62,7 @@ class IndexaData {
       }
     } on Exception catch (e) {
       print(e);
-      return null;
+      throw(e);
     }
   }
 
@@ -77,7 +78,7 @@ class IndexaData {
       }
     } on Exception catch (e) {
       print(e);
-      return null;
+      throw(e);
     }
   }
 
@@ -93,7 +94,7 @@ class IndexaData {
       }
     } on Exception catch (e) {
       print(e);
-      return null;
+      throw(e);
     }
   }
 
@@ -109,7 +110,7 @@ class IndexaData {
       }
     } on Exception catch (e) {
       print(e);
-      return null;
+      throw(e);
     }
   }
 }
