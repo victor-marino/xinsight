@@ -2,11 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'dart:io';
 import 'package:indexa_dashboard/services/indexa_data.dart';
 import 'package:indexa_dashboard/screens/root_screen.dart';
-import 'package:indexa_dashboard/tools/constants.dart';
-import 'package:indexa_dashboard/models/account.dart';
 import 'package:indexa_dashboard/tools/constants.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:local_auth/auth_strings.dart';
@@ -140,7 +137,6 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Future<bool> validateToken({String token}) async {
-    Account currentAccount;
     IndexaData indexaData = IndexaData(token: token);
     try {
       var userAccounts = await indexaData.getUserAccounts();

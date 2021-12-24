@@ -7,8 +7,6 @@ import 'package:indexa_dashboard/screens/projection_screen.dart';
 import 'package:indexa_dashboard/screens/transactions_screen.dart';
 import 'package:indexa_dashboard/screens/stats_screen.dart';
 import 'settings_screen.dart';
-import 'package:syncfusion_flutter_core/core.dart';
-import 'package:indexa_dashboard/tools/constants.dart';
 import '../services/indexa_data.dart';
 import 'package:provider/provider.dart';
 import '../tools/bottom_navigation_bar_provider.dart';
@@ -17,7 +15,6 @@ import '../widgets/build_account_switcher.dart';
 import '../models/account_dropdown_items.dart';
 import '../widgets/settings_button.dart';
 import '../widgets/page_title.dart';
-import '../models/transaction.dart';
 
 class RootScreen extends StatefulWidget {
   RootScreen({

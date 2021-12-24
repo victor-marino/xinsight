@@ -7,9 +7,7 @@ import '../tools/constants.dart';
 import 'package:indexa_dashboard/widgets/reusable_card.dart';
 import 'package:indexa_dashboard/widgets/performance_chart.dart';
 import 'package:indexa_dashboard/widgets/risk_chart.dart';
-import 'package:indexa_dashboard/widgets/build_account_switcher.dart';
 import 'package:indexa_dashboard/models/account_dropdown_items.dart';
-import 'package:indexa_dashboard/widgets/settings_button.dart';
 import 'package:indexa_dashboard/widgets/expectations_popup.dart';
 
 class ProjectionScreen extends StatefulWidget {
