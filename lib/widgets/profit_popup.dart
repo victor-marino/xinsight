@@ -17,10 +17,6 @@ class ProfitPopUp extends StatelessWidget {
             'Rentabilidad',
             //style: kPopUpTitleTextStyle,
           ),
-          Icon(
-            Icons.info_outline,
-            color: Colors.black54,
-          ),
         ],
       ),
       content: Column(
@@ -74,7 +70,7 @@ class ProfitPopUp extends StatelessWidget {
             height: 5,
           ),
           Text(
-            'Es la forma más común de evaluar el desempeño de la cuenta, ya que tiene en cuenta tu patrón específico de aportaciones y retiradas.',
+            'Es la forma más común de evaluar el desempeño de tu cartera, ya que tiene en cuenta tu patrón específico de aportaciones y reembolsos.',
             style: kPopUpNormalTextStyle,
           ),
           SizedBox(

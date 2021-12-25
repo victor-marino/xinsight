@@ -18,10 +18,6 @@ class ExpectationsPopUp extends StatelessWidget {
             'Expectativas',
             //style: kPopUpTitleTextStyle,
           ),
-          Icon(
-            Icons.info_outline,
-            color: Colors.black54,
-          ),
         ],
       ),
       content: Text(
@@ -31,7 +27,7 @@ class ExpectationsPopUp extends StatelessWidget {
       contentPadding: EdgeInsets.fromLTRB(
           24, 24, 24, 0),
       actions: [
-        FlatButton(
+        TextButton(
           child: Text('OK'),
           onPressed: () {
             Navigator.of(context).pop();

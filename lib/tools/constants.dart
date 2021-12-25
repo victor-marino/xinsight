@@ -188,6 +188,14 @@ TextStyle kTransactionDetailValueTextStyle = GoogleFonts.roboto(
   ),
 );
 
+TextStyle kPendingTransactionsWidgetTextStyle = GoogleFonts.roboto(
+  textStyle: TextStyle(
+    color: Colors.black87,
+    fontSize: 15.0,
+    //fontWeight: FontWeight.bold,
+  ),
+);
+
 TextStyle kDividerTextStyle = GoogleFonts.roboto(
   textStyle: TextStyle(
     color: Colors.grey,

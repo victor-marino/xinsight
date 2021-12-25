@@ -6,6 +6,7 @@ import '../models/account.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:indexa_dashboard/models/account_dropdown_items.dart';
 import 'package:indexa_dashboard/widgets/transaction_tile.dart';
+import 'package:indexa_dashboard/widgets/pending_transactions_card.dart';
 
 const int nbsp = 0x00A0;
 
@@ -69,34 +70,45 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: SmartRefresher(
-          enablePullDown: true,
-          controller: _refreshController,
-          onRefresh: _onRefresh,
-          child: ListView.builder(
-          padding: const EdgeInsets.all(20),
-            itemCount: widget.accountData.transactionList.length,
-            itemBuilder: (BuildContext context, int index) {
-            bool firstTransaction = false;
-            bool firstTransactionOfMonth = false;
-            bool lastTransactionOfMonth = false;
-            if (index == 0) {
-              firstTransaction = true;
-              firstTransactionOfMonth = true;
-            } else if (widget.accountData.transactionList[index].date.month != widget.accountData.transactionList[index-1].date.month) {
-              firstTransactionOfMonth = true;
-            }
-            if (index == (widget.accountData.transactionList.length - 1)) {
-              lastTransactionOfMonth = true;
-            } else if (widget.accountData.transactionList[index].date.month != widget.accountData.transactionList[index+1].date.month) {
-              lastTransactionOfMonth = true;
-            }
-              return Container(
-                //height: 50,
-                child: TransactionTile(transactionData: widget.accountData.transactionList[index], firstTransaction: firstTransaction, firstTransactionOfMonth: firstTransactionOfMonth, lastTransactionOfMonth: lastTransactionOfMonth),
-              );
-            }
-          ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            if (widget.accountData.hasPendingTransactions) Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: (PendingTransactionsCard()),
+            ),
+            Expanded(
+              child: SmartRefresher(
+                enablePullDown: true,
+                controller: _refreshController,
+                onRefresh: _onRefresh,
+                child: ListView.builder(
+                padding: const EdgeInsets.all(20),
+                  itemCount: widget.accountData.transactionList.length,
+                  itemBuilder: (BuildContext context, int index) {
+                  bool firstTransaction = false;
+                  bool firstTransactionOfMonth = false;
+                  bool lastTransactionOfMonth = false;
+                  if (index == 0) {
+                    firstTransaction = true;
+                    firstTransactionOfMonth = true;
+                  } else if (widget.accountData.transactionList[index].date.month != widget.accountData.transactionList[index-1].date.month) {
+                    firstTransactionOfMonth = true;
+                  }
+                  if (index == (widget.accountData.transactionList.length - 1)) {
+                    lastTransactionOfMonth = true;
+                  } else if (widget.accountData.transactionList[index].date.month != widget.accountData.transactionList[index+1].date.month) {
+                    lastTransactionOfMonth = true;
+                  }
+                    return Container(
+                      //height: 50,
+                      child: TransactionTile(transactionData: widget.accountData.transactionList[index], firstTransaction: firstTransaction, firstTransactionOfMonth: firstTransactionOfMonth, lastTransactionOfMonth: lastTransactionOfMonth),
+                    );
+                  }
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );

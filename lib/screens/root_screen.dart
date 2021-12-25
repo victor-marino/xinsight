@@ -111,12 +111,15 @@ class _RootScreenState extends State<RootScreen> {
           await indexaData.getAccountInstrumentTransactionData(userAccounts[accountNumber]);
       var currentAccountCashTransactionData =
           await indexaData.getAccountCashTransactionData(userAccounts[accountNumber]);
+      var currentAccountPendingTransactionData =
+          await indexaData.getAccountPendingTransactionData(userAccounts[accountNumber]);
       currentAccount = Account(
           accountInfo: currentAccountInfo,
           accountPerformanceData: currentAccountPerformanceData,
           accountPortfolioData: currentAccountPortfolioData,
           accountInstrumentTransactionData: currentAccountInstrumentTransactionData,
-          accountCashTransactionData: currentAccountCashTransactionData);
+          accountCashTransactionData: currentAccountCashTransactionData,
+          accountPendingTransactionData: currentAccountPendingTransactionData);
       return currentAccount;
     } on Exception catch (e) {
       print("Couldn't fetch account data");

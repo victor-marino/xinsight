@@ -10,6 +10,7 @@ class Account {
   final accountInfo;
   final accountInstrumentTransactionData;
   final accountCashTransactionData;
+  final accountPendingTransactionData;
   final int _selectedRisk;
   final double _totalAmount;
   final double _investment;
@@ -25,6 +26,7 @@ class Account {
   final double _bestReturn10yr;
   final double _worstReturn10yr;
   final bool _hasActiveRewards;
+  final bool _hasPendingTransactions;
   final double _feeFreeAmount;
   final List<AmountsDataPoint> _amountsSeries;
   final List<PortfolioDataPoint> _portfolioData;
@@ -297,7 +299,20 @@ class Account {
     return(newTransactionList);
   }
 
-  Account({@required this.accountInfo, @required this.accountPerformanceData, @required this.accountPortfolioData, @required this.accountInstrumentTransactionData, @required this.accountCashTransactionData})
+  static bool _checkPendingTransactions(accountPendingTransactionData) {
+    bool hasPendingTransactions = false;
+
+    if (accountPendingTransactionData['orders'].isNotEmpty ||
+        accountPendingTransactionData['transfers'].isNotEmpty ||
+        accountPendingTransactionData['transfers_request'].isNotEmpty ||
+        accountPendingTransactionData['cash_requests'].isNotEmpty) {
+      hasPendingTransactions = true;
+    }
+
+    return(hasPendingTransactions);
+  }
+
+  Account({@required this.accountInfo, @required this.accountPerformanceData, @required this.accountPortfolioData, @required this.accountInstrumentTransactionData, @required this.accountCashTransactionData, @required this.accountPendingTransactionData})
       : _selectedRisk = accountInfo['profile']['selected_risk'],
         _totalAmount = accountPerformanceData['return']['total_amount'].toDouble(),
         //_totalAmount = new DateTime.now().second.toDouble(),
@@ -322,7 +337,8 @@ class Account {
         _portfolioDistribution = _createPortfolioDistribution(accountPortfolioData['portfolio'], accountPortfolioData['comparison']),
         _performanceSeries = _createPerformanceSeries(accountPerformanceData['performance']['period'], accountPerformanceData['performance']['best_return'], accountPerformanceData['performance']['worst_return'], accountPerformanceData['performance']['expected_return'], accountPerformanceData['performance']['real']),
         _profitLossSeries = _createProfitLossSeries(accountPerformanceData['performance']['period'], accountPerformanceData['performance']['real']),
-        _transactionList = _createTransactionList(accountInstrumentTransactionData, accountCashTransactionData);
+        _transactionList = _createTransactionList(accountInstrumentTransactionData, accountCashTransactionData),
+        _hasPendingTransactions = _checkPendingTransactions(accountPendingTransactionData);
 
 
   int get selectedRisk => _selectedRisk;
@@ -347,4 +363,5 @@ class Account {
   List<PerformanceDataPoint> get performanceSeries => _performanceSeries;
   Map<int, List<List>> get profitLossSeries => _profitLossSeries;
   List<Transaction> get transactionList => _transactionList;
+  bool get hasPendingTransactions => _hasPendingTransactions;
 }
