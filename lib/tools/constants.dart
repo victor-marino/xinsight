@@ -196,6 +196,14 @@ TextStyle kPendingTransactionsWidgetTextStyle = GoogleFonts.roboto(
   ),
 );
 
+TextStyle kMinimumTransferCardTextStyle = GoogleFonts.roboto(
+  textStyle: TextStyle(
+    color: Colors.black54,
+    fontSize: 14.0,
+    //fontWeight: FontWeight.bold,
+  ),
+);
+
 TextStyle kDividerTextStyle = GoogleFonts.roboto(
   textStyle: TextStyle(
     color: Colors.grey,

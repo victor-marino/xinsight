@@ -11,6 +11,8 @@ import 'package:indexa_dashboard/widgets/portfolio_chart.dart';
 import 'package:indexa_dashboard/widgets/portfolio_legend.dart';
 import 'package:indexa_dashboard/widgets/profit_popup.dart';
 import 'package:indexa_dashboard/models/account_dropdown_items.dart';
+import 'package:indexa_dashboard/widgets/minimum_transfer_card.dart';
+import 'package:indexa_dashboard/widgets/fee_free_amount_card.dart';
 
 const int nbsp = 0x00A0;
 
@@ -140,19 +142,13 @@ class _PortfolioScreenState extends State<PortfolioScreen> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            RichText(
-                              text: TextSpan(
-                                children: [
-                                  TextSpan(
-                                      text: "Activos gestionados gratis: ",
-                                      style: kCardSubTextStyle),
-                                  TextSpan(
-                                      //text: "10.000€",
-                                      text: getInvestmentAsString(
-                                          widget.accountData.feeFreeAmount),
-                                      style: kCardSecondaryContentTextStyle)
-                                ],
-                              ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                MinimumTransferCard(additionalCashNeededToTrade: widget.accountData.additionalCashNeededToTrade),
+                                SizedBox(height: 5),
+                                FeeFreeAmountCard(feeFreeAmount: widget.accountData.feeFreeAmount),
+                              ],
                             ),
                             MaterialButton(
                               height: 40,

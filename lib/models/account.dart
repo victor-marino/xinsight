@@ -28,6 +28,7 @@ class Account {
   final bool _hasActiveRewards;
   final bool _hasPendingTransactions;
   final double _feeFreeAmount;
+  final double _additionalCashNeededToTrade;
   final List<AmountsDataPoint> _amountsSeries;
   final List<PortfolioDataPoint> _portfolioData;
   final Map<InstrumentType, double> _portfolioDistribution;
@@ -312,6 +313,12 @@ class Account {
     return(hasPendingTransactions);
   }
 
+  static double _getCashNeededToTrade(portfolioExtraInfo) {
+    double additionalCashNeededToTrade = portfolioExtraInfo['additional_cash_needed_to_trade'].toDouble();
+
+    return(additionalCashNeededToTrade);
+  }
+
   Account({@required this.accountInfo, @required this.accountPerformanceData, @required this.accountPortfolioData, @required this.accountInstrumentTransactionData, @required this.accountCashTransactionData, @required this.accountPendingTransactionData})
       : _selectedRisk = accountInfo['profile']['selected_risk'],
         _totalAmount = accountPerformanceData['return']['total_amount'].toDouble(),
@@ -338,6 +345,7 @@ class Account {
         _performanceSeries = _createPerformanceSeries(accountPerformanceData['performance']['period'], accountPerformanceData['performance']['best_return'], accountPerformanceData['performance']['worst_return'], accountPerformanceData['performance']['expected_return'], accountPerformanceData['performance']['real']),
         _profitLossSeries = _createProfitLossSeries(accountPerformanceData['performance']['period'], accountPerformanceData['performance']['real']),
         _transactionList = _createTransactionList(accountInstrumentTransactionData, accountCashTransactionData),
+        _additionalCashNeededToTrade = _getCashNeededToTrade(accountPortfolioData['extra']),
         _hasPendingTransactions = _checkPendingTransactions(accountPendingTransactionData);
 
 
@@ -364,4 +372,5 @@ class Account {
   Map<int, List<List>> get profitLossSeries => _profitLossSeries;
   List<Transaction> get transactionList => _transactionList;
   bool get hasPendingTransactions => _hasPendingTransactions;
+  double get additionalCashNeededToTrade => _additionalCashNeededToTrade;
 }
