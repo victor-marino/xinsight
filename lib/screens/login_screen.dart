@@ -67,7 +67,6 @@ class _LoginScreenState extends State<LoginScreen> {
     bool isAuthenticated = false;
     try {
       print("Trying to authenticate...");
-      //isAuthenticated = await localAuthentication.authenticateWithBiometrics(
       isAuthenticated = await localAuthentication.authenticate(
         sensitiveTransaction: false,
         androidAuthStrings: androidStrings,
@@ -127,7 +126,7 @@ class _LoginScreenState extends State<LoginScreen> {
       setState(() {
         rememberToken = true;
       });
-      print('Existing token: ' + tokens['indexaToken']);
+      print('Existing token detected!');
       authenticateLocallyAndGoToHome(token: tokens['indexaToken']);
     } else {
       setState(() {
@@ -144,14 +143,12 @@ class _LoginScreenState extends State<LoginScreen> {
       if (userAccounts != null) {
         print("Token authenticated!");
         return true;
+      } else {
+        return false;
       }
     } on Exception catch (e) {
-      print("Couldn't validate token");
       print(e);
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text(e.toString()),
-      ));
-      return false;
+      throw(e);
     }
   }
 
@@ -159,58 +156,78 @@ class _LoginScreenState extends State<LoginScreen> {
     if (await tryToAuthenticateLocally()) {
       try {
         bool validatedToken = await validateToken(token: token);
-        if ((validatedToken != null) && (validatedToken == true)) {
+        if (validatedToken == true) {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
               builder: (BuildContext context) => RootScreen(token: token, pageNumber: 0, accountNumber: 0),
             ),
           );
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text("Token validation failed"),
+          ));
         }
       } on Exception catch (e) {
+        print(e);
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text(e.toString()),
         ));
         setState(() {
           tokenTextController.text = token;
         });
-        print("Couldn't authenticate. Is the token valid?");
       }
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text("Biometric authentication failed"),
+      ));
     }
   }
 
   void goToHome({String token}) async {
-    bool validatedToken = await validateToken(token: token);
-    if (validatedToken) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (BuildContext context) => RootScreen(token: token, pageNumber: 0, accountNumber: 0),
-        ),
-      );
-    } else {
-      print("Couldn't authenticate. Is the token valid?");
+    try {
+      bool validatedToken = await validateToken(token: token);
+      if (validatedToken) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (BuildContext context) => RootScreen(token: token, pageNumber: 0, accountNumber: 0),
+          ),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text("Token validation failed"),
+        ));
+      }
+    } on Exception catch (e) {
+      print(e);
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text("Server error. Token may be invalid."),
+        content: Text(e.toString()),
       ));
     }
   }
 
   void saveTokenAndGoToHome() async {
     await _storeKey(tokenTextController.text);
-    bool validatedToken = await validateToken(token: tokenTextController.text);
-    if (validatedToken) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (BuildContext context) =>
-              RootScreen(token: tokenTextController.text, pageNumber: 0, accountNumber: 0),
-        ),
-      );
-    } else {
-      print("Couldn't authenticate. Is the token valid?");
+    try {
+      bool validatedToken = await validateToken(token: tokenTextController.text);
+      if (validatedToken) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (BuildContext context) =>
+                RootScreen(token: tokenTextController.text, pageNumber: 0, accountNumber: 0),
+          ),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text("Token validation failed"),
+        ));
+      }
+    } on Exception catch (e) {
+      print(e);
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text("Server error. Token may be invalid."),
+        content: Text(e.toString()),
       ));
     }
   }
