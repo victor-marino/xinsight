@@ -226,14 +226,21 @@ Decoration kDisabledAccountSwitcherBoxDecoration = ShapeDecoration(
 );
 
 List<Color> equityColors = [
+  Colors.purple[800],
+  Colors.purple[700],
+  Colors.purple[600],
+  Colors.purple[500],
   Colors.purple[400],
   Colors.purple[300],
   Colors.purple[200],
   Colors.purple[100],
   Colors.purple[50],
-  Colors.purple
 ];
 List<Color> fixedColors = [
+  Colors.indigo[800],
+  Colors.indigo[700],
+  Colors.indigo[600],
+  Colors.indigo[500],
   Colors.indigo[400],
   Colors.indigo[300],
   Colors.indigo[200],

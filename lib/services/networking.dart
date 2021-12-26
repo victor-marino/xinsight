@@ -26,19 +26,9 @@ class NetworkHelper {
     }
   }
 
-  //   if (result.statusCode == 200) {
-  //     return (jsonDecode(result.body));
-  //   } else {
-  //
-  //     throw HttpException('${result.statusCode}');
-  //   }
-  // } on Exception catch (e) {
-  //   print(e);
-  // }
   Future getData() async {
     var responseJson;
     try {
-      //http.Response result = await http.get(
       final response = await http.get(
         url,
         headers: {

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:indexa_dashboard/tools/constants.dart';
 import 'package:indexa_dashboard/models/portfolio_datapoint.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:indexa_dashboard/tools/RadiantLinearMask.dart';
 
 class PortfolioChartLegend extends StatelessWidget {
   const PortfolioChartLegend({
@@ -18,10 +19,14 @@ class PortfolioChartLegend extends StatelessWidget {
       legendItems.add(
         Row(
           children: <Widget>[
-            Icon(
-              Icons.fiber_manual_record,
-              size: 12,
-              color: equityColors[0],
+            RadiantLinearMask(
+              child: Icon(
+                Icons.fiber_manual_record,
+                size: 12,
+                color: Colors.white,
+              ),
+              color1: equityColors[0],
+              color2: equityColors[7],
             ),
             RichText(
               text: TextSpan(
@@ -30,18 +35,11 @@ class PortfolioChartLegend extends StatelessWidget {
                       text: InstrumentType.equity.toString().tr(),
                       style: kLegendMainTextStyle),
                   TextSpan(
-                    //text: "10.000€",
                       text:  " (" + (portfolioDistribution[InstrumentType.equity] * 100).toStringAsFixed(1) + "%)",
                       style: kLegendSecondaryTextStyle)
                 ],
               ),
             ),
-            // Text(
-            //   InstrumentType.equity.toString().tr() + " (" + (portfolioDistribution[InstrumentType.equity] * 100).toStringAsFixed(1) + "%)",
-            //   style: TextStyle(
-            //       fontSize: 12
-            //   ),
-            // ),
           ],
         ),
       );
@@ -50,10 +48,14 @@ class PortfolioChartLegend extends StatelessWidget {
       legendItems.add(
         Row(
           children: <Widget>[
-            Icon(
-              Icons.fiber_manual_record,
-              size: 12,
-              color: fixedColors[0],
+            RadiantLinearMask(
+              child: Icon(
+                Icons.fiber_manual_record,
+                size: 12,
+                color: Colors.white,
+              ),
+              color1: fixedColors[0],
+              color2: fixedColors[7],
             ),
             RichText(
               text: TextSpan(

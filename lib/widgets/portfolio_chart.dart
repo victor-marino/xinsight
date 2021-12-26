@@ -21,13 +21,21 @@ class PortfolioChart extends StatelessWidget {
       switch(element.instrumentType) {
         case InstrumentType.equity: {
           colorList.add(equityColors[equityCount]);
-          equityCount++;
+          if (equityCount < equityColors.length-1) {
+            equityCount++;
+          } else {
+            equityCount=0;
+          }
         }
         break;
 
         case InstrumentType.fixed: {
           colorList.add(fixedColors[fixedCount]);
-          fixedCount++;
+          if (fixedCount < fixedColors.length-1) {
+            fixedCount++;
+          } else {
+            fixedCount=0;
+          }
         }
         break;
 
