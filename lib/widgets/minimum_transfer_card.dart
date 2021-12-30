@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:indexa_dashboard/tools/constants.dart';
 import 'package:indexa_dashboard/tools/number_formatting.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class MinimumTransferCard extends StatelessWidget {
   const MinimumTransferCard({
@@ -16,7 +17,7 @@ class MinimumTransferCard extends StatelessWidget {
       text: TextSpan(
         children: [
           TextSpan(
-            text: "Aportación mínima para invertir: ",
+            text: 'minimum_transfer_card.minimum_transfer_to_invest'.tr() + ': ',
             style: kCardSubTextStyle,
           ),
           TextSpan(

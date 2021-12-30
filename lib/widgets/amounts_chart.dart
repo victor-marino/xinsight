@@ -77,7 +77,7 @@ class AmountsChart extends StatelessWidget {
       ),
       series: <ChartSeries<AmountsDataPoint, DateTime>>[
         AreaSeries<AmountsDataPoint, DateTime>(
-          name: 'Total',
+          name: 'amounts_chart.total'.tr(),
           opacity: 0.7,
           // Bind data source
           dataSource: amountsSeries,
@@ -86,7 +86,7 @@ class AmountsChart extends StatelessWidget {
           gradient: gradientColors,
         ),
         LineSeries<AmountsDataPoint, DateTime>(
-          name: 'Aportado',
+          name: 'amounts_chart.invested'.tr(),
           // Bind data source
           dataSource: amountsSeries,
           xValueMapper: (AmountsDataPoint amounts, _) => amounts.date,

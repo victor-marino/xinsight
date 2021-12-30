@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:indexa_dashboard/tools/constants.dart';
 import 'package:indexa_dashboard/tools/number_formatting.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class FeeFreeAmountCard extends StatelessWidget {
   const FeeFreeAmountCard({
@@ -16,7 +17,7 @@ class FeeFreeAmountCard extends StatelessWidget {
       text: TextSpan(
         children: [
           TextSpan(
-            text: "Activos gestionados gratis: ",
+            text: 'fee_free_amount_card.fee_free_amount'.tr() + ': ',
             style: kCardSubTextStyle
           ),
           TextSpan(

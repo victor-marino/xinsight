@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:indexa_dashboard/models/amounts_datapoint.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:indexa_dashboard/tools/constants.dart';
 import 'package:indexa_dashboard/tools/number_formatting.dart';
 import 'package:indexa_dashboard/models/account.dart';
@@ -23,7 +23,7 @@ class AccountSummary extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
               Text(
-                'VALOR',
+                'account_summary.value'.tr(),
                 textAlign: TextAlign.left,
                 style: kCardTitleTextStyle,
               ),
@@ -31,7 +31,6 @@ class AccountSummary extends StatelessWidget {
                 text: TextSpan(children: [
                   TextSpan(
                     text: getInvestmentAsString(accountData.investment) + " ",
-                    //textAlign: TextAlign.left,
                     style: kCardSubTextStyle,
                   ),
                   TextSpan(
@@ -43,42 +42,21 @@ class AccountSummary extends StatelessWidget {
                   ),
                 ]),
               ),
-                // Chip(
-                //   labelPadding: EdgeInsets.all(0),
-                //   padding: EdgeInsets.all(5),
-                //   materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                //   label:
-                //   Text(
-                //   getPLAsString(accountData.profitLoss),
-                //   style: kCardSubTextStyle.copyWith(
-                //     color: accountData.profitLossColor,
-                //     fontWeight: FontWeight.bold,
-                //   ),
-                // ),)
             ],),
-            // Align(
-            //   alignment: Alignment.topLeft,
-            //   child: Text(
-            //     'VALOR',
-            //     textAlign: TextAlign.left,
-            //     style: kCardTitleTextStyle,
-            //   ),
-            // ),
             RichText(
               text: TextSpan(children: [
                 TextSpan(
                   text:
-                      getBalanceAsString(accountData.totalAmount).split(',')[0],
+                      getWholeBalanceAsString(accountData.totalAmount),
                   style: kCardPrimaryContentTextStyle,
                 ),
                 TextSpan(
-                  text: ',' +
-                      getBalanceAsString(accountData.totalAmount).split(',')[1],
+                  text: getDecimalSeparator() +
+                      getFractionalBalanceAsString(accountData.totalAmount),
                   style: kCardSecondaryContentTextStyle,
                 ),
               ]),
             ),
-
           ],
         ),
         Divider(
@@ -94,7 +72,6 @@ class AccountSummary extends StatelessWidget {
                 Expanded(
                   flex: 1,
                   child: Column(
-                    //mainAxisAlignment: MainAxisAlignment.end,
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: <Widget>[
                       Align(
@@ -103,7 +80,7 @@ class AccountSummary extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              'RENTABILIDAD ',
+                              'account_summary.return'.tr() + ' ',
                               textAlign: TextAlign.left,
                               style: kCardTitleTextStyle,
                             ),
@@ -123,14 +100,12 @@ class AccountSummary extends StatelessWidget {
                             RichText(
                               text: TextSpan(children: [
                                 TextSpan(
-                                  text: getPLPercentAsString(accountData.timeReturn)
-                                      .split(",")[0],
+                                  text: getWholePLPercentAsString(accountData.timeReturn),
                                   style: kCardPLTextStyle.copyWith(
                                       color: accountData.timeReturnColor),
                                 ),
                                 TextSpan(
-                                  text: "," + getPLPercentAsString(accountData.timeReturn)
-                                      .split(",")[1],
+                                  text: getDecimalSeparator() + getFractionalPLPercentAsString(accountData.timeReturn),
                                   style: kCardPLTextStyleSmaller.copyWith(
                                       color: accountData.timeReturnColor),
                                 ),
@@ -144,14 +119,11 @@ class AccountSummary extends StatelessWidget {
                 ),
                 VerticalDivider(
                   indent: 0,
-                  //width: 2,
                   thickness: 1,
-                  //color: Colors.black,
                 ),
                 Expanded(
                   flex: 1,
                   child: Column(
-                    //mainAxisAlignment: MainAxisAlignment.end,
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: <Widget>[
                       Align(
@@ -160,7 +132,7 @@ class AccountSummary extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              'RENTABILIDAD ',
+                              'account_summary.return'.tr() + ' ',
                               textAlign: TextAlign.left,
                               style: kCardTitleTextStyle,
                             ),
@@ -179,14 +151,12 @@ class AccountSummary extends StatelessWidget {
                             RichText(
                               text: TextSpan(children: [
                                 TextSpan(
-                                  text: getPLPercentAsString(accountData.moneyReturn)
-                                      .split(",")[0],
+                                  text: getWholePLPercentAsString(accountData.moneyReturn),
                                   style: kCardPLTextStyle.copyWith(
                                       color: accountData.moneyReturnColor),
                                 ),
                                 TextSpan(
-                                  text: "," + getPLPercentAsString(accountData.moneyReturn)
-                                      .split(",")[1],
+                                  text: getDecimalSeparator() + getFractionalPLPercentAsString(accountData.moneyReturn),
                                   style: kCardPLTextStyleSmaller.copyWith(
                                       color: accountData.moneyReturnColor),
                                 ),

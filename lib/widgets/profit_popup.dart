@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:indexa_dashboard/tools/constants.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class ProfitPopUp extends StatelessWidget {
   const ProfitPopUp({
@@ -14,7 +15,7 @@ class ProfitPopUp extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            'Rentabilidad',
+            'profit_popup.return'.tr(),
             //style: kPopUpTitleTextStyle,
           ),
         ],
@@ -26,7 +27,7 @@ class ProfitPopUp extends StatelessWidget {
           Row(
             children: <Widget>[
               Text(
-                'Ponderada por tiempo',
+                'profit_popup.time_weighted'.tr(),
                 style: kPopUpSubtitleTextStyle,
               ),
               SizedBox(
@@ -43,7 +44,7 @@ class ProfitPopUp extends StatelessWidget {
             height: 5,
           ),
           Text(
-            'Es la mejor forma de comparar la rentabilidad entre diferentes gestoras, ya que ignora el momento de tus aportaciones o reembolsos.',
+            'profit_popup.twr_explanation'.tr(),
             style: kPopUpNormalTextStyle,
           ),
           Divider(
@@ -53,7 +54,7 @@ class ProfitPopUp extends StatelessWidget {
           Row(
             children: <Widget>[
               Text(
-                'Ponderada por dinero',
+                'profit_popup.money_weighted'.tr(),
                 style: kPopUpSubtitleTextStyle,
               ),
               SizedBox(
@@ -70,14 +71,14 @@ class ProfitPopUp extends StatelessWidget {
             height: 5,
           ),
           Text(
-            'Es la forma más común de evaluar el desempeño de tu cartera, ya que tiene en cuenta tu patrón específico de aportaciones y reembolsos.',
+            'profit_popup.mwr_explanation'.tr(),
             style: kPopUpNormalTextStyle,
           ),
           SizedBox(
             height: 20,
           ),
           Text(
-            'Las rentabilidades se calculan netas de comisiones.',
+            'profit_popup.returns_calculated_net_of_fees'.tr(),
             style: kPopUpFootnoteTextStyle,
           ),
         ],

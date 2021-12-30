@@ -32,7 +32,7 @@ class PortfolioChartLegend extends StatelessWidget {
               text: TextSpan(
                 children: [
                   TextSpan(
-                      text: InstrumentType.equity.toString().tr(),
+                      text: 'portfolio_legend.instrument_type_equity'.tr(),
                       style: kLegendMainTextStyle),
                   TextSpan(
                       text:  " (" + (portfolioDistribution[InstrumentType.equity] * 100).toStringAsFixed(1) + "%)",
@@ -61,7 +61,7 @@ class PortfolioChartLegend extends StatelessWidget {
               text: TextSpan(
                 children: [
                   TextSpan(
-                      text: InstrumentType.fixed.toString().tr(),
+                      text: 'portfolio_legend.instrument_type_fixed'.tr(),
                       style: kLegendMainTextStyle),
                   TextSpan(
                     //text: "10.000€",
@@ -87,7 +87,7 @@ class PortfolioChartLegend extends StatelessWidget {
               text: TextSpan(
                 children: [
                   TextSpan(
-                      text: InstrumentType.other.toString().tr(),
+                      text: 'portfolio_legend.instrument_type_other'.tr(),
                       style: kLegendMainTextStyle),
                   TextSpan(
                     //text: "10.000€",
@@ -113,7 +113,7 @@ class PortfolioChartLegend extends StatelessWidget {
               text: TextSpan(
                 children: [
                   TextSpan(
-                      text: InstrumentType.cash.toString().tr(),
+                      text: 'portfolio_legend.instrument_type_other'.tr(),
                       style: kLegendMainTextStyle),
                   TextSpan(
                     //text: "10.000€",

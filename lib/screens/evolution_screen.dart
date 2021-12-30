@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:indexa_dashboard/models/account.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../tools/constants.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:indexa_dashboard/widgets/reusable_card.dart';
 import '../widgets/amounts_chart.dart';
 import 'package:indexa_dashboard/widgets/profit_loss_chart.dart';
@@ -86,25 +87,6 @@ class _EvolutionScreenState extends State<EvolutionScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            // Padding(
-            //   padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-            //   child: Row(
-            //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //     crossAxisAlignment: CrossAxisAlignment.end,
-            //     children: [
-            //       Text(
-            //         'Evolución',
-            //         style: kTitleTextStyle,
-            //         textAlign: TextAlign.left,
-            //       ),
-            //       Flexible(
-            //         child: Container(),
-            //       ),
-            //       buildAccountSwitcher(currentAccountNumber: currentAccountNumber, currentPage: currentPage, accountDropdownItems: dropdownItems, reloadPage: widget.reloadPage),
-            //       SettingsButton(),
-            //     ],
-            //   ),
-            // ),
             Expanded(
               child: SmartRefresher(
                 enablePullDown: true,
@@ -121,7 +103,7 @@ class _EvolutionScreenState extends State<EvolutionScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "EVOLUCIÓN",
+                                'evolution_screen.evolution'.tr(),
                                 textAlign: TextAlign.left,
                                 style: kCardTitleTextStyle,
                               ),
@@ -130,7 +112,7 @@ class _EvolutionScreenState extends State<EvolutionScreen> {
                               Container(
                                 alignment: Alignment.center,
                                 child: Text(
-                                  "Toca con dos dedos para ampliar",
+                                  'evolution_screen.zoom_hint'.tr(),
                                   textAlign: TextAlign.center,
                                   style: kCardSubTextStyle,
                                 ),
@@ -150,7 +132,7 @@ class _EvolutionScreenState extends State<EvolutionScreen> {
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    "RENTABILIDADES",
+                                    'evolution_screen.returns'.tr(),
                                     textAlign: TextAlign.left,
                                     style: kCardTitleTextStyle,
                                   ),

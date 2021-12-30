@@ -8,7 +8,7 @@ import 'package:local_auth/local_auth.dart';
 import 'package:local_auth/auth_strings.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:indexa_dashboard/widgets/token_instructions_popup.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -24,13 +24,13 @@ class _LoginScreenState extends State<LoginScreen> {
   final LocalAuthentication localAuthentication = LocalAuthentication();
   final AndroidAuthMessages androidStrings = AndroidAuthMessages(
     biometricHint: "",
-    biometricNotRecognized: "user_not_recognized".tr(),
-    biometricSuccess: "user_authenticated".tr(),
-    cancelButton: "cancel".tr(),
-    signInTitle: "biometric_authentication".tr(),
-    biometricRequiredTitle: "biometrics_required".tr(),
-    goToSettingsButton: "go_to_settings".tr(),
-    goToSettingsDescription: "go_to_settings_description".tr(),
+    biometricNotRecognized: "login_screen.user_not_recognized".tr(),
+    biometricSuccess: "login_screen.user_authenticated".tr(),
+    cancelButton: "login_screen.cancel".tr(),
+    signInTitle: "login_screen.biometric_authentication".tr(),
+    biometricRequiredTitle: "login_screen.biometrics_required".tr(),
+    goToSettingsButton: "login_screen.go_to_settings".tr(),
+    goToSettingsDescription: "login_screen.go_to_settings_description".tr(),
   );
 
   Future supportsBiometrics() async {
@@ -69,7 +69,7 @@ class _LoginScreenState extends State<LoginScreen> {
       isAuthenticated = await localAuthentication.authenticate(
         sensitiveTransaction: false,
         androidAuthStrings: androidStrings,
-        localizedReason: "please_authenticate".tr(),
+        localizedReason: "login_screen.please_authenticate".tr(),
         useErrorDialogs: true,
         stickyAuth: true,
       );
@@ -164,7 +164,7 @@ class _LoginScreenState extends State<LoginScreen> {
           );
         } else {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text("Token validation failed"),
+            content: Text("login_screen.token_validation_failed".tr()),
           ));
         }
       } on Exception catch (e) {
@@ -178,7 +178,7 @@ class _LoginScreenState extends State<LoginScreen> {
       }
     } else {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text("Biometric authentication failed"),
+        content: Text("login_screen.biometric_authentication_failed".tr()),
       ));
     }
   }
@@ -195,7 +195,7 @@ class _LoginScreenState extends State<LoginScreen> {
         );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text("Token validation failed"),
+          content: Text("login_screen.token_validation_failed".tr()),
         ));
       }
     } on Exception catch (e) {
@@ -220,7 +220,7 @@ class _LoginScreenState extends State<LoginScreen> {
         );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text("Token validation failed"),
+          content: Text("login_screen.token_validation_failed".tr()),
         ));
       }
     } on Exception catch (e) {
@@ -234,7 +234,6 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void initState() {
     super.initState();
-    //authenticateAndGoToHome();
     tryToLoginWithLocalToken();
   }
 
@@ -277,104 +276,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 onTap: () {
                                   showDialog(
                                     context: context,
-                                    builder: (BuildContext context) => AlertDialog(
-                                      title: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text('Obtener token'),
-                                          Icon(
-                                            Icons.help_outline,
-                                            color: Colors.black54,
-                                          )
-                                        ],
-                                      ),
-                                      content: SingleChildScrollView(
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              'En tu área de cliente de Indexa Capital:\n',
-                                              style: kPopUpNormalTextStyle,
-                                            ),
-                                            Row(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  '1. ',
-                                                  style: kPopUpNormalTextStyle
-                                                      .copyWith(
-                                                          //fontSize: 12,
-                                                          ),
-                                                ),
-                                                Expanded(
-                                                  child: Text.rich(
-                                                    TextSpan(
-                                                      children: [
-                                                        TextSpan(
-                                                          text: 'Ve a "',
-                                                        ),
-                                                        TextSpan(
-                                                            text:
-                                                                'Configuración de Usuario',
-                                                            recognizer:
-                                                                TapGestureRecognizer()
-                                                                  ..onTap = () {
-                                                                    launch(
-                                                                        'https://indexacapital.com/es/u/user');
-                                                                  },
-                                                            style: TextStyle(
-                                                              color:
-                                                                  Colors.blue,
-                                                            )),
-                                                        TextSpan(
-                                                          text: '"',
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    style:
-                                                        kPopUpNormalTextStyle,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            Row(
-                                              children: [
-                                                Text(
-                                                  '2. ',
-                                                  style: kPopUpNormalTextStyle,
-                                                ),
-                                                Text(
-                                                  'Ve a "Aplicaciones"',
-                                                  style: kPopUpNormalTextStyle,
-                                                ),
-                                              ],
-                                            ),
-                                            Row(
-                                              children: [
-                                                Text(
-                                                  '3. ',
-                                                  style: kPopUpNormalTextStyle,
-                                                ),
-                                                Text(
-                                                  'Pulsa "GENERAR TOKEN"',
-                                                  style: kPopUpNormalTextStyle,
-                                                ),
-                                              ],
-                                            ),
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  top: 10),
-                                              child: Image.asset(
-                                                  'assets/images/token_indexa_highlighted.png'),
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                    ),
+                                    builder: (BuildContext context) => TokenInstructionsPopup(),
                                   );
                                 },
                                 child: Row(
@@ -383,7 +285,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 5),
                                       child: Text(
-                                        'Cómo obtener token',
+                                        'login_screen.how_to_get_token'.tr(),
                                         style: TextStyle(
                                           color: Colors.black38,
                                         ),
@@ -406,8 +308,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           maxLines: null,
                           decoration: InputDecoration(
                             border: OutlineInputBorder(),
-                            labelText: 'API token',
-                            hintText: 'Tu token de Indexa',
+                            labelText: 'login_screen.api_token'.tr(),
+                            hintText: 'login_screen.your_indexa_token'.tr(),
                           ),
                         ),
                         Row(
@@ -427,7 +329,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     width: 10,
                                   ),
                                   Text(
-                                    'Recordar token',
+                                    'login_screen.remember_token'.tr(),
                                     style: TextStyle(
                                       color: Colors.black54,
                                       fontSize: 16,
@@ -448,29 +350,6 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ],
                         ),
-//                SwitchListTile(
-//                  title: Text(
-//                    'Recordar token',
-//                    style: TextStyle(
-//                      color: Colors.black54
-//                    ),
-//                  ),
-//                  value: rememberToken,
-//                  //controlAffinity: ListTileControlAffinity.leading,
-//                  secondary: Icon(
-//                    Icons.lock_outline,
-//                  ),
-//                  //dense: true,
-//                  contentPadding:
-//                      EdgeInsets.fromLTRB(0, 0, 0, 0),
-//                  onChanged: (newValue) {
-//                    if (newValue) {
-//                      enableRememberToken();
-//                    } else {
-//                      disableRememberToken();
-//                    }
-//                  },
-//                ),
                         SizedBox(
                           height: 40,
                         ),
@@ -502,22 +381,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ],
                 ),
-//                MaterialButton(
-//                  child: Text(
-//                    'ENTRAR',
-//                  ),
-//                  height: 45,
-//                  color: Colors.blue,
-//                  textColor: Colors.white,
-//                  elevation: 8,
-//                  onPressed: () {
-//                    if (rememberToken) {
-//                      saveTokenAndGoToHome();
-//                    } else {
-//                      goToHome();
-//                    }
-//                  },
-//                ),
               ),
             ),
           ),

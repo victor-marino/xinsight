@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-import 'dart:math';
-import 'package:indexa_dashboard/models/amounts_datapoint.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:indexa_dashboard/models/performance_datapoint.dart';
 
 class PerformanceChart extends StatelessWidget {
   const PerformanceChart({
     Key key,
-    //@required this.gradientColors,
     @required this.performanceSeries,
   }) : super(key: key);
 
@@ -30,11 +28,6 @@ class PerformanceChart extends StatelessWidget {
           color: Colors.black,
         ),
       ),
-      // zoomPanBehavior: ZoomPanBehavior(
-      //     // Enables pinch zooming
-      //     enablePinching: true,
-      //     zoomMode: ZoomMode.x,
-      //     enablePanning: true),
       palette: <Color>[
         Colors.green,
         Colors.red,
@@ -52,7 +45,7 @@ class PerformanceChart extends StatelessWidget {
       ),
       series: <ChartSeries<PerformanceDataPoint, DateTime>>[
         LineSeries<PerformanceDataPoint, DateTime>(
-          name: 'Positivo',
+          name: 'performance_chart.positive'.tr(),
           opacity: 0.5,
           // Bind data source
           dataSource: performanceSeries,
@@ -60,7 +53,7 @@ class PerformanceChart extends StatelessWidget {
           yValueMapper: (PerformanceDataPoint performances, _) => performances.bestReturn,
         ),
         LineSeries<PerformanceDataPoint, DateTime>(
-          name: 'Negativo',
+          name: 'performance_chart.negative'.tr(),
           opacity: 0.5,
           // Bind data source
           dataSource: performanceSeries,
@@ -68,7 +61,7 @@ class PerformanceChart extends StatelessWidget {
           yValueMapper: (PerformanceDataPoint performances, _) => performances.worstReturn,
         ),
         LineSeries<PerformanceDataPoint, DateTime>(
-          name: 'Esperado',
+          name: 'performance_chart.expected'.tr(),
           opacity: 0.5,
           // Bind data source
           dataSource: performanceSeries,
@@ -76,7 +69,7 @@ class PerformanceChart extends StatelessWidget {
           yValueMapper: (PerformanceDataPoint performances, _) => performances.expectedReturn,
         ),
         LineSeries<PerformanceDataPoint, DateTime>(
-          name: 'Real',
+          name: 'performance_chart.real'.tr(),
           animationDuration: 2000,
           // Bind data source
           dataSource: performanceSeries,

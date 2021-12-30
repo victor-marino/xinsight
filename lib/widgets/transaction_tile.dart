@@ -53,7 +53,6 @@ class TransactionTile extends StatelessWidget {
         ),
       );
     }
-
     tileElements.add(
       InkWell(
         child: Padding(
@@ -82,14 +81,12 @@ class TransactionTile extends StatelessWidget {
                           text: DateFormat("dd/MM")
                               .format(transactionData.date)
                               .replaceAll(".", ""),
-                          //textAlign: TextAlign.left,
                           style: kCardSubTextStyle.copyWith(
                             fontSize: 12,
                           ),
                         ),
                         TextSpan(
                           text: " · " + transactionData.accountType,
-                          //textAlign: TextAlign.left,
                           style: kCardSubTextStyle.copyWith(
                             fontSize: 12,
                           ),

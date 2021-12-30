@@ -99,7 +99,6 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
                     lastTransactionOfMonth = true;
                   }
                     return Container(
-                      //height: 50,
                       child: TransactionTile(transactionData: widget.accountData.transactionList[index], firstTransaction: firstTransaction, firstTransactionOfMonth: firstTransactionOfMonth, lastTransactionOfMonth: lastTransactionOfMonth),
                     );
                   }

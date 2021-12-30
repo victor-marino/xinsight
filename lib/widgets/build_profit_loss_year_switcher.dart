@@ -14,8 +14,6 @@ Widget buildProfitLossYearSwitcher(
     dropdownEnabled = true;
   }
 
-  //dropdownEnabled = false;
-
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -35,7 +33,6 @@ Widget buildProfitLossYearSwitcher(
                   (profitLossYearDropdownItems[0].child as Text).data,
                   style: kAccountSwitcherDisabledSelectedTextStyle,
                 )),
-                //isExpanded: true,
                 value: currentYear,
                 items: profitLossYearDropdownItems,
                 style: kAccountSwitcherTextStyle,
@@ -47,15 +44,9 @@ Widget buildProfitLossYearSwitcher(
                       (item.child as Text).data,
                       style: kAccountSwitcherSelectedTextStyle,
                     ));
-                    //return Text((item.child as Text).data.split(" ")[1], style: TextStyle(height: 2.4));
-                    //return Text((item), style: kAccountSwitcherTextStyle);
                   }).toList();
                 },
                 underline: SizedBox(),
-                // onChanged: (value) {
-                //   reloadPage(value, currentPage);
-                // },
-                // onChanged: null,
                 onChanged: dropdownEnabled
                     ? (value) {
                         reloadProfitLossChart(value);
