@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:indexa_dashboard/tools/constants.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class PendingTransactionsCard extends StatelessWidget {
   const PendingTransactionsCard({
@@ -23,7 +24,7 @@ class PendingTransactionsCard extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10.0),
                 child: Text(
-                    "Hay transacciones en curso",
+                    'pending_transactions_popup.pending_transactions_message'.tr(),
                 style: kPendingTransactionsWidgetTextStyle),
               ),
             ],

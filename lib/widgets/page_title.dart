@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:indexa_dashboard/tools/constants.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:provider/provider.dart';
 import '../tools/bottom_navigation_bar_provider.dart';
 
@@ -11,11 +12,11 @@ class PageTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<String> pageTitles = [
-      "Cartera",
-      "Evolución",
-      "Movimientos",
-      "Proyección",
-      "Estadísticas"
+      'page_titles.portfolio'.tr(),
+      'page_titles.evolution'.tr(),
+      'page_titles.transactions'.tr(),
+      'page_titles.projection'.tr(),
+      'page_titles.stats'.tr(),
     ];
     return Text(
       pageTitles[Provider.of<BottomNavigationBarProvider>(context, listen: true)

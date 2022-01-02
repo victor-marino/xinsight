@@ -1,10 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:indexa_dashboard/tools/number_formatting.dart';
 import '../models/account.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../tools/constants.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:indexa_dashboard/widgets/account_summary.dart';
 import 'package:indexa_dashboard/widgets/reusable_card.dart';
 import 'package:indexa_dashboard/widgets/portfolio_chart.dart';
@@ -80,25 +79,6 @@ class _PortfolioScreenState extends State<PortfolioScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            // Padding(
-            //   padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-            //   child: Row(
-            //     mainAxisAlignment: MainAxisAlignment.start,
-            //     crossAxisAlignment: CrossAxisAlignment.end,
-            //     children: [
-            //       Text(
-            //         'Cartera',
-            //         style: kTitleTextStyle,
-            //         textAlign: TextAlign.left,
-            //       ),
-            //       Flexible(
-            //         child: Container(),
-            //       ),
-            //       //buildAccountSwitcher(currentAccountNumber: currentAccountNumber, currentPage: currentPage, accountDropdownItems: dropdownItems, reloadPage: widget.reloadPage),
-            //       //SettingsButton(),
-            //     ],
-            //   ),
-            // ),
             Expanded(
               child: SmartRefresher(
                 enablePullDown: true,
@@ -110,9 +90,6 @@ class _PortfolioScreenState extends State<PortfolioScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: <Widget>[
-                        // SizedBox(
-                        //   height: 10.0,
-                        // ),
                         ReusableCard(
                           childWidget: AccountSummary(accountData: accountData),
                         ),
@@ -125,7 +102,7 @@ class _PortfolioScreenState extends State<PortfolioScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Text(
-                                "DISTRIBUCIÓN",
+                                'portfolio_screen.distribution'.tr(),
                                 style: kCardTitleTextStyle,
                               ),
                               PortfolioChart(

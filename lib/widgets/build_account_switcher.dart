@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:indexa_dashboard/tools/constants.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 Widget buildAccountSwitcher(
     {int currentAccountNumber,
@@ -21,7 +22,7 @@ Widget buildAccountSwitcher(
       Padding(
         padding: const EdgeInsets.all(8.0),
         child: Text(
-          "Cuenta",
+          'account_switcher.account'.tr(),
           style: TextStyle(
             color: Colors.blueGrey[300],
           ),

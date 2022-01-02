@@ -1,16 +1,159 @@
 {
   "app_title": "App title",
-  "user_not_recognized": "User not recognized",
-  "user_authenticated": "User authenticated",
-  "cancel": "Cancel",
-  "biometric_authentication": "Biometric Authentication",
-  "biometrics_required": "Biometric Authentication Required",
-  "go_to_settings": "Go to Settings",
-  "go_to_settings_description": "Biometric authentication not configured in this device. Please go to your device Settings to configure.",
-  "please_authenticate": "Please authenticate",
+  "page_titles": {
+    "portfolio": "Portfolio",
+    "evolution": "Evolution",
+    "transactions": "Transactions",
+    "projection": "Projection",
+    "stats": "Stats",
+    "settings": "Settings"
+  },
+  "account_switcher": {
+    "account": "Account"
+  },
+  "login_screen": {
+    "user_not_recognized": "User not recognized",
+    "user_authenticated": "User authenticated",
+    "cancel": "Cancel",
+    "biometric_authentication": "Biometric Authentication",
+    "biometrics_required": "Biometric Authentication Required",
+    "go_to_settings": "Go to Settings",
+    "go_to_settings_description": "Biometric authentication not configured in this device. Please go to your device Settings to configure.",
+    "please_authenticate": "Please authenticate",
+    "biometric_authentication_failed": "Biometric authentication failed",
+    "token_validation_failed": "Token validation failed",
+    "get_token": "Get token",
+    "in_your_client_area": "In your Indexa Capital client area",
+    "go_to": "Go to",
+    "user_configuration": "User Configuration",
+    "go_to_applications": "Go to \"Applications\"",
+    "press_generate_token": "Press \"GENERATE TOKEN\"",
+    "how_to_get_token": "How to get token",
+    "api_token": "API token",
+    "your_indexa_token": "Your Indexa token",
+    "remember_token": "Remember token"
+  },
+  "portfolio_screen": {
+    "distribution": "DISTRIBUTION"
+  },
+  "account_summary": {
+    "value": "VALUE",
+    "return": "RETURN"
+  },
+  "minimum_transfer_card": {
+    "minimum_transfer_to_invest": "Minimum trasnfer to invest"
+  },
+  "fee_free_amount_card": {
+    "fee_free_amount": "Fee-free assets"
+  },
+  "portfolio_chart": {
+    "instrument_type_equity": "Equity",
+    "instrument_type_fixed": "Bonds",
+    "instrument_type_cash": "Cash",
+    "instrument_type_other": "Others"
+  },
+  "portfolio_legend": {
+    "instrument_type_equity": "@:portfolio_chart.instrument_type_equity",
+    "instrument_type_fixed": "@:portfolio_chart.instrument_type_fixed",
+    "instrument_type_cash": "@:portfolio_chart.instrument_type_cash",
+    "instrument_type_other": "@:portfolio_chart.instrument_type_other"
+  },
+  "profit_popup": {
+    "return": "Return",
+    "time_weighted": "Time-weighted",
+    "twr_explanation": "It's the best way to compare returns between different investment firms, as it ignores the timing of your purchases and sales.",
+    "money_weighted": "Money-weighted",
+    "mwr_explanation": "It's the most common way to measure your portfolio's performance, as it takes into account your specific pattern of purchases and sales.",
+    "returns_calculated_net_of_fees": "Returns are calculated net of fees."
+  },
+  "evolution_screen": {
+    "evolution": "EVOLUTION",
+    "zoom_hint": "Pinch to zoom",
+    "returns": "RETURNS"
+  },
+  "amounts_chart": {
+    "total": "Total",
+    "invested": "Invested"
+  },
+  "transaction_info": {
+    "fund_purchase": "Fund purchase",
+    "fund_reimbursement": "Fund sale",
+    "fund_purchase_by_transfer": "Fund purchase - transfer in",
+    "fund_reimbursement_by_transfer": "Fund sale - transfer out",
+    "completed": "Completed",
+    "securities_operation": "Securities operation",
+    "custodial_fee": "Custodial fee",
+    "money_deposit_by_transfer": "Money deposit by transfer",
+    "money_reimbursement_by_transfer": "Money withdrawal by transfer",
+    "cash_account": "Cash account",
+    "securities_account": "Securities account"
+  },
+  "pending_transactions_popup": {
+    "pending_transactions_message": "There are ongoing transactions"
+  },
+  "projection_screen": {
+    "risk": "RISK",
+    "projection": "PROJECTION",
+    "expected_annual_return": "Expected average annual return"
+  },
+  "performance_chart": {
+    "positive": "Positive",
+    "negative": "Negative",
+    "expected": "Expected",
+    "real": "Real"
+  },
+  "expectations_popup": {
+    "expectations": "Expectations",
+    "expectations_explanation": "Remember that these calculations are just expectations, and there's no guarantee or certainty that actual returns will end up within the specified range. We estimate there's a 95% chance that your returns will fall between the positive and the negative scenarios.\n\nKeep in mind the markets can be volatile in the short term, but tend to revert to the mean and grow in the long term."
+  },
+  "transaction_details_popup": {
+    "account": "Account",
+    "concept": "Concept",
+    "operation_date": "Operation date",
+    "value_date": "Value date",
+    "fiscal_date": "Fiscal date",
+    "fund": "Fund",
+    "fund_shares": "Shares",
+    "fund_nav": "NAV",
+    "cost": "Cost",
+    "status": "Status",
+    "details": "Details"
+  },
+  "settings_screen": {
+    "settings": "@:page_titles.settings",
+    "about": "About",
+    "logout": "Log out"
+  },
+  "about_screen": {
+    "about": "@:settings_screen.about",
+    "text1": "This app has been developed independently, and has no affiliation whatsoever with Indexa Capital.",
+    "text2": "\n\nTo access your account data, the app uses the ",
+    "text3": "official API",
+    "text4": " provided by Indexa Capital. This API only allows read operations (GET methods), and thus cannot operate with your account or make any transactions on your behalf.",
+    "text5": "\n\nThe app doesn't collect or store any account information, except for your access token if you choose to do so. The token is securely stored and encrypted in your local device, using the ",
+    "text6": " library, and is only used to authenticate you against Indexa Capital servers.",
+    "text7": "\n\nYou can delete the token from your device at any time by simply logging out."
+  },
+  "logout_popup": {
+    "title": "Log out?",
+    "text": "You'll need to enter your token again to log in",
+    "cancel_button": "Cancel",
+    "logout_button": "Logout"
+  },
+  "months_short": {
+    "january": "Jan",
+    "february": "Feb",
+    "march": "Mar",
+    "april": "Apr",
+    "may": "May",
+    "june": "Jun",
+    "july": "Jul",
+    "august": "Aug",
+    "september": "Sep",
+    "october": "Oct",
+    "november": "Nov",
+    "december": "Dec"
+  },
   "good_morning": "Good morning!",
-  "InstrumentType.equity": "Stock",
-  "InstrumentType.fixed": "Bonds",
-  "InstrumentType.cash": "Cash",
-  "InstrumentType.other": "Other"
+  "retry": "RETRY"
 }

@@ -70,13 +70,28 @@ class PortfolioChart extends StatelessWidget {
           DoughnutSeries<PortfolioDataPoint,
               String>(
             dataSource: portfolioData,
-//                                          pointColorMapper:
-//                                              (PortfolioDataPoint data, _) =>
-//                                                  data.color,
             xValueMapper:
                 (PortfolioDataPoint data, _) {
-              if (data.instrumentType == InstrumentType.cash) {
-                return data.instrumentType.toString().tr() +
+              if (data.instrumentType == InstrumentType.equity) {
+                return 'portfolio_chart.instrument_type_equity'.tr() +
+                    '\n(' +
+                    (data.percentage * 100)
+                        .toStringAsFixed(1) +
+                    '%)';
+                } else if (data.instrumentType == InstrumentType.fixed) {
+                return 'portfolio_chart.instrument_type_fixed'.tr() +
+                    '\n(' +
+                    (data.percentage * 100)
+                        .toStringAsFixed(1) +
+                    '%)';
+              } else if (data.instrumentType == InstrumentType.cash) {
+                return 'portfolio_chart.instrument_type_cash'.tr() +
+                    '\n(' +
+                    (data.percentage * 100)
+                        .toStringAsFixed(1) +
+                    '%)';
+              } else if (data.instrumentType == InstrumentType.other) {
+                return 'portfolio_chart.instrument_type_other'.tr() +
                     '\n(' +
                     (data.percentage * 100)
                         .toStringAsFixed(1) +

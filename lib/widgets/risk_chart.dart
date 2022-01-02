@@ -12,16 +12,6 @@ class RiskChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SfLinearGauge(
-      //animateAxis: true,
-      //animateRange: true,
-      // title: GaugeTitle(
-      //   text: 'Tu riesgo',
-      //   textStyle: TextStyle(
-      //     fontSize: 35,
-      //     fontWeight: FontWeight.bold,
-      //   )
-      // ),
-      //enableLoadingAnimation: true,
       animationDuration: 1000,
       minimum: 1,
       maximum: 10,
@@ -58,8 +48,6 @@ class RiskChart extends StatelessWidget {
           value: risk.toDouble(),
         shapeType: LinearShapePointerType.invertedTriangle,
       )],
-      //barPointers: [LinearBarPointer(value: 8)],
-
     );
   }
 }

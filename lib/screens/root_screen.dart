@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:indexa_dashboard/models/account.dart';
 import 'package:indexa_dashboard/screens/portfolio_screen.dart';
 import 'package:indexa_dashboard/screens/evolution_screen.dart';
@@ -48,7 +49,6 @@ class _RootScreenState extends State<RootScreen> {
 
   Future<void> loadData(int accountNumber) async {
     userAccounts = await getUserAccounts(widget.token);
-    //dropdownItems = AccountDropdownItems(userAccounts: userAccounts).dropdownItems;
     setState(() {
       accountData = getAccountData(widget.token, accountNumber);
     });
@@ -56,7 +56,6 @@ class _RootScreenState extends State<RootScreen> {
   }
 
   Future<void> refreshData(int accountNumber) {
-    //accountData = getAccountData(widget.token, accountNumber);
     accountData = getAccountData(widget.token, accountNumber);
     return accountData;
   }
@@ -138,7 +137,6 @@ class _RootScreenState extends State<RootScreen> {
               .dropdownItems;
     }
     loadData(widget.accountNumber);
-    //_pageController = PageController(initialPage: widget.pageNumber, viewportFraction: 0.99);
     _pageController =
         PageController(initialPage: widget.pageNumber, viewportFraction: 1);
   }
@@ -245,7 +243,7 @@ class _RootScreenState extends State<RootScreen> {
                       Text("Error loading data"),
                       MaterialButton(
                         child: Text(
-                          'REINTENTAR',
+                          'retry'.tr(),
                         ),
                         color: Colors.blue,
                         textColor: Colors.white,

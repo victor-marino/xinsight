@@ -16,6 +16,16 @@ String getBalanceAsString(num number) {
   return numberString;
 }
 
+String getWholeBalanceAsString(num number) {
+  String numberString = NumberFormat.currency(locale: getCurrentLocale(), symbol: '€', decimalDigits: 2).format(number);
+  return numberString.split(numberFormatSymbols[getCurrentLocale()]?.DECIMAL_SEP ?? "")[0];
+}
+
+String getFractionalBalanceAsString(num number) {
+  String numberString = NumberFormat.currency(locale: getCurrentLocale(), symbol: '€', decimalDigits: 2).format(number);
+  return numberString.split(numberFormatSymbols[getCurrentLocale()]?.DECIMAL_SEP ?? "")[1];
+}
+
 String getInvestmentAsString(num number) {
   int decimalPlaces;
   if (number == number.roundToDouble()) {
@@ -51,4 +61,30 @@ String getPLPercentAsString(num number) {
     numberString = '+' + NumberFormat.decimalPercentPattern(locale: getCurrentLocale(), decimalDigits: 1).format(number);
   }
   return numberString;
+}
+
+String getWholePLPercentAsString(num number) {
+  String numberString;
+  if (number < 0) {
+    numberString = NumberFormat.decimalPercentPattern(
+        locale: getCurrentLocale(),decimalDigits: 1).format(number);
+  } else {
+    numberString = '+' + NumberFormat.decimalPercentPattern(locale: getCurrentLocale(), decimalDigits: 1).format(number);
+  }
+  return numberString.split(numberFormatSymbols[getCurrentLocale()]?.DECIMAL_SEP ?? "")[0];
+}
+
+String getFractionalPLPercentAsString(num number) {
+  String numberString;
+  if (number < 0) {
+    numberString = NumberFormat.decimalPercentPattern(
+        locale: getCurrentLocale(),decimalDigits: 1).format(number);
+  } else {
+    numberString = '+' + NumberFormat.decimalPercentPattern(locale: getCurrentLocale(), decimalDigits: 1).format(number);
+  }
+  return numberString.split(numberFormatSymbols[getCurrentLocale()]?.DECIMAL_SEP ?? "")[1];
+}
+
+String getDecimalSeparator() {
+  return numberFormatSymbols[getCurrentLocale()]?.DECIMAL_SEP ?? "";
 }

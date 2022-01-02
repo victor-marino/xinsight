@@ -1,16 +1,160 @@
 {
   "app_title": "Título de la app",
-  "user_not_recognized": "Usuario no reconocido",
-  "user_authenticated": "Usuario identificado",
-  "cancel": "Cancelar",
-  "biometric_authentication": "Identificación biométrica",
-  "biometrics_required": "Identificación biométrica requerida",
-  "go_to_settings": "Ir a ajustes",
-  "go_to_settings_description": "Identificación biométrica no configurada en este dispositivo. Por favor, ve a los ajustes de tu dispositivo para configurarla.",
-  "please_authenticate": "Por favor identifícate",
+  "page_titles": {
+    "portfolio": "Cartera",
+    "evolution": "Evolución",
+    "transactions": "Movimientos",
+    "projection": "Proyección",
+    "stats": "Estadísticas",
+    "settings": "Opciones"
+  },
+  "account_switcher": {
+    "account": "Cuenta"
+  },
+  "login_screen": {
+    "user_not_recognized": "Usuario no reconocido",
+    "user_authenticated": "Usuario identificado",
+    "cancel": "Cancelar",
+    "biometric_authentication": "Identificación biométrica",
+    "biometrics_required": "Identificación biométrica requerida",
+    "go_to_settings": "Ir a ajustes",
+    "go_to_settings_description": "Identificación biométrica no configurada en este dispositivo. Por favor, ve a los ajustes de tu dispositivo para configurarla.",
+    "please_authenticate": "Por favor identifícate",
+    "biometric_authentication_failed": "Identificación biométrica no completada",
+    "token_validation_failed": "No se pudo validar el token",
+    "get_token": "Obtener token",
+    "in_your_client_area": "En tu área de cliente de Indexa Capital",
+    "go_to": "Ve a",
+    "user_configuration": "Configuración de Usuario",
+    "go_to_applications": "Go to \"Applications\"",
+    "press_generate_token": "Pulsa \"GENERAR TOKEN\"",
+    "how_to_get_token": "Cómo obtener token",
+    "api_token": "Token de la API",
+    "your_indexa_token": "Tu token de Indexa",
+    "remember_token": "Recordar token"
+  },
+  "portfolio_screen": {
+    "distribution": "DISTRIBUCIÓN"
+  },
+  "account_summary": {
+    "value": "VALOR",
+    "return": "RENTABILIDAD"
+  },
+  "minimum_transfer_card": {
+    "minimum_transfer_to_invest": "Aportación mínima para invertir"
+  },
+  "fee_free_amount_card": {
+    "fee_free_amount": "Activos gestionados gratis"
+  },
+  "portfolio_chart": {
+    "instrument_type_equity": "Acciones",
+    "instrument_type_fixed": "Bonos",
+    "instrument_type_cash": "Efectivo",
+    "instrument_type_other": "Otros"
+  },
+  "portfolio_legend": {
+    "instrument_type_equity": "@:portfolio_chart.instrument_type_equity",
+    "instrument_type_fixed": "@:portfolio_chart.instrument_type_fixed",
+    "instrument_type_cash": "@:portfolio_chart.instrument_type_cash",
+    "instrument_type_other": "@:portfolio_chart.instrument_type_other"
+  },
+  "profit_popup": {
+    "return": "Rentabilidad",
+    "time_weighted": "Ponderada por tiempo",
+    "twr_explanation": "Es la mejor forma de comparar la rentabilidad entre diferentes gestoras, ya que ignora el momento de tus aportaciones y reembolsos.",
+    "money_weighted": "Ponderada por dinero",
+    "mwr_explanation": "Es la forma más común de evaluar el desempeño de tu cartera, ya que tiene en cuenta tu patrón específico de aportaciones y reembolsos.",
+    "returns_calculated_net_of_fees": "Las rentabilidades se calculan netas de comisiones."
+  },
+  "evolution_screen": {
+    "evolution": "EVOLUCIÓN",
+    "zoom_hint": "Toca con dos dedos para ampliar",
+    "returns": "RENTABILIDADES"
+  },
+  "amounts_chart": {
+    "total": "Total",
+    "invested": "Aportado"
+  },
+  "transaction_info": {
+    "fund_purchase": "Compra de fondos",
+    "fund_reimbursement": "Reembolso de fondos",
+    "fund_purchase_by_transfer": "Compra por traspaso",
+    "fund_reimbursement_by_transfer": "Reembolso por traspaso",
+    "completed": "Completado",
+    "securities_operation": "Operación de valores",
+    "custodial_fee": "Comisión de custodia",
+    "money_deposit_by_transfer": "Ingreso por transferencia",
+    "money_reimbursement_by_transfer": "Reembolso por transferencia",
+    "cash_account": "Cuenta de efectivo",
+    "securities_account": "Cuenta de valores"
+  },
+  "pending_transactions_popup": {
+    "pending_transactions_message": "Hay transacciones en curso"
+  },
+  "projection_screen": {
+    "risk": "RIESGO",
+    "projection": "PROYECCIÓN",
+    "expected_annual_return": "Rentabilidad anual media esperada"
+  },
+  "performance_chart": {
+    "positive": "Positivo",
+    "negative": "Negativo",
+    "expected": "Esperado",
+    "real": "Real"
+  },
+  "expectations_popup": {
+    "expectations": "Expectativas",
+    "expectations_explanation": "Recuerda que estos cálculos son expectativas, por lo que no hay ninguna garantía ni seguridad de que las rentabilidades acaben en el rango indicado. Calculamos que hay un 95% de probabilidad de que tu rentabilidad esté comprendida entre el escenario positivo y el negativo.\n\nTen en cuenta que los mercados pueden ser volátiles en el corto plazo, pero tienden a revertir a la media y crecer en el largo plazo."
+  },
+  "transaction_details_popup": {
+    "account": "Cuenta",
+    "concept": "Concepto",
+    "operation_date": "Fecha operación",
+    "value_date": "Fecha valor",
+    "fiscal_date": "Fecha fiscal",
+    "fund": "Fondo",
+    "fund_shares": "Participaciones",
+    "fund_nav": "Valor liquidativo",
+    "cost": "Importe",
+    "status": "Estado",
+    "details": "Detalles"
+  },
+  "settings_screen": {
+    "settings": "@:page_titles.settings",
+    "about": "Sobre esta aplicación",
+    "logout": "Cerrar sesión"
+  },
+  "about_screen": {
+    "about": "@:settings_screen.about",
+    "text1": "Esta aplicación ha sido desarrollada de forma completamente independiente y no tiene ninguna vinculación con Indexa Capital.",
+    "text2": "\n\nPara acceder a los datos de tu cuenta, se utiliza la ",
+    "text3": "API oficial",
+    "text4": " proporcionada por Indexa Capital. Esta API sólo permite operaciones de lectura (métodos GET), por lo que no puede operar con tu cuenta ni ordenar ningún movimiento.",
+    "text5": "\n\nLa aplicación no recoge ni almacena ningún tipo de información sobre tu cuenta, salvo tu token de acceso si así lo deseas. El token se almacena de forma segura y encriptada en tu dispositivo por medio de la librería ",
+    "text6": ", y sólo se utiliza para indentificarte contra los servidores de Indexa Capital.",
+    "text7": "\n\nPuedes eliminar el token de tu dispositivo en cualquier momento cerrando la sesión."
+  },
+  "logout_popup": {
+    "title": "¿Cerrar sesión?",
+    "text": "Deberás volver a introducir tu token para entrar",
+    "cancel_button": "Cancelar",
+    "logout_button": "Cerrar sesión"
+  },
+  "months_short": {
+    "january": "Ene",
+    "february": "Feb",
+    "march": "Mar",
+    "april": "Abr",
+    "may": "May",
+    "june": "Jun",
+    "july": "Jul",
+    "august": "Ago",
+    "september": "Sep",
+    "october": "Oct",
+    "november": "Nov",
+    "december": "Dic"
+  },
   "good_morning": "¡Buenos días!",
-  "InstrumentType.equity": "Acciones",
-  "InstrumentType.fixed": "Bonos",
-  "InstrumentType.cash": "Efectivo",
-  "InstrumentType.other": "Otros"
+
+  "retry": "REINTENTAR"
 }

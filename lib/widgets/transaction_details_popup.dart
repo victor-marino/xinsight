@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:indexa_dashboard/tools/constants.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class TransactionDetailsPopup extends StatelessWidget {
   const TransactionDetailsPopup({
@@ -15,7 +16,7 @@ class TransactionDetailsPopup extends StatelessWidget {
     List<Widget> transactionDetails = [];
 
     transactionDetails.add(Text(
-      "Cuenta:",
+      'transaction_details_popup.account'.tr() + ':',
       style: kTransactionDetailTitleTextStyle,
     ));
     transactionDetails.add(Text(
@@ -23,7 +24,7 @@ class TransactionDetailsPopup extends StatelessWidget {
       style: kTransactionDetailValueTextStyle,
     ));
     transactionDetails.add(Text(
-      "Concepto:",
+      'transaction_details_popup.concept'.tr() + ':',
       style: kTransactionListTitleTextStyle,
     ));
     transactionDetails.add(Text(
@@ -32,20 +33,19 @@ class TransactionDetailsPopup extends StatelessWidget {
     ));
     transactionDetails.add(
       Text(
-        "Fecha operación:",
+        'transaction_details_popup.operation_date'.tr() + ':',
         style: kTransactionListTitleTextStyle,
       ),
     );
-
     transactionDetails.add(
       Text(
         DateFormat("dd/MM/yyyy").format(transactionData.date),
         style: kTransactionDetailValueTextStyle,
       ),
     );
-    if (transactionData.accountType == "Cuenta de valores") {
+    if (transactionData.accountType == 'transaction_info.securities_account'.tr()) {
       transactionDetails.add(Text(
-        "Fecha valor:",
+        'transaction_details_popup.value_date'.tr() + ':',
         style: kTransactionListTitleTextStyle,
       ));
       transactionDetails.add(Text(
@@ -53,7 +53,7 @@ class TransactionDetailsPopup extends StatelessWidget {
         style: kTransactionDetailValueTextStyle,
       ));
       transactionDetails.add(Text(
-        "Fecha fiscal:",
+        'transaction_details_popup.fiscal_date'.tr() + ':',
         style: kTransactionListTitleTextStyle,
       ));
       transactionDetails.add(Text(
@@ -66,9 +66,9 @@ class TransactionDetailsPopup extends StatelessWidget {
       Divider(),
     );
 
-    if (transactionData.accountType == "Cuenta de valores") {
+    if (transactionData.accountType == 'transaction_info.securities_account'.tr()) {
       transactionDetails.add(Text(
-        "Fondo:",
+        'transaction_details_popup.fund'.tr() + ':',
         style: kTransactionListTitleTextStyle,
       ));
       transactionDetails.add(Text(
@@ -84,7 +84,7 @@ class TransactionDetailsPopup extends StatelessWidget {
         style: kTransactionDetailValueTextStyle,
       ));
       transactionDetails.add(Text(
-        "Participaciones:",
+        'transaction_details_popup.fund_shares'.tr() + ':',
         style: kTransactionListTitleTextStyle,
       ));
       transactionDetails.add(Text(
@@ -92,7 +92,7 @@ class TransactionDetailsPopup extends StatelessWidget {
         style: kTransactionDetailValueTextStyle,
       ));
       transactionDetails.add(Text(
-        "Valor liquidativo:",
+        'transaction_details_popup.fund_nav'.tr() + ':',
         style: kTransactionListTitleTextStyle,
       ));
       transactionDetails.add(Text(
@@ -100,7 +100,7 @@ class TransactionDetailsPopup extends StatelessWidget {
         style: kTransactionDetailValueTextStyle,
       ));
       transactionDetails.add(Text(
-        "Importe:",
+        'transaction_details_popup.cost'.tr() + ':',
         style: kTransactionListTitleTextStyle,
       ));
       transactionDetails.add(Text(
@@ -113,7 +113,7 @@ class TransactionDetailsPopup extends StatelessWidget {
     }
     transactionDetails.add(
       Text(
-        "Estado:",
+        'transaction_details_popup.status'.tr() + ':',
         style: kTransactionListTitleTextStyle,
       ),
     );
@@ -127,8 +127,7 @@ class TransactionDetailsPopup extends StatelessWidget {
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20)),
       title: Text(
-        "Detalles",
-        //style: kTransactionListAmountTextStyle,
+        'transaction_details_popup.details'.tr(),
       ),
       content: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

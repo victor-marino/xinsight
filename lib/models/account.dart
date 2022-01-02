@@ -3,6 +3,7 @@ import 'amounts_datapoint.dart';
 import 'portfolio_datapoint.dart';
 import 'performance_datapoint.dart';
 import 'transaction.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class Account {
   final accountPerformanceData;
@@ -135,7 +136,7 @@ class Account {
 
   static Map<int, List<List>> _createProfitLossSeries(performancePeriodList, realPerformanceList) {
     Map<int, List<List>> profitLossSeries = {};
-    List<String> monthList = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic", "YTD"];
+    List<String> monthList = ['months_short.january'.tr(), 'months_short.february'.tr(), 'months_short.march'.tr(), 'months_short.april'.tr(), 'months_short.may'.tr(), 'months_short.june'.tr(), 'months_short.july'.tr(), 'months_short.august'.tr(), 'months_short.september'.tr(), 'months_short.october'.tr(), 'months_short.november'.tr(), 'months_short.december'.tr(), "YTD"];
 
     performancePeriodList = performancePeriodList.sublist(0, realPerformanceList.length);
 
@@ -173,7 +174,6 @@ class Account {
         }
       }
       profitLossSeries[year][12][1] = totalProfit - 1;
-      //profitLossSeries[year][12][0] = year.toString();
     });
 
     years.forEach((year) {
@@ -195,25 +195,25 @@ class Account {
       IconData icon;
       switch(transaction['operation_code']) {
         case 20: {
-          operationType = "Suscripción de fondos";
+          operationType = 'transaction_info.fund_purchase'.tr();
           icon = Icons.trending_up;
         }
         break;
 
         case 21: {
-          operationType = "Reembolso de fondos";
+          operationType = 'transaction_info.fund_reimbursement'.tr();
           icon = Icons.trending_down;
         }
         break;
 
         case 67: {
-          operationType = "Suscripción por traspaso";
+          operationType = 'transaction_info.fund_purchase_by_transfer'.tr();
           icon = Icons.sync_alt;
         }
         break;
 
         case 72: {
-          operationType = "Reembolso por traspaso";
+          operationType = 'transaction_info.fund_reimbursement_by_transfer'.tr();
           icon = Icons.sync_alt;
         }
         break;
@@ -228,7 +228,7 @@ class Account {
       String operationStatus;
       switch(transaction['status']) {
         case 'closed': {
-          operationStatus = "Completado";
+          operationStatus = 'transaction_info.completed'.tr();
         }
         break;
 
@@ -237,35 +237,34 @@ class Account {
         }
         break;
       }
-      Transaction newTransaction = Transaction(date: DateTime.parse(transaction['date']), valueDate: DateTime.parse(transaction['value_date']), fiscalDate: DateTime.parse(transaction['fiscal_date']), accountType: "Cuenta de valores", operationCode: transaction['operation_code'], operationType: operationType, icon: icon, instrumentCode: transaction['instrument']['identifier'], instrumentName: transaction['instrument']['name'], titles: transaction['titles'].toDouble(), price: transaction['price'].toDouble(), amount: transaction['amount'].toDouble(), status: operationStatus);
+      Transaction newTransaction = Transaction(date: DateTime.parse(transaction['date']), valueDate: DateTime.parse(transaction['value_date']), fiscalDate: DateTime.parse(transaction['fiscal_date']), accountType: 'transaction_info.securities_account'.tr(), operationCode: transaction['operation_code'], operationType: operationType, icon: icon, instrumentCode: transaction['instrument']['identifier'], instrumentName: transaction['instrument']['name'], titles: transaction['titles'].toDouble(), price: transaction['price'].toDouble(), amount: transaction['amount'].toDouble(), status: operationStatus);
       newTransactionList.add(newTransaction);
     }
 
     for (var transaction in accountCashTransactionData) {
       String operationType;
       IconData icon;
-      //print(transaction['operation_type']);
       switch(transaction['operation_code']) {
         case 9200: {
-          operationType = "Operación de valores";
+          operationType = 'transaction_info.securities_operation'.tr();
           icon = Icons.pie_chart;
         }
         break;
 
         case 285: {
-          operationType = "Comisión de custodia";
+          operationType = 'transaction_info.custodial_fee'.tr();
           icon = Icons.toll;
         }
         break;
 
         case 4589: {
-          operationType = "Ingreso por transferencia";
+          operationType = "transaction_info.money_deposit_by_transfer".tr();
           icon = Icons.download_outlined;
         }
         break;
 
         case 4597: {
-          operationType = "Retirada por transferencia";
+          operationType = "transaction_info.money_reimbursement_by_transfer".tr();
           icon = Icons.upload_outlined;
         }
         break;
@@ -280,7 +279,7 @@ class Account {
       String operationStatus;
       switch(transaction['status']) {
         case 'closed': {
-          operationStatus = "Completado";
+          operationStatus = "transaction_info.completed".tr();
         }
         break;
 
@@ -289,14 +288,12 @@ class Account {
         }
         break;
       }
-      Transaction newTransaction = Transaction(date: DateTime.parse(transaction['date']), valueDate: null, fiscalDate: null, accountType: "Cuenta de efectivo", operationCode: transaction['operation_code'], operationType: operationType, icon: icon, instrumentCode: null, instrumentName: null, titles: null, price: null, amount: transaction['amount'].toDouble(), status: operationStatus);
+      Transaction newTransaction = Transaction(date: DateTime.parse(transaction['date']), valueDate: null, fiscalDate: null, accountType: 'transaction_info.cash_account'.tr(), operationCode: transaction['operation_code'], operationType: operationType, icon: icon, instrumentCode: null, instrumentName: null, titles: null, price: null, amount: transaction['amount'].toDouble(), status: operationStatus);
       newTransactionList.add(newTransaction);
     }
 
     newTransactionList.sort((a, b) => b.date.compareTo(a.date));
-    // for (var transaction in newTransactionList) {
-    //   print(transaction.date.toString() + ": " + transaction.accountType);
-    // }
+
     return(newTransactionList);
   }
 

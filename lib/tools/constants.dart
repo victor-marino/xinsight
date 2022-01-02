@@ -204,6 +204,13 @@ TextStyle kMinimumTransferCardTextStyle = GoogleFonts.roboto(
   ),
 );
 
+TextStyle kAboutScreenTextStyle = GoogleFonts.roboto(
+  textStyle: TextStyle(
+    color: Colors.black54,
+    fontSize: 16,
+  ),
+);
+
 TextStyle kDividerTextStyle = GoogleFonts.roboto(
   textStyle: TextStyle(
     color: Colors.grey,
