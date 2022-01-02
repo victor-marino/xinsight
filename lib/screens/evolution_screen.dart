@@ -58,7 +58,6 @@ class _EvolutionScreenState extends State<EvolutionScreen> {
 
   void reloadProfitLossChart(int year) {
     setState(() {
-      print("setting state");
       currentYear = year;
     });
   }

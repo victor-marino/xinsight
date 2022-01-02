@@ -68,7 +68,7 @@
   },
   "evolution_screen": {
     "evolution": "EVOLUTION",
-    "zoom_hint": "Drag with two fingers to zoom in",
+    "zoom_hint": "Pinch to zoom",
     "returns": "RETURNS"
   },
   "amounts_chart": {
