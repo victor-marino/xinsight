@@ -3,10 +3,10 @@ import 'package:flutter/services.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:indexa_dashboard/models/account.dart';
 import 'package:indexa_dashboard/screens/portfolio_screen.dart';
+import 'package:indexa_dashboard/screens/assets_screen.dart';
 import 'package:indexa_dashboard/screens/evolution_screen.dart';
 import 'package:indexa_dashboard/screens/projection_screen.dart';
 import 'package:indexa_dashboard/screens/transactions_screen.dart';
-import 'package:indexa_dashboard/screens/stats_screen.dart';
 import 'settings_screen.dart';
 import '../services/indexa_data.dart';
 import 'package:provider/provider.dart';
@@ -194,6 +194,12 @@ class _RootScreenState extends State<RootScreen> {
                       refreshData: refreshData,
                       reloadPage: reloadPage,
                       currentAccountNumber: widget.accountNumber),
+                  AssetsScreen(
+                      accountData: snapshot.data,
+                      userAccounts: userAccounts,
+                      refreshData: refreshData,
+                      reloadPage: reloadPage,
+                      currentAccountNumber: widget.accountNumber),
                   EvolutionScreen(
                       accountData: snapshot.data,
                       userAccounts: userAccounts,
@@ -207,12 +213,6 @@ class _RootScreenState extends State<RootScreen> {
                       reloadPage: reloadPage,
                       currentAccountNumber: widget.accountNumber),
                   ProjectionScreen(
-                      accountData: snapshot.data,
-                      userAccounts: userAccounts,
-                      refreshData: refreshData,
-                      reloadPage: reloadPage,
-                      currentAccountNumber: widget.accountNumber),
-                  StatsScreen(
                       accountData: snapshot.data,
                       userAccounts: userAccounts,
                       refreshData: refreshData,

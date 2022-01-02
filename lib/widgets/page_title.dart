@@ -13,10 +13,10 @@ class PageTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     List<String> pageTitles = [
       'page_titles.portfolio'.tr(),
+      'page_titles.assets'.tr(),
       'page_titles.evolution'.tr(),
       'page_titles.transactions'.tr(),
       'page_titles.projection'.tr(),
-      'page_titles.stats'.tr(),
     ];
     return Text(
       pageTitles[Provider.of<BottomNavigationBarProvider>(context, listen: true)

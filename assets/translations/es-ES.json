@@ -2,10 +2,10 @@
   "app_title": "Título de la app",
   "page_titles": {
     "portfolio": "Cartera",
+    "assets": "Activos",
     "evolution": "Evolución",
     "transactions": "Movimientos",
     "projection": "Proyección",
-    "stats": "Estadísticas",
     "settings": "Opciones"
   },
   "account_switcher": {

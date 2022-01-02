@@ -2,10 +2,10 @@
   "app_title": "App title",
   "page_titles": {
     "portfolio": "Portfolio",
+    "assets": "Assets",
     "evolution": "Evolution",
     "transactions": "Transactions",
     "projection": "Projection",
-    "stats": "Stats",
     "settings": "Settings"
   },
   "account_switcher": {
@@ -41,7 +41,7 @@
     "return": "RETURN"
   },
   "minimum_transfer_card": {
-    "minimum_transfer_to_invest": "Minimum trasnfer to invest"
+    "minimum_transfer_to_invest": "Minimum deposit to invest"
   },
   "fee_free_amount_card": {
     "fee_free_amount": "Fee-free assets"
@@ -61,9 +61,9 @@
   "profit_popup": {
     "return": "Return",
     "time_weighted": "Time-weighted",
-    "twr_explanation": "It's the best way to compare returns between different investment firms, as it ignores the timing of your purchases and sales.",
+    "twr_explanation": "This is the most common way to compare performance between different investment firms, as it ignores the timing of your purchases and sales.",
     "money_weighted": "Money-weighted",
-    "mwr_explanation": "It's the most common way to measure your portfolio's performance, as it takes into account your specific pattern of purchases and sales.",
+    "mwr_explanation": "This is the most common way to measure the performance of your portfolio, as it takes into account your specific pattern of purchases and sales.",
     "returns_calculated_net_of_fees": "Returns are calculated net of fees."
   },
   "evolution_screen": {

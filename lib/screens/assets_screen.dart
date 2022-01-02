@@ -7,8 +7,8 @@ import 'package:indexa_dashboard/models/account_dropdown_items.dart';
 
 const int nbsp = 0x00A0;
 
-class StatsScreen extends StatefulWidget {
-  const StatsScreen({
+class AssetsScreen extends StatefulWidget {
+  const AssetsScreen({
     Key key,
     this.accountData,
     this.userAccounts,
@@ -23,10 +23,10 @@ class StatsScreen extends StatefulWidget {
   final int currentAccountNumber;
 
   @override
-  _StatsScreenState createState() => _StatsScreenState();
+  _AssetsScreenState createState() => _AssetsScreenState();
 }
 
-class _StatsScreenState extends State<StatsScreen> {
+class _AssetsScreenState extends State<AssetsScreen> {
   int currentPage = 4;
   Account accountData;
   Function refreshData;
@@ -70,25 +70,6 @@ class _StatsScreenState extends State<StatsScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            // Padding(
-            //   padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-            //   child: Row(
-            //     mainAxisAlignment: MainAxisAlignment.start,
-            //     crossAxisAlignment: CrossAxisAlignment.end,
-            //     children: [
-            //       Text(
-            //         'Estadísticas',
-            //         style: kTitleTextStyle,
-            //         textAlign: TextAlign.left,
-            //       ),
-            //       Flexible(
-            //         child: Container(),
-            //       ),
-            //       buildAccountSwitcher(currentAccountNumber: currentAccountNumber, currentPage: currentPage, accountDropdownItems: dropdownItems, reloadPage: widget.reloadPage),
-            //       SettingsButton(),
-            //     ],
-            //   ),
-            // ),
             Expanded(
               child: SmartRefresher(
                 enablePullDown: true,
