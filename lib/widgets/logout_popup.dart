@@ -67,7 +67,7 @@ class LogoutPopup extends StatelessWidget {
             ),
           ),
           onPressed: () {
-            Navigator.of(context).pop();
+            _deleteAndLogout();
             },
         ),
       ],

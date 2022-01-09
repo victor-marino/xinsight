@@ -1,8 +1,8 @@
 {
   "app_title": "App title",
   "page_titles": {
+    "overview": "Overview",
     "portfolio": "Portfolio",
-    "assets": "Assets",
     "evolution": "Evolution",
     "transactions": "Transactions",
     "projection": "Projection",
@@ -22,6 +22,7 @@
     "please_authenticate": "Please authenticate",
     "biometric_authentication_failed": "Biometric authentication failed",
     "token_validation_failed": "Token validation failed",
+    "please_enter_token": "Please enter your token",
     "get_token": "Get token",
     "in_your_client_area": "In your Indexa Capital client area",
     "go_to": "Go to",
@@ -33,7 +34,7 @@
     "your_indexa_token": "Your Indexa token",
     "remember_token": "Remember token"
   },
-  "portfolio_screen": {
+  "overview_screen": {
     "distribution": "DISTRIBUTION"
   },
   "account_summary": {
@@ -46,18 +47,36 @@
   "fee_free_amount_card": {
     "fee_free_amount": "Fee-free assets"
   },
-  "portfolio_chart": {
+  "distribution_chart": {
     "instrument_type_equity": "Equity",
     "instrument_type_fixed": "Bonds",
     "instrument_type_cash": "Cash",
     "instrument_type_other": "Others"
   },
-  "portfolio_legend": {
-    "instrument_type_equity": "@:portfolio_chart.instrument_type_equity",
-    "instrument_type_fixed": "@:portfolio_chart.instrument_type_fixed",
-    "instrument_type_cash": "@:portfolio_chart.instrument_type_cash",
-    "instrument_type_other": "@:portfolio_chart.instrument_type_other"
+  "distribution_legend": {
+    "instrument_type_equity": "@:distribution_chart.instrument_type_equity",
+    "instrument_type_fixed": "@:distribution_chart.instrument_type_fixed",
+    "instrument_type_cash": "@:distribution_chart.instrument_type_cash",
+    "instrument_type_other": "@:distribution_chart.instrument_type_other"
   },
+  "portfolio_screen": {
+    "equity": "Equity",
+    "fixed": "Fixed income",
+    "cash": "Cash",
+    "other": "Other"
+  },
+  "asset_details_popup": {
+    "instrument_type_equity": "@:portfolio_screen.equity",
+    "instrument_type_fixed": "@:portfolio_screen.fixed",
+    "instrument_type_cash": "@:portfolio_screen.cash",
+    "instrument_type_other": "@:portfolio_screen.other",
+    "description_not_available": "Not available",
+    "name": "Name",
+    "management_company": "Company",
+    "asset_class": "Class",
+    "description": "Description"
+  },
+
   "profit_popup": {
     "return": "Return",
     "time_weighted": "Time-weighted",

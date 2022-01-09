@@ -196,6 +196,29 @@ TextStyle kPendingTransactionsWidgetTextStyle = GoogleFonts.roboto(
   ),
 );
 
+TextStyle kAssetListMainTextStyle = GoogleFonts.roboto(
+  textStyle: TextStyle(
+    color: Colors.black87,
+    fontSize: 14.0,
+    fontWeight: FontWeight.bold,
+  ),
+);
+
+TextStyle kAssetListSecondaryTextStyle = GoogleFonts.roboto(
+  textStyle: TextStyle(
+    color: Colors.grey,
+    fontSize: 14.0,
+  ),
+);
+
+TextStyle kAssetListAmountTextStyle = GoogleFonts.ubuntu(
+  textStyle: TextStyle(
+    color: Colors.black87,
+    fontSize: 16.0,
+    fontWeight: FontWeight.bold,
+  ),
+);
+
 TextStyle kMinimumTransferCardTextStyle = GoogleFonts.roboto(
   textStyle: TextStyle(
     color: Colors.black54,

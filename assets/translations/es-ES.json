@@ -1,8 +1,8 @@
 {
   "app_title": "Título de la app",
   "page_titles": {
+    "overview": "Resumen",
     "portfolio": "Cartera",
-    "assets": "Activos",
     "evolution": "Evolución",
     "transactions": "Movimientos",
     "projection": "Proyección",
@@ -22,6 +22,7 @@
     "please_authenticate": "Por favor identifícate",
     "biometric_authentication_failed": "Identificación biométrica no completada",
     "token_validation_failed": "No se pudo validar el token",
+    "please_enter_token": "Introduce tu token",
     "get_token": "Obtener token",
     "in_your_client_area": "En tu área de cliente de Indexa Capital",
     "go_to": "Ve a",
@@ -33,7 +34,7 @@
     "your_indexa_token": "Tu token de Indexa",
     "remember_token": "Recordar token"
   },
-  "portfolio_screen": {
+  "overview_screen": {
     "distribution": "DISTRIBUCIÓN"
   },
   "account_summary": {
@@ -46,17 +47,34 @@
   "fee_free_amount_card": {
     "fee_free_amount": "Activos gestionados gratis"
   },
-  "portfolio_chart": {
+  "distribution_chart": {
     "instrument_type_equity": "Acciones",
     "instrument_type_fixed": "Bonos",
     "instrument_type_cash": "Efectivo",
     "instrument_type_other": "Otros"
   },
-  "portfolio_legend": {
-    "instrument_type_equity": "@:portfolio_chart.instrument_type_equity",
-    "instrument_type_fixed": "@:portfolio_chart.instrument_type_fixed",
-    "instrument_type_cash": "@:portfolio_chart.instrument_type_cash",
-    "instrument_type_other": "@:portfolio_chart.instrument_type_other"
+  "distribution_legend": {
+    "instrument_type_equity": "@:distribution_chart.instrument_type_equity",
+    "instrument_type_fixed": "@:distribution_chart.instrument_type_fixed",
+    "instrument_type_cash": "@:distribution_chart.instrument_type_cash",
+    "instrument_type_other": "@:distribution_chart.instrument_type_other"
+  },
+  "portfolio_screen": {
+    "equity": "Renta variable",
+    "fixed": "Renta fija",
+    "cash": "Efectivo",
+    "other": "Otros"
+  },
+  "asset_details_popup": {
+    "instrument_type_equity": "@:portfolio_screen.equity",
+    "instrument_type_fixed": "@:portfolio_screen.fixed",
+    "instrument_type_cash": "@:portfolio_screen.cash",
+    "instrument_type_other": "@:portfolio_screen.other",
+    "description_not_available": "No disponible",
+    "name": "Nombre",
+    "management_company": "Gestora",
+    "asset_class": "Clase",
+    "description": "Descripción"
   },
   "profit_popup": {
     "return": "Rentabilidad",

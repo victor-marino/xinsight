@@ -370,6 +370,10 @@ class _LoginScreenState extends State<LoginScreen> {
                             onPressed: () {
                               if (rememberToken) {
                                 saveTokenAndGoToHome();
+                              } else if (tokenTextController.text == "") {
+                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                  content: Text("login_screen.please_enter_token".tr()),
+                                ));
                               } else {
                                 goToHome(token: tokenTextController.text);
                               }

@@ -12,8 +12,8 @@ class PageTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<String> pageTitles = [
+      'page_titles.overview'.tr(),
       'page_titles.portfolio'.tr(),
-      'page_titles.assets'.tr(),
       'page_titles.evolution'.tr(),
       'page_titles.transactions'.tr(),
       'page_titles.projection'.tr(),
