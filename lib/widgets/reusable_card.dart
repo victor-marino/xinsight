@@ -4,8 +4,10 @@ class ReusableCard extends StatelessWidget {
   const ReusableCard({
     Key key,
     @required this.childWidget,
+    this.padding = 15.0,
   }) : super(key: key);
   final Widget childWidget;
+  final double padding;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +21,7 @@ class ReusableCard extends StatelessWidget {
       elevation: 10,
       clipBehavior: Clip.antiAlias,
       child: Padding(
-        padding: const EdgeInsets.all(15.0),
+        padding: EdgeInsets.all(padding),
         child: childWidget,
       ),
     );

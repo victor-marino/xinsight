@@ -18,9 +18,9 @@ class MyBottomNavigationBar extends StatelessWidget {
       unselectedItemColor: Colors.black54,
 
       items: [
-        BottomNavigationBarItem(icon: Icon(Icons.pie_chart), label: 'page_titles.portfolio'.tr()),
+        BottomNavigationBarItem(icon: Icon(Icons.pie_chart), label: 'page_titles.overview'.tr()),
         BottomNavigationBarItem(
-            icon: Icon(Icons.history), label: 'page_titles.assets'.tr()),
+            icon: Icon(Icons.history), label: 'page_titles.portfolio'.tr()),
         BottomNavigationBarItem(
             icon: Icon(Icons.assessment), label: 'page_titles.evolution'.tr()),
         BottomNavigationBarItem(

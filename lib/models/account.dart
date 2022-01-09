@@ -63,6 +63,7 @@ class Account {
     for (var instrument in instruments) {
       InstrumentType currentInstrumentType;
       double currentInstrumentPercentage = instrument['amount'] / portfolio['total_amount'];
+      String currentInstrumentDescription;
 
       if (instrument['instrument']['asset_class'].contains('equity')) {
         currentInstrumentType = InstrumentType.equity;
@@ -71,7 +72,16 @@ class Account {
       } else {
         currentInstrumentType = InstrumentType.other;
       }
-      PortfolioDataPoint newPoint = PortfolioDataPoint(instrumentType: currentInstrumentType, instrumentName: instrument['instrument']['name'], amount: _doubleWithTwoDecimalPlaces(instrument['amount'].toDouble()), percentage: currentInstrumentPercentage);
+
+      if (instrument['instrument']['description'] == "") {
+        currentInstrumentDescription = 'asset_details_popup.description_not_available'.tr();
+      } else if (instrument['instrument']['description'].contains(' Código ISIN')) {
+        currentInstrumentDescription = instrument['instrument']['description'].split(' Código ISIN')[0];
+      } else {
+        currentInstrumentDescription = instrument['instrument']['description'];
+      }
+
+      PortfolioDataPoint newPoint = PortfolioDataPoint(instrumentType: currentInstrumentType, instrumentName: instrument['instrument']['name'], instrumentID: instrument['instrument']['identifier'], instrumentCompany: instrument['instrument']['management_company_description'], instrumentDescription: currentInstrumentDescription, amount: _doubleWithTwoDecimalPlaces(instrument['amount'].toDouble()), percentage: currentInstrumentPercentage);
       newPortfolioData.add(newPoint);
     }
 

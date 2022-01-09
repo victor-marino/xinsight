@@ -4,8 +4,8 @@ import 'package:indexa_dashboard/models/portfolio_datapoint.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:indexa_dashboard/tools/RadiantLinearMask.dart';
 
-class PortfolioChartLegend extends StatelessWidget {
-  const PortfolioChartLegend({
+class DistributionChartLegend extends StatelessWidget {
+  const DistributionChartLegend({
     Key key,
     @required this.portfolioDistribution,
   }) : super(key: key);
@@ -32,7 +32,7 @@ class PortfolioChartLegend extends StatelessWidget {
               text: TextSpan(
                 children: [
                   TextSpan(
-                      text: 'portfolio_legend.instrument_type_equity'.tr(),
+                      text: 'distribution_legend.instrument_type_equity'.tr(),
                       style: kLegendMainTextStyle),
                   TextSpan(
                       text:  " (" + (portfolioDistribution[InstrumentType.equity] * 100).toStringAsFixed(1) + "%)",
@@ -61,7 +61,7 @@ class PortfolioChartLegend extends StatelessWidget {
               text: TextSpan(
                 children: [
                   TextSpan(
-                      text: 'portfolio_legend.instrument_type_fixed'.tr(),
+                      text: 'distribution_legend.instrument_type_fixed'.tr(),
                       style: kLegendMainTextStyle),
                   TextSpan(
                     //text: "10.000€",
@@ -87,7 +87,7 @@ class PortfolioChartLegend extends StatelessWidget {
               text: TextSpan(
                 children: [
                   TextSpan(
-                      text: 'portfolio_legend.instrument_type_other'.tr(),
+                      text: 'distribution_legend.instrument_type_other'.tr(),
                       style: kLegendMainTextStyle),
                   TextSpan(
                     //text: "10.000€",
@@ -113,7 +113,7 @@ class PortfolioChartLegend extends StatelessWidget {
               text: TextSpan(
                 children: [
                   TextSpan(
-                      text: 'portfolio_legend.instrument_type_other'.tr(),
+                      text: 'distribution_legend.instrument_type_other'.tr(),
                       style: kLegendMainTextStyle),
                   TextSpan(
                     //text: "10.000€",

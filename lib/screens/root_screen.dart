@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:indexa_dashboard/models/account.dart';
+import 'package:indexa_dashboard/screens/overview_screen.dart';
 import 'package:indexa_dashboard/screens/portfolio_screen.dart';
-import 'package:indexa_dashboard/screens/assets_screen.dart';
 import 'package:indexa_dashboard/screens/evolution_screen.dart';
 import 'package:indexa_dashboard/screens/projection_screen.dart';
 import 'package:indexa_dashboard/screens/transactions_screen.dart';
@@ -188,13 +188,13 @@ class _RootScreenState extends State<RootScreen> {
                 controller: _pageController,
                 //physics: AlwaysScrollableScrollPhysics(),
                 children: <Widget>[
-                  PortfolioScreen(
+                  OverviewScreen(
                       accountData: snapshot.data,
                       userAccounts: userAccounts,
                       refreshData: refreshData,
                       reloadPage: reloadPage,
                       currentAccountNumber: widget.accountNumber),
-                  AssetsScreen(
+                  PortfolioScreen(
                       accountData: snapshot.data,
                       userAccounts: userAccounts,
                       refreshData: refreshData,

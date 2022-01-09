@@ -74,6 +74,7 @@ class TransactionTile extends StatelessWidget {
                       transactionData.operationType,
                       textAlign: TextAlign.left,
                       style: kTransactionListTitleTextStyle,
+                      overflow: TextOverflow.ellipsis,
                     ),
                     RichText(
                       text: TextSpan(children: [
