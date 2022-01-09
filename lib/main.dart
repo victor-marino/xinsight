@@ -7,7 +7,7 @@ import 'tools/bottom_navigation_bar_provider.dart';
 void main() {
   runApp(
     EasyLocalization(
-      supportedLocales: [Locale('en', 'US'), Locale('es', 'ES'), Locale('gl', 'ES')],
+      supportedLocales: [Locale('en', 'US'), Locale('es', 'ES')],
       path: 'assets/translations', // <-- change path to yours
       fallbackLocale: Locale('en', 'US'),
       child: MyApp(),

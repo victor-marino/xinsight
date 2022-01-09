@@ -43,8 +43,6 @@ class _RootScreenState extends State<RootScreen> {
   List<DropdownMenuItem> dropdownItems =
       AccountDropdownItems(userAccounts: [""]).dropdownItems;
 
-  //List<DropdownMenuItem> dropdownItems = [];
-
   bool reloading = false;
 
   Future<void> loadData(int accountNumber) async {
@@ -149,7 +147,6 @@ class _RootScreenState extends State<RootScreen> {
 
   @override
   Widget build(BuildContext context) {
-    //SyncfusionLicense.registerLicense(SYNCFUSION_LICENSE);
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle(
