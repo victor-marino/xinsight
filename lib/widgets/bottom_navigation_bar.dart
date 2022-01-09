@@ -20,11 +20,11 @@ class MyBottomNavigationBar extends StatelessWidget {
       items: [
         BottomNavigationBarItem(icon: Icon(Icons.pie_chart), label: 'page_titles.overview'.tr()),
         BottomNavigationBarItem(
-            icon: Icon(Icons.history), label: 'page_titles.portfolio'.tr()),
+            icon: Icon(Icons.list), label: 'page_titles.portfolio'.tr()),
         BottomNavigationBarItem(
             icon: Icon(Icons.assessment), label: 'page_titles.evolution'.tr()),
         BottomNavigationBarItem(
-            icon: Icon(Icons.list), label: 'page_titles.transactions'.tr()),
+            icon: Icon(Icons.sync_alt), label: 'page_titles.transactions'.tr()),
         BottomNavigationBarItem(
             icon: Icon(Icons.trending_up), label: 'page_titles.projection'.tr()),
       ],
