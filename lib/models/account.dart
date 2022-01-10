@@ -284,6 +284,12 @@ class Account {
         }
         break;
 
+        case 8152: {
+          operationType = "transaction_info.management_fee".tr();
+          icon = Icons.toll;
+        }
+
+        break;
         case 4589: {
           operationType = "transaction_info.money_deposit_by_transfer".tr();
           icon = Icons.download_outlined;

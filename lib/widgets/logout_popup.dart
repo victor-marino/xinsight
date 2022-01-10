@@ -32,8 +32,8 @@ class LogoutPopup extends StatelessWidget {
       _deleteAll();
       _readAll();
       Provider.of<BottomNavigationBarProvider>(context, listen: false).currentIndex = 0;
-      Navigator.pushReplacement(context, MaterialPageRoute(
-          builder: (BuildContext context) => LoginScreen()));
+      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
+          builder: (BuildContext context) => LoginScreen()), (Route<dynamic> route) => false);
     }
     return AlertDialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),

@@ -160,8 +160,7 @@ class _RootScreenState extends State<RootScreen> {
           foregroundColor: Theme.of(context).canvasColor,
           elevation: 0,
           toolbarHeight: 100,
-          title:
-              PageTitle(),
+          title: PageTitle(),
           actions: <Widget>[
             buildAccountSwitcher(
                 currentAccountNumber: widget.accountNumber,

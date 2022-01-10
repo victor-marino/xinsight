@@ -102,6 +102,7 @@
     "completed": "Completed",
     "securities_operation": "Securities operation",
     "custodial_fee": "Custodial fee",
+    "management_fee": "Management fee",
     "money_deposit_by_transfer": "Money deposit by transfer",
     "money_reimbursement_by_transfer": "Money withdrawal by transfer",
     "cash_account": "Cash account",
