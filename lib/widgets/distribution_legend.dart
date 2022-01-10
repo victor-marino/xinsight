@@ -9,7 +9,7 @@ class DistributionChartLegend extends StatelessWidget {
     Key key,
     @required this.portfolioDistribution,
   }) : super(key: key);
-  final Map<InstrumentType, double> portfolioDistribution;
+  final Map<InstrumentType, Map<ValueType, double>> portfolioDistribution;
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +18,7 @@ class DistributionChartLegend extends StatelessWidget {
     if (portfolioDistribution.containsKey(InstrumentType.equity)) {
       legendItems.add(
         Row(
+          mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             RadiantLinearMask(
               child: Icon(
@@ -35,7 +36,7 @@ class DistributionChartLegend extends StatelessWidget {
                       text: 'distribution_legend.instrument_type_equity'.tr(),
                       style: kLegendMainTextStyle),
                   TextSpan(
-                      text:  " (" + (portfolioDistribution[InstrumentType.equity] * 100).toStringAsFixed(1) + "%)",
+                      text:  " (" + (portfolioDistribution[InstrumentType.equity][ValueType.percentage] * 100).toStringAsFixed(1) + "%)",
                       style: kLegendSecondaryTextStyle)
                 ],
               ),
@@ -47,6 +48,7 @@ class DistributionChartLegend extends StatelessWidget {
     if (portfolioDistribution.containsKey(InstrumentType.fixed)) {
       legendItems.add(
         Row(
+          mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             RadiantLinearMask(
               child: Icon(
@@ -65,7 +67,7 @@ class DistributionChartLegend extends StatelessWidget {
                       style: kLegendMainTextStyle),
                   TextSpan(
                     //text: "10.000€",
-                      text:  " (" + (portfolioDistribution[InstrumentType.fixed] * 100).toStringAsFixed(1) + "%)",
+                      text:  " (" + (portfolioDistribution[InstrumentType.fixed][ValueType.percentage] * 100).toStringAsFixed(1) + "%)",
                       style: kLegendSecondaryTextStyle)
                 ],
               ),
@@ -77,6 +79,7 @@ class DistributionChartLegend extends StatelessWidget {
     if (portfolioDistribution.containsKey(InstrumentType.other)) {
       legendItems.add(
         Row(
+          mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             Icon(
               Icons.fiber_manual_record,
@@ -91,7 +94,7 @@ class DistributionChartLegend extends StatelessWidget {
                       style: kLegendMainTextStyle),
                   TextSpan(
                     //text: "10.000€",
-                      text:  " (" + (portfolioDistribution[InstrumentType.other] * 100).toStringAsFixed(1) + "%)",
+                      text:  " (" + (portfolioDistribution[InstrumentType.other][ValueType.percentage] * 100).toStringAsFixed(1) + "%)",
                       style: kLegendSecondaryTextStyle)
                 ],
               ),
@@ -103,6 +106,7 @@ class DistributionChartLegend extends StatelessWidget {
     if (portfolioDistribution.containsKey(InstrumentType.cash)) {
       legendItems.add(
         Row(
+          mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             Icon(
               Icons.fiber_manual_record,
@@ -113,11 +117,11 @@ class DistributionChartLegend extends StatelessWidget {
               text: TextSpan(
                 children: [
                   TextSpan(
-                      text: 'distribution_legend.instrument_type_other'.tr(),
+                      text: 'distribution_legend.instrument_type_cash'.tr(),
                       style: kLegendMainTextStyle),
                   TextSpan(
                     //text: "10.000€",
-                      text:  " (" + (portfolioDistribution[InstrumentType.cash] * 100).toStringAsFixed(1) + "%)",
+                      text:  " (" + (portfolioDistribution[InstrumentType.cash][ValueType.percentage] * 100).toStringAsFixed(1) + "%)",
                       style: kLegendSecondaryTextStyle)
                 ],
               ),
@@ -126,9 +130,10 @@ class DistributionChartLegend extends StatelessWidget {
         ),
       );
     }
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    return Wrap(
       children: legendItems,
+      spacing: 10,
+      runSpacing: 5,
     );
   }
 }

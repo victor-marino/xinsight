@@ -230,14 +230,15 @@ class _RootScreenState extends State<RootScreen> {
               if (reloading) {
                 child = Center(child: CircularProgressIndicator());
               } else {
+                // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                //   content: Text(snapshot.error.toString()),
+                // ));
                 child = Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Icon(
-                        Icons.cloud_off,
-                      ),
-                      Text("Error loading data"),
+                      Icon(Icons.error_outline),
+                      Text(snapshot.error.toString()),
                       MaterialButton(
                         child: Text(
                           'retry'.tr(),

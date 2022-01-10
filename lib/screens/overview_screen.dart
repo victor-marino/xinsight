@@ -7,6 +7,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:indexa_dashboard/widgets/account_summary.dart';
 import 'package:indexa_dashboard/widgets/reusable_card.dart';
 import 'package:indexa_dashboard/widgets/distribution_chart.dart';
+import 'package:indexa_dashboard/widgets/distribution_chart_simplified.dart';
 import 'package:indexa_dashboard/widgets/distribution_legend.dart';
 import 'package:indexa_dashboard/widgets/profit_popup.dart';
 import 'package:indexa_dashboard/models/account_dropdown_items.dart';
@@ -107,6 +108,8 @@ class _OverviewScreenState extends State<OverviewScreen> {
                               ),
                               DistributionChart(
                                   portfolioData: accountData.portfolioData),
+                              // DistributionChartSimplified(
+                              //     portfolioDistribution: accountData.portfolioDistribution),
                               DistributionChartLegend(
                                   portfolioDistribution:
                                       accountData.portfolioDistribution),

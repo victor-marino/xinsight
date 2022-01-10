@@ -32,7 +32,7 @@ class Account {
   final double _additionalCashNeededToTrade;
   final List<AmountsDataPoint> _amountsSeries;
   final List<PortfolioDataPoint> _portfolioData;
-  final Map<InstrumentType, double> _portfolioDistribution;
+  final Map<InstrumentType, Map<ValueType, double>> _portfolioDistribution;
   final List<PerformanceDataPoint> _performanceSeries;
   final Map<int, List<List>> _profitLossSeries;
   final List<Transaction> _transactionList;
@@ -73,7 +73,7 @@ class Account {
         currentInstrumentType = InstrumentType.other;
       }
 
-      if (instrument['instrument']['description'] == "") {
+      if (instrument['instrument']['description'] == "" || instrument['instrument']['description'] == null) {
         currentInstrumentDescription = 'asset_details_popup.description_not_available'.tr();
       } else if (instrument['instrument']['description'].contains(' Código ISIN')) {
         currentInstrumentDescription = instrument['instrument']['description'].split(' Código ISIN')[0];
@@ -87,36 +87,53 @@ class Account {
 
     newPortfolioData.add(PortfolioDataPoint(instrumentType: InstrumentType.cash, instrumentName: 'cash', amount: _doubleWithTwoDecimalPlaces(portfolio['cash_amount'].toDouble()), percentage: portfolio['cash_amount'] / portfolio['total_amount']));
 
+    newPortfolioData.sort((a,b) => b.instrumentType.toString().compareTo(a.instrumentType.toString()));
+
     return(newPortfolioData);
   }
 
-  static Map<InstrumentType, double> _createPortfolioDistribution (portfolio, instruments) {
-    Map<InstrumentType, double> portfolioDistribution = {};
+  static Map<InstrumentType, Map<ValueType, double>> _createPortfolioDistribution (portfolio, instruments) {
+    Map<InstrumentType, Map<ValueType, double>> portfolioDistribution = {};
 
     if (instruments.any((element) => element['instrument']['asset_class'].toString().contains('equity'))) {
-      portfolioDistribution[InstrumentType.equity] = 0;
+      portfolioDistribution[InstrumentType.equity] = {};
+      portfolioDistribution[InstrumentType.equity][ValueType.percentage] = 0;
+      portfolioDistribution[InstrumentType.equity][ValueType.amount] = 0;
     }
     if (instruments.any((element) => element['instrument']['asset_class'].toString().contains('fixed'))) {
-      portfolioDistribution[InstrumentType.fixed] = 0;
-    } else {
-      portfolioDistribution[InstrumentType.other] = 0;
+      portfolioDistribution[InstrumentType.fixed] = {};
+      portfolioDistribution[InstrumentType.fixed][ValueType.percentage] = 0;
+      portfolioDistribution[InstrumentType.fixed][ValueType.amount] = 0;
+    }
+    if (instruments.any((element) => (!(element['instrument']['asset_class'].toString().contains('equity')) && !(element['instrument']['asset_class'].toString().contains('fixed'))))) {
+      portfolioDistribution[InstrumentType.other] = {};
+      portfolioDistribution[InstrumentType.other][ValueType.amount] = 0;
+      portfolioDistribution[InstrumentType.other][ValueType.percentage] = 0;
     }
 
-    portfolioDistribution[InstrumentType.cash] = 0;
+    portfolioDistribution[InstrumentType.cash] = {};
+    portfolioDistribution[InstrumentType.cash][ValueType.amount] = 0;
+    portfolioDistribution[InstrumentType.cash][ValueType.percentage] = 0;
 
     for (var instrument in instruments) {
+      double currentInstrumentAmount = instrument['amount'];
       double currentInstrumentPercentage = instrument['amount'] /
           portfolio['total_amount'];
 
       if (instrument['instrument']['asset_class'].contains('equity')) {
-        portfolioDistribution[InstrumentType.equity] += currentInstrumentPercentage;
+        portfolioDistribution[InstrumentType.equity][ValueType.amount] += currentInstrumentAmount;
+        portfolioDistribution[InstrumentType.equity][ValueType.percentage] += currentInstrumentPercentage;
       } else if (instrument['instrument']['asset_class'].contains('fixed')) {
-        portfolioDistribution[InstrumentType.fixed] += currentInstrumentPercentage;
+        portfolioDistribution[InstrumentType.fixed][ValueType.amount] += currentInstrumentAmount;
+        portfolioDistribution[InstrumentType.fixed][ValueType.percentage] += currentInstrumentPercentage;
       } else {
-        portfolioDistribution[InstrumentType.other] += currentInstrumentPercentage;
+        portfolioDistribution[InstrumentType.other][ValueType.amount] += currentInstrumentAmount;
+        portfolioDistribution[InstrumentType.other][ValueType.percentage] += currentInstrumentPercentage;
       }
     }
-    portfolioDistribution[InstrumentType.cash] += portfolio['cash_amount'] / portfolio['total_amount'];
+    portfolioDistribution[InstrumentType.cash][ValueType.amount] += portfolio['cash_amount'];
+    portfolioDistribution[InstrumentType.cash][ValueType.percentage] += portfolio['cash_amount'] / portfolio['total_amount'];
+
     return(portfolioDistribution);
   }
 
@@ -374,7 +391,7 @@ class Account {
   double get feeFreeAmount => _feeFreeAmount;
   List<AmountsDataPoint> get amountsSeries => _amountsSeries;
   List<PortfolioDataPoint> get portfolioData => _portfolioData;
-  Map<InstrumentType, double> get portfolioDistribution => _portfolioDistribution;
+  Map<InstrumentType, Map<ValueType, double>> get portfolioDistribution => _portfolioDistribution;
   List<PerformanceDataPoint> get performanceSeries => _performanceSeries;
   Map<int, List<List>> get profitLossSeries => _profitLossSeries;
   List<Transaction> get transactionList => _transactionList;

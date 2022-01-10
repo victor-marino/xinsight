@@ -18,3 +18,8 @@ enum InstrumentType {
   cash,
   other,
 }
+
+enum ValueType {
+  amount,
+  percentage,
+}
