@@ -49,13 +49,13 @@
   },
   "distribution_chart": {
     "instrument_type_equity": "Equity",
-    "instrument_type_fixed": "Bonds",
+    "instrument_type_fixed": "Fixed income",
     "instrument_type_cash": "Cash",
     "instrument_type_other": "Others"
   },
   "distribution_legend": {
-    "instrument_type_equity": "@:distribution_chart.instrument_type_equity",
-    "instrument_type_fixed": "@:distribution_chart.instrument_type_fixed",
+    "instrument_type_equity": "Stocks",
+    "instrument_type_fixed": "Bonds",
     "instrument_type_cash": "@:distribution_chart.instrument_type_cash",
     "instrument_type_other": "@:distribution_chart.instrument_type_other"
   },

@@ -3,6 +3,7 @@ import 'package:indexa_dashboard/tools/constants.dart';
 import 'package:indexa_dashboard/models/portfolio_datapoint.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:indexa_dashboard/tools/RadiantLinearMask.dart';
+import 'package:indexa_dashboard/tools/number_formatting.dart';
 
 class DistributionChartLegend extends StatelessWidget {
   const DistributionChartLegend({
@@ -36,7 +37,7 @@ class DistributionChartLegend extends StatelessWidget {
                       text: 'distribution_legend.instrument_type_equity'.tr(),
                       style: kLegendMainTextStyle),
                   TextSpan(
-                      text:  " (" + (portfolioDistribution[InstrumentType.equity][ValueType.percentage] * 100).toStringAsFixed(1) + "%)",
+                      text:  " (" + getPercentAsString(portfolioDistribution[InstrumentType.equity][ValueType.percentage]) + ")",
                       style: kLegendSecondaryTextStyle)
                 ],
               ),
@@ -67,7 +68,7 @@ class DistributionChartLegend extends StatelessWidget {
                       style: kLegendMainTextStyle),
                   TextSpan(
                     //text: "10.000€",
-                      text:  " (" + (portfolioDistribution[InstrumentType.fixed][ValueType.percentage] * 100).toStringAsFixed(1) + "%)",
+                      text:  " (" + getPercentAsString(portfolioDistribution[InstrumentType.fixed][ValueType.percentage]) + ")",
                       style: kLegendSecondaryTextStyle)
                 ],
               ),
@@ -94,7 +95,7 @@ class DistributionChartLegend extends StatelessWidget {
                       style: kLegendMainTextStyle),
                   TextSpan(
                     //text: "10.000€",
-                      text:  " (" + (portfolioDistribution[InstrumentType.other][ValueType.percentage] * 100).toStringAsFixed(1) + "%)",
+                      text:  " (" + getPercentAsString(portfolioDistribution[InstrumentType.other][ValueType.percentage]) + ")",
                       style: kLegendSecondaryTextStyle)
                 ],
               ),
@@ -121,7 +122,7 @@ class DistributionChartLegend extends StatelessWidget {
                       style: kLegendMainTextStyle),
                   TextSpan(
                     //text: "10.000€",
-                      text:  " (" + (portfolioDistribution[InstrumentType.cash][ValueType.percentage] * 100).toStringAsFixed(1) + "%)",
+                      text:  " (" + getPercentAsString(portfolioDistribution[InstrumentType.cash][ValueType.percentage]) + ")",
                       style: kLegendSecondaryTextStyle)
                 ],
               ),

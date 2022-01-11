@@ -141,6 +141,20 @@ TextStyle kLegendMainTextStyle = GoogleFonts.roboto(
   ),
 );
 
+TextStyle kDistributionChartLabelTextStyle = GoogleFonts.roboto(
+  textStyle: TextStyle(
+    color: Colors.black54,
+    fontSize: 10.0,
+  ),
+);
+
+TextStyle kDistributionChartTooltipTextStyle = GoogleFonts.roboto(
+  textStyle: TextStyle(
+    color: Colors.white,
+    fontSize: 12.0,
+  ),
+);
+
 TextStyle kLegendSecondaryTextStyle = GoogleFonts.roboto(
   textStyle: TextStyle(
     color: Colors.grey,
@@ -277,5 +291,5 @@ List<Color> fixedColors = [
   Colors.indigo[100],
   Colors.indigo[50]
 ];
-Color cashColor = Colors.blueGrey;
+Color cashColor = Colors.grey;
 Color otherColor = Colors.black12;

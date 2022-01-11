@@ -17,12 +17,14 @@ class AmountsChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<Color> color = <Color>[];
-    color.add(Color(0xFF4FC3F7));
-    color.add(Color(0xFFE040FB));
+    // color.add(Color(0xFF4FC3F7));
+    // color.add(Color(0xFFE040FB));
+    color.add(Colors.white);
+    color.add(Colors.blue);
 
     final List<double> stops = <double>[];
     stops.add(0.0);
-    stops.add(0.7);
+    stops.add(0.6);
 
     final LinearGradient gradientColors = LinearGradient(
         transform: GradientRotation(pi * 1.5), colors: color, stops: stops);
@@ -51,7 +53,7 @@ class AmountsChart extends StatelessWidget {
           enablePanning: true),
       palette: <Color>[
         Colors.blue,
-        Colors.blueGrey,
+        Colors.black,
       ],
       legend: Legend(
           isVisible: true,
@@ -78,7 +80,7 @@ class AmountsChart extends StatelessWidget {
       series: <ChartSeries<AmountsDataPoint, DateTime>>[
         AreaSeries<AmountsDataPoint, DateTime>(
           name: 'amounts_chart.total'.tr(),
-          opacity: 0.7,
+          opacity: 0.75,
           // Bind data source
           dataSource: amountsSeries,
           xValueMapper: (AmountsDataPoint amounts, _) => amounts.date,
@@ -92,7 +94,7 @@ class AmountsChart extends StatelessWidget {
           xValueMapper: (AmountsDataPoint amounts, _) => amounts.date,
           yValueMapper: (AmountsDataPoint amounts, _) => amounts.netAmount,
           //color: Colors.black12,
-          width: 2,
+          width: 1,
         ),
       ],
     );

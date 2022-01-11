@@ -87,7 +87,20 @@ class Account {
 
     newPortfolioData.add(PortfolioDataPoint(instrumentType: InstrumentType.cash, instrumentName: 'cash', amount: _doubleWithTwoDecimalPlaces(portfolio['cash_amount'].toDouble()), percentage: portfolio['cash_amount'] / portfolio['total_amount']));
 
-    newPortfolioData.sort((a,b) => b.instrumentType.toString().compareTo(a.instrumentType.toString()));
+    int compareInstruments(PortfolioDataPoint instrumentA, PortfolioDataPoint instrumentB) {
+      if (instrumentA.instrumentType == instrumentB.instrumentType) {
+        if (instrumentA.amount > instrumentB.amount) {
+          return -1;
+        } else {
+          return 1;
+        }
+      } else {
+        return instrumentA.instrumentType.toString().compareTo(
+            instrumentB.instrumentType.toString());
+      }
+    }
+
+    newPortfolioData.sort((compareInstruments));
 
     return(newPortfolioData);
   }

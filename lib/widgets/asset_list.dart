@@ -108,7 +108,10 @@ class AssetList extends StatelessWidget {
             Column(children: equityInstruments),
           ]
           ),
-          padding: 0,
+          paddingTop: 0,
+          paddingBottom: 0,
+          paddingLeft: 0,
+          paddingRight: 0,
         ),
         SizedBox(height: 20),
         Padding(
@@ -141,7 +144,10 @@ class AssetList extends StatelessWidget {
             Column(children: fixedInstruments),
           ]
           ),
-          padding: 0,
+          paddingTop: 0,
+          paddingBottom: 0,
+          paddingLeft: 0,
+          paddingRight: 0,
         ),
         SizedBox(height: 20),
         Padding(
