@@ -11,7 +11,7 @@ class PendingTransactionsCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         decoration: BoxDecoration(
-          color: Colors.blueGrey.shade100,
+          color: Colors.blue[100],
           borderRadius: BorderRadius.circular(20),
         ),
         child: Padding(
