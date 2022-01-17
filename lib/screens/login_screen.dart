@@ -40,63 +40,18 @@ class _LoginScreenState extends State<LoginScreen> {
       supportsBiometrics = await localAuthentication.canCheckBiometrics;
     } on Exception catch (e) {
       print(e);
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(e.toString()),
+      ));
     }
-    if (!mounted) return supportsBiometrics;
+//    if (!mounted) return supportsBiometrics;
+    supportsBiometrics ? print("Biometrics supported") : ("Biometrics not supported");
 
-    if (supportsBiometrics) {
-      print("Biometrics supported");
-    }
     return supportsBiometrics;
   }
 
-  Future<void> getListOfBiometricTypes() async {
-    List<BiometricType> listOfBiometrics;
-    try {
-      listOfBiometrics = await localAuthentication.getAvailableBiometrics();
-    } on Exception catch (e) {
-      print(e);
-    }
-
-    if (!mounted) return;
-
-    print(listOfBiometrics);
-  }
-
-  Future authenticateUserLocally() async {
-    bool isAuthenticated = false;
-    try {
-      print("Trying to authenticate...");
-      isAuthenticated = await localAuthentication.authenticate(
-        sensitiveTransaction: false,
-        androidAuthStrings: androidStrings,
-        localizedReason: "login_screen.please_authenticate".tr(),
-        useErrorDialogs: true,
-        stickyAuth: true,
-      );
-    } on Exception catch (e) {
-      print(e);
-    }
-
-    if (isAuthenticated) {
-      print("User authenticated");
-      return true;
-    } else {
-      print("User not authenticated");
-      return false;
-    }
-  }
-
-  Future<bool> tryToAuthenticateLocally() async {
-    bool authenticated = false;
-    if (await supportsBiometrics()) {
-      await getListOfBiometricTypes();
-      authenticated = await authenticateUserLocally();
-    }
-    return (authenticated);
-  }
-
   void enableRememberToken() async {
-    if (await tryToAuthenticateLocally()) {
+    if (await authenticateUserLocally()) {
       setState(() {
         rememberToken = true;
       });
@@ -119,22 +74,6 @@ class _LoginScreenState extends State<LoginScreen> {
     _readAll();
   }
 
-  void tryToLoginWithLocalToken() async {
-    Map<String, String> tokens = await _readAll();
-    if (tokens['indexaToken'] != null) {
-      setState(() {
-        rememberToken = true;
-      });
-      print('Existing token detected!');
-      authenticateLocallyAndGoToHome(token: tokens['indexaToken']);
-    } else {
-      setState(() {
-        rememberToken = false;
-      });
-      print('No existing token');
-    }
-  }
-
   Future<bool> validateToken({String token}) async {
     IndexaData indexaData = IndexaData(token: token);
     try {
@@ -151,42 +90,36 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
-  void authenticateLocallyAndGoToHome({String token}) async {
-    if (await tryToAuthenticateLocally()) {
-      try {
-        bool validatedToken = await validateToken(token: token);
-        if (validatedToken == true) {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (BuildContext context) => RootScreen(token: token, pageNumber: 0, accountNumber: 0),
-            ),
-          );
-        } else {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text("login_screen.token_validation_failed".tr()),
-          ));
-        }
-      } on Exception catch (e) {
-        print(e);
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(e.toString()),
-        ));
-        setState(() {
-          tokenTextController.text = token;
-        });
+  Future<bool> authenticateUserLocally() async {
+    bool isAuthenticated = false;
+    try {
+      if (await supportsBiometrics()) {
+        print("Trying to authenticate...");
+        isAuthenticated = await localAuthentication.authenticate(
+          sensitiveTransaction: false,
+          androidAuthStrings: androidStrings,
+          localizedReason: "login_screen.please_authenticate".tr(),
+          useErrorDialogs: true,
+          stickyAuth: true,
+        );
+      } else {
+        print("Biometrics not supported");
+        isAuthenticated = false;
       }
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text("login_screen.biometric_authentication_failed".tr()),
-      ));
+    } on Exception catch (e) {
+      print(e);
     }
+
+    isAuthenticated ? print("User authenticated") : print("User not authenticated");
+
+    return isAuthenticated;
   }
 
-  void goToHome({String token}) async {
+  void goToMainScreen({String token, bool saveToken}) async {
     try {
       bool validatedToken = await validateToken(token: token);
       if (validatedToken) {
+        if (saveToken) await _storeKey(token);
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
@@ -203,38 +136,51 @@ class _LoginScreenState extends State<LoginScreen> {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(e.toString()),
       ));
+      setState(() {
+        tokenTextController.text = token;
+      });
     }
   }
 
-  void saveTokenAndGoToHome() async {
-    await _storeKey(tokenTextController.text);
+  Future<String> findStoredToken() async {
+    String storedToken;
     try {
-      bool validatedToken = await validateToken(token: tokenTextController.text);
-      if (validatedToken) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (BuildContext context) =>
-                RootScreen(token: tokenTextController.text, pageNumber: 0, accountNumber: 0),
-          ),
-        );
+      Map<String, String> tokens = await _readAll();
+      if (tokens['indexaToken'] != null) {
+        storedToken = tokens['indexaToken'];
+        print('Existing token detected!');
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text("login_screen.token_validation_failed".tr()),
-        ));
+        print('No existing token');
       }
     } on Exception catch (e) {
-      print(e);
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(e.toString()),
       ));
+    }
+    return storedToken;
+  }
+
+  void tryToLoginWithStoredToken() async {
+    String storedToken = await findStoredToken();
+    if (storedToken != null) {
+      setState(() {
+        rememberToken = true;
+      });
+      if (await authenticateUserLocally()) {
+        goToMainScreen(token: storedToken, saveToken: false);
+      }
+    } else {
+      setState(() {
+        rememberToken = false;
+      });
+        print('No existing token');
     }
   }
 
   @override
   void initState() {
     super.initState();
-    tryToLoginWithLocalToken();
+    tryToLoginWithStoredToken();
   }
 
   @override
@@ -368,14 +314,16 @@ class _LoginScreenState extends State<LoginScreen> {
                             textColor: Colors.white,
                             elevation: 8,
                             onPressed: () {
-                              if (rememberToken) {
-                                saveTokenAndGoToHome();
-                              } else if (tokenTextController.text == "") {
+                              if (tokenTextController.text == "") {
                                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                                   content: Text("login_screen.please_enter_token".tr()),
                                 ));
                               } else {
-                                goToHome(token: tokenTextController.text);
+                                if (rememberToken) {
+                                  goToMainScreen(token: tokenTextController.text, saveToken: true);
+                                } else {
+                                  goToMainScreen(token: tokenTextController.text, saveToken: false);
+                                }
                               }
                             },
                             shape: CircleBorder(),
