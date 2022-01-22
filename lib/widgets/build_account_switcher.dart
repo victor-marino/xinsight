@@ -22,7 +22,7 @@ Widget buildAccountSwitcher(
       Padding(
         padding: const EdgeInsets.all(8.0),
         child: Text(
-          'account_switcher.account'.tr(),
+          'account_switcher.account'.tr() + ':',
           style: TextStyle(
             color: Colors.blueGrey[300],
           ),
@@ -51,7 +51,7 @@ Widget buildAccountSwitcher(
                   return DropdownMenuItem(
                       child: Text(
                     (item.child as Text).data,
-                    style: kAccountSwitcherSelectedTextStyle,
+                    style: dropdownEnabled ? kAccountSwitcherSelectedTextStyle : kAccountSwitcherDisabledSelectedTextStyle,
                   ));
                   //return Text((item.child as Text).data.split(" ")[1], style: TextStyle(height: 2.4));
                   //return Text((item), style: kAccountSwitcherTextStyle);

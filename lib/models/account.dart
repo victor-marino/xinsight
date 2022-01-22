@@ -62,7 +62,8 @@ class Account {
     List<PortfolioDataPoint> newPortfolioData = [];
     for (var instrument in instruments) {
       InstrumentType currentInstrumentType;
-      double currentInstrumentPercentage = instrument['amount'] / portfolio['total_amount'];
+      double currentInstrumentPercentage = instrument['amount'].toDouble() / portfolio['total_amount'].toDouble();
+      double currentInstrumentProfitLoss = instrument['amount'].toDouble() - instrument['cost_amount'].toDouble();
       String currentInstrumentDescription;
 
       if (instrument['instrument']['asset_class'].contains('equity')) {
@@ -81,11 +82,27 @@ class Account {
         currentInstrumentDescription = instrument['instrument']['description'];
       }
 
-      PortfolioDataPoint newPoint = PortfolioDataPoint(instrumentType: currentInstrumentType, instrumentName: instrument['instrument']['name'], instrumentID: instrument['instrument']['identifier'], instrumentCompany: instrument['instrument']['management_company_description'], instrumentDescription: currentInstrumentDescription, amount: _doubleWithTwoDecimalPlaces(instrument['amount'].toDouble()), percentage: currentInstrumentPercentage);
-      newPortfolioData.add(newPoint);
+      // Exclude 'phantom' funds when building portfolio data
+      if ((instrument['amount'].toDouble != 0.0) && (instrument['cost_amount'].toDouble() != 0.0) && instrument['titles'].toDouble() != 0.0) {
+        PortfolioDataPoint newPoint = PortfolioDataPoint(
+            instrumentType: currentInstrumentType,
+            instrumentName: instrument['instrument']['name'],
+            instrumentID: instrument['instrument']['identifier'],
+            instrumentCompany: instrument['instrument']['management_company_description'],
+            instrumentDescription: currentInstrumentDescription,
+            titles: instrument['titles'].toDouble(),
+            amount: _doubleWithTwoDecimalPlaces(
+                instrument['amount'].toDouble()),
+            cost: _doubleWithTwoDecimalPlaces(
+                instrument['cost_amount'].toDouble()),
+            profitLoss: currentInstrumentProfitLoss.toDouble(),
+            percentage: currentInstrumentPercentage.toDouble());
+
+        newPortfolioData.add(newPoint);
+      }
     }
 
-    newPortfolioData.add(PortfolioDataPoint(instrumentType: InstrumentType.cash, instrumentName: 'cash', amount: _doubleWithTwoDecimalPlaces(portfolio['cash_amount'].toDouble()), percentage: portfolio['cash_amount'] / portfolio['total_amount']));
+    newPortfolioData.add(PortfolioDataPoint(instrumentType: InstrumentType.cash, instrumentName: 'cash', amount: _doubleWithTwoDecimalPlaces(portfolio['cash_amount'].toDouble()), percentage: portfolio['cash_amount'].toDouble() / portfolio['total_amount'].toDouble()));
 
     int compareInstruments(PortfolioDataPoint instrumentA, PortfolioDataPoint instrumentB) {
       if (instrumentA.instrumentType == instrumentB.instrumentType) {
@@ -129,9 +146,9 @@ class Account {
     portfolioDistribution[InstrumentType.cash][ValueType.percentage] = 0;
 
     for (var instrument in instruments) {
-      double currentInstrumentAmount = instrument['amount'];
-      double currentInstrumentPercentage = instrument['amount'] /
-          portfolio['total_amount'];
+      double currentInstrumentAmount = instrument['amount'].toDouble();
+      double currentInstrumentPercentage = instrument['amount'].toDouble() /
+          portfolio['total_amount'].toDouble();
 
       if (instrument['instrument']['asset_class'].contains('equity')) {
         portfolioDistribution[InstrumentType.equity][ValueType.amount] += currentInstrumentAmount;
@@ -383,8 +400,8 @@ class Account {
         _hasActiveRewards = accountInfo['has_active_rewards'],
         _feeFreeAmount = accountInfo['fee_free_amount'].toDouble(),
         _amountsSeries = _createAmountsSeries(accountPerformanceData['return']['net_amounts'], accountPerformanceData['return']['total_amounts']),
-        _portfolioData = _createPortfolioData(accountPortfolioData['portfolio'], accountPortfolioData['comparison']),
-        _portfolioDistribution = _createPortfolioDistribution(accountPortfolioData['portfolio'], accountPortfolioData['comparison']),
+        _portfolioData = _createPortfolioData(accountPortfolioData['portfolio'], accountPortfolioData['instrument_accounts'][0]['positions']),
+        _portfolioDistribution = _createPortfolioDistribution(accountPortfolioData['portfolio'], accountPortfolioData['instrument_accounts'][0]['positions']),
         _performanceSeries = _createPerformanceSeries(accountPerformanceData['performance']['period'], accountPerformanceData['performance']['best_return'], accountPerformanceData['performance']['worst_return'], accountPerformanceData['performance']['expected_return'], accountPerformanceData['performance']['real']),
         _profitLossSeries = _createProfitLossSeries(accountPerformanceData['performance']['period'], accountPerformanceData['performance']['real']),
         _transactionList = _createTransactionList(accountInstrumentTransactionData, accountCashTransactionData),

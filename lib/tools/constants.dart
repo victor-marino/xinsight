@@ -120,7 +120,7 @@ TextStyle kAccountSwitcherSelectedTextStyle = GoogleFonts.roboto(
 
 TextStyle kAccountSwitcherDisabledSelectedTextStyle = GoogleFonts.roboto(
   textStyle: TextStyle(
-    color: Colors.black,
+    color: Colors.black38,
     fontWeight: FontWeight.bold,
     fontSize: 15.0,
   ),

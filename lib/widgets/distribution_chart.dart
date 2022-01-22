@@ -63,16 +63,16 @@ class DistributionChart extends StatelessWidget {
         enable: true,
         decimalPlaces: 2,
         //format: 'point.x' + '\n' + 'point.y €',
-          builder: (dynamic data, dynamic point, dynamic series, int pointIndex, int seriesIndex) {
-            return Padding(
-              padding: const EdgeInsets.all(5.0),
-              child: Text(
-                  point.x + "\n" + getInvestmentAsString(point.y),
-                  overflow: TextOverflow.ellipsis,
-                  softWrap: false,
-                  style: kDistributionChartTooltipTextStyle),
-            );
-          }
+        builder: (dynamic data, dynamic point, dynamic series, int pointIndex, int seriesIndex) {
+          return Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: Text(
+                point.x + "\n" + getInvestmentAsString(point.y),
+                overflow: TextOverflow.ellipsis,
+                softWrap: false,
+                style: kDistributionChartTooltipTextStyle),
+          );
+        }
       ),
       series: <CircularSeries>[
         // Renders doughnut chart

@@ -35,7 +35,12 @@ class OverviewScreen extends StatefulWidget {
   _OverviewScreenState createState() => _OverviewScreenState();
 }
 
-class _OverviewScreenState extends State<OverviewScreen> {
+class _OverviewScreenState extends State<OverviewScreen> with AutomaticKeepAliveClientMixin<OverviewScreen> {
+  // The Mixin keeps state of the page instead of reloading it every time
+  // It requires this 'wantKeepAlive', as well as the 'super' in the build method down below
+  @override
+  bool get wantKeepAlive => true;
+
   int currentPage = 0;
   Account accountData;
   Function refreshData;
@@ -75,6 +80,9 @@ class _OverviewScreenState extends State<OverviewScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // This super call is required for the Mixin that keeps the page state
+    super.build(context);
+
     return Scaffold(
       body: SafeArea(
         child: Column(

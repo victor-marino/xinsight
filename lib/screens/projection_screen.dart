@@ -30,7 +30,12 @@ class ProjectionScreen extends StatefulWidget {
   _ProjectionScreenState createState() => _ProjectionScreenState();
 }
 
-class _ProjectionScreenState extends State<ProjectionScreen> {
+class _ProjectionScreenState extends State<ProjectionScreen> with AutomaticKeepAliveClientMixin<ProjectionScreen> {
+  // The Mixin keeps state of the page instead of reloading it every time
+  // It requires this 'wantKeepAlive', as well as the 'super' in the build method down below
+  @override
+  bool get wantKeepAlive => true;
+
   int currentPage = 2;
   Account accountData;
   Function refreshData;
@@ -68,6 +73,9 @@ class _ProjectionScreenState extends State<ProjectionScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // This super call is required for the Mixin that keeps the page state
+    super.build(context);
+
     return Scaffold(
       body: SafeArea(
         child: Column(

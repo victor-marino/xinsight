@@ -27,7 +27,12 @@ class TransactionsScreen extends StatefulWidget {
   _TransactionsScreenState createState() => _TransactionsScreenState();
 }
 
-class _TransactionsScreenState extends State<TransactionsScreen> {
+class _TransactionsScreenState extends State<TransactionsScreen> with AutomaticKeepAliveClientMixin<TransactionsScreen> {
+  // The Mixin keeps state of the page instead of reloading it every time
+  // It requires this 'wantKeepAlive', as well as the 'super' in the build method down below
+  @override
+  bool get wantKeepAlive => true;
+
   int currentPage = 3;
   Account accountData;
   Function refreshData;
@@ -66,6 +71,9 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // This super call is required for the Mixin that keeps the page state
+    super.build(context);
+
     return Scaffold(
       body: SafeArea(
         child: Column(

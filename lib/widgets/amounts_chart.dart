@@ -34,7 +34,9 @@ class AmountsChart extends StatelessWidget {
       primaryYAxis: NumericAxis(
         labelFormat: '{value} €',
       labelStyle: kProfitLossChartLabelTextStyle),
-      tooltipBehavior: TooltipBehavior(elevation: 10),
+      tooltipBehavior: TooltipBehavior(
+          elevation: 10,
+      ),
       trackballBehavior: TrackballBehavior(
         enable: true,
         activationMode: ActivationMode.singleTap,

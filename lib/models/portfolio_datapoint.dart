@@ -6,10 +6,13 @@ class PortfolioDataPoint {
   final String instrumentID;
   final String instrumentCompany;
   final String instrumentDescription;
+  final double titles;
   final double amount;
+  final double cost;
+  final double profitLoss;
   final double percentage;
 
-  PortfolioDataPoint({this.instrumentType, this.instrumentName, this.instrumentID, this.instrumentCompany, this.instrumentDescription, this.amount, this.percentage});
+  PortfolioDataPoint({this.instrumentType, this.instrumentName, this.instrumentID, this.instrumentCompany, this.instrumentDescription, this.titles, this.amount, this.cost, this.profitLoss, this.percentage});
 }
 
 enum InstrumentType {

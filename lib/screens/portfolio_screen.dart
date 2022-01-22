@@ -27,7 +27,12 @@ class PortfolioScreen extends StatefulWidget {
   _PortfolioScreenState createState() => _PortfolioScreenState();
 }
 
-class _PortfolioScreenState extends State<PortfolioScreen> {
+class _PortfolioScreenState extends State<PortfolioScreen> with AutomaticKeepAliveClientMixin<PortfolioScreen> {
+  // The Mixin keeps state of the page instead of reloading it every time
+  // It requires this 'wantKeepAlive', as well as the 'super' in the build method down below
+  @override
+  bool get wantKeepAlive => true;
+
   int currentPage = 4;
   Account accountData;
   Function refreshData;
@@ -66,6 +71,9 @@ class _PortfolioScreenState extends State<PortfolioScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // This super call is required for the Mixin that keeps the page state
+    super.build(context);
+
     return Scaffold(
       body: SafeArea(
         child: Column(

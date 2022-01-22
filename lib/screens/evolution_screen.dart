@@ -28,7 +28,12 @@ class EvolutionScreen extends StatefulWidget {
   _EvolutionScreenState createState() => _EvolutionScreenState();
 }
 
-class _EvolutionScreenState extends State<EvolutionScreen> {
+class _EvolutionScreenState extends State<EvolutionScreen> with AutomaticKeepAliveClientMixin<EvolutionScreen> {
+  // The Mixin keeps state of the page instead of reloading it every time
+  // It requires this 'wantKeepAlive', as well as the 'super' in the build method down below
+  @override
+  bool get wantKeepAlive => true;
+
   int currentPage = 1;
   Account accountData;
   Function refreshData;
@@ -62,7 +67,6 @@ class _EvolutionScreenState extends State<EvolutionScreen> {
     });
   }
 
-  @override
   void initState() {
     currentAccountNumber = widget.currentAccountNumber;
     accountData = widget.accountData;
@@ -81,6 +85,9 @@ class _EvolutionScreenState extends State<EvolutionScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // This super call is required for the Mixin that keeps the page state
+    super.build(context);
+
     return Scaffold(
       body: SafeArea(
         child: Column(

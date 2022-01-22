@@ -44,7 +44,6 @@ class _LoginScreenState extends State<LoginScreen> {
         content: Text(e.toString()),
       ));
     }
-//    if (!mounted) return supportsBiometrics;
     supportsBiometrics ? print("Biometrics supported") : ("Biometrics not supported");
 
     return supportsBiometrics;
