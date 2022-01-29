@@ -143,23 +143,21 @@ class _ProjectionScreenState extends State<ProjectionScreen> with AutomaticKeepA
                           ),
                         ),
                         SizedBox(
-                          height: 20,
+                          height: 15,
                         ),
                         MaterialButton(
                           height: 40,
                           minWidth: 40,
+                          shape: CircleBorder(),
                           materialTapTargetSize:
-                              MaterialTapTargetSize.shrinkWrap,
+                          MaterialTapTargetSize.shrinkWrap,
                           padding: EdgeInsets.zero,
-                          color: Colors.blue[600],
+                          // color: Colors.blue[600],
                           child: Icon(
                             Icons.info_outline,
-                            color: Colors.white,
+                            color: Colors.blue[600],
                           ),
-                          elevation: 5,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
+                          // elevation: 5,
                           onPressed: () {
                             showDialog(
                                 context: context,

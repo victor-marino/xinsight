@@ -74,6 +74,10 @@
     "name": "Name",
     "management_company": "Company",
     "asset_class": "Class",
+    "titles": "Titles",
+    "current_value": "Current value",
+    "cost": "Cost",
+    "profit_loss": "Profit/Loss",
     "description": "Description"
   },
 

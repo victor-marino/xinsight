@@ -7,6 +7,8 @@ import 'package:indexa_dashboard/tools/number_formatting.dart';
 import 'package:indexa_dashboard/widgets/reusable_card.dart';
 import '../tools/constants.dart';
 import 'package:indexa_dashboard/widgets/asset_tile.dart';
+import 'package:expandable/expandable.dart';
+
 
 class AssetList extends StatelessWidget {
   const AssetList({
@@ -38,7 +40,7 @@ class AssetList extends StatelessWidget {
         case InstrumentType.equity:
           {
             if (equityInstruments.length > 0) {
-              equityInstruments.add(Divider(height: 0, indent: 20, endIndent: 20));
+              equityInstruments.add(Divider(height: 0));
             }
             equityAmount += assetData.amount;
             equityPercentage += assetData.percentage;
@@ -49,7 +51,7 @@ class AssetList extends StatelessWidget {
         case InstrumentType.fixed:
           {
             if (fixedInstruments.length > 0) {
-              fixedInstruments.add(Divider(height: 0, indent: 20, endIndent: 20));
+              fixedInstruments.add(Divider(height: 0));
             }
             fixedAmount += assetData.amount;
             fixedPercentage += assetData.percentage;
@@ -103,15 +105,15 @@ class AssetList extends StatelessWidget {
         ),
         ReusableCard(
           childWidget: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-            Column(children: equityInstruments),
-          ]
-          ),
+              crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+              Column(children: equityInstruments),
+            ]
+            ),
           paddingTop: 0,
           paddingBottom: 0,
-          paddingLeft: 0,
-          paddingRight: 0,
+          paddingLeft: 15,
+          paddingRight: 15,
         ),
         SizedBox(height: 20),
         Padding(
@@ -146,8 +148,8 @@ class AssetList extends StatelessWidget {
           ),
           paddingTop: 0,
           paddingBottom: 0,
-          paddingLeft: 0,
-          paddingRight: 0,
+          paddingLeft: 15,
+          paddingRight: 15,
         ),
         SizedBox(height: 20),
         Padding(

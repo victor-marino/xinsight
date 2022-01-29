@@ -62,7 +62,8 @@ class AccountSummary extends StatelessWidget {
         Divider(
           height: 15,
         ),
-        IntrinsicHeight(
+        Container(
+          height: 55,
           child: Padding(
             padding: const EdgeInsets.only(top: 7),
             child: Row(

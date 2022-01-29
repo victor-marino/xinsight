@@ -74,6 +74,10 @@
     "name": "Nombre",
     "management_company": "Gestora",
     "asset_class": "Clase",
+    "titles": "Participaciones",
+    "current_value": "Valor actual",
+    "cost": "Coste",
+    "profit_loss": "Ganancias/Pérdidas",
     "description": "Descripción"
   },
   "profit_popup": {
