@@ -210,10 +210,18 @@ TextStyle kPendingTransactionsWidgetTextStyle = GoogleFonts.roboto(
   ),
 );
 
+TextStyle kAssetListPercentageTextStyle = GoogleFonts.roboto(
+  textStyle: TextStyle(
+    color: Colors.grey[400],
+    fontWeight: FontWeight.bold,
+    fontSize: 17.0,
+  ),
+);
+
 TextStyle kAssetListMainTextStyle = GoogleFonts.roboto(
   textStyle: TextStyle(
     color: Colors.black87,
-    fontSize: 14.0,
+    fontSize: 15.0,
     fontWeight: FontWeight.bold,
   ),
 );

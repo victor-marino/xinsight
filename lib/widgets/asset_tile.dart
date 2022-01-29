@@ -7,6 +7,10 @@ import 'package:indexa_dashboard/tools/number_formatting.dart';
 import 'package:indexa_dashboard/models/transaction.dart';
 import 'package:indexa_dashboard/widgets/reusable_card.dart';
 import 'package:indexa_dashboard/widgets/asset_details_popup.dart';
+import 'package:expandable/expandable.dart';
+import 'package:indexa_dashboard/widgets/collapsed_asset_tile_view.dart';
+import 'package:indexa_dashboard/widgets/expanded_asset_tile_header.dart';
+import 'package:indexa_dashboard/widgets/expanded_asset_tile_body.dart';
 
 class AssetTile extends StatelessWidget {
   const AssetTile({
@@ -17,49 +21,80 @@ class AssetTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      child: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Flexible(
-                  child: Text(
-                    assetData.instrumentName,
-                    style: kAssetListMainTextStyle,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 20),
-                  child: Text(
-                    getInvestmentAsString(assetData.amount),
-                    style: kAssetListAmountTextStyle,
-                  ),
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                if(assetData.instrumentID != null) Text(("ISIN: " + assetData.instrumentID), style: kAssetListSecondaryTextStyle),
-                Text(getPercentAsString(assetData.percentage),
-                  style: kAssetListSecondaryTextStyle,
-                ),
-              ],
-            ),
-          ],
+    Widget collapsedView;
+    Widget expandedView;
+    Widget expandedHeader;
+    Widget expandedBody;
+
+    collapsedView = CollapsedAssetTileView(assetData: assetData);
+    expandedHeader = ExpandedAssetTileHeader(assetData: assetData);
+    expandedBody = ExpandedAssetTileBody(assetData: assetData);
+
+    expandedView = Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      Padding(
+        padding: const EdgeInsets.only(top: 5.0),
+        child: Container(
+          width: 40,
+          child: Text(
+              getWholePercentWithoutPercentSignAsString(assetData.percentage) +
+                  "%",
+              textAlign: TextAlign.center,
+              style: kAssetListPercentageTextStyle),
         ),
       ),
-      onTap: () {
-        showDialog(
-          context: context,
-          builder: (BuildContext context) => AssetDetailsPopup(assetData: assetData),
-        );
-      },
+      Flexible(
+        child: Padding(
+          padding: const EdgeInsets.only(left: 5.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Row(
+                children: [
+                  expandedHeader,
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 40.0),
+                child: expandedBody,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Icon(Icons.keyboard_arrow_up_rounded, color: Colors.blue),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    ]);
+
+    return ExpandableNotifier(
+      child: ScrollOnExpand(
+        scrollOnExpand: true,
+        scrollOnCollapse: true,
+        child: ExpandablePanel(
+          collapsed: ExpandableButton(
+            child: Padding(
+              padding:
+                  const EdgeInsets.only(left: 0, right: 0, top: 15, bottom: 15),
+              child: collapsedView,
+            ),
+          ),
+          expanded: ExpandableButton(
+            child: Padding(
+              padding:
+                  const EdgeInsets.only(left: 0, right: 0, top: 17, bottom: 15),
+              child: expandedView,
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
+
+
+
+
