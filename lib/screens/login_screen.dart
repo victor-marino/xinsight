@@ -1,14 +1,14 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:indexa_dashboard/services/indexa_data.dart';
-import 'package:indexa_dashboard/screens/root_screen.dart';
-import 'package:indexa_dashboard/tools/constants.dart';
+import 'package:indexax/services/indexa_data.dart';
+import 'package:indexax/screens/root_screen.dart';
+import 'package:indexax/tools/constants.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:local_auth/auth_strings.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:indexa_dashboard/widgets/token_instructions_popup.dart';
+import 'package:indexax/widgets/token_instructions_popup.dart';
 
 class LoginScreen extends StatefulWidget {
   @override

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:indexa_dashboard/models/portfolio_datapoint.dart';
+import 'package:indexax/models/portfolio_datapoint.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:easy_localization/easy_localization.dart';
 import '../tools/constants.dart';
-import 'package:indexa_dashboard/tools/number_formatting.dart';
+import 'package:indexax/tools/number_formatting.dart';
 
 class DistributionChart extends StatelessWidget {
   const DistributionChart({

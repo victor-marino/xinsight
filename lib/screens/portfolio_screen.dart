@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import '../models/account.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:indexa_dashboard/models/account_dropdown_items.dart';
-import 'package:indexa_dashboard/widgets/asset_list.dart';
+import 'package:indexax/models/account_dropdown_items.dart';
+import 'package:indexax/widgets/asset_list.dart';
 
 const int nbsp = 0x00A0;
 

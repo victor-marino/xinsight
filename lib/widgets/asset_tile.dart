@@ -1,16 +1,16 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:indexa_dashboard/models/portfolio_datapoint.dart';
-import 'package:indexa_dashboard/tools/constants.dart';
-import 'package:indexa_dashboard/tools/number_formatting.dart';
-import 'package:indexa_dashboard/models/transaction.dart';
-import 'package:indexa_dashboard/widgets/reusable_card.dart';
-import 'package:indexa_dashboard/widgets/asset_details_popup.dart';
+import 'package:indexax/models/portfolio_datapoint.dart';
+import 'package:indexax/tools/constants.dart';
+import 'package:indexax/tools/number_formatting.dart';
+import 'package:indexax/models/transaction.dart';
+import 'package:indexax/widgets/reusable_card.dart';
+import 'package:indexax/widgets/asset_details_popup.dart';
 import 'package:expandable/expandable.dart';
-import 'package:indexa_dashboard/widgets/collapsed_asset_tile_view.dart';
-import 'package:indexa_dashboard/widgets/expanded_asset_tile_header.dart';
-import 'package:indexa_dashboard/widgets/expanded_asset_tile_body.dart';
+import 'package:indexax/widgets/collapsed_asset_tile_view.dart';
+import 'package:indexax/widgets/expanded_asset_tile_header.dart';
+import 'package:indexax/widgets/expanded_asset_tile_body.dart';
 
 class AssetTile extends StatelessWidget {
   const AssetTile({

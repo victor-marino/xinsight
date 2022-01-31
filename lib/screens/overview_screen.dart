@@ -4,15 +4,15 @@ import '../models/account.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../tools/constants.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:indexa_dashboard/widgets/account_summary.dart';
-import 'package:indexa_dashboard/widgets/reusable_card.dart';
-import 'package:indexa_dashboard/widgets/distribution_chart.dart';
-import 'package:indexa_dashboard/widgets/distribution_chart_simplified.dart';
-import 'package:indexa_dashboard/widgets/distribution_legend.dart';
-import 'package:indexa_dashboard/widgets/profit_popup.dart';
-import 'package:indexa_dashboard/models/account_dropdown_items.dart';
-import 'package:indexa_dashboard/widgets/minimum_transfer_card.dart';
-import 'package:indexa_dashboard/widgets/fee_free_amount_card.dart';
+import 'package:indexax/widgets/account_summary.dart';
+import 'package:indexax/widgets/reusable_card.dart';
+import 'package:indexax/widgets/distribution_chart.dart';
+import 'package:indexax/widgets/distribution_chart_simplified.dart';
+import 'package:indexax/widgets/distribution_legend.dart';
+import 'package:indexax/widgets/profit_popup.dart';
+import 'package:indexax/models/account_dropdown_items.dart';
+import 'package:indexax/widgets/minimum_transfer_card.dart';
+import 'package:indexax/widgets/fee_free_amount_card.dart';
 
 const int nbsp = 0x00A0;
 

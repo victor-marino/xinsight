@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:indexa_dashboard/models/account.dart';
+import 'package:indexax/models/account.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../tools/constants.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:indexa_dashboard/widgets/reusable_card.dart';
+import 'package:indexax/widgets/reusable_card.dart';
 import '../widgets/amounts_chart.dart';
-import 'package:indexa_dashboard/widgets/profit_loss_chart.dart';
-import 'package:indexa_dashboard/widgets/build_profit_loss_year_switcher.dart';
+import 'package:indexax/widgets/profit_loss_chart.dart';
+import 'package:indexax/widgets/build_profit_loss_year_switcher.dart';
 
 class EvolutionScreen extends StatefulWidget {
   const EvolutionScreen({

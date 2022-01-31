@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../models/account.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:indexa_dashboard/models/account_dropdown_items.dart';
-import 'package:indexa_dashboard/widgets/transaction_tile.dart';
-import 'package:indexa_dashboard/widgets/pending_transactions_card.dart';
+import 'package:indexax/models/account_dropdown_items.dart';
+import 'package:indexax/widgets/transaction_tile.dart';
+import 'package:indexax/widgets/pending_transactions_card.dart';
 
 const int nbsp = 0x00A0;
 

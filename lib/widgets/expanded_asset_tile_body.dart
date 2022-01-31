@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:indexa_dashboard/tools/constants.dart';
-import 'package:indexa_dashboard/tools/number_formatting.dart';
-import 'package:indexa_dashboard/models/portfolio_datapoint.dart';
+import 'package:indexax/tools/constants.dart';
+import 'package:indexax/tools/number_formatting.dart';
+import 'package:indexax/models/portfolio_datapoint.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 class ExpandedAssetTileBody extends StatelessWidget {

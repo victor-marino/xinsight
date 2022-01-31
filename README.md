@@ -1,4 +1,4 @@
-# indexa_dashboard
+# indexax
 
 A new Flutter application.
 

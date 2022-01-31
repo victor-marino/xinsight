@@ -1,10 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.victormarino.indexa_dashboard">
+    package="com.victormarino.indexax">
     <!-- Flutter needs it to communicate with the running application
          to allow setting breakpoints, to provide hot reload, etc.
     -->
     <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.USE_FINGERPRINT"/>
+    <uses-permission android:name="android.permission.USE_BIOMETRIC"/>
     <application
         android:allowBackup="false"
         android:fullBackupContent="false">

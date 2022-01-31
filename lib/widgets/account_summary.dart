@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:indexa_dashboard/tools/constants.dart';
-import 'package:indexa_dashboard/tools/number_formatting.dart';
-import 'package:indexa_dashboard/models/account.dart';
+import 'package:indexax/tools/constants.dart';
+import 'package:indexax/tools/number_formatting.dart';
+import 'package:indexax/models/account.dart';
 
 class AccountSummary extends StatelessWidget {
   const AccountSummary({

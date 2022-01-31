@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:indexa_dashboard/models/portfolio_datapoint.dart';
+import 'package:indexax/models/portfolio_datapoint.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:easy_localization/easy_localization.dart';
 import '../tools/constants.dart';

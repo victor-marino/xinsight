@@ -1,15 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:indexa_dashboard/models/account.dart';
-import 'package:indexa_dashboard/tools/number_formatting.dart';
+import 'package:indexax/models/account.dart';
+import 'package:indexax/tools/number_formatting.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../tools/constants.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:indexa_dashboard/widgets/reusable_card.dart';
-import 'package:indexa_dashboard/widgets/performance_chart.dart';
-import 'package:indexa_dashboard/widgets/risk_chart.dart';
-import 'package:indexa_dashboard/models/account_dropdown_items.dart';
-import 'package:indexa_dashboard/widgets/expectations_popup.dart';
+import 'package:indexax/widgets/reusable_card.dart';
+import 'package:indexax/widgets/performance_chart.dart';
+import 'package:indexax/widgets/risk_chart.dart';
+import 'package:indexax/models/account_dropdown_items.dart';
+import 'package:indexax/widgets/expectations_popup.dart';
 
 class ProjectionScreen extends StatefulWidget {
   const ProjectionScreen({

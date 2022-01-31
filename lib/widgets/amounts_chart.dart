@@ -1,9 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:indexa_dashboard/tools/constants.dart';
+import 'package:indexax/tools/constants.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'dart:math';
-import 'package:indexa_dashboard/models/amounts_datapoint.dart';
+import 'package:indexax/models/amounts_datapoint.dart';
 
 class AmountsChart extends StatelessWidget {
   const AmountsChart({

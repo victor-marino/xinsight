@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:indexa_dashboard/tools/constants.dart';
+import 'package:indexax/tools/constants.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 class ProfitPopUp extends StatelessWidget {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:indexa_dashboard/screens/settings_screen.dart';
+import 'package:indexax/screens/settings_screen.dart';
 
 class SettingsButton extends StatelessWidget {
   const SettingsButton({

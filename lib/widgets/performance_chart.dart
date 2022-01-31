@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:indexa_dashboard/models/performance_datapoint.dart';
+import 'package:indexax/models/performance_datapoint.dart';
 
 class PerformanceChart extends StatelessWidget {
   const PerformanceChart({
