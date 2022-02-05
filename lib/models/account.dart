@@ -105,19 +105,15 @@ class Account {
     newPortfolioData.add(PortfolioDataPoint(instrumentType: InstrumentType.cash, instrumentName: 'cash', amount: _doubleWithTwoDecimalPlaces(portfolio['cash_amount'].toDouble()), percentage: portfolio['cash_amount'].toDouble() / portfolio['total_amount'].toDouble()));
 
     int compareInstruments(PortfolioDataPoint instrumentA, PortfolioDataPoint instrumentB) {
-      if (instrumentA.instrumentType == instrumentB.instrumentType) {
-        if (instrumentA.amount > instrumentB.amount) {
-          return -1;
-        } else {
-          return 1;
-        }
-      } else {
+      if (instrumentA.instrumentType != instrumentB.instrumentType) {
         return instrumentA.instrumentType.toString().compareTo(
             instrumentB.instrumentType.toString());
+      } else {
+        return instrumentB.amount.compareTo(instrumentA.amount);
       }
     }
 
-    newPortfolioData.sort((compareInstruments));
+    newPortfolioData.sort(compareInstruments);
 
     return(newPortfolioData);
   }
@@ -249,35 +245,30 @@ class Account {
     List<Transaction> newTransactionList = [];
     for (var transaction in accountInstrumentTransactionData) {
       String operationType;
-      IconData icon;
+      IconData icon = Icons.pie_chart;
       switch(transaction['operation_code']) {
         case 20: {
           operationType = 'transaction_info.fund_purchase'.tr();
-          icon = Icons.trending_up;
         }
         break;
 
         case 21: {
           operationType = 'transaction_info.fund_reimbursement'.tr();
-          icon = Icons.trending_down;
         }
         break;
 
         case 67: {
           operationType = 'transaction_info.fund_purchase_by_transfer'.tr();
-          icon = Icons.sync_alt;
         }
         break;
 
         case 72: {
           operationType = 'transaction_info.fund_reimbursement_by_transfer'.tr();
-          icon = Icons.sync_alt;
         }
         break;
 
         default: {
           operationType = transaction['operation_type'];
-          icon = Icons.help_outline;
         }
         break;
       }
@@ -300,41 +291,35 @@ class Account {
 
     for (var transaction in accountCashTransactionData) {
       String operationType;
-      IconData icon;
+      IconData icon = Icons.toll;
       switch(transaction['operation_code']) {
         case 9200: {
           operationType = 'transaction_info.securities_operation'.tr();
-          icon = Icons.pie_chart;
         }
         break;
 
         case 285: {
           operationType = 'transaction_info.custodial_fee'.tr();
-          icon = Icons.toll;
         }
         break;
 
         case 8152: {
           operationType = "transaction_info.management_fee".tr();
-          icon = Icons.toll;
         }
 
         break;
         case 4589: {
           operationType = "transaction_info.money_deposit_by_transfer".tr();
-          icon = Icons.download_outlined;
         }
         break;
 
         case 4597: {
           operationType = "transaction_info.money_reimbursement_by_transfer".tr();
-          icon = Icons.upload_outlined;
         }
         break;
 
         default: {
           operationType = transaction['operation_type'];
-          icon = Icons.help_outline;
         }
         break;
       }
@@ -355,7 +340,17 @@ class Account {
       newTransactionList.add(newTransaction);
     }
 
-    newTransactionList.sort((a, b) => b.date.compareTo(a.date));
+    int compareTransactions(Transaction transactionA, Transaction transactionB) {
+      if (transactionA.date != transactionB.date) {
+        return transactionB.date.compareTo(transactionA.date);
+      } else if (transactionA.amount.abs() != transactionB.amount.abs()) {
+        return transactionB.amount.abs().compareTo(transactionA.amount.abs());
+      } else {
+          return transactionB.accountType.toString().compareTo(transactionA.accountType.toString());
+      }
+    }
+
+    newTransactionList.sort(compareTransactions);
 
     return(newTransactionList);
   }
