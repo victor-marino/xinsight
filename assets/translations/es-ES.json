@@ -12,6 +12,7 @@
     "account": "Cuenta"
   },
   "login_screen": {
+    "for": "para",
     "user_not_recognized": "Usuario no reconocido",
     "user_authenticated": "Usuario identificado",
     "cancel": "Cancelar",

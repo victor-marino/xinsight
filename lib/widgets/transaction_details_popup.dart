@@ -129,10 +129,12 @@ class TransactionDetailsPopup extends StatelessWidget {
       title: Text(
         'transaction_details_popup.details'.tr(),
       ),
-      content: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: transactionDetails,
+      content: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: transactionDetails,
+        ),
       ),
       contentPadding: EdgeInsets.fromLTRB(24, 24, 24, 0),
       actions: [

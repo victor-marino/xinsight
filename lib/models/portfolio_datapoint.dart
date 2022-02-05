@@ -13,6 +13,11 @@ class PortfolioDataPoint {
   final double percentage;
 
   PortfolioDataPoint({this.instrumentType, this.instrumentName, this.instrumentID, this.instrumentCompany, this.instrumentDescription, this.titles, this.amount, this.cost, this.profitLoss, this.percentage});
+
+  @override
+  String toString() {
+    return instrumentType.toString() + ", " + instrumentName.toString() + ", " + instrumentID.toString() + ", " + instrumentCompany.toString() + ", " + instrumentDescription.toString() + ", " + titles.toString() + ", " + amount.toString() + ", " + cost.toString() + ", " + profitLoss.toString() + ", " + percentage.toString();
+  }
 }
 
 enum InstrumentType {

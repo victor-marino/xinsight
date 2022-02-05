@@ -192,20 +192,38 @@ class _LoginScreenState extends State<LoginScreen> {
       child: Scaffold(
         body: SafeArea(
           child: SingleChildScrollView(
-            child: Center(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(
+                maxHeight: MediaQuery.of(context).size.height-30,
+              ),
               child: Padding(
                 padding: const EdgeInsets.all(30.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Column(
+                      //mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Container(
-                          padding: EdgeInsets.symmetric(vertical: 100),
-                          child: Center(
-                            child: Image.asset('assets/images/indexa_logo.png'),
+                          //padding: EdgeInsets.only(top: 100),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 10.0),
+                            child: Image.asset('assets/images/indexax_logo_wider.png'),
                           ),
                         ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                                'login_screen.for'.tr() + " ",
+                              style: TextStyle(
+                                color: Colors.black38)),
+                            Image.asset(
+                                'assets/images/indexa_logo.png',
+                                height: 30),
+                          ],
+                        )
                       ],
                     ),
                     Column(

@@ -16,4 +16,9 @@ class Transaction {
   final String status;
 
   Transaction({this.date, this.valueDate, this.fiscalDate, this.accountType, this.operationCode, this.operationType, this.icon, this.instrumentCode, this.instrumentName, this.titles, this.price, this.amount, this.status});
+
+  @override
+  String toString() {
+    return date.toString() + ", " + valueDate.toString() + ", " + fiscalDate.toString() + ", " + accountType.toString() + ", " + operationCode.toString() + ", " + operationType.toString() + ", " + icon.toString() + ", " + instrumentCode.toString() + ", " + instrumentName.toString() + ", " + titles.toString() + ", " + price.toString() + ", " + amount.toString() + ", " + status.toString();
+  }
 }

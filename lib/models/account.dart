@@ -188,6 +188,7 @@ class Account {
       newPerformanceSeries.add(newPoint);
       currentPeriod++;
     }
+
     return(newPerformanceSeries);
   }
 
@@ -242,7 +243,6 @@ class Account {
     });
 
     return(profitLossSeries);
-
   }
 
   static List<Transaction> _createTransactionList(accountInstrumentTransactionData, accountCashTransactionData) {

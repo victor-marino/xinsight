@@ -20,9 +20,11 @@ class ExpectationsPopUp extends StatelessWidget {
           ),
         ],
       ),
-      content: Text(
-        'expectations_popup.expectations_explanation'.tr(),
-        style: kPopUpNormalTextStyle,
+      content: SingleChildScrollView(
+        child: Text(
+          'expectations_popup.expectations_explanation'.tr(),
+          style: kPopUpNormalTextStyle,
+        ),
       ),
       contentPadding: EdgeInsets.fromLTRB(
           24, 24, 24, 0),

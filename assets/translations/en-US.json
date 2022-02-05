@@ -12,6 +12,7 @@
     "account": "Account"
   },
   "login_screen": {
+    "for": "for",
     "user_not_recognized": "User not recognized",
     "user_authenticated": "User authenticated",
     "cancel": "Cancel",

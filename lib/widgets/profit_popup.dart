@@ -20,68 +20,70 @@ class ProfitPopUp extends StatelessWidget {
           ),
         ],
       ),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              Text(
-                'profit_popup.time_weighted'.tr(),
-                style: kPopUpSubtitleTextStyle,
-              ),
-              SizedBox(
-                width: 5,
-              ),
-              Icon(
-                Icons.access_time,
-                color: Colors.grey,
-                size: 20,
-              ),
-            ],
-          ),
-          SizedBox(
-            height: 5,
-          ),
-          Text(
-            'profit_popup.twr_explanation'.tr(),
-            style: kPopUpNormalTextStyle,
-          ),
-          Divider(
-            height: 30,
-            color: Colors.black54,
-          ),
-          Row(
-            children: <Widget>[
-              Text(
-                'profit_popup.money_weighted'.tr(),
-                style: kPopUpSubtitleTextStyle,
-              ),
-              SizedBox(
-                width: 5,
-              ),
-              Icon(
-                Icons.euro_symbol,
-                color: Colors.grey,
-                size: 20,
-              ),
-            ],
-          ),
-          SizedBox(
-            height: 5,
-          ),
-          Text(
-            'profit_popup.mwr_explanation'.tr(),
-            style: kPopUpNormalTextStyle,
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          Text(
-            'profit_popup.returns_calculated_net_of_fees'.tr(),
-            style: kPopUpFootnoteTextStyle,
-          ),
-        ],
+      content: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Row(
+              children: <Widget>[
+                Text(
+                  'profit_popup.time_weighted'.tr(),
+                  style: kPopUpSubtitleTextStyle,
+                ),
+                SizedBox(
+                  width: 5,
+                ),
+                Icon(
+                  Icons.access_time,
+                  color: Colors.grey,
+                  size: 20,
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 5,
+            ),
+            Text(
+              'profit_popup.twr_explanation'.tr(),
+              style: kPopUpNormalTextStyle,
+            ),
+            Divider(
+              height: 30,
+              color: Colors.black54,
+            ),
+            Row(
+              children: <Widget>[
+                Text(
+                  'profit_popup.money_weighted'.tr(),
+                  style: kPopUpSubtitleTextStyle,
+                ),
+                SizedBox(
+                  width: 5,
+                ),
+                Icon(
+                  Icons.euro_symbol,
+                  color: Colors.grey,
+                  size: 20,
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 5,
+            ),
+            Text(
+              'profit_popup.mwr_explanation'.tr(),
+              style: kPopUpNormalTextStyle,
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Text(
+              'profit_popup.returns_calculated_net_of_fees'.tr(),
+              style: kPopUpFootnoteTextStyle,
+            ),
+          ],
+        ),
       ),
       contentPadding: EdgeInsets.fromLTRB(24, 24, 24, 0),
       actions: [
