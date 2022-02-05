@@ -146,7 +146,7 @@
   },
   "settings_screen": {
     "settings": "@:page_titles.settings",
-    "about": "About",
+    "about": "About Indexa X",
     "logout": "Log out"
   },
   "about_screen": {
@@ -156,8 +156,9 @@
     "text3": "official API",
     "text4": " provided by Indexa Capital. This API only allows read operations (GET methods), and thus cannot operate with your account or make any transactions on your behalf.",
     "text5": "\n\nThe app doesn't collect or store any account information, except for your access token if you choose to do so. The token is securely stored and encrypted in your local device, using the ",
-    "text6": " library, and is only used to authenticate you against Indexa Capital servers.",
-    "text7": "\n\nYou can delete the token from your device at any time by simply logging out."
+    "text6": " library, and is only used to authenticate you against Indexa Capital servers. It is never sent or stored in any other server.",
+    "text7": "\n\nYou can delete the token from your device at any time by simply logging out.",
+    "for": "@:login_screen.for"
   },
   "logout_popup": {
     "title": "Log out?",

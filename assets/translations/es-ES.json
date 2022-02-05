@@ -145,7 +145,7 @@
   },
   "settings_screen": {
     "settings": "@:page_titles.settings",
-    "about": "Sobre esta aplicación",
+    "about": "Sobre Indexa X",
     "logout": "Cerrar sesión"
   },
   "about_screen": {
@@ -154,9 +154,10 @@
     "text2": "\n\nPara acceder a los datos de tu cuenta, se utiliza la ",
     "text3": "API oficial",
     "text4": " proporcionada por Indexa Capital. Esta API sólo permite operaciones de lectura (métodos GET), por lo que no puede operar con tu cuenta ni ordenar ningún movimiento.",
-    "text5": "\n\nLa aplicación no recoge ni almacena ningún tipo de información sobre tu cuenta, salvo tu token de acceso si así lo deseas. El token se almacena de forma segura y encriptada en tu dispositivo por medio de la librería ",
-    "text6": ", y sólo se utiliza para indentificarte contra los servidores de Indexa Capital.",
-    "text7": "\n\nPuedes eliminar el token de tu dispositivo en cualquier momento cerrando la sesión."
+    "text5": "\n\nLa aplicación no recoge ni almacena ningún tipo de información sobre tu cuenta, salvo tu token de acceso si así lo deseas. El token se almacena en tu disposiivo de forma segura y encriptada por medio de la librería ",
+    "text6": ", y sólo se utiliza para indentificarte contra los servidores de Indexa Capital. Nunca se envía ni almacena en ningún otro servidor.",
+    "text7": "\n\nPuedes eliminar el token de tu dispositivo en cualquier momento cerrando la sesión.",
+    "for": "@:login_screen.for"
   },
   "logout_popup": {
     "title": "¿Cerrar sesión?",
