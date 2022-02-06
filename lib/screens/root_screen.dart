@@ -118,7 +118,7 @@ class _RootScreenState extends State<RootScreen> {
           accountCashTransactionData: currentAccountCashTransactionData,
           accountPendingTransactionData: currentAccountPendingTransactionData);
 
-      print(currentAccount);
+      // print(currentAccount);
 
       return currentAccount;
     } on Exception catch (e) {

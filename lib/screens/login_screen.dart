@@ -9,6 +9,7 @@ import 'package:local_auth/auth_strings.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:indexax/widgets/token_instructions_popup.dart';
+import 'package:indexax/widgets/forget_token_popup.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -18,6 +19,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final _storage = FlutterSecureStorage();
 
+  bool storedToken = false;
   bool rememberToken = false;
 
   final tokenTextController = TextEditingController();
@@ -57,10 +59,25 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
-  void disableRememberToken() async {
+  void forgetToken() {
+    _deleteAll();
     setState(() {
+      storedToken = false;
       rememberToken = false;
     });
+  }
+
+  void disableRememberToken() async {
+    if (storedToken = true) {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) =>
+              ForgetTokenPopup(forgetToken: forgetToken));
+    } else {
+      setState(() {
+        rememberToken = false;
+      });
+    }
   }
 
   Future<Map<String, String>> _readAll() async {
@@ -70,6 +87,11 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Future<void> _storeKey(String value) async {
     await _storage.write(key: 'indexaToken', value: value);
+    _readAll();
+  }
+
+  void _deleteAll() async {
+    await _storage.deleteAll();
     _readAll();
   }
 
@@ -142,11 +164,12 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Future<String> findStoredToken() async {
-    String storedToken;
+    String token;
     try {
       Map<String, String> tokens = await _readAll();
       if (tokens['indexaToken'] != null) {
-        storedToken = tokens['indexaToken'];
+        storedToken = true;
+        token = tokens['indexaToken'];
         print('Existing token detected!');
       } else {
         print('No existing token');
@@ -156,7 +179,7 @@ class _LoginScreenState extends State<LoginScreen> {
         content: Text(e.toString()),
       ));
     }
-    return storedToken;
+    return token;
   }
 
   void tryToLoginWithStoredToken() async {
@@ -256,7 +279,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     ),
                                     Icon(
                                       Icons.help_outline,
-                                      color: Colors.black38,
+                                      color: Colors.blue,
                                       size: 20,
                                     ),
                                   ],
@@ -269,11 +292,20 @@ class _LoginScreenState extends State<LoginScreen> {
                           controller: tokenTextController,
                           keyboardType: TextInputType.text,
                           maxLines: null,
-                          decoration: InputDecoration(
+                          maxLength: 400,
+                          decoration: storedToken ? InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: "•••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••",
+                            hintText: 'login_screen.your_indexa_token'.tr(),
+                            filled: true,
+                            fillColor: Colors.grey[300],
+                          ) : InputDecoration(
                             border: OutlineInputBorder(),
                             labelText: 'login_screen.api_token'.tr(),
                             hintText: 'login_screen.your_indexa_token'.tr(),
+                            counterText: ""
                           ),
+                          enabled: storedToken ? false : true,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -331,15 +363,26 @@ class _LoginScreenState extends State<LoginScreen> {
                             textColor: Colors.white,
                             elevation: 8,
                             onPressed: () {
-                              if (tokenTextController.text == "") {
-                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                  content: Text("login_screen.please_enter_token".tr()),
-                                ));
+                              if (storedToken) {
+                                tryToLoginWithStoredToken();
                               } else {
-                                if (rememberToken) {
-                                  goToMainScreen(token: tokenTextController.text, saveToken: true);
+                                if (tokenTextController.text == "") {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text(
+                                            "login_screen.please_enter_token"
+                                                .tr()),
+                                      ));
                                 } else {
-                                  goToMainScreen(token: tokenTextController.text, saveToken: false);
+                                  if (rememberToken) {
+                                    goToMainScreen(
+                                        token: tokenTextController.text,
+                                        saveToken: true);
+                                  } else {
+                                    goToMainScreen(
+                                        token: tokenTextController.text,
+                                        saveToken: false);
+                                  }
                                 }
                               }
                             },

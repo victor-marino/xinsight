@@ -33,7 +33,10 @@
     "how_to_get_token": "How to get token",
     "api_token": "API token",
     "your_indexa_token": "Your Indexa token",
-    "remember_token": "Remember token"
+    "remember_token": "Remember token",
+    "forget_token_popup_title": "Forget token?",
+    "forget_token_popup_cancel_button": "Cancel",
+    "forget_token_popup_ok_button": "OK"
   },
   "overview_screen": {
     "distribution": "DISTRIBUTION"
