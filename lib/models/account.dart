@@ -381,14 +381,14 @@ class Account {
         //_totalAmount = 999999.99,
         _investment = accountPerformanceData['return']['investment'].toDouble(),
         _timeReturn = accountPerformanceData['return']['time_return'].toDouble(),
+        _timeReturnColor = _obtainColor(accountPerformanceData['return']['time_return'].toDouble()),
+        _moneyReturn = accountPerformanceData['return']['money_return'].toDouble(),
+        _moneyReturnColor = _obtainColor(accountPerformanceData['return']['money_return'].toDouble()),
         _expectedReturn = accountPerformanceData['plan_expected_return'].toDouble(),
         _bestReturn1yr = (accountPerformanceData['performance']['best_pl'][13] / 100).toDouble(),
         _worstReturn1yr = (accountPerformanceData['performance']['worst_pl'][13] / 100).toDouble(),
         _bestReturn10yr = (accountPerformanceData['performance']['best_pl'][120] / 100).toDouble(),
         _worstReturn10yr = (accountPerformanceData['performance']['worst_pl'][120] / 100).toDouble(),
-        _timeReturnColor = _obtainColor(accountPerformanceData['return']['time_return'].toDouble()),
-        _moneyReturn = accountPerformanceData['return']['money_return'].toDouble(),
-        _moneyReturnColor = _obtainColor(accountPerformanceData['return']['money_return'].toDouble()),
         _profitLoss = accountPerformanceData['return']['pl'].toDouble(),
         _profitLossColor = _obtainColor(accountPerformanceData['return']['pl'].toDouble()),
         //_profitLoss = 9999.99
@@ -402,7 +402,6 @@ class Account {
         _transactionList = _createTransactionList(accountInstrumentTransactionData, accountCashTransactionData),
         _additionalCashNeededToTrade = _getCashNeededToTrade(accountPortfolioData['extra']),
         _hasPendingTransactions = _checkPendingTransactions(accountPendingTransactionData);
-
 
   int get selectedRisk => _selectedRisk;
   double get totalAmount => _totalAmount;
@@ -428,4 +427,32 @@ class Account {
   List<Transaction> get transactionList => _transactionList;
   bool get hasPendingTransactions => _hasPendingTransactions;
   double get additionalCashNeededToTrade => _additionalCashNeededToTrade;
+
+  @override
+  String toString() {
+    return "selectedRisk: " + selectedRisk.toString() + "\n" +
+        "totalAmount: " + totalAmount.toString() + "\n" +
+        "investment: " + investment.toString() + "\n" +
+        "timeReturn: " + timeReturn.toString() + "\n" +
+        "timeReturnColor: " + timeReturnColor.toString() + "\n" +
+        "moneyReturn: " + moneyReturn.toString() + "\n" +
+        "moneyReturnColor: " + moneyReturnColor.toString() + "\n" +
+        "expectedReturn: " + expectedReturn.toString() + "\n" +
+        "bestReturn1yr: " + bestReturn1yr.toString() + "\n" +
+        "worstReturn1yr: " + worstReturn1yr.toString() + "\n" +
+        "bestReturn10yr: " + bestReturn10yr.toString() + "\n" +
+        "worstReturn10yr: " + worstReturn10yr.toString() + "\n" +
+        "profitLoss: " + profitLoss.toString() + "\n" +
+        "profitLossColor: " + profitLossColor.toString() + "\n" +
+        "hasActiveRewards: " + hasActiveRewards.toString() + "\n" +
+        "feeFreeAmount: " + feeFreeAmount.toString() + "\n" +
+        "amountsSeries: " + amountsSeries.toString() + "\n" +
+        "portfolioData: " + portfolioData.toString() + "\n" +
+        "portfolioDistribution: " + portfolioDistribution.toString() + "\n" +
+        "performanceSeries: " + performanceSeries.toString() + "\n" +
+        "profitLossSeries: " + profitLossSeries.toString() + "\n" +
+        "transactionList: " + transactionList.toString() + "\n" +
+        "additionalCashNeededToTrade: " + additionalCashNeededToTrade.toString() + "\n" +
+        "hasPendingTransactions: " + hasPendingTransactions.toString();
+  }
 }

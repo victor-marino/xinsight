@@ -80,7 +80,7 @@ class _RootScreenState extends State<RootScreen> {
                 previousUserAccounts: userAccounts)));
   }
 
-  void loadSettings() {
+  void loadSettingsScreen() {
     Navigator.pushReplacement(context,
         MaterialPageRoute(builder: (BuildContext context) => SettingsScreen()));
   }
@@ -117,6 +117,9 @@ class _RootScreenState extends State<RootScreen> {
           accountInstrumentTransactionData: currentAccountInstrumentTransactionData,
           accountCashTransactionData: currentAccountCashTransactionData,
           accountPendingTransactionData: currentAccountPendingTransactionData);
+
+      print(currentAccount);
+
       return currentAccount;
     } on Exception catch (e) {
       print("Couldn't fetch account data");

@@ -1,27 +1,27 @@
 {
   "extra": {
-    "additional_cash_needed_to_trade": 160.195185762
+    "additional_cash_needed_to_trade": 159.17309262
   },
   "portfolio": {
     "account_id": 42561,
     "cash_amount": 32.32,
-    "date": "2022-02-03",
-    "instruments_amount": 5891.277966,
+    "date": "2022-02-04",
+    "instruments_amount": 5745.26466,
     "instruments_cost": 5074.0453886739,
-    "total_amount": 5923.597966,
+    "total_amount": 5777.58466,
     "inflows": 0,
     "tax_outflows": 0,
     "outflows": 0
   },
   "instrument_accounts": [
     {
-      "amount": 5891.277966,
-      "date": "2022-02-03",
+      "amount": 5745.26466,
+      "date": "2022-02-04",
       "positions": [
         {
-          "amount": 4657.384914,
+          "amount": 4517.208948,
           "cost_amount": 3801.019857078431,
-          "date": "2022-02-03",
+          "date": "2022-02-04",
           "instrument": {
             "asset_class": "equity",
             "asset_class_description": "equity",
@@ -38,17 +38,17 @@
             "market_code": "FEX",
             "name": "Vanguard Global Stk Idx Eur -Ins Plus"
           },
-          "price": 270.4637,
+          "price": 262.3234,
           "titles": 17.22,
           "type": "spot",
           "has_titles_affected": false,
           "amount_affected": 0,
-          "amount_not_affected": 4657.384914
+          "amount_not_affected": 4517.208948
         },
         {
-          "amount": 1233.893052,
+          "amount": 1228.055712,
           "cost_amount": 1273.0255315954378,
-          "date": "2022-02-03",
+          "date": "2022-02-04",
           "instrument": {
             "asset_class": "fixed_income_long_term_intl",
             "asset_class_description": "fixed_income_long_term_intl",
@@ -65,12 +65,12 @@
             "market_code": "FEX",
             "name": "Vanguard Global Bnd Idx Eur -Ins Plus"
           },
-          "price": 114.5676,
+          "price": 114.0256,
           "titles": 10.77,
           "type": "spot",
           "has_titles_affected": false,
           "amount_affected": 0,
-          "amount_not_affected": 1233.893052
+          "amount_not_affected": 1228.055712
         }
       ]
     }
@@ -78,37 +78,13 @@
   "cash_accounts": [
     {
       "amount": 32.32,
-      "date": "2022-02-03"
+      "date": "2022-02-04"
     }
   ],
   "comparison": [
     {
-      "amount": 1233.893052,
-      "amount_diff": 1.354831849980083,
-      "instrument": {
-        "asset_class": "fixed_income_long_term_intl",
-        "asset_class_description": "fixed_income_long_term_intl",
-        "bloomberg_code": "IE00BGCZ0B53 ISIN",
-        "description": "El fondo sigue el índice Barclays Global Aggregate Float Adjusted Bond Index que invierte globalmente en bonos de gobiernos, agencias, empresas y titulizaciones con vencimientos superior a un año y mayoritariamente en bonos de alta calidad crediticia. El fondo cubre las diferentes exposiciones a divisa. Código ISIN: <a href='https://www.morningstar.es/es/funds/snapshot/snapshot.aspx?id=F00000T1HY'>IE00BGCZ0B53</a>.",
-        "dgs_code": "",
-        "dgs_fund_code": "",
-        "epsv_fund_code": "",
-        "epsv_plan_code": "",
-        "identifier_name": "ISIN",
-        "identifier": "IE00BGCZ0B53",
-        "isin_code": "IE00BGCZ0B53",
-        "management_company_description": "Vanguard Asset Management",
-        "market_code": "FEX",
-        "name": "Vanguard Global Bnd Idx Eur -Ins Plus"
-      },
-      "weight_plan": 0.20853,
-      "weight_real": 0.20830128227510433,
-      "weight_diff": 0.00022871772489566067,
-      "position_type": "spot"
-    },
-    {
-      "amount": 4657.384914,
-      "amount_diff": -10.500017611979771,
+      "amount": 4517.2089479999995,
+      "amount_diff": 15.132890230200879,
       "instrument": {
         "asset_class": "equity",
         "asset_class_description": "equity",
@@ -126,8 +102,32 @@
         "name": "Vanguard Global Stk Idx Eur -Ins Plus"
       },
       "weight_plan": 0.78447,
-      "weight_real": 0.7862425743158545,
-      "weight_diff": -0.001772574315854536,
+      "weight_real": 0.7818507583755595,
+      "weight_diff": 0.0026192416244404937,
+      "position_type": "spot"
+    },
+    {
+      "amount": 1228.0557119999999,
+      "amount_diff": -23.25598285019977,
+      "instrument": {
+        "asset_class": "fixed_income_long_term_intl",
+        "asset_class_description": "fixed_income_long_term_intl",
+        "bloomberg_code": "IE00BGCZ0B53 ISIN",
+        "description": "El fondo sigue el índice Barclays Global Aggregate Float Adjusted Bond Index que invierte globalmente en bonos de gobiernos, agencias, empresas y titulizaciones con vencimientos superior a un año y mayoritariamente en bonos de alta calidad crediticia. El fondo cubre las diferentes exposiciones a divisa. Código ISIN: <a href='https://www.morningstar.es/es/funds/snapshot/snapshot.aspx?id=F00000T1HY'>IE00BGCZ0B53</a>.",
+        "dgs_code": "",
+        "dgs_fund_code": "",
+        "epsv_fund_code": "",
+        "epsv_plan_code": "",
+        "identifier_name": "ISIN",
+        "identifier": "IE00BGCZ0B53",
+        "isin_code": "IE00BGCZ0B53",
+        "management_company_description": "Vanguard Asset Management",
+        "market_code": "FEX",
+        "name": "Vanguard Global Bnd Idx Eur -Ins Plus"
+      },
+      "weight_plan": 0.20853,
+      "weight_real": 0.21255520849433987,
+      "weight_diff": -0.004025208494339877,
       "position_type": "spot"
     }
   ]
