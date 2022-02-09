@@ -4,6 +4,23 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:provider/provider.dart';
 import 'tools/bottom_navigation_bar_provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
+
+mixin PortraitModeMixin on StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    _portraitModeOnly();
+    return null;
+  }
+}
+
+void _portraitModeOnly() {
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
+}
 
 void main() {
   runApp(
@@ -16,9 +33,10 @@ void main() {
   );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatelessWidget with PortraitModeMixin {
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return ChangeNotifierProvider<BottomNavigationBarProvider>(
       create: (context) {
         return BottomNavigationBarProvider();
