@@ -62,6 +62,7 @@ class _LoginScreenState extends State<LoginScreen> {
     setState(() {
       storedToken = false;
       rememberToken = false;
+      tokenTextController.text = "";
     });
   }
 
@@ -167,6 +168,7 @@ class _LoginScreenState extends State<LoginScreen> {
       Map<String, String> tokens = await _readAll();
       if (tokens['indexaToken'] != null) {
         storedToken = true;
+        tokenTextController.text = "••••••••••••••••";
         token = tokens['indexaToken'];
         print('Existing token detected!');
       } else {
@@ -291,7 +293,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           maxLength: 400,
                           decoration: storedToken ? InputDecoration(
                             border: OutlineInputBorder(),
-                            labelText: "•••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••",
+                            labelText: "login_screen.api_token".tr(),
                             hintText: 'login_screen.your_indexa_token'.tr(),
                             filled: true,
                             fillColor: Colors.grey[300],
