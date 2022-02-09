@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:indexax/models/portfolio_datapoint.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:easy_localization/easy_localization.dart';
-import '../tools/constants.dart';
+import '../../tools/constants.dart';
 import 'package:indexax/tools/number_formatting.dart';
 
 class DistributionChart extends StatelessWidget {
@@ -62,7 +62,6 @@ class DistributionChart extends StatelessWidget {
       tooltipBehavior: TooltipBehavior(
         enable: true,
         decimalPlaces: 2,
-        //format: 'point.x' + '\n' + 'point.y €',
         builder: (dynamic data, dynamic point, dynamic series, int pointIndex, int seriesIndex) {
           return Padding(
             padding: const EdgeInsets.all(5.0),

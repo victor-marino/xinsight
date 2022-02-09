@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+// import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ReusableSecondaryCard extends StatelessWidget {
@@ -18,7 +18,6 @@ class ReusableSecondaryCard extends StatelessWidget {
       color: Colors.white,
       elevation: 1,
       child: Padding(
-        //padding: const EdgeInsets.all(15.0),
         padding: const EdgeInsets.fromLTRB(15, 10, 15, 5),
         child: childWidget,
       ),

@@ -67,7 +67,6 @@ class DistributionChartLegend extends StatelessWidget {
                       text: 'distribution_legend.instrument_type_fixed'.tr(),
                       style: kLegendMainTextStyle),
                   TextSpan(
-                    //text: "10.000€",
                       text:  " (" + getPercentAsString(portfolioDistribution[InstrumentType.fixed][ValueType.percentage]) + ")",
                       style: kLegendSecondaryTextStyle)
                 ],
@@ -94,7 +93,6 @@ class DistributionChartLegend extends StatelessWidget {
                       text: 'distribution_legend.instrument_type_other'.tr(),
                       style: kLegendMainTextStyle),
                   TextSpan(
-                    //text: "10.000€",
                       text:  " (" + getPercentAsString(portfolioDistribution[InstrumentType.other][ValueType.percentage]) + ")",
                       style: kLegendSecondaryTextStyle)
                 ],
@@ -121,7 +119,6 @@ class DistributionChartLegend extends StatelessWidget {
                       text: 'distribution_legend.instrument_type_cash'.tr(),
                       style: kLegendMainTextStyle),
                   TextSpan(
-                    //text: "10.000€",
                       text:  " (" + getPercentAsString(portfolioDistribution[InstrumentType.cash][ValueType.percentage]) + ")",
                       style: kLegendSecondaryTextStyle)
                 ],

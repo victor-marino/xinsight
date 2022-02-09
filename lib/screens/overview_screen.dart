@@ -1,19 +1,17 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/gestures.dart';
+// import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../models/account.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../tools/constants.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:indexax/widgets/account_summary.dart';
+import 'package:indexax/widgets/overview_screen/account_summary.dart';
 import 'package:indexax/widgets/reusable_card.dart';
-import 'package:indexax/widgets/distribution_chart.dart';
-import 'package:indexax/widgets/distribution_chart_simplified.dart';
-import 'package:indexax/widgets/distribution_legend.dart';
-import 'package:indexax/widgets/profit_popup.dart';
+import 'package:indexax/widgets/overview_screen/distribution_chart.dart';
+import 'package:indexax/widgets/overview_screen/distribution_legend.dart';
+import 'package:indexax/widgets/overview_screen/profit_popup.dart';
 import 'package:indexax/models/account_dropdown_items.dart';
-import 'package:indexax/widgets/minimum_transfer_card.dart';
-import 'package:indexax/widgets/fee_free_amount_card.dart';
+import 'package:indexax/widgets/overview_screen/minimum_transfer_card.dart';
+import 'package:indexax/widgets/overview_screen/fee_free_amount_card.dart';
 
 const int nbsp = 0x00A0;
 
@@ -63,20 +61,18 @@ class _OverviewScreenState extends State<OverviewScreen> with AutomaticKeepAlive
       ));
     }
     setState(() {});
-    // if failed,use refreshFailed()
     _refreshController.refreshCompleted();
   }
 
   @override
   void initState() {
+    super.initState();
     currentAccountNumber = widget.currentAccountNumber;
     accountData = widget.accountData;
     refreshData = widget.refreshData;
 
     dropdownItems =
         AccountDropdownItems(userAccounts: widget.userAccounts).dropdownItems;
-
-    super.initState();
   }
 
   @override
@@ -147,12 +143,10 @@ class _OverviewScreenState extends State<OverviewScreen> with AutomaticKeepAlive
                               materialTapTargetSize:
                                   MaterialTapTargetSize.shrinkWrap,
                               padding: EdgeInsets.zero,
-                              // color: Colors.blue[600],
                               child: Icon(
                                 Icons.info_outline,
                                 color: Colors.blue[600],
                               ),
-                              // elevation: 5,
                               onPressed: () {
                                 showDialog(
                                     context: context,

@@ -185,7 +185,6 @@ class _RootScreenState extends State<RootScreen> {
               print(userAccounts);
               child = PageView(
                 controller: _pageController,
-                //physics: AlwaysScrollableScrollPhysics(),
                 children: <Widget>[
                   OverviewScreen(
                       accountData: snapshot.data,
@@ -222,9 +221,6 @@ class _RootScreenState extends State<RootScreen> {
                   Provider.of<BottomNavigationBarProvider>(context,
                           listen: false)
                       .currentIndex = page;
-                  // setState(() {
-                  //   currentPage = page;
-                  // });
                 },
               );
             } else if (snapshot.hasError) {
@@ -232,9 +228,6 @@ class _RootScreenState extends State<RootScreen> {
               if (reloading) {
                 child = Center(child: CircularProgressIndicator());
               } else {
-                // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                //   content: Text(snapshot.error.toString()),
-                // ));
                 child = Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,

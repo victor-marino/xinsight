@@ -8,7 +8,6 @@ import 'package:indexax/models/amounts_datapoint.dart';
 class AmountsChart extends StatelessWidget {
   const AmountsChart({
     Key key,
-    //@required this.gradientColors,
     @required this.amountsSeries,
   }) : super(key: key);
 
@@ -17,8 +16,6 @@ class AmountsChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<Color> color = <Color>[];
-    // color.add(Color(0xFF4FC3F7));
-    // color.add(Color(0xFFE040FB));
     color.add(Colors.white);
     color.add(Colors.blue);
 
@@ -65,19 +62,14 @@ class AmountsChart extends StatelessWidget {
       // Initialize DateTime axis
       primaryXAxis: DateTimeAxis(
         minimum: DateTime(amountsSeries[0].date.year, 01),
-        //edgeLabelPlacement: EdgeLabelPlacement.shift,
-        //minimum: DateTime(2020, 05, 01),
         dateFormat: DateFormat("dd/MM/yyyy"),
         labelStyle: kProfitLossChartLabelTextStyle,
         intervalType: DateTimeIntervalType.months,
-        //maximumLabels: 1,
         majorGridLines: MajorGridLines(
             width: 1,
             color: Colors.black12,
         ),
         enableAutoIntervalOnZooming: true,
-        //maximumLabels: 1,
-        //rangePadding: ChartRangePadding.round,
       ),
       series: <ChartSeries<AmountsDataPoint, DateTime>>[
         AreaSeries<AmountsDataPoint, DateTime>(
@@ -95,7 +87,6 @@ class AmountsChart extends StatelessWidget {
           dataSource: amountsSeries,
           xValueMapper: (AmountsDataPoint amounts, _) => amounts.date,
           yValueMapper: (AmountsDataPoint amounts, _) => amounts.netAmount,
-          //color: Colors.black12,
           width: 1,
         ),
       ],

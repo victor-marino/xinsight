@@ -1,10 +1,9 @@
-import 'package:flutter/cupertino.dart';
+// import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import '../models/account.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:indexax/models/account_dropdown_items.dart';
-import 'package:indexax/widgets/asset_list.dart';
+import 'package:indexax/widgets/portfolio_screen/asset_list.dart';
 
 const int nbsp = 0x00A0;
 
@@ -54,19 +53,17 @@ class _PortfolioScreenState extends State<PortfolioScreen> with AutomaticKeepAli
       ));
     }
     setState(() {});
-    // if failed,use refreshFailed()
     _refreshController.refreshCompleted();
   }
   
   @override
   void initState() {
+    super.initState();
     currentAccountNumber = widget.currentAccountNumber;
     accountData = widget.accountData;
     refreshData = widget.refreshData;
 
     dropdownItems = AccountDropdownItems(userAccounts: widget.userAccounts).dropdownItems;
-
-    super.initState();
   }
 
   @override

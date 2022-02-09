@@ -1,15 +1,13 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:indexax/services/indexa_data.dart';
 import 'package:indexax/screens/root_screen.dart';
-import 'package:indexax/tools/constants.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:local_auth/auth_strings.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:indexax/widgets/token_instructions_popup.dart';
-import 'package:indexax/widgets/forget_token_popup.dart';
+import 'package:indexax/widgets/login_screen/token_instructions_popup.dart';
+import 'package:indexax/widgets/login_screen/forget_token_popup.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -46,7 +44,7 @@ class _LoginScreenState extends State<LoginScreen> {
         content: Text(e.toString()),
       ));
     }
-    supportsBiometrics ? print("Biometrics supported") : ("Biometrics not supported");
+    supportsBiometrics ? print("Biometrics supported") : print("Biometrics not supported");
 
     return supportsBiometrics;
   }
@@ -225,10 +223,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Column(
-                      //mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Container(
-                          //padding: EdgeInsets.only(top: 100),
                           child: Padding(
                             padding: const EdgeInsets.symmetric(vertical: 10.0),
                             child: Image.asset('assets/images/indexax_logo_wider.png'),
@@ -355,9 +351,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             child: Icon(
                               Icons.arrow_forward,
                               color: Colors.white,
-                              //size: 30,
                             ),
-                            //height: 60,
                             padding: EdgeInsets.all(0),
                             color: Colors.blue,
                             textColor: Colors.white,

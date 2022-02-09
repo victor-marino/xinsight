@@ -4,7 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:indexax/screens/login_screen.dart';
 import 'package:provider/provider.dart';
-import '../tools/bottom_navigation_bar_provider.dart';
+import '../../tools/bottom_navigation_bar_provider.dart';
 
 class LogoutPopup extends StatelessWidget {
   const LogoutPopup({

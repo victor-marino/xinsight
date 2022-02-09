@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/physics.dart';
 import 'screens/login_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:provider/provider.dart';
@@ -10,7 +9,7 @@ void main() {
   runApp(
     EasyLocalization(
       supportedLocales: [Locale('en', 'US'), Locale('es', 'ES')],
-      path: 'assets/translations', // <-- change path to yours
+      path: 'assets/translations',
       fallbackLocale: Locale('en', 'US'),
       child: MyApp(),
     ),
@@ -18,7 +17,6 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<BottomNavigationBarProvider>(

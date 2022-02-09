@@ -1,14 +1,10 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:indexax/models/portfolio_datapoint.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:indexax/tools/number_formatting.dart';
 import 'package:indexax/widgets/reusable_card.dart';
-import '../tools/constants.dart';
-import 'package:indexax/widgets/asset_tile.dart';
-import 'package:expandable/expandable.dart';
-
+import '../../tools/constants.dart';
+import 'package:indexax/widgets/portfolio_screen/asset_tile.dart';
 
 class AssetList extends StatelessWidget {
   const AssetList({
@@ -23,17 +19,14 @@ class AssetList extends StatelessWidget {
     List<Widget> fixedInstruments = [];
     List<Widget> cashInstruments = [];
     List<Widget> otherInstruments = [];
-    double equityAmount = 0;
+    // double equityAmount = 0;
     double equityPercentage = 0;
-    double fixedAmount = 0;
+    // double fixedAmount = 0;
     double fixedPercentage = 0;
     double cashAmount = 0;
     double cashPercentage = 0;
-    double otherAmount = 0;
-    double otherPercentage = 0;
-
-    // equityInstruments.add(AssetTile(assetData: portfolioData[1]));
-    // fixedInstruments.add(AssetTile(assetData: portfolioData[0]));
+    // double otherAmount = 0;
+    // double otherPercentage = 0;
 
     for (var assetData in portfolioData) {
       switch (assetData.instrumentType) {
@@ -42,7 +35,7 @@ class AssetList extends StatelessWidget {
             if (equityInstruments.length > 0) {
               equityInstruments.add(Divider(height: 0));
             }
-            equityAmount += assetData.amount;
+            // equityAmount += assetData.amount;
             equityPercentage += assetData.percentage;
             equityInstruments.add(AssetTile(assetData: assetData));
           }
@@ -53,7 +46,7 @@ class AssetList extends StatelessWidget {
             if (fixedInstruments.length > 0) {
               fixedInstruments.add(Divider(height: 0));
             }
-            fixedAmount += assetData.amount;
+            // fixedAmount += assetData.amount;
             fixedPercentage += assetData.percentage;
             fixedInstruments.add(AssetTile(assetData: assetData));
           }
@@ -69,8 +62,8 @@ class AssetList extends StatelessWidget {
 
         default:
           {
-            otherAmount += assetData.amount;
-            otherPercentage += assetData.percentage;
+            // otherAmount += assetData.amount;
+            // otherPercentage += assetData.percentage;
             otherInstruments.add(AssetTile(assetData: assetData));
           }
           break;

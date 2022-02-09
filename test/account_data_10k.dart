@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 String totalAmount = "5777.58466";
 String investment = "4950.0";
 String timeReturn = "0.24144037991777623";

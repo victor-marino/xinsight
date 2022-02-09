@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class PortfolioDataPoint {
   final InstrumentType instrumentType;
   final String instrumentName;

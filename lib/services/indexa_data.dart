@@ -24,7 +24,6 @@ class IndexaData {
     } on Exception catch (e) {
       print(e);
       throw(e);
-      return null;
     }
   }
 

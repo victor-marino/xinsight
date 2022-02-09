@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:indexax/models/portfolio_datapoint.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:easy_localization/easy_localization.dart';
-import '../tools/constants.dart';
+import 'package:indexax/tools/constants.dart';
 
 class DistributionChartSimplified extends StatelessWidget {
   const DistributionChartSimplified({
@@ -19,7 +19,6 @@ class DistributionChartSimplified extends StatelessWidget {
       height: 280,
       child: SfCircularChart(
         palette: colorList,
-        //backgroundColor: Colors.blueGrey,
         tooltipBehavior: TooltipBehavior(
           enable: true,
           decimalPlaces: 2,

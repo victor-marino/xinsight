@@ -1,13 +1,13 @@
-import 'package:flutter/cupertino.dart';
+// import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:indexax/models/account.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../tools/constants.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:indexax/widgets/reusable_card.dart';
-import '../widgets/amounts_chart.dart';
-import 'package:indexax/widgets/profit_loss_chart.dart';
-import 'package:indexax/widgets/build_profit_loss_year_switcher.dart';
+import '../widgets/evolution_screen/amounts_chart.dart';
+import 'package:indexax/widgets/evolution_screen/profit_loss_chart.dart';
+import 'package:indexax/widgets/evolution_screen/build_profit_loss_year_switcher.dart';
 
 class EvolutionScreen extends StatefulWidget {
   const EvolutionScreen({
@@ -38,7 +38,6 @@ class _EvolutionScreenState extends State<EvolutionScreen> with AutomaticKeepAli
   Account accountData;
   Function refreshData;
   int currentAccountNumber;
-  //List<DropdownMenuItem> dropdownItems = [];
   int currentYear;
   List<DropdownMenuItem> profitLossYearDropdownItems = [];
 
@@ -57,7 +56,6 @@ class _EvolutionScreenState extends State<EvolutionScreen> with AutomaticKeepAli
       ));
     }
     setState(() {});
-    // if failed,use refreshFailed()
     _refreshController.refreshCompleted();
   }
 
@@ -68,6 +66,7 @@ class _EvolutionScreenState extends State<EvolutionScreen> with AutomaticKeepAli
   }
 
   void initState() {
+    super.initState();
     currentAccountNumber = widget.currentAccountNumber;
     accountData = widget.accountData;
     refreshData = widget.refreshData;
@@ -77,10 +76,6 @@ class _EvolutionScreenState extends State<EvolutionScreen> with AutomaticKeepAli
       profitLossYearDropdownItems.add(DropdownMenuItem(child: Text(key.toString()), value: key));
     });
     profitLossYearDropdownItems.sort((b, a) => a.value.compareTo(b.value));
-    //dropdownItems =
-    //    AccountDropdownItems(userAccounts: widget.userAccounts).dropdownItems;
-
-    super.initState();
   }
 
   @override

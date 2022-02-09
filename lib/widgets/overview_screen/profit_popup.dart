@@ -16,7 +16,6 @@ class ProfitPopUp extends StatelessWidget {
         children: [
           Text(
             'profit_popup.return'.tr(),
-            //style: kPopUpTitleTextStyle,
           ),
         ],
       ),

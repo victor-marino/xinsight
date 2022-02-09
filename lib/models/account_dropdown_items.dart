@@ -10,10 +10,7 @@ class AccountDropdownItems {
     for (var account in userAccounts) {
       accountDropdownItems.add(
         DropdownMenuItem(
-          // child: Text(
-          //     (accountDropdownItems.length + 1).toString() + ". " + account),
           child: Text(account),
-          //overflow: TextOverflow.ellipsis),
           value: accountDropdownItems.length,
         ),
       );

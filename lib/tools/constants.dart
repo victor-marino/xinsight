@@ -105,7 +105,6 @@ TextStyle kLoginErrorsTextStyle = GoogleFonts.roboto(
 TextStyle kAccountSwitcherTextStyle = GoogleFonts.roboto(
   textStyle: TextStyle(
     color: Colors.black,
-    //fontWeight: FontWeight.bold,
     fontSize: 15.0,
   ),
 );
@@ -198,7 +197,6 @@ TextStyle kTransactionDetailValueTextStyle = GoogleFonts.roboto(
   textStyle: TextStyle(
     color: Colors.black54,
     fontSize: 15.0,
-    //fontWeight: FontWeight.bold,
   ),
 );
 
@@ -206,7 +204,6 @@ TextStyle kPendingTransactionsWidgetTextStyle = GoogleFonts.roboto(
   textStyle: TextStyle(
     color: Colors.black87,
     fontSize: 15.0,
-    //fontWeight: FontWeight.bold,
   ),
 );
 
@@ -245,7 +242,6 @@ TextStyle kMinimumTransferCardTextStyle = GoogleFonts.roboto(
   textStyle: TextStyle(
     color: Colors.black54,
     fontSize: 14.0,
-    //fontWeight: FontWeight.bold,
   ),
 );
 
@@ -271,7 +267,6 @@ Decoration kEnabledAccountSwitcherBoxDecoration = ShapeDecoration(
 );
 
 Decoration kDisabledAccountSwitcherBoxDecoration = ShapeDecoration(
-//color: Colors.blueGrey[100],
   shape: RoundedRectangleBorder(
     borderRadius: BorderRadius.all(Radius.circular(20.0)),
   ),

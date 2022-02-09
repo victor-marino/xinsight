@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+// import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:indexax/models/account.dart';
 import 'package:indexax/tools/number_formatting.dart';
@@ -6,10 +6,10 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../tools/constants.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:indexax/widgets/reusable_card.dart';
-import 'package:indexax/widgets/performance_chart.dart';
-import 'package:indexax/widgets/risk_chart.dart';
+import 'package:indexax/widgets/projection_screen/projection_chart.dart';
+import 'package:indexax/widgets/projection_screen/risk_chart.dart';
 import 'package:indexax/models/account_dropdown_items.dart';
-import 'package:indexax/widgets/expectations_popup.dart';
+import 'package:indexax/widgets/projection_screen/expectations_popup.dart';
 
 class ProjectionScreen extends StatefulWidget {
   const ProjectionScreen({
@@ -57,12 +57,12 @@ class _ProjectionScreenState extends State<ProjectionScreen> with AutomaticKeepA
       ));
     }
     setState(() {});
-    // if failed,use refreshFailed()
     _refreshController.refreshCompleted();
   }
 
   @override
   void initState() {
+    super.initState();
     currentAccountNumber = widget.currentAccountNumber;
     accountData = widget.accountData;
     refreshData = widget.refreshData;
@@ -152,12 +152,10 @@ class _ProjectionScreenState extends State<ProjectionScreen> with AutomaticKeepA
                           materialTapTargetSize:
                           MaterialTapTargetSize.shrinkWrap,
                           padding: EdgeInsets.zero,
-                          // color: Colors.blue[600],
                           child: Icon(
                             Icons.info_outline,
                             color: Colors.blue[600],
                           ),
-                          // elevation: 5,
                           onPressed: () {
                             showDialog(
                                 context: context,

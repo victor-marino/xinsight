@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+// import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:indexax/tools/constants.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -41,7 +41,6 @@ Widget buildAccountSwitcher(
                     (accountDropdownItems[0].child as Text).data,
                   style: kAccountSwitcherDisabledSelectedTextStyle,
                   )),
-              //isExpanded: true,
               value: currentAccountNumber,
               items: accountDropdownItems,
               style: kAccountSwitcherTextStyle,
@@ -53,15 +52,9 @@ Widget buildAccountSwitcher(
                     (item.child as Text).data,
                     style: dropdownEnabled ? kAccountSwitcherSelectedTextStyle : kAccountSwitcherDisabledSelectedTextStyle,
                   ));
-                  //return Text((item.child as Text).data.split(" ")[1], style: TextStyle(height: 2.4));
-                  //return Text((item), style: kAccountSwitcherTextStyle);
                 }).toList();
               },
               underline: SizedBox(),
-              // onChanged: (value) {
-              //   reloadPage(value, currentPage);
-              // },
-              // onChanged: null,
               onChanged: dropdownEnabled ? (value) {
                 reloadPage(value, currentPage);
               } : null,
