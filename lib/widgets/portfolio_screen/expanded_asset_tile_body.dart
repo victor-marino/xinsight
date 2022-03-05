@@ -66,11 +66,9 @@ class ExpandedAssetTileBody extends StatelessWidget {
         RichText(
           text: TextSpan(
             children: [
+              TextSpan(text: 'asset_details_popup.cost'.tr() + ': ', style: kTransactionListTitleTextStyle),
               TextSpan(
-                  text: 'asset_details_popup.current_value'.tr() + ': ',
-                  style: kTransactionListTitleTextStyle),
-              TextSpan(
-                  text: getInvestmentAsString(assetData.amount),
+                  text: getInvestmentAsString(assetData.cost),
                   style: kTransactionDetailValueTextStyle),
             ],
           ),
@@ -78,9 +76,11 @@ class ExpandedAssetTileBody extends StatelessWidget {
         RichText(
           text: TextSpan(
             children: [
-              TextSpan(text: 'asset_details_popup.cost'.tr() + ': ', style: kTransactionListTitleTextStyle),
               TextSpan(
-                  text: getInvestmentAsString(assetData.cost),
+                  text: 'asset_details_popup.current_value'.tr() + ': ',
+                  style: kTransactionListTitleTextStyle),
+              TextSpan(
+                  text: getInvestmentAsString(assetData.amount),
                   style: kTransactionDetailValueTextStyle),
             ],
           ),
