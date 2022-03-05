@@ -32,6 +32,12 @@ class _LoginScreenState extends State<LoginScreen> {
     goToSettingsButton: "login_screen.go_to_settings".tr(),
     goToSettingsDescription: "login_screen.go_to_settings_description".tr(),
   );
+  final IOSAuthMessages iosStrings = IOSAuthMessages(
+    lockOut: "Locked Out",
+    goToSettingsButton: "login_screen.go_to_settings".tr(),
+    goToSettingsDescription: "login_screen.go_to_settings_description".tr(),
+    cancelButton: "login_screen.cancel".tr(),
+  );
 
   Future supportsBiometrics() async {
     bool supportsBiometrics = false;
@@ -118,6 +124,7 @@ class _LoginScreenState extends State<LoginScreen> {
         isAuthenticated = await localAuthentication.authenticate(
           sensitiveTransaction: false,
           androidAuthStrings: androidStrings,
+          iOSAuthStrings: iosStrings,
           localizedReason: "login_screen.please_authenticate".tr(),
           useErrorDialogs: true,
           stickyAuth: true,
