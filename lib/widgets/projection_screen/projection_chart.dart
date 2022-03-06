@@ -38,7 +38,8 @@ class PerformanceChart extends StatelessWidget {
           isVisible: true,
           position: LegendPosition.top,
           padding: 4,
-          itemPadding: 10),
+          itemPadding: 10,
+      overflowMode: LegendItemOverflowMode.wrap),
       // Initialize DateTime axis
       primaryXAxis: DateTimeAxis(
         edgeLabelPlacement: EdgeLabelPlacement.shift,
