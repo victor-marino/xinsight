@@ -267,8 +267,33 @@ class Account {
         }
         break;
 
+        case 300: {
+          operationType = 'transaction_info.pension_plan_purchase'.tr();
+        }
+        break;
+
+        case 1371: {
+          operationType = 'transaction_info.iic_purchase_switch'.tr();
+        }
+        break;
+
+        case 1372: {
+          operationType = 'transaction_info.iic_sale_switch'.tr();
+        }
+        break;
+
+        case 302: {
+          operationType = 'transaction_info.subscription_transfer_internal_plan'.tr();
+        }
+        break;
+
+        case 304: {
+          operationType = 'transaction_info.sale_transfer_internal_plan'.tr();
+        }
+        break;
+
         default: {
-          operationType = transaction['operation_type'];
+          operationType = transaction['operation_type'][0].toUpperCase() + transaction['operation_type'].substring(1).toLowerCase();
         }
         break;
       }
@@ -318,8 +343,28 @@ class Account {
         }
         break;
 
+        case 7944: {
+          operationType = "transaction_info.interest_settlement".tr();
+        }
+        break;
+
+        case 8111: {
+          operationType = "transaction_info.transfer_in_other_bank".tr();
+        }
+        break;
+
+        case 5185: {
+          operationType = "transaction_info.inversis_custody".tr();
+        }
+        break;
+
+        case 4547: {
+          operationType = "transaction_info.management_fee_charge".tr();
+        }
+        break;
+
         default: {
-          operationType = transaction['operation_type'];
+          operationType = transaction['operation_type'][0].toUpperCase() + transaction['operation_type'].substring(1).toLowerCase();
         }
         break;
       }
