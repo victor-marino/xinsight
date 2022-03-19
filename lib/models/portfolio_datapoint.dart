@@ -1,6 +1,7 @@
 class PortfolioDataPoint {
   final InstrumentType instrumentType;
   final String instrumentName;
+  final String instrumentIDType;
   final String instrumentID;
   final String instrumentCompany;
   final String instrumentDescription;
@@ -10,7 +11,7 @@ class PortfolioDataPoint {
   final double profitLoss;
   final double percentage;
 
-  PortfolioDataPoint({this.instrumentType, this.instrumentName, this.instrumentID, this.instrumentCompany, this.instrumentDescription, this.titles, this.amount, this.cost, this.profitLoss, this.percentage});
+  PortfolioDataPoint({this.instrumentType, this.instrumentName, this.instrumentIDType, this.instrumentID, this.instrumentCompany, this.instrumentDescription, this.titles, this.amount, this.cost, this.profitLoss, this.percentage});
 
   @override
   String toString() {

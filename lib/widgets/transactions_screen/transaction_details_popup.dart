@@ -75,7 +75,7 @@ class TransactionDetailsPopup extends StatelessWidget {
         style: kTransactionDetailValueTextStyle,
       ));
       transactionDetails.add(Text(
-        "ISIN:",
+        transactionData.instrumentCodeType + ":",
         style: kTransactionListTitleTextStyle,
       ));
       transactionDetails.add(Text(

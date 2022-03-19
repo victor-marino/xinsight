@@ -32,7 +32,7 @@ class ExpandedAssetTileBody extends StatelessWidget {
         RichText(
           text: TextSpan(
             children: [
-              TextSpan(text: 'ISIN: ', style: kTransactionListTitleTextStyle),
+              TextSpan(text: assetData.instrumentIDType + ': ', style: kTransactionListTitleTextStyle),
               TextSpan(
                   text: assetData.instrumentID,
                   style: kTransactionDetailValueTextStyle),

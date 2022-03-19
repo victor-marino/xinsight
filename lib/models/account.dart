@@ -90,6 +90,7 @@ class Account {
         PortfolioDataPoint newPoint = PortfolioDataPoint(
             instrumentType: currentInstrumentType,
             instrumentName: instrument['instrument']['name'],
+            instrumentIDType: instrument['instrument']['identifier_name'],
             instrumentID: instrument['instrument']['identifier'],
             instrumentCompany: instrument['instrument']['management_company_description'],
             instrumentDescription: currentInstrumentDescription,
@@ -313,7 +314,7 @@ class Account {
         }
         break;
       }
-      Transaction newTransaction = Transaction(date: DateTime.parse(transaction['date']), valueDate: DateTime.parse(transaction['value_date']), fiscalDate: DateTime.parse(transaction['fiscal_date']), accountType: 'transaction_info.securities_account'.tr(), operationCode: transaction['operation_code'], operationType: operationType, icon: icon, instrumentCode: transaction['instrument']['identifier'], instrumentName: transaction['instrument']['name'], titles: transaction['titles'].toDouble(), price: transaction['price'].toDouble(), amount: transaction['amount'].toDouble(), status: operationStatus);
+      Transaction newTransaction = Transaction(date: DateTime.parse(transaction['date']), valueDate: DateTime.parse(transaction['value_date']), fiscalDate: DateTime.parse(transaction['fiscal_date']), accountType: 'transaction_info.securities_account'.tr(), operationCode: transaction['operation_code'], operationType: operationType, icon: icon, instrumentCodeType: transaction['instrument']['identifier_name'], instrumentCode: transaction['instrument']['identifier'], instrumentName: transaction['instrument']['name'], titles: transaction['titles'].toDouble(), price: transaction['price'].toDouble(), amount: transaction['amount'].toDouble(), status: operationStatus);
       newTransactionList.add(newTransaction);
     }
 
@@ -384,7 +385,7 @@ class Account {
         }
         break;
       }
-      Transaction newTransaction = Transaction(date: DateTime.parse(transaction['date']), valueDate: null, fiscalDate: null, accountType: 'transaction_info.cash_account'.tr(), operationCode: transaction['operation_code'], operationType: operationType, icon: icon, instrumentCode: null, instrumentName: null, titles: null, price: null, amount: transaction['amount'].toDouble(), status: operationStatus);
+      Transaction newTransaction = Transaction(date: DateTime.parse(transaction['date']), valueDate: null, fiscalDate: null, accountType: 'transaction_info.cash_account'.tr(), operationCode: transaction['operation_code'], operationType: operationType, icon: icon, instrumentCodeType: null, instrumentCode: null, instrumentName: null, titles: null, price: null, amount: transaction['amount'].toDouble(), status: operationStatus);
       newTransactionList.add(newTransaction);
     }
 

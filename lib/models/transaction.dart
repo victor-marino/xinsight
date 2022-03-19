@@ -8,6 +8,7 @@ class Transaction {
   final int operationCode;
   final String operationType;
   final IconData icon;
+  final String instrumentCodeType;
   final String instrumentCode;
   final String instrumentName;
   final double titles;
@@ -15,10 +16,10 @@ class Transaction {
   final double amount;
   final String status;
 
-  Transaction({this.date, this.valueDate, this.fiscalDate, this.accountType, this.operationCode, this.operationType, this.icon, this.instrumentCode, this.instrumentName, this.titles, this.price, this.amount, this.status});
+  Transaction({this.date, this.valueDate, this.fiscalDate, this.accountType, this.operationCode, this.operationType, this.icon, this.instrumentCodeType, this.instrumentCode, this.instrumentName, this.titles, this.price, this.amount, this.status});
 
   @override
   String toString() {
-    return date.toString() + ", " + valueDate.toString() + ", " + fiscalDate.toString() + ", " + accountType.toString() + ", " + operationCode.toString() + ", " + operationType.toString() + ", " + icon.toString() + ", " + instrumentCode.toString() + ", " + instrumentName.toString() + ", " + titles.toString() + ", " + price.toString() + ", " + amount.toString() + ", " + status.toString();
+    return date.toString() + ", " + valueDate.toString() + ", " + fiscalDate.toString() + ", " + accountType.toString() + ", " + operationCode.toString() + ", " + operationType.toString() + ", " + icon.toString() + ", " + instrumentCodeType.toString() + ", " + instrumentCode.toString() + ", " + instrumentName.toString() + ", " + titles.toString() + ", " + price.toString() + ", " + amount.toString() + ", " + status.toString();
   }
 }

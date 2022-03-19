@@ -22,6 +22,9 @@ class PageTitle extends StatelessWidget {
       pageTitles[Provider.of<BottomNavigationBarProvider>(context, listen: true)
           .currentIndex],
       style: kTitleTextStyle,
+    overflow: TextOverflow.fade,
+    maxLines: 1,
+    softWrap: false,
     );
   }
 }
