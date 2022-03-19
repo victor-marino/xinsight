@@ -102,7 +102,7 @@ class DistributionChartLegend extends StatelessWidget {
         ),
       );
     }
-    if (portfolioDistribution.containsKey(InstrumentType.cash)) {
+    if (portfolioDistribution.containsKey(InstrumentType.cash) && portfolioDistribution[InstrumentType.cash][ValueType.amount] != 0) {
       legendItems.add(
         Row(
           mainAxisSize: MainAxisSize.min,

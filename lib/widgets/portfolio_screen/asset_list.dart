@@ -144,39 +144,41 @@ class AssetList extends StatelessWidget {
           paddingLeft: 15,
           paddingRight: 15,
         ),
-        SizedBox(height: 20),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 5),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 5),
-                    child: Text(
-                        'portfolio_screen.cash'.tr(),
-                        style: kCardTitleTextStyle
+        if (cashAmount != 0) ... [
+          SizedBox(height: 20),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 5),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(right: 5),
+                      child: Text(
+                          'portfolio_screen.cash'.tr(),
+                          style: kCardTitleTextStyle
+                      ),
                     ),
-                  ),
-                  Expanded(child: Divider()),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 5),
-                    child: Text(
-                      getPercentAsString(cashPercentage),
-                      style: kCardTitleTextStyle,
-                    ),
-                  )
-                ],
-              ),
-              Text(
-                getInvestmentAsString(cashAmount),
-                style: kAssetListAmountTextStyle,
-              ),
-            ],
+                    Expanded(child: Divider()),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 5),
+                      child: Text(
+                        getPercentAsString(cashPercentage),
+                        style: kCardTitleTextStyle,
+                      ),
+                    )
+                  ],
+                ),
+                Text(
+                  getInvestmentAsString(cashAmount),
+                  style: kAssetListAmountTextStyle,
+                ),
+              ],
+            ),
           ),
-        ),
+        ],
       ],
     );
   }
