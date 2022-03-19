@@ -63,45 +63,50 @@ class TransactionTile extends StatelessWidget {
                 color: Colors.blueAccent,
                 size: 20,
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      transactionData.operationType,
-                      textAlign: TextAlign.left,
-                      style: kTransactionListTitleTextStyle,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    RichText(
-                      text: TextSpan(children: [
-                        TextSpan(
-                          text: DateFormat("dd/MM")
-                              .format(transactionData.date)
-                              .replaceAll(".", ""),
-                          style: kCardSubTextStyle.copyWith(
-                            fontSize: 12,
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        transactionData.operationType,
+                        textAlign: TextAlign.left,
+                        style: kTransactionListTitleTextStyle,
+                        maxLines: 1,
+                        softWrap: false,
+                        overflow: TextOverflow.fade,
+                      ),
+                      RichText(
+                        maxLines: 1,
+                        softWrap: false,
+                        overflow: TextOverflow.fade,
+                        text: TextSpan(children: [
+                          TextSpan(
+                            text: DateFormat("dd/MM")
+                                .format(transactionData.date)
+                                .replaceAll(".", ""),
+                            style: kCardSubTextStyle.copyWith(
+                              fontSize: 12,
+                            ),
                           ),
-                        ),
-                        TextSpan(
-                          text: " · " + transactionData.accountType,
-                          style: kCardSubTextStyle.copyWith(
-                            fontSize: 12,
+                          TextSpan(
+                            text: " · " + transactionData.accountType,
+                            style: kCardSubTextStyle.copyWith(
+                              fontSize: 12,
+                            ),
                           ),
-                        ),
-                      ]),
-                    ),
-                  ],
+                        ]),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-              Expanded(
-                child: Text(
-                  transactionData.amount.toStringAsFixed(2) + " €",
-                  textAlign: TextAlign.right,
-                  style: kTransactionListAmountTextStyle.copyWith(
-                      fontWeight: FontWeight.normal),
-                ),
+              Text(
+                transactionData.amount.toStringAsFixed(2) + " €",
+                textAlign: TextAlign.right,
+                style: kTransactionListAmountTextStyle.copyWith(
+                    fontWeight: FontWeight.normal),
               ),
             ],
           ),
