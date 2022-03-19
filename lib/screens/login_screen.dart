@@ -315,28 +315,25 @@ class _LoginScreenState extends State<LoginScreen> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 20),
-                              child: Row(
-                                children: [
-                                  Icon(
-                                    rememberToken
-                                        ? Icons.lock_outline
-                                        : Icons.lock_open,
+                            Row(
+                              children: [
+                                Icon(
+                                  rememberToken
+                                      ? Icons.lock_outline
+                                      : Icons.lock_open,
+                                  color: Colors.black54,
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Text(
+                                  'login_screen.remember_token'.tr(),
+                                  style: TextStyle(
                                     color: Colors.black54,
+                                    fontSize: 16,
                                   ),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  Text(
-                                    'login_screen.remember_token'.tr(),
-                                    style: TextStyle(
-                                      color: Colors.black54,
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
                             Switch(
                               value: rememberToken,
