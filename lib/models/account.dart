@@ -74,10 +74,13 @@ class Account {
         currentInstrumentType = InstrumentType.other;
       }
 
+      // Filter out hyperlinks from descriptions
       if (instrument['instrument']['description'] == "" || instrument['instrument']['description'] == null) {
         currentInstrumentDescription = 'asset_details_popup.description_not_available'.tr();
       } else if (instrument['instrument']['description'].contains(' Código ISIN')) {
         currentInstrumentDescription = instrument['instrument']['description'].split(' Código ISIN')[0];
+      } else if (instrument['instrument']['description'].contains(' <a href')) {
+        currentInstrumentDescription = instrument['instrument']['description'].split(' <a href')[0];
       } else {
         currentInstrumentDescription = instrument['instrument']['description'];
       }
