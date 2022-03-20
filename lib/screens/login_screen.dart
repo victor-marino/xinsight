@@ -27,7 +27,7 @@ class _LoginScreenState extends State<LoginScreen> {
     biometricNotRecognized: "login_screen.user_not_recognized".tr(),
     biometricSuccess: "login_screen.user_authenticated".tr(),
     cancelButton: "login_screen.cancel".tr(),
-    signInTitle: "login_screen.biometric_authentication".tr(),
+    signInTitle: "login_screen.authentication".tr(),
     biometricRequiredTitle: "login_screen.biometrics_required".tr(),
     goToSettingsButton: "login_screen.go_to_settings".tr(),
     goToSettingsDescription: "login_screen.go_to_settings_description".tr(),
