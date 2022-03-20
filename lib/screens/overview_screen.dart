@@ -4,7 +4,10 @@ import '../models/account.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../tools/constants.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:indexax/widgets/overview_screen/account_summary.dart';
+import 'package:expandable/expandable.dart';
+// import 'package:indexax/widgets/overview_screen/account_summary.dart';
+import 'package:indexax/widgets/overview_screen/expanded_account_summary.dart';
+import 'package:indexax/widgets/overview_screen/collapsed_account_summary.dart';
 import 'package:indexax/widgets/reusable_card.dart';
 import 'package:indexax/widgets/overview_screen/distribution_chart.dart';
 import 'package:indexax/widgets/overview_screen/distribution_legend.dart';
@@ -34,7 +37,8 @@ class OverviewScreen extends StatefulWidget {
   _OverviewScreenState createState() => _OverviewScreenState();
 }
 
-class _OverviewScreenState extends State<OverviewScreen> with AutomaticKeepAliveClientMixin<OverviewScreen> {
+class _OverviewScreenState extends State<OverviewScreen>
+    with AutomaticKeepAliveClientMixin<OverviewScreen> {
   // The Mixin keeps state of the page instead of reloading it every time
   // It requires this 'wantKeepAlive', as well as the 'super' in the build method down below
   @override
@@ -97,7 +101,22 @@ class _OverviewScreenState extends State<OverviewScreen> with AutomaticKeepAlive
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: <Widget>[
                         ReusableCard(
-                          childWidget: AccountSummary(accountData: accountData),
+                          childWidget: ExpandableNotifier(
+                            child: ScrollOnExpand(
+                              scrollOnExpand: true,
+                              scrollOnCollapse: true,
+                              child: ExpandablePanel(
+                                collapsed: ExpandableButton(
+                                  child: CollapsedAccountSummary(
+                                      accountData: accountData),
+                                ),
+                                expanded: ExpandableButton(
+                                  child: ExpandedAccountSummary(
+                                      accountData: accountData),
+                                ),
+                              ),
+                            ),
+                          ),
                         ),
                         SizedBox(
                           height: 20,
@@ -131,9 +150,14 @@ class _OverviewScreenState extends State<OverviewScreen> with AutomaticKeepAlive
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                MinimumTransferCard(additionalCashNeededToTrade: widget.accountData.additionalCashNeededToTrade),
+                                MinimumTransferCard(
+                                    additionalCashNeededToTrade: widget
+                                        .accountData
+                                        .additionalCashNeededToTrade),
                                 SizedBox(height: 5),
-                                FeeFreeAmountCard(feeFreeAmount: widget.accountData.feeFreeAmount),
+                                FeeFreeAmountCard(
+                                    feeFreeAmount:
+                                        widget.accountData.feeFreeAmount),
                               ],
                             ),
                             MaterialButton(

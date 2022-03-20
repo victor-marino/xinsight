@@ -238,6 +238,14 @@ TextStyle kAssetListAmountTextStyle = GoogleFonts.ubuntu(
   ),
 );
 
+TextStyle kAccountSummaryCardSubtextStyle = GoogleFonts.roboto(
+  textStyle: TextStyle(
+    color: Colors.black38,
+    fontSize: 14.0,
+    fontWeight: FontWeight.bold,
+  ),
+);
+
 TextStyle kMinimumTransferCardTextStyle = GoogleFonts.roboto(
   textStyle: TextStyle(
     color: Colors.black54,
