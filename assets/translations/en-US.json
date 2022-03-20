@@ -36,7 +36,8 @@
     "remember_token": "Remember token",
     "forget_token_popup_title": "Forget token?",
     "forget_token_popup_cancel_button": "Cancel",
-    "forget_token_popup_ok_button": "OK"
+    "forget_token_popup_ok_button": "OK",
+    "screen_lock_required": "An active screen lock must be enabled to store the token locally."
   },
   "overview_screen": {
     "distribution": "DISTRIBUTION"

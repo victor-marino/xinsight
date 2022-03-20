@@ -40,21 +40,27 @@ class _LoginScreenState extends State<LoginScreen> {
   );
 
   Future supportsBiometrics() async {
-    bool supportsBiometrics = false;
+    //return true;
+    //bool supportsBiometrics = false;
+    bool isDeviceSupported = false;
     try {
       print("Checking support...");
-      supportsBiometrics = await localAuthentication.canCheckBiometrics;
+      //supportsBiometrics = await localAuthentication.canCheckBiometrics;
+      isDeviceSupported = await localAuthentication.isDeviceSupported();
     } on Exception catch (e) {
       print(e);
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(e.toString()),
       ));
     }
-    supportsBiometrics
+//    (supportsBiometrics && isDeviceSupported)
+    (isDeviceSupported)
+
         ? print("Biometrics supported")
         : print("Biometrics not supported");
 
-    return supportsBiometrics;
+    //return (supportsBiometrics && isDeviceSupported);
+    return isDeviceSupported;
   }
 
   void enableRememberToken() async {
@@ -130,10 +136,14 @@ class _LoginScreenState extends State<LoginScreen> {
           localizedReason: "login_screen.please_authenticate".tr(),
           useErrorDialogs: true,
           stickyAuth: true,
+          biometricOnly: false,
         );
       } else {
         print("Biometrics not supported");
         isAuthenticated = false;
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text("login_screen.screen_lock_required".tr()),
+      ));
       }
     } on Exception catch (e) {
       print(e);
