@@ -87,6 +87,38 @@ class _EvolutionScreenState extends State<EvolutionScreen>
     profitLossYearDropdownItems.sort((b, a) => a.value.compareTo(b.value));
   }
 
+  List<Map> chipData = [
+    {"label": "evolution_screen.1m".tr(), "duration": Duration(days: 30)},
+    {"label": "evolution_screen.3m".tr(), "duration": Duration(days: 90)},
+    {"label": "evolution_screen.6m".tr(), "duration": Duration(days: 180)},
+    {"label": "evolution_screen.1y".tr(), "duration": Duration(days: 365)},
+    {"label": "evolution_screen.5y".tr(), "duration": Duration(days: 1825)},
+    {"label": "evolution_screen.all".tr(), "duration": null},
+  ];
+  
+  List<ChoiceChip> buildEvolutionChartChipList(List<Map> chipData) {
+    List<ChoiceChip> chipList = [];
+    for (Map element in chipData) {
+      chipList.add(
+        ChoiceChip(
+          label: Text(element['label'], style: kChipTextStyle),
+          autofocus: false,
+          clipBehavior: Clip.none,
+          elevation: 0,
+          pressElevation: 0,
+          visualDensity: VisualDensity.compact,
+          selected: currentPeriod == element['duration'],
+          onSelected: (bool selected) {
+            setState(() {
+              reloadAmountsChart(element['duration']);
+            });
+          },
+        ),
+      );
+    }
+    return chipList;
+  }
+
   @override
   Widget build(BuildContext context) {
     // This super call is required for the Mixin that keeps the page state
@@ -108,6 +140,7 @@ class _EvolutionScreenState extends State<EvolutionScreen>
                     child: Column(
                       children: <Widget>[
                         ReusableCard(
+                          paddingBottom: 8,
                           childWidget: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -121,103 +154,14 @@ class _EvolutionScreenState extends State<EvolutionScreen>
                                   amountsSeries: accountData.amountsSeries,
                                   period: currentPeriod),
                               Container(
-                                  width: double.infinity,
-                                  child: Wrap(
-                                    direction: Axis.horizontal,
-                                    alignment: WrapAlignment.spaceBetween,
-                                    spacing: 3,
-                                    children: [
-                                      RawChip(
-                                        label: Text('evolution_screen.1m'.tr(),
-                                            style: kChipTextStyle),
-                                        autofocus: false,
-                                        clipBehavior: Clip.none,
-                                        elevation: 0,
-                                        pressElevation: 0,
-                                        visualDensity: VisualDensity.compact,
-                                        onPressed: () {
-                                          setState(() {
-                                            reloadAmountsChart(
-                                                Duration(days: 30));
-                                          });
-                                        },
-                                      ),
-                                      RawChip(
-                                        label: Text('evolution_screen.3m'.tr(),
-                                            style: kChipTextStyle),
-                                        autofocus: false,
-                                        clipBehavior: Clip.none,
-                                        elevation: 0,
-                                        pressElevation: 0,
-                                        visualDensity: VisualDensity.compact,
-                                        onPressed: () {
-                                          setState(() {
-                                            reloadAmountsChart(
-                                                Duration(days: 90));
-                                          });
-                                        },
-                                      ),
-                                      RawChip(
-                                        label: Text('evolution_screen.6m'.tr(),
-                                            style: kChipTextStyle),
-                                        autofocus: false,
-                                        clipBehavior: Clip.none,
-                                        elevation: 0,
-                                        pressElevation: 0,
-                                        visualDensity: VisualDensity.compact,
-                                        onPressed: () {
-                                          setState(() {
-                                            reloadAmountsChart(
-                                                Duration(days: 180));
-                                          });
-                                        },
-                                      ),
-                                      RawChip(
-                                        label: Text('evolution_screen.1y'.tr(),
-                                            style: kChipTextStyle),
-                                        autofocus: false,
-                                        clipBehavior: Clip.none,
-                                        elevation: 0,
-                                        pressElevation: 0,
-                                        visualDensity: VisualDensity.compact,
-                                        onPressed: () {
-                                          setState(() {
-                                            reloadAmountsChart(
-                                                Duration(days: 365));
-                                          });
-                                        },
-                                      ),
-                                      RawChip(
-                                        label: Text('evolution_screen.5y'.tr(),
-                                            style: kChipTextStyle),
-                                        autofocus: false,
-                                        clipBehavior: Clip.none,
-                                        elevation: 0,
-                                        pressElevation: 0,
-                                        visualDensity: VisualDensity.compact,
-                                        onPressed: () {
-                                          setState(() {
-                                            reloadAmountsChart(
-                                                Duration(days: 1825));
-                                          });
-                                        },
-                                      ),
-                                      RawChip(
-                                        label: Text('evolution_screen.all'.tr(),
-                                            style: kChipTextStyle),
-                                        autofocus: false,
-                                        clipBehavior: Clip.none,
-                                        elevation: 0,
-                                        pressElevation: 0,
-                                        visualDensity: VisualDensity.compact,
-                                        onPressed: () {
-                                          setState(() {
-                                            reloadAmountsChart();
-                                          });
-                                        },
-                                      ),
-                                    ],
-                                  )),
+                                width: double.infinity,
+                                child: Wrap(
+                                  direction: Axis.horizontal,
+                                  alignment: WrapAlignment.spaceBetween,
+                                  spacing: 3,
+                                  children: buildEvolutionChartChipList(chipData),
+                                ),
+                              ),
                             ],
                           ),
                         ),
