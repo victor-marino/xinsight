@@ -43,7 +43,10 @@
   },
   "account_summary": {
     "value": "VALUE",
-    "return": "RETURN"
+    "return": "RETURN",
+    "annual": "annual",
+    "volatility": "VOLATILITY",
+    "sharpe": "SHARPE"
   },
   "minimum_transfer_card": {
     "minimum_transfer_to_invest": "Minimum deposit to invest"
@@ -95,7 +98,12 @@
   },
   "evolution_screen": {
     "evolution": "EVOLUTION",
-    "zoom_hint": "Pinch to zoom",
+    "1m": "1m",
+    "3m": "3m",
+    "6m": "6m",
+    "1y": "1y",
+    "5y": "5y",
+    "all": "All",
     "returns": "RETURNS"
   },
   "amounts_chart": {

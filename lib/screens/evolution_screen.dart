@@ -28,7 +28,8 @@ class EvolutionScreen extends StatefulWidget {
   _EvolutionScreenState createState() => _EvolutionScreenState();
 }
 
-class _EvolutionScreenState extends State<EvolutionScreen> with AutomaticKeepAliveClientMixin<EvolutionScreen> {
+class _EvolutionScreenState extends State<EvolutionScreen>
+    with AutomaticKeepAliveClientMixin<EvolutionScreen> {
   // The Mixin keeps state of the page instead of reloading it every time
   // It requires this 'wantKeepAlive', as well as the 'super' in the build method down below
   @override
@@ -37,6 +38,7 @@ class _EvolutionScreenState extends State<EvolutionScreen> with AutomaticKeepAli
   int currentPage = 1;
   Account accountData;
   Function refreshData;
+  Duration currentPeriod;
   int currentAccountNumber;
   int currentYear;
   List<DropdownMenuItem> profitLossYearDropdownItems = [];
@@ -59,6 +61,12 @@ class _EvolutionScreenState extends State<EvolutionScreen> with AutomaticKeepAli
     _refreshController.refreshCompleted();
   }
 
+  void reloadAmountsChart([Duration period]) {
+    setState(() {
+      currentPeriod = period;
+    });
+  }
+
   void reloadProfitLossChart(int year) {
     setState(() {
       currentYear = year;
@@ -73,7 +81,8 @@ class _EvolutionScreenState extends State<EvolutionScreen> with AutomaticKeepAli
 
     currentYear = accountData.profitLossSeries.keys.toList().last;
     accountData.profitLossSeries.forEach((key, value) {
-      profitLossYearDropdownItems.add(DropdownMenuItem(child: Text(key.toString()), value: key));
+      profitLossYearDropdownItems
+          .add(DropdownMenuItem(child: Text(key.toString()), value: key));
     });
     profitLossYearDropdownItems.sort((b, a) => a.value.compareTo(b.value));
   }
@@ -109,15 +118,106 @@ class _EvolutionScreenState extends State<EvolutionScreen> with AutomaticKeepAli
                                 style: kCardTitleTextStyle,
                               ),
                               AmountsChart(
-                                  amountsSeries: accountData.amountsSeries),
+                                  amountsSeries: accountData.amountsSeries,
+                                  period: currentPeriod),
                               Container(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  'evolution_screen.zoom_hint'.tr(),
-                                  textAlign: TextAlign.center,
-                                  style: kCardSubTextStyle,
-                                ),
-                              ),
+                                  width: double.infinity,
+                                  child: Wrap(
+                                    direction: Axis.horizontal,
+                                    alignment: WrapAlignment.spaceBetween,
+                                    spacing: 3,
+                                    children: [
+                                      RawChip(
+                                        label: Text('evolution_screen.1m'.tr(),
+                                            style: kChipTextStyle),
+                                        autofocus: false,
+                                        clipBehavior: Clip.none,
+                                        elevation: 0,
+                                        pressElevation: 0,
+                                        visualDensity: VisualDensity.compact,
+                                        onPressed: () {
+                                          setState(() {
+                                            reloadAmountsChart(
+                                                Duration(days: 30));
+                                          });
+                                        },
+                                      ),
+                                      RawChip(
+                                        label: Text('evolution_screen.3m'.tr(),
+                                            style: kChipTextStyle),
+                                        autofocus: false,
+                                        clipBehavior: Clip.none,
+                                        elevation: 0,
+                                        pressElevation: 0,
+                                        visualDensity: VisualDensity.compact,
+                                        onPressed: () {
+                                          setState(() {
+                                            reloadAmountsChart(
+                                                Duration(days: 90));
+                                          });
+                                        },
+                                      ),
+                                      RawChip(
+                                        label: Text('evolution_screen.6m'.tr(),
+                                            style: kChipTextStyle),
+                                        autofocus: false,
+                                        clipBehavior: Clip.none,
+                                        elevation: 0,
+                                        pressElevation: 0,
+                                        visualDensity: VisualDensity.compact,
+                                        onPressed: () {
+                                          setState(() {
+                                            reloadAmountsChart(
+                                                Duration(days: 180));
+                                          });
+                                        },
+                                      ),
+                                      RawChip(
+                                        label: Text('evolution_screen.1y'.tr(),
+                                            style: kChipTextStyle),
+                                        autofocus: false,
+                                        clipBehavior: Clip.none,
+                                        elevation: 0,
+                                        pressElevation: 0,
+                                        visualDensity: VisualDensity.compact,
+                                        onPressed: () {
+                                          setState(() {
+                                            reloadAmountsChart(
+                                                Duration(days: 365));
+                                          });
+                                        },
+                                      ),
+                                      RawChip(
+                                        label: Text('evolution_screen.5y'.tr(),
+                                            style: kChipTextStyle),
+                                        autofocus: false,
+                                        clipBehavior: Clip.none,
+                                        elevation: 0,
+                                        pressElevation: 0,
+                                        visualDensity: VisualDensity.compact,
+                                        onPressed: () {
+                                          setState(() {
+                                            reloadAmountsChart(
+                                                Duration(days: 1825));
+                                          });
+                                        },
+                                      ),
+                                      RawChip(
+                                        label: Text('evolution_screen.all'.tr(),
+                                            style: kChipTextStyle),
+                                        autofocus: false,
+                                        clipBehavior: Clip.none,
+                                        elevation: 0,
+                                        pressElevation: 0,
+                                        visualDensity: VisualDensity.compact,
+                                        onPressed: () {
+                                          setState(() {
+                                            reloadAmountsChart();
+                                          });
+                                        },
+                                      ),
+                                    ],
+                                  )),
                             ],
                           ),
                         ),
@@ -130,21 +230,28 @@ class _EvolutionScreenState extends State<EvolutionScreen> with AutomaticKeepAli
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
                                     'evolution_screen.returns'.tr(),
                                     textAlign: TextAlign.left,
                                     style: kCardTitleTextStyle,
                                   ),
-                                  buildProfitLossYearSwitcher(profitLossYearDropdownItems: profitLossYearDropdownItems, currentYear: currentYear, reloadProfitLossChart: reloadProfitLossChart),
+                                  buildProfitLossYearSwitcher(
+                                      profitLossYearDropdownItems:
+                                          profitLossYearDropdownItems,
+                                      currentYear: currentYear,
+                                      reloadProfitLossChart:
+                                          reloadProfitLossChart),
                                 ],
                               ),
                               Container(
                                 height: 150,
                                 child: ProfitLossChart(
                                     profitLossSeries:
-                                        accountData.profitLossSeries, currentYear: currentYear),
+                                        accountData.profitLossSeries,
+                                    currentYear: currentYear),
                               ),
                             ],
                           ),

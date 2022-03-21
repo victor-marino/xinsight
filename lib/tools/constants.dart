@@ -102,6 +102,14 @@ TextStyle kLoginErrorsTextStyle = GoogleFonts.roboto(
   ),
 );
 
+TextStyle kChipTextStyle = GoogleFonts.roboto(
+  textStyle: TextStyle(
+    color: Colors.black,
+    fontWeight: FontWeight.bold,
+    fontSize: 12.0,
+  ),
+);
+
 TextStyle kAccountSwitcherTextStyle = GoogleFonts.roboto(
   textStyle: TextStyle(
     color: Colors.black,

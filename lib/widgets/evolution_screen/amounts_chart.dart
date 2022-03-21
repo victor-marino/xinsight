@@ -9,12 +9,25 @@ class AmountsChart extends StatelessWidget {
   const AmountsChart({
     Key key,
     @required this.amountsSeries,
+    this.period,
   }) : super(key: key);
 
   final List<AmountsDataPoint> amountsSeries;
+  final Duration period;
 
   @override
   Widget build(BuildContext context) {
+    
+    DateTime startDate;
+    
+    if (period == null) {
+      startDate = amountsSeries[0].date;
+    } else if (amountsSeries.last.date.subtract(period).isBefore(amountsSeries[0].date)) {
+      startDate = amountsSeries[0].date;
+    } else {
+      startDate = amountsSeries.last.date.subtract(period);
+    }
+    
     final List<Color> color = <Color>[];
     color.add(Colors.white);
     color.add(Colors.blue);
@@ -29,10 +42,9 @@ class AmountsChart extends StatelessWidget {
     return SfCartesianChart(
       margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
       primaryYAxis: NumericAxis(
-        labelFormat: '{value} €',
-      labelStyle: kProfitLossChartLabelTextStyle),
+          labelFormat: '{value} €', labelStyle: kProfitLossChartLabelTextStyle),
       tooltipBehavior: TooltipBehavior(
-          elevation: 10,
+        elevation: 10,
       ),
       trackballBehavior: TrackballBehavior(
         enable: true,
@@ -47,9 +59,9 @@ class AmountsChart extends StatelessWidget {
       ),
       zoomPanBehavior: ZoomPanBehavior(
           // Enables pinch zooming
-          enablePinching: true,
+          enablePinching: false,
           zoomMode: ZoomMode.x,
-          enablePanning: true),
+          enablePanning: false),
       palette: <Color>[
         Colors.blue,
         Colors.black,
@@ -61,13 +73,14 @@ class AmountsChart extends StatelessWidget {
           itemPadding: 10),
       // Initialize DateTime axis
       primaryXAxis: DateTimeAxis(
-        minimum: DateTime(amountsSeries[0].date.year, 01),
+        //minimum: DateTime(amountsSeries[0].date.year, 01),
+        minimum: startDate,
         dateFormat: DateFormat("dd/MM/yyyy"),
         labelStyle: kProfitLossChartLabelTextStyle,
         intervalType: DateTimeIntervalType.months,
         majorGridLines: MajorGridLines(
-            width: 1,
-            color: Colors.black12,
+          width: 1,
+          color: Colors.black12,
         ),
         enableAutoIntervalOnZooming: true,
       ),

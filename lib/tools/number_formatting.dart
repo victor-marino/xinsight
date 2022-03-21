@@ -49,7 +49,7 @@ String getPLAsString(num number) {
 
 String getPercentAsString(num number) {
   String numberString = NumberFormat.decimalPercentPattern(locale: getCurrentLocale(), decimalDigits: 1).format(number);
-  return numberString;
+  return numberString.substring(0, numberString.length-2) + "%";
 }
 
 String getWholePercentWithoutPercentSignAsString(num number) {
@@ -65,7 +65,7 @@ String getPLPercentAsString(num number) {
   } else {
     numberString = '+' + NumberFormat.decimalPercentPattern(locale: getCurrentLocale(), decimalDigits: 1).format(number);
   }
-  return numberString;
+  return numberString.substring(0, numberString.length-2) + "%";
 }
 
 String getWholePLPercentAsString(num number) {
@@ -87,7 +87,8 @@ String getFractionalPLPercentAsString(num number) {
   } else {
     numberString = '+' + NumberFormat.decimalPercentPattern(locale: getCurrentLocale(), decimalDigits: 1).format(number);
   }
-  return numberString.split(numberFormatSymbols[getCurrentLocale()]?.DECIMAL_SEP ?? "")[1];
+  numberString = numberString.split(numberFormatSymbols[getCurrentLocale()]?.DECIMAL_SEP ?? "")[1];
+  return numberString.substring(0, numberString.length-2) + "%";
 }
 
 String getDecimalSeparator() {

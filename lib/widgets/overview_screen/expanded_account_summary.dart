@@ -128,7 +128,7 @@ class ExpandedAccountSummary extends StatelessWidget {
                                   text: "(" +
                                       getPLPercentAsString(
                                           accountData.timeReturnAnnual) +
-                                      " anual)",
+                                      " " + 'account_summary.annual'.tr() + ")",
                                   style: kAccountSummaryCardSubtextStyle,
                                 ),
                               ]),
@@ -198,7 +198,7 @@ class ExpandedAccountSummary extends StatelessWidget {
                                   text: "(" +
                                       getPLPercentAsString(
                                           accountData.moneyReturnAnnual) +
-                                      " anual)",
+                                      " " + 'account_summary.annual'.tr() + ")",
                                   style: kAccountSummaryCardSubtextStyle,
                                 ),
                               ]),
@@ -237,7 +237,7 @@ class ExpandedAccountSummary extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                'VOLATILIDAD',
+                                'account_summary.volatility'.tr(),
                                 textAlign: TextAlign.left,
                                 style: kCardTitleTextStyle,
                               ),
@@ -279,7 +279,7 @@ class ExpandedAccountSummary extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                'SHARPE',
+                                'account_summary.sharpe'.tr(),
                                 textAlign: TextAlign.left,
                                 style: kCardTitleTextStyle,
                               ),

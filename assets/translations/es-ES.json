@@ -43,7 +43,10 @@
   },
   "account_summary": {
     "value": "VALOR",
-    "return": "RENTABILIDAD"
+    "return": "RENTABILIDAD",
+    "annual": "anual",
+    "volatility": "VOLATILIDAD",
+    "sharpe": "SHARPE"
   },
   "minimum_transfer_card": {
     "minimum_transfer_to_invest": "Aportación mínima para invertir"
@@ -94,7 +97,12 @@
   },
   "evolution_screen": {
     "evolution": "EVOLUCIÓN",
-    "zoom_hint": "Toca con dos dedos para ampliar",
+    "1m": "1m",
+    "3m": "3m",
+    "6m": "6m",
+    "1y": "1a",
+    "5y": "5a",
+    "all": "Todo",
     "returns": "RENTABILIDADES"
   },
   "amounts_chart": {
