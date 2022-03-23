@@ -8,6 +8,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:indexax/widgets/login_screen/token_instructions_popup.dart';
 import 'package:indexax/widgets/login_screen/forget_token_popup.dart';
+import 'package:indexax/widgets/circular_progress_indicator.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -55,7 +56,6 @@ class _LoginScreenState extends State<LoginScreen> {
     }
 //    (supportsBiometrics && isDeviceSupported)
     (isDeviceSupported)
-
         ? print("Biometrics supported")
         : print("Biometrics not supported");
 
@@ -109,16 +109,20 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Future<bool> validateToken({String token}) async {
+    buildLoading(context);
     IndexaData indexaData = IndexaData(token: token);
     try {
       var userAccounts = await indexaData.getUserAccounts();
       if (userAccounts != null) {
         print("Token authenticated!");
+        Navigator.of(context).pop();
         return true;
       } else {
+        Navigator.of(context).pop();
         return false;
       }
     } on Exception catch (e) {
+      Navigator.of(context).pop();
       print(e);
       throw (e);
     }
@@ -142,8 +146,8 @@ class _LoginScreenState extends State<LoginScreen> {
         print("Biometrics not supported");
         isAuthenticated = false;
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text("login_screen.screen_lock_required".tr()),
-      ));
+          content: Text("login_screen.screen_lock_required".tr()),
+        ));
       }
     } on Exception catch (e) {
       print(e);

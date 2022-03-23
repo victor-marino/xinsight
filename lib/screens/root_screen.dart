@@ -14,6 +14,7 @@ import '../tools/bottom_navigation_bar_provider.dart';
 import '../widgets/bottom_navigation_bar.dart';
 import '../widgets/page_header.dart';
 import '../widgets/settings_popup_menu.dart';
+import 'package:indexax/widgets/circular_progress_indicator.dart';
 
 class RootScreen extends StatefulWidget {
   RootScreen({
@@ -80,7 +81,6 @@ class _RootScreenState extends State<RootScreen> {
   }
 
   void loadSettingsScreen() {
-    print("Loading settings...");
     Navigator.push(context,
         MaterialPageRoute(builder: (BuildContext context) => SettingsScreen()));
   }
@@ -99,18 +99,20 @@ class _RootScreenState extends State<RootScreen> {
     IndexaData indexaData = IndexaData(token: token);
     try {
       var userAccounts = await indexaData.getUserAccounts();
-      var currentAccountInfo =
-          await indexaData.getAccountInfo(userAccounts[accountNumber]['number']);
+      var currentAccountInfo = await indexaData
+          .getAccountInfo(userAccounts[accountNumber]['number']);
       var currentAccountPerformanceData = await indexaData
           .getAccountPerformanceData(userAccounts[accountNumber]['number']);
-      var currentAccountPortfolioData =
-          await indexaData.getAccountPortfolioData(userAccounts[accountNumber]['number']);
-      var currentAccountInstrumentTransactionData = await indexaData
-          .getAccountInstrumentTransactionData(userAccounts[accountNumber]['number']);
+      var currentAccountPortfolioData = await indexaData
+          .getAccountPortfolioData(userAccounts[accountNumber]['number']);
+      var currentAccountInstrumentTransactionData =
+          await indexaData.getAccountInstrumentTransactionData(
+              userAccounts[accountNumber]['number']);
       var currentAccountCashTransactionData = await indexaData
           .getAccountCashTransactionData(userAccounts[accountNumber]['number']);
-      var currentAccountPendingTransactionData = await indexaData
-          .getAccountPendingTransactionData(userAccounts[accountNumber]['number']);
+      var currentAccountPendingTransactionData =
+          await indexaData.getAccountPendingTransactionData(
+              userAccounts[accountNumber]['number']);
       currentAccount = Account(
           accountInfo: currentAccountInfo,
           accountPerformanceData: currentAccountPerformanceData,
