@@ -12,10 +12,8 @@ import '../services/indexa_data.dart';
 import 'package:provider/provider.dart';
 import '../tools/bottom_navigation_bar_provider.dart';
 import '../widgets/bottom_navigation_bar.dart';
-import '../widgets/build_account_switcher.dart';
-import '../models/account_dropdown_items.dart';
-import '../widgets/settings_button.dart';
-import '../widgets/page_title.dart';
+import '../widgets/page_header.dart';
+import '../widgets/settings_popup_menu.dart';
 
 class RootScreen extends StatefulWidget {
   RootScreen({
@@ -28,7 +26,7 @@ class RootScreen extends StatefulWidget {
   final String token;
   final int accountNumber;
   final int pageNumber;
-  final List<String> previousUserAccounts;
+  final List<Map<String, String>> previousUserAccounts;
 
   @override
   _RootScreenState createState() => _RootScreenState();
@@ -37,24 +35,25 @@ class RootScreen extends StatefulWidget {
 class _RootScreenState extends State<RootScreen> {
   PageController _pageController;
 
-  List<String> userAccounts = [];
+  List<Map<String, String>> userAccounts = [];
+  Account currentAccount;
   Future<Account> accountData;
 
-  List<DropdownMenuItem> dropdownItems =
-      AccountDropdownItems(userAccounts: [""]).dropdownItems;
+  // List<DropdownMenuItem> dropdownItems =
+  //     AccountDropdownItems(userAccounts: [""]).dropdownItems;
 
   bool reloading = false;
 
   Future<void> loadData(int accountNumber) async {
     userAccounts = await getUserAccounts(widget.token);
     setState(() {
-      accountData = getAccountData(widget.token, accountNumber);
+      accountData = getAccountData(widget.token, accountNumber, currentAccount);
     });
     return accountData;
   }
 
   Future<void> refreshData(int accountNumber) {
-    accountData = getAccountData(widget.token, accountNumber);
+    accountData = getAccountData(widget.token, accountNumber, currentAccount);
     return accountData;
   }
 
@@ -81,50 +80,53 @@ class _RootScreenState extends State<RootScreen> {
   }
 
   void loadSettingsScreen() {
-    Navigator.pushReplacement(context,
+    print("Loading settings...");
+    Navigator.push(context,
         MaterialPageRoute(builder: (BuildContext context) => SettingsScreen()));
   }
 
-  Future<List<String>> getUserAccounts(String token) async {
+  Future<List<Map<String, String>>> getUserAccounts(String token) async {
     IndexaData indexaData = IndexaData(token: token);
     var userAccounts = await indexaData.getUserAccounts();
-    dropdownItems =
-        AccountDropdownItems(userAccounts: userAccounts).dropdownItems;
+    // dropdownItems =
+    //     AccountDropdownItems(userAccounts: userAccounts).dropdownItems;
     return userAccounts;
   }
 
-  static Future<Account> getAccountData(String token, int accountNumber) async {
-    Account currentAccount;
+  static Future<Account> getAccountData(
+      String token, int accountNumber, Account currentAccount) async {
+    //Account currentAccount;
     IndexaData indexaData = IndexaData(token: token);
     try {
       var userAccounts = await indexaData.getUserAccounts();
       var currentAccountInfo =
-          await indexaData.getAccountInfo(userAccounts[accountNumber]);
-      var currentAccountPerformanceData =
-          await indexaData.getAccountPerformanceData(userAccounts[accountNumber]);
+          await indexaData.getAccountInfo(userAccounts[accountNumber]['number']);
+      var currentAccountPerformanceData = await indexaData
+          .getAccountPerformanceData(userAccounts[accountNumber]['number']);
       var currentAccountPortfolioData =
-          await indexaData.getAccountPortfolioData(userAccounts[accountNumber]);
-      var currentAccountInstrumentTransactionData =
-          await indexaData.getAccountInstrumentTransactionData(userAccounts[accountNumber]);
-      var currentAccountCashTransactionData =
-          await indexaData.getAccountCashTransactionData(userAccounts[accountNumber]);
-      var currentAccountPendingTransactionData =
-          await indexaData.getAccountPendingTransactionData(userAccounts[accountNumber]);
+          await indexaData.getAccountPortfolioData(userAccounts[accountNumber]['number']);
+      var currentAccountInstrumentTransactionData = await indexaData
+          .getAccountInstrumentTransactionData(userAccounts[accountNumber]['number']);
+      var currentAccountCashTransactionData = await indexaData
+          .getAccountCashTransactionData(userAccounts[accountNumber]['number']);
+      var currentAccountPendingTransactionData = await indexaData
+          .getAccountPendingTransactionData(userAccounts[accountNumber]['number']);
       currentAccount = Account(
           accountInfo: currentAccountInfo,
           accountPerformanceData: currentAccountPerformanceData,
           accountPortfolioData: currentAccountPortfolioData,
-          accountInstrumentTransactionData: currentAccountInstrumentTransactionData,
+          accountInstrumentTransactionData:
+              currentAccountInstrumentTransactionData,
           accountCashTransactionData: currentAccountCashTransactionData,
           accountPendingTransactionData: currentAccountPendingTransactionData);
 
-      // print(currentAccount);
+      //print(currentAccount);
 
       return currentAccount;
     } on Exception catch (e) {
       print("Couldn't fetch account data");
       print(e);
-      throw(e);
+      throw (e);
     }
   }
 
@@ -133,9 +135,9 @@ class _RootScreenState extends State<RootScreen> {
     super.initState();
     if (widget.previousUserAccounts != null) {
       userAccounts = widget.previousUserAccounts;
-      dropdownItems =
-          AccountDropdownItems(userAccounts: widget.previousUserAccounts)
-              .dropdownItems;
+      // dropdownItems =
+      //     AccountDropdownItems(userAccounts: widget.previousUserAccounts)
+      //         .dropdownItems;
     }
     loadData(widget.accountNumber);
     _pageController =
@@ -150,40 +152,46 @@ class _RootScreenState extends State<RootScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle(
           statusBarColor: Theme.of(context).canvasColor,
           statusBarBrightness: Brightness.light, // iOS
           statusBarIconBrightness: Brightness.dark), // Android
-      child: Scaffold(
-        appBar: AppBar(
-          titleSpacing: 20,
-          backgroundColor: Theme.of(context).canvasColor,
-          foregroundColor: Theme.of(context).canvasColor,
-          elevation: 0,
-          toolbarHeight: 100,
-          title: PageTitle(),
-          actions: <Widget>[
-            buildAccountSwitcher(
-                currentAccountNumber: widget.accountNumber,
-                currentPage: widget.pageNumber,
-                accountDropdownItems: dropdownItems,
-                reloadPage: reloadPage),
-            SettingsButton(),
-            SizedBox(width: 10)
-          ],
-        ),
-        body: FutureBuilder<Account>(
-          future: accountData,
-          builder: (BuildContext context, AsyncSnapshot<Account> snapshot) {
-            Widget child;
-            if (snapshot.connectionState == ConnectionState.done) {
-              reloading = false;
-            }
-            if (snapshot.hasData) {
-              print(userAccounts);
-              child = PageView(
+      child: FutureBuilder<Account>(
+        future: accountData,
+        builder: (BuildContext context, AsyncSnapshot<Account> snapshot) {
+          Widget child;
+          if (snapshot.connectionState == ConnectionState.done) {
+            reloading = false;
+          }
+          if (snapshot.hasData) {
+            print(userAccounts.toString());
+            child = Scaffold(
+              appBar: AppBar(
+                titleSpacing: 20,
+                backgroundColor: Theme.of(context).canvasColor,
+                foregroundColor: Theme.of(context).canvasColor,
+                elevation: 0,
+                toolbarHeight: 100,
+                title: PageHeader(
+                    accountNumber: snapshot.data.accountNumber,
+                    accountType: snapshot.data.type),
+                actions: <Widget>[
+                  // buildAccountSwitcher(
+                  //     currentAccountNumber: widget.accountNumber,
+                  //     currentPage: widget.pageNumber,
+                  //     accountDropdownItems: dropdownItems,
+                  //     reloadPage: reloadPage),
+                  SettingsPopupMenu(
+                      userAccounts: userAccounts,
+                      currentAccountNumber: widget.accountNumber,
+                      currentPage: widget.pageNumber,
+                      reloadPage: reloadPage),
+                  //SettingsButton(),
+                  SizedBox(width: 10)
+                ],
+              ),
+              body: PageView(
                 controller: _pageController,
                 children: <Widget>[
                   OverviewScreen(
@@ -222,37 +230,38 @@ class _RootScreenState extends State<RootScreen> {
                           listen: false)
                       .currentIndex = page;
                 },
-              );
-            } else if (snapshot.hasError) {
-              print(snapshot.error);
-              if (reloading) {
-                child = Center(child: CircularProgressIndicator());
-              } else {
-                child = Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Icon(Icons.error_outline),
-                      Text(snapshot.error.toString()),
-                      MaterialButton(
-                        child: Text(
-                          'retry'.tr(),
-                        ),
-                        color: Colors.blue,
-                        textColor: Colors.white,
-                        onPressed: reloadData,
-                      )
-                    ],
-                  ),
-                );
-              }
-            } else {
+              ),
+              bottomNavigationBar:
+                  MyBottomNavigationBar(onTapped: _onTappedBar),
+            );
+          } else if (snapshot.hasError) {
+            print(snapshot.error);
+            if (reloading) {
               child = Center(child: CircularProgressIndicator());
+            } else {
+              child = Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Icon(Icons.error_outline),
+                    Text(snapshot.error.toString()),
+                    MaterialButton(
+                      child: Text(
+                        'retry'.tr(),
+                      ),
+                      color: Colors.blue,
+                      textColor: Colors.white,
+                      onPressed: reloadData,
+                    )
+                  ],
+                ),
+              );
             }
-            return child;
-          },
-        ),
-        bottomNavigationBar: MyBottomNavigationBar(onTapped: _onTappedBar),
+          } else {
+            child = Center(child: CircularProgressIndicator());
+          }
+          return child;
+        },
       ),
     );
   }

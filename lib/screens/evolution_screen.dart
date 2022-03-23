@@ -19,7 +19,7 @@ class EvolutionScreen extends StatefulWidget {
     this.currentAccountNumber,
   }) : super(key: key);
   final Account accountData;
-  final List<String> userAccounts;
+  final List<Map<String, String>> userAccounts;
   final Function refreshData;
   final Function reloadPage;
   final int currentAccountNumber;

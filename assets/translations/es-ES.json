@@ -1,5 +1,4 @@
 {
-  "app_title": "Título de la app",
   "page_titles": {
     "overview": "Resumen",
     "portfolio": "Cartera",
@@ -8,8 +7,15 @@
     "projection": "Proyección",
     "settings": "Opciones"
   },
-  "account_switcher": {
-    "account": "Cuenta"
+  "header": {
+    "account": "Cuenta",
+    "accounts": "Cuentas",
+    "mutual_account": "Cartera de fondos",
+    "pension_account": "Plan de pensiones",
+    "epsv_account": "EPSV",
+    "employment_plan_account": "Plan de pensiones de empresa",
+    "settings": "@:page_titles.settings",
+    "logout": "@:settings_screen.logout"
   },
   "login_screen": {
     "for": "para",
@@ -174,14 +180,14 @@
     "text2": "\n\nPara acceder a los datos de tu cuenta, se utiliza la ",
     "text3": "API oficial",
     "text4": " proporcionada por Indexa Capital. Esta API sólo permite operaciones de lectura (métodos GET), por lo que no puede operar con tu cuenta ni ordenar ningún movimiento.",
-    "text5": "\n\nLa aplicación no recoge ni almacena ningún tipo de información sobre tu cuenta, salvo tu token de acceso si así lo deseas. El token se almacena en tu disposiivo de forma segura y encriptada por medio de la librería ",
+    "text5": "\n\nLa aplicación no recoge ni almacena ningún tipo de información sobre tu cuenta, salvo tu token de acceso si así lo indicas. El token se almacena en tu disposiivo de forma segura y encriptada por medio de la librería ",
     "text6": ", y sólo se utiliza para indentificarte contra los servidores de Indexa Capital. Nunca se envía ni almacena en ningún otro servidor.",
     "text7": "\n\nPuedes eliminar el token de tu dispositivo en cualquier momento cerrando la sesión.",
     "for": "@:login_screen.for"
   },
   "logout_popup": {
     "title": "¿Cerrar sesión?",
-    "text": "Deberás volver a introducir tu token para entrar",
+    "text": "Tu token se eliminará de este dispositivo",
     "cancel_button": "Cancelar",
     "logout_button": "Cerrar sesión"
   },
