@@ -12,7 +12,9 @@ class Account {
   final accountInstrumentTransactionData;
   final accountCashTransactionData;
   final accountPendingTransactionData;
-  final int _selectedRisk;
+  final String _accountNumber;
+  final String _accountType;
+  final int _risk;
   final double _totalAmount;
   final double _investment;
   final double _timeReturn;
@@ -568,7 +570,9 @@ class Account {
       @required this.accountInstrumentTransactionData,
       @required this.accountCashTransactionData,
       @required this.accountPendingTransactionData})
-      : _selectedRisk = accountInfo['profile']['selected_risk'],
+      : _accountNumber = accountInfo['account_number'],
+        _accountType = accountInfo['type'],
+        _risk = accountInfo['risk'],
         _totalAmount =
             accountPerformanceData['return']['total_amount'].toDouble(),
         //_totalAmount = new DateTime.now().second.toDouble(),
@@ -634,7 +638,9 @@ class Account {
         _hasPendingTransactions =
             _checkPendingTransactions(accountPendingTransactionData);
 
-  int get selectedRisk => _selectedRisk;
+  String get accountNumber => _accountNumber;
+  String get type => _accountType;
+  int get risk => _risk;
   double get totalAmount => _totalAmount;
   double get investment => _investment;
   double get profitLoss => _profitLoss;
@@ -666,8 +672,13 @@ class Account {
 
   @override
   String toString() {
-    return "selectedRisk: " +
-        selectedRisk.toString() +
+    return 
+        "accountNumber: " +
+        accountNumber.toString() +
+        "type: " +
+        type.toString() +
+        "risk: " +
+        risk.toString() +
         "\n" +
         "totalAmount: " +
         totalAmount.toString() +

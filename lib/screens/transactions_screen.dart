@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 import '../models/account.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:indexax/models/account_dropdown_items.dart';
 import 'package:indexax/widgets/transactions_screen/transaction_tile.dart';
 import 'package:indexax/widgets/transactions_screen/pending_transactions_card.dart';
 
@@ -18,7 +17,7 @@ class TransactionsScreen extends StatefulWidget {
     this.currentAccountNumber,
   }) : super(key: key);
   final Account accountData;
-  final List<String> userAccounts;
+  final List<Map<String, String>> userAccounts;
   final Function refreshData;
   final Function reloadPage;
   final int currentAccountNumber;
@@ -64,7 +63,7 @@ class _TransactionsScreenState extends State<TransactionsScreen> with AutomaticK
     accountData = widget.accountData;
     refreshData = widget.refreshData;
 
-    dropdownItems = AccountDropdownItems(userAccounts: widget.userAccounts).dropdownItems;
+    //dropdownItems = AccountDropdownItems(userAccounts: widget.userAccounts).dropdownItems;
   }
 
   @override

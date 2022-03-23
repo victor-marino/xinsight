@@ -25,9 +25,10 @@ Widget buildProfitLossYearSwitcher(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               if (dropdownEnabled) Icon(
-                Icons.arrow_drop_down_outlined, size: 20, color: Colors.blue),
+                Icons.arrow_drop_down_rounded, size: 20, color: Colors.blue),
               DropdownButton(
                 iconSize: 0,
+                borderRadius: BorderRadius.all(Radius.circular(10)),
                 disabledHint: DropdownMenuItem(
                     child: Text(
                   (profitLossYearDropdownItems[0].child as Text).data,

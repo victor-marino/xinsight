@@ -8,7 +8,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:indexax/widgets/reusable_card.dart';
 import 'package:indexax/widgets/projection_screen/projection_chart.dart';
 import 'package:indexax/widgets/projection_screen/risk_chart.dart';
-import 'package:indexax/models/account_dropdown_items.dart';
 import 'package:indexax/widgets/projection_screen/expectations_popup.dart';
 
 class ProjectionScreen extends StatefulWidget {
@@ -21,7 +20,7 @@ class ProjectionScreen extends StatefulWidget {
     this.currentAccountNumber,
   }) : super(key: key);
   final Account accountData;
-  final List<String> userAccounts;
+  final List<Map<String, String>> userAccounts;
   final Function refreshData;
   final Function reloadPage;
   final int currentAccountNumber;
@@ -67,8 +66,8 @@ class _ProjectionScreenState extends State<ProjectionScreen> with AutomaticKeepA
     accountData = widget.accountData;
     refreshData = widget.refreshData;
 
-    dropdownItems =
-        AccountDropdownItems(userAccounts: widget.userAccounts).dropdownItems;
+    // dropdownItems =
+    //     AccountDropdownItems(userAccounts: widget.userAccounts).dropdownItems;
   }
 
   @override
@@ -102,7 +101,7 @@ class _ProjectionScreenState extends State<ProjectionScreen> with AutomaticKeepA
                                 textAlign: TextAlign.left,
                                 style: kCardTitleTextStyle,
                               ),
-                              RiskChart(risk: widget.accountData.selectedRisk),
+                              RiskChart(risk: widget.accountData.risk),
                             ],
                           ),
                         ),

@@ -110,6 +110,51 @@ TextStyle kChipTextStyle = GoogleFonts.roboto(
   ),
 );
 
+TextStyle kAccountNumberTextStyle = GoogleFonts.roboto(
+  textStyle: TextStyle(
+    color: Colors.black38,
+    //fontWeight: FontWeight.bold,
+    fontSize: 15.0,
+  ),
+);
+
+TextStyle kAccountSwitcherHintTextStyle = GoogleFonts.roboto(
+  textStyle: TextStyle(
+    color: Colors.black54,
+    fontSize: 14.0,
+  ),
+);
+
+TextStyle kAccountSwitcherCurrentAccountNumberTextStyle = GoogleFonts.roboto(
+  textStyle: TextStyle(
+    color: Colors.black45,
+    fontSize: 16.0,
+    fontWeight: FontWeight.bold,
+  ),
+);
+TextStyle kAccountSwitcherCurrentAccountTypeTextStyle = GoogleFonts.roboto(
+  textStyle: TextStyle(
+    color: Colors.black45,
+    fontSize: 14.0,
+    //fontWeight: FontWeight.bold,
+  ),
+);
+
+TextStyle kAccountSwitcherOtherAccountsNumberTextStyle = GoogleFonts.roboto(
+  textStyle: TextStyle(
+    color: Colors.black,
+    fontSize: 16.0,
+    fontWeight: FontWeight.bold,
+  ),
+);
+TextStyle kAccountSwitcherOtherAccountsTypeTextStyle = GoogleFonts.roboto(
+  textStyle: TextStyle(
+    color: Colors.black,
+    fontSize: 14.0,
+    //fontWeight: FontWeight.bold,
+  ),
+);
+
 TextStyle kAccountSwitcherTextStyle = GoogleFonts.roboto(
   textStyle: TextStyle(
     color: Colors.black,

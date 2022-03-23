@@ -1,4 +1,5 @@
 import '../services/networking.dart';
+
 const indexaURL = 'https://api.indexacapital.com';
 
 class IndexaData {
@@ -8,22 +9,25 @@ class IndexaData {
 
   Future<dynamic> getUserAccounts() async {
     String url = '$indexaURL/users/me';
-    List<String> userAccounts = [];
+    List<Map<String, String>> userAccounts = [];
     NetworkHelper networkHelper = NetworkHelper(url, token);
     try {
       var userData = await networkHelper.getData();
       if (userData != null) {
         for (var account in userData['accounts']) {
           if (account['status'].toString() == "active") {
-            userAccounts.add(account['account_number'].toString());
+            userAccounts.add({
+              "number": account['account_number'].toString(),
+              "type": account['type'].toString()
+            });
           }
         }
-        //userAccounts.add("Test");
+        //userAccounts.add({"number": "Test", "type": "pension"});
         return userAccounts;
       }
     } on Exception catch (e) {
       print(e);
-      throw(e);
+      throw (e);
     }
   }
 
@@ -34,13 +38,17 @@ class IndexaData {
     try {
       var accountInfo = await networkHelper.getData();
       //print('performanceData: ' + accountPerformanceData.toString());
-      if (accountInfo != null) {
+      if (accountInfo != null && accountNumber != "Test") {
         //print(accountPerformanceData);
+        return accountInfo;
+      } else if (accountInfo != null && accountNumber == "Test") {
+        accountInfo['account_number'] = 'Test';
+        accountInfo['type'] = 'pension';
         return accountInfo;
       }
     } on Exception catch (e) {
       print(e);
-      throw(e);
+      throw (e);
     }
   }
 
@@ -61,7 +69,7 @@ class IndexaData {
       }
     } on Exception catch (e) {
       print(e);
-      throw(e);
+      throw (e);
     }
   }
 
@@ -77,11 +85,12 @@ class IndexaData {
       }
     } on Exception catch (e) {
       print(e);
-      throw(e);
+      throw (e);
     }
   }
 
   Future<dynamic> getAccountInstrumentTransactionData(accountNumber) async {
+    //String url = '$indexaURL/accounts/FHGNB6LM/instrument-transactions';
     String url = '$indexaURL/accounts/$accountNumber/instrument-transactions';
     NetworkHelper networkHelper = NetworkHelper(url, token);
     try {
@@ -92,11 +101,12 @@ class IndexaData {
       }
     } on Exception catch (e) {
       print(e);
-      throw(e);
+      throw (e);
     }
   }
 
   Future<dynamic> getAccountCashTransactionData(accountNumber) async {
+    //String url = '$indexaURL/accounts/FHGNB6LM/cash-transactions';
     String url = '$indexaURL/accounts/$accountNumber/cash-transactions';
     NetworkHelper networkHelper = NetworkHelper(url, token);
     try {
@@ -107,11 +117,12 @@ class IndexaData {
       }
     } on Exception catch (e) {
       print(e);
-      throw(e);
+      throw (e);
     }
   }
 
   Future<dynamic> getAccountPendingTransactionData(accountNumber) async {
+    //String url = '$indexaURL/accounts/FHGNB6LM/pending-transactions';
     String url = '$indexaURL/accounts/$accountNumber/pending-transactions';
     NetworkHelper networkHelper = NetworkHelper(url, token);
     try {
@@ -122,7 +133,7 @@ class IndexaData {
       }
     } on Exception catch (e) {
       print(e);
-      throw(e);
+      throw (e);
     }
   }
 }

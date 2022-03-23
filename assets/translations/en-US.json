@@ -1,5 +1,4 @@
 {
-  "app_title": "App title",
   "page_titles": {
     "overview": "Overview",
     "portfolio": "Portfolio",
@@ -8,8 +7,15 @@
     "projection": "Projection",
     "settings": "Settings"
   },
-  "account_switcher": {
-    "account": "Account"
+  "header": {
+    "account": "Account",
+    "accounts": "Accounts",
+    "mutual_account": "Mutual fund portfolio",
+    "pension_account": "Pension plan",
+    "epsv_account": "EPSV",
+    "employment_plan_account": "Employment pension plan",
+    "settings": "@:page_titles.settings",
+    "logout": "@:settings_screen.logout"
   },
   "login_screen": {
     "for": "for",
@@ -182,7 +188,7 @@
   },
   "logout_popup": {
     "title": "Log out?",
-    "text": "You'll need to enter your token again to log in",
+    "text": "Your token will be deleted from this device",
     "cancel_button": "Cancel",
     "logout_button": "Logout"
   },

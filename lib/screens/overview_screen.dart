@@ -12,7 +12,6 @@ import 'package:indexax/widgets/reusable_card.dart';
 import 'package:indexax/widgets/overview_screen/distribution_chart.dart';
 import 'package:indexax/widgets/overview_screen/distribution_legend.dart';
 import 'package:indexax/widgets/overview_screen/profit_popup.dart';
-import 'package:indexax/models/account_dropdown_items.dart';
 import 'package:indexax/widgets/overview_screen/minimum_transfer_card.dart';
 import 'package:indexax/widgets/overview_screen/fee_free_amount_card.dart';
 
@@ -28,7 +27,7 @@ class OverviewScreen extends StatefulWidget {
     this.currentAccountNumber,
   }) : super(key: key);
   final Account accountData;
-  final List<String> userAccounts;
+  final List<Map<String, String>> userAccounts;
   final Function refreshData;
   final Function reloadPage;
   final int currentAccountNumber;
@@ -75,8 +74,8 @@ class _OverviewScreenState extends State<OverviewScreen>
     accountData = widget.accountData;
     refreshData = widget.refreshData;
 
-    dropdownItems =
-        AccountDropdownItems(userAccounts: widget.userAccounts).dropdownItems;
+    // dropdownItems =
+    //     AccountDropdownItems(userAccounts: widget.userAccounts).dropdownItems;
   }
 
   @override
