@@ -7,7 +7,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:indexax/widgets/reusable_card.dart';
 import '../widgets/evolution_screen/amounts_chart.dart';
 import 'package:indexax/widgets/evolution_screen/profit_loss_chart.dart';
-import 'package:indexax/widgets/evolution_screen/build_profit_loss_year_switcher.dart';
+import 'package:indexax/widgets/evolution_screen/profit_loss_year_switcher.dart';
 
 class EvolutionScreen extends StatefulWidget {
   const EvolutionScreen({
@@ -76,15 +76,9 @@ class _EvolutionScreenState extends State<EvolutionScreen>
   void initState() {
     super.initState();
     currentAccountNumber = widget.currentAccountNumber;
+    currentYear = accountData.profitLossSeries.keys.toList().last;
     accountData = widget.accountData;
     refreshData = widget.refreshData;
-
-    currentYear = accountData.profitLossSeries.keys.toList().last;
-    accountData.profitLossSeries.forEach((key, value) {
-      profitLossYearDropdownItems
-          .add(DropdownMenuItem(child: Text(key.toString()), value: key));
-    });
-    profitLossYearDropdownItems.sort((b, a) => a.value.compareTo(b.value));
   }
 
   List<Map> chipData = [
@@ -95,7 +89,7 @@ class _EvolutionScreenState extends State<EvolutionScreen>
     {"label": "evolution_screen.5y".tr(), "duration": Duration(days: 1825)},
     {"label": "evolution_screen.all".tr(), "duration": null},
   ];
-  
+
   List<ChoiceChip> buildEvolutionChartChipList(List<Map> chipData) {
     List<ChoiceChip> chipList = [];
     for (Map element in chipData) {
@@ -159,7 +153,8 @@ class _EvolutionScreenState extends State<EvolutionScreen>
                                   direction: Axis.horizontal,
                                   alignment: WrapAlignment.spaceBetween,
                                   spacing: 3,
-                                  children: buildEvolutionChartChipList(chipData),
+                                  children:
+                                      buildEvolutionChartChipList(chipData),
                                 ),
                               ),
                             ],
@@ -182,10 +177,11 @@ class _EvolutionScreenState extends State<EvolutionScreen>
                                     textAlign: TextAlign.left,
                                     style: kCardTitleTextStyle,
                                   ),
-                                  buildProfitLossYearSwitcher(
-                                      profitLossYearDropdownItems:
-                                          profitLossYearDropdownItems,
+                                  ProfitLossYearSwitcher(
+                                      // profitLossYearDropdownItems:
+                                      //     profitLossYearDropdownItems,
                                       currentYear: currentYear,
+                                      yearList: accountData.profitLossSeries.keys.toList(),
                                       reloadProfitLossChart:
                                           reloadProfitLossChart),
                                 ],
