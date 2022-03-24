@@ -23,7 +23,7 @@ class CollapsedAssetTileView extends StatelessWidget {
               textAlign: TextAlign.center,
               style: kAssetListPercentageTextStyle),
         ),
-        Flexible(
+        Expanded(
           child: Padding(
             padding: const EdgeInsets.only(left: 5.0),
             child: Column(

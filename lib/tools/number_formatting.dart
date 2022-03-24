@@ -12,18 +12,26 @@ String getCurrentLocale() {
 }
 
 String getBalanceAsString(num number) {
-  String numberString = NumberFormat.currency(locale: getCurrentLocale(), symbol: '€', decimalDigits: 2).format(number);
+  String numberString = NumberFormat.currency(
+          locale: getCurrentLocale(), symbol: '€', decimalDigits: 2)
+      .format(number);
   return numberString;
 }
 
 String getWholeBalanceAsString(num number) {
-  String numberString = NumberFormat.currency(locale: getCurrentLocale(), symbol: '€', decimalDigits: 2).format(number);
-  return numberString.split(numberFormatSymbols[getCurrentLocale()]?.DECIMAL_SEP ?? "")[0];
+  String numberString = NumberFormat.currency(
+          locale: getCurrentLocale(), symbol: '€', decimalDigits: 2)
+      .format(number);
+  return numberString
+      .split(numberFormatSymbols[getCurrentLocale()]?.DECIMAL_SEP ?? "")[0];
 }
 
 String getFractionalBalanceAsString(num number) {
-  String numberString = NumberFormat.currency(locale: getCurrentLocale(), symbol: '€', decimalDigits: 2).format(number);
-  return numberString.split(numberFormatSymbols[getCurrentLocale()]?.DECIMAL_SEP ?? "")[1];
+  String numberString = NumberFormat.currency(
+          locale: getCurrentLocale(), symbol: '€', decimalDigits: 2)
+      .format(number);
+  return numberString
+      .split(numberFormatSymbols[getCurrentLocale()]?.DECIMAL_SEP ?? "")[1];
 }
 
 String getInvestmentAsString(num number) {
@@ -33,23 +41,35 @@ String getInvestmentAsString(num number) {
   } else {
     decimalPlaces = 2;
   }
-  String numberString = NumberFormat.currency(locale: getCurrentLocale(), symbol: '€', decimalDigits: decimalPlaces).format(number);
+  String numberString = NumberFormat.currency(
+          locale: getCurrentLocale(), symbol: '€', decimalDigits: decimalPlaces)
+      .format(number);
   return numberString;
 }
 
 String getPLAsString(num number) {
   String numberString;
-  if (number <0) {
-    numberString = NumberFormat.currency(locale: getCurrentLocale(), symbol: '€', decimalDigits: 2).format(number);
+  if (number < 0) {
+    numberString = NumberFormat.currency(
+            locale: getCurrentLocale(), symbol: '€', decimalDigits: 2)
+        .format(number);
   } else {
-    numberString = '+' + NumberFormat.currency(locale: getCurrentLocale(), symbol: '€', decimalDigits: 2).format(number);
+    numberString = '+' +
+        NumberFormat.currency(
+                locale: getCurrentLocale(), symbol: '€', decimalDigits: 2)
+            .format(number);
   }
   return numberString;
 }
 
 String getPercentAsString(num number) {
-  String numberString = NumberFormat.decimalPercentPattern(locale: getCurrentLocale(), decimalDigits: 1).format(number);
-  return numberString.substring(0, numberString.length-2) + "%";
+  String numberString = NumberFormat.decimalPercentPattern(
+          locale: getCurrentLocale(), decimalDigits: 1)
+      .format(number);
+  if (numberString[numberString.length - 2] == '\u00A0') {
+    return (numberString.substring(0, numberString.length - 2) + "%");
+  }
+  return numberString;
 }
 
 String getWholePercentWithoutPercentSignAsString(num number) {
@@ -61,35 +81,55 @@ String getPLPercentAsString(num number) {
   String numberString;
   if (number < 0) {
     numberString = NumberFormat.decimalPercentPattern(
-        locale: getCurrentLocale(), decimalDigits: 1).format(number);
+            locale: getCurrentLocale(), decimalDigits: 1)
+        .format(number);
   } else {
-    numberString = '+' + NumberFormat.decimalPercentPattern(locale: getCurrentLocale(), decimalDigits: 1).format(number);
+    numberString = '+' +
+        NumberFormat.decimalPercentPattern(
+                locale: getCurrentLocale(), decimalDigits: 1)
+            .format(number);
   }
-  return numberString.substring(0, numberString.length-2) + "%";
+  if (numberString[numberString.length - 2] == '\u00A0') {
+    return (numberString.substring(0, numberString.length - 2) + "%");
+  }
+  return numberString;
 }
 
 String getWholePLPercentAsString(num number) {
   String numberString;
   if (number < 0) {
     numberString = NumberFormat.decimalPercentPattern(
-        locale: getCurrentLocale(),decimalDigits: 1).format(number);
+            locale: getCurrentLocale(), decimalDigits: 1)
+        .format(number);
   } else {
-    numberString = '+' + NumberFormat.decimalPercentPattern(locale: getCurrentLocale(), decimalDigits: 1).format(number);
+    numberString = '+' +
+        NumberFormat.decimalPercentPattern(
+                locale: getCurrentLocale(), decimalDigits: 1)
+            .format(number);
   }
-  return numberString.split(numberFormatSymbols[getCurrentLocale()]?.DECIMAL_SEP ?? "")[0];
+  return numberString
+      .split(numberFormatSymbols[getCurrentLocale()]?.DECIMAL_SEP ?? "")[0];
 }
 
 String getFractionalPLPercentAsString(num number) {
   String numberString;
   if (number < 0) {
     numberString = NumberFormat.decimalPercentPattern(
-        locale: getCurrentLocale(),decimalDigits: 1).format(number);
+            locale: getCurrentLocale(), decimalDigits: 1)
+        .format(number);
   } else {
-    numberString = '+' + NumberFormat.decimalPercentPattern(locale: getCurrentLocale(), decimalDigits: 1).format(number);
+    numberString = '+' +
+        NumberFormat.decimalPercentPattern(
+                locale: getCurrentLocale(), decimalDigits: 1)
+            .format(number);
   }
-  numberString = numberString.split(numberFormatSymbols[getCurrentLocale()]?.DECIMAL_SEP ?? "")[1];
-  return numberString.substring(0, numberString.length-2) + "%";
-}
+  numberString = numberString
+      .split(numberFormatSymbols[getCurrentLocale()]?.DECIMAL_SEP ?? "")[1];
+  
+  if (numberString[numberString.length - 2] == '\u00A0') {
+    return (numberString.substring(0, numberString.length - 2) + "%");
+  }
+  return numberString;}
 
 String getDecimalSeparator() {
   return numberFormatSymbols[getCurrentLocale()]?.DECIMAL_SEP ?? "";
