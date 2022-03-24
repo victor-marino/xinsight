@@ -14,7 +14,6 @@ import '../tools/bottom_navigation_bar_provider.dart';
 import '../widgets/bottom_navigation_bar.dart';
 import '../widgets/page_header.dart';
 import '../widgets/settings_popup_menu.dart';
-import 'package:indexax/widgets/circular_progress_indicator.dart';
 
 class RootScreen extends StatefulWidget {
   RootScreen({

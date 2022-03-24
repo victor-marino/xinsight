@@ -43,6 +43,7 @@ class ProfitLossChart extends StatelessWidget {
           dataLabelSettings: DataLabelSettings(
               isVisible: true,
           textStyle: kChartLabelTextStyle,
+          labelAlignment: ChartDataLabelAlignment.outer
           ),
           enableTooltip: false,
           dataSource: profitLossSeries[currentYear],
