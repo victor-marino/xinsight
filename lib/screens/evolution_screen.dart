@@ -76,9 +76,9 @@ class _EvolutionScreenState extends State<EvolutionScreen>
   void initState() {
     super.initState();
     currentAccountNumber = widget.currentAccountNumber;
-    currentYear = accountData.profitLossSeries.keys.toList().last;
     accountData = widget.accountData;
     refreshData = widget.refreshData;
+    currentYear = accountData.profitLossSeries.keys.toList().last;
   }
 
   List<Map> chipData = [
