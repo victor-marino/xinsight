@@ -131,10 +131,13 @@ class TransactionDetailsPopup extends StatelessWidget {
       content: Scrollbar(
         isAlwaysShown: true,
         child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: transactionDetails,
+          child: Padding(
+            padding: const EdgeInsets.only(right: 10),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: transactionDetails,
+            ),
           ),
         ),
       ),
