@@ -11,6 +11,12 @@ import 'package:indexax/widgets/login_screen/forget_token_popup.dart';
 import 'package:indexax/widgets/circular_progress_indicator.dart';
 
 class LoginScreen extends StatefulWidget {
+  LoginScreen({
+    this.errorMessage,
+  });
+
+  final String errorMessage;
+
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
@@ -39,6 +45,12 @@ class _LoginScreenState extends State<LoginScreen> {
     goToSettingsDescription: "login_screen.go_to_settings_description".tr(),
     cancelButton: "login_screen.cancel".tr(),
   );
+
+  void showInSnackBar(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text(message),
+    ));
+  }
 
   Future supportsBiometrics() async {
     //bool supportsBiometrics = false;
@@ -227,7 +239,18 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void initState() {
     super.initState();
-    tryToLoginWithStoredToken();
+    if (widget.errorMessage == null) {
+      tryToLoginWithStoredToken();
+    } else {
+      String message;
+      if ((widget.errorMessage == null) || (widget.errorMessage == "")) {
+        message = "login_screen.default_error_message".tr();
+      } else {
+        message = widget.errorMessage;
+      }
+      WidgetsBinding.instance
+          .addPostFrameCallback((_) => showInSnackBar(message));
+    }
   }
 
   @override
@@ -252,22 +275,27 @@ class _LoginScreenState extends State<LoginScreen> {
               padding: const EdgeInsets.all(30.0),
               child: Center(
                 child: SizedBox(
-                  width: landscapeOrientation ? availableWidth * 0.5 : double.infinity,
+                  width: landscapeOrientation
+                      ? availableWidth * 0.5
+                      : double.infinity,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       SizedBox(
-                          height: (MediaQuery.of(context).size.height * 0.15 < 60)
-                              ? 60
-                              : MediaQuery.of(context).size.height * 0.15),
-                              
+                          height:
+                              (MediaQuery.of(context).size.height * 0.15 < 60)
+                                  ? 60
+                                  : MediaQuery.of(context).size.height * 0.15),
                       Container(
-                        width: landscapeOrientation ? availableWidth * 0.5 : double.infinity,
+                        width: landscapeOrientation
+                            ? availableWidth * 0.5
+                            : double.infinity,
                         child: Column(
                           children: [
                             Container(
                               child: Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 10.0),
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 10.0),
                                 child: Image.asset(
                                     'assets/images/indexax_logo_wider.png'),
                               ),
@@ -289,10 +317,11 @@ class _LoginScreenState extends State<LoginScreen> {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           SizedBox(
-                              height:
-                                  (MediaQuery.of(context).size.height * 0.15 < 60)
-                                      ? 60
-                                      : MediaQuery.of(context).size.height * 0.15),
+                              height: (MediaQuery.of(context).size.height *
+                                          0.15 <
+                                      60)
+                                  ? 60
+                                  : MediaQuery.of(context).size.height * 0.15),
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 5),
                             child: Row(
@@ -339,14 +368,16 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ? InputDecoration(
                                     border: OutlineInputBorder(),
                                     labelText: "login_screen.api_token".tr(),
-                                    hintText: 'login_screen.your_indexa_token'.tr(),
+                                    hintText:
+                                        'login_screen.your_indexa_token'.tr(),
                                     filled: true,
                                     fillColor: Colors.grey[300],
                                   )
                                 : InputDecoration(
                                     border: OutlineInputBorder(),
                                     labelText: 'login_screen.api_token'.tr(),
-                                    hintText: 'login_screen.your_indexa_token'.tr(),
+                                    hintText:
+                                        'login_screen.your_indexa_token'.tr(),
                                     counterText: ""),
                             enabled: storedToken ? false : true,
                           ),
@@ -408,7 +439,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                     ScaffoldMessenger.of(context)
                                         .showSnackBar(SnackBar(
                                       content: Text(
-                                          "login_screen.please_enter_token".tr()),
+                                          "login_screen.please_enter_token"
+                                              .tr()),
                                     ));
                                   } else {
                                     if (rememberToken) {

@@ -42,7 +42,8 @@
     "forget_token_popup_title": "Forget token?",
     "forget_token_popup_cancel_button": "Cancel",
     "forget_token_popup_ok_button": "OK",
-    "screen_lock_required": "An active screen lock must be enabled to store the token locally."
+    "screen_lock_required": "An active screen lock must be enabled to store the token locally.",
+    "default_error_message": "Couldn't load data"
   },
   "overview_screen": {
     "distribution": "DISTRIBUTION"

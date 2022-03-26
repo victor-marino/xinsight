@@ -15,6 +15,7 @@ import '../widgets/bottom_navigation_bar.dart';
 import '../widgets/page_header.dart';
 import '../widgets/settings_popup_menu.dart';
 import '../widgets/current_account_indicator.dart';
+import 'login_screen.dart';
 
 class RootScreen extends StatefulWidget {
   RootScreen({
@@ -46,12 +47,20 @@ class _RootScreenState extends State<RootScreen> {
   bool reloading = false;
 
   Future<void> loadData(int accountNumber) async {
-    userAccounts = await getUserAccounts(widget.token);
-    setState(() {
-      accountData =
-          getAccountData(context, widget.token, accountNumber, currentAccount);
-    });
-    return accountData;
+    try {
+      userAccounts = await getUserAccounts(widget.token);
+      setState(() {
+        accountData = getAccountData(
+            context, widget.token, accountNumber, currentAccount);
+      });
+      return accountData;
+    } on Exception catch (e) {
+      print(e.toString());
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (BuildContext context) => LoginScreen(errorMessage: e.toString())),
+          (Route<dynamic> route) => false);
+    }
   }
 
   Future<void> refreshData(int accountNumber) {
@@ -133,7 +142,10 @@ class _RootScreenState extends State<RootScreen> {
       ));
       print("Couldn't fetch account data");
       print(e);
-
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (BuildContext context) => LoginScreen(errorMessage: e.toString())),
+          (Route<dynamic> route) => false);
       throw (e);
     }
   }
@@ -201,11 +213,13 @@ class _RootScreenState extends State<RootScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     PageHeader(
-                        accountNumber: snapshot.data.accountNumber,
-                        accountType: snapshot.data.type,
-                        ),
-                         if (!landscapeOrientation) ...[
-                      CurrentAccountIndicator(accountNumber: snapshot.data.accountNumber, accountType: snapshot.data.type)
+                      accountNumber: snapshot.data.accountNumber,
+                      accountType: snapshot.data.type,
+                    ),
+                    if (!landscapeOrientation) ...[
+                      CurrentAccountIndicator(
+                          accountNumber: snapshot.data.accountNumber,
+                          accountType: snapshot.data.type)
                     ],
                   ],
                 ),
