@@ -109,8 +109,8 @@ class Account {
         PortfolioDataPoint newPoint = PortfolioDataPoint(
             instrumentType: currentInstrumentType,
             instrumentName: instrument['instrument']['name'],
-            instrumentIDType: instrument['instrument']['identifier_name'],
-            instrumentID: instrument['instrument']['identifier'],
+            instrumentCodeType: instrument['instrument']['identifier_name'],
+            instrumentCode: instrument['instrument']['identifier'],
             instrumentCompany: instrument['instrument']
                 ['management_company_description'],
             instrumentDescription: currentInstrumentDescription,

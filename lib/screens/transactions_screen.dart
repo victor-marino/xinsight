@@ -125,7 +125,8 @@ class _TransactionsScreenState extends State<TransactionsScreen>
                                     widget.accountData.transactionList[index],
                                 firstTransaction: firstTransaction,
                                 firstTransactionOfMonth: firstTransactionOfMonth,
-                                lastTransactionOfMonth: lastTransactionOfMonth),
+                                lastTransactionOfMonth: lastTransactionOfMonth,
+                                landscapeOrientation: widget.landscapeOrientation),
                           );
                         }),
                   ),

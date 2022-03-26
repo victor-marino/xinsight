@@ -36,7 +36,7 @@ class CollapsedAssetTileView extends StatelessWidget {
                   overflow: TextOverflow.fade,
                   softWrap: false,
                 ),
-                Text(assetData.instrumentIDType + ": " + assetData.instrumentID,
+                Text(assetData.instrumentCodeType + ": " + assetData.instrumentCode,
                     style: kAssetListSecondaryTextStyle),
               ],
             ),

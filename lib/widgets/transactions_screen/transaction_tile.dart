@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:indexax/tools/constants.dart';
 import 'package:indexax/models/transaction.dart';
 import 'package:indexax/widgets/transactions_screen/transaction_details_popup.dart';
+import 'package:indexax/widgets/transactions_screen/transaction_details_popup_landscape.dart';
 
 class TransactionTile extends StatelessWidget {
   const TransactionTile({
@@ -12,11 +13,14 @@ class TransactionTile extends StatelessWidget {
     @required this.firstTransaction,
     @required this.firstTransactionOfMonth,
     @required this.lastTransactionOfMonth,
+    @required this.landscapeOrientation,
   }) : super(key: key);
+
   final Transaction transactionData;
   final bool firstTransaction;
   final bool firstTransactionOfMonth;
   final bool lastTransactionOfMonth;
+  final bool landscapeOrientation;
 
   @override
   Widget build(BuildContext context) {
@@ -114,7 +118,9 @@ class TransactionTile extends StatelessWidget {
         onTap: () {
           showDialog(
             context: context,
-            builder: (BuildContext context) => TransactionDetailsPopup(transactionData: transactionData),
+            builder: landscapeOrientation ? (BuildContext context) =>
+                TransactionDetailsPopupLandscape(transactionData: transactionData) : (BuildContext context) =>
+                TransactionDetailsPopup(transactionData: transactionData)
           );
         },
       ),

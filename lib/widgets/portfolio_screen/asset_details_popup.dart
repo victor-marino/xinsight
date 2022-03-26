@@ -51,13 +51,13 @@ class AssetDetailsPopup extends StatelessWidget {
     ));
     assetDetails.add(
       Text(
-        'ISIN:',
+        assetData.instrumentCodeType,
         style: kTransactionListTitleTextStyle,
       ),
     );
     assetDetails.add(
       SelectableText(
-        assetData.instrumentID,
+        assetData.instrumentCode,
         style: kTransactionDetailValueTextStyle,
       ),
     );
