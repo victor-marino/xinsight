@@ -126,113 +126,118 @@ class _EvolutionScreenState extends State<EvolutionScreen>
     print(widget.availableWidth);
     return Scaffold(
       body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Expanded(
-              child: SmartRefresher(
-                enablePullDown: true,
-                controller: _refreshController,
-                onRefresh: _onRefresh,
-                child: SingleChildScrollView(
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
-                    child: Column(
-                      children: <Widget>[
-                        ReusableCard(
-                          paddingBottom: widget.landscapeOrientation ? 16 : 8,
-                          paddingTop: widget.landscapeOrientation ? 8 : 16,
-                          childWidget: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      'evolution_screen.evolution'.tr(),
-                                      textAlign: TextAlign.left,
-                                      style: kCardTitleTextStyle,
-                                    ),
-                                    if (widget.landscapeOrientation) ...[
-                                      Container(
-                                        child: Wrap(
-                                          direction: Axis.horizontal,
-                                          alignment: WrapAlignment.end,
-                                          spacing: 5,
-                                          children: amountsChartZoomChips(
-                                              currentPeriod: currentPeriod,
-                                              zoomLevels: zoomLevels,
-                                              reloadAmountsChart:
-                                                  reloadAmountsChart),
-                                        ),
-                                      ),
-                                    ],
-                                  ]),
-                              AmountsChart(
-                                  amountsSeries: accountData.amountsSeries,
-                                  period: currentPeriod),
-                              if (!widget.landscapeOrientation) ...[
-                                Container(
-                                  width: double.infinity,
-                                  child: Wrap(
-                                    direction: Axis.horizontal,
-                                    alignment: widget.availableWidth < 500 ? WrapAlignment.center : WrapAlignment.end,
-                                    spacing: 5,
-                                    children: amountsChartZoomChips(
-                                        currentPeriod: currentPeriod,
-                                        zoomLevels: zoomLevels,
-                                        reloadAmountsChart: reloadAmountsChart),
-                                  ),
-                                ),
-                              ],
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        ReusableCard(
-                          childWidget: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+        child: Center(
+          child: SizedBox(
+            width: widget.landscapeOrientation && widget.availableWidth > 1000 ? widget.availableWidth * 0.7 : null,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                Expanded(
+                  child: SmartRefresher(
+                    enablePullDown: true,
+                    controller: _refreshController,
+                    onRefresh: _onRefresh,
+                    child: SingleChildScrollView(
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
+                        child: Column(
+                          children: <Widget>[
+                            ReusableCard(
+                              paddingBottom: widget.landscapeOrientation ? 16 : 8,
+                              paddingTop: widget.landscapeOrientation ? 8 : 16,
+                              childWidget: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    'evolution_screen.returns'.tr(),
-                                    textAlign: TextAlign.left,
-                                    style: kCardTitleTextStyle,
-                                  ),
-                                  ProfitLossYearSwitcher(
-                                      currentYear: currentYear,
-                                      yearList: accountData
-                                          .profitLossSeries.keys
-                                          .toList(),
-                                      reloadProfitLossChart:
-                                          reloadProfitLossChart),
+                                  Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          'evolution_screen.evolution'.tr(),
+                                          textAlign: TextAlign.left,
+                                          style: kCardTitleTextStyle,
+                                        ),
+                                        if (widget.landscapeOrientation) ...[
+                                          Container(
+                                            child: Wrap(
+                                              direction: Axis.horizontal,
+                                              alignment: WrapAlignment.end,
+                                              spacing: 5,
+                                              children: amountsChartZoomChips(
+                                                  currentPeriod: currentPeriod,
+                                                  zoomLevels: zoomLevels,
+                                                  reloadAmountsChart:
+                                                      reloadAmountsChart),
+                                            ),
+                                          ),
+                                        ],
+                                      ]),
+                                  AmountsChart(
+                                      amountsSeries: accountData.amountsSeries,
+                                      period: currentPeriod),
+                                  if (!widget.landscapeOrientation) ...[
+                                    Container(
+                                      width: double.infinity,
+                                      child: Wrap(
+                                        direction: Axis.horizontal,
+                                        alignment: widget.availableWidth < 500 ? WrapAlignment.center : WrapAlignment.end,
+                                        spacing: 5,
+                                        children: amountsChartZoomChips(
+                                            currentPeriod: currentPeriod,
+                                            zoomLevels: zoomLevels,
+                                            reloadAmountsChart: reloadAmountsChart),
+                                      ),
+                                    ),
+                                  ],
                                 ],
                               ),
-                              Container(
-                                height: 150,
-                                child: ProfitLossChart(
-                                    profitLossSeries:
-                                        accountData.profitLossSeries,
-                                    currentYear: currentYear),
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            ReusableCard(
+                              childWidget: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        'evolution_screen.returns'.tr(),
+                                        textAlign: TextAlign.left,
+                                        style: kCardTitleTextStyle,
+                                      ),
+                                      ProfitLossYearSwitcher(
+                                          currentYear: currentYear,
+                                          yearList: accountData
+                                              .profitLossSeries.keys
+                                              .toList(),
+                                          reloadProfitLossChart:
+                                              reloadProfitLossChart),
+                                    ],
+                                  ),
+                                  Container(
+                                    height: 150,
+                                    child: ProfitLossChart(
+                                        profitLossSeries:
+                                            accountData.profitLossSeries,
+                                        currentYear: currentYear),
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
-                      ],
+                      ),
                     ),
                   ),
                 ),
-              ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );

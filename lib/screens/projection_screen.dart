@@ -15,12 +15,16 @@ class ProjectionScreen extends StatefulWidget {
     Key key,
     @required this.accountData,
     @required this.userAccounts,
+    @required this.landscapeOrientation,
+    @required this.availableWidth,
     @required this.refreshData,
     @required this.reloadPage,
     @required this.currentAccountNumber,
   }) : super(key: key);
   final Account accountData;
   final List<Map<String, String>> userAccounts;
+  final bool landscapeOrientation;
+  final double availableWidth;
   final Function refreshData;
   final Function reloadPage;
   final int currentAccountNumber;
@@ -29,7 +33,8 @@ class ProjectionScreen extends StatefulWidget {
   _ProjectionScreenState createState() => _ProjectionScreenState();
 }
 
-class _ProjectionScreenState extends State<ProjectionScreen> with AutomaticKeepAliveClientMixin<ProjectionScreen> {
+class _ProjectionScreenState extends State<ProjectionScreen>
+    with AutomaticKeepAliveClientMixin<ProjectionScreen> {
   // The Mixin keeps state of the page instead of reloading it every time
   // It requires this 'wantKeepAlive', as well as the 'super' in the build method down below
   @override
@@ -77,98 +82,105 @@ class _ProjectionScreenState extends State<ProjectionScreen> with AutomaticKeepA
 
     return Scaffold(
       body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Expanded(
-              child: SmartRefresher(
-                enablePullDown: true,
-                controller: _refreshController,
-                onRefresh: _onRefresh,
-                child: SingleChildScrollView(
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: <Widget>[
-                        ReusableCard(
-                          childWidget: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text(
-                                'projection_screen.risk'.tr(),
-                                textAlign: TextAlign.left,
-                                style: kCardTitleTextStyle,
-                              ),
-                              RiskChart(risk: widget.accountData.risk),
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        ReusableCard(
-                          childWidget: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text(
-                                'projection_screen.projection'.tr(),
-                                textAlign: TextAlign.left,
-                                style: kCardTitleTextStyle,
-                              ),
-                              PerformanceChart(
-                                  performanceSeries:
-                                      accountData.performanceSeries),
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: RichText(
-                                  text: TextSpan(
-                                    children: [
-                                      TextSpan(
-                                          text:
-                                              'projection_screen.expected_annual_return'.tr() + ': ',
-                                          style: kCardSubTextStyle),
-                                      TextSpan(
-                                          text: getPLPercentAsString(widget
-                                              .accountData.expectedReturn),
-                                          style: kCardSecondaryContentTextStyle)
-                                    ],
+        child: Center(
+          child: SizedBox(
+            width: widget.landscapeOrientation && widget.availableWidth > 1000 ? widget.availableWidth * 0.7 : null,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                Expanded(
+                  child: SmartRefresher(
+                    enablePullDown: true,
+                    controller: _refreshController,
+                    onRefresh: _onRefresh,
+                    child: SingleChildScrollView(
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: <Widget>[
+                            ReusableCard(
+                              childWidget: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Text(
+                                    'projection_screen.risk'.tr(),
+                                    textAlign: TextAlign.left,
+                                    style: kCardTitleTextStyle,
                                   ),
-                                ),
+                                  RiskChart(risk: widget.accountData.risk),
+                                ],
                               ),
-                            ],
-                          ),
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            ReusableCard(
+                              childWidget: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Text(
+                                    'projection_screen.projection'.tr(),
+                                    textAlign: TextAlign.left,
+                                    style: kCardTitleTextStyle,
+                                  ),
+                                  PerformanceChart(
+                                      performanceSeries:
+                                          accountData.performanceSeries),
+                                  Padding(
+                                    padding: const EdgeInsets.all(10),
+                                    child: RichText(
+                                      text: TextSpan(
+                                        children: [
+                                          TextSpan(
+                                              text:
+                                                  'projection_screen.expected_annual_return'
+                                                          .tr() +
+                                                      ': ',
+                                              style: kCardSubTextStyle),
+                                          TextSpan(
+                                              text: getPLPercentAsString(widget
+                                                  .accountData.expectedReturn),
+                                              style: kCardSecondaryContentTextStyle)
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              height: 15,
+                            ),
+                            MaterialButton(
+                              height: 40,
+                              minWidth: 40,
+                              shape: CircleBorder(),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              padding: EdgeInsets.zero,
+                              child: Icon(
+                                Icons.info_outline,
+                                color: Colors.blue[600],
+                              ),
+                              onPressed: () {
+                                showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) =>
+                                        ExpectationsPopUp());
+                              },
+                            ),
+                          ],
                         ),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        MaterialButton(
-                          height: 40,
-                          minWidth: 40,
-                          shape: CircleBorder(),
-                          materialTapTargetSize:
-                          MaterialTapTargetSize.shrinkWrap,
-                          padding: EdgeInsets.zero,
-                          child: Icon(
-                            Icons.info_outline,
-                            color: Colors.blue[600],
-                          ),
-                          onPressed: () {
-                            showDialog(
-                                context: context,
-                                builder: (BuildContext context) =>
-                                    ExpectationsPopUp());
-                          },
-                        ),
-                      ],
+                      ),
                     ),
                   ),
                 ),
-              ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );

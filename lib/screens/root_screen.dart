@@ -234,12 +234,16 @@ class _RootScreenState extends State<RootScreen> {
                   OverviewScreen(
                       accountData: snapshot.data,
                       userAccounts: userAccounts,
+                      landscapeOrientation: landscapeOrientation,
+                      availableWidth: availableWidth,
                       refreshData: refreshData,
                       reloadPage: reloadPage,
                       currentAccountNumber: widget.accountNumber),
                   PortfolioScreen(
                       accountData: snapshot.data,
                       userAccounts: userAccounts,
+                      landscapeOrientation: landscapeOrientation,
+                      availableWidth: availableWidth,
                       refreshData: refreshData,
                       reloadPage: reloadPage,
                       currentAccountNumber: widget.accountNumber),
@@ -254,12 +258,16 @@ class _RootScreenState extends State<RootScreen> {
                   TransactionsScreen(
                       accountData: snapshot.data,
                       userAccounts: userAccounts,
+                      landscapeOrientation: landscapeOrientation,
+                      availableWidth: availableWidth,
                       refreshData: refreshData,
                       reloadPage: reloadPage,
                       currentAccountNumber: widget.accountNumber),
                   ProjectionScreen(
                       accountData: snapshot.data,
                       userAccounts: userAccounts,
+                      landscapeOrientation: landscapeOrientation,
+                      availableWidth: availableWidth,
                       refreshData: refreshData,
                       reloadPage: reloadPage,
                       currentAccountNumber: widget.accountNumber),

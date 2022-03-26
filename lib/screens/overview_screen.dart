@@ -22,12 +22,16 @@ class OverviewScreen extends StatefulWidget {
     Key key,
     @required this.accountData,
     @required this.userAccounts,
+    @required this.landscapeOrientation,
+    @required this.availableWidth,
     @required this.refreshData,
     @required this.reloadPage,
     @required this.currentAccountNumber,
   }) : super(key: key);
   final Account accountData;
   final List<Map<String, String>> userAccounts;
+  final bool landscapeOrientation;
+  final double availableWidth;
   final Function refreshData;
   final Function reloadPage;
   final int currentAccountNumber;
@@ -85,107 +89,112 @@ class _OverviewScreenState extends State<OverviewScreen>
 
     return Scaffold(
       body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Expanded(
-              child: SmartRefresher(
-                enablePullDown: true,
-                controller: _refreshController,
-                onRefresh: _onRefresh,
-                child: SingleChildScrollView(
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: <Widget>[
-                        ReusableCard(
-                          childWidget: ExpandableNotifier(
-                            child: ScrollOnExpand(
-                              scrollOnExpand: true,
-                              scrollOnCollapse: true,
-                              child: ExpandablePanel(
-                                collapsed: ExpandableButton(
-                                  child: CollapsedAccountSummary(
-                                      accountData: accountData),
-                                ),
-                                expanded: ExpandableButton(
-                                  child: ExpandedAccountSummary(
-                                      accountData: accountData),
+        child: Center(
+          child: SizedBox(
+            width: widget.landscapeOrientation && widget.availableWidth > 1000 ? widget.availableWidth * 0.7 : null,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                Expanded(
+                  child: SmartRefresher(
+                    enablePullDown: true,
+                    controller: _refreshController,
+                    onRefresh: _onRefresh,
+                    child: SingleChildScrollView(
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: <Widget>[
+                            ReusableCard(
+                              childWidget: ExpandableNotifier(
+                                child: ScrollOnExpand(
+                                  scrollOnExpand: true,
+                                  scrollOnCollapse: true,
+                                  child: ExpandablePanel(
+                                    collapsed: ExpandableButton(
+                                      child: CollapsedAccountSummary(
+                                          accountData: accountData),
+                                    ),
+                                    expanded: ExpandableButton(
+                                      child: ExpandedAccountSummary(
+                                          accountData: accountData),
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        ReusableCard(
-                          childWidget: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text(
-                                'overview_screen.distribution'.tr(),
-                                style: kCardTitleTextStyle,
+                            SizedBox(
+                              height: 20,
+                            ),
+                            ReusableCard(
+                              childWidget: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Text(
+                                    'overview_screen.distribution'.tr(),
+                                    style: kCardTitleTextStyle,
+                                  ),
+                                  DistributionChart(
+                                      portfolioData: accountData.portfolioData),
+                                  // DistributionChartSimplified(
+                                  //     portfolioDistribution: accountData.portfolioDistribution),
+                                  DistributionChartLegend(
+                                      portfolioDistribution:
+                                          accountData.portfolioDistribution),
+                                ],
                               ),
-                              DistributionChart(
-                                  portfolioData: accountData.portfolioData),
-                              // DistributionChartSimplified(
-                              //     portfolioDistribution: accountData.portfolioDistribution),
-                              DistributionChartLegend(
-                                  portfolioDistribution:
-                                      accountData.portfolioDistribution),
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Column(
+                            ),
+                            SizedBox(
+                              height: 15,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                MinimumTransferCard(
-                                    additionalCashNeededToTrade: widget
-                                        .accountData
-                                        .additionalCashNeededToTrade),
-                                SizedBox(height: 5),
-                                FeeFreeAmountCard(
-                                    feeFreeAmount:
-                                        widget.accountData.feeFreeAmount),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    MinimumTransferCard(
+                                        additionalCashNeededToTrade: widget
+                                            .accountData
+                                            .additionalCashNeededToTrade),
+                                    SizedBox(height: 5),
+                                    FeeFreeAmountCard(
+                                        feeFreeAmount:
+                                            widget.accountData.feeFreeAmount),
+                                  ],
+                                ),
+                                MaterialButton(
+                                  height: 40,
+                                  minWidth: 40,
+                                  shape: CircleBorder(),
+                                  materialTapTargetSize:
+                                      MaterialTapTargetSize.shrinkWrap,
+                                  padding: EdgeInsets.zero,
+                                  child: Icon(
+                                    Icons.info_outline,
+                                    color: Colors.blue[600],
+                                  ),
+                                  onPressed: () {
+                                    showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) =>
+                                            ProfitPopUp());
+                                  },
+                                ),
                               ],
-                            ),
-                            MaterialButton(
-                              height: 40,
-                              minWidth: 40,
-                              shape: CircleBorder(),
-                              materialTapTargetSize:
-                                  MaterialTapTargetSize.shrinkWrap,
-                              padding: EdgeInsets.zero,
-                              child: Icon(
-                                Icons.info_outline,
-                                color: Colors.blue[600],
-                              ),
-                              onPressed: () {
-                                showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) =>
-                                        ProfitPopUp());
-                              },
                             ),
                           ],
                         ),
-                      ],
+                      ),
                     ),
                   ),
                 ),
-              ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );

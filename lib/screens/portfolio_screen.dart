@@ -11,12 +11,16 @@ class PortfolioScreen extends StatefulWidget {
     Key key,
     @required this.accountData,
     @required this.userAccounts,
+    @required this.landscapeOrientation,
+    @required this.availableWidth,
     @required this.refreshData,
     @required this.reloadPage,
     @required this.currentAccountNumber,
   }) : super(key: key);
   final Account accountData;
   final List<Map<String, String>> userAccounts;
+  final bool landscapeOrientation;
+  final double availableWidth;
   final Function refreshData;
   final Function reloadPage;
   final int currentAccountNumber;
@@ -25,7 +29,8 @@ class PortfolioScreen extends StatefulWidget {
   _PortfolioScreenState createState() => _PortfolioScreenState();
 }
 
-class _PortfolioScreenState extends State<PortfolioScreen> with AutomaticKeepAliveClientMixin<PortfolioScreen> {
+class _PortfolioScreenState extends State<PortfolioScreen>
+    with AutomaticKeepAliveClientMixin<PortfolioScreen> {
   // The Mixin keeps state of the page instead of reloading it every time
   // It requires this 'wantKeepAlive', as well as the 'super' in the build method down below
   @override
@@ -54,7 +59,7 @@ class _PortfolioScreenState extends State<PortfolioScreen> with AutomaticKeepAli
     setState(() {});
     _refreshController.refreshCompleted();
   }
-  
+
   @override
   void initState() {
     super.initState();
@@ -72,28 +77,36 @@ class _PortfolioScreenState extends State<PortfolioScreen> with AutomaticKeepAli
 
     return Scaffold(
       body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Expanded(
-              child: SmartRefresher(
-                enablePullDown: true,
-                controller: _refreshController,
-                onRefresh: _onRefresh,
-                child: SingleChildScrollView(
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: <Widget>[
-                        AssetList(portfolioData: widget.accountData.portfolioData)
-                      ],
+        child: Center(
+          child: SizedBox(
+            width: widget.landscapeOrientation && widget.availableWidth > 1000
+                ? widget.availableWidth * 0.7
+                : null,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                Expanded(
+                  child: SmartRefresher(
+                    enablePullDown: true,
+                    controller: _refreshController,
+                    onRefresh: _onRefresh,
+                    child: SingleChildScrollView(
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: <Widget>[
+                            AssetList(
+                                portfolioData: widget.accountData.portfolioData)
+                          ],
+                        ),
+                      ),
                     ),
                   ),
                 ),
-              ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );
