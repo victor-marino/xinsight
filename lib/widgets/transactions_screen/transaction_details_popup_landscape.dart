@@ -187,11 +187,14 @@ class TransactionDetailsPopupLandscape extends StatelessWidget {
       title: Text(
         'transaction_details_popup.details'.tr(),
       ),
-      content: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: transactionDetails,
+      content: Scrollbar(
+        isAlwaysShown: true,
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: transactionDetails,
+          ),
         ),
       ),
       contentPadding: EdgeInsets.fromLTRB(24, 24, 24, 0),

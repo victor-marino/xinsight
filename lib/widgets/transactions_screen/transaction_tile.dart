@@ -3,7 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:indexax/tools/constants.dart';
 import 'package:indexax/models/transaction.dart';
-import 'package:indexax/widgets/transactions_screen/transaction_details_popup.dart';
+import 'package:indexax/widgets/transactions_screen/transaction_details_popup_portrait.dart';
 import 'package:indexax/widgets/transactions_screen/transaction_details_popup_landscape.dart';
 
 class TransactionTile extends StatelessWidget {
