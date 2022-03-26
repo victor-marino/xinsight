@@ -19,6 +19,7 @@ class EvolutionScreen extends StatefulWidget {
     @required this.reloadPage,
     @required this.currentAccountNumber,
     @required this.landscapeOrientation,
+    @required this.availableWidth,
   }) : super(key: key);
   final Account accountData;
   final List<Map<String, String>> userAccounts;
@@ -26,6 +27,7 @@ class EvolutionScreen extends StatefulWidget {
   final Function reloadPage;
   final int currentAccountNumber;
   final bool landscapeOrientation;
+  final double availableWidth;
 
   @override
   _EvolutionScreenState createState() => _EvolutionScreenState();
@@ -121,6 +123,7 @@ class _EvolutionScreenState extends State<EvolutionScreen>
     // This super call is required for the Mixin that keeps the page state
     super.build(context);
 
+    print(widget.availableWidth);
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -175,10 +178,11 @@ class _EvolutionScreenState extends State<EvolutionScreen>
                                   width: double.infinity,
                                   child: Wrap(
                                     direction: Axis.horizontal,
-                                    alignment: WrapAlignment.spaceBetween,
-                                    spacing: 3,
+                                    alignment: widget.availableWidth < 500 ? WrapAlignment.center : WrapAlignment.end,
+                                    spacing: 5,
                                     children: amountsChartZoomChips(
-                                        currentPeriod: currentPeriod, zoomLevels: zoomLevels,
+                                        currentPeriod: currentPeriod,
+                                        zoomLevels: zoomLevels,
                                         reloadAmountsChart: reloadAmountsChart),
                                   ),
                                 ),

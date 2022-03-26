@@ -196,6 +196,7 @@ class _RootScreenState extends State<RootScreen> {
                 foregroundColor: Theme.of(context).canvasColor,
                 elevation: 0,
                 toolbarHeight: landscapeOrientation ? 40 : 100,
+                centerTitle: false,
                 title: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -248,6 +249,7 @@ class _RootScreenState extends State<RootScreen> {
                       refreshData: refreshData,
                       reloadPage: reloadPage,
                       landscapeOrientation: landscapeOrientation,
+                      availableWidth: availableWidth,
                       currentAccountNumber: widget.accountNumber),
                   TransactionsScreen(
                       accountData: snapshot.data,
