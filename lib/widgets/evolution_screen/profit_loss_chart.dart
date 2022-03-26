@@ -15,46 +15,38 @@ class ProfitLossChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return SfCartesianChart(
-      plotAreaBorderWidth: 0,
-      axes: [],
-      primaryXAxis: CategoryAxis(
-        interval: 1,
-        crossesAt: 0,
-        placeLabelsNearAxisLine: false,
-        majorGridLines: MajorGridLines(width: 0),
-        majorTickLines: MajorTickLines(size: 0),
-        labelStyle: kProfitLossChartLabelTextStyle,
-      ),
-      primaryYAxis: NumericAxis(
-        numberFormat: NumberFormat("#0.0"),
-        labelFormat: ' {value}%',
-        isVisible: false,
-        crossesAt: 0,
-      ),
-      series: <
-          ChartSeries<List,
-              String>>[
-        // Renders column chart
-        ColumnSeries<List, String>(
-          spacing: 0,
-          width: 0.7,
-          dataLabelSettings: DataLabelSettings(
-              isVisible: true,
-          textStyle: kChartLabelTextStyle,
-          labelAlignment: ChartDataLabelAlignment.outer
-          ),
-          enableTooltip: false,
-          dataSource: profitLossSeries[currentYear],
-          xValueMapper:
-              (List month, _) =>
-          month[0],
-          yValueMapper:
-              (List month, _) =>
-              month[1],
+        plotAreaBorderWidth: 0,
+        axes: [],
+        primaryXAxis: CategoryAxis(
+          interval: 1,
+          crossesAt: 0,
+          placeLabelsNearAxisLine: false,
+          majorGridLines: MajorGridLines(width: 0),
+          majorTickLines: MajorTickLines(size: 0),
+          labelStyle: kProfitLossChartLabelTextStyle,
         ),
-      ],
-    );
+        primaryYAxis: NumericAxis(
+          numberFormat: NumberFormat("#0.0"),
+          labelFormat: ' {value}%',
+          isVisible: false,
+          crossesAt: 0,
+        ),
+        series: <ChartSeries<List, String>>[
+          // Renders column chart
+          ColumnSeries<List, String>(
+              spacing: 0,
+              width: 0.7,
+              dataLabelSettings: DataLabelSettings(
+                  isVisible: true,
+                  textStyle: kChartLabelTextStyle,
+                  labelAlignment: ChartDataLabelAlignment.outer),
+              enableTooltip: false,
+              dataSource: profitLossSeries[currentYear],
+              xValueMapper: (List month, _) => month[0],
+              yValueMapper: (List month, _) => month[1],
+              pointColorMapper: (List month, _) => month[1] == null || month[1] > 0 ? Colors.green[500] : Colors.red[900],
+              ),
+        ]);
   }
 }
