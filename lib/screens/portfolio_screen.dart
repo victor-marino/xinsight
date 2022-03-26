@@ -9,11 +9,11 @@ const int nbsp = 0x00A0;
 class PortfolioScreen extends StatefulWidget {
   const PortfolioScreen({
     Key key,
-    this.accountData,
-    this.userAccounts,
-    this.refreshData,
-    this.reloadPage,
-    this.currentAccountNumber,
+    @required this.accountData,
+    @required this.userAccounts,
+    @required this.refreshData,
+    @required this.reloadPage,
+    @required this.currentAccountNumber,
   }) : super(key: key);
   final Account accountData;
   final List<Map<String, String>> userAccounts;

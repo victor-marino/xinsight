@@ -14,12 +14,13 @@ import '../tools/bottom_navigation_bar_provider.dart';
 import '../widgets/bottom_navigation_bar.dart';
 import '../widgets/page_header.dart';
 import '../widgets/settings_popup_menu.dart';
+import '../widgets/current_account_indicator.dart';
 
 class RootScreen extends StatefulWidget {
   RootScreen({
-    this.token,
-    this.accountNumber,
-    this.pageNumber,
+    @required this.token,
+    @required this.accountNumber,
+    @required this.pageNumber,
     this.previousUserAccounts,
   });
 
@@ -47,13 +48,15 @@ class _RootScreenState extends State<RootScreen> {
   Future<void> loadData(int accountNumber) async {
     userAccounts = await getUserAccounts(widget.token);
     setState(() {
-      accountData = getAccountData(widget.token, accountNumber, currentAccount);
+      accountData =
+          getAccountData(context, widget.token, accountNumber, currentAccount);
     });
     return accountData;
   }
 
   Future<void> refreshData(int accountNumber) {
-    accountData = getAccountData(widget.token, accountNumber, currentAccount);
+    accountData =
+        getAccountData(context, widget.token, accountNumber, currentAccount);
     return accountData;
   }
 
@@ -92,8 +95,8 @@ class _RootScreenState extends State<RootScreen> {
     return userAccounts;
   }
 
-  static Future<Account> getAccountData(
-      String token, int accountNumber, Account currentAccount) async {
+  static Future<Account> getAccountData(BuildContext context, String token,
+      int accountNumber, Account currentAccount) async {
     //Account currentAccount;
     IndexaData indexaData = IndexaData(token: token);
     try {
@@ -125,8 +128,12 @@ class _RootScreenState extends State<RootScreen> {
 
       return currentAccount;
     } on Exception catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(e.toString()),
+      ));
       print("Couldn't fetch account data");
       print(e);
+
       throw (e);
     }
   }
@@ -153,6 +160,14 @@ class _RootScreenState extends State<RootScreen> {
 
   @override
   Widget build(BuildContext context) {
+    bool landscapeOrientation = false;
+    double availableWidth = MediaQuery.of(context).size.width;
+    double availableHeight = MediaQuery.of(context).size.height;
+
+    if (availableHeight <= availableWidth) {
+      landscapeOrientation = true;
+    }
+
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle(
           statusBarColor: Theme.of(context).canvasColor,
@@ -167,29 +182,49 @@ class _RootScreenState extends State<RootScreen> {
           }
           if (snapshot.hasData) {
             print(userAccounts.toString());
+            // bool landscapeOrientation = false;
+            // double availableWidth = MediaQuery.of(context).size.width;
+            // double availableHeight = MediaQuery.of(context).size.height;
+
+            // if (availableHeight <= availableWidth) {
+            //   landscapeOrientation = true;
+            // }
             child = Scaffold(
               appBar: AppBar(
                 titleSpacing: 20,
                 backgroundColor: Theme.of(context).canvasColor,
                 foregroundColor: Theme.of(context).canvasColor,
                 elevation: 0,
-                toolbarHeight: 100,
-                title: PageHeader(
-                    accountNumber: snapshot.data.accountNumber,
-                    accountType: snapshot.data.type),
+                toolbarHeight: landscapeOrientation ? 40 : 100,
+                title: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    PageHeader(
+                        accountNumber: snapshot.data.accountNumber,
+                        accountType: snapshot.data.type,
+                        ),
+                         if (!landscapeOrientation) ...[
+                      CurrentAccountIndicator(accountNumber: snapshot.data.accountNumber, accountType: snapshot.data.type)
+                    ],
+                  ],
+                ),
                 actions: <Widget>[
-                  // buildAccountSwitcher(
-                  //     currentAccountNumber: widget.accountNumber,
-                  //     currentPage: widget.pageNumber,
-                  //     accountDropdownItems: dropdownItems,
-                  //     reloadPage: reloadPage),
-                  SettingsPopupMenu(
-                      userAccounts: userAccounts,
-                      currentAccountNumber: widget.accountNumber,
-                      currentPage: widget.pageNumber,
-                      reloadPage: reloadPage),
-                  //SettingsButton(),
-                  SizedBox(width: 10)
+                  if (landscapeOrientation) ...[
+                    CurrentAccountIndicator(
+                        accountNumber: snapshot.data.accountNumber,
+                        accountType: snapshot.data.type),
+                    SizedBox(width: 10),
+                  ],
+                  Container(
+                    alignment: Alignment.center,
+                    padding: EdgeInsets.only(right: 15),
+                    child: SettingsPopupMenu(
+                        userAccounts: userAccounts,
+                        currentAccountNumber: widget.accountNumber,
+                        currentPage: widget.pageNumber,
+                        reloadPage: reloadPage),
+                  ),
+                  //SizedBox(width: 10)
                 ],
               ),
               body: PageView(
@@ -212,6 +247,7 @@ class _RootScreenState extends State<RootScreen> {
                       userAccounts: userAccounts,
                       refreshData: refreshData,
                       reloadPage: reloadPage,
+                      landscapeOrientation: landscapeOrientation,
                       currentAccountNumber: widget.accountNumber),
                   TransactionsScreen(
                       accountData: snapshot.data,
@@ -237,6 +273,7 @@ class _RootScreenState extends State<RootScreen> {
             );
           } else if (snapshot.hasError) {
             print(snapshot.error);
+
             if (reloading) {
               child = Center(child: CircularProgressIndicator());
             } else {

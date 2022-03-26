@@ -8,21 +8,24 @@ import 'package:indexax/widgets/reusable_card.dart';
 import '../widgets/evolution_screen/amounts_chart.dart';
 import 'package:indexax/widgets/evolution_screen/profit_loss_chart.dart';
 import 'package:indexax/widgets/evolution_screen/profit_loss_year_switcher.dart';
+import 'package:indexax/widgets/evolution_screen/amounts_chart_zoom_chips.dart';
 
 class EvolutionScreen extends StatefulWidget {
   const EvolutionScreen({
     Key key,
-    this.accountData,
-    this.userAccounts,
-    this.refreshData,
-    this.reloadPage,
-    this.currentAccountNumber,
+    @required this.accountData,
+    @required this.userAccounts,
+    @required this.refreshData,
+    @required this.reloadPage,
+    @required this.currentAccountNumber,
+    @required this.landscapeOrientation,
   }) : super(key: key);
   final Account accountData;
   final List<Map<String, String>> userAccounts;
   final Function refreshData;
   final Function reloadPage;
   final int currentAccountNumber;
+  final bool landscapeOrientation;
 
   @override
   _EvolutionScreenState createState() => _EvolutionScreenState();
@@ -81,13 +84,13 @@ class _EvolutionScreenState extends State<EvolutionScreen>
     currentYear = accountData.profitLossSeries.keys.toList().last;
   }
 
-  List<Map> chipData = [
-    {"label": "evolution_screen.1m".tr(), "duration": Duration(days: 30)},
-    {"label": "evolution_screen.3m".tr(), "duration": Duration(days: 90)},
-    {"label": "evolution_screen.6m".tr(), "duration": Duration(days: 180)},
-    {"label": "evolution_screen.1y".tr(), "duration": Duration(days: 365)},
-    {"label": "evolution_screen.5y".tr(), "duration": Duration(days: 1825)},
-    {"label": "evolution_screen.all".tr(), "duration": null},
+  List<Map> zoomLevels = [
+    {"label": "1m", "duration": Duration(days: 30)},
+    {"label": "3m", "duration": Duration(days: 90)},
+    {"label": "6m", "duration": Duration(days: 180)},
+    {"label": "1y", "duration": Duration(days: 365)},
+    {"label": "5y", "duration": Duration(days: 1825)},
+    {"label": "all", "duration": null},
   ];
 
   List<ChoiceChip> buildEvolutionChartChipList(List<Map> chipData) {
@@ -134,29 +137,52 @@ class _EvolutionScreenState extends State<EvolutionScreen>
                     child: Column(
                       children: <Widget>[
                         ReusableCard(
-                          paddingBottom: 8,
+                          paddingBottom: widget.landscapeOrientation ? 16 : 8,
+                          paddingTop: widget.landscapeOrientation ? 8 : 16,
                           childWidget: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                'evolution_screen.evolution'.tr(),
-                                textAlign: TextAlign.left,
-                                style: kCardTitleTextStyle,
-                              ),
+                              Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      'evolution_screen.evolution'.tr(),
+                                      textAlign: TextAlign.left,
+                                      style: kCardTitleTextStyle,
+                                    ),
+                                    if (widget.landscapeOrientation) ...[
+                                      Container(
+                                        child: Wrap(
+                                          direction: Axis.horizontal,
+                                          alignment: WrapAlignment.end,
+                                          spacing: 5,
+                                          children: amountsChartZoomChips(
+                                              currentPeriod: currentPeriod,
+                                              zoomLevels: zoomLevels,
+                                              reloadAmountsChart:
+                                                  reloadAmountsChart),
+                                        ),
+                                      ),
+                                    ],
+                                  ]),
                               AmountsChart(
                                   amountsSeries: accountData.amountsSeries,
                                   period: currentPeriod),
-                              Container(
-                                width: double.infinity,
-                                child: Wrap(
-                                  direction: Axis.horizontal,
-                                  alignment: WrapAlignment.spaceBetween,
-                                  spacing: 3,
-                                  children:
-                                      buildEvolutionChartChipList(chipData),
+                              if (!widget.landscapeOrientation) ...[
+                                Container(
+                                  width: double.infinity,
+                                  child: Wrap(
+                                    direction: Axis.horizontal,
+                                    alignment: WrapAlignment.spaceBetween,
+                                    spacing: 3,
+                                    children: amountsChartZoomChips(
+                                        currentPeriod: currentPeriod, zoomLevels: zoomLevels,
+                                        reloadAmountsChart: reloadAmountsChart),
+                                  ),
                                 ),
-                              ),
+                              ],
                             ],
                           ),
                         ),
@@ -178,10 +204,10 @@ class _EvolutionScreenState extends State<EvolutionScreen>
                                     style: kCardTitleTextStyle,
                                   ),
                                   ProfitLossYearSwitcher(
-                                      // profitLossYearDropdownItems:
-                                      //     profitLossYearDropdownItems,
                                       currentYear: currentYear,
-                                      yearList: accountData.profitLossSeries.keys.toList(),
+                                      yearList: accountData
+                                          .profitLossSeries.keys
+                                          .toList(),
                                       reloadProfitLossChart:
                                           reloadProfitLossChart),
                                 ],

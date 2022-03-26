@@ -13,11 +13,11 @@ import 'package:indexax/widgets/projection_screen/expectations_popup.dart';
 class ProjectionScreen extends StatefulWidget {
   const ProjectionScreen({
     Key key,
-    this.accountData,
-    this.userAccounts,
-    this.refreshData,
-    this.reloadPage,
-    this.currentAccountNumber,
+    @required this.accountData,
+    @required this.userAccounts,
+    @required this.refreshData,
+    @required this.reloadPage,
+    @required this.currentAccountNumber,
   }) : super(key: key);
   final Account accountData;
   final List<Map<String, String>> userAccounts;

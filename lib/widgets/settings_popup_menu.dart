@@ -103,14 +103,13 @@ class SettingsPopupMenu extends StatelessWidget {
         children: [
           Text('header.settings'.tr()),
           IconButton(
-              icon: Icon(Icons.list),
+              icon: Icon(Icons.checklist),
               color: Colors.black54,
               disabledColor: Colors.black54,
               onPressed: null),
         ],
       ),
       value: "options",
-      //padding: const EdgeInsets.fromLTRB(16, 8, 0, 8),
     ));
     itemList.add(PopupMenuItem(
       height: itemHeight,
@@ -129,38 +128,40 @@ class SettingsPopupMenu extends StatelessWidget {
       //padding: const EdgeInsets.fromLTRB(16, 8, 0, 8),
     ));
 
-    return PopupMenuButton(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Icon(Icons.settings, color: Colors.blue),
-          Icon(Icons.arrow_drop_down_rounded, color: Colors.blue)
-        ],
+    return Container(
+      child: PopupMenuButton(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Icon(Icons.settings, color: Colors.blue),
+            Icon(Icons.arrow_drop_down_rounded, color: Colors.blue)
+          ],
+        ),
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(10))),
+        onSelected: (value) {
+          switch (value) {
+            case "options":
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext context) => SettingsScreen()));
+              break;
+            case "logout":
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) => LogoutPopup());
+              break;
+            default:
+              if (value != currentAccountNumber) {
+                reloadPage(value, currentPage);
+              }
+          }
+        },
+        itemBuilder: (context) {
+          return itemList;
+        },
       ),
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(10))),
-      onSelected: (value) {
-        switch (value) {
-          case "options":
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (BuildContext context) => SettingsScreen()));
-            break;
-          case "logout":
-            showDialog(
-                context: context,
-                builder: (BuildContext context) => LogoutPopup());
-            break;
-          default:
-            if (value != currentAccountNumber) {
-              reloadPage(value, currentPage);
-            }
-        }
-      },
-      itemBuilder: (context) {
-        return itemList;
-      },
     );
   }
 }

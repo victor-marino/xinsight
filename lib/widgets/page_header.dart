@@ -16,24 +16,6 @@ class PageHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String accountTypeText;
-
-    switch (accountType) {
-      case 'mutual':
-        accountTypeText = 'header.mutual_account'.tr();
-        break;
-      case 'pension':
-        accountTypeText = 'header.pension_account'.tr();
-        break;
-      case 'epsv':
-        accountTypeText = 'header.epsv_account'.tr();
-        break;
-      case 'employment_plan':
-        accountTypeText = 'header.employment_plan_account'.tr();
-        break;
-      default:
-        accountTypeText = accountType;
-    }
 
     List<String> pageTitles = [
       'page_titles.overview'.tr(),
@@ -50,22 +32,6 @@ class PageHeader extends StatelessWidget {
               Provider.of<BottomNavigationBarProvider>(context, listen: true)
                   .currentIndex],
           style: kTitleTextStyle,
-          overflow: TextOverflow.fade,
-          maxLines: 1,
-          softWrap: false,
-        ),
-        Text(
-          accountNumber != null
-              //? 'header.account'.tr().toUpperCase() + " " + accountNumber : "",
-              ? accountNumber : "",
-          style: kAccountNumberTextStyle.copyWith(fontWeight: FontWeight.bold),
-          overflow: TextOverflow.fade,
-          maxLines: 1,
-          softWrap: false,
-        ),
-        Text(
-          accountType != null ? accountTypeText.toUpperCase() : "",
-          style: kAccountNumberTextStyle,
           overflow: TextOverflow.fade,
           maxLines: 1,
           softWrap: false,

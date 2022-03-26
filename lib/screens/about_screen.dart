@@ -15,6 +15,13 @@ class _AboutScreenState extends State<AboutScreen> {
 
   @override
   Widget build(BuildContext context) {
+    bool landscapeOrientation = false;
+    double availableWidth = MediaQuery.of(context).size.width;
+    double availableHeight = MediaQuery.of(context).size.height;
+
+    if (availableHeight <= availableWidth) {
+      landscapeOrientation = true;
+    }
     return Scaffold(
       appBar: AppBar(
         title: Text('about_screen.about'.tr()),
@@ -84,27 +91,33 @@ class _AboutScreenState extends State<AboutScreen> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 30, left: 10, right: 10),
-                  child: Column(
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.only(bottom: 10),
-                        alignment: Alignment.center,
-                        child: Image.asset('assets/images/indexax_logo_wider.png'),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.center,
+                  
+                  child: SizedBox(
+                    width: landscapeOrientation ? availableWidth * 0.5 : double.infinity,
+                    child: Center(
+                      child: Column(
                         children: [
-                          Text(
-                              'about_screen.for'.tr() + " ",
-                              style: TextStyle(
-                                  color: Colors.black38)),
-                          Image.asset(
-                              'assets/images/indexa_logo.png',
-                              height: 30),
+                          Container(
+                            padding: const EdgeInsets.only(bottom: 10),
+                            alignment: Alignment.center,
+                            child: Image.asset('assets/images/indexax_logo_wider.png'),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                  'about_screen.for'.tr() + " ",
+                                  style: TextStyle(
+                                      color: Colors.black38)),
+                              Image.asset(
+                                  'assets/images/indexa_logo.png',
+                                  height: 30),
+                            ],
+                          )
                         ],
-                      )
-                    ],
+                      ),
+                    ),
                   ),
                 ),
               ],
