@@ -5,15 +5,20 @@ import 'package:indexax/tools/constants.dart';
 import 'package:indexax/tools/number_formatting.dart';
 import 'package:expandable/expandable.dart';
 import 'package:indexax/widgets/portfolio_screen/collapsed_asset_tile_view.dart';
-import 'package:indexax/widgets/portfolio_screen/expanded_asset_tile_header.dart';
-import 'package:indexax/widgets/portfolio_screen/expanded_asset_tile_body.dart';
+import 'package:indexax/widgets/portfolio_screen/expanded_asset_tile_header_portrait.dart';
+import 'package:indexax/widgets/portfolio_screen/expanded_asset_tile_header_landscape.dart';
+import 'package:indexax/widgets/portfolio_screen/expanded_asset_tile_body_portrait.dart';
+import 'package:indexax/widgets/portfolio_screen/expanded_asset_tile_body_landscape.dart';
 
 class AssetTile extends StatelessWidget {
   const AssetTile({
     Key key,
     @required this.assetData,
+    @required this.landscapeOrientation,
   }) : super(key: key);
+  
   final PortfolioDataPoint assetData;
+  final bool landscapeOrientation;
 
   @override
   Widget build(BuildContext context) {
@@ -23,8 +28,8 @@ class AssetTile extends StatelessWidget {
     Widget expandedBody;
 
     collapsedView = CollapsedAssetTileView(assetData: assetData);
-    expandedHeader = ExpandedAssetTileHeader(assetData: assetData);
-    expandedBody = ExpandedAssetTileBody(assetData: assetData);
+    expandedHeader = landscapeOrientation ? ExpandedAssetTileHeaderLandscape(assetData: assetData) : ExpandedAssetTileHeaderPortrait(assetData: assetData);
+    expandedBody = landscapeOrientation ? ExpandedAssetTileBodyLandscape(assetData: assetData) : ExpandedAssetTileBodyPortrait(assetData: assetData);
 
     expandedView = Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Padding(

@@ -10,8 +10,11 @@ class AssetList extends StatelessWidget {
   const AssetList({
     Key key,
     @required this.portfolioData,
+    @required this.landscapeOrientation,
   }) : super(key: key);
+  
   final List<PortfolioDataPoint> portfolioData;
+  final bool landscapeOrientation;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +40,7 @@ class AssetList extends StatelessWidget {
             }
             // equityAmount += assetData.amount;
             equityPercentage += assetData.percentage;
-            equityInstruments.add(AssetTile(assetData: assetData));
+            equityInstruments.add(AssetTile(assetData: assetData, landscapeOrientation: landscapeOrientation));
           }
           break;
 
@@ -48,7 +51,7 @@ class AssetList extends StatelessWidget {
             }
             // fixedAmount += assetData.amount;
             fixedPercentage += assetData.percentage;
-            fixedInstruments.add(AssetTile(assetData: assetData));
+            fixedInstruments.add(AssetTile(assetData: assetData, landscapeOrientation: landscapeOrientation,));
           }
           break;
 
@@ -56,7 +59,7 @@ class AssetList extends StatelessWidget {
           {
             cashAmount += assetData.amount;
             cashPercentage += assetData.percentage;
-            cashInstruments.add(AssetTile(assetData: assetData));
+            cashInstruments.add(AssetTile(assetData: assetData, landscapeOrientation: landscapeOrientation));
           }
           break;
 
@@ -64,7 +67,7 @@ class AssetList extends StatelessWidget {
           {
             // otherAmount += assetData.amount;
             // otherPercentage += assetData.percentage;
-            otherInstruments.add(AssetTile(assetData: assetData));
+            otherInstruments.add(AssetTile(assetData: assetData, landscapeOrientation: landscapeOrientation));
           }
           break;
       }

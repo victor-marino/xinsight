@@ -4,8 +4,8 @@ import 'package:indexax/tools/number_formatting.dart';
 import 'package:indexax/models/portfolio_datapoint.dart';
 import 'package:easy_localization/easy_localization.dart';
 
-class ExpandedAssetTileBody extends StatelessWidget {
-  const ExpandedAssetTileBody({
+class ExpandedAssetTileBodyPortrait extends StatelessWidget {
+  const ExpandedAssetTileBodyPortrait({
     Key key,
     @required this.assetData,
   }) : super(key: key);
@@ -28,6 +28,9 @@ class ExpandedAssetTileBody extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        Divider(),
+        Text(assetData.instrumentCompany,
+                  style: kTransactionDetailValueTextStyle),
         Divider(),
         RichText(
           text: TextSpan(
