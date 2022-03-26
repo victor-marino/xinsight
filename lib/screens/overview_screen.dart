@@ -14,6 +14,7 @@ import 'package:indexax/widgets/overview_screen/distribution_legend.dart';
 import 'package:indexax/widgets/overview_screen/profit_popup.dart';
 import 'package:indexax/widgets/overview_screen/minimum_transfer_card.dart';
 import 'package:indexax/widgets/overview_screen/fee_free_amount_card.dart';
+import 'package:indexax/widgets/overview_screen/expanded_account_summary_single_view.dart';
 
 const int nbsp = 0x00A0;
 
@@ -91,7 +92,9 @@ class _OverviewScreenState extends State<OverviewScreen>
       body: SafeArea(
         child: Center(
           child: SizedBox(
-            width: widget.landscapeOrientation && widget.availableWidth > 1000 ? widget.availableWidth * 0.7 : null,
+            width: widget.landscapeOrientation && widget.availableWidth > 1000
+                ? widget.availableWidth * 0.7
+                : null,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
@@ -106,46 +109,92 @@ class _OverviewScreenState extends State<OverviewScreen>
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: <Widget>[
-                            ReusableCard(
-                              childWidget: ExpandableNotifier(
-                                child: ScrollOnExpand(
-                                  scrollOnExpand: true,
-                                  scrollOnCollapse: true,
-                                  child: ExpandablePanel(
-                                    collapsed: ExpandableButton(
-                                      child: CollapsedAccountSummary(
-                                          accountData: accountData),
-                                    ),
-                                    expanded: ExpandableButton(
-                                      child: ExpandedAccountSummary(
-                                          accountData: accountData),
+                            if (!widget.landscapeOrientation ||
+                                widget.availableWidth <= 1000) ...[
+                              ReusableCard(
+                                childWidget: ExpandableNotifier(
+                                  child: ScrollOnExpand(
+                                    scrollOnExpand: true,
+                                    scrollOnCollapse: true,
+                                    child: ExpandablePanel(
+                                      collapsed: ExpandableButton(
+                                        child: CollapsedAccountSummary(
+                                            accountData: accountData),
+                                      ),
+                                      expanded: ExpandableButton(
+                                        child: ExpandedAccountSummary(
+                                            accountData: accountData),
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            ReusableCard(
-                              childWidget: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  Text(
-                                    'overview_screen.distribution'.tr(),
-                                    style: kCardTitleTextStyle,
-                                  ),
-                                  DistributionChart(
-                                      portfolioData: accountData.portfolioData),
-                                  // DistributionChartSimplified(
-                                  //     portfolioDistribution: accountData.portfolioDistribution),
-                                  DistributionChartLegend(
-                                      portfolioDistribution:
-                                          accountData.portfolioDistribution),
-                                ],
+                              SizedBox(
+                                height: 20,
                               ),
-                            ),
+                              ReusableCard(
+                                childWidget: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Text(
+                                      'overview_screen.distribution'.tr(),
+                                      style: kCardTitleTextStyle,
+                                    ),
+                                    DistributionChart(
+                                        portfolioData:
+                                            accountData.portfolioData),
+                                    // DistributionChartSimplified(
+                                    //     portfolioDistribution: accountData.portfolioDistribution),
+                                    DistributionChartLegend(
+                                        portfolioDistribution:
+                                            accountData.portfolioDistribution),
+                                  ],
+                                ),
+                              ),
+                            ] else ...[
+                              SizedBox(
+                                height: 362,
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Expanded(
+                                      child: ReusableCard(
+                                        childWidget:
+                                            ExpandedAccountSummarySingleView(
+                                                accountData: accountData),
+                                      ),
+                                    ),
+                                    SizedBox(width: 20),
+                                    Flexible(
+                                      flex: 1,
+                                      child: ReusableCard(
+                                        childWidget: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: <Widget>[
+                                            Text(
+                                              'overview_screen.distribution'
+                                                  .tr(),
+                                              style: kCardTitleTextStyle,
+                                            ),
+                                            DistributionChart(
+                                                portfolioData:
+                                                    accountData.portfolioData),
+                                            DistributionChartLegend(
+                                                portfolioDistribution:
+                                                    accountData
+                                                        .portfolioDistribution),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
                             SizedBox(
                               height: 15,
                             ),
