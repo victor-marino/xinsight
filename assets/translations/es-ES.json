@@ -33,7 +33,7 @@
     "in_your_client_area": "En tu área de cliente de Indexa Capital",
     "go_to": "Ve a",
     "user_configuration": "Configuración de Usuario",
-    "go_to_applications": "Go to \"Applications\"",
+    "go_to_applications": "Ve a \"Aplicaciones\"",
     "press_generate_token": "Pulsa \"GENERAR TOKEN\"",
     "how_to_get_token": "Cómo obtener token",
     "api_token": "Token de la API",
@@ -74,10 +74,10 @@
     "instrument_type_other": "@:distribution_chart.instrument_type_other"
   },
   "portfolio_screen": {
-    "equity": "Renta variable",
-    "fixed": "Renta fija",
-    "cash": "Efectivo",
-    "other": "Otros"
+    "equity": "@:distribution_chart.instrument_type_equity",
+    "fixed": "@:distribution_chart.instrument_type_fixed",
+    "cash": "@:distribution_chart.instrument_type_cash",
+    "other": "@:distribution_chart.instrument_type_other"
   },
   "asset_details_popup": {
     "instrument_type_equity": "@:portfolio_screen.equity",
@@ -206,7 +206,5 @@
     "november": "Nov",
     "december": "Dic"
   },
-  "good_morning": "¡Buenos días!",
-
   "retry": "REINTENTAR"
 }

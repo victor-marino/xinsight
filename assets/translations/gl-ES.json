@@ -1,16 +1,210 @@
 {
-  "app_title": "Título da app",
-  "user_not_recognized": "Usuario non recoñecido",
-  "user_authenticated": "Usuario identificado",
-  "cancel": "Cancelar",
-  "biometric_authentication": "Identificación biométrica",
-  "biometrics_required": "Requírese identificación biométrica",
-  "go_to_settings": "Vai á configuración",
-  "go_to_settings_description": "A identificación biométrica non está configurada neste dispositivo. Ve á configuración do teu dispositivo para configurala.",
-  "please_authenticate": "Por favor identifícate",
-  "good_morning": "¡Bos días!",
-  "InstrumentType.equity": "Acciones",
-  "InstrumentType.fixed": "Bonos",
-  "InstrumentType.cash": "Efectivo",
-  "InstrumentType.other": "Otros"
+  "page_titles": {
+    "overview": "Resumo",
+    "portfolio": "Carteira",
+    "evolution": "Evolución",
+    "transactions": "Movementos",
+    "projection": "Proxección",
+    "settings": "Opcións"
+  },
+  "header": {
+    "account": "Conta",
+    "accounts": "Contas",
+    "mutual_account": "Carteira de fondos",
+    "pension_account": "Plan de pensións",
+    "epsv_account": "EPSV",
+    "employment_plan_account": "Plan de pensións de empresa",
+    "settings": "@:page_titles.settings",
+    "logout": "@:settings_screen.logout"
+  },
+  "login_screen": {
+    "for": "para",
+    "user_not_recognized": "Usuario non recoñecido",
+    "user_authenticated": "Usuario identificado",
+    "cancel": "Cancelar",
+    "authentication": "Indentificación",
+    "biometrics_required": "Identificación precisa",
+    "go_to_settings": "Ir a axustes",
+    "go_to_settings_description": "A identificación biométrica non está configurada neste dispositivo. Por favor, vai ós axustes do teu dispositivo para configurala.",
+    "please_authenticate": "Por favor identifícate",
+    "token_validation_failed": "Non se puido validar o token",
+    "please_enter_token": "Introduce o teu token",
+    "get_token": "Obter token",
+    "in_your_client_area": "Na túa área de cliente de Indexa Capital",
+    "go_to": "Vai a",
+    "user_configuration": "Configuración de Usuario",
+    "go_to_applications": "Vai a \"Aplicaciones\"",
+    "press_generate_token": "Preme \"GENERAR TOKEN\"",
+    "how_to_get_token": "Cómo obter token",
+    "api_token": "Token da API",
+    "your_indexa_token": "O teu token de Indexa",
+    "remember_token": "Lembrar token",
+    "forget_token_popup_title": "Esquecer token?",
+    "forget_token_popup_cancel_button": "Cancelar",
+    "forget_token_popup_ok_button": "OK",
+    "screen_lock_required": "Para gardar o teu token no dispositivo, o bloqueo da pantalla debe estar activa.",
+    "default_error_message": "Non se puideron carga-los datos"
+  },
+  "overview_screen": {
+    "distribution": "DISTRIBUCIÓN"
+  },
+  "account_summary": {
+    "value": "VALOR",
+    "return": "RENDIBILIDADE",
+    "annual": "anual",
+    "volatility": "VOLATILIDADE",
+    "sharpe": "SHARPE"
+  },
+  "minimum_transfer_card": {
+    "minimum_transfer_to_invest": "Aportación mínima para investir"
+  },
+  "fee_free_amount_card": {
+    "fee_free_amount": "Activos xestionados de balde"
+  },
+  "distribution_chart": {
+    "instrument_type_equity": "Renda variable",
+    "instrument_type_fixed": "Renda fixa",
+    "instrument_type_cash": "Efectivo",
+    "instrument_type_other": "Outros"
+  },
+  "distribution_legend": {
+    "instrument_type_equity": "Accións",
+    "instrument_type_fixed": "Bonos",
+    "instrument_type_cash": "@:distribution_chart.instrument_type_cash",
+    "instrument_type_other": "@:distribution_chart.instrument_type_other"
+  },
+  "portfolio_screen": {
+    "equity": "@:distribution_chart.instrument_type_equity",
+    "fixed": "@:distribution_chart.instrument_type_fixed",
+    "cash": "@:distribution_chart.instrument_type_cash",
+    "other": "@:distribution_chart.instrument_type_other"
+  },
+  "asset_details_popup": {
+    "instrument_type_equity": "@:portfolio_screen.equity",
+    "instrument_type_fixed": "@:portfolio_screen.fixed",
+    "instrument_type_cash": "@:portfolio_screen.cash",
+    "instrument_type_other": "@:portfolio_screen.other",
+    "description_not_available": "Non dispoñible",
+    "name": "Nome",
+    "management_company": "Xestora",
+    "asset_class": "Clase",
+    "titles": "Participacións",
+    "current_value": "Valor actual",
+    "cost": "Custo",
+    "profit_loss": "Ganancias/Perdas",
+    "description": "Descrición"
+  },
+  "profit_popup": {
+    "return": "Rendibilidade",
+    "time_weighted": "Ponderada por tempo",
+    "twr_explanation": "É a mellor forma de comparar a rendabilidade entre as diferentes xestoras, xa que ignora o momento das túas aportacións e reembolsos.",
+    "money_weighted": "Ponderada por cartos",
+    "mwr_explanation": "É a forma máis común de avaliar o desempeño da túa carteira, xa que ten en conta o teu patrón específico de aportacións e reembolsos.",
+    "returns_calculated_net_of_fees": "As rendibilidades calcúlanse netas de comisións."
+  },
+  "evolution_screen": {
+    "evolution": "EVOLUCIÓN",
+    "1m": "1m",
+    "3m": "3m",
+    "6m": "6m",
+    "1y": "1a",
+    "5y": "5a",
+    "all": "Todo",
+    "returns": "RENDIBILIDADES"
+  },
+  "amounts_chart": {
+    "total": "Total",
+    "invested": "Aportado"
+  },
+  "transaction_info": {
+    "fund_purchase": "Compra de fondos",
+    "fund_reimbursement": "Reembolso de fondos",
+    "fund_purchase_by_transfer": "Compra por traspaso",
+    "fund_reimbursement_by_transfer": "Reembolso por traspaso",
+    "completed": "Completado",
+    "securities_operation": "Operación de valores",
+    "custodial_fee": "Comisión de custodia",
+    "management_fee": "Comisión de xestión",
+    "money_deposit_by_transfer": "Ingreso por transferencia",
+    "money_reimbursement_by_transfer": "Reembolso por transferencia",
+    "pension_plan_purchase": "Aportación ó plan de pensións",
+    "iic_purchase_switch": "Alta IIC (switch)",
+    "iic_sale_switch": "Baixa IIC (switch)",
+    "subscription_transfer_internal_plan": "Alta por traspaso plan interno",
+    "sale_transfer_internal_plan": "Baixa por traspaso plan interno",
+    "interest_settlement": "Liquidación de intereses",
+    "transfer_in_other_bank": "Abono por transferencia (outro banco)",
+    "inversis_custody": "Custodia Inversis",
+    "management_fee_charge": "Comisión de xestión",
+    "cash_account": "Conta de efectivo",
+    "securities_account": "Conta de valores"
+  },
+  "pending_transactions_popup": {
+    "pending_transactions_message": "Hai transaccións en curso"
+  },
+  "projection_screen": {
+    "risk": "RISCO",
+    "projection": "PROXECCIÓN",
+    "expected_annual_return": "Rendibilidade anual media esperada"
+  },
+  "performance_chart": {
+    "positive": "Positivo",
+    "negative": "Negativo",
+    "expected": "Esperado",
+    "real": "Real"
+  },
+  "expectations_popup": {
+    "expectations": "Expectativas",
+    "expectations_explanation": "Lembra que estos cálculos son expectativas, polo que non hai ningunha garantía nin seguridade de que as rendibilidades rematen no rango indicado. Calculamos que hai un 95% de probabilidade de que a túa rendibilidade esté comprendida entre o escenario positivo e o negativo.\n\nTen en conta que os mercados poden ser volátiles no curto plazo, pero tenden a revertir á media e crecer no longo plazo."
+  },
+  "transaction_details_popup": {
+    "account": "Conta",
+    "concept": "Concepto",
+    "operation_date": "Data operación",
+    "value_date": "Data valor",
+    "fiscal_date": "Data fiscal",
+    "fund": "Fondo",
+    "fund_shares": "Participacións",
+    "fund_nav": "Valor liquidativo",
+    "cost": "Importe",
+    "status": "Estado",
+    "details": "Detalles"
+  },
+  "settings_screen": {
+    "settings": "@:page_titles.settings",
+    "about": "Sobre Indexa X",
+    "logout": "Pechar sesión"
+  },
+  "about_screen": {
+    "about": "@:settings_screen.about",
+    "text1": "Esta aplicación foi desenrolada de forma completamente independente e no ten ningunha vinculación con Indexa Capital.",
+    "text2": "\n\nPara acceder os datos da túa conta, emprégase a ",
+    "text3": "API oficial",
+    "text4": " proporcionada por Indexa Capital. Esta API só permite operacións de lectura (métodos GET), polo que non pode operar ca túa conta nin ordenar ningún movemento.",
+    "text5": "\n\nA aplicación non recolle nin almacena ningún tipo de información sobre a túa conta, salvo o teu token de acceso se así o indicas. O token almacénase no teu disposiivo de forma segura e encriptada por medio da librería ",
+    "text6": ", e só se emprega para indentificarte contra os servidores de Indexa Capital. Nunca se envía nin almacena en ningún outro servidor.",
+    "text7": "\n\nPodes eliminar o token do teu dispositivo en calquer momento pechando a sesión.",
+    "for": "@:login_screen.for"
+  },
+  "logout_popup": {
+    "title": "¿Pechar sesión?",
+    "text": "O teu token eliminarase deste dispositivo",
+    "cancel_button": "Cancelar",
+    "logout_button": "Pechar sesión"
+  },
+  "months_short": {
+    "january": "Xan",
+    "february": "Feb",
+    "march": "Mar",
+    "april": "Abr",
+    "may": "Mai",
+    "june": "Xuñ",
+    "july": "Xul",
+    "august": "Ago",
+    "september": "Set",
+    "october": "Out",
+    "november": "Nov",
+    "december": "Dec"
+  },
+  "retry": "REINTENTAR"
 }

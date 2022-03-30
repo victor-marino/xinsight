@@ -74,10 +74,10 @@
     "instrument_type_other": "@:distribution_chart.instrument_type_other"
   },
   "portfolio_screen": {
-    "equity": "Equity",
-    "fixed": "Fixed income",
-    "cash": "Cash",
-    "other": "Other"
+    "equity": "@:distribution_chart.instrument_type_equity",
+    "fixed": "@:distribution_chart.instrument_type_fixed",
+    "cash": "@:distribution_chart.instrument_type_cash",
+    "other": "@:distribution_chart.instrument_type_other"
   },
   "asset_details_popup": {
     "instrument_type_equity": "@:portfolio_screen.equity",
@@ -207,6 +207,5 @@
     "november": "Nov",
     "december": "Dec"
   },
-  "good_morning": "Good morning!",
   "retry": "RETRY"
 }

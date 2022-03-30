@@ -15,6 +15,7 @@ class _AboutScreenState extends State<AboutScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // Get screen dimensions and orientation
     bool landscapeOrientation = false;
     double availableWidth = MediaQuery.of(context).size.width;
     double availableHeight = MediaQuery.of(context).size.height;
@@ -22,6 +23,7 @@ class _AboutScreenState extends State<AboutScreen> {
     if (availableHeight <= availableWidth) {
       landscapeOrientation = true;
     }
+
     return Scaffold(
       appBar: AppBar(
         title: Text('about_screen.about'.tr()),
@@ -39,6 +41,7 @@ class _AboutScreenState extends State<AboutScreen> {
             padding: const EdgeInsets.all(20.0),
             child: Center(
               child: SizedBox(
+                // Make content narrower in large landscape screens
                 width: landscapeOrientation && availableWidth > 1000 ? availableWidth * 0.5 : null,
                 child: Column(
                   children: [
@@ -96,6 +99,7 @@ class _AboutScreenState extends State<AboutScreen> {
                       padding: const EdgeInsets.only(top: 30, left: 10, right: 10),
                       
                       child: SizedBox(
+                        // Make logo smaller in landscape mode
                         width: landscapeOrientation ? availableWidth * 0.5 : double.infinity,
                         child: Center(
                           child: Column(
