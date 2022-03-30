@@ -27,7 +27,7 @@ void _portraitModeOnly() {
 void main() {
   runApp(
     EasyLocalization(
-      supportedLocales: [Locale('en', 'US'), Locale('es', 'ES')],
+      supportedLocales: [Locale('en', 'US'), Locale('es', 'ES'), Locale('gl', 'ES')],
       path: 'assets/translations',
       fallbackLocale: Locale('en', 'US'),
       child: MyApp(),

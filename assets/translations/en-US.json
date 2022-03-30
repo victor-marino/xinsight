@@ -80,10 +80,10 @@
     "other": "@:distribution_chart.instrument_type_other"
   },
   "asset_details_popup": {
-    "instrument_type_equity": "@:portfolio_screen.equity",
-    "instrument_type_fixed": "@:portfolio_screen.fixed",
-    "instrument_type_cash": "@:portfolio_screen.cash",
-    "instrument_type_other": "@:portfolio_screen.other",
+    "instrument_type_equity": "@:distribution_chart.instrument_type_equity",
+    "instrument_type_fixed": "@:distribution_chart.instrument_type_fixed",
+    "instrument_type_cash": "@:distribution_chart.instrument_type_cash",
+    "instrument_type_other": "@:distribution_chart.instrument_type_other",
     "description_not_available": "Not available",
     "name": "Name",
     "management_company": "Company",
