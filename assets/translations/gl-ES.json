@@ -181,7 +181,7 @@
     "text2": "\n\nPara acceder os datos da túa conta, emprégase a ",
     "text3": "API oficial",
     "text4": " proporcionada por Indexa Capital. Esta API só permite operacións de lectura (métodos GET), polo que non pode operar ca túa conta nin ordenar ningún movemento.",
-    "text5": "\n\nA aplicación non recolle nin almacena ningún tipo de información sobre a túa conta, salvo o teu token de acceso se así o indicas. O token almacénase no teu disposiivo de forma segura e encriptada por medio da librería ",
+    "text5": "\n\nA aplicación non recolle nin almacena ningún tipo de información sobre a túa conta, salvo o teu token de acceso se así o indicas. O token almacénase no teu dispositivo de forma segura e encriptada por medio da librería ",
     "text6": ", e só se emprega para indentificarte contra os servidores de Indexa Capital. Nunca se envía nin almacena en ningún outro servidor.",
     "text7": "\n\nPodes eliminar o token do teu dispositivo en calquer momento pechando a sesión.",
     "for": "@:login_screen.for"
