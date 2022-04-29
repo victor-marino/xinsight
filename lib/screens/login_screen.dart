@@ -304,10 +304,10 @@ class _LoginScreenState extends State<LoginScreen> {
                               mainAxisAlignment: MainAxisAlignment.end,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Text('login_screen.for'.tr() + " ",
+                                Text('login_screen.for'.tr() + " Indexa Capital",
                                     style: TextStyle(color: Colors.black38)),
-                                Image.asset('assets/images/indexa_logo.png',
-                                    height: 30),
+                                // Image.asset('assets/images/indexa_logo.png',
+                                //     height: 30),
                               ],
                             )
                           ],
