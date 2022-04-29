@@ -297,7 +297,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 10.0),
                                 child: Image.asset(
-                                    'assets/images/indexax_logo_wider.png'),
+                                    'assets/images/indexax_logo_wide.png'),
                               ),
                             ),
                             Row(

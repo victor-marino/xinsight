@@ -193,7 +193,7 @@ class _RootScreenState extends State<RootScreen> {
             reloading = false;
           }
           if (snapshot.hasData) {
-            print(userAccounts.toString());
+            // print(userAccounts.toString());
             // bool landscapeOrientation = false;
             // double availableWidth = MediaQuery.of(context).size.width;
             // double availableHeight = MediaQuery.of(context).size.height;
