@@ -132,7 +132,7 @@ class _LoginScreenState extends State<LoginScreen> {
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text("Invalid token format"),
+          content: Text("login_screen.invalid_token_format".tr()),
         ),
       );
     }
@@ -166,7 +166,7 @@ class _LoginScreenState extends State<LoginScreen> {
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text("Invalid token format"),
+          content: Text("login_screen.invalid_token_format".tr()),
         ),
       );
     }
@@ -234,7 +234,7 @@ class _LoginScreenState extends State<LoginScreen> {
       }
     } else {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text("Invalid token format"),
+        content: Text("login_screen.invalid_token_format".tr()),
       ));
     }
   }

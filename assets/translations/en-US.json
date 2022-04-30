@@ -43,6 +43,7 @@
     "forget_token_popup_cancel_button": "Cancel",
     "forget_token_popup_ok_button": "OK",
     "screen_lock_required": "An active screen lock must be enabled to store the token locally.",
+    "invalid_token_format": "Invalid token format",
     "default_error_message": "Couldn't load data"
   },
   "overview_screen": {

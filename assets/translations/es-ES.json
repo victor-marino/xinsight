@@ -43,6 +43,7 @@
     "forget_token_popup_cancel_button": "Cancelar",
     "forget_token_popup_ok_button": "OK",
     "screen_lock_required": "Para guardar el token en el dispositivo, el bloqueo de pantalla debe estar activado.",
+    "invalid_token_format": "Formato de token no válido",
     "default_error_message": "No se pudieron cargar los datos"
   },
   "overview_screen": {
