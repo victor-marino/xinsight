@@ -105,7 +105,7 @@ class _AboutScreenState extends State<AboutScreen> {
                           child: Column(
                             children: [
                               Container(
-                                padding: const EdgeInsets.only(bottom: 10),
+                                //padding: const EdgeInsets.only(bottom: 10),
                                 alignment: Alignment.center,
                                 child: Image.asset('assets/images/indexax_logo_wide.png'),
                               ),

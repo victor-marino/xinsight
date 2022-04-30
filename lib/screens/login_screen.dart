@@ -333,12 +333,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: Column(
                           children: [
                             Container(
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 10.0),
-                                child: Image.asset(
-                                    'assets/images/indexax_logo_wide.png'),
-                              ),
+                              child: Image.asset(
+                                  'assets/images/indexax_logo_wide.png'),
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.end,
