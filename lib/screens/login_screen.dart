@@ -46,6 +46,21 @@ class _LoginScreenState extends State<LoginScreen> {
     cancelButton: "login_screen.cancel".tr(),
   );
 
+  String removeSpaces(String token) {
+    String sanitizedToken =
+        token.trim().replaceAll("\n", "").replaceAll(" ", "");
+    return sanitizedToken;
+  }
+
+  bool validateTokenFormat(String token) {
+    RegExp tokenFormat = RegExp(r'^[\w-]+\.[\w-]+\.[\w-]+$');
+    if (tokenFormat.hasMatch(token)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   void showInSnackBar(String message) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       content: Text(message),
@@ -110,8 +125,17 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Future<void> _storeKey(String value) async {
-    await _storage.write(key: 'indexaToken', value: value);
-    _readAll();
+    value = removeSpaces(value);
+    if (validateTokenFormat(value)) {
+      await _storage.write(key: 'indexaToken', value: value);
+      _readAll();
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Invalid token format"),
+        ),
+      );
+    }
   }
 
   void _deleteAll() async {
@@ -120,22 +144,31 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Future<bool> validateToken({String token}) async {
-    buildLoading(context);
-    IndexaData indexaData = IndexaData(token: token);
-    try {
-      var userAccounts = await indexaData.getUserAccounts();
-      if (userAccounts != null) {
-        print("Token authenticated!");
+    token = removeSpaces(token);
+    if (validateTokenFormat(token)) {
+      buildLoading(context);
+      IndexaData indexaData = IndexaData(token: token);
+      try {
+        var userAccounts = await indexaData.getUserAccounts();
+        if (userAccounts != null) {
+          print("Token authenticated!");
+          Navigator.of(context).pop();
+          return true;
+        } else {
+          Navigator.of(context).pop();
+          return false;
+        }
+      } on Exception catch (e) {
         Navigator.of(context).pop();
-        return true;
-      } else {
-        Navigator.of(context).pop();
-        return false;
+        print(e);
+        throw (e);
       }
-    } on Exception catch (e) {
-      Navigator.of(context).pop();
-      print(e);
-      throw (e);
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Invalid token format"),
+        ),
+      );
     }
   }
 
@@ -172,30 +205,37 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void goToMainScreen({String token, bool saveToken}) async {
-    try {
-      bool validatedToken = await validateToken(token: token);
-      if (validatedToken) {
-        if (saveToken) await _storeKey(token);
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (BuildContext context) =>
-                RootScreen(token: token, pageNumber: 0, accountNumber: 0),
-          ),
-        );
-      } else {
+    token = removeSpaces(token);
+    if (validateTokenFormat(token)) {
+      try {
+        bool validatedToken = await validateToken(token: token);
+        if (validatedToken) {
+          if (saveToken) await _storeKey(token);
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (BuildContext context) =>
+                  RootScreen(token: token, pageNumber: 0, accountNumber: 0),
+            ),
+          );
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text("login_screen.token_validation_failed".tr()),
+          ));
+        }
+      } on Exception catch (e) {
+        print(e);
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text("login_screen.token_validation_failed".tr()),
+          content: Text(e.toString()),
         ));
+        setState(() {
+          tokenTextController.text = token;
+        });
       }
-    } on Exception catch (e) {
-      print(e);
+    } else {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text(e.toString()),
+        content: Text("Invalid token format"),
       ));
-      setState(() {
-        tokenTextController.text = token;
-      });
     }
   }
 
@@ -304,7 +344,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               mainAxisAlignment: MainAxisAlignment.end,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Text('login_screen.for'.tr() + " Indexa Capital",
+                                Text(
+                                    'login_screen.for'.tr() + " Indexa Capital",
                                     style: TextStyle(color: Colors.black38)),
                                 // Image.asset('assets/images/indexa_logo.png',
                                 //     height: 30),
