@@ -61,7 +61,7 @@ class ExpandedAssetTileBodyPortrait extends StatelessWidget {
                   text: 'asset_details_popup.titles'.tr() + ': ',
                   style: kTransactionListTitleTextStyle),
               TextSpan(
-                  text: assetData.titles.toString(),
+                  text: getNumberAsStringWithMaxDecimals(assetData.titles),
                   style: kTransactionDetailValueTextStyle),
             ],
           ),

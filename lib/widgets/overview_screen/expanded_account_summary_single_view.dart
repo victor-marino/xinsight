@@ -333,7 +333,8 @@ class ExpandedAccountSummarySingleView extends StatelessWidget {
                                     text: TextSpan(children: [
                                       TextSpan(
                                         text:
-                                            accountData.sharpe.toStringAsFixed(2),
+                                            //accountData.sharpe.toStringAsFixed(2),
+                                            getNumberAsStringWithMaxDecimals(accountData.sharpe),
                                         style: kCardPLTextStyle.copyWith(
                                             color: Colors.black54),
                                       ),

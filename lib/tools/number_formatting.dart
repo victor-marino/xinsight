@@ -47,6 +47,47 @@ String getInvestmentAsString(num number) {
   return numberString;
 }
 
+String getAmountAsStringWithTwoDecimals(num number) {
+  String numberString = NumberFormat.currency(
+          locale: getCurrentLocale(), symbol: '€', decimalDigits: 2)
+      .format(number);
+  return numberString;
+}
+
+String getAmountAsStringWithMaxDecimals(num number) {
+  int numberOfDecimals = number.toString().split(".")[1].length;
+  String numberString = NumberFormat.currency(
+          locale: getCurrentLocale(),
+          symbol: '€',
+          decimalDigits: numberOfDecimals)
+      .format(number);
+  return numberString;
+}
+
+String getAmountAsStringWithZeroDecimals(num number) {
+  String numberString = NumberFormat.currency(
+          locale: getCurrentLocale(), symbol: '€', decimalDigits: 0)
+      .format(number);
+  return numberString;
+}
+
+String getNumberAsStringWithMaxDecimals(num number) {
+  int numberOfDecimals = number.toString().split(".")[1].length;
+  String numberString = NumberFormat.currency(
+          locale: getCurrentLocale(),
+          symbol: '',
+          decimalDigits: numberOfDecimals)
+      .format(number);
+  return numberString;
+}
+
+String getNumberAsStringWithTwoDecimals(num number) {
+  String numberString = NumberFormat.currency(
+          locale: getCurrentLocale(), symbol: '', decimalDigits: 2)
+      .format(number);
+  return numberString;
+}
+
 String getPLAsString(num number) {
   String numberString;
   if (number < 0) {
@@ -125,11 +166,12 @@ String getFractionalPLPercentAsString(num number) {
   }
   numberString = numberString
       .split(numberFormatSymbols[getCurrentLocale()]?.DECIMAL_SEP ?? "")[1];
-  
+
   if (numberString[numberString.length - 2] == '\u00A0') {
     return (numberString.substring(0, numberString.length - 2) + "%");
   }
-  return numberString;}
+  return numberString;
+}
 
 String getDecimalSeparator() {
   return numberFormatSymbols[getCurrentLocale()]?.DECIMAL_SEP ?? "";

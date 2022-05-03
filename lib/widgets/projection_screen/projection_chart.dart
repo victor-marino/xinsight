@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:indexax/models/performance_datapoint.dart';
+import 'package:indexax/tools/number_formatting.dart';
 
 class PerformanceChart extends StatelessWidget {
   const PerformanceChart({
@@ -15,7 +16,8 @@ class PerformanceChart extends StatelessWidget {
   Widget build(BuildContext context) {
     return SfCartesianChart(
       margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
-      primaryYAxis: NumericAxis(labelFormat: '{value}%'),
+      primaryYAxis: NumericAxis(labelFormat: '{value} %', numberFormat: NumberFormat.decimalPattern(
+          getCurrentLocale())),
       tooltipBehavior: TooltipBehavior(elevation: 10),
       trackballBehavior: TrackballBehavior(
         enable: true,

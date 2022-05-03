@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:indexax/tools/constants.dart';
+import 'package:indexax/tools/number_formatting.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'dart:math';
 import 'package:indexax/models/amounts_datapoint.dart';
@@ -17,17 +18,18 @@ class AmountsChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     DateTime startDate;
-    
+
     if (period == null) {
       startDate = amountsSeries[0].date;
-    } else if (amountsSeries.last.date.subtract(period).isBefore(amountsSeries[0].date)) {
+    } else if (amountsSeries.last.date
+        .subtract(period)
+        .isBefore(amountsSeries[0].date)) {
       startDate = amountsSeries[0].date;
     } else {
       startDate = amountsSeries.last.date.subtract(period);
     }
-    
+
     final List<Color> color = <Color>[];
     color.add(Colors.white);
     color.add(Colors.blue);
@@ -42,7 +44,12 @@ class AmountsChart extends StatelessWidget {
     return SfCartesianChart(
       margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
       primaryYAxis: NumericAxis(
-          labelFormat: '{value} €', labelStyle: kProfitLossChartLabelTextStyle),
+          labelFormat: '{value}',
+          labelStyle: kProfitLossChartLabelTextStyle,
+          axisLabelFormatter: (AxisLabelRenderDetails details) =>
+              ChartAxisLabel(getAmountAsStringWithZeroDecimals(details.value), kProfitLossChartLabelTextStyle),
+          numberFormat: NumberFormat.currency(
+              locale: getCurrentLocale(), symbol: '€', decimalDigits: 2)),
       tooltipBehavior: TooltipBehavior(
         elevation: 10,
       ),
@@ -75,7 +82,7 @@ class AmountsChart extends StatelessWidget {
       primaryXAxis: DateTimeAxis(
         //minimum: DateTime(amountsSeries[0].date.year, 01),
         minimum: startDate,
-        dateFormat: DateFormat("dd/MM/yyyy"),
+        dateFormat: DateFormat("dd/MM/yy"),
         labelStyle: kProfitLossChartLabelTextStyle,
         intervalType: DateTimeIntervalType.months,
         majorGridLines: MajorGridLines(

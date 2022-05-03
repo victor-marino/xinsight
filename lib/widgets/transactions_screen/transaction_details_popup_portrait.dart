@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:indexax/tools/constants.dart';
+import 'package:indexax/tools/number_formatting.dart';
 
 class TransactionDetailsPopup extends StatelessWidget {
   const TransactionDetailsPopup({
@@ -42,7 +43,8 @@ class TransactionDetailsPopup extends StatelessWidget {
         style: kTransactionDetailValueTextStyle,
       ),
     );
-    if (transactionData.accountType == 'transaction_info.securities_account'.tr()) {
+    if (transactionData.accountType ==
+        'transaction_info.securities_account'.tr()) {
       transactionDetails.add(Text(
         'transaction_details_popup.value_date'.tr() + ':',
         style: kTransactionListTitleTextStyle,
@@ -65,7 +67,8 @@ class TransactionDetailsPopup extends StatelessWidget {
       Divider(),
     );
 
-    if (transactionData.accountType == 'transaction_info.securities_account'.tr()) {
+    if (transactionData.accountType ==
+        'transaction_info.securities_account'.tr()) {
       transactionDetails.add(Text(
         'transaction_details_popup.fund'.tr() + ':',
         style: kTransactionListTitleTextStyle,
@@ -87,7 +90,8 @@ class TransactionDetailsPopup extends StatelessWidget {
         style: kTransactionListTitleTextStyle,
       ));
       transactionDetails.add(Text(
-        transactionData.titles.toString(),
+        // transactionData.titles.toString(),
+        getNumberAsStringWithMaxDecimals(transactionData.titles),
         style: kTransactionDetailValueTextStyle,
       ));
       transactionDetails.add(Text(
@@ -95,7 +99,8 @@ class TransactionDetailsPopup extends StatelessWidget {
         style: kTransactionListTitleTextStyle,
       ));
       transactionDetails.add(Text(
-        transactionData.price.toString() + " €",
+        // transactionData.price.toString() + " €",
+        getAmountAsStringWithMaxDecimals(transactionData.price),
         style: kTransactionDetailValueTextStyle,
       ));
       transactionDetails.add(Text(
@@ -103,7 +108,8 @@ class TransactionDetailsPopup extends StatelessWidget {
         style: kTransactionListTitleTextStyle,
       ));
       transactionDetails.add(Text(
-        transactionData.amount.toStringAsFixed(2) + " €",
+        // transactionData.amount.toStringAsFixed(2) + " €",
+        getAmountAsStringWithTwoDecimals(transactionData.amount),
         style: kTransactionDetailValueTextStyle,
       ));
       transactionDetails.add(
@@ -123,8 +129,7 @@ class TransactionDetailsPopup extends StatelessWidget {
       ),
     );
     return AlertDialog(
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       title: Text(
         'transaction_details_popup.details'.tr(),
       ),

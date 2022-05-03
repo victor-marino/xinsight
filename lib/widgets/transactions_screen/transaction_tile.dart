@@ -5,6 +5,7 @@ import 'package:indexax/tools/constants.dart';
 import 'package:indexax/models/transaction.dart';
 import 'package:indexax/widgets/transactions_screen/transaction_details_popup_portrait.dart';
 import 'package:indexax/widgets/transactions_screen/transaction_details_popup_landscape.dart';
+import 'package:indexax/tools/number_formatting.dart';
 
 class TransactionTile extends StatelessWidget {
   const TransactionTile({
@@ -107,7 +108,8 @@ class TransactionTile extends StatelessWidget {
                 ),
               ),
               Text(
-                transactionData.amount.toStringAsFixed(2) + " €",
+                //transactionData.amount.toStringAsFixed(2) + " €",
+                getAmountAsStringWithTwoDecimals(transactionData.amount),
                 textAlign: TextAlign.right,
                 style: kTransactionListAmountTextStyle.copyWith(
                     fontWeight: FontWeight.normal),

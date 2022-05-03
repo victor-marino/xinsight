@@ -253,7 +253,7 @@ class ExpandedAccountSummary extends StatelessWidget {
                                   TextSpan(
                                     text: getPercentAsString(
                                         accountData.volatility),
-                                    style: kCardPLTextStyle.copyWith(
+                                    style: kCardPLTextStyleSmaller.copyWith(
                                         color: Colors.black54),
                                   ),
                                 ]),
@@ -293,9 +293,10 @@ class ExpandedAccountSummary extends StatelessWidget {
                               RichText(
                                 text: TextSpan(children: [
                                   TextSpan(
-                                    text: accountData.sharpe
-                                        .toStringAsFixed(2),
-                                    style: kCardPLTextStyle.copyWith(
+                                    // text: accountData.sharpe
+                                    //     .toStringAsFixed(2),
+                                    text: getNumberAsStringWithTwoDecimals(accountData.sharpe),
+                                    style: kCardPLTextStyleSmaller.copyWith(
                                         color: Colors.black54),
                                   ),
                                 ]),

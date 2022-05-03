@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:indexax/tools/constants.dart';
+import 'package:indexax/tools/number_formatting.dart';
 
 class TransactionDetailsPopupLandscape extends StatelessWidget {
   const TransactionDetailsPopupLandscape({
@@ -133,7 +134,7 @@ class TransactionDetailsPopupLandscape extends StatelessWidget {
               style: kTransactionDetailTitleTextStyle,
             ),
             TextSpan(
-              text: transactionData.titles.toString(),
+              text: getNumberAsStringWithMaxDecimals(transactionData.titles),
               style: kTransactionDetailValueTextStyle,
             ),
           ]),
@@ -146,7 +147,7 @@ class TransactionDetailsPopupLandscape extends StatelessWidget {
               style: kTransactionDetailTitleTextStyle,
             ),
             TextSpan(
-              text: transactionData.price.toString() + " €",
+              text: getAmountAsStringWithMaxDecimals(transactionData.price),
               style: kTransactionDetailValueTextStyle,
             ),
           ]),
@@ -159,7 +160,7 @@ class TransactionDetailsPopupLandscape extends StatelessWidget {
               style: kTransactionDetailTitleTextStyle,
             ),
             TextSpan(
-              text: transactionData.amount.toStringAsFixed(2) + " €",
+              text: getAmountAsStringWithTwoDecimals(transactionData.amount),
               style: kTransactionDetailValueTextStyle,
             ),
           ]),

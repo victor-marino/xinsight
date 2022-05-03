@@ -24,7 +24,9 @@ void _portraitModeOnly() {
   ]);
 }
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
   runApp(
     EasyLocalization(
       supportedLocales: [Locale('en', 'US'), Locale('es', 'ES'), Locale('gl', 'ES')],

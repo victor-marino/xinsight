@@ -123,7 +123,7 @@ class _EvolutionScreenState extends State<EvolutionScreen>
     // This super call is required for the Mixin that keeps the page state
     super.build(context);
 
-    print(widget.availableWidth);
+    //print(widget.availableWidth);
     return Scaffold(
       body: SafeArea(
         child: Center(
