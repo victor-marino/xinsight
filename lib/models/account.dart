@@ -319,7 +319,6 @@ class Account {
         }
       }
     });
-
     return (profitLossSeries);
   }
 
@@ -672,8 +671,7 @@ class Account {
 
   @override
   String toString() {
-    return 
-        "accountNumber: " +
+    return "accountNumber: " +
         accountNumber.toString() +
         "type: " +
         type.toString() +

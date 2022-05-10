@@ -182,7 +182,7 @@ TextStyle kChartLabelTextStyle = GoogleFonts.roboto(
   textStyle: TextStyle(
     color: Colors.black,
     fontWeight: FontWeight.bold,
-    fontSize: 9.0,
+    fontSize: 8.0,
   ),
 );
 
