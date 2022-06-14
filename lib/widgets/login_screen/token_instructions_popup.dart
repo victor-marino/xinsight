@@ -11,10 +11,16 @@ class TokenInstructionsPopup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
+    Uri userAreaUrl = Uri(
+      scheme: 'https',
+      host: 'indexacapital.com',
+      path: 'es/u/user'
+    );
+
     return AlertDialog(
       title: Row(
-        mainAxisAlignment:
-        MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text('login_screen.get_token'.tr()),
         ],
@@ -22,23 +28,20 @@ class TokenInstructionsPopup extends StatelessWidget {
       content: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment:
-          CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               'login_screen.in_your_client_area'.tr() + ':\n',
               style: kPopUpNormalTextStyle,
             ),
             Row(
-              crossAxisAlignment:
-              CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   '1. ',
-                  style: kPopUpNormalTextStyle
-                      .copyWith(
-                    //fontSize: 12,
-                  ),
+                  style: kPopUpNormalTextStyle.copyWith(
+                      //fontSize: 12,
+                      ),
                 ),
                 Expanded(
                   child: Text.rich(
@@ -48,24 +51,21 @@ class TokenInstructionsPopup extends StatelessWidget {
                           text: 'login_screen.go_to'.tr() + ' "',
                         ),
                         TextSpan(
-                            text:
-                            'login_screen.user_configuration'.tr(),
-                            recognizer:
-                            TapGestureRecognizer()
+                            text: 'login_screen.user_configuration'.tr(),
+                            recognizer: TapGestureRecognizer()
                               ..onTap = () {
-                                launch('https://indexacapital.com/es/u/user');
+                                launchUrl(
+                                    userAreaUrl);
                               },
                             style: TextStyle(
-                              color:
-                              Colors.blue,
+                              color: Colors.blue,
                             )),
                         TextSpan(
                           text: '"',
                         ),
                       ],
                     ),
-                    style:
-                    kPopUpNormalTextStyle,
+                    style: kPopUpNormalTextStyle,
                   ),
                 ),
               ],
@@ -95,10 +95,8 @@ class TokenInstructionsPopup extends StatelessWidget {
               ],
             ),
             Padding(
-              padding: const EdgeInsets.only(
-                  top: 10),
-              child: Image.asset(
-                  'assets/images/token_indexa_highlighted.png'),
+              padding: const EdgeInsets.only(top: 10),
+              child: Image.asset('assets/images/token_indexa_highlighted.png'),
             )
           ],
         ),
@@ -110,7 +108,7 @@ class TokenInstructionsPopup extends StatelessWidget {
           ),
           onPressed: () {
             Navigator.of(context).pop();
-            },
+          },
         ),
       ],
     );

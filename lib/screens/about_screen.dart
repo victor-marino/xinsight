@@ -24,6 +24,18 @@ class _AboutScreenState extends State<AboutScreen> {
       landscapeOrientation = true;
     }
 
+    Uri indexaApiUrl = Uri(
+      scheme: 'https',
+      host: 'indexacapital.com',
+      path: 'en/api-rest-v1'
+    );
+
+    Uri flutterSecureStorageUrl = Uri(
+      scheme: 'https',
+      host: 'pub.dev',
+      path: 'packages/flutter_secure_storage'
+    );
+
     return Scaffold(
       appBar: AppBar(
         title: Text('about_screen.about'.tr()),
@@ -61,8 +73,8 @@ class _AboutScreenState extends State<AboutScreen> {
                             recognizer:
                             TapGestureRecognizer()
                               ..onTap = () {
-                                launch(
-                                    'https://indexacapital.com/en/api-rest-v1');
+                                launchUrl(
+                                    indexaApiUrl);
                               },
                             style: kAboutScreenTextStyle.copyWith(color: Colors.blue),
                           ),
@@ -80,8 +92,8 @@ class _AboutScreenState extends State<AboutScreen> {
                               recognizer:
                               TapGestureRecognizer()
                             ..onTap = () {
-                              launch(
-                                  'https://pub.dev/packages/flutter_secure_storage');
+                              launchUrl(
+                                  flutterSecureStorageUrl);
                             },
                           ),
                           TextSpan(

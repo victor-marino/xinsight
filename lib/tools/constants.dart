@@ -89,7 +89,7 @@ TextStyle kPopUpNormalTextStyle = GoogleFonts.roboto(
 TextStyle kPopUpFootnoteTextStyle = GoogleFonts.roboto(
   textStyle: TextStyle(
     color: Colors.grey,
-    fontStyle: FontStyle.italic,
+    // fontStyle: FontStyle.italic,
     //fontSize: 14,
   ),
 );

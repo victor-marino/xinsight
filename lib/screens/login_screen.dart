@@ -145,6 +145,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Future<bool> validateToken({String token}) async {
     token = removeSpaces(token);
+    bool validToken;
     if (validateTokenFormat(token)) {
       buildLoading(context);
       IndexaData indexaData = IndexaData(token: token);
@@ -153,10 +154,10 @@ class _LoginScreenState extends State<LoginScreen> {
         if (userAccounts != null) {
           print("Token authenticated!");
           Navigator.of(context).pop();
-          return true;
+          validToken = true;
         } else {
           Navigator.of(context).pop();
-          return false;
+          validToken = false;
         }
       } on Exception catch (e) {
         Navigator.of(context).pop();
@@ -170,6 +171,7 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       );
     }
+    return validToken;
   }
 
   Future<bool> authenticateUserLocally() async {
