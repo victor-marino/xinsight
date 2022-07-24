@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter_settings_ui/flutter_settings_ui.dart';
+import 'package:settings_ui/settings_ui.dart';
 import 'package:indexax/widgets/settings_screen/logout_popup.dart';
 import 'package:indexax/screens/about_screen.dart';
 
@@ -28,12 +28,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
       extendBodyBehindAppBar: true,
       body: SafeArea(
         child: SettingsList(
-          backgroundColor: Colors.white10,
+          //backgroundColor: Colors.white10,
+          lightTheme: SettingsThemeData(
+            settingsSectionBackground: Colors.white10,
+            settingsListBackground: Colors.white10,
+          ),
+          darkTheme: SettingsThemeData(
+            settingsSectionBackground: Colors.white10,
+            settingsListBackground: Colors.white10,
+          ),
           sections: [
             SettingsSection(
               tiles: [
                 SettingsTile(
-                  title: 'settings_screen.about'.tr(),
+                  title: Text('settings_screen.about'.tr()),
                   trailing: Icon(Icons.chevron_right_rounded),
                   onPressed: (BuildContext context) {
                     Navigator.push(context,
@@ -41,7 +49,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   },
                 ),
                 SettingsTile(
-                    title: 'settings_screen.logout'.tr(),
+                    title: Text('settings_screen.logout'.tr()),
                     trailing: Icon(Icons.logout, color: Colors.red.shade900),
                     onPressed: (BuildContext context) {
                       showDialog(

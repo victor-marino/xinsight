@@ -32,13 +32,12 @@ dependencies:
   easy_localization: ^3.0.0
   pull_to_refresh: ^2.0.0
   google_fonts: ^1.1.0
-  fl_chart: ^0.10.1
   syncfusion_flutter_charts: ^20.1.55
   syncfusion_flutter_gauges: ^20.1.55
   flutter_secure_storage: ^5.0.2
   provider: ^6.0.2
   url_launcher: ^6.1.0
-  flutter_settings_ui: ^2.0.1
+  settings_ui: ^2.0.2
   expandable: ^5.0.1
   dropdown_button2: ^1.2.2
 
