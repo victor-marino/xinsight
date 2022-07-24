@@ -3,7 +3,9 @@ import 'package:flutter/services.dart';
 import 'package:indexax/services/indexa_data.dart';
 import 'package:indexax/screens/root_screen.dart';
 import 'package:local_auth/local_auth.dart';
-import 'package:local_auth/auth_strings.dart';
+//import 'package:local_auth/auth_strings.dart';
+import 'package:local_auth_android/local_auth_android.dart';
+import 'package:local_auth_ios/local_auth_ios.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:indexax/widgets/login_screen/token_instructions_popup.dart';
@@ -180,13 +182,15 @@ class _LoginScreenState extends State<LoginScreen> {
       if (await supportsBiometrics()) {
         print("Trying to authenticate...");
         isAuthenticated = await localAuthentication.authenticate(
-          sensitiveTransaction: false,
-          androidAuthStrings: androidStrings,
-          iOSAuthStrings: iosStrings,
+          authMessages: [androidStrings, iosStrings],
           localizedReason: "login_screen.please_authenticate".tr(),
-          useErrorDialogs: true,
-          stickyAuth: true,
-          biometricOnly: false,
+          options: AuthenticationOptions(
+            useErrorDialogs: true,
+            stickyAuth: true,
+            biometricOnly: false,
+            sensitiveTransaction: false,
+          )
+          
         );
       } else {
         print("Biometrics not supported");

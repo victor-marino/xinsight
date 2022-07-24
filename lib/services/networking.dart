@@ -21,8 +21,7 @@ class NetworkHelper {
       case 500:
       default:
         throw FetchDataException(
-            'Error occured while communicating with server with status code: ${response
-                .statusCode}');
+            'Error occured while communicating with server with status code: ${response.statusCode}');
     }
   }
 
@@ -30,7 +29,7 @@ class NetworkHelper {
     var responseJson;
     try {
       final response = await http.get(
-        url,
+        Uri(host: url),
         headers: {
           'X-AUTH-TOKEN': token,
           HttpHeaders.acceptHeader: '*/*',

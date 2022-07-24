@@ -134,7 +134,8 @@ class TransactionDetailsPopup extends StatelessWidget {
         'transaction_details_popup.details'.tr(),
       ),
       content: Scrollbar(
-        isAlwaysShown: true,
+        //isAlwaysShown: true,
+        thumbVisibility: true,
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.only(right: 10),
