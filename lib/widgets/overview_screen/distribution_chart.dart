@@ -57,8 +57,7 @@ class DistributionChart extends StatelessWidget {
       }
     }
     return SfCircularChart(
-      palette: colorList as List<Color>,
-      //backgroundColor: Colors.blueGrey,
+      palette: colorList,
       tooltipBehavior: TooltipBehavior(
         enable: true,
         decimalPlaces: 2,

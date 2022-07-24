@@ -5,7 +5,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:provider/provider.dart';
 import 'tools/bottom_navigation_bar_provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:flutter/services.dart';
 
 // mixin PortraitModeMixin on StatelessWidget {
 //   @override
