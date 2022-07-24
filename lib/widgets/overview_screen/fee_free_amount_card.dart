@@ -5,11 +5,11 @@ import 'package:easy_localization/easy_localization.dart';
 
 class FeeFreeAmountCard extends StatelessWidget {
   const FeeFreeAmountCard({
-    Key key,
-    @required this.feeFreeAmount,
+    Key? key,
+    required this.feeFreeAmount,
   }) : super(key: key);
 
-  final double feeFreeAmount;
+  final double? feeFreeAmount;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class FeeFreeAmountCard extends StatelessWidget {
             style: kCardSubTextStyle
           ),
           TextSpan(
-            text: getInvestmentAsString(feeFreeAmount),
+            text: getInvestmentAsString(feeFreeAmount!),
             style: kMinimumTransferCardTextStyle.copyWith(
                 fontWeight: FontWeight.bold)
           ),

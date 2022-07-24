@@ -6,7 +6,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 class TokenInstructionsPopup extends StatelessWidget {
   const TokenInstructionsPopup({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

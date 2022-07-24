@@ -29,7 +29,7 @@ class NetworkHelper {
     var responseJson;
     try {
       final response = await http.get(
-        Uri(host: url),
+        Uri.parse(url),
         headers: {
           'X-AUTH-TOKEN': token,
           HttpHeaders.acceptHeader: '*/*',
@@ -55,7 +55,7 @@ class CustomException implements Exception {
 }
 
 class FetchDataException extends CustomException {
-  FetchDataException([String message])
+  FetchDataException([String message=""])
       : super(message, "Communication error: ");
 }
 
@@ -68,5 +68,5 @@ class UnauthorisedException extends CustomException {
 }
 
 class InvalidInputException extends CustomException {
-  InvalidInputException([String message]) : super(message, "Invalid input: ");
+  InvalidInputException([String message=""]) : super(message, "Invalid input: ");
 }

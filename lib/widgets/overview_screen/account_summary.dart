@@ -7,8 +7,8 @@ import 'package:indexax/models/account.dart';
 
 class AccountSummary extends StatelessWidget {
   const AccountSummary({
-    Key key,
-    @required this.accountData,
+    Key? key,
+    required this.accountData,
   }) : super(key: key);
   final Account accountData;
 
@@ -30,11 +30,11 @@ class AccountSummary extends StatelessWidget {
               RichText(
                 text: TextSpan(children: [
                   TextSpan(
-                    text: getInvestmentAsString(accountData.investment) + " ",
+                    text: getInvestmentAsString(accountData.investment!) + " ",
                     style: kCardSubTextStyle,
                   ),
                   TextSpan(
-                    text: getPLAsString(accountData.profitLoss),
+                    text: getPLAsString(accountData.profitLoss!),
                     style: kCardSubTextStyle.copyWith(
                       color: accountData.profitLossColor,
                       fontWeight: FontWeight.bold,
@@ -101,12 +101,12 @@ class AccountSummary extends StatelessWidget {
                             RichText(
                               text: TextSpan(children: [
                                 TextSpan(
-                                  text: getWholePLPercentAsString(accountData.timeReturn),
+                                  text: getWholePLPercentAsString(accountData.timeReturn!),
                                   style: kCardPLTextStyle.copyWith(
                                       color: accountData.timeReturnColor),
                                 ),
                                 TextSpan(
-                                  text: getDecimalSeparator() + getFractionalPLPercentAsString(accountData.timeReturn),
+                                  text: getDecimalSeparator() + getFractionalPLPercentAsString(accountData.timeReturn!),
                                   style: kCardPLTextStyleSmaller.copyWith(
                                       color: accountData.timeReturnColor),
                                 ),
@@ -152,12 +152,12 @@ class AccountSummary extends StatelessWidget {
                             RichText(
                               text: TextSpan(children: [
                                 TextSpan(
-                                  text: getWholePLPercentAsString(accountData.moneyReturn),
+                                  text: getWholePLPercentAsString(accountData.moneyReturn!),
                                   style: kCardPLTextStyle.copyWith(
                                       color: accountData.moneyReturnColor),
                                 ),
                                 TextSpan(
-                                  text: getDecimalSeparator() + getFractionalPLPercentAsString(accountData.moneyReturn),
+                                  text: getDecimalSeparator() + getFractionalPLPercentAsString(accountData.moneyReturn!),
                                   style: kCardPLTextStyleSmaller.copyWith(
                                       color: accountData.moneyReturnColor),
                                 ),

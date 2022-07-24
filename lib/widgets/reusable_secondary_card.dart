@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 
 class ReusableSecondaryCard extends StatelessWidget {
   const ReusableSecondaryCard({
-    Key key,
-    @required this.childWidget,
+    Key? key,
+    required this.childWidget,
   }) : super(key: key);
   final Widget childWidget;
 

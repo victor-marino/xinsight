@@ -5,8 +5,8 @@ import 'package:indexax/tools/number_formatting.dart';
 
 class TransactionDetailsPopupLandscape extends StatelessWidget {
   const TransactionDetailsPopupLandscape({
-    Key key,
-    @required this.transactionData,
+    Key? key,
+    required this.transactionData,
   }) : super(key: key);
 
   final transactionData;

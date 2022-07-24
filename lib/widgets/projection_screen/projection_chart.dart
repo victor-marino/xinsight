@@ -6,8 +6,8 @@ import 'package:indexax/tools/number_formatting.dart';
 
 class PerformanceChart extends StatelessWidget {
   const PerformanceChart({
-    Key key,
-    @required this.performanceSeries,
+    Key? key,
+    required this.performanceSeries,
   }) : super(key: key);
 
   final List<PerformanceDataPoint> performanceSeries;

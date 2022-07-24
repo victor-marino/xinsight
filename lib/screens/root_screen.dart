@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'dart:async';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:indexax/models/account.dart';
 import 'package:indexax/screens/overview_screen.dart';
@@ -19,34 +20,34 @@ import 'login_screen.dart';
 
 class RootScreen extends StatefulWidget {
   RootScreen({
-    @required this.token,
-    @required this.accountNumber,
-    @required this.pageNumber,
+    required this.token,
+    required this.accountNumber,
+    required this.pageNumber,
     this.previousUserAccounts,
   });
 
   final String token;
   final int accountNumber;
   final int pageNumber;
-  final List<Map<String, String>> previousUserAccounts;
+  final List<Map<String, String>>? previousUserAccounts;
 
   @override
   _RootScreenState createState() => _RootScreenState();
 }
 
 class _RootScreenState extends State<RootScreen> {
-  PageController _pageController;
+  PageController? _pageController;
 
-  List<Map<String, String>> userAccounts = [];
-  Account currentAccount;
-  Future<Account> accountData;
+  List<Map<String, String>>? userAccounts = [];
+  Account? currentAccount;
+  Future<Account>? accountData;
 
   // List<DropdownMenuItem> dropdownItems =
   //     AccountDropdownItems(userAccounts: [""]).dropdownItems;
 
   bool reloading = false;
 
-  Future<void> loadData(int accountNumber) async {
+  Future<Future<Account>?> loadData(int accountNumber) async {
     try {
       userAccounts = await getUserAccounts(widget.token);
       setState(() {
@@ -61,9 +62,10 @@ class _RootScreenState extends State<RootScreen> {
           MaterialPageRoute(builder: (BuildContext context) => LoginScreen(errorMessage: e.toString())),
           (Route<dynamic> route) => false);
     }
+    return null;
   }
 
-  Future<void> refreshData(int accountNumber) {
+  Future<void>? refreshData(int accountNumber) {
     accountData =
         getAccountData(context, widget.token, accountNumber, currentAccount);
     return accountData;
@@ -79,7 +81,7 @@ class _RootScreenState extends State<RootScreen> {
   }
 
   void reloadPage(int accountNumber, int pageNumber) async {
-    pageNumber = _pageController.page.toInt();
+    pageNumber = _pageController!.page!.toInt();
     print(pageNumber);
     Navigator.pushReplacement(
         context,
@@ -105,7 +107,7 @@ class _RootScreenState extends State<RootScreen> {
   }
 
   static Future<Account> getAccountData(BuildContext context, String token,
-      int accountNumber, Account currentAccount) async {
+      int accountNumber, Account? currentAccount) async {
     //Account currentAccount;
     IndexaData indexaData = IndexaData(token: token);
     try {
@@ -166,7 +168,7 @@ class _RootScreenState extends State<RootScreen> {
 
   @override
   void dispose() {
-    _pageController.dispose();
+    _pageController!.dispose();
     super.dispose();
   }
 
@@ -213,21 +215,21 @@ class _RootScreenState extends State<RootScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     PageHeader(
-                      accountNumber: snapshot.data.accountNumber,
-                      accountType: snapshot.data.type,
+                      accountNumber: snapshot.data!.accountNumber,
+                      accountType: snapshot.data!.type,
                     ),
                     if (!landscapeOrientation) ...[
                       CurrentAccountIndicator(
-                          accountNumber: snapshot.data.accountNumber,
-                          accountType: snapshot.data.type)
+                          accountNumber: snapshot.data!.accountNumber,
+                          accountType: snapshot.data!.type)
                     ],
                   ],
                 ),
                 actions: <Widget>[
                   if (landscapeOrientation) ...[
                     CurrentAccountIndicator(
-                        accountNumber: snapshot.data.accountNumber,
-                        accountType: snapshot.data.type),
+                        accountNumber: snapshot.data!.accountNumber,
+                        accountType: snapshot.data!.type),
                     SizedBox(width: 10),
                   ],
                   Container(
@@ -329,7 +331,7 @@ class _RootScreenState extends State<RootScreen> {
   }
 
   void _onTappedBar(int value) {
-    _pageController.animateToPage(value,
+    _pageController!.animateToPage(value,
         duration: Duration(milliseconds: 500), curve: Curves.ease);
   }
 }

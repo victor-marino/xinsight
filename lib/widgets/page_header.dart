@@ -6,13 +6,13 @@ import '../tools/bottom_navigation_bar_provider.dart';
 
 class PageHeader extends StatelessWidget {
   const PageHeader({
-    Key key,
-    @required this.accountNumber,
-    @required this.accountType,
+    Key? key,
+    required this.accountNumber,
+    required this.accountType,
   }) : super(key: key);
 
-  final String accountNumber;
-  final String accountType;
+  final String? accountNumber;
+  final String? accountType;
 
   @override
   Widget build(BuildContext context) {

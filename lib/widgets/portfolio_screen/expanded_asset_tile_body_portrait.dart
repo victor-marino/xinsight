@@ -6,8 +6,8 @@ import 'package:easy_localization/easy_localization.dart';
 
 class ExpandedAssetTileBodyPortrait extends StatelessWidget {
   const ExpandedAssetTileBodyPortrait({
-    Key key,
-    @required this.assetData,
+    Key? key,
+    required this.assetData,
   }) : super(key: key);
 
   final PortfolioDataPoint assetData;
@@ -29,13 +29,13 @@ class ExpandedAssetTileBodyPortrait extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Divider(),
-        Text(assetData.instrumentCompany,
+        Text(assetData.instrumentCompany!,
                   style: kTransactionDetailValueTextStyle),
         Divider(),
         RichText(
           text: TextSpan(
             children: [
-              TextSpan(text: assetData.instrumentCodeType + ': ', style: kTransactionListTitleTextStyle),
+              TextSpan(text: assetData.instrumentCodeType! + ': ', style: kTransactionListTitleTextStyle),
               TextSpan(
                   text: assetData.instrumentCode,
                   style: kTransactionDetailValueTextStyle),
@@ -71,7 +71,7 @@ class ExpandedAssetTileBodyPortrait extends StatelessWidget {
             children: [
               TextSpan(text: 'asset_details_popup.cost'.tr() + ': ', style: kTransactionListTitleTextStyle),
               TextSpan(
-                  text: getInvestmentAsString(assetData.cost),
+                  text: getInvestmentAsString(assetData.cost!),
                   style: kTransactionDetailValueTextStyle),
             ],
           ),
@@ -83,7 +83,7 @@ class ExpandedAssetTileBodyPortrait extends StatelessWidget {
                   text: 'asset_details_popup.current_value'.tr() + ': ',
                   style: kTransactionListTitleTextStyle),
               TextSpan(
-                  text: getInvestmentAsString(assetData.amount),
+                  text: getInvestmentAsString(assetData.amount!),
                   style: kTransactionDetailValueTextStyle),
             ],
           ),
@@ -95,7 +95,7 @@ class ExpandedAssetTileBodyPortrait extends StatelessWidget {
                   text: 'asset_details_popup.profit_loss'.tr() + ': ',
                   style: kTransactionListTitleTextStyle),
               TextSpan(
-                  text: getPLAsString(assetData.profitLoss),
+                  text: getPLAsString(assetData.profitLoss!),
                   style: kAssetListSecondaryTextStyle),
             ],
           ),
@@ -106,7 +106,7 @@ class ExpandedAssetTileBodyPortrait extends StatelessWidget {
           Text('asset_details_popup.description'.tr() + ': ',
               style: kTransactionListTitleTextStyle),
           Text(
-            assetData.instrumentDescription,
+            assetData.instrumentDescription!,
             style: kTransactionDetailValueTextStyle,
           ),
         ],

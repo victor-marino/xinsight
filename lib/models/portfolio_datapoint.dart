@@ -1,15 +1,15 @@
 class PortfolioDataPoint {
-  final InstrumentType instrumentType;
-  final String instrumentName;
-  final String instrumentCodeType;
-  final String instrumentCode;
-  final String instrumentCompany;
-  final String instrumentDescription;
-  final double titles;
-  final double amount;
-  final double cost;
-  final double profitLoss;
-  final double percentage;
+  final InstrumentType? instrumentType;
+  final String? instrumentName;
+  final String? instrumentCodeType;
+  final String? instrumentCode;
+  final String? instrumentCompany;
+  final String? instrumentDescription;
+  final double? titles;
+  final double? amount;
+  final double? cost;
+  final double? profitLoss;
+  final double? percentage;
 
   PortfolioDataPoint({this.instrumentType, this.instrumentName, this.instrumentCodeType, this.instrumentCode, this.instrumentCompany, this.instrumentDescription, this.titles, this.amount, this.cost, this.profitLoss, this.percentage});
 

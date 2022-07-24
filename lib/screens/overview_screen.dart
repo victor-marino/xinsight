@@ -20,17 +20,17 @@ const int nbsp = 0x00A0;
 
 class OverviewScreen extends StatefulWidget {
   const OverviewScreen({
-    Key key,
-    @required this.accountData,
-    @required this.userAccounts,
-    @required this.landscapeOrientation,
-    @required this.availableWidth,
-    @required this.refreshData,
-    @required this.reloadPage,
-    @required this.currentAccountNumber,
+    Key? key,
+    required this.accountData,
+    required this.userAccounts,
+    required this.landscapeOrientation,
+    required this.availableWidth,
+    required this.refreshData,
+    required this.reloadPage,
+    required this.currentAccountNumber,
   }) : super(key: key);
-  final Account accountData;
-  final List<Map<String, String>> userAccounts;
+  final Account? accountData;
+  final List<Map<String, String>>? userAccounts;
   final bool landscapeOrientation;
   final double availableWidth;
   final Function refreshData;
@@ -49,9 +49,9 @@ class _OverviewScreenState extends State<OverviewScreen>
   bool get wantKeepAlive => true;
 
   int currentPage = 0;
-  Account accountData;
-  Function refreshData;
-  int currentAccountNumber;
+  Account? accountData;
+  late Function refreshData;
+  int? currentAccountNumber;
   List<DropdownMenuItem> dropdownItems = [];
 
   RefreshController _refreshController =
@@ -143,12 +143,12 @@ class _OverviewScreenState extends State<OverviewScreen>
                                     ),
                                     DistributionChart(
                                         portfolioData:
-                                            accountData.portfolioData),
+                                            accountData!.portfolioData),
                                     // DistributionChartSimplified(
                                     //     portfolioDistribution: accountData.portfolioDistribution),
                                     DistributionChartLegend(
                                         portfolioDistribution:
-                                            accountData.portfolioDistribution),
+                                            accountData!.portfolioDistribution),
                                   ],
                                 ),
                               ),
@@ -182,10 +182,10 @@ class _OverviewScreenState extends State<OverviewScreen>
                                             ),
                                             DistributionChart(
                                                 portfolioData:
-                                                    accountData.portfolioData),
+                                                    accountData!.portfolioData),
                                             DistributionChartLegend(
                                                 portfolioDistribution:
-                                                    accountData
+                                                    accountData!
                                                         .portfolioDistribution),
                                           ],
                                         ),
@@ -207,12 +207,12 @@ class _OverviewScreenState extends State<OverviewScreen>
                                   children: [
                                     MinimumTransferCard(
                                         additionalCashNeededToTrade: widget
-                                            .accountData
+                                            .accountData!
                                             .additionalCashNeededToTrade),
                                     SizedBox(height: 5),
                                     FeeFreeAmountCard(
                                         feeFreeAmount:
-                                            widget.accountData.feeFreeAmount),
+                                            widget.accountData!.feeFreeAmount),
                                   ],
                                 ),
                                 MaterialButton(

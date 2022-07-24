@@ -6,8 +6,8 @@ import 'package:easy_localization/easy_localization.dart';
 
 class ExpandedAssetTileBodyLandscape extends StatelessWidget {
   const ExpandedAssetTileBodyLandscape({
-    Key key,
-    @required this.assetData,
+    Key? key,
+    required this.assetData,
   }) : super(key: key);
 
   final PortfolioDataPoint assetData;
@@ -32,7 +32,7 @@ class ExpandedAssetTileBodyLandscape extends StatelessWidget {
         RichText(
           text: TextSpan(
             children: [
-              TextSpan(text: assetData.instrumentCodeType + ': ', style: kTransactionListTitleTextStyle),
+              TextSpan(text: assetData.instrumentCodeType! + ': ', style: kTransactionListTitleTextStyle),
               TextSpan(
                   text: assetData.instrumentCode,
                   style: kTransactionDetailValueTextStyle),
@@ -68,7 +68,7 @@ class ExpandedAssetTileBodyLandscape extends StatelessWidget {
             children: [
               TextSpan(text: 'asset_details_popup.cost'.tr() + ': ', style: kTransactionListTitleTextStyle),
               TextSpan(
-                  text: getInvestmentAsString(assetData.cost),
+                  text: getInvestmentAsString(assetData.cost!),
                   style: kTransactionDetailValueTextStyle),
             ],
           ),
@@ -80,7 +80,7 @@ class ExpandedAssetTileBodyLandscape extends StatelessWidget {
                   text: 'asset_details_popup.current_value'.tr() + ': ',
                   style: kTransactionListTitleTextStyle),
               TextSpan(
-                  text: getInvestmentAsString(assetData.amount),
+                  text: getInvestmentAsString(assetData.amount!),
                   style: kTransactionDetailValueTextStyle),
             ],
           ),
@@ -92,7 +92,7 @@ class ExpandedAssetTileBodyLandscape extends StatelessWidget {
                   text: 'asset_details_popup.profit_loss'.tr() + ': ',
                   style: kTransactionListTitleTextStyle),
               TextSpan(
-                  text: getPLAsString(assetData.profitLoss),
+                  text: getPLAsString(assetData.profitLoss!),
                   style: kAssetListSecondaryTextStyle),
             ],
           ),
@@ -103,7 +103,7 @@ class ExpandedAssetTileBodyLandscape extends StatelessWidget {
           Text('asset_details_popup.description'.tr() + ': ',
               style: kTransactionListTitleTextStyle),
           Text(
-            assetData.instrumentDescription,
+            assetData.instrumentDescription!,
             style: kTransactionDetailValueTextStyle,
           ),
         ],

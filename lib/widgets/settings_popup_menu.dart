@@ -6,14 +6,14 @@ import 'package:easy_localization/easy_localization.dart';
 
 class SettingsPopupMenu extends StatelessWidget {
   const SettingsPopupMenu(
-      {Key key,
-      @required this.userAccounts,
-      @required this.currentAccountNumber,
-      @required this.currentPage,
-      @required this.reloadPage})
+      {Key? key,
+      required this.userAccounts,
+      required this.currentAccountNumber,
+      required this.currentPage,
+      required this.reloadPage})
       : super(key: key);
 
-  final List<Map<String, String>> userAccounts;
+  final List<Map<String, String>>? userAccounts;
   final int currentAccountNumber;
   final int currentPage;
   final Function reloadPage;
@@ -32,9 +32,9 @@ class SettingsPopupMenu extends StatelessWidget {
         height: 30,
       ),
     );
-    for (int i = 0; i < userAccounts.length; i++) {
-      String accountType;
-      switch (userAccounts[i]['type']) {
+    for (int i = 0; i < userAccounts!.length; i++) {
+      String? accountType;
+      switch (userAccounts![i]['type']) {
         case 'mutual':
           accountType = 'header.mutual_account'.tr();
           break;
@@ -48,7 +48,7 @@ class SettingsPopupMenu extends StatelessWidget {
           accountType = 'header.employment_plan_account'.tr();
           break;
         default:
-          accountType = userAccounts[i]['type'];
+          accountType = userAccounts![i]['type'];
       }
       itemList.add(PopupMenuItem(
         height: itemHeight,
@@ -75,11 +75,11 @@ class SettingsPopupMenu extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(userAccounts[i]['number'],
+                Text(userAccounts![i]['number']!,
                     style: i == currentAccountNumber
                         ? kAccountSwitcherCurrentAccountNumberTextStyle
                         : kAccountSwitcherOtherAccountsNumberTextStyle),
-                Text(accountType,
+                Text(accountType!,
                     style: i == currentAccountNumber
                         ? kAccountSwitcherCurrentAccountTypeTextStyle
                         : kAccountSwitcherOtherAccountsTypeTextStyle),
@@ -139,7 +139,7 @@ class SettingsPopupMenu extends StatelessWidget {
         ),
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(10))),
-        onSelected: (value) {
+        onSelected: (dynamic value) {
           switch (value) {
             case "options":
               Navigator.push(

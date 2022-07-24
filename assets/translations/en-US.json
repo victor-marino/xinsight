@@ -157,7 +157,7 @@
   },
   "expectations_popup": {
     "expectations": "Expectations",
-    "expectations_explanation": "Remember that these calculations are just expectations, and there's no guarantee or certainty that actual returns will end up within the specified range. We estimate there's a 95% chance that your returns will fall between the positive and the negative scenarios.\n\nKeep in mind the markets can be volatile in the short term, but tend to revert to the mean and grow in the long term."
+    "expectations_explanation": "Remember that these calculations are just expectations, and there's no guarantee or certainty that actual returns will end up within the specified range. We estimate there's a 95% chance that your returns will fall between the positive and the negative scenarios.\n\nKeep in mind markets can be volatile in the short term, but tend to revert to the mean and grow in the long term."
   },
   "transaction_details_popup": {
     "account": "Account",

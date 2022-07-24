@@ -12,30 +12,30 @@ class Account {
   final accountInstrumentTransactionData;
   final accountCashTransactionData;
   final accountPendingTransactionData;
-  final String _accountNumber;
-  final String _accountType;
-  final int _risk;
-  final double _totalAmount;
-  final double _investment;
-  final double _timeReturn;
+  final String? _accountNumber;
+  final String? _accountType;
+  final int? _risk;
+  final double? _totalAmount;
+  final double? _investment;
+  final double? _timeReturn;
   final Color _timeReturnColor;
-  final double _timeReturnAnnual;
-  final double _moneyReturn;
+  final double? _timeReturnAnnual;
+  final double? _moneyReturn;
   final Color _moneyReturnColor;
-  final double _moneyReturnAnnual;
-  final double _volatility;
-  final double _sharpe;
-  final double _profitLoss;
+  final double? _moneyReturnAnnual;
+  final double? _volatility;
+  final double? _sharpe;
+  final double? _profitLoss;
   final Color _profitLossColor;
-  final double _expectedReturn;
-  final double _bestReturn1yr;
-  final double _worstReturn1yr;
-  final double _bestReturn10yr;
-  final double _worstReturn10yr;
-  final bool _hasActiveRewards;
+  final double? _expectedReturn;
+  final double? _bestReturn1yr;
+  final double? _worstReturn1yr;
+  final double? _bestReturn10yr;
+  final double? _worstReturn10yr;
+  final bool? _hasActiveRewards;
   final bool _hasPendingTransactions;
-  final double _feeFreeAmount;
-  final double _additionalCashNeededToTrade;
+  final double? _feeFreeAmount;
+  final double? _additionalCashNeededToTrade;
   final List<AmountsDataPoint> _amountsSeries;
   final List<PortfolioDataPoint> _portfolioData;
   final Map<InstrumentType, Map<ValueType, double>> _portfolioDistribution;
@@ -72,11 +72,11 @@ class Account {
     List<PortfolioDataPoint> newPortfolioData = [];
     for (var instrument in instruments) {
       InstrumentType currentInstrumentType;
-      double currentInstrumentPercentage = instrument['amount'].toDouble() /
+      double? currentInstrumentPercentage = instrument['amount'].toDouble() /
           portfolio['total_amount'].toDouble();
-      double currentInstrumentProfitLoss = instrument['amount'].toDouble() -
+      double? currentInstrumentProfitLoss = instrument['amount'].toDouble() -
           instrument['cost_amount'].toDouble();
-      String currentInstrumentDescription;
+      String? currentInstrumentDescription;
 
       if (instrument['instrument']['asset_class'].contains('equity')) {
         currentInstrumentType = InstrumentType.equity;
@@ -119,8 +119,8 @@ class Account {
                 _doubleWithTwoDecimalPlaces(instrument['amount'].toDouble()),
             cost: _doubleWithTwoDecimalPlaces(
                 instrument['cost_amount'].toDouble()),
-            profitLoss: currentInstrumentProfitLoss.toDouble(),
-            percentage: currentInstrumentPercentage.toDouble());
+            profitLoss: currentInstrumentProfitLoss!.toDouble(),
+            percentage: currentInstrumentPercentage!.toDouble());
 
         newPortfolioData.add(newPoint);
       }
@@ -141,7 +141,7 @@ class Account {
             .toString()
             .compareTo(instrumentB.instrumentType.toString());
       } else {
-        return instrumentB.amount.compareTo(instrumentA.amount);
+        return instrumentB.amount!.compareTo(instrumentA.amount!);
       }
     }
 
@@ -157,14 +157,14 @@ class Account {
     if (instruments.any((element) =>
         element['instrument']['asset_class'].toString().contains('equity'))) {
       portfolioDistribution[InstrumentType.equity] = {};
-      portfolioDistribution[InstrumentType.equity][ValueType.percentage] = 0;
-      portfolioDistribution[InstrumentType.equity][ValueType.amount] = 0;
+      portfolioDistribution[InstrumentType.equity]![ValueType.percentage] = 0;
+      portfolioDistribution[InstrumentType.equity]![ValueType.amount] = 0;
     }
     if (instruments.any((element) =>
         element['instrument']['asset_class'].toString().contains('fixed'))) {
       portfolioDistribution[InstrumentType.fixed] = {};
-      portfolioDistribution[InstrumentType.fixed][ValueType.percentage] = 0;
-      portfolioDistribution[InstrumentType.fixed][ValueType.amount] = 0;
+      portfolioDistribution[InstrumentType.fixed]![ValueType.percentage] = 0;
+      portfolioDistribution[InstrumentType.fixed]![ValueType.amount] = 0;
     }
     if (instruments.any((element) => (!(element['instrument']['asset_class']
             .toString()
@@ -173,39 +173,39 @@ class Account {
             .toString()
             .contains('fixed'))))) {
       portfolioDistribution[InstrumentType.other] = {};
-      portfolioDistribution[InstrumentType.other][ValueType.amount] = 0;
-      portfolioDistribution[InstrumentType.other][ValueType.percentage] = 0;
+      portfolioDistribution[InstrumentType.other]![ValueType.amount] = 0;
+      portfolioDistribution[InstrumentType.other]![ValueType.percentage] = 0;
     }
 
     portfolioDistribution[InstrumentType.cash] = {};
-    portfolioDistribution[InstrumentType.cash][ValueType.amount] = 0;
-    portfolioDistribution[InstrumentType.cash][ValueType.percentage] = 0;
+    portfolioDistribution[InstrumentType.cash]![ValueType.amount] = 0;
+    portfolioDistribution[InstrumentType.cash]![ValueType.percentage] = 0;
 
     for (var instrument in instruments) {
-      double currentInstrumentAmount = instrument['amount'].toDouble();
-      double currentInstrumentPercentage = instrument['amount'].toDouble() /
+      double? currentInstrumentAmount = instrument['amount'].toDouble();
+      double? currentInstrumentPercentage = instrument['amount'].toDouble() /
           portfolio['total_amount'].toDouble();
 
       if (instrument['instrument']['asset_class'].contains('equity')) {
-        portfolioDistribution[InstrumentType.equity][ValueType.amount] +=
-            currentInstrumentAmount;
-        portfolioDistribution[InstrumentType.equity][ValueType.percentage] +=
-            currentInstrumentPercentage;
+        portfolioDistribution[InstrumentType.equity]![ValueType.amount] = portfolioDistribution[InstrumentType.equity]![ValueType.amount]! +
+            currentInstrumentAmount!;
+        portfolioDistribution[InstrumentType.equity]![ValueType.percentage] = portfolioDistribution[InstrumentType.equity]![ValueType.percentage]! +
+            currentInstrumentPercentage!;
       } else if (instrument['instrument']['asset_class'].contains('fixed')) {
-        portfolioDistribution[InstrumentType.fixed][ValueType.amount] +=
-            currentInstrumentAmount;
-        portfolioDistribution[InstrumentType.fixed][ValueType.percentage] +=
-            currentInstrumentPercentage;
+        portfolioDistribution[InstrumentType.fixed]![ValueType.amount] = portfolioDistribution[InstrumentType.fixed]![ValueType.amount]! +
+            currentInstrumentAmount!;
+        portfolioDistribution[InstrumentType.fixed]![ValueType.percentage] = portfolioDistribution[InstrumentType.fixed]![ValueType.percentage]! +
+            currentInstrumentPercentage!;
       } else {
-        portfolioDistribution[InstrumentType.other][ValueType.amount] +=
-            currentInstrumentAmount;
-        portfolioDistribution[InstrumentType.other][ValueType.percentage] +=
-            currentInstrumentPercentage;
+        portfolioDistribution[InstrumentType.other]![ValueType.amount] = portfolioDistribution[InstrumentType.other]![ValueType.amount]! +
+            currentInstrumentAmount!;
+        portfolioDistribution[InstrumentType.other]![ValueType.percentage] = portfolioDistribution[InstrumentType.other]![ValueType.percentage]! +
+            currentInstrumentPercentage!;
       }
     }
-    portfolioDistribution[InstrumentType.cash][ValueType.amount] +=
+    portfolioDistribution[InstrumentType.cash]![ValueType.amount] = portfolioDistribution[InstrumentType.cash]![ValueType.amount]! +
         portfolio['cash_amount'];
-    portfolioDistribution[InstrumentType.cash][ValueType.percentage] +=
+    portfolioDistribution[InstrumentType.cash]![ValueType.percentage] = portfolioDistribution[InstrumentType.cash]![ValueType.percentage]! +
         portfolio['cash_amount'] / portfolio['total_amount'];
 
     return (portfolioDistribution);
@@ -219,8 +219,8 @@ class Account {
       realPerformanceList) {
     List<PerformanceDataPoint> newPerformanceSeries = [];
     int currentPeriod = 0;
-    double currentRealReturn;
-    double currentRealMonthlyReturn;
+    double? currentRealReturn;
+    double? currentRealMonthlyReturn;
     for (var period in performancePeriodList) {
       if (currentPeriod < realPerformanceList.length) {
         currentRealReturn =
@@ -290,32 +290,32 @@ class Account {
     years.forEach((year) {
       profitLossSeries.putIfAbsent(year, () => []);
       profitLossSeries[year] = List<List>.generate(13, (index) => ["", null]);
-      profitLossSeries[year].asMap().forEach((index, value) {
-        profitLossSeries[year][index][0] = monthList[index];
+      profitLossSeries[year]!.asMap().forEach((index, value) {
+        profitLossSeries[year]![index][0] = monthList[index];
       });
     });
 
     for (int i = 0; i < realPerformanceList.length; i++) {
-      profitLossSeries[DateTime.parse(performancePeriodList[i]).year]
-              [DateTime.parse(performancePeriodList[i]).month - 1][1] =
+      profitLossSeries[DateTime.parse(performancePeriodList[i]).year]![
+              DateTime.parse(performancePeriodList[i]).month - 1][1] =
           realPerformanceList[i].toDouble();
     }
 
     years.forEach((year) {
       double totalProfit = 1;
-      for (int i = 0; i < profitLossSeries[year].length - 1; i++) {
-        if (profitLossSeries[year][i][1] != null) {
-          totalProfit *= (profitLossSeries[year][i][1]) + 1;
+      for (int i = 0; i < profitLossSeries[year]!.length - 1; i++) {
+        if (profitLossSeries[year]![i][1] != null) {
+          totalProfit *= (profitLossSeries[year]![i][1]) + 1;
         }
       }
-      profitLossSeries[year][12][1] = totalProfit - 1;
+      profitLossSeries[year]![12][1] = totalProfit - 1;
     });
 
     years.forEach((year) {
-      for (int i = 0; i < profitLossSeries[year].length; i++) {
-        if (profitLossSeries[year][i][1] != null) {
-          profitLossSeries[year][i][1] = num.parse(
-              (profitLossSeries[year][i][1] * 100).toStringAsFixed(1));
+      for (int i = 0; i < profitLossSeries[year]!.length; i++) {
+        if (profitLossSeries[year]![i][1] != null) {
+          profitLossSeries[year]![i][1] = num.parse(
+              (profitLossSeries[year]![i][1] * 100).toStringAsFixed(1));
         }
       }
     });
@@ -326,7 +326,7 @@ class Account {
       accountInstrumentTransactionData, accountCashTransactionData) {
     List<Transaction> newTransactionList = [];
     for (var transaction in accountInstrumentTransactionData) {
-      String operationType;
+      String? operationType;
       IconData icon = Icons.pie_chart;
       switch (transaction['operation_code']) {
         case 20:
@@ -393,7 +393,7 @@ class Account {
           break;
       }
 
-      String operationStatus;
+      String? operationStatus;
       switch (transaction['status']) {
         case 'closed':
           {
@@ -426,7 +426,7 @@ class Account {
     }
 
     for (var transaction in accountCashTransactionData) {
-      String operationType;
+      String? operationType;
       IconData icon = Icons.toll;
       switch (transaction['operation_code']) {
         case 9200:
@@ -492,7 +492,7 @@ class Account {
           break;
       }
 
-      String operationStatus;
+      String? operationStatus;
       switch (transaction['status']) {
         case 'closed':
           {
@@ -527,9 +527,9 @@ class Account {
     int compareTransactions(
         Transaction transactionA, Transaction transactionB) {
       if (transactionA.date != transactionB.date) {
-        return transactionB.date.compareTo(transactionA.date);
-      } else if (transactionA.amount.abs() != transactionB.amount.abs()) {
-        return transactionB.amount.abs().compareTo(transactionA.amount.abs());
+        return transactionB.date!.compareTo(transactionA.date!);
+      } else if (transactionA.amount!.abs() != transactionB.amount!.abs()) {
+        return transactionB.amount!.abs().compareTo(transactionA.amount!.abs());
       } else {
         return transactionB.accountType
             .toString()
@@ -555,20 +555,20 @@ class Account {
     return (hasPendingTransactions);
   }
 
-  static double _getCashNeededToTrade(portfolioExtraInfo) {
-    double additionalCashNeededToTrade =
+  static double? _getCashNeededToTrade(portfolioExtraInfo) {
+    double? additionalCashNeededToTrade =
         portfolioExtraInfo['additional_cash_needed_to_trade'].toDouble();
 
     return (additionalCashNeededToTrade);
   }
 
   Account(
-      {@required this.accountInfo,
-      @required this.accountPerformanceData,
-      @required this.accountPortfolioData,
-      @required this.accountInstrumentTransactionData,
-      @required this.accountCashTransactionData,
-      @required this.accountPendingTransactionData})
+      {required this.accountInfo,
+      required this.accountPerformanceData,
+      required this.accountPortfolioData,
+      required this.accountInstrumentTransactionData,
+      required this.accountCashTransactionData,
+      required this.accountPendingTransactionData})
       : _accountNumber = accountInfo['account_number'],
         _accountType = accountInfo['type'],
         _risk = accountInfo['risk'],
@@ -637,28 +637,28 @@ class Account {
         _hasPendingTransactions =
             _checkPendingTransactions(accountPendingTransactionData);
 
-  String get accountNumber => _accountNumber;
-  String get type => _accountType;
-  int get risk => _risk;
-  double get totalAmount => _totalAmount;
-  double get investment => _investment;
-  double get profitLoss => _profitLoss;
-  double get moneyReturn => _moneyReturn;
-  double get moneyReturnAnnual => _moneyReturnAnnual;
-  double get timeReturn => _timeReturn;
-  double get timeReturnAnnual => _timeReturnAnnual;
-  double get volatility => _volatility;
-  double get sharpe => _sharpe;
-  double get expectedReturn => _expectedReturn;
-  double get bestReturn1yr => _bestReturn1yr;
-  double get worstReturn1yr => _worstReturn1yr;
-  double get bestReturn10yr => _bestReturn10yr;
-  double get worstReturn10yr => _worstReturn10yr;
+  String? get accountNumber => _accountNumber;
+  String? get type => _accountType;
+  int? get risk => _risk;
+  double? get totalAmount => _totalAmount;
+  double? get investment => _investment;
+  double? get profitLoss => _profitLoss;
+  double? get moneyReturn => _moneyReturn;
+  double? get moneyReturnAnnual => _moneyReturnAnnual;
+  double? get timeReturn => _timeReturn;
+  double? get timeReturnAnnual => _timeReturnAnnual;
+  double? get volatility => _volatility;
+  double? get sharpe => _sharpe;
+  double? get expectedReturn => _expectedReturn;
+  double? get bestReturn1yr => _bestReturn1yr;
+  double? get worstReturn1yr => _worstReturn1yr;
+  double? get bestReturn10yr => _bestReturn10yr;
+  double? get worstReturn10yr => _worstReturn10yr;
   Color get moneyReturnColor => _moneyReturnColor;
   Color get timeReturnColor => _timeReturnColor;
   Color get profitLossColor => _profitLossColor;
-  bool get hasActiveRewards => _hasActiveRewards;
-  double get feeFreeAmount => _feeFreeAmount;
+  bool? get hasActiveRewards => _hasActiveRewards;
+  double? get feeFreeAmount => _feeFreeAmount;
   List<AmountsDataPoint> get amountsSeries => _amountsSeries;
   List<PortfolioDataPoint> get portfolioData => _portfolioData;
   Map<InstrumentType, Map<ValueType, double>> get portfolioDistribution =>
@@ -667,7 +667,7 @@ class Account {
   Map<int, List<List>> get profitLossSeries => _profitLossSeries;
   List<Transaction> get transactionList => _transactionList;
   bool get hasPendingTransactions => _hasPendingTransactions;
-  double get additionalCashNeededToTrade => _additionalCashNeededToTrade;
+  double? get additionalCashNeededToTrade => _additionalCashNeededToTrade;
 
   @override
   String toString() {

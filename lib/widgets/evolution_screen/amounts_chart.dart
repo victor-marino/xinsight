@@ -8,26 +8,26 @@ import 'package:indexax/models/amounts_datapoint.dart';
 
 class AmountsChart extends StatelessWidget {
   const AmountsChart({
-    Key key,
-    @required this.amountsSeries,
+    Key? key,
+    required this.amountsSeries,
     this.period,
   }) : super(key: key);
 
   final List<AmountsDataPoint> amountsSeries;
-  final Duration period;
+  final Duration? period;
 
   @override
   Widget build(BuildContext context) {
-    DateTime startDate;
+    DateTime? startDate;
 
     if (period == null) {
       startDate = amountsSeries[0].date;
-    } else if (amountsSeries.last.date
-        .subtract(period)
-        .isBefore(amountsSeries[0].date)) {
+    } else if (amountsSeries.last.date!
+        .subtract(period!)
+        .isBefore(amountsSeries[0].date!)) {
       startDate = amountsSeries[0].date;
     } else {
-      startDate = amountsSeries.last.date.subtract(period);
+      startDate = amountsSeries.last.date!.subtract(period!);
     }
 
     final List<Color> color = <Color>[];

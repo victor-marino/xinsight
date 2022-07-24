@@ -8,9 +8,9 @@ import 'package:indexax/widgets/portfolio_screen/asset_tile.dart';
 
 class AssetList extends StatelessWidget {
   const AssetList({
-    Key key,
-    @required this.portfolioData,
-    @required this.landscapeOrientation,
+    Key? key,
+    required this.portfolioData,
+    required this.landscapeOrientation,
   }) : super(key: key);
   
   final List<PortfolioDataPoint> portfolioData;
@@ -39,7 +39,7 @@ class AssetList extends StatelessWidget {
               equityInstruments.add(Divider(height: 0));
             }
             // equityAmount += assetData.amount;
-            equityPercentage += assetData.percentage;
+            equityPercentage += assetData.percentage!;
             equityInstruments.add(AssetTile(assetData: assetData, landscapeOrientation: landscapeOrientation));
           }
           break;
@@ -50,15 +50,15 @@ class AssetList extends StatelessWidget {
               fixedInstruments.add(Divider(height: 0));
             }
             // fixedAmount += assetData.amount;
-            fixedPercentage += assetData.percentage;
+            fixedPercentage += assetData.percentage!;
             fixedInstruments.add(AssetTile(assetData: assetData, landscapeOrientation: landscapeOrientation,));
           }
           break;
 
         case InstrumentType.cash:
           {
-            cashAmount += assetData.amount;
-            cashPercentage += assetData.percentage;
+            cashAmount += assetData.amount!;
+            cashPercentage += assetData.percentage!;
             cashInstruments.add(AssetTile(assetData: assetData, landscapeOrientation: landscapeOrientation));
           }
           break;

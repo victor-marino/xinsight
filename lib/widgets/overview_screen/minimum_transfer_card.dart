@@ -5,11 +5,11 @@ import 'package:easy_localization/easy_localization.dart';
 
 class MinimumTransferCard extends StatelessWidget {
   const MinimumTransferCard({
-    Key key,
-    @required this.additionalCashNeededToTrade,
+    Key? key,
+    required this.additionalCashNeededToTrade,
   }) : super(key: key);
 
-  final double additionalCashNeededToTrade;
+  final double? additionalCashNeededToTrade;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class MinimumTransferCard extends StatelessWidget {
             style: kCardSubTextStyle,
           ),
           TextSpan(
-            text: getInvestmentAsString(additionalCashNeededToTrade),
+            text: getInvestmentAsString(additionalCashNeededToTrade!),
             style: kMinimumTransferCardTextStyle.copyWith(
                   fontWeight: FontWeight.bold),
           ),

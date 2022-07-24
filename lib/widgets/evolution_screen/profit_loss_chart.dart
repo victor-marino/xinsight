@@ -5,13 +5,13 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 
 class ProfitLossChart extends StatelessWidget {
   const ProfitLossChart({
-    Key key,
-    @required this.profitLossSeries,
-    @required this.currentYear,
+    Key? key,
+    required this.profitLossSeries,
+    required this.currentYear,
   }) : super(key: key);
 
   final Map<int, List<List>> profitLossSeries;
-  final int currentYear;
+  final int? currentYear;
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +44,7 @@ class ProfitLossChart extends StatelessWidget {
               ),
                   
               enableTooltip: false,
-              dataSource: profitLossSeries[currentYear],
+              dataSource: profitLossSeries[currentYear!]!,
               xValueMapper: (List month, _) => month[0],
               yValueMapper: (List month, _) => month[1],
               pointColorMapper: (List month, _) => month[1] == null || month[1] > 0 ? Colors.green[500] : Colors.red[900],

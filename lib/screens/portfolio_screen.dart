@@ -8,17 +8,17 @@ const int nbsp = 0x00A0;
 
 class PortfolioScreen extends StatefulWidget {
   const PortfolioScreen({
-    Key key,
-    @required this.accountData,
-    @required this.userAccounts,
-    @required this.landscapeOrientation,
-    @required this.availableWidth,
-    @required this.refreshData,
-    @required this.reloadPage,
-    @required this.currentAccountNumber,
+    Key? key,
+    required this.accountData,
+    required this.userAccounts,
+    required this.landscapeOrientation,
+    required this.availableWidth,
+    required this.refreshData,
+    required this.reloadPage,
+    required this.currentAccountNumber,
   }) : super(key: key);
-  final Account accountData;
-  final List<Map<String, String>> userAccounts;
+  final Account? accountData;
+  final List<Map<String, String>>? userAccounts;
   final bool landscapeOrientation;
   final double availableWidth;
   final Function refreshData;
@@ -37,9 +37,9 @@ class _PortfolioScreenState extends State<PortfolioScreen>
   bool get wantKeepAlive => true;
 
   int currentPage = 4;
-  Account accountData;
-  Function refreshData;
-  int currentAccountNumber;
+  Account? accountData;
+  late Function refreshData;
+  int? currentAccountNumber;
   List<DropdownMenuItem> dropdownItems = [];
 
   RefreshController _refreshController =
@@ -97,7 +97,7 @@ class _PortfolioScreenState extends State<PortfolioScreen>
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: <Widget>[
                             AssetList(
-                                portfolioData: widget.accountData.portfolioData, landscapeOrientation: widget.landscapeOrientation)
+                                portfolioData: widget.accountData!.portfolioData, landscapeOrientation: widget.landscapeOrientation)
                           ],
                         ),
                       ),

@@ -3,9 +3,9 @@ import 'package:indexax/tools/constants.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 List<ChoiceChip> amountsChartZoomChips(
-    {Duration currentPeriod,
-    List<Map> zoomLevels,
-    Function reloadAmountsChart}) {
+    {Duration? currentPeriod,
+    required List<Map> zoomLevels,
+    Function? reloadAmountsChart}) {
 
   List<ChoiceChip> chipList = [];
 
@@ -21,7 +21,7 @@ List<ChoiceChip> amountsChartZoomChips(
         visualDensity: VisualDensity.compact,
         selected: currentPeriod == element['duration'],
         onSelected: (bool selected) {
-          reloadAmountsChart(element['duration']);
+          reloadAmountsChart!(element['duration']);
         },
       ),
     );

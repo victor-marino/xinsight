@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AccountDropdownItems {
-  final List<String> userAccounts;
+  final List<String>? userAccounts;
 
   AccountDropdownItems({this.userAccounts});
 
@@ -18,5 +18,5 @@ class AccountDropdownItems {
     return accountDropdownItems;
   }
 
-  List<DropdownMenuItem> get dropdownItems => _dropdownItems(userAccounts);
+  List<DropdownMenuItem> get dropdownItems => _dropdownItems(userAccounts!);
 }

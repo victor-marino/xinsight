@@ -6,8 +6,8 @@ import 'package:easy_localization/easy_localization.dart';
 class MyBottomNavigationBar extends StatelessWidget {
   @override
   const MyBottomNavigationBar({
-    Key key,
-    @required this.onTapped,
+    Key? key,
+    required this.onTapped,
   }) : super(key: key);
   final Function onTapped;
 
@@ -28,7 +28,7 @@ class MyBottomNavigationBar extends StatelessWidget {
         BottomNavigationBarItem(
             icon: Icon(Icons.trending_up), label: 'page_titles.projection'.tr()),
       ],
-      onTap: onTapped,
+      onTap: onTapped as void Function(int)?,
       currentIndex:
           Provider.of<BottomNavigationBarProvider>(context).currentIndex,
     );

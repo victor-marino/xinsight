@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'dart:async';
 import 'package:indexax/services/indexa_data.dart';
 import 'package:indexax/screens/root_screen.dart';
 import 'package:local_auth/local_auth.dart';
@@ -17,7 +18,7 @@ class LoginScreen extends StatefulWidget {
     this.errorMessage,
   });
 
-  final String errorMessage;
+  final String? errorMessage;
 
   @override
   _LoginScreenState createState() => _LoginScreenState();
@@ -69,7 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
     ));
   }
 
-  Future supportsBiometrics() async {
+  Future<bool> supportsBiometrics() async {
     //bool supportsBiometrics = false;
     bool isDeviceSupported = false;
     try {
@@ -145,9 +146,9 @@ class _LoginScreenState extends State<LoginScreen> {
     _readAll();
   }
 
-  Future<bool> validateToken({String token}) async {
+  Future<bool?> validateToken({required String token}) async {
     token = removeSpaces(token);
-    bool validToken;
+    bool? validToken;
     if (validateTokenFormat(token)) {
       buildLoading(context);
       IndexaData indexaData = IndexaData(token: token);
@@ -179,7 +180,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Future<bool> authenticateUserLocally() async {
     bool isAuthenticated = false;
     try {
-      if (await supportsBiometrics()) {
+      if (await (supportsBiometrics())) {
         print("Trying to authenticate...");
         isAuthenticated = await localAuthentication.authenticate(
           authMessages: [androidStrings, iosStrings],
@@ -210,13 +211,13 @@ class _LoginScreenState extends State<LoginScreen> {
     return isAuthenticated;
   }
 
-  void goToMainScreen({String token, bool saveToken}) async {
+  void goToMainScreen({required String token, bool? saveToken}) async {
     token = removeSpaces(token);
     if (validateTokenFormat(token)) {
       try {
-        bool validatedToken = await validateToken(token: token);
-        if (validatedToken) {
-          if (saveToken) await _storeKey(token);
+        bool? validatedToken = await (validateToken(token: token));
+        if (validatedToken ?? false) {
+          if (saveToken!) await _storeKey(token);
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
@@ -245,8 +246,8 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
-  Future<String> findStoredToken() async {
-    String token;
+  Future<String?> findStoredToken() async {
+    String? token;
     try {
       Map<String, String> tokens = await _readAll();
       if (tokens['indexaToken'] != null) {
@@ -266,7 +267,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void tryToLoginWithStoredToken() async {
-    String storedToken = await findStoredToken();
+    String? storedToken = await findStoredToken();
     if (storedToken != null) {
       setState(() {
         rememberToken = true;
@@ -288,14 +289,14 @@ class _LoginScreenState extends State<LoginScreen> {
     if (widget.errorMessage == null) {
       tryToLoginWithStoredToken();
     } else {
-      String message;
+      String? message;
       if ((widget.errorMessage == null) || (widget.errorMessage == "")) {
         message = "login_screen.default_error_message".tr();
       } else {
         message = widget.errorMessage;
       }
       WidgetsBinding.instance
-          .addPostFrameCallback((_) => showInSnackBar(message));
+          .addPostFrameCallback((_) => showInSnackBar(message!));
     }
   }
 
