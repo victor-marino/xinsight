@@ -7,8 +7,8 @@ import 'package:indexax/tools/number_formatting.dart';
 
 class DistributionChartLegend extends StatelessWidget {
   const DistributionChartLegend({
-    Key key,
-    @required this.portfolioDistribution,
+    Key? key,
+    required this.portfolioDistribution,
   }) : super(key: key);
   final Map<InstrumentType, Map<ValueType, double>> portfolioDistribution;
 
@@ -37,7 +37,7 @@ class DistributionChartLegend extends StatelessWidget {
                       text: 'distribution_legend.instrument_type_equity'.tr(),
                       style: kLegendMainTextStyle),
                   TextSpan(
-                      text:  " (" + getPercentAsString(portfolioDistribution[InstrumentType.equity][ValueType.percentage]) + ")",
+                      text:  " (" + getPercentAsString(portfolioDistribution[InstrumentType.equity]![ValueType.percentage]) + ")",
                       style: kLegendSecondaryTextStyle)
                 ],
               ),
@@ -67,7 +67,7 @@ class DistributionChartLegend extends StatelessWidget {
                       text: 'distribution_legend.instrument_type_fixed'.tr(),
                       style: kLegendMainTextStyle),
                   TextSpan(
-                      text:  " (" + getPercentAsString(portfolioDistribution[InstrumentType.fixed][ValueType.percentage]) + ")",
+                      text:  " (" + getPercentAsString(portfolioDistribution[InstrumentType.fixed]![ValueType.percentage]) + ")",
                       style: kLegendSecondaryTextStyle)
                 ],
               ),
@@ -93,7 +93,7 @@ class DistributionChartLegend extends StatelessWidget {
                       text: 'distribution_legend.instrument_type_other'.tr(),
                       style: kLegendMainTextStyle),
                   TextSpan(
-                      text:  " (" + getPercentAsString(portfolioDistribution[InstrumentType.other][ValueType.percentage]) + ")",
+                      text:  " (" + getPercentAsString(portfolioDistribution[InstrumentType.other]![ValueType.percentage]) + ")",
                       style: kLegendSecondaryTextStyle)
                 ],
               ),
@@ -102,7 +102,7 @@ class DistributionChartLegend extends StatelessWidget {
         ),
       );
     }
-    if (portfolioDistribution.containsKey(InstrumentType.cash) && portfolioDistribution[InstrumentType.cash][ValueType.amount] != 0) {
+    if (portfolioDistribution.containsKey(InstrumentType.cash) && portfolioDistribution[InstrumentType.cash]![ValueType.amount] != 0) {
       legendItems.add(
         Row(
           mainAxisSize: MainAxisSize.min,
@@ -119,7 +119,7 @@ class DistributionChartLegend extends StatelessWidget {
                       text: 'distribution_legend.instrument_type_cash'.tr(),
                       style: kLegendMainTextStyle),
                   TextSpan(
-                      text:  " (" + getPercentAsString(portfolioDistribution[InstrumentType.cash][ValueType.percentage]) + ")",
+                      text:  " (" + getPercentAsString(portfolioDistribution[InstrumentType.cash]![ValueType.percentage]) + ")",
                       style: kLegendSecondaryTextStyle)
                 ],
               ),

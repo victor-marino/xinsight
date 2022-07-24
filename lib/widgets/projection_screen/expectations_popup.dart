@@ -4,7 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 
 class ExpectationsPopUp extends StatelessWidget {
   const ExpectationsPopUp({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

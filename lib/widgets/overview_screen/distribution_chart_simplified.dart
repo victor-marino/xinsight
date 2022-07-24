@@ -6,14 +6,14 @@ import 'package:indexax/tools/constants.dart';
 
 class DistributionChartSimplified extends StatelessWidget {
   const DistributionChartSimplified({
-    Key key,
-    @required this.portfolioDistribution,
+    Key? key,
+    required this.portfolioDistribution,
   }) : super(key: key);
   final Map<InstrumentType, Map<ValueType, double>> portfolioDistribution;
 
   @override
   Widget build(BuildContext context) {
-    List<Color> colorList = [equityColors[2], fixedColors[2], cashColor, otherColor];
+    List<Color> colorList = [equityColors[2]!, fixedColors[2]!, cashColor, otherColor];
 
     return Container(
       height: 280,
@@ -33,25 +33,25 @@ class DistributionChartSimplified extends StatelessWidget {
               if (currentInstrumentType == InstrumentType.equity) {
                 return 'distribution_chart.instrument_type_equity'.tr() +
                     '\n(' +
-                    (portfolioDistribution[currentInstrumentType][ValueType.percentage] * 100)
+                    (portfolioDistribution[currentInstrumentType]![ValueType.percentage]! * 100)
                         .toStringAsFixed(1) +
                     '%)';
                 } else if (currentInstrumentType == InstrumentType.fixed) {
                 return 'distribution_chart.instrument_type_fixed'.tr() +
                     '\n(' +
-                    (portfolioDistribution[currentInstrumentType][ValueType.percentage] * 100)
+                    (portfolioDistribution[currentInstrumentType]![ValueType.percentage]! * 100)
                         .toStringAsFixed(1) +
                     '%)';
               } else if (currentInstrumentType == InstrumentType.cash) {
                 return 'distribution_chart.instrument_type_cash'.tr() +
                     '\n(' +
-                    (portfolioDistribution[currentInstrumentType][ValueType.percentage] * 100)
+                    (portfolioDistribution[currentInstrumentType]![ValueType.percentage]! * 100)
                         .toStringAsFixed(1) +
                     '%)';
               } else {
                 return 'distribution_chart.instrument_type_other'.tr() +
                     '\n(' +
-                    (portfolioDistribution[currentInstrumentType][ValueType.percentage] * 100)
+                    (portfolioDistribution[currentInstrumentType]![ValueType.percentage]! * 100)
                         .toStringAsFixed(1) +
                     '%)';
               }
@@ -59,7 +59,7 @@ class DistributionChartSimplified extends StatelessWidget {
             yValueMapper:
                 (InstrumentType currentInstrumentType,
                 _) =>
-            double.parse(portfolioDistribution[currentInstrumentType][ValueType.amount].toStringAsFixed(2)),
+            double.parse(portfolioDistribution[currentInstrumentType]![ValueType.amount]!.toStringAsFixed(2)),
             dataLabelSettings:
             DataLabelSettings(
               margin: EdgeInsets.all(0),

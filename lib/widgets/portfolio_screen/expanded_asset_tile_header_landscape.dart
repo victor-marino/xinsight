@@ -5,8 +5,8 @@ import 'package:indexax/tools/number_formatting.dart';
 
 class ExpandedAssetTileHeaderLandscape extends StatelessWidget {
   const ExpandedAssetTileHeaderLandscape({
-    Key key,
-    @required this.assetData,
+    Key? key,
+    required this.assetData,
   }) : super(key: key);
 
   final PortfolioDataPoint assetData;
@@ -19,8 +19,8 @@ class ExpandedAssetTileHeaderLandscape extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(assetData.instrumentName, style: kAssetListMainTextStyle),
-              Text(assetData.instrumentCompany,
+              Text(assetData.instrumentName!, style: kAssetListMainTextStyle),
+              Text(assetData.instrumentCompany!,
                   style: kTransactionDetailValueTextStyle),
             ],
           ),
@@ -33,12 +33,12 @@ class ExpandedAssetTileHeaderLandscape extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 20),
               child: Text(
-                getInvestmentAsString(assetData.amount),
+                getInvestmentAsString(assetData.amount!),
                 style: kAssetListAmountTextStyle,
               ),
             ),
-            Text("(" + getPLAsString(assetData.profitLoss) + ")",
-                style: assetData.profitLoss < 0
+            Text("(" + getPLAsString(assetData.profitLoss!) + ")",
+                style: assetData.profitLoss! < 0
                     ? kAssetListSecondaryTextStyle.copyWith(
                         color: Colors.red[800])
                     : kAssetListSecondaryTextStyle.copyWith(

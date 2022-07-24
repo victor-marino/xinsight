@@ -7,7 +7,7 @@ import 'package:flutter/widgets.dart';
 
 Future<void> testExecutable(FutureOr<void> Function() testMain) async {
   final content = await File('assets/translations/es-ES.json').readAsString(); // <- Or `ru.json`
-  final data = jsonDecode(content) as Map<String, dynamic>;
+  final data = jsonDecode(content) as Map<String, dynamic>?;
 
   // easy_localization works with a singleton instance internally. We abuse
   // this fact in tests and just let it load the English translations.

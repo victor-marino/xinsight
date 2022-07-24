@@ -4,18 +4,18 @@ import 'package:easy_localization/easy_localization.dart';
 
 class CurrentAccountIndicator extends StatelessWidget {
   const CurrentAccountIndicator({
-    Key key,
-    @required this.accountNumber,
-    @required this.accountType,
+    Key? key,
+    required this.accountNumber,
+    required this.accountType,
   }) : super(key: key);
 
-  final String accountNumber;
-  final String accountType;
+  final String? accountNumber;
+  final String? accountType;
 
   @override
   Widget build(BuildContext context) {
 
-    String accountTypeText;
+    String? accountTypeText;
 
     switch (accountType) {
       case 'mutual':
@@ -39,7 +39,7 @@ class CurrentAccountIndicator extends StatelessWidget {
       children: [
         Text(
           accountNumber != null
-              ? accountNumber
+              ? accountNumber!
               : "",
           style: kAccountNumberTextStyle.copyWith(fontWeight: FontWeight.bold),
           overflow: TextOverflow.fade,
@@ -47,7 +47,7 @@ class CurrentAccountIndicator extends StatelessWidget {
           softWrap: false,
         ),
         Text(
-          accountType != null ? accountTypeText.toUpperCase() : "",
+          accountType != null ? accountTypeText!.toUpperCase() : "",
           style: kAccountNumberTextStyle,
           overflow: TextOverflow.fade,
           maxLines: 1,

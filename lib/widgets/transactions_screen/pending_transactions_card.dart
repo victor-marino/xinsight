@@ -4,7 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 
 class PendingTransactionsCard extends StatelessWidget {
   const PendingTransactionsCard({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

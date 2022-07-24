@@ -8,7 +8,7 @@ import '../../tools/bottom_navigation_bar_provider.dart';
 
 class LogoutPopup extends StatelessWidget {
   const LogoutPopup({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -79,5 +79,5 @@ class _SecItem {
   _SecItem(this.key, this.value);
 
   final String key;
-  final String value;
+  final String? value;
 }

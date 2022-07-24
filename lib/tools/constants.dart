@@ -333,7 +333,7 @@ Decoration kDisabledAccountSwitcherBoxDecoration = ShapeDecoration(
   ),
 );
 
-List<Color> equityColors = [
+List<Color?> equityColors = [
   Colors.purple[800],
   Colors.purple[700],
   Colors.purple[600],
@@ -344,7 +344,7 @@ List<Color> equityColors = [
   Colors.purple[100],
   Colors.purple[50],
 ];
-List<Color> fixedColors = [
+List<Color?> fixedColors = [
   Colors.indigo[800],
   Colors.indigo[700],
   Colors.indigo[600],

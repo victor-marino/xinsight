@@ -12,17 +12,17 @@ import 'package:indexax/widgets/projection_screen/expectations_popup.dart';
 
 class ProjectionScreen extends StatefulWidget {
   const ProjectionScreen({
-    Key key,
-    @required this.accountData,
-    @required this.userAccounts,
-    @required this.landscapeOrientation,
-    @required this.availableWidth,
-    @required this.refreshData,
-    @required this.reloadPage,
-    @required this.currentAccountNumber,
+    Key? key,
+    required this.accountData,
+    required this.userAccounts,
+    required this.landscapeOrientation,
+    required this.availableWidth,
+    required this.refreshData,
+    required this.reloadPage,
+    required this.currentAccountNumber,
   }) : super(key: key);
-  final Account accountData;
-  final List<Map<String, String>> userAccounts;
+  final Account? accountData;
+  final List<Map<String, String>>? userAccounts;
   final bool landscapeOrientation;
   final double availableWidth;
   final Function refreshData;
@@ -41,9 +41,9 @@ class _ProjectionScreenState extends State<ProjectionScreen>
   bool get wantKeepAlive => true;
 
   int currentPage = 2;
-  Account accountData;
-  Function refreshData;
-  int currentAccountNumber;
+  Account? accountData;
+  late Function refreshData;
+  int? currentAccountNumber;
   List<DropdownMenuItem> dropdownItems = [];
 
   RefreshController _refreshController =
@@ -109,7 +109,7 @@ class _ProjectionScreenState extends State<ProjectionScreen>
                                     textAlign: TextAlign.left,
                                     style: kCardTitleTextStyle,
                                   ),
-                                  RiskChart(risk: widget.accountData.risk),
+                                  RiskChart(risk: widget.accountData!.risk),
                                 ],
                               ),
                             ),
@@ -128,7 +128,7 @@ class _ProjectionScreenState extends State<ProjectionScreen>
                                   ),
                                   PerformanceChart(
                                       performanceSeries:
-                                          accountData.performanceSeries),
+                                          accountData!.performanceSeries),
                                   Padding(
                                     padding: const EdgeInsets.all(10),
                                     child: RichText(
@@ -142,7 +142,7 @@ class _ProjectionScreenState extends State<ProjectionScreen>
                                               style: kCardSubTextStyle),
                                           TextSpan(
                                               text: getPLPercentAsString(widget
-                                                  .accountData.expectedReturn),
+                                                  .accountData!.expectedReturn!),
                                               style: kCardSecondaryContentTextStyle)
                                         ],
                                       ),

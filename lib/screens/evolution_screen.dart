@@ -12,17 +12,17 @@ import 'package:indexax/widgets/evolution_screen/amounts_chart_zoom_chips.dart';
 
 class EvolutionScreen extends StatefulWidget {
   const EvolutionScreen({
-    Key key,
-    @required this.accountData,
-    @required this.userAccounts,
-    @required this.refreshData,
-    @required this.reloadPage,
-    @required this.currentAccountNumber,
-    @required this.landscapeOrientation,
-    @required this.availableWidth,
+    Key? key,
+    required this.accountData,
+    required this.userAccounts,
+    required this.refreshData,
+    required this.reloadPage,
+    required this.currentAccountNumber,
+    required this.landscapeOrientation,
+    required this.availableWidth,
   }) : super(key: key);
-  final Account accountData;
-  final List<Map<String, String>> userAccounts;
+  final Account? accountData;
+  final List<Map<String, String>>? userAccounts;
   final Function refreshData;
   final Function reloadPage;
   final int currentAccountNumber;
@@ -41,11 +41,11 @@ class _EvolutionScreenState extends State<EvolutionScreen>
   bool get wantKeepAlive => true;
 
   int currentPage = 1;
-  Account accountData;
-  Function refreshData;
-  Duration currentPeriod;
-  int currentAccountNumber;
-  int currentYear;
+  Account? accountData;
+  late Function refreshData;
+  Duration? currentPeriod;
+  int? currentAccountNumber;
+  int? currentYear;
   List<DropdownMenuItem> profitLossYearDropdownItems = [];
 
   RefreshController _refreshController =
@@ -66,7 +66,7 @@ class _EvolutionScreenState extends State<EvolutionScreen>
     _refreshController.refreshCompleted();
   }
 
-  void reloadAmountsChart([Duration period]) {
+  void reloadAmountsChart([Duration? period]) {
     setState(() {
       currentPeriod = period;
     });
@@ -83,7 +83,7 @@ class _EvolutionScreenState extends State<EvolutionScreen>
     currentAccountNumber = widget.currentAccountNumber;
     accountData = widget.accountData;
     refreshData = widget.refreshData;
-    currentYear = accountData.profitLossSeries.keys.toList().last;
+    currentYear = accountData!.profitLossSeries.keys.toList().last;
   }
 
   List<Map> zoomLevels = [
@@ -174,7 +174,7 @@ class _EvolutionScreenState extends State<EvolutionScreen>
                                         ],
                                       ]),
                                   AmountsChart(
-                                      amountsSeries: accountData.amountsSeries,
+                                      amountsSeries: accountData!.amountsSeries,
                                       period: currentPeriod),
                                   if (!widget.landscapeOrientation) ...[
                                     Container(
@@ -212,7 +212,7 @@ class _EvolutionScreenState extends State<EvolutionScreen>
                                       ),
                                       ProfitLossYearSwitcher(
                                           currentYear: currentYear,
-                                          yearList: accountData
+                                          yearList: accountData!
                                               .profitLossSeries.keys
                                               .toList(),
                                           reloadProfitLossChart:
@@ -223,7 +223,7 @@ class _EvolutionScreenState extends State<EvolutionScreen>
                                     height: 150,
                                     child: ProfitLossChart(
                                         profitLossSeries:
-                                            accountData.profitLossSeries,
+                                            accountData!.profitLossSeries,
                                         currentYear: currentYear),
                                   ),
                                 ],

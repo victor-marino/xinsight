@@ -5,8 +5,8 @@ import 'package:indexax/tools/number_formatting.dart';
 
 class TransactionDetailsPopup extends StatelessWidget {
   const TransactionDetailsPopup({
-    Key key,
-    @required this.transactionData,
+    Key? key,
+    required this.transactionData,
   }) : super(key: key);
 
   final transactionData;
@@ -134,7 +134,8 @@ class TransactionDetailsPopup extends StatelessWidget {
         'transaction_details_popup.details'.tr(),
       ),
       content: Scrollbar(
-        isAlwaysShown: true,
+        //isAlwaysShown: true,
+        thumbVisibility: true,
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.only(right: 10),

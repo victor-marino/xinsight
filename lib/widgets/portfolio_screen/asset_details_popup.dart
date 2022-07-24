@@ -5,8 +5,8 @@ import 'package:indexax/tools/constants.dart';
 
 class AssetDetailsPopup extends StatelessWidget {
   const AssetDetailsPopup({
-    Key key,
-    @required this.assetData,
+    Key? key,
+    required this.assetData,
   }) : super(key: key);
 
   final PortfolioDataPoint assetData;
@@ -30,7 +30,7 @@ class AssetDetailsPopup extends StatelessWidget {
       style: kTransactionDetailTitleTextStyle,
     ));
     assetDetails.add(SelectableText(
-      assetData.instrumentName,
+      assetData.instrumentName!,
       style: kTransactionDetailValueTextStyle,
     ));
     assetDetails.add(Text(
@@ -38,7 +38,7 @@ class AssetDetailsPopup extends StatelessWidget {
       style: kTransactionListTitleTextStyle,
     ));
     assetDetails.add(SelectableText(
-      assetData.instrumentCompany,
+      assetData.instrumentCompany!,
       style: kTransactionDetailValueTextStyle,
     ));
     assetDetails.add(Text(
@@ -51,13 +51,13 @@ class AssetDetailsPopup extends StatelessWidget {
     ));
     assetDetails.add(
       Text(
-        assetData.instrumentCodeType,
+        assetData.instrumentCodeType!,
         style: kTransactionListTitleTextStyle,
       ),
     );
     assetDetails.add(
       SelectableText(
-        assetData.instrumentCode,
+        assetData.instrumentCode!,
         style: kTransactionDetailValueTextStyle,
       ),
     );
@@ -72,7 +72,7 @@ class AssetDetailsPopup extends StatelessWidget {
     );
     assetDetails.add(
       SelectableText(
-        assetData.instrumentDescription,
+        assetData.instrumentDescription!,
         style: kTransactionDetailValueTextStyle,
       ),
     );

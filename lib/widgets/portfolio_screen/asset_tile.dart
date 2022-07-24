@@ -12,9 +12,9 @@ import 'package:indexax/widgets/portfolio_screen/expanded_asset_tile_body_landsc
 
 class AssetTile extends StatelessWidget {
   const AssetTile({
-    Key key,
-    @required this.assetData,
-    @required this.landscapeOrientation,
+    Key? key,
+    required this.assetData,
+    required this.landscapeOrientation,
   }) : super(key: key);
   
   final PortfolioDataPoint assetData;
@@ -37,7 +37,7 @@ class AssetTile extends StatelessWidget {
         child: Container(
           width: 40,
           child: Text(
-              getWholePercentWithoutPercentSignAsString(assetData.percentage) +
+              getWholePercentWithoutPercentSignAsString(assetData.percentage!) +
                   "%",
               textAlign: TextAlign.center,
               style: kAssetListPercentageTextStyle),

@@ -3,13 +3,13 @@ import 'package:indexax/tools/constants.dart';
 
 class ProfitLossYearSwitcher extends StatelessWidget {
   const ProfitLossYearSwitcher(
-      {Key key,
+      {Key? key,
       this.currentYear,
-      @required this.yearList,
-      @required this.reloadProfitLossChart})
+      required this.yearList,
+      required this.reloadProfitLossChart})
       : super(key: key);
 
-  final int currentYear;
+  final int? currentYear;
   // final List<DropdownMenuItem> profitLossYearDropdownItems;
   final List<int> yearList;
   final Function reloadProfitLossChart;
@@ -68,7 +68,7 @@ class ProfitLossYearSwitcher extends StatelessWidget {
                         .map<Widget>((DropdownMenuItem item) {
                       return DropdownMenuItem(
                           child: Text(
-                        (item.child as Text).data,
+                        (item.child as Text).data!,
                         style: dropdownEnabled
                             ? kAccountSwitcherSelectedTextStyle
                             : kAccountSwitcherSelectedTextStyle.copyWith(
@@ -78,7 +78,7 @@ class ProfitLossYearSwitcher extends StatelessWidget {
                   },
                   underline: SizedBox(),
                   onChanged: dropdownEnabled
-                      ? (value) {
+                      ? (dynamic value) {
                           reloadProfitLossChart(value);
                         }
                       : null,

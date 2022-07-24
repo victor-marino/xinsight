@@ -4,7 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 
 class ProfitPopUp extends StatelessWidget {
   const ProfitPopUp({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

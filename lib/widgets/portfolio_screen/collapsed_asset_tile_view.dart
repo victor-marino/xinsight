@@ -5,8 +5,8 @@ import 'package:indexax/tools/constants.dart';
 
 class CollapsedAssetTileView extends StatelessWidget {
   const CollapsedAssetTileView({
-    Key key,
-    @required this.assetData,
+    Key? key,
+    required this.assetData,
   }) : super(key: key);
 
   final PortfolioDataPoint assetData;
@@ -18,7 +18,7 @@ class CollapsedAssetTileView extends StatelessWidget {
         Container(
           width: 40,
           child: Text(
-              getWholePercentWithoutPercentSignAsString(assetData.percentage) +
+              getWholePercentWithoutPercentSignAsString(assetData.percentage!) +
                   "%",
               textAlign: TextAlign.center,
               style: kAssetListPercentageTextStyle),
@@ -30,13 +30,13 @@ class CollapsedAssetTileView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  assetData.instrumentName,
+                  assetData.instrumentName!,
                   maxLines: 1,
                   style: kAssetListMainTextStyle,
                   overflow: TextOverflow.fade,
                   softWrap: false,
                 ),
-                Text(assetData.instrumentCodeType + ": " + assetData.instrumentCode,
+                Text(assetData.instrumentCodeType! + ": " + assetData.instrumentCode!,
                     style: kAssetListSecondaryTextStyle),
               ],
             ),
@@ -48,12 +48,12 @@ class CollapsedAssetTileView extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 20),
               child: Text(
-                getInvestmentAsString(assetData.amount),
+                getInvestmentAsString(assetData.amount!),
                 style: kAssetListAmountTextStyle,
               ),
             ),
-            Text("(" + getPLAsString(assetData.profitLoss) + ")",
-                style: assetData.profitLoss < 0
+            Text("(" + getPLAsString(assetData.profitLoss!) + ")",
+                style: assetData.profitLoss! < 0
                     ? kAssetListSecondaryTextStyle.copyWith(
                     color: Colors.red[800])
                     : kAssetListSecondaryTextStyle.copyWith(

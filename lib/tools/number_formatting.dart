@@ -18,7 +18,7 @@ String getBalanceAsString(num number) {
   return numberString;
 }
 
-String getWholeBalanceAsString(num number) {
+String getWholeBalanceAsString(num? number) {
   String numberString = NumberFormat.currency(
           locale: getCurrentLocale(), symbol: '€', decimalDigits: 2)
       .format(number);
@@ -26,7 +26,7 @@ String getWholeBalanceAsString(num number) {
       .split(numberFormatSymbols[getCurrentLocale()]?.DECIMAL_SEP ?? "")[0];
 }
 
-String getFractionalBalanceAsString(num number) {
+String getFractionalBalanceAsString(num? number) {
   String numberString = NumberFormat.currency(
           locale: getCurrentLocale(), symbol: '€', decimalDigits: 2)
       .format(number);
@@ -47,14 +47,14 @@ String getInvestmentAsString(num number) {
   return numberString;
 }
 
-String getAmountAsStringWithTwoDecimals(num number) {
+String getAmountAsStringWithTwoDecimals(num? number) {
   String numberString = NumberFormat.currency(
           locale: getCurrentLocale(), symbol: '€', decimalDigits: 2)
       .format(number);
   return numberString;
 }
 
-String getAmountAsStringWithMaxDecimals(num number) {
+String getAmountAsStringWithMaxDecimals(num? number) {
   int numberOfDecimals = number.toString().split(".")[1].length;
   String numberString = NumberFormat.currency(
           locale: getCurrentLocale(),
@@ -71,7 +71,7 @@ String getAmountAsStringWithZeroDecimals(num number) {
   return numberString;
 }
 
-String getNumberAsStringWithMaxDecimals(num number) {
+String getNumberAsStringWithMaxDecimals(num? number) {
   int numberOfDecimals = number.toString().split(".")[1].length;
   String numberString = NumberFormat.currency(
           locale: getCurrentLocale(),
@@ -81,7 +81,7 @@ String getNumberAsStringWithMaxDecimals(num number) {
   return numberString;
 }
 
-String getNumberAsStringWithTwoDecimals(num number) {
+String getNumberAsStringWithTwoDecimals(num? number) {
   String numberString = NumberFormat.currency(
           locale: getCurrentLocale(), symbol: '', decimalDigits: 2)
       .format(number);
@@ -103,7 +103,7 @@ String getPLAsString(num number) {
   return numberString;
 }
 
-String getPercentAsString(num number) {
+String getPercentAsString(num? number) {
   String numberString = NumberFormat.decimalPercentPattern(
           locale: getCurrentLocale(), decimalDigits: 1)
       .format(number);
