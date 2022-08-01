@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:async';
@@ -59,7 +61,9 @@ class _RootScreenState extends State<RootScreen> {
       print(e.toString());
       Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (BuildContext context) => LoginScreen(errorMessage: e.toString())),
+          MaterialPageRoute(
+              builder: (BuildContext context) =>
+                  LoginScreen(errorMessage: e.toString())),
           (Route<dynamic> route) => false);
     }
     return null;
@@ -146,7 +150,9 @@ class _RootScreenState extends State<RootScreen> {
       print(e);
       Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (BuildContext context) => LoginScreen(errorMessage: e.toString())),
+          MaterialPageRoute(
+              builder: (BuildContext context) =>
+                  LoginScreen(errorMessage: e.toString())),
           (Route<dynamic> route) => false);
       throw (e);
     }
@@ -177,9 +183,14 @@ class _RootScreenState extends State<RootScreen> {
     bool landscapeOrientation = false;
     double availableWidth = MediaQuery.of(context).size.width;
     double availableHeight = MediaQuery.of(context).size.height;
+    double topPadding = 0;
 
     if (availableHeight <= availableWidth) {
       landscapeOrientation = true;
+    }
+
+    if (landscapeOrientation && Platform.isIOS) {
+      topPadding = 10;
     }
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
@@ -209,28 +220,37 @@ class _RootScreenState extends State<RootScreen> {
                 backgroundColor: Theme.of(context).canvasColor,
                 foregroundColor: Theme.of(context).canvasColor,
                 elevation: 0,
-                toolbarHeight: landscapeOrientation ? 40 : 100,
+                toolbarHeight: landscapeOrientation ? 40 + topPadding : 100,
                 centerTitle: false,
-                title: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    PageHeader(
-                      accountNumber: snapshot.data!.accountNumber,
-                      accountType: snapshot.data!.type,
-                    ),
-                    if (!landscapeOrientation) ...[
-                      CurrentAccountIndicator(
-                          accountNumber: snapshot.data!.accountNumber,
-                          accountType: snapshot.data!.type)
+                title: Padding(
+                  padding: EdgeInsets.only(top: topPadding),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      PageHeader(
+                        accountNumber: snapshot.data!.accountNumber,
+                        accountType: snapshot.data!.type,
+                      ),
+                      if (!landscapeOrientation) ...[
+                        CurrentAccountIndicator(
+                            accountNumber: snapshot.data!.accountNumber,
+                            accountType: snapshot.data!.type)
+                      ],
                     ],
-                  ],
+                  ),
                 ),
                 actions: <Widget>[
                   if (landscapeOrientation) ...[
-                    CurrentAccountIndicator(
-                        accountNumber: snapshot.data!.accountNumber,
-                        accountType: snapshot.data!.type),
-                    SizedBox(width: 10),
+                    Padding(
+                      padding: EdgeInsets.only(top: topPadding),
+                      child: CurrentAccountIndicator(
+                          accountNumber: snapshot.data!.accountNumber,
+                          accountType: snapshot.data!.type),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: topPadding),
+                      child: SizedBox(width: 10),
+                    ),
                   ],
                   Container(
                     alignment: Alignment.center,
