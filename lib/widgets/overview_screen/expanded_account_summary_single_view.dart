@@ -334,7 +334,7 @@ class ExpandedAccountSummarySingleView extends StatelessWidget {
                                       TextSpan(
                                         text:
                                             //accountData.sharpe.toStringAsFixed(2),
-                                            getNumberAsStringWithMaxDecimals(accountData!.sharpe),
+                                            getNumberAsStringWithTwoDecimals(accountData!.sharpe),
                                         style: kCardPLTextStyle.copyWith(
                                             color: Colors.black54),
                                       ),

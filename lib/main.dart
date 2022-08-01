@@ -61,7 +61,7 @@ class MyApp extends StatelessWidget {
             localizationsDelegates: context.localizationDelegates,
             supportedLocales: context.supportedLocales,
             locale: context.locale,
-            // debugShowCheckedModeBanner: false,
+            debugShowCheckedModeBanner: false,
             home: LoginScreen(),
           ),
         ),
