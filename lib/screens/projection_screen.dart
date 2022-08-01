@@ -143,7 +143,7 @@ class _ProjectionScreenState extends State<ProjectionScreen>
                                           TextSpan(
                                               text: getPLPercentAsString(widget
                                                   .accountData!.expectedReturn!),
-                                              style: kCardSecondaryContentTextStyle)
+                                              style: kExpectedReturnProjectionTextStyle)
                                         ],
                                       ),
                                     ),

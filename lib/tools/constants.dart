@@ -59,6 +59,14 @@ TextStyle kCardSecondaryContentTextStyle = GoogleFonts.roboto(
   ),
 );
 
+TextStyle kExpectedReturnProjectionTextStyle = GoogleFonts.roboto(
+  textStyle: TextStyle(
+    color: Colors.black,
+    fontSize: 16.0,
+    fontWeight: FontWeight.bold,
+  ),
+);
+
 TextStyle kCardSubTextStyle = GoogleFonts.roboto(
   textStyle: TextStyle(
     color: Colors.grey,
