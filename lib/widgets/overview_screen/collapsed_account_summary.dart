@@ -25,7 +25,8 @@ class CollapsedAccountSummary extends StatelessWidget {
               Text(
                 'account_summary.value'.tr(),
                 textAlign: TextAlign.left,
-                style: kCardTitleTextStyle,
+                //style: kCardTitleTextStyle,
+                style: Theme.of(context).textTheme.labelLarge,
               ),
               RichText(
                 text: TextSpan(children: [
@@ -83,7 +84,8 @@ class CollapsedAccountSummary extends StatelessWidget {
                             Text(
                               'account_summary.return'.tr() + ' ',
                               textAlign: TextAlign.left,
-                              style: kCardTitleTextStyle,
+                              //style: kCardTitleTextStyle,
+                              style: Theme.of(context).textTheme.labelLarge,
                             ),
                             Icon(
                               Icons.access_time,
@@ -135,7 +137,8 @@ class CollapsedAccountSummary extends StatelessWidget {
                             Text(
                               'account_summary.return'.tr() + ' ',
                               textAlign: TextAlign.left,
-                              style: kCardTitleTextStyle,
+                              //style: kCardTitleTextStyle,
+                              style: Theme.of(context).textTheme.labelLarge
                             ),
                             Icon(
                               Icons.euro_symbol,

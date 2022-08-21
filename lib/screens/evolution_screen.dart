@@ -156,7 +156,10 @@ class _EvolutionScreenState extends State<EvolutionScreen>
                                         Text(
                                           'evolution_screen.evolution'.tr(),
                                           textAlign: TextAlign.left,
-                                          style: kCardTitleTextStyle,
+                                          // style: kCardTitleTextStyle,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .labelLarge,
                                         ),
                                         if (widget.landscapeOrientation) ...[
                                           Container(
@@ -208,7 +211,10 @@ class _EvolutionScreenState extends State<EvolutionScreen>
                                       Text(
                                         'evolution_screen.returns'.tr(),
                                         textAlign: TextAlign.left,
-                                        style: kCardTitleTextStyle,
+                                        //style: kCardTitleTextStyle,
+                                        style: Theme.of(context)
+                                              .textTheme
+                                              .labelLarge
                                       ),
                                       ProfitLossYearSwitcher(
                                           currentYear: currentYear,

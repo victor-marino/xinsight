@@ -214,7 +214,7 @@ class _RootScreenState extends State<RootScreen> {
             appBar: AppBar(
               titleSpacing: 20,
               backgroundColor: Theme.of(context).colorScheme.surface,
-              foregroundColor: Theme.of(context).colorScheme.onSurface,
+              //foregroundColor: Theme.of(context).colorScheme.onSurface,
               // backgroundColor: Theme.of(context).colorScheme.background,
               // foregroundColor: Theme.of(context).colorScheme.onBackground,
               elevation: 0,

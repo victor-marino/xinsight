@@ -139,7 +139,8 @@ class _OverviewScreenState extends State<OverviewScreen>
                                   children: <Widget>[
                                     Text(
                                       'overview_screen.distribution'.tr(),
-                                      style: kCardTitleTextStyle,
+                                      //style: kCardTitleTextStyle,
+                                      style: Theme.of(context).textTheme.labelLarge
                                     ),
                                     DistributionChart(
                                         portfolioData:
@@ -178,7 +179,10 @@ class _OverviewScreenState extends State<OverviewScreen>
                                             Text(
                                               'overview_screen.distribution'
                                                   .tr(),
-                                              style: kCardTitleTextStyle,
+                                              //style: kCardTitleTextStyle,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .labelLarge,
                                             ),
                                             DistributionChart(
                                                 portfolioData:

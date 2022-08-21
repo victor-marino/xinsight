@@ -107,7 +107,10 @@ class _ProjectionScreenState extends State<ProjectionScreen>
                                   Text(
                                     'projection_screen.risk'.tr(),
                                     textAlign: TextAlign.left,
-                                    style: kCardTitleTextStyle,
+                                    //style: kCardTitleTextStyle,
+                                    style: Theme.of(context)
+                                          .textTheme
+                                          .labelLarge
                                   ),
                                   RiskChart(risk: widget.accountData!.risk),
                                 ],
@@ -124,7 +127,10 @@ class _ProjectionScreenState extends State<ProjectionScreen>
                                   Text(
                                     'projection_screen.projection'.tr(),
                                     textAlign: TextAlign.left,
-                                    style: kCardTitleTextStyle,
+                                    //style: kCardTitleTextStyle,
+                                    style: Theme.of(context)
+                                          .textTheme
+                                          .labelLarge
                                   ),
                                   PerformanceChart(
                                       performanceSeries:

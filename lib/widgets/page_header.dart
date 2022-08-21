@@ -32,7 +32,7 @@ class PageHeader extends StatelessWidget {
               Provider.of<BottomNavigationBarProvider>(context, listen: true)
                   .currentIndex],
           //style: kTitleTextStyle,
-          style: Theme.of(context).textTheme.headline4,
+          style: Theme.of(context).textTheme.headlineLarge,
           overflow: TextOverflow.fade,
           maxLines: 1,
           softWrap: false,

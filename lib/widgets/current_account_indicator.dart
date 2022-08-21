@@ -41,15 +41,17 @@ class CurrentAccountIndicator extends StatelessWidget {
           accountNumber != null
               ? accountNumber!
               : "",
-          style: kAccountNumberTextStyle.copyWith(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onSurfaceVariant),
+          //style: kAccountNumberTextStyle.copyWith(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onSurfaceVariant),
+          style: Theme.of(context).textTheme.titleSmall,
           overflow: TextOverflow.fade,
           maxLines: 1,
           softWrap: false,
         ),
         Text(
           accountType != null ? accountTypeText!.toUpperCase() : "",
-          style: kAccountNumberTextStyle.copyWith(
-              color: Theme.of(context).colorScheme.onSurfaceVariant),
+          //  style: kAccountNumberTextStyle.copyWith(
+          //      color: Theme.of(context).colorScheme.onSurfaceVariant),
+          style: Theme.of(context).textTheme.labelLarge,
           overflow: TextOverflow.fade,
           maxLines: 1,
           softWrap: false,

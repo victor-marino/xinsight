@@ -18,12 +18,14 @@ class MinimumTransferCard extends StatelessWidget {
         children: [
           TextSpan(
             text: 'minimum_transfer_card.minimum_transfer_to_invest'.tr() + ': ',
-            style: kCardSubTextStyle,
+            //style: kCardSubTextStyle,
+            style: Theme.of(context).textTheme.labelLarge
           ),
           TextSpan(
             text: getInvestmentAsString(additionalCashNeededToTrade!),
-            style: kMinimumTransferCardTextStyle.copyWith(
-                  fontWeight: FontWeight.bold),
+            // style: kMinimumTransferCardTextStyle.copyWith(
+            //       fontWeight: FontWeight.bold),
+            style: Theme.of(context).textTheme.titleSmall
           ),
       ]),
     );
