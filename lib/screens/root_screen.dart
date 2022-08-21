@@ -19,6 +19,7 @@ import '../widgets/page_header.dart';
 import '../widgets/settings_popup_menu.dart';
 import '../widgets/current_account_indicator.dart';
 import 'login_screen.dart';
+import 'package:indexax/tools/theme_provider.dart';
 
 class RootScreen extends StatefulWidget {
   RootScreen({
@@ -193,160 +194,154 @@ class _RootScreenState extends State<RootScreen> {
       topPadding = 10;
     }
 
-    return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: SystemUiOverlayStyle(
-          statusBarColor: Theme.of(context).canvasColor,
-          statusBarBrightness: Brightness.light, // iOS
-          statusBarIconBrightness: Brightness.dark), // Android
-      child: FutureBuilder<Account>(
-        future: accountData,
-        builder: (BuildContext context, AsyncSnapshot<Account> snapshot) {
-          Widget child;
-          if (snapshot.connectionState == ConnectionState.done) {
-            reloading = false;
-          }
-          if (snapshot.hasData) {
-            // print(userAccounts.toString());
-            // bool landscapeOrientation = false;
-            // double availableWidth = MediaQuery.of(context).size.width;
-            // double availableHeight = MediaQuery.of(context).size.height;
+    return FutureBuilder<Account>(
+      future: accountData,
+      builder: (BuildContext context, AsyncSnapshot<Account> snapshot) {
+        Widget child;
+        if (snapshot.connectionState == ConnectionState.done) {
+          reloading = false;
+        }
+        if (snapshot.hasData) {
+          // print(userAccounts.toString());
+          // bool landscapeOrientation = false;
+          // double availableWidth = MediaQuery.of(context).size.width;
+          // double availableHeight = MediaQuery.of(context).size.height;
 
-            // if (availableHeight <= availableWidth) {
-            //   landscapeOrientation = true;
-            // }
-            child = Scaffold(
-              appBar: AppBar(
-                titleSpacing: 20,
-                backgroundColor: Theme.of(context).canvasColor,
-                foregroundColor: Theme.of(context).canvasColor,
-                elevation: 0,
-                toolbarHeight: landscapeOrientation ? 40 + topPadding : 100,
-                centerTitle: false,
-                title: Padding(
-                  padding: EdgeInsets.only(top: topPadding),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      PageHeader(
-                        accountNumber: snapshot.data!.accountNumber,
-                        accountType: snapshot.data!.type,
-                      ),
-                      if (!landscapeOrientation) ...[
-                        CurrentAccountIndicator(
-                            accountNumber: snapshot.data!.accountNumber,
-                            accountType: snapshot.data!.type)
-                      ],
-                    ],
-                  ),
-                ),
-                actions: <Widget>[
-                  if (landscapeOrientation) ...[
-                    Padding(
-                      padding: EdgeInsets.only(top: topPadding),
-                      child: CurrentAccountIndicator(
-                          accountNumber: snapshot.data!.accountNumber,
-                          accountType: snapshot.data!.type),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(top: topPadding),
-                      child: SizedBox(width: 10),
-                    ),
-                  ],
-                  Container(
-                    alignment: Alignment.center,
-                    padding: EdgeInsets.only(right: 15),
-                    child: SettingsPopupMenu(
-                        userAccounts: userAccounts,
-                        currentAccountNumber: widget.accountNumber,
-                        currentPage: widget.pageNumber,
-                        reloadPage: reloadPage),
-                  ),
-                  //SizedBox(width: 10)
-                ],
-              ),
-              body: PageView(
-                controller: _pageController,
-                children: <Widget>[
-                  OverviewScreen(
-                      accountData: snapshot.data,
-                      userAccounts: userAccounts,
-                      landscapeOrientation: landscapeOrientation,
-                      availableWidth: availableWidth,
-                      refreshData: refreshData,
-                      reloadPage: reloadPage,
-                      currentAccountNumber: widget.accountNumber),
-                  PortfolioScreen(
-                      accountData: snapshot.data,
-                      userAccounts: userAccounts,
-                      landscapeOrientation: landscapeOrientation,
-                      availableWidth: availableWidth,
-                      refreshData: refreshData,
-                      reloadPage: reloadPage,
-                      currentAccountNumber: widget.accountNumber),
-                  EvolutionScreen(
-                      accountData: snapshot.data,
-                      userAccounts: userAccounts,
-                      refreshData: refreshData,
-                      reloadPage: reloadPage,
-                      landscapeOrientation: landscapeOrientation,
-                      availableWidth: availableWidth,
-                      currentAccountNumber: widget.accountNumber),
-                  TransactionsScreen(
-                      accountData: snapshot.data,
-                      userAccounts: userAccounts,
-                      landscapeOrientation: landscapeOrientation,
-                      availableWidth: availableWidth,
-                      refreshData: refreshData,
-                      reloadPage: reloadPage,
-                      currentAccountNumber: widget.accountNumber),
-                  ProjectionScreen(
-                      accountData: snapshot.data,
-                      userAccounts: userAccounts,
-                      landscapeOrientation: landscapeOrientation,
-                      availableWidth: availableWidth,
-                      refreshData: refreshData,
-                      reloadPage: reloadPage,
-                      currentAccountNumber: widget.accountNumber),
-                ],
-                onPageChanged: (page) {
-                  Provider.of<BottomNavigationBarProvider>(context,
-                          listen: false)
-                      .currentIndex = page;
-                },
-              ),
-              bottomNavigationBar:
-                  MyBottomNavigationBar(onTapped: _onTappedBar),
-            );
-          } else if (snapshot.hasError) {
-            print(snapshot.error);
-
-            if (reloading) {
-              child = Center(child: CircularProgressIndicator());
-            } else {
-              child = Center(
+          // if (availableHeight <= availableWidth) {
+          //   landscapeOrientation = true;
+          // }
+          child = Scaffold(
+            appBar: AppBar(
+              titleSpacing: 20,
+              backgroundColor: Theme.of(context).colorScheme.surface,
+              foregroundColor: Theme.of(context).colorScheme.onSurface,
+              // backgroundColor: Theme.of(context).colorScheme.background,
+              // foregroundColor: Theme.of(context).colorScheme.onBackground,
+              elevation: 0,
+              toolbarHeight: landscapeOrientation ? 40 + topPadding : 100,
+              centerTitle: false,
+              title: Padding(
+                padding: EdgeInsets.only(top: topPadding),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Icon(Icons.error_outline),
-                    Text(snapshot.error.toString()),
-                    MaterialButton(
-                      child: Text(
-                        'retry'.tr(),
-                      ),
-                      color: Colors.blue,
-                      textColor: Colors.white,
-                      onPressed: reloadData,
-                    )
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    PageHeader(
+                      accountNumber: snapshot.data!.accountNumber,
+                      accountType: snapshot.data!.type,
+                    ),
+                    if (!landscapeOrientation) ...[
+                      CurrentAccountIndicator(
+                          accountNumber: snapshot.data!.accountNumber,
+                          accountType: snapshot.data!.type)
+                    ],
                   ],
                 ),
-              );
-            }
-          } else {
+              ),
+              actions: <Widget>[
+                if (landscapeOrientation) ...[
+                  Padding(
+                    padding: EdgeInsets.only(top: topPadding),
+                    child: CurrentAccountIndicator(
+                        accountNumber: snapshot.data!.accountNumber,
+                        accountType: snapshot.data!.type),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: topPadding),
+                    child: SizedBox(width: 10),
+                  ),
+                ],
+                Container(
+                  alignment: Alignment.center,
+                  padding: EdgeInsets.only(right: 15),
+                  child: SettingsPopupMenu(
+                      userAccounts: userAccounts,
+                      currentAccountNumber: widget.accountNumber,
+                      currentPage: widget.pageNumber,
+                      reloadPage: reloadPage),
+                ),
+                //SizedBox(width: 10)
+              ],
+            ),
+            body: PageView(
+              controller: _pageController,
+              children: <Widget>[
+                OverviewScreen(
+                    accountData: snapshot.data,
+                    userAccounts: userAccounts,
+                    landscapeOrientation: landscapeOrientation,
+                    availableWidth: availableWidth,
+                    refreshData: refreshData,
+                    reloadPage: reloadPage,
+                    currentAccountNumber: widget.accountNumber),
+                PortfolioScreen(
+                    accountData: snapshot.data,
+                    userAccounts: userAccounts,
+                    landscapeOrientation: landscapeOrientation,
+                    availableWidth: availableWidth,
+                    refreshData: refreshData,
+                    reloadPage: reloadPage,
+                    currentAccountNumber: widget.accountNumber),
+                EvolutionScreen(
+                    accountData: snapshot.data,
+                    userAccounts: userAccounts,
+                    refreshData: refreshData,
+                    reloadPage: reloadPage,
+                    landscapeOrientation: landscapeOrientation,
+                    availableWidth: availableWidth,
+                    currentAccountNumber: widget.accountNumber),
+                TransactionsScreen(
+                    accountData: snapshot.data,
+                    userAccounts: userAccounts,
+                    landscapeOrientation: landscapeOrientation,
+                    availableWidth: availableWidth,
+                    refreshData: refreshData,
+                    reloadPage: reloadPage,
+                    currentAccountNumber: widget.accountNumber),
+                ProjectionScreen(
+                    accountData: snapshot.data,
+                    userAccounts: userAccounts,
+                    landscapeOrientation: landscapeOrientation,
+                    availableWidth: availableWidth,
+                    refreshData: refreshData,
+                    reloadPage: reloadPage,
+                    currentAccountNumber: widget.accountNumber),
+              ],
+              onPageChanged: (page) {
+                Provider.of<BottomNavigationBarProvider>(context, listen: false)
+                    .currentIndex = page;
+              },
+            ),
+            bottomNavigationBar: MyBottomNavigationBar(onTapped: _onTappedBar),
+          );
+        } else if (snapshot.hasError) {
+          print(snapshot.error);
+
+          if (reloading) {
             child = Center(child: CircularProgressIndicator());
+          } else {
+            child = Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Icon(Icons.error_outline),
+                  Text(snapshot.error.toString()),
+                  MaterialButton(
+                    child: Text(
+                      'retry'.tr(),
+                    ),
+                    color: Colors.blue,
+                    textColor: Colors.white,
+                    onPressed: reloadData,
+                  )
+                ],
+              ),
+            );
           }
-          return child;
-        },
-      ),
+        } else {
+          child = Center(child: CircularProgressIndicator());
+        }
+        return child;
+      },
     );
   }
 

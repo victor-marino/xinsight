@@ -48,12 +48,14 @@ class ExpandedAccountSummary extends StatelessWidget {
               text: TextSpan(children: [
                 TextSpan(
                   text: getWholeBalanceAsString(accountData!.totalAmount),
-                  style: kCardPrimaryContentTextStyle,
+                  style: kCardPrimaryContentTextStyle.copyWith(
+                      color: Theme.of(context).colorScheme.onSurface),
                 ),
                 TextSpan(
                   text: getDecimalSeparator() +
                       getFractionalBalanceAsString(accountData!.totalAmount),
-                  style: kCardSecondaryContentTextStyle,
+                  style: kCardSecondaryContentTextStyle.copyWith(
+                      color: Theme.of(context).colorScheme.onSurface),
                 ),
               ]),
             ),
@@ -129,7 +131,7 @@ class ExpandedAccountSummary extends StatelessWidget {
                                       getPLPercentAsString(
                                           accountData!.timeReturnAnnual!) +
                                       " " + 'account_summary.annual'.tr() + ")",
-                                  style: kAccountSummaryCardSubtextStyle,
+                                  style: kAccountSummaryCardSubtextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
                                 ),
                               ]),
                             ),
@@ -199,7 +201,10 @@ class ExpandedAccountSummary extends StatelessWidget {
                                       getPLPercentAsString(
                                           accountData!.moneyReturnAnnual!) +
                                       " " + 'account_summary.annual'.tr() + ")",
-                                  style: kAccountSummaryCardSubtextStyle,
+                                  style: kAccountSummaryCardSubtextStyle.copyWith(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .onSurfaceVariant),
                                 ),
                               ]),
                             ),

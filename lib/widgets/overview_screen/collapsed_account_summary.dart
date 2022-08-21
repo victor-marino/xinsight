@@ -48,12 +48,12 @@ class CollapsedAccountSummary extends StatelessWidget {
                 TextSpan(
                   text:
                       getWholeBalanceAsString(accountData!.totalAmount),
-                  style: kCardPrimaryContentTextStyle,
+                  style: kCardPrimaryContentTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface),
                 ),
                 TextSpan(
                   text: getDecimalSeparator() +
                       getFractionalBalanceAsString(accountData!.totalAmount),
-                  style: kCardSecondaryContentTextStyle,
+                  style: kCardSecondaryContentTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface),
                 ),
               ]),
             ),

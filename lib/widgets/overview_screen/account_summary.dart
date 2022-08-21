@@ -1,6 +1,7 @@
 // import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:indexax/tools/constants.dart';
 import 'package:indexax/tools/number_formatting.dart';
 import 'package:indexax/models/account.dart';
@@ -27,8 +28,8 @@ class AccountSummary extends StatelessWidget {
                 textAlign: TextAlign.left,
                 style: kCardTitleTextStyle,
               ),
-              RichText(
-                text: TextSpan(children: [
+              Text.rich(
+                TextSpan(children: [
                   TextSpan(
                     text: getInvestmentAsString(accountData.investment!) + " ",
                     style: kCardSubTextStyle,
@@ -43,8 +44,8 @@ class AccountSummary extends StatelessWidget {
                 ]),
               ),
             ],),
-            RichText(
-              text: TextSpan(children: [
+            Text.rich(
+              TextSpan(children: [
                 TextSpan(
                   text:
                       getWholeBalanceAsString(accountData.totalAmount),
@@ -98,8 +99,8 @@ class AccountSummary extends StatelessWidget {
                         children: <Widget>[
                           Row(
                               children: <Widget>[
-                            RichText(
-                              text: TextSpan(children: [
+                            Text.rich(
+                              TextSpan(children: [
                                 TextSpan(
                                   text: getWholePLPercentAsString(accountData.timeReturn!),
                                   style: kCardPLTextStyle.copyWith(
@@ -149,8 +150,8 @@ class AccountSummary extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Row(children: <Widget>[
-                            RichText(
-                              text: TextSpan(children: [
+                            Text.rich(
+                              TextSpan(children: [
                                 TextSpan(
                                   text: getWholePLPercentAsString(accountData.moneyReturn!),
                                   style: kCardPLTextStyle.copyWith(

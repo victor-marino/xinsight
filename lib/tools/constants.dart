@@ -7,21 +7,21 @@ const String SYNCFUSION_LICENSE =
 TextStyle kTitleTextStyle = GoogleFonts.oxygen(
   textStyle: TextStyle(
     fontSize: 33.0,
-    color: Colors.black,
+    //color: Colors.black,
     fontWeight: FontWeight.bold,
   ),
 );
 
 TextStyle kCardTitleTextStyle = GoogleFonts.roboto(
   textStyle: TextStyle(
-    color: Colors.grey,
+    //color: Colors.grey,
     fontSize: 15.0,
   ),
 );
 
 TextStyle kCardPrimaryContentTextStyle = GoogleFonts.ubuntu(
   textStyle: TextStyle(
-    color: Colors.black,
+    //color: Colors.red,
     fontSize: 40.0,
     fontWeight: FontWeight.bold,
   ),
@@ -53,7 +53,7 @@ TextStyle kCardPrimaryContentTextStyleSmaller = GoogleFonts.ubuntu(
 
 TextStyle kCardSecondaryContentTextStyle = GoogleFonts.roboto(
   textStyle: TextStyle(
-    color: Colors.black,
+    //color: Colors.black,
     fontSize: 20.0,
     fontWeight: FontWeight.bold,
   ),
@@ -120,7 +120,7 @@ TextStyle kChipTextStyle = GoogleFonts.roboto(
 
 TextStyle kAccountNumberTextStyle = GoogleFonts.roboto(
   textStyle: TextStyle(
-    color: Colors.black38,
+    //color: Colors.black38,
     //fontWeight: FontWeight.bold,
     fontSize: 15.0,
   ),
@@ -316,7 +316,7 @@ TextStyle kMinimumTransferCardTextStyle = GoogleFonts.roboto(
 
 TextStyle kAboutScreenTextStyle = GoogleFonts.roboto(
   textStyle: TextStyle(
-    color: Colors.black54,
+    //color: Colors.black54,
     fontSize: 16,
   ),
 );

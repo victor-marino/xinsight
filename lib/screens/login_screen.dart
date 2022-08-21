@@ -12,6 +12,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:indexax/widgets/login_screen/token_instructions_popup.dart';
 import 'package:indexax/widgets/login_screen/forget_token_popup.dart';
 import 'package:indexax/widgets/circular_progress_indicator.dart';
+import 'package:indexax/models/theme_preference_data.dart';
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({
@@ -29,6 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   bool storedToken = false;
   bool rememberToken = false;
+  ThemePreference themePreference = ThemePreference.system;
 
   final tokenTextController = TextEditingController();
   final LocalAuthentication localAuthentication = LocalAuthentication();
@@ -183,16 +185,14 @@ class _LoginScreenState extends State<LoginScreen> {
       if (await (supportsBiometrics())) {
         print("Trying to authenticate...");
         isAuthenticated = await localAuthentication.authenticate(
-          authMessages: [androidStrings, iosStrings],
-          localizedReason: "login_screen.please_authenticate".tr(),
-          options: AuthenticationOptions(
-            useErrorDialogs: true,
-            stickyAuth: true,
-            biometricOnly: false,
-            sensitiveTransaction: false,
-          )
-          
-        );
+            authMessages: [androidStrings, iosStrings],
+            localizedReason: "login_screen.please_authenticate".tr(),
+            options: AuthenticationOptions(
+              useErrorDialogs: true,
+              stickyAuth: true,
+              biometricOnly: false,
+              sensitiveTransaction: false,
+            ));
       } else {
         print("Biometrics not supported");
         isAuthenticated = false;
@@ -310,12 +310,14 @@ class _LoginScreenState extends State<LoginScreen> {
       landscapeOrientation = true;
     }
 
-    return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: SystemUiOverlayStyle(
-          statusBarColor: Theme.of(context).canvasColor,
-          statusBarBrightness: Brightness.light, // iOS
-          statusBarIconBrightness: Brightness.dark), // Android
-      child: Scaffold(
+    return 
+    // AnnotatedRegion<SystemUiOverlayStyle>(
+    //   value: SystemUiOverlayStyle(
+    //       statusBarColor: Theme.of(context).canvasColor,
+    //       statusBarBrightness: Brightness.light, // iOS
+    //       statusBarIconBrightness: Brightness.dark), // Android
+    //   child: 
+      Scaffold(
         body: SafeArea(
           child: SingleChildScrollView(
             child: Padding(
@@ -449,6 +451,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ],
                               ),
                               Switch(
+                                activeColor: Theme.of(context).colorScheme.secondary,
                                 value: rememberToken,
                                 onChanged: (newValue) {
                                   if (newValue) {
@@ -511,7 +514,6 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
         ),
-      ),
     );
   }
 }

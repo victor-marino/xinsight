@@ -40,11 +40,13 @@ class _AboutScreenState extends State<AboutScreen> {
       appBar: AppBar(
         title: Text('about_screen.about'.tr()),
         elevation: 0,
-        backgroundColor: Colors.transparent,
-        foregroundColor: Colors.black,
-        systemOverlayStyle: SystemUiOverlayStyle(
-          systemStatusBarContrastEnforced: true,
-        ),
+        // backgroundColor: Theme.of(context).colorScheme.background,
+        // foregroundColor: Theme.of(context).colorScheme.onBackground,
+        // backgroundColor: Colors.transparent,
+        // foregroundColor: Colors.black,
+        // systemOverlayStyle: SystemUiOverlayStyle(
+        //   systemStatusBarContrastEnforced: true,
+        // ),
       ),
       extendBodyBehindAppBar: true,
       body: SafeArea(
@@ -57,7 +59,7 @@ class _AboutScreenState extends State<AboutScreen> {
                 width: landscapeOrientation && availableWidth > 1000 ? availableWidth * 0.5 : null,
                 child: Column(
                   children: [
-                    RichText(text:
+                    Text.rich(
                       TextSpan(
                         children: [
                           TextSpan(
@@ -127,11 +129,12 @@ class _AboutScreenState extends State<AboutScreen> {
                                 children: [
                                   Text(
                                       'about_screen.for'.tr() + " Indexa Capital",
-                                      style: TextStyle(
-                                          color: Colors.black38)),
+                                      // style: TextStyle(
+                                      //     color: Colors.black38)),
                                   // Image.asset(
                                   //     'assets/images/indexa_logo.png',
-                                  //     height: 30),
+                                  //     height: 30
+                                  ),
                                 ],
                               )
                             ],
