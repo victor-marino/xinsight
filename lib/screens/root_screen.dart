@@ -213,7 +213,7 @@ class _RootScreenState extends State<RootScreen> {
           child = Scaffold(
             appBar: AppBar(
               titleSpacing: 20,
-              backgroundColor: Theme.of(context).colorScheme.surface,
+              backgroundColor: Theme.of(context).colorScheme.background,
               //foregroundColor: Theme.of(context).colorScheme.onSurface,
               // backgroundColor: Theme.of(context).colorScheme.background,
               // foregroundColor: Theme.of(context).colorScheme.onBackground,

@@ -29,8 +29,8 @@ class ProfitLossYearSwitcher extends StatelessWidget {
         DropdownMenuItem(
           child: Text(yearList[i].toString(),
               style: yearList[i] == currentYear
-                  ? kAccountSwitcherSelectedTextStyle
-                  : null),
+                  ? kAccountSwitcherSelectedTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.bold)
+                  : kAccountSwitcherSelectedTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface)),
           value: yearList[i],
           enabled: yearList[i] == currentYear ? false : true,
         ),
@@ -70,8 +70,8 @@ class ProfitLossYearSwitcher extends StatelessWidget {
                           child: Text(
                         (item.child as Text).data!,
                         style: dropdownEnabled
-                            ? kAccountSwitcherSelectedTextStyle
-                            : kAccountSwitcherSelectedTextStyle.copyWith(
+                            ? kAccountSwitcherSelectedTextStyle.copyWith(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onSurface)
+                            : kAccountSwitcherSelectedTextStyle.copyWith(fontWeight: FontWeight.bold,
                                 color: Colors.black45),
                       ));
                     }).toList();

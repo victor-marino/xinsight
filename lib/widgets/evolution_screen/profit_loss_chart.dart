@@ -24,7 +24,7 @@ class ProfitLossChart extends StatelessWidget {
           placeLabelsNearAxisLine: false,
           majorGridLines: MajorGridLines(width: 0),
           majorTickLines: MajorTickLines(size: 0),
-          labelStyle: kProfitLossChartLabelTextStyle,
+          labelStyle: kProfitLossChartLabelTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
         ),
         primaryYAxis: NumericAxis(
           numberFormat: NumberFormat("#0.0"),
@@ -39,7 +39,7 @@ class ProfitLossChart extends StatelessWidget {
               width: 0.7,
               dataLabelSettings: DataLabelSettings(
                   isVisible: true,
-                  textStyle: kChartLabelTextStyle,
+                  textStyle: kChartLabelTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface),
                   labelAlignment: ChartDataLabelAlignment.outer,
               ),
                   

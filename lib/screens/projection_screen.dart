@@ -149,7 +149,7 @@ class _ProjectionScreenState extends State<ProjectionScreen>
                                           TextSpan(
                                               text: getPLPercentAsString(widget
                                                   .accountData!.expectedReturn!),
-                                              style: kExpectedReturnProjectionTextStyle)
+                                              style: kExpectedReturnProjectionTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface))
                                         ],
                                       ),
                                     ),

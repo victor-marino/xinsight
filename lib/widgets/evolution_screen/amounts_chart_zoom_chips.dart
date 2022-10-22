@@ -5,7 +5,8 @@ import 'package:easy_localization/easy_localization.dart';
 List<ChoiceChip> amountsChartZoomChips(
     {Duration? currentPeriod,
     required List<Map> zoomLevels,
-    Function? reloadAmountsChart}) {
+    Function? reloadAmountsChart,
+    required BuildContext context}) {
 
   List<ChoiceChip> chipList = [];
 
@@ -13,10 +14,10 @@ List<ChoiceChip> amountsChartZoomChips(
     chipList.add(
       ChoiceChip(
         label: Text(('evolution_screen.' + element['label']).tr(),
-            style: kChipTextStyle),
+            style: kChipTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface)),
         autofocus: false,
         clipBehavior: Clip.none,
-        elevation: 0,
+        elevation: 1,
         pressElevation: 0,
         visualDensity: VisualDensity.compact,
         selected: currentPeriod == element['duration'],

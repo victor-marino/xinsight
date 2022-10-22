@@ -27,7 +27,7 @@ class SettingsPopupMenu extends StatelessWidget {
     itemList.add(
       PopupMenuItem(
         child: Text('header.accounts'.tr()),
-        textStyle: kAccountSwitcherHintTextStyle,
+        textStyle: kAccountSwitcherHintTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
         enabled: false,
         height: 30,
       ),
@@ -77,12 +77,18 @@ class SettingsPopupMenu extends StatelessWidget {
               children: [
                 Text(userAccounts![i]['number']!,
                     style: i == currentAccountNumber
-                        ? kAccountSwitcherCurrentAccountNumberTextStyle
-                        : kAccountSwitcherOtherAccountsNumberTextStyle),
+                        ? kAccountSwitcherCurrentAccountNumberTextStyle.copyWith(color: Theme.of(context)
+                                    .colorScheme
+                                    .onSurfaceVariant)
+                        : kAccountSwitcherOtherAccountsNumberTextStyle.copyWith(color: Theme.of(context)
+                                .colorScheme
+                                .onSurface)),
                 Text(accountType!,
                     style: i == currentAccountNumber
-                        ? kAccountSwitcherCurrentAccountTypeTextStyle
-                        : kAccountSwitcherOtherAccountsTypeTextStyle),
+                        ? kAccountSwitcherCurrentAccountTypeTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant)
+                        : kAccountSwitcherOtherAccountsTypeTextStyle.copyWith(color: Theme.of(context)
+                                .colorScheme
+                                .onSurface)),
               ],
             ),
           ],
@@ -101,11 +107,11 @@ class SettingsPopupMenu extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text('header.settings'.tr()),
+          Text('header.settings'.tr(), style: TextStyle(color: Theme.of(context).colorScheme.onSurface),),
           IconButton(
               icon: Icon(Icons.checklist),
-              color: Colors.black54,
-              disabledColor: Colors.black54,
+              color: Theme.of(context).colorScheme.onSurface,
+              disabledColor: Theme.of(context).colorScheme.onSurfaceVariant,
               onPressed: null),
         ],
       ),
@@ -116,7 +122,7 @@ class SettingsPopupMenu extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text('header.logout'.tr()),
+          Text('header.logout'.tr(), style: TextStyle(color: Theme.of(context).colorScheme.onSurface)),
           IconButton(
               icon: Icon(Icons.logout),
               color: Colors.red.shade900,
@@ -130,6 +136,7 @@ class SettingsPopupMenu extends StatelessWidget {
 
     return Container(
       child: PopupMenuButton(
+        color: Theme.of(context).colorScheme.background,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

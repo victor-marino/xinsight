@@ -1,6 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:indexax/tools/constants.dart';
-import 'package:easy_localization/easy_localization.dart';
 
 class ProfitPopUp extends StatelessWidget {
   const ProfitPopUp({
@@ -16,6 +16,7 @@ class ProfitPopUp extends StatelessWidget {
         children: [
           Text(
             'profit_popup.return'.tr(),
+            style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
           ),
         ],
       ),
@@ -28,7 +29,8 @@ class ProfitPopUp extends StatelessWidget {
               children: <Widget>[
                 Text(
                   'profit_popup.time_weighted'.tr(),
-                  style: kPopUpSubtitleTextStyle,
+                  style: kPopUpSubtitleTextStyle.copyWith(
+                      color: Theme.of(context).colorScheme.onSurfaceVariant),
                 ),
                 SizedBox(
                   width: 5,
@@ -45,17 +47,19 @@ class ProfitPopUp extends StatelessWidget {
             ),
             Text(
               'profit_popup.twr_explanation'.tr(),
-              style: kPopUpNormalTextStyle,
+              style: kPopUpNormalTextStyle.copyWith(
+                  color: Theme.of(context).colorScheme.onSurfaceVariant),
             ),
             Divider(
               height: 30,
-              color: Colors.black54,
+              color: Theme.of(context).colorScheme.onBackground
             ),
             Row(
               children: <Widget>[
                 Text(
                   'profit_popup.money_weighted'.tr(),
-                  style: kPopUpSubtitleTextStyle,
+                  style: kPopUpSubtitleTextStyle.copyWith(
+                      color: Theme.of(context).colorScheme.onSurfaceVariant),
                 ),
                 SizedBox(
                   width: 5,
@@ -72,14 +76,16 @@ class ProfitPopUp extends StatelessWidget {
             ),
             Text(
               'profit_popup.mwr_explanation'.tr(),
-              style: kPopUpNormalTextStyle,
+              style: kPopUpNormalTextStyle.copyWith(
+                  color: Theme.of(context).colorScheme.onSurfaceVariant),
             ),
             SizedBox(
               height: 20,
             ),
             Text(
               'profit_popup.returns_calculated_net_of_fees'.tr(),
-              style: kPopUpFootnoteTextStyle,
+              style: kPopUpFootnoteTextStyle.copyWith(
+                  color: Theme.of(context).colorScheme.onSurfaceVariant),
             ),
           ],
         ),

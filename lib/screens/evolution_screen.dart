@@ -171,7 +171,8 @@ class _EvolutionScreenState extends State<EvolutionScreen>
                                                   currentPeriod: currentPeriod,
                                                   zoomLevels: zoomLevels,
                                                   reloadAmountsChart:
-                                                      reloadAmountsChart),
+                                                      reloadAmountsChart,
+                                                  context: context),
                                             ),
                                           ),
                                         ],
@@ -189,7 +190,8 @@ class _EvolutionScreenState extends State<EvolutionScreen>
                                         children: amountsChartZoomChips(
                                             currentPeriod: currentPeriod,
                                             zoomLevels: zoomLevels,
-                                            reloadAmountsChart: reloadAmountsChart),
+                                            reloadAmountsChart: reloadAmountsChart,
+                                            context: context),
                                       ),
                                     ),
                                   ],

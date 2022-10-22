@@ -32,7 +32,7 @@ class CollapsedAssetTileView extends StatelessWidget {
                 Text(
                   assetData.instrumentName!,
                   maxLines: 1,
-                  style: kAssetListMainTextStyle,
+                  style: kAssetListMainTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface),
                   overflow: TextOverflow.fade,
                   softWrap: false,
                 ),
@@ -49,7 +49,7 @@ class CollapsedAssetTileView extends StatelessWidget {
               padding: const EdgeInsets.only(left: 20),
               child: Text(
                 getInvestmentAsString(assetData.amount!),
-                style: kAssetListAmountTextStyle,
+                style: kAssetListAmountTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface),
               ),
             ),
             Text("(" + getPLAsString(assetData.profitLoss!) + ")",

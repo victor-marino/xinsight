@@ -40,6 +40,7 @@ class MyApp extends StatelessWidget {
       secondary: Colors.blue,
       onSurface: Colors.black,
       onSurfaceVariant: Colors.black45,
+      onBackground: Colors.black12
     );
 
     TextTheme lightTextTheme = Typography.material2021().black.copyWith(
@@ -58,10 +59,11 @@ class MyApp extends StatelessWidget {
     ColorScheme darkColorScheme = ColorScheme.dark(
       primary: Colors.blue,
       secondary: Colors.blue,
+      surface: Colors.black87,
       onSurface: Colors.white,
       onSurfaceVariant: Colors.white60,
-      // background: Colors.black,
-      // onBackground: Colors.white
+      background: Colors.black,
+      onBackground: Colors.white54
     );
 
     TextTheme darkTextTheme = Typography.material2021().black.copyWith(

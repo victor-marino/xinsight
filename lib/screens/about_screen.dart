@@ -64,11 +64,12 @@ class _AboutScreenState extends State<AboutScreen> {
                         children: [
                           TextSpan(
                             text: 'about_screen.text1'.tr(),
-                            style: kAboutScreenTextStyle,
+                            style: kAboutScreenTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface),
                           ),
                           TextSpan(
                             text: 'about_screen.text2'.tr(),
-                            style: kAboutScreenTextStyle,
+                            style: kAboutScreenTextStyle.copyWith(
+                            color: Theme.of(context).colorScheme.onSurface),
                           ),
                           TextSpan(
                             text: 'about_screen.text3'.tr(),
@@ -82,11 +83,13 @@ class _AboutScreenState extends State<AboutScreen> {
                           ),
                           TextSpan(
                             text: 'about_screen.text4'.tr(),
-                            style: kAboutScreenTextStyle,
+                            style: kAboutScreenTextStyle.copyWith(
+                            color: Theme.of(context).colorScheme.onSurface),
                           ),
                           TextSpan(
                             text: 'about_screen.text5'.tr(),
-                            style: kAboutScreenTextStyle,
+                            style: kAboutScreenTextStyle.copyWith(
+                            color: Theme.of(context).colorScheme.onSurface),
                           ),
                           TextSpan(
                             text: "flutter_secure_storage",
@@ -100,11 +103,13 @@ class _AboutScreenState extends State<AboutScreen> {
                           ),
                           TextSpan(
                             text: 'about_screen.text6'.tr(),
-                            style: kAboutScreenTextStyle,
+                            style: kAboutScreenTextStyle.copyWith(
+                            color: Theme.of(context).colorScheme.onSurface),
                           ),
                           TextSpan(
                             text: 'about_screen.text7'.tr(),
-                            style: kAboutScreenTextStyle,
+                            style: kAboutScreenTextStyle.copyWith(
+                            color: Theme.of(context).colorScheme.onSurface),
                           ),
                         ]
                       ),
@@ -129,6 +134,9 @@ class _AboutScreenState extends State<AboutScreen> {
                                 children: [
                                   Text(
                                       'about_screen.for'.tr() + " Indexa Capital",
+                                      style: TextStyle(
+                                        color: Theme.of(context).colorScheme.onSurface
+                                      ),
                                       // style: TextStyle(
                                       //     color: Colors.black38)),
                                   // Image.asset(
