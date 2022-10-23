@@ -62,7 +62,7 @@ class DistributionChart extends StatelessWidget {
         enable: true,
         decimalPlaces: 2,
                   color: Theme.of(context).colorScheme.surfaceVariant,
-          borderColor: Theme.of(context).colorScheme.onSurfaceVariant,
+          borderColor: Theme.of(context).colorScheme.outline,
           borderWidth: 1,
         builder: (dynamic data, dynamic point, dynamic series, int pointIndex, int seriesIndex) {
           return Padding(

@@ -28,7 +28,7 @@ class PerformanceChart extends StatelessWidget {
           enable: true,
           decimalPlaces: 2,
           color: Theme.of(context).colorScheme.surfaceVariant,
-          borderColor: Theme.of(context).colorScheme.onSurfaceVariant,
+          borderColor: Theme.of(context).colorScheme.outline,
           borderWidth: 1,
           textStyle: TextStyle(color: Theme.of(context).colorScheme.onSurface)
         ),
@@ -37,7 +37,7 @@ class PerformanceChart extends StatelessWidget {
         Colors.green,
         Colors.red,
         Colors.blue,
-        Colors.black,
+        Theme.of(context).colorScheme.onSurface,
       ],
       legend: Legend(
           isVisible: true,
@@ -52,7 +52,7 @@ class PerformanceChart extends StatelessWidget {
       series: <ChartSeries<PerformanceDataPoint, DateTime>>[
         LineSeries<PerformanceDataPoint, DateTime>(
           name: 'performance_chart.positive'.tr(),
-          opacity: 0.5,
+          opacity: 1,
           // Bind data source
           dataSource: performanceSeries,
           xValueMapper: (PerformanceDataPoint performances, _) => performances.date,

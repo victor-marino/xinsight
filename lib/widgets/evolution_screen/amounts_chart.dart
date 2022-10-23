@@ -33,18 +33,19 @@ class AmountsChart extends StatelessWidget {
     }
 
     final List<Color> color = <Color>[];
-    color.add(Colors.white);
-    color.add(Colors.blue);
+    color.add(Colors.blue.withOpacity(0));
+    color.add(Colors.blue.withOpacity(0.7));
 
     final List<double> stops = <double>[];
-    stops.add(0.0);
-    stops.add(0.6);
+    stops.add(0);
+    stops.add(1);
 
     final LinearGradient gradientColors = LinearGradient(
         transform: GradientRotation(pi * 1.5), colors: color, stops: stops);
 
     return SfCartesianChart(
       margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
+      //plotAreaBackgroundColor: Theme.of(context).colorScheme.background,
       primaryYAxis: NumericAxis(
           labelFormat: '{value}',
           labelStyle: kProfitLossChartLabelTextStyle,
@@ -64,7 +65,7 @@ class AmountsChart extends StatelessWidget {
           enable: true,
           decimalPlaces: 2,
           color: Theme.of(context).colorScheme.surfaceVariant,
-          borderColor: Theme.of(context).colorScheme.onSurfaceVariant,
+          borderColor: Theme.of(context).colorScheme.outline,
           borderWidth: 1,
           textStyle: TextStyle(
             color: Theme.of(context).colorScheme.onSurface
@@ -101,7 +102,9 @@ class AmountsChart extends StatelessWidget {
       series: <ChartSeries<AmountsDataPoint, DateTime>>[
         AreaSeries<AmountsDataPoint, DateTime>(
           name: 'amounts_chart.total'.tr(),
-          opacity: 0.75,
+          opacity: 1,
+          borderColor: Colors.lightBlue,
+          borderWidth: 2,
           // Bind data source
           dataSource: amountsSeries,
           xValueMapper: (AmountsDataPoint amounts, _) => amounts.date,
@@ -110,11 +113,14 @@ class AmountsChart extends StatelessWidget {
         ),
         LineSeries<AmountsDataPoint, DateTime>(
           name: 'amounts_chart.invested'.tr(),
-          // Bind data source
+          color: Theme.of(context).colorScheme.outline,
+          markerSettings: MarkerSettings(
+            isVisible: false,
+          ),
           dataSource: amountsSeries,
           xValueMapper: (AmountsDataPoint amounts, _) => amounts.date,
           yValueMapper: (AmountsDataPoint amounts, _) => amounts.netAmount,
-          width: 1,
+          width: 2,
         ),
       ],
     );
