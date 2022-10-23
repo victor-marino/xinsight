@@ -84,7 +84,7 @@ class _TransactionsScreenState extends State<TransactionsScreen>
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                if (!widget.accountData!.hasPendingTransactions)
+                if (widget.accountData!.hasPendingTransactions)
                   Padding(
                     padding: const EdgeInsets.only(left: 20, right: 20, bottom: 10),
                     child: (PendingTransactionsCard()),
