@@ -11,7 +11,8 @@ class PendingTransactionsCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         decoration: BoxDecoration(
-          color: Colors.blue[100],
+          color: Theme.of(context).colorScheme.primary,
+          //color: Colors.blue[100],
           borderRadius: BorderRadius.circular(20),
         ),
         child: Padding(
@@ -20,12 +21,13 @@ class PendingTransactionsCard extends StatelessWidget {
             children: [
               Icon(
                 Icons.info_outline,
+                color: Theme.of(context).colorScheme.onPrimary,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10.0),
                 child: Text(
                     'pending_transactions_popup.pending_transactions_message'.tr(),
-                style: kPendingTransactionsWidgetTextStyle),
+                style: kPendingTransactionsWidgetTextStyle.copyWith(color: Theme.of(context).colorScheme.onPrimary)),
               ),
             ],
           ),

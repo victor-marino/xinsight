@@ -187,26 +187,37 @@ class Account {
           portfolio['total_amount'].toDouble();
 
       if (instrument['instrument']['asset_class'].contains('equity')) {
-        portfolioDistribution[InstrumentType.equity]![ValueType.amount] = portfolioDistribution[InstrumentType.equity]![ValueType.amount]! +
-            currentInstrumentAmount!;
-        portfolioDistribution[InstrumentType.equity]![ValueType.percentage] = portfolioDistribution[InstrumentType.equity]![ValueType.percentage]! +
-            currentInstrumentPercentage!;
+        portfolioDistribution[InstrumentType.equity]![ValueType.amount] =
+            portfolioDistribution[InstrumentType.equity]![ValueType.amount]! +
+                currentInstrumentAmount!;
+        portfolioDistribution[InstrumentType.equity]![ValueType.percentage] =
+            portfolioDistribution[InstrumentType.equity]![
+                    ValueType.percentage]! +
+                currentInstrumentPercentage!;
       } else if (instrument['instrument']['asset_class'].contains('fixed')) {
-        portfolioDistribution[InstrumentType.fixed]![ValueType.amount] = portfolioDistribution[InstrumentType.fixed]![ValueType.amount]! +
-            currentInstrumentAmount!;
-        portfolioDistribution[InstrumentType.fixed]![ValueType.percentage] = portfolioDistribution[InstrumentType.fixed]![ValueType.percentage]! +
-            currentInstrumentPercentage!;
+        portfolioDistribution[InstrumentType.fixed]![ValueType.amount] =
+            portfolioDistribution[InstrumentType.fixed]![ValueType.amount]! +
+                currentInstrumentAmount!;
+        portfolioDistribution[InstrumentType.fixed]![ValueType.percentage] =
+            portfolioDistribution[InstrumentType.fixed]![
+                    ValueType.percentage]! +
+                currentInstrumentPercentage!;
       } else {
-        portfolioDistribution[InstrumentType.other]![ValueType.amount] = portfolioDistribution[InstrumentType.other]![ValueType.amount]! +
-            currentInstrumentAmount!;
-        portfolioDistribution[InstrumentType.other]![ValueType.percentage] = portfolioDistribution[InstrumentType.other]![ValueType.percentage]! +
-            currentInstrumentPercentage!;
+        portfolioDistribution[InstrumentType.other]![ValueType.amount] =
+            portfolioDistribution[InstrumentType.other]![ValueType.amount]! +
+                currentInstrumentAmount!;
+        portfolioDistribution[InstrumentType.other]![ValueType.percentage] =
+            portfolioDistribution[InstrumentType.other]![
+                    ValueType.percentage]! +
+                currentInstrumentPercentage!;
       }
     }
-    portfolioDistribution[InstrumentType.cash]![ValueType.amount] = portfolioDistribution[InstrumentType.cash]![ValueType.amount]! +
-        portfolio['cash_amount'];
-    portfolioDistribution[InstrumentType.cash]![ValueType.percentage] = portfolioDistribution[InstrumentType.cash]![ValueType.percentage]! +
-        portfolio['cash_amount'] / portfolio['total_amount'];
+    portfolioDistribution[InstrumentType.cash]![ValueType.amount] =
+        portfolioDistribution[InstrumentType.cash]![ValueType.amount]! +
+            portfolio['cash_amount'];
+    portfolioDistribution[InstrumentType.cash]![ValueType.percentage] =
+        portfolioDistribution[InstrumentType.cash]![ValueType.percentage]! +
+            portfolio['cash_amount'] / portfolio['total_amount'];
 
     return (portfolioDistribution);
   }

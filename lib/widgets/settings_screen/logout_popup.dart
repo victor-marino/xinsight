@@ -43,12 +43,13 @@ class LogoutPopup extends StatelessWidget {
         children: [
           Text(
             'logout_popup.title'.tr(),
+            style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
           ),
         ],
       ),
       content: Text(
         'logout_popup.text'.tr(),
-        style: kPopUpNormalTextStyle,
+        style: kPopUpNormalTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
       ),
       contentPadding: EdgeInsets.fromLTRB(
           24, 24, 24, 0),
@@ -63,7 +64,8 @@ class LogoutPopup extends StatelessWidget {
           child: Text(
               'logout_popup.logout_button'.tr(),
             style: TextStyle(
-              color: Colors.red.shade900
+              //color: Colors.red.shade900
+              color: Theme.of(context).colorScheme.error
             ),
           ),
           onPressed: () {

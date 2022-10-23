@@ -40,7 +40,9 @@ class TransactionTile extends StatelessWidget {
           padding: EdgeInsets.only(top: topPadding, bottom: 5),
           child: Row(
             children: [
-              Expanded(child: Divider()),
+              Expanded(child: Divider(
+                color: Theme.of(context).colorScheme.onBackground,
+              )),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 5),
                 child: Text(
@@ -50,7 +52,9 @@ class TransactionTile extends StatelessWidget {
                   style: kDividerTextStyle,
                 ),
               ),
-              Expanded(child: Divider()),
+              Expanded(child: Divider(
+                color: Theme.of(context).colorScheme.onBackground,
+              )),
             ],
           ),
         ),
@@ -77,7 +81,7 @@ class TransactionTile extends StatelessWidget {
                       Text(
                         transactionData.operationType!,
                         textAlign: TextAlign.left,
-                        style: kTransactionListTitleTextStyle,
+                        style: kTransactionListTitleTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface),
                         maxLines: 1,
                         softWrap: false,
                         overflow: TextOverflow.fade,

@@ -61,6 +61,9 @@ class DistributionChart extends StatelessWidget {
       tooltipBehavior: TooltipBehavior(
         enable: true,
         decimalPlaces: 2,
+                  color: Theme.of(context).colorScheme.surfaceVariant,
+          borderColor: Theme.of(context).colorScheme.onSurfaceVariant,
+          borderWidth: 1,
         builder: (dynamic data, dynamic point, dynamic series, int pointIndex, int seriesIndex) {
           return Padding(
             padding: const EdgeInsets.all(5.0),
@@ -68,7 +71,7 @@ class DistributionChart extends StatelessWidget {
                 point.x + "\n" + getInvestmentAsString(point.y),
                 overflow: TextOverflow.ellipsis,
                 softWrap: false,
-                style: kDistributionChartTooltipTextStyle),
+                style: kDistributionChartTooltipTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface)),
           );
         }
       ),

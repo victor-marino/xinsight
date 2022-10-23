@@ -40,7 +40,8 @@ class ExpandedAssetTileHeaderLandscape extends StatelessWidget {
             Text("(" + getPLAsString(assetData.profitLoss!) + ")",
                 style: assetData.profitLoss! < 0
                     ? kAssetListSecondaryTextStyle.copyWith(
-                        color: Colors.red[800])
+                        //color: Colors.red[800])
+                        color: Theme.of(context).colorScheme.error)
                     : kAssetListSecondaryTextStyle.copyWith(
                         color: Colors.green[600])),
           ],
