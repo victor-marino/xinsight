@@ -8,6 +8,7 @@ import 'package:indexax/tools/theme_provider.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'package:indexax/widgets/settings_screen/logout_popup.dart';
 import 'package:indexax/screens/about_screen.dart';
+import 'package:indexax/widgets/settings_screen/theme_modal_bottom_sheet.dart';
 
 class SettingsScreen extends StatefulWidget {
   @override
@@ -63,6 +64,24 @@ class _SettingsScreenState extends State<SettingsScreen> {
           sections: [
             SettingsSection(
               tiles: [
+                SettingsTile(
+                  title: Text('Theme'),
+                  trailing: Icon(Icons.chevron_right_rounded),
+                  onPressed: (BuildContext context) {
+                    showModalBottomSheet<void>(
+                      context: context,
+                      //backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
+                      barrierColor: Theme.of(context).colorScheme.onBackground.withOpacity(0.4),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20))
+                      ),
+                      builder: (BuildContext context) {
+                        return ThemeModalBottomSheet(
+                        );
+                      },
+                    );
+                  },
+                ),
                 SettingsTile(
                   title: Text('Dark mode'),
                   trailing: Switch(

@@ -110,7 +110,8 @@ class MyApp extends StatelessWidget {
                 colorScheme: darkColorScheme,
                   // background: Colors.black,
                   // onBackground: Colors.white
-                textTheme: darkTextTheme
+                textTheme: darkTextTheme,
+                
                 //scaffoldBackgroundColor: Colors.black,
                 //backgroundColor: Colors.black,
                 //primarySwatch: Colors.blue,
