@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:indexax/tools/constants.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:indexax/tools/theme_provider.dart';
 import 'package:indexax/screens/login_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -12,17 +13,85 @@ enum ThemePreference { system, light, dark }
 class ThemeModalBottomSheet extends StatefulWidget {
   const ThemeModalBottomSheet({
     Key? key,
+    required this.updateCurrentThemePreference,
   }) : super(key: key);
+  final Function updateCurrentThemePreference;
 
   @override
   State<ThemeModalBottomSheet> createState() => _ThemeModalBottomSheetState();
 }
 
 class _ThemeModalBottomSheetState extends State<ThemeModalBottomSheet> {
-  ThemePreference? _themePreference = ThemePreference.system;
+  final _storage = FlutterSecureStorage();
+  ThemePreference? currentThemePreference;
+  Brightness? currentSystemTheme;
+
+  Future<Map<String, String>> _readAll() async {
+    final all = await _storage.readAll();
+    return (all);
+  }
+
+  Future<void> _storeKey(String keyName, String value) async {
+    await _storage.write(key: keyName, value: value);
+    _readAll();
+  }
+
+  // void enableDarkMode() {
+  //   _themePreference = ThemePreference.dark;
+  //   Provider.of<ThemeProvider>(context, listen: false).currentTheme =
+  //       ThemeMode.dark;
+  // }
+
+  // void disableDarkMode() {
+  //   _themePreference = ThemePreference.light;
+  //   Provider.of<ThemeProvider>(context, listen: false).currentTheme =
+  //       ThemeMode.light;
+  // }
+
+  Future<ThemePreference?> findStoredThemePreference() async {
+    ThemePreference? themePreference;
+    try {
+      Map<String, String> savedData = await _readAll();
+      if (savedData['themePreference'] != null) {
+        themePreference = ThemePreference.values
+            .byName(savedData['themePreference']!.split(".").last);
+        print('Existing theme preference detected');
+      } else {
+        themePreference = ThemePreference.system;
+        print('No existing theme preference');
+      }
+    } on Exception catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(e.toString()),
+      ));
+    }
+    return themePreference;
+  }
+
+  void getCurrentThemePreference() async {
+    ThemePreference? storedThemePreference = await findStoredThemePreference();
+    if (storedThemePreference == null ||
+        storedThemePreference == ThemePreference.system) {
+      setState(() {
+        currentThemePreference = ThemePreference.system;
+      });
+    } else {
+      setState(() {
+        currentThemePreference = ThemePreference.values
+            .byName(storedThemePreference.toString().split(".").last);
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getCurrentThemePreference();
+  }
 
   @override
   Widget build(BuildContext context) {
+    currentSystemTheme = MediaQuery.of(context).platformBrightness;
     // final _storage = FlutterSecureStorage();
     // List<_SecItem> _items = [];
 
@@ -52,9 +121,20 @@ class _ThemeModalBottomSheetState extends State<ThemeModalBottomSheet> {
     // }
 
     _handleThemeChange(ThemePreference? value) {
+      _storeKey('themePreference', value.toString());
       setState(() {
-        _themePreference = value;
+        currentThemePreference = value;
       });
+      widget.updateCurrentThemePreference();
+      if (currentThemePreference == ThemePreference.system) {
+        Provider.of<ThemeProvider>(context, listen: false).currentTheme =
+            ThemeMode.values
+                .byName(currentSystemTheme.toString().split(".").last);
+      } else {
+        Provider.of<ThemeProvider>(context, listen: false).currentTheme =
+            ThemeMode.values
+                .byName(currentThemePreference.toString().split(".").last);
+      }
     }
 
     return Column(
@@ -101,10 +181,10 @@ class _ThemeModalBottomSheetState extends State<ThemeModalBottomSheet> {
                       Radio<ThemePreference>(
                         value: ThemePreference.system,
                         activeColor: Colors.blue,
-                        groupValue: _themePreference,
+                        groupValue: currentThemePreference,
                         onChanged: (ThemePreference? value) {
                           setState(() {
-                            _themePreference = value;
+                            currentThemePreference = value;
                           });
                         },
                       ),
@@ -137,10 +217,10 @@ class _ThemeModalBottomSheetState extends State<ThemeModalBottomSheet> {
                       Radio<ThemePreference>(
                         value: ThemePreference.light,
                         activeColor: Colors.blue,
-                        groupValue: _themePreference,
+                        groupValue: currentThemePreference,
                         onChanged: (ThemePreference? value) {
                           setState(() {
-                            _themePreference = value;
+                            currentThemePreference = value;
                           });
                         },
                       ),
@@ -173,10 +253,10 @@ class _ThemeModalBottomSheetState extends State<ThemeModalBottomSheet> {
                       Radio<ThemePreference>(
                         value: ThemePreference.dark,
                         activeColor: Colors.blue,
-                        groupValue: _themePreference,
+                        groupValue: currentThemePreference,
                         onChanged: (ThemePreference? value) {
                           setState(() {
-                            _themePreference = value;
+                            currentThemePreference = value;
                           });
                         },
                       ),
