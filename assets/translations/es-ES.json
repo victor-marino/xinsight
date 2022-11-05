@@ -174,7 +174,10 @@
   "settings_screen": {
     "settings": "@:page_titles.settings",
     "about": "Sobre Indexa X",
-    "logout": "Cerrar sesión"
+    "logout": "Cerrar sesión",
+    "system": "Sistema",
+    "light": "Claro",
+    "dark": "Oscuro"
   },
   "about_screen": {
     "about": "@:settings_screen.about",

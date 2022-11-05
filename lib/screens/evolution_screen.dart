@@ -9,6 +9,7 @@ import '../widgets/evolution_screen/amounts_chart.dart';
 import 'package:indexax/widgets/evolution_screen/profit_loss_chart.dart';
 import 'package:indexax/widgets/evolution_screen/profit_loss_year_switcher.dart';
 import 'package:indexax/widgets/evolution_screen/amounts_chart_zoom_chips.dart';
+import 'package:indexax/tools/theme_operations.dart' as theme_operations;
 
 class EvolutionScreen extends StatefulWidget {
   const EvolutionScreen({
@@ -123,12 +124,16 @@ class _EvolutionScreenState extends State<EvolutionScreen>
     // This super call is required for the Mixin that keeps the page state
     super.build(context);
 
+    theme_operations.updateTheme(context);
+
     //print(widget.availableWidth);
     return Scaffold(
       body: SafeArea(
         child: Center(
           child: SizedBox(
-            width: widget.landscapeOrientation && widget.availableWidth > 1000 ? widget.availableWidth * 0.7 : null,
+            width: widget.landscapeOrientation && widget.availableWidth > 1000
+                ? widget.availableWidth * 0.7
+                : null,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
@@ -143,7 +148,8 @@ class _EvolutionScreenState extends State<EvolutionScreen>
                         child: Column(
                           children: <Widget>[
                             ReusableCard(
-                              paddingBottom: widget.landscapeOrientation ? 16 : 8,
+                              paddingBottom:
+                                  widget.landscapeOrientation ? 16 : 8,
                               paddingTop: widget.landscapeOrientation ? 8 : 16,
                               childWidget: Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
@@ -185,12 +191,15 @@ class _EvolutionScreenState extends State<EvolutionScreen>
                                       width: double.infinity,
                                       child: Wrap(
                                         direction: Axis.horizontal,
-                                        alignment: widget.availableWidth < 500 ? WrapAlignment.center : WrapAlignment.end,
+                                        alignment: widget.availableWidth < 500
+                                            ? WrapAlignment.center
+                                            : WrapAlignment.end,
                                         spacing: 5,
                                         children: amountsChartZoomChips(
                                             currentPeriod: currentPeriod,
                                             zoomLevels: zoomLevels,
-                                            reloadAmountsChart: reloadAmountsChart,
+                                            reloadAmountsChart:
+                                                reloadAmountsChart,
                                             context: context),
                                       ),
                                     ),
@@ -210,14 +219,12 @@ class _EvolutionScreenState extends State<EvolutionScreen>
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text(
-                                        'evolution_screen.returns'.tr(),
-                                        textAlign: TextAlign.left,
-                                        //style: kCardTitleTextStyle,
-                                        style: Theme.of(context)
+                                      Text('evolution_screen.returns'.tr(),
+                                          textAlign: TextAlign.left,
+                                          //style: kCardTitleTextStyle,
+                                          style: Theme.of(context)
                                               .textTheme
-                                              .labelLarge
-                                      ),
+                                              .labelLarge),
                                       ProfitLossYearSwitcher(
                                           currentYear: currentYear,
                                           yearList: accountData!

@@ -1,14 +1,12 @@
 //import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:provider/provider.dart';
-import 'package:indexax/tools/theme_provider.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'package:indexax/widgets/settings_screen/logout_popup.dart';
 import 'package:indexax/screens/about_screen.dart';
 import 'package:indexax/widgets/settings_screen/theme_modal_bottom_sheet.dart';
+import 'package:indexax/models/theme_preference_data.dart';
+import 'package:indexax/tools/theme_operations.dart' as theme_operations;
 
 class SettingsScreen extends StatefulWidget {
   @override
@@ -16,26 +14,16 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  final _storage = FlutterSecureStorage();
   ThemePreference? currentThemePreference;
-  Brightness? currentSystemTheme;
 
   Future<ThemePreference?> findStoredThemePreference() async {
-    ThemePreference? themePreference;
-    try {
-      Map<String, String> savedData = await _readAll();
-      if (savedData['themePreference'] != null) {
-        themePreference =
-            ThemePreference.values.byName(savedData['themePreference']!.split(".").last);
-        print('Existing theme preference detected');
-      } else {
-        themePreference = ThemePreference.system;
-        print('No existing theme preference');
-      }
-    } on Exception catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text(e.toString()),
-      ));
+    ThemePreference? themePreference =
+        await theme_operations.readThemePreference(context);
+    if (themePreference != null) {
+      print('Existing theme preference detected');
+    } else {
+      themePreference = ThemePreference.system;
+      print('No existing theme preference');
     }
     return themePreference;
   }
@@ -49,14 +37,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
       });
     } else {
       setState(() {
-        currentThemePreference = ThemePreference.values.byName(storedThemePreference.toString().split(".").last);
+        currentThemePreference = ThemePreference.values
+            .byName(storedThemePreference.toString().split(".").last);
       });
     }
-  }
-
-  Future<Map<String, String>> _readAll() async {
-    final all = await _storage.readAll();
-    return (all);
   }
 
   @override
@@ -67,7 +51,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    currentSystemTheme = MediaQuery.of(context).platformBrightness;
+    theme_operations.updateTheme(context);
+
+    Brightness currentSystemTheme =
+        theme_operations.getCurrentSystemTheme(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Text('settings_screen.settings'.tr()),
@@ -98,14 +86,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   trailing: Row(
                     children: [
                       Text(
-                        currentThemePreference.toString().split(".").last +
-                            " (" +
-                            currentSystemTheme.toString().split(".").last +
-                            ")",
+                        ("settings_screen." + currentThemePreference.toString().split(".").last).tr(),
                         style: TextStyle(
                           color: Theme.of(context).colorScheme.onSurface,
                         ),
                       ),
+                      if (currentThemePreference == ThemePreference.system)
+                        Text(
+                          " (" +
+                              ("settings_screen." + currentSystemTheme.toString().split(".").last).tr() +
+                              ")",
+                              style: TextStyle(
+                            color: Theme.of(context).colorScheme.onSurfaceVariant,
+                          ),
+                        ),
                       Icon(Icons.chevron_right_rounded),
                     ],
                   ),
@@ -122,25 +116,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               topLeft: Radius.circular(20),
                               topRight: Radius.circular(20))),
                       builder: (BuildContext context) {
-                        return ThemeModalBottomSheet(updateCurrentThemePreference: updateCurrentThemePreference);
+                        return ThemeModalBottomSheet(
+                            updateCurrentThemePreference:
+                                updateCurrentThemePreference);
                       },
                     );
                   },
                 ),
-                // SettingsTile(
-                //   title: Text('Dark mode'),
-                //   trailing: Switch(
-                //     activeColor: Theme.of(context).colorScheme.secondary,
-                //     value: themePreference,
-                //     onChanged: (newValue) {
-                //       if (newValue) {
-                //         enableDarkMode();
-                //       } else {
-                //         disableDarkMode();
-                //       }
-                //     },
-                //   ),
-                // ),
                 SettingsTile(
                   title: Text('settings_screen.about'.tr()),
                   trailing: Icon(Icons.chevron_right_rounded),

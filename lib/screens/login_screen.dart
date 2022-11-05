@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:indexax/screens/root_screen.dart';
-import 'package:indexax/tools/local_authentication.dart' as local_authentication;
+import 'package:indexax/tools/local_authentication.dart'
+    as local_authentication;
 import 'package:easy_localization/easy_localization.dart';
+import 'package:indexax/tools/theme_operations.dart' as theme_operations;
 import 'package:provider/provider.dart';
 import 'package:indexax/tools/validations.dart' as validations;
 import 'package:indexax/tools/secure_storage.dart';
@@ -39,7 +41,7 @@ class _LoginScreenState extends State<LoginScreen> {
       });
     }
   }
-  
+
   void disableRememberToken() async {
     if (storedToken = true) {
       showDialog(
@@ -52,7 +54,7 @@ class _LoginScreenState extends State<LoginScreen> {
       });
     }
   }
-  
+
   void forgetToken() {
     token_operations.deleteToken();
     setState(() {
@@ -63,8 +65,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Future<String?> findStoredToken() async {
-    String? token;
-    token = await token_operations.readToken(context);
+    String? token = await token_operations.readToken(context);
     if (token != null) {
       storedToken = true;
       tokenTextController.text = "••••••••••••••••";
@@ -124,46 +125,45 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
-  Future<ThemePreference?> findStoredThemePreference() async {
-    ThemePreference? themePreference;
-    try {
-      Map<String, String> savedData = await storage.readAll();
-      if (savedData['themePreference'] != null) {
-        themePreference =
-            ThemePreference.values.byName(savedData['themePreference']!);
-        print('Existing theme preference detected');
-      } else {
-        themePreference = ThemePreference.system;
-        print('No existing theme preference');
-      }
-    } on Exception catch (e) {
-      snackbar.showInSnackBar(context, e.toString());
-    }
-    return themePreference;
-  }
+  // Future<ThemePreference?> findStoredThemePreference() async {
+  //   ThemePreference? themePreference = await readThemePreference(context);
+  //   if (themePreference != null) {
+  //     print('Existing theme preference found');
+  //   } else {
+  //     print('No existing theme preference');
+  //   }
+  //   return themePreference;
+  // }
 
-  void setInitialThemePreference() async {
-    //print(MediaQuery.of(context).platformBrightness.toString().split(".").last);
-    ThemePreference? storedThemePreference = await findStoredThemePreference();
-    if (storedThemePreference == null ||
-        storedThemePreference == ThemePreference.system) {
-      Provider.of<ThemeProvider>(context, listen: false).currentTheme =
-          ThemeMode.values.byName(MediaQuery.of(context)
-              .platformBrightness
-              .toString()
-              .split(".")
-              .last);
-    } else {
-      Provider.of<ThemeProvider>(context, listen: false).currentTheme =
-          ThemeMode.values
-              .byName(storedThemePreference.toString().split(".").last);
-    }
-  }
+  // void setThemePreference() async {
+  //   ThemePreference? storedThemePreference = await findStoredThemePreference();
+  //   if (themePreference != null) {
+  //     themePreference = storedThemePreference;
+  //   } else {
+  //     themePreference = ThemePreference.system;
+  //   }
+  // }
+  // void setInitialThemePreference() async {
+  //   //print(MediaQuery.of(context).platformBrightness.toString().split(".").last);
+  //   ThemePreference? storedThemePreference = await findStoredThemePreference();
+  //   if (storedThemePreference == null ||
+  //       storedThemePreference == ThemePreference.system) {
+  //     Provider.of<ThemeProvider>(context, listen: false).currentTheme =
+  //         ThemeMode.values.byName(MediaQuery.of(context)
+  //             .platformBrightness
+  //             .toString()
+  //             .split(".")
+  //             .last);
+  //   } else {
+  //     Provider.of<ThemeProvider>(context, listen: false).currentTheme =
+  //         ThemeMode.values
+  //             .byName(storedThemePreference.toString().split(".").last);
+  //   }
+  // }
 
   @override
   void initState() {
     super.initState();
-    setInitialThemePreference();
 
     if (widget.errorMessage == null) {
       tryToLoginWithStoredToken();
@@ -181,6 +181,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    theme_operations.updateTheme(context);
+
     bool landscapeOrientation = false;
     double availableWidth = MediaQuery.of(context).size.width;
     double availableHeight = MediaQuery.of(context).size.height;

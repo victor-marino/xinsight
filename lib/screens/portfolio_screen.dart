@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../models/account.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:indexax/widgets/portfolio_screen/asset_list.dart';
+import 'package:indexax/tools/theme_operations.dart' as theme_operations;
 
 const int nbsp = 0x00A0;
 
@@ -75,6 +76,8 @@ class _PortfolioScreenState extends State<PortfolioScreen>
     // This super call is required for the Mixin that keeps the page state
     super.build(context);
 
+    theme_operations.updateTheme(context);
+
     return Scaffold(
       body: SafeArea(
         child: Center(
@@ -97,7 +100,10 @@ class _PortfolioScreenState extends State<PortfolioScreen>
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: <Widget>[
                             AssetList(
-                                portfolioData: widget.accountData!.portfolioData, landscapeOrientation: widget.landscapeOrientation)
+                                portfolioData:
+                                    widget.accountData!.portfolioData,
+                                landscapeOrientation:
+                                    widget.landscapeOrientation)
                           ],
                         ),
                       ),

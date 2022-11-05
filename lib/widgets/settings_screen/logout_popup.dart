@@ -1,45 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:indexax/tools/constants.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:indexax/screens/login_screen.dart';
 import 'package:provider/provider.dart';
 import '../../tools/bottom_navigation_bar_provider.dart';
+import 'package:indexax/tools/token_operations.dart' as token_operations;
 
 class LogoutPopup extends StatelessWidget {
   const LogoutPopup({
     Key? key,
   }) : super(key: key);
 
+  void logout(BuildContext context) {
+    token_operations.deleteToken();
+    Provider.of<BottomNavigationBarProvider>(context, listen: false)
+        .currentIndex = 0;
+    Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (BuildContext context) => LoginScreen()),
+        (Route<dynamic> route) => false);
+  }
+
   @override
   Widget build(BuildContext context) {
-    final _storage = FlutterSecureStorage();
-    List<_SecItem> _items = [];
-
-    Future<List<_SecItem>> _readAll() async {
-      final all = await _storage.readAll();
-      _items =
-          all.keys.map((key) => _SecItem(key, all[key])).toList(growable: false);
-      print(_items.length);
-      return(_items);
-    }
-    void _deleteAll() async {
-      await _storage.deleteAll();
-      _readAll();
-    }
-
-    void _deleteAndLogout() async {
-      _deleteAll();
-      _readAll();
-      Provider.of<BottomNavigationBarProvider>(context, listen: false).currentIndex = 0;
-      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
-          builder: (BuildContext context) => LoginScreen()), (Route<dynamic> route) => false);
-    }
     return AlertDialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       title: Row(
-        mainAxisAlignment:
-        MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
             'logout_popup.title'.tr(),
@@ -49,10 +36,10 @@ class LogoutPopup extends StatelessWidget {
       ),
       content: Text(
         'logout_popup.text'.tr(),
-        style: kPopUpNormalTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+        style: kPopUpNormalTextStyle.copyWith(
+            color: Theme.of(context).colorScheme.onSurfaceVariant),
       ),
-      contentPadding: EdgeInsets.fromLTRB(
-          24, 24, 24, 0),
+      contentPadding: EdgeInsets.fromLTRB(24, 24, 24, 0),
       actions: [
         TextButton(
           child: Text('logout_popup.cancel_button'.tr()),
@@ -62,24 +49,16 @@ class LogoutPopup extends StatelessWidget {
         ),
         TextButton(
           child: Text(
-              'logout_popup.logout_button'.tr(),
+            'logout_popup.logout_button'.tr(),
             style: TextStyle(
-              //color: Colors.red.shade900
-              color: Theme.of(context).colorScheme.error
-            ),
+                //color: Colors.red.shade900
+                color: Theme.of(context).colorScheme.error),
           ),
           onPressed: () {
-            _deleteAndLogout();
-            },
+            logout(context);
+          },
         ),
       ],
     );
   }
-}
-
-class _SecItem {
-  _SecItem(this.key, this.value);
-
-  final String key;
-  final String? value;
 }

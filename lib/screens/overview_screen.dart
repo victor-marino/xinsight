@@ -15,6 +15,7 @@ import 'package:indexax/widgets/overview_screen/profit_popup.dart';
 import 'package:indexax/widgets/overview_screen/minimum_transfer_card.dart';
 import 'package:indexax/widgets/overview_screen/fee_free_amount_card.dart';
 import 'package:indexax/widgets/overview_screen/expanded_account_summary_single_view.dart';
+import 'package:indexax/tools/theme_operations.dart' as theme_operations;
 
 const int nbsp = 0x00A0;
 
@@ -88,6 +89,8 @@ class _OverviewScreenState extends State<OverviewScreen>
     // This super call is required for the Mixin that keeps the page state
     super.build(context);
 
+    theme_operations.updateTheme(context);
+
     return Scaffold(
       body: SafeArea(
         child: Center(
@@ -137,11 +140,11 @@ class _OverviewScreenState extends State<OverviewScreen>
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
-                                    Text(
-                                      'overview_screen.distribution'.tr(),
-                                      //style: kCardTitleTextStyle,
-                                      style: Theme.of(context).textTheme.labelLarge
-                                    ),
+                                    Text('overview_screen.distribution'.tr(),
+                                        //style: kCardTitleTextStyle,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .labelLarge),
                                     DistributionChart(
                                         portfolioData:
                                             accountData!.portfolioData),

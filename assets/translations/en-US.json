@@ -175,7 +175,10 @@
   "settings_screen": {
     "settings": "@:page_titles.settings",
     "about": "About Indexa X",
-    "logout": "Log out"
+    "logout": "Log out",
+    "system": "System",
+    "light": "Light",
+    "dark": "Dark"
   },
   "about_screen": {
     "about": "@:settings_screen.about",

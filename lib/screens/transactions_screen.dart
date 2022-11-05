@@ -4,6 +4,7 @@ import '../models/account.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:indexax/widgets/transactions_screen/transaction_tile.dart';
 import 'package:indexax/widgets/transactions_screen/pending_transactions_card.dart';
+import 'package:indexax/tools/theme_operations.dart' as theme_operations;
 
 const int nbsp = 0x00A0;
 
@@ -76,17 +77,22 @@ class _TransactionsScreenState extends State<TransactionsScreen>
     // This super call is required for the Mixin that keeps the page state
     super.build(context);
 
+    theme_operations.updateTheme(context);
+
     return Scaffold(
       body: SafeArea(
         child: Center(
           child: SizedBox(
-            width: widget.landscapeOrientation && widget.availableWidth > 1000 ? widget.availableWidth * 0.7 : null,
+            width: widget.landscapeOrientation && widget.availableWidth > 1000
+                ? widget.availableWidth * 0.7
+                : null,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 if (widget.accountData!.hasPendingTransactions)
                   Padding(
-                    padding: const EdgeInsets.only(left: 20, right: 20, bottom: 10),
+                    padding:
+                        const EdgeInsets.only(left: 20, right: 20, bottom: 10),
                     child: (PendingTransactionsCard()),
                   ),
                 Expanded(
@@ -104,19 +110,20 @@ class _TransactionsScreenState extends State<TransactionsScreen>
                           if (index == 0) {
                             firstTransaction = true;
                             firstTransactionOfMonth = true;
-                          } else if (widget
-                                  .accountData!.transactionList[index].date!.month !=
-                              widget.accountData!.transactionList[index - 1].date!
-                                  .month) {
+                          } else if (widget.accountData!.transactionList[index]
+                                  .date!.month !=
+                              widget.accountData!.transactionList[index - 1]
+                                  .date!.month) {
                             firstTransactionOfMonth = true;
                           }
                           if (index ==
-                              (widget.accountData!.transactionList.length - 1)) {
+                              (widget.accountData!.transactionList.length -
+                                  1)) {
                             lastTransactionOfMonth = true;
-                          } else if (widget
-                                  .accountData!.transactionList[index].date!.month !=
-                              widget.accountData!.transactionList[index + 1].date!
-                                  .month) {
+                          } else if (widget.accountData!.transactionList[index]
+                                  .date!.month !=
+                              widget.accountData!.transactionList[index + 1]
+                                  .date!.month) {
                             lastTransactionOfMonth = true;
                           }
                           return Container(
@@ -124,9 +131,11 @@ class _TransactionsScreenState extends State<TransactionsScreen>
                                 transactionData:
                                     widget.accountData!.transactionList[index],
                                 firstTransaction: firstTransaction,
-                                firstTransactionOfMonth: firstTransactionOfMonth,
+                                firstTransactionOfMonth:
+                                    firstTransactionOfMonth,
                                 lastTransactionOfMonth: lastTransactionOfMonth,
-                                landscapeOrientation: widget.landscapeOrientation),
+                                landscapeOrientation:
+                                    widget.landscapeOrientation),
                           );
                         }),
                   ),

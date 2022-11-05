@@ -9,6 +9,7 @@ import 'package:indexax/widgets/reusable_card.dart';
 import 'package:indexax/widgets/projection_screen/projection_chart.dart';
 import 'package:indexax/widgets/projection_screen/risk_chart.dart';
 import 'package:indexax/widgets/projection_screen/expectations_popup.dart';
+import 'package:indexax/tools/theme_operations.dart' as theme_operations;
 
 class ProjectionScreen extends StatefulWidget {
   const ProjectionScreen({
@@ -80,11 +81,15 @@ class _ProjectionScreenState extends State<ProjectionScreen>
     // This super call is required for the Mixin that keeps the page state
     super.build(context);
 
+    theme_operations.updateTheme(context);
+
     return Scaffold(
       body: SafeArea(
         child: Center(
           child: SizedBox(
-            width: widget.landscapeOrientation && widget.availableWidth > 1000 ? widget.availableWidth * 0.7 : null,
+            width: widget.landscapeOrientation && widget.availableWidth > 1000
+                ? widget.availableWidth * 0.7
+                : null,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
@@ -104,14 +109,12 @@ class _ProjectionScreenState extends State<ProjectionScreen>
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
-                                  Text(
-                                    'projection_screen.risk'.tr(),
-                                    textAlign: TextAlign.left,
-                                    //style: kCardTitleTextStyle,
-                                    style: Theme.of(context)
+                                  Text('projection_screen.risk'.tr(),
+                                      textAlign: TextAlign.left,
+                                      //style: kCardTitleTextStyle,
+                                      style: Theme.of(context)
                                           .textTheme
-                                          .labelLarge
-                                  ),
+                                          .labelLarge),
                                   RiskChart(risk: widget.accountData!.risk),
                                 ],
                               ),
@@ -124,14 +127,12 @@ class _ProjectionScreenState extends State<ProjectionScreen>
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
-                                  Text(
-                                    'projection_screen.projection'.tr(),
-                                    textAlign: TextAlign.left,
-                                    //style: kCardTitleTextStyle,
-                                    style: Theme.of(context)
+                                  Text('projection_screen.projection'.tr(),
+                                      textAlign: TextAlign.left,
+                                      //style: kCardTitleTextStyle,
+                                      style: Theme.of(context)
                                           .textTheme
-                                          .labelLarge
-                                  ),
+                                          .labelLarge),
                                   PerformanceChart(
                                       performanceSeries:
                                           accountData!.performanceSeries),
@@ -148,8 +149,15 @@ class _ProjectionScreenState extends State<ProjectionScreen>
                                               style: kCardSubTextStyle),
                                           TextSpan(
                                               text: getPLPercentAsString(widget
-                                                  .accountData!.expectedReturn!),
-                                              style: kExpectedReturnProjectionTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface))
+                                                  .accountData!
+                                                  .expectedReturn!),
+                                              style:
+                                                  kExpectedReturnProjectionTextStyle
+                                                      .copyWith(
+                                                          color:
+                                                              Theme.of(context)
+                                                                  .colorScheme
+                                                                  .onSurface))
                                         ],
                                       ),
                                     ),
