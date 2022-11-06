@@ -11,8 +11,8 @@ class LogoutPopup extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  void logout(BuildContext context) {
-    token_operations.deleteToken();
+  void logout(BuildContext context) async {
+    await token_operations.deleteToken(context);
     Provider.of<BottomNavigationBarProvider>(context, listen: false)
         .currentIndex = 0;
     Navigator.pushAndRemoveUntil(

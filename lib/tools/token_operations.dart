@@ -8,11 +8,14 @@ import 'package:indexax/widgets/circular_progress_indicator.dart';
 
 final storage = SecureStorage();
 
-Future<void> storeToken(
-    BuildContext context, String value) async {
+Future<void> storeToken(BuildContext context, String value) async {
   value = validations.sanitizeToken(value);
   if (validations.validateTokenFormat(value)) {
-    await storage.storeKey(keyName: "indexaToken", value: value);
+    try {
+      await storage.storeKey(keyName: "indexaToken", value: value);
+    } on Exception catch (e) {
+      snackbar.showInSnackBar(context, e.toString());
+    }
   } else {
     snackbar.showInSnackBar(
       context,
@@ -31,8 +34,12 @@ Future<String?> readToken(BuildContext context) async {
   return token;
 }
 
-Future<void> deleteToken() async {
-  await storage.deleteKey(keyName: "indexaToken");
+Future<void> deleteToken(BuildContext context) async {
+  try {
+    await storage.deleteKey(keyName: "indexaToken");
+  } on Exception catch (e) {
+    snackbar.showInSnackBar(context, e.toString());
+  }
 }
 
 Future<bool?> authenticateToken(BuildContext context, String token) async {
@@ -50,12 +57,16 @@ Future<bool?> authenticateToken(BuildContext context, String token) async {
       } else {
         Navigator.of(context).pop();
         authenticatedToken = false;
+        snackbar.showInSnackBar(
+            context, "login_screen.token_authentication_failed".tr());
       }
     } on Exception catch (e) {
       Navigator.of(context).pop();
       print(e);
-      throw (e);
-    }
+      snackbar.showInSnackBar(
+        context,
+        e.toString(),
+      );    }
   } else {
     snackbar.showInSnackBar(
       context,

@@ -5,7 +5,6 @@ import 'package:indexax/tools/local_authentication.dart'
     as local_authentication;
 import 'package:easy_localization/easy_localization.dart';
 import 'package:indexax/tools/theme_operations.dart' as theme_operations;
-import 'package:indexax/tools/validations.dart' as validations;
 import 'package:indexax/tools/secure_storage.dart';
 import 'package:indexax/tools/token_operations.dart' as token_operations;
 import 'package:indexax/tools/snackbar.dart' as snackbar;
@@ -23,7 +22,7 @@ class LoginScreen extends StatefulWidget {
   _LoginScreenState createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver{
+class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
   final storage = SecureStorage();
 
   bool storedToken = false;
@@ -52,8 +51,8 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver{
     }
   }
 
-  void forgetToken() {
-    token_operations.deleteToken();
+  void forgetToken() async {
+    await token_operations.deleteToken(context);
     setState(() {
       storedToken = false;
       rememberToken = false;
@@ -91,34 +90,22 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver{
   }
 
   void goToMainScreen({required String token, bool? saveToken}) async {
-    token = validations.sanitizeToken(token);
-    if (validations.validateTokenFormat(token)) {
-      try {
-        bool? authenticatedToken =
-            await (token_operations.authenticateToken(context, token));
-        if (authenticatedToken ?? false) {
-          if (saveToken!) await token_operations.storeToken(context, token);
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (BuildContext context) =>
-                  RootScreen(token: token, pageNumber: 0, accountNumber: 0),
-            ),
-          );
-        } else {
-          snackbar.showInSnackBar(
-              context, "login_screen.token_validation_failed".tr());
-        }
-      } on Exception catch (e) {
-        print(e);
-        snackbar.showInSnackBar(context, e.toString());
-        setState(() {
-          tokenTextController.text = token;
-        });
-      }
+    bool? authenticatedToken =
+        await (token_operations.authenticateToken(context, token));
+    if (authenticatedToken ?? false) {
+      if (saveToken!) await token_operations.storeToken(context, token);
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (BuildContext context) =>
+              RootScreen(token: token, pageNumber: 0, accountNumber: 0),
+        ),
+      );
     } else {
-      snackbar.showInSnackBar(
-          context, "login_screen.invalid_token_format".tr());
+      
+      setState(() {
+        tokenTextController.text = token;
+      });
     }
   }
 
@@ -157,7 +144,6 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver{
 
   @override
   Widget build(BuildContext context) {
-
     bool landscapeOrientation = false;
     double availableWidth = MediaQuery.of(context).size.width;
     double availableHeight = MediaQuery.of(context).size.height;
@@ -205,7 +191,10 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver{
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Text('login_screen.for'.tr() + " Indexa Capital",
-                                  style: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant)),
+                                  style: TextStyle(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onSurfaceVariant)),
                             ],
                           )
                         ],
@@ -264,8 +253,7 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver{
                           maxLines: null,
                           maxLength: 400,
                           style: TextStyle(
-                            color: Theme.of(context).colorScheme.onSurface
-                          ),
+                              color: Theme.of(context).colorScheme.onSurface),
                           decoration: storedToken
                               ? InputDecoration(
                                   border: OutlineInputBorder(),
@@ -273,7 +261,10 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver{
                                   hintText:
                                       'login_screen.your_indexa_token'.tr(),
                                   filled: true,
-                                  fillColor: Theme.of(context).colorScheme.onSurface.withOpacity(0.1),
+                                  fillColor: Theme.of(context)
+                                      .colorScheme
+                                      .onSurface
+                                      .withOpacity(0.1),
                                 )
                               : InputDecoration(
                                   border: OutlineInputBorder(),
@@ -292,7 +283,9 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver{
                                   rememberToken
                                       ? Icons.lock_outline
                                       : Icons.lock_open,
-                                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onSurfaceVariant,
                                 ),
                                 SizedBox(
                                   width: 10,
@@ -300,7 +293,9 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver{
                                 Text(
                                   'login_screen.remember_token'.tr(),
                                   style: TextStyle(
-                                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onSurfaceVariant,
                                     fontSize: 16,
                                   ),
                                 ),

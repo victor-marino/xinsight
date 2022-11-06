@@ -27,7 +27,7 @@
     "go_to_settings": "Go to Settings",
     "go_to_settings_description": "Biometric authentication not configured in this device. Please go to your device Settings to configure.",
     "please_authenticate": "Please authenticate",
-    "token_validation_failed": "Token validation failed",
+    "token_authentication_failed": "Token authentication failed",
     "please_enter_token": "Please enter your token",
     "get_token": "Get token",
     "in_your_client_area": "In your Indexa Capital client area",

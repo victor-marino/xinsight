@@ -22,11 +22,14 @@ Future<ThemePreference?> readThemePreference(BuildContext context) async {
 
 Future<void> storeThemePreference(
     BuildContext context, ThemePreference themePreference) async {
+  try {
   await storage.storeKey(
       keyName: "themePreference",
       value: themePreference.toString().split(".").last);
+} on Exception catch (e) {
+    snackbar.showInSnackBar(context, e.toString());
+  }
 }
-
 Brightness getCurrentSystemTheme(BuildContext context) {
   return MediaQuery.of(context).platformBrightness;
 }
@@ -36,7 +39,7 @@ void updateTheme(BuildContext context) async {
   ThemePreference? currentThemePreference = await readThemePreference(context);
   if (currentThemePreference == null) {
     currentThemePreference = ThemePreference.system;
-    storeThemePreference(context, ThemePreference.system);
+    await storeThemePreference(context, ThemePreference.system);
   }
   if (currentThemePreference == ThemePreference.system) {
     Provider.of<ThemeProvider>(context, listen: false).currentTheme =
