@@ -30,7 +30,8 @@ class ExpandedAccountSummarySingleView extends StatelessWidget {
                     Text(
                       'account_summary.value'.tr(),
                       textAlign: TextAlign.left,
-                      style: kCardTitleTextStyle,
+                      //style: kCardTitleTextStyle,
+                      style: Theme.of(context).textTheme.labelLarge,
                     ),
                     RichText(
                       text: TextSpan(children: [
@@ -57,13 +58,15 @@ class ExpandedAccountSummarySingleView extends StatelessWidget {
                       text: TextSpan(children: [
                         TextSpan(
                           text: getWholeBalanceAsString(accountData!.totalAmount),
-                          style: kCardPrimaryContentTextStyle,
+                          style: kCardPrimaryContentTextStyle.copyWith(
+                              color: Theme.of(context).colorScheme.onSurface),
                         ),
                         TextSpan(
                           text: getDecimalSeparator() +
                               getFractionalBalanceAsString(
                                   accountData!.totalAmount),
-                          style: kCardSecondaryContentTextStyle,
+                          style: kCardSecondaryContentTextStyle.copyWith(
+                              color: Theme.of(context).colorScheme.onSurface),
                         ),
                       ]),
                     ),
@@ -100,7 +103,8 @@ class ExpandedAccountSummarySingleView extends StatelessWidget {
                                 Text(
                                   'account_summary.return'.tr() + ' ',
                                   textAlign: TextAlign.left,
-                                  style: kCardTitleTextStyle,
+                                  //style: kCardTitleTextStyle,
+                                  style: Theme.of(context).textTheme.labelLarge,
                                 ),
                                 Icon(
                                   Icons.access_time,
@@ -150,7 +154,11 @@ class ExpandedAccountSummarySingleView extends StatelessWidget {
                                               " " +
                                               'account_summary.annual'.tr() +
                                               ")",
-                                          style: kAccountSummaryCardSubtextStyle,
+                                          style: kAccountSummaryCardSubtextStyle
+                                              .copyWith(
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .onSurfaceVariant),
                                         ),
                                       ]),
                                     ),
@@ -180,7 +188,8 @@ class ExpandedAccountSummarySingleView extends StatelessWidget {
                                 Text(
                                   'account_summary.return'.tr() + ' ',
                                   textAlign: TextAlign.left,
-                                  style: kCardTitleTextStyle,
+                                  //style: kCardTitleTextStyle,
+                                  style: Theme.of(context).textTheme.labelLarge,
                                 ),
                                 Icon(
                                   Icons.euro_symbol,
@@ -230,7 +239,11 @@ class ExpandedAccountSummarySingleView extends StatelessWidget {
                                           " " +
                                           'account_summary.annual'.tr() +
                                           ")",
-                                      style: kAccountSummaryCardSubtextStyle,
+                                      style: kAccountSummaryCardSubtextStyle
+                                              .copyWith(
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .onSurfaceVariant),
                                     ),
                                   ]),
                                 ),
@@ -275,7 +288,8 @@ class ExpandedAccountSummarySingleView extends StatelessWidget {
                                 Text(
                                   'account_summary.volatility'.tr(),
                                   textAlign: TextAlign.left,
-                                  style: kCardTitleTextStyle,
+                                  //style: kCardTitleTextStyle,
+                                  style: Theme.of(context).textTheme.labelLarge,
                                 ),
                               ],
                             ),
@@ -319,7 +333,8 @@ class ExpandedAccountSummarySingleView extends StatelessWidget {
                                 Text(
                                   'account_summary.sharpe'.tr(),
                                   textAlign: TextAlign.left,
-                                  style: kCardTitleTextStyle,
+                                  //style: kCardTitleTextStyle,
+                                  style: Theme.of(context).textTheme.labelLarge,
                                 ),
                               ],
                             ),

@@ -17,13 +17,14 @@ class ExpectationsPopUp extends StatelessWidget {
         children: [
           Text(
             'expectations_popup.expectations'.tr(),
+            style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
           ),
         ],
       ),
       content: SingleChildScrollView(
         child: Text(
           'expectations_popup.expectations_explanation'.tr(),
-          style: kPopUpNormalTextStyle,
+          style: kPopUpNormalTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
         ),
       ),
       contentPadding: EdgeInsets.fromLTRB(

@@ -27,14 +27,17 @@ class PerformanceChart extends StatelessWidget {
         tooltipSettings: InteractiveTooltip(
           enable: true,
           decimalPlaces: 2,
-          color: Colors.black,
+          color: Theme.of(context).colorScheme.surfaceVariant,
+          borderColor: Theme.of(context).colorScheme.outline,
+          borderWidth: 1,
+          textStyle: TextStyle(color: Theme.of(context).colorScheme.onSurface)
         ),
       ),
       palette: <Color>[
         Colors.green,
         Colors.red,
         Colors.blue,
-        Colors.black,
+        Theme.of(context).colorScheme.onSurface,
       ],
       legend: Legend(
           isVisible: true,
@@ -49,7 +52,7 @@ class PerformanceChart extends StatelessWidget {
       series: <ChartSeries<PerformanceDataPoint, DateTime>>[
         LineSeries<PerformanceDataPoint, DateTime>(
           name: 'performance_chart.positive'.tr(),
-          opacity: 0.5,
+          opacity: 1,
           // Bind data source
           dataSource: performanceSeries,
           xValueMapper: (PerformanceDataPoint performances, _) => performances.date,

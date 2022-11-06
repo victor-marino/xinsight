@@ -32,10 +32,11 @@ class ExpandedAssetTileBodyLandscape extends StatelessWidget {
         RichText(
           text: TextSpan(
             children: [
-              TextSpan(text: assetData.instrumentCodeType! + ': ', style: kTransactionListTitleTextStyle),
+              TextSpan(text: assetData.instrumentCodeType! + ': ', style: kTransactionListTitleTextStyle.copyWith(
+                      color: Theme.of(context).colorScheme.onSurface)),
               TextSpan(
                   text: assetData.instrumentCode,
-                  style: kTransactionDetailValueTextStyle),
+                  style: kTransactionDetailValueTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant)),
             ],
           ),
         ),
@@ -44,10 +45,10 @@ class ExpandedAssetTileBodyLandscape extends StatelessWidget {
             children: [
               TextSpan(
                   text: 'asset_details_popup.asset_class'.tr() + ': ',
-                  style: kTransactionListTitleTextStyle),
+                  style: kTransactionListTitleTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface)),
               TextSpan(
                   text: instrumentType,
-                  style: kTransactionDetailValueTextStyle),
+                  style: kTransactionDetailValueTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant)),
             ],
           ),
         ),
@@ -56,20 +57,20 @@ class ExpandedAssetTileBodyLandscape extends StatelessWidget {
             children: [
               TextSpan(
                   text: 'asset_details_popup.titles'.tr() + ': ',
-                  style: kTransactionListTitleTextStyle),
+                  style: kTransactionListTitleTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface)),
               TextSpan(
                   text: getNumberAsStringWithMaxDecimals(assetData.titles),
-                  style: kTransactionDetailValueTextStyle),
+                  style: kTransactionDetailValueTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant)),
             ],
           ),
         ),
         RichText(
           text: TextSpan(
             children: [
-              TextSpan(text: 'asset_details_popup.cost'.tr() + ': ', style: kTransactionListTitleTextStyle),
+              TextSpan(text: 'asset_details_popup.cost'.tr() + ': ', style: kTransactionListTitleTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface)),
               TextSpan(
                   text: getInvestmentAsString(assetData.cost!),
-                  style: kTransactionDetailValueTextStyle),
+                  style: kTransactionDetailValueTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant)),
             ],
           ),
         ),
@@ -78,10 +79,10 @@ class ExpandedAssetTileBodyLandscape extends StatelessWidget {
             children: [
               TextSpan(
                   text: 'asset_details_popup.current_value'.tr() + ': ',
-                  style: kTransactionListTitleTextStyle),
+                  style: kTransactionListTitleTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface)),
               TextSpan(
                   text: getInvestmentAsString(assetData.amount!),
-                  style: kTransactionDetailValueTextStyle),
+                  style: kTransactionDetailValueTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant)),
             ],
           ),
         ),
@@ -90,10 +91,10 @@ class ExpandedAssetTileBodyLandscape extends StatelessWidget {
             children: [
               TextSpan(
                   text: 'asset_details_popup.profit_loss'.tr() + ': ',
-                  style: kTransactionListTitleTextStyle),
+                  style: kTransactionListTitleTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface)),
               TextSpan(
                   text: getPLAsString(assetData.profitLoss!),
-                  style: kAssetListSecondaryTextStyle),
+                  style: kAssetListSecondaryTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant)),
             ],
           ),
         ),
@@ -101,10 +102,10 @@ class ExpandedAssetTileBodyLandscape extends StatelessWidget {
             'asset_details_popup.description_not_available'.tr()) ...[
           Divider(),
           Text('asset_details_popup.description'.tr() + ': ',
-              style: kTransactionListTitleTextStyle),
+              style: kTransactionListTitleTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface)),
           Text(
             assetData.instrumentDescription!,
-            style: kTransactionDetailValueTextStyle,
+            style: kTransactionDetailValueTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
           ),
         ],
       ],

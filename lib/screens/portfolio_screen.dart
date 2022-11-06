@@ -97,7 +97,10 @@ class _PortfolioScreenState extends State<PortfolioScreen>
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: <Widget>[
                             AssetList(
-                                portfolioData: widget.accountData!.portfolioData, landscapeOrientation: widget.landscapeOrientation)
+                                portfolioData:
+                                    widget.accountData!.portfolioData,
+                                landscapeOrientation:
+                                    widget.landscapeOrientation)
                           ],
                         ),
                       ),

@@ -24,7 +24,7 @@ class ReusableCard extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
       ),
-      color: Colors.white,
+      //color: Colors.white,
       elevation: 10,
       clipBehavior: Clip.antiAlias,
       child: Padding(

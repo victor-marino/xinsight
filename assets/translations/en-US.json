@@ -27,7 +27,7 @@
     "go_to_settings": "Go to Settings",
     "go_to_settings_description": "Biometric authentication not configured in this device. Please go to your device Settings to configure.",
     "please_authenticate": "Please authenticate",
-    "token_validation_failed": "Token validation failed",
+    "token_authentication_failed": "Token authentication failed",
     "please_enter_token": "Please enter your token",
     "get_token": "Get token",
     "in_your_client_area": "In your Indexa Capital client area",
@@ -175,7 +175,11 @@
   "settings_screen": {
     "settings": "@:page_titles.settings",
     "about": "About Indexa X",
-    "logout": "Log out"
+    "logout": "Log out",
+    "theme": "Theme",
+    "system": "System",
+    "light": "Light",
+    "dark": "Dark"
   },
   "about_screen": {
     "about": "@:settings_screen.about",

@@ -17,121 +17,124 @@ class TransactionDetailsPopup extends StatelessWidget {
 
     transactionDetails.add(Text(
       'transaction_details_popup.account'.tr() + ':',
-      style: kTransactionDetailTitleTextStyle,
+      style: kTransactionDetailTitleTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface),
     ));
     transactionDetails.add(Text(
       transactionData.accountType,
-      style: kTransactionDetailValueTextStyle,
+      style: kTransactionDetailValueTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
     ));
     transactionDetails.add(Text(
       'transaction_details_popup.concept'.tr() + ':',
-      style: kTransactionListTitleTextStyle,
+      style: kTransactionListTitleTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface),
     ));
     transactionDetails.add(Text(
       transactionData.operationType,
-      style: kTransactionDetailValueTextStyle,
+      style: kTransactionDetailValueTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
     ));
     transactionDetails.add(
       Text(
         'transaction_details_popup.operation_date'.tr() + ':',
-        style: kTransactionListTitleTextStyle,
+        style: kTransactionListTitleTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface),
       ),
     );
     transactionDetails.add(
       Text(
         DateFormat("dd/MM/yyyy").format(transactionData.date),
-        style: kTransactionDetailValueTextStyle,
+        style: kTransactionDetailValueTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
       ),
     );
     if (transactionData.accountType ==
         'transaction_info.securities_account'.tr()) {
       transactionDetails.add(Text(
         'transaction_details_popup.value_date'.tr() + ':',
-        style: kTransactionListTitleTextStyle,
+        style: kTransactionListTitleTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface),
       ));
       transactionDetails.add(Text(
         DateFormat("dd/MM/yyyy").format(transactionData.valueDate),
-        style: kTransactionDetailValueTextStyle,
+        style: kTransactionDetailValueTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
       ));
       transactionDetails.add(Text(
         'transaction_details_popup.fiscal_date'.tr() + ':',
-        style: kTransactionListTitleTextStyle,
+        style: kTransactionListTitleTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface),
       ));
       transactionDetails.add(Text(
         DateFormat("dd/MM/yyyy").format(transactionData.fiscalDate),
-        style: kTransactionDetailValueTextStyle,
+        style: kTransactionDetailValueTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
       ));
     }
 
     transactionDetails.add(
-      Divider(),
+      Divider(color: Theme.of(context).colorScheme.onBackground),
     );
 
     if (transactionData.accountType ==
         'transaction_info.securities_account'.tr()) {
       transactionDetails.add(Text(
         'transaction_details_popup.fund'.tr() + ':',
-        style: kTransactionListTitleTextStyle,
+        style: kTransactionListTitleTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface),
       ));
       transactionDetails.add(Text(
         transactionData.instrumentName,
-        style: kTransactionDetailValueTextStyle,
+        style: kTransactionDetailValueTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
       ));
       transactionDetails.add(Text(
         transactionData.instrumentCodeType + ":",
-        style: kTransactionListTitleTextStyle,
+        style: kTransactionListTitleTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface),
       ));
       transactionDetails.add(Text(
         transactionData.instrumentCode,
-        style: kTransactionDetailValueTextStyle,
+        style: kTransactionDetailValueTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
       ));
       transactionDetails.add(Text(
         'transaction_details_popup.fund_shares'.tr() + ':',
-        style: kTransactionListTitleTextStyle,
+        style: kTransactionListTitleTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface),
       ));
       transactionDetails.add(Text(
         // transactionData.titles.toString(),
         getNumberAsStringWithMaxDecimals(transactionData.titles),
-        style: kTransactionDetailValueTextStyle,
+        style: kTransactionDetailValueTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
       ));
       transactionDetails.add(Text(
         'transaction_details_popup.fund_nav'.tr() + ':',
-        style: kTransactionListTitleTextStyle,
+        style: kTransactionListTitleTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface),
       ));
       transactionDetails.add(Text(
         // transactionData.price.toString() + " €",
         getAmountAsStringWithMaxDecimals(transactionData.price),
-        style: kTransactionDetailValueTextStyle,
+        style: kTransactionDetailValueTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
       ));
       transactionDetails.add(Text(
         'transaction_details_popup.cost'.tr() + ':',
-        style: kTransactionListTitleTextStyle,
+        style: kTransactionListTitleTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface),
       ));
       transactionDetails.add(Text(
         // transactionData.amount.toStringAsFixed(2) + " €",
         getAmountAsStringWithTwoDecimals(transactionData.amount),
-        style: kTransactionDetailValueTextStyle,
+        style: kTransactionDetailValueTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
       ));
       transactionDetails.add(
-        Divider(),
+        Divider(color: Theme.of(context).colorScheme.onBackground,),
       );
     }
     transactionDetails.add(
       Text(
         'transaction_details_popup.status'.tr() + ':',
-        style: kTransactionListTitleTextStyle,
+        style: kTransactionListTitleTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface),
       ),
     );
     transactionDetails.add(
       Text(
         transactionData.status,
-        style: kTransactionDetailValueTextStyle,
+        style: kTransactionDetailValueTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
       ),
     );
     return AlertDialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       title: Text(
         'transaction_details_popup.details'.tr(),
+        style: TextStyle(
+          color: Theme.of(context).colorScheme.onSurface
+        ),
       ),
       content: Scrollbar(
         //isAlwaysShown: true,

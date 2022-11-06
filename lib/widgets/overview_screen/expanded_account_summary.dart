@@ -25,7 +25,8 @@ class ExpandedAccountSummary extends StatelessWidget {
                 Text(
                   'account_summary.value'.tr(),
                   textAlign: TextAlign.left,
-                  style: kCardTitleTextStyle,
+                  //style: kCardTitleTextStyle,
+                  style: Theme.of(context).textTheme.labelLarge,
                 ),
                 RichText(
                   text: TextSpan(children: [
@@ -48,12 +49,14 @@ class ExpandedAccountSummary extends StatelessWidget {
               text: TextSpan(children: [
                 TextSpan(
                   text: getWholeBalanceAsString(accountData!.totalAmount),
-                  style: kCardPrimaryContentTextStyle,
+                  style: kCardPrimaryContentTextStyle.copyWith(
+                      color: Theme.of(context).colorScheme.onSurface),
                 ),
                 TextSpan(
                   text: getDecimalSeparator() +
                       getFractionalBalanceAsString(accountData!.totalAmount),
-                  style: kCardSecondaryContentTextStyle,
+                  style: kCardSecondaryContentTextStyle.copyWith(
+                      color: Theme.of(context).colorScheme.onSurface),
                 ),
               ]),
             ),
@@ -85,7 +88,8 @@ class ExpandedAccountSummary extends StatelessWidget {
                               Text(
                                 'account_summary.return'.tr() + ' ',
                                 textAlign: TextAlign.left,
-                                style: kCardTitleTextStyle,
+                                //style: kCardTitleTextStyle,
+                                style: Theme.of(context).textTheme.labelLarge,
                               ),
                               Icon(
                                 Icons.access_time,
@@ -129,7 +133,7 @@ class ExpandedAccountSummary extends StatelessWidget {
                                       getPLPercentAsString(
                                           accountData!.timeReturnAnnual!) +
                                       " " + 'account_summary.annual'.tr() + ")",
-                                  style: kAccountSummaryCardSubtextStyle,
+                                  style: kAccountSummaryCardSubtextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
                                 ),
                               ]),
                             ),
@@ -155,7 +159,8 @@ class ExpandedAccountSummary extends StatelessWidget {
                               Text(
                                 'account_summary.return'.tr() + ' ',
                                 textAlign: TextAlign.left,
-                                style: kCardTitleTextStyle,
+                                //style: kCardTitleTextStyle,
+                                style: Theme.of(context).textTheme.labelLarge,
                               ),
                               Icon(
                                 Icons.euro_symbol,
@@ -199,7 +204,10 @@ class ExpandedAccountSummary extends StatelessWidget {
                                       getPLPercentAsString(
                                           accountData!.moneyReturnAnnual!) +
                                       " " + 'account_summary.annual'.tr() + ")",
-                                  style: kAccountSummaryCardSubtextStyle,
+                                  style: kAccountSummaryCardSubtextStyle.copyWith(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .onSurfaceVariant),
                                 ),
                               ]),
                             ),
@@ -239,7 +247,8 @@ class ExpandedAccountSummary extends StatelessWidget {
                               Text(
                                 'account_summary.volatility'.tr(),
                                 textAlign: TextAlign.left,
-                                style: kCardTitleTextStyle,
+                                //style: kCardTitleTextStyle,
+                                style: Theme.of(context).textTheme.labelLarge
                               ),
                             ],
                           ),
@@ -253,8 +262,7 @@ class ExpandedAccountSummary extends StatelessWidget {
                                   TextSpan(
                                     text: getPercentAsString(
                                         accountData!.volatility),
-                                    style: kCardPLTextStyleSmaller.copyWith(
-                                        color: Colors.black54),
+                                    style: kCardPLTextStyleSmaller.copyWith(color: Theme.of(context).colorScheme.onSurface),
                                   ),
                                 ]),
                               ),
@@ -281,7 +289,8 @@ class ExpandedAccountSummary extends StatelessWidget {
                               Text(
                                 'account_summary.sharpe'.tr(),
                                 textAlign: TextAlign.left,
-                                style: kCardTitleTextStyle,
+                                //style: kCardTitleTextStyle,
+                                style: Theme.of(context).textTheme.labelLarge,
                               ),
                             ],
                           ),
@@ -297,7 +306,9 @@ class ExpandedAccountSummary extends StatelessWidget {
                                     //     .toStringAsFixed(2),
                                     text: getNumberAsStringWithTwoDecimals(accountData!.sharpe),
                                     style: kCardPLTextStyleSmaller.copyWith(
-                                        color: Colors.black54),
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onSurface),
                                   ),
                                 ]),
                               ),

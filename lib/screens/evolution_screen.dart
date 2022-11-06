@@ -128,7 +128,9 @@ class _EvolutionScreenState extends State<EvolutionScreen>
       body: SafeArea(
         child: Center(
           child: SizedBox(
-            width: widget.landscapeOrientation && widget.availableWidth > 1000 ? widget.availableWidth * 0.7 : null,
+            width: widget.landscapeOrientation && widget.availableWidth > 1000
+                ? widget.availableWidth * 0.7
+                : null,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
@@ -143,7 +145,8 @@ class _EvolutionScreenState extends State<EvolutionScreen>
                         child: Column(
                           children: <Widget>[
                             ReusableCard(
-                              paddingBottom: widget.landscapeOrientation ? 16 : 8,
+                              paddingBottom:
+                                  widget.landscapeOrientation ? 16 : 8,
                               paddingTop: widget.landscapeOrientation ? 8 : 16,
                               childWidget: Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
@@ -156,7 +159,10 @@ class _EvolutionScreenState extends State<EvolutionScreen>
                                         Text(
                                           'evolution_screen.evolution'.tr(),
                                           textAlign: TextAlign.left,
-                                          style: kCardTitleTextStyle,
+                                          // style: kCardTitleTextStyle,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .labelLarge,
                                         ),
                                         if (widget.landscapeOrientation) ...[
                                           Container(
@@ -168,7 +174,8 @@ class _EvolutionScreenState extends State<EvolutionScreen>
                                                   currentPeriod: currentPeriod,
                                                   zoomLevels: zoomLevels,
                                                   reloadAmountsChart:
-                                                      reloadAmountsChart),
+                                                      reloadAmountsChart,
+                                                  context: context),
                                             ),
                                           ),
                                         ],
@@ -181,12 +188,16 @@ class _EvolutionScreenState extends State<EvolutionScreen>
                                       width: double.infinity,
                                       child: Wrap(
                                         direction: Axis.horizontal,
-                                        alignment: widget.availableWidth < 500 ? WrapAlignment.center : WrapAlignment.end,
+                                        alignment: widget.availableWidth < 500
+                                            ? WrapAlignment.center
+                                            : WrapAlignment.end,
                                         spacing: 5,
                                         children: amountsChartZoomChips(
                                             currentPeriod: currentPeriod,
                                             zoomLevels: zoomLevels,
-                                            reloadAmountsChart: reloadAmountsChart),
+                                            reloadAmountsChart:
+                                                reloadAmountsChart,
+                                            context: context),
                                       ),
                                     ),
                                   ],
@@ -205,11 +216,12 @@ class _EvolutionScreenState extends State<EvolutionScreen>
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text(
-                                        'evolution_screen.returns'.tr(),
-                                        textAlign: TextAlign.left,
-                                        style: kCardTitleTextStyle,
-                                      ),
+                                      Text('evolution_screen.returns'.tr(),
+                                          textAlign: TextAlign.left,
+                                          //style: kCardTitleTextStyle,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .labelLarge),
                                       ProfitLossYearSwitcher(
                                           currentYear: currentYear,
                                           yearList: accountData!

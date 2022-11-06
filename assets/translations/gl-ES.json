@@ -27,7 +27,7 @@
     "go_to_settings": "Ir a axustes",
     "go_to_settings_description": "A identificación biométrica non está configurada neste dispositivo. Por favor, vai ós axustes do teu dispositivo para configurala.",
     "please_authenticate": "Por favor identifícate",
-    "token_validation_failed": "Non se puido validar o token",
+    "token_authentication_failed": "Non se puido validar o token",
     "please_enter_token": "Introduce o teu token",
     "get_token": "Obter token",
     "in_your_client_area": "Na túa área de cliente de Indexa Capital",
@@ -174,7 +174,11 @@
   "settings_screen": {
     "settings": "@:page_titles.settings",
     "about": "Sobre Indexa X",
-    "logout": "Pechar sesión"
+    "logout": "Pechar sesión",
+    "theme": "Tema",
+    "system": "Sistema",
+    "light": "Claro",
+    "dark": "Escuro"
   },
   "about_screen": {
     "about": "@:settings_screen.about",

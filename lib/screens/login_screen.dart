@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'dart:async';
-import 'package:indexax/services/indexa_data.dart';
 import 'package:indexax/screens/root_screen.dart';
-import 'package:local_auth/local_auth.dart';
-//import 'package:local_auth/auth_strings.dart';
-import 'package:local_auth_android/local_auth_android.dart';
-import 'package:local_auth_ios/local_auth_ios.dart';
+import 'package:indexax/tools/local_authentication.dart'
+    as local_authentication;
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:indexax/tools/theme_operations.dart' as theme_operations;
+import 'package:indexax/tools/secure_storage.dart';
+import 'package:indexax/tools/token_operations.dart' as token_operations;
+import 'package:indexax/tools/snackbar.dart' as snackbar;
 import 'package:indexax/widgets/login_screen/token_instructions_popup.dart';
 import 'package:indexax/widgets/login_screen/forget_token_popup.dart';
-import 'package:indexax/widgets/circular_progress_indicator.dart';
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({
@@ -24,89 +22,20 @@ class LoginScreen extends StatefulWidget {
   _LoginScreenState createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
-  final _storage = FlutterSecureStorage();
+class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
+  final storage = SecureStorage();
 
   bool storedToken = false;
   bool rememberToken = false;
 
   final tokenTextController = TextEditingController();
-  final LocalAuthentication localAuthentication = LocalAuthentication();
-  final AndroidAuthMessages androidStrings = AndroidAuthMessages(
-    biometricHint: "",
-    biometricNotRecognized: "login_screen.user_not_recognized".tr(),
-    biometricSuccess: "login_screen.user_authenticated".tr(),
-    cancelButton: "login_screen.cancel".tr(),
-    signInTitle: "login_screen.authentication".tr(),
-    biometricRequiredTitle: "login_screen.biometrics_required".tr(),
-    goToSettingsButton: "login_screen.go_to_settings".tr(),
-    goToSettingsDescription: "login_screen.go_to_settings_description".tr(),
-  );
-  final IOSAuthMessages iosStrings = IOSAuthMessages(
-    lockOut: "Locked Out",
-    goToSettingsButton: "login_screen.go_to_settings".tr(),
-    goToSettingsDescription: "login_screen.go_to_settings_description".tr(),
-    cancelButton: "login_screen.cancel".tr(),
-  );
-
-  String removeSpaces(String token) {
-    String sanitizedToken =
-        token.trim().replaceAll("\n", "").replaceAll(" ", "");
-    return sanitizedToken;
-  }
-
-  bool validateTokenFormat(String token) {
-    RegExp tokenFormat = RegExp(r'^[\w-]+\.[\w-]+\.[\w-]+$');
-    if (tokenFormat.hasMatch(token)) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  void showInSnackBar(String message) {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Text(message),
-    ));
-  }
-
-  Future<bool> supportsBiometrics() async {
-    //bool supportsBiometrics = false;
-    bool isDeviceSupported = false;
-    try {
-      print("Checking support...");
-      //supportsBiometrics = await localAuthentication.canCheckBiometrics;
-      isDeviceSupported = await localAuthentication.isDeviceSupported();
-    } on Exception catch (e) {
-      print(e);
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text(e.toString()),
-      ));
-    }
-//    (supportsBiometrics && isDeviceSupported)
-    (isDeviceSupported)
-        ? print("Biometrics supported")
-        : print("Biometrics not supported");
-
-    //return (supportsBiometrics && isDeviceSupported);
-    return isDeviceSupported;
-  }
 
   void enableRememberToken() async {
-    if (await authenticateUserLocally()) {
+    if (await local_authentication.authenticateUserLocally(context)) {
       setState(() {
         rememberToken = true;
       });
     }
-  }
-
-  void forgetToken() {
-    _deleteAll();
-    setState(() {
-      storedToken = false;
-      rememberToken = false;
-      tokenTextController.text = "";
-    });
   }
 
   void disableRememberToken() async {
@@ -122,146 +51,23 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
-  Future<Map<String, String>> _readAll() async {
-    final all = await _storage.readAll();
-    return (all);
-  }
-
-  Future<void> _storeKey(String value) async {
-    value = removeSpaces(value);
-    if (validateTokenFormat(value)) {
-      await _storage.write(key: 'indexaToken', value: value);
-      _readAll();
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text("login_screen.invalid_token_format".tr()),
-        ),
-      );
-    }
-  }
-
-  void _deleteAll() async {
-    await _storage.deleteAll();
-    _readAll();
-  }
-
-  Future<bool?> validateToken({required String token}) async {
-    token = removeSpaces(token);
-    bool? validToken;
-    if (validateTokenFormat(token)) {
-      buildLoading(context);
-      IndexaData indexaData = IndexaData(token: token);
-      try {
-        var userAccounts = await indexaData.getUserAccounts();
-        if (userAccounts != null) {
-          print("Token authenticated!");
-          Navigator.of(context).pop();
-          validToken = true;
-        } else {
-          Navigator.of(context).pop();
-          validToken = false;
-        }
-      } on Exception catch (e) {
-        Navigator.of(context).pop();
-        print(e);
-        throw (e);
-      }
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text("login_screen.invalid_token_format".tr()),
-        ),
-      );
-    }
-    return validToken;
-  }
-
-  Future<bool> authenticateUserLocally() async {
-    bool isAuthenticated = false;
-    try {
-      if (await (supportsBiometrics())) {
-        print("Trying to authenticate...");
-        isAuthenticated = await localAuthentication.authenticate(
-          authMessages: [androidStrings, iosStrings],
-          localizedReason: "login_screen.please_authenticate".tr(),
-          options: AuthenticationOptions(
-            useErrorDialogs: true,
-            stickyAuth: true,
-            biometricOnly: false,
-            sensitiveTransaction: false,
-          )
-          
-        );
-      } else {
-        print("Biometrics not supported");
-        isAuthenticated = false;
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text("login_screen.screen_lock_required".tr()),
-        ));
-      }
-    } on Exception catch (e) {
-      print(e);
-    }
-
-    isAuthenticated
-        ? print("User authenticated")
-        : print("User not authenticated");
-
-    return isAuthenticated;
-  }
-
-  void goToMainScreen({required String token, bool? saveToken}) async {
-    token = removeSpaces(token);
-    if (validateTokenFormat(token)) {
-      try {
-        bool? validatedToken = await (validateToken(token: token));
-        if (validatedToken ?? false) {
-          if (saveToken!) await _storeKey(token);
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (BuildContext context) =>
-                  RootScreen(token: token, pageNumber: 0, accountNumber: 0),
-            ),
-          );
-        } else {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text("login_screen.token_validation_failed".tr()),
-          ));
-        }
-      } on Exception catch (e) {
-        print(e);
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(e.toString()),
-        ));
-        setState(() {
-          tokenTextController.text = token;
-        });
-      }
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text("login_screen.invalid_token_format".tr()),
-      ));
-    }
+  void forgetToken() async {
+    await token_operations.deleteToken(context);
+    setState(() {
+      storedToken = false;
+      rememberToken = false;
+      tokenTextController.text = "";
+    });
   }
 
   Future<String?> findStoredToken() async {
-    String? token;
-    try {
-      Map<String, String> tokens = await _readAll();
-      if (tokens['indexaToken'] != null) {
-        storedToken = true;
-        tokenTextController.text = "••••••••••••••••";
-        token = tokens['indexaToken'];
-        print('Existing token detected!');
-      } else {
-        print('No existing token');
-      }
-    } on Exception catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text(e.toString()),
-      ));
+    String? token = await token_operations.readToken(context);
+    if (token != null) {
+      storedToken = true;
+      tokenTextController.text = "••••••••••••••••";
+      print('Existing token detected!');
+    } else {
+      print('No existing token');
     }
     return token;
   }
@@ -272,7 +78,7 @@ class _LoginScreenState extends State<LoginScreen> {
       setState(() {
         rememberToken = true;
       });
-      if (await authenticateUserLocally()) {
+      if (await local_authentication.authenticateUserLocally(context)) {
         goToMainScreen(token: storedToken, saveToken: false);
       }
     } else {
@@ -283,9 +89,32 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
+  void goToMainScreen({required String token, bool? saveToken}) async {
+    bool? authenticatedToken =
+        await (token_operations.authenticateToken(context, token));
+    if (authenticatedToken ?? false) {
+      if (saveToken!) await token_operations.storeToken(context, token);
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (BuildContext context) =>
+              RootScreen(token: token, pageNumber: 0, accountNumber: 0),
+        ),
+      );
+    } else {
+      
+      setState(() {
+        tokenTextController.text = token;
+      });
+    }
+  }
+
   @override
   void initState() {
+    WidgetsBinding.instance.addObserver(this);
     super.initState();
+    theme_operations.updateTheme(context);
+
     if (widget.errorMessage == null) {
       tryToLoginWithStoredToken();
     } else {
@@ -295,9 +124,22 @@ class _LoginScreenState extends State<LoginScreen> {
       } else {
         message = widget.errorMessage;
       }
-      WidgetsBinding.instance
-          .addPostFrameCallback((_) => showInSnackBar(message!));
+      WidgetsBinding.instance.addPostFrameCallback(
+          (_) => snackbar.showInSnackBar(context, message!));
     }
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      theme_operations.updateTheme(context);
+    }
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
   }
 
   @override
@@ -310,202 +152,210 @@ class _LoginScreenState extends State<LoginScreen> {
       landscapeOrientation = true;
     }
 
-    return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: SystemUiOverlayStyle(
-          statusBarColor: Theme.of(context).canvasColor,
-          statusBarBrightness: Brightness.light, // iOS
-          statusBarIconBrightness: Brightness.dark), // Android
-      child: Scaffold(
-        body: SafeArea(
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(30.0),
-              child: Center(
-                child: SizedBox(
-                  width: landscapeOrientation
-                      ? availableWidth * 0.5
-                      : double.infinity,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                          height:
-                              (MediaQuery.of(context).size.height * 0.15 < 60)
-                                  ? 60
-                                  : MediaQuery.of(context).size.height * 0.15),
-                      Container(
-                        width: landscapeOrientation
-                            ? availableWidth * 0.5
-                            : double.infinity,
-                        child: Column(
-                          children: [
-                            Container(
-                              child: Image.asset(
-                                  'assets/images/indexax_logo_wide.png'),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Text(
-                                    'login_screen.for'.tr() + " Indexa Capital",
-                                    style: TextStyle(color: Colors.black38)),
-                                // Image.asset('assets/images/indexa_logo.png',
-                                //     height: 30),
-                              ],
-                            )
-                          ],
-                        ),
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
+    return
+        // AnnotatedRegion<SystemUiOverlayStyle>(
+        //   value: SystemUiOverlayStyle(
+        //       statusBarColor: Theme.of(context).canvasColor,
+        //       statusBarBrightness: Brightness.light, // iOS
+        //       statusBarIconBrightness: Brightness.dark), // Android
+        //   child:
+        Scaffold(
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(30.0),
+            child: Center(
+              child: SizedBox(
+                width: landscapeOrientation
+                    ? availableWidth * 0.5
+                    : double.infinity,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                        height: (MediaQuery.of(context).size.height * 0.15 < 60)
+                            ? 60
+                            : MediaQuery.of(context).size.height * 0.15),
+                    Container(
+                      width: landscapeOrientation
+                          ? availableWidth * 0.5
+                          : double.infinity,
+                      child: Column(
                         children: [
-                          SizedBox(
-                              height: (MediaQuery.of(context).size.height *
-                                          0.15 <
-                                      60)
-                                  ? 60
-                                  : MediaQuery.of(context).size.height * 0.15),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 5),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Container(),
-                                InkWell(
-                                  onTap: () {
-                                    showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) =>
-                                          TokenInstructionsPopup(),
-                                    );
-                                  },
-                                  child: Row(
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 5),
-                                        child: Text(
-                                          'login_screen.how_to_get_token'.tr(),
-                                          style: TextStyle(
-                                            color: Colors.black38,
-                                          ),
+                          Container(
+                            child: Image.asset(
+                                'assets/images/indexax_logo_wide.png'),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text('login_screen.for'.tr() + " Indexa Capital",
+                                  style: TextStyle(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onSurfaceVariant)),
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        SizedBox(
+                            height: (MediaQuery.of(context).size.height * 0.15 <
+                                    60)
+                                ? 60
+                                : MediaQuery.of(context).size.height * 0.15),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 5),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Container(),
+                              InkWell(
+                                onTap: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) =>
+                                        TokenInstructionsPopup(),
+                                  );
+                                },
+                                child: Row(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 5),
+                                      child: Text(
+                                        'login_screen.how_to_get_token'.tr(),
+                                        style: TextStyle(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .onSurface,
                                         ),
                                       ),
-                                      Icon(
-                                        Icons.help_outline,
-                                        color: Colors.blue,
-                                        size: 20,
-                                      ),
-                                    ],
+                                    ),
+                                    Icon(
+                                      Icons.help_outline,
+                                      color: Colors.blue,
+                                      size: 20,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        TextField(
+                          controller: tokenTextController,
+                          keyboardType: TextInputType.text,
+                          maxLines: null,
+                          maxLength: 400,
+                          style: TextStyle(
+                              color: Theme.of(context).colorScheme.onSurface),
+                          decoration: storedToken
+                              ? InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  labelText: "login_screen.api_token".tr(),
+                                  hintText:
+                                      'login_screen.your_indexa_token'.tr(),
+                                  filled: true,
+                                  fillColor: Theme.of(context)
+                                      .colorScheme
+                                      .onSurface
+                                      .withOpacity(0.1),
+                                )
+                              : InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  labelText: 'login_screen.api_token'.tr(),
+                                  hintText:
+                                      'login_screen.your_indexa_token'.tr(),
+                                  counterText: ""),
+                          enabled: storedToken ? false : true,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                Icon(
+                                  rememberToken
+                                      ? Icons.lock_outline
+                                      : Icons.lock_open,
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onSurfaceVariant,
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Text(
+                                  'login_screen.remember_token'.tr(),
+                                  style: TextStyle(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onSurfaceVariant,
+                                    fontSize: 16,
                                   ),
                                 ),
                               ],
                             ),
-                          ),
-                          TextField(
-                            controller: tokenTextController,
-                            keyboardType: TextInputType.text,
-                            maxLines: null,
-                            maxLength: 400,
-                            decoration: storedToken
-                                ? InputDecoration(
-                                    border: OutlineInputBorder(),
-                                    labelText: "login_screen.api_token".tr(),
-                                    hintText:
-                                        'login_screen.your_indexa_token'.tr(),
-                                    filled: true,
-                                    fillColor: Colors.grey[300],
-                                  )
-                                : InputDecoration(
-                                    border: OutlineInputBorder(),
-                                    labelText: 'login_screen.api_token'.tr(),
-                                    hintText:
-                                        'login_screen.your_indexa_token'.tr(),
-                                    counterText: ""),
-                            enabled: storedToken ? false : true,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
-                                children: [
-                                  Icon(
-                                    rememberToken
-                                        ? Icons.lock_outline
-                                        : Icons.lock_open,
-                                    color: Colors.black54,
-                                  ),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  Text(
-                                    'login_screen.remember_token'.tr(),
-                                    style: TextStyle(
-                                      color: Colors.black54,
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Switch(
-                                value: rememberToken,
-                                onChanged: (newValue) {
-                                  if (newValue) {
-                                    enableRememberToken();
-                                  } else {
-                                    disableRememberToken();
-                                  }
-                                },
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 40,
-                          ),
-                          SizedBox(
-                            width: 60,
-                            height: 60,
-                            child: MaterialButton(
-                              child: Icon(
-                                Icons.arrow_forward,
-                                color: Colors.white,
-                              ),
-                              padding: EdgeInsets.all(0),
-                              color: Colors.blue,
-                              textColor: Colors.white,
-                              elevation: 8,
-                              onPressed: () {
-                                if (storedToken) {
-                                  tryToLoginWithStoredToken();
+                            Switch(
+                              activeColor:
+                                  Theme.of(context).colorScheme.secondary,
+                              value: rememberToken,
+                              onChanged: (newValue) {
+                                if (newValue) {
+                                  enableRememberToken();
                                 } else {
-                                  if (tokenTextController.text == "") {
-                                    ScaffoldMessenger.of(context)
-                                        .showSnackBar(SnackBar(
-                                      content: Text(
-                                          "login_screen.please_enter_token"
-                                              .tr()),
-                                    ));
-                                  } else {
-                                    if (rememberToken) {
-                                      goToMainScreen(
-                                          token: tokenTextController.text,
-                                          saveToken: true);
-                                    } else {
-                                      goToMainScreen(
-                                          token: tokenTextController.text,
-                                          saveToken: false);
-                                    }
-                                  }
+                                  disableRememberToken();
                                 }
                               },
-                              shape: CircleBorder(),
                             ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 40,
+                        ),
+                        SizedBox(
+                          width: 60,
+                          height: 60,
+                          child: MaterialButton(
+                            child: Icon(
+                              Icons.arrow_forward,
+                              color: Colors.white,
+                            ),
+                            padding: EdgeInsets.all(0),
+                            color: Colors.blue,
+                            textColor: Colors.white,
+                            elevation: 8,
+                            onPressed: () {
+                              if (storedToken) {
+                                tryToLoginWithStoredToken();
+                              } else {
+                                if (tokenTextController.text == "") {
+                                  snackbar.showInSnackBar(context,
+                                      "login_screen.please_enter_token".tr());
+                                } else {
+                                  if (rememberToken) {
+                                    goToMainScreen(
+                                        token: tokenTextController.text,
+                                        saveToken: true);
+                                  } else {
+                                    goToMainScreen(
+                                        token: tokenTextController.text,
+                                        saveToken: false);
+                                  }
+                                }
+                              }
+                            },
+                            shape: CircleBorder(),
                           ),
-                        ],
-                      ),
-                    ],
-                  ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ),
             ),

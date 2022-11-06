@@ -18,12 +18,14 @@ class FeeFreeAmountCard extends StatelessWidget {
         children: [
           TextSpan(
             text: 'fee_free_amount_card.fee_free_amount'.tr() + ': ',
-            style: kCardSubTextStyle
+            //style: kCardSubTextStyle
+            style: Theme.of(context).textTheme.labelLarge
           ),
           TextSpan(
             text: getInvestmentAsString(feeFreeAmount!),
-            style: kMinimumTransferCardTextStyle.copyWith(
-                fontWeight: FontWeight.bold)
+            // style: kMinimumTransferCardTextStyle.copyWith(
+            //     fontWeight: FontWeight.bold)
+            style: Theme.of(context).textTheme.titleSmall
           ),
         ],
       ),

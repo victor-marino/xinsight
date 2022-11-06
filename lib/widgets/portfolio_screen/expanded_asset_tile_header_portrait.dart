@@ -16,7 +16,7 @@ class ExpandedAssetTileHeaderPortrait extends StatelessWidget {
     return Expanded(
       child: Row(children: [
         Expanded(
-          child: Text(assetData.instrumentName!, style: kAssetListMainTextStyle),
+          child: Text(assetData.instrumentName!, style: kAssetListMainTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface)),
         ),
         Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -27,13 +27,14 @@ class ExpandedAssetTileHeaderPortrait extends StatelessWidget {
               padding: const EdgeInsets.only(left: 20),
               child: Text(
                 getInvestmentAsString(assetData.amount!),
-                style: kAssetListAmountTextStyle,
+                style: kAssetListAmountTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface),
               ),
             ),
             Text("(" + getPLAsString(assetData.profitLoss!) + ")",
                 style: assetData.profitLoss! < 0
                     ? kAssetListSecondaryTextStyle.copyWith(
-                        color: Colors.red[800])
+                        //color: Colors.red[800])
+                        color: Theme.of(context).colorScheme.error)
                     : kAssetListSecondaryTextStyle.copyWith(
                         color: Colors.green[600])),
           ],

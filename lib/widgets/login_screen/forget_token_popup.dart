@@ -18,6 +18,9 @@ class ForgetTokenPopup extends StatelessWidget {
         children: [
           Text(
             'login_screen.forget_token_popup_title'.tr(),
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.onSurface
+            ),
           ),
         ],
       ),
@@ -34,7 +37,7 @@ class ForgetTokenPopup extends StatelessWidget {
           child: Text(
               'login_screen.forget_token_popup_ok_button'.tr(),
             style: TextStyle(
-              color: Colors.red.shade900
+              color: Colors.red
             ),
           ),
           onPressed: () {

@@ -2,10 +2,8 @@
 import 'package:flutter/material.dart';
 import '../models/account.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import '../tools/constants.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:expandable/expandable.dart';
-// import 'package:indexax/widgets/overview_screen/account_summary.dart';
 import 'package:indexax/widgets/overview_screen/expanded_account_summary.dart';
 import 'package:indexax/widgets/overview_screen/collapsed_account_summary.dart';
 import 'package:indexax/widgets/reusable_card.dart';
@@ -137,10 +135,11 @@ class _OverviewScreenState extends State<OverviewScreen>
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
-                                    Text(
-                                      'overview_screen.distribution'.tr(),
-                                      style: kCardTitleTextStyle,
-                                    ),
+                                    Text('overview_screen.distribution'.tr(),
+                                        //style: kCardTitleTextStyle,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .labelLarge),
                                     DistributionChart(
                                         portfolioData:
                                             accountData!.portfolioData),
@@ -178,7 +177,10 @@ class _OverviewScreenState extends State<OverviewScreen>
                                             Text(
                                               'overview_screen.distribution'
                                                   .tr(),
-                                              style: kCardTitleTextStyle,
+                                              //style: kCardTitleTextStyle,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .labelLarge,
                                             ),
                                             DistributionChart(
                                                 portfolioData:

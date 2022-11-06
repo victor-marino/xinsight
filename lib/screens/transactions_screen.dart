@@ -80,13 +80,16 @@ class _TransactionsScreenState extends State<TransactionsScreen>
       body: SafeArea(
         child: Center(
           child: SizedBox(
-            width: widget.landscapeOrientation && widget.availableWidth > 1000 ? widget.availableWidth * 0.7 : null,
+            width: widget.landscapeOrientation && widget.availableWidth > 1000
+                ? widget.availableWidth * 0.7
+                : null,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 if (widget.accountData!.hasPendingTransactions)
                   Padding(
-                    padding: const EdgeInsets.only(left: 20, right: 20, bottom: 10),
+                    padding:
+                        const EdgeInsets.only(left: 20, right: 20, bottom: 10),
                     child: (PendingTransactionsCard()),
                   ),
                 Expanded(
@@ -104,19 +107,20 @@ class _TransactionsScreenState extends State<TransactionsScreen>
                           if (index == 0) {
                             firstTransaction = true;
                             firstTransactionOfMonth = true;
-                          } else if (widget
-                                  .accountData!.transactionList[index].date!.month !=
-                              widget.accountData!.transactionList[index - 1].date!
-                                  .month) {
+                          } else if (widget.accountData!.transactionList[index]
+                                  .date!.month !=
+                              widget.accountData!.transactionList[index - 1]
+                                  .date!.month) {
                             firstTransactionOfMonth = true;
                           }
                           if (index ==
-                              (widget.accountData!.transactionList.length - 1)) {
+                              (widget.accountData!.transactionList.length -
+                                  1)) {
                             lastTransactionOfMonth = true;
-                          } else if (widget
-                                  .accountData!.transactionList[index].date!.month !=
-                              widget.accountData!.transactionList[index + 1].date!
-                                  .month) {
+                          } else if (widget.accountData!.transactionList[index]
+                                  .date!.month !=
+                              widget.accountData!.transactionList[index + 1]
+                                  .date!.month) {
                             lastTransactionOfMonth = true;
                           }
                           return Container(
@@ -124,9 +128,11 @@ class _TransactionsScreenState extends State<TransactionsScreen>
                                 transactionData:
                                     widget.accountData!.transactionList[index],
                                 firstTransaction: firstTransaction,
-                                firstTransactionOfMonth: firstTransactionOfMonth,
+                                firstTransactionOfMonth:
+                                    firstTransactionOfMonth,
                                 lastTransactionOfMonth: lastTransactionOfMonth,
-                                landscapeOrientation: widget.landscapeOrientation),
+                                landscapeOrientation:
+                                    widget.landscapeOrientation),
                           );
                         }),
                   ),

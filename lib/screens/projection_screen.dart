@@ -70,9 +70,6 @@ class _ProjectionScreenState extends State<ProjectionScreen>
     currentAccountNumber = widget.currentAccountNumber;
     accountData = widget.accountData;
     refreshData = widget.refreshData;
-
-    // dropdownItems =
-    //     AccountDropdownItems(userAccounts: widget.userAccounts).dropdownItems;
   }
 
   @override
@@ -84,7 +81,9 @@ class _ProjectionScreenState extends State<ProjectionScreen>
       body: SafeArea(
         child: Center(
           child: SizedBox(
-            width: widget.landscapeOrientation && widget.availableWidth > 1000 ? widget.availableWidth * 0.7 : null,
+            width: widget.landscapeOrientation && widget.availableWidth > 1000
+                ? widget.availableWidth * 0.7
+                : null,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
@@ -104,11 +103,12 @@ class _ProjectionScreenState extends State<ProjectionScreen>
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
-                                  Text(
-                                    'projection_screen.risk'.tr(),
-                                    textAlign: TextAlign.left,
-                                    style: kCardTitleTextStyle,
-                                  ),
+                                  Text('projection_screen.risk'.tr(),
+                                      textAlign: TextAlign.left,
+                                      //style: kCardTitleTextStyle,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .labelLarge),
                                   RiskChart(risk: widget.accountData!.risk),
                                 ],
                               ),
@@ -121,11 +121,12 @@ class _ProjectionScreenState extends State<ProjectionScreen>
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
-                                  Text(
-                                    'projection_screen.projection'.tr(),
-                                    textAlign: TextAlign.left,
-                                    style: kCardTitleTextStyle,
-                                  ),
+                                  Text('projection_screen.projection'.tr(),
+                                      textAlign: TextAlign.left,
+                                      //style: kCardTitleTextStyle,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .labelLarge),
                                   PerformanceChart(
                                       performanceSeries:
                                           accountData!.performanceSeries),
@@ -142,8 +143,15 @@ class _ProjectionScreenState extends State<ProjectionScreen>
                                               style: kCardSubTextStyle),
                                           TextSpan(
                                               text: getPLPercentAsString(widget
-                                                  .accountData!.expectedReturn!),
-                                              style: kExpectedReturnProjectionTextStyle)
+                                                  .accountData!
+                                                  .expectedReturn!),
+                                              style:
+                                                  kExpectedReturnProjectionTextStyle
+                                                      .copyWith(
+                                                          color:
+                                                              Theme.of(context)
+                                                                  .colorScheme
+                                                                  .onSurface))
                                         ],
                                       ),
                                     ),

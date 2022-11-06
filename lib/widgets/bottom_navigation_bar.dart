@@ -14,8 +14,8 @@ class MyBottomNavigationBar extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return BottomNavigationBar(
-      selectedItemColor: Colors.blue,
-      unselectedItemColor: Colors.black54,
+      selectedItemColor: Theme.of(context).colorScheme.primary,
+      unselectedItemColor: Theme.of(context).colorScheme.onSurfaceVariant,
 
       items: [
         BottomNavigationBarItem(icon: Icon(Icons.pie_chart), label: 'page_titles.overview'.tr()),

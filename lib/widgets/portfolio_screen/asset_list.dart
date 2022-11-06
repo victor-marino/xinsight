@@ -47,7 +47,8 @@ class AssetList extends StatelessWidget {
         case InstrumentType.fixed:
           {
             if (fixedInstruments.length > 0) {
-              fixedInstruments.add(Divider(height: 0));
+              fixedInstruments.add(Divider(
+                height: 0));
             }
             // fixedAmount += assetData.amount;
             fixedPercentage += assetData.percentage!;
@@ -85,15 +86,17 @@ class AssetList extends StatelessWidget {
                 padding: const EdgeInsets.only(right: 5),
                 child: Text(
                     'portfolio_screen.equity'.tr(),
-                    style: kCardTitleTextStyle
+                    style: kCardTitleTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface)
                 ),
               ),
-              Expanded(child: Divider()),
+              Expanded(child: Divider(
+                color: Theme.of(context).colorScheme.onBackground
+              )),
               Padding(
                 padding: const EdgeInsets.only(left: 5),
                 child: Text(
                   getPercentAsString(equityPercentage),
-                  style: kCardTitleTextStyle,
+                  style: kCardTitleTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface),
                 ),
               ),
             ],
@@ -121,15 +124,17 @@ class AssetList extends StatelessWidget {
                 padding: const EdgeInsets.only(right: 5),
                 child: Text(
                     'portfolio_screen.fixed'.tr(),
-                    style: kCardTitleTextStyle
+                    style: kCardTitleTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface)
                 ),
               ),
-              Expanded(child: Divider()),
+              Expanded(child: Divider(
+                color: Theme.of(context).colorScheme.onBackground
+              )),
               Padding(
                 padding: const EdgeInsets.only(left: 5),
                 child: Text(
                   getPercentAsString(fixedPercentage),
-                  style: kCardTitleTextStyle,
+                  style: kCardTitleTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface),
                 ),
               ),
             ],
@@ -161,22 +166,26 @@ class AssetList extends StatelessWidget {
                       padding: const EdgeInsets.only(right: 5),
                       child: Text(
                           'portfolio_screen.cash'.tr(),
-                          style: kCardTitleTextStyle
+                          style: kCardTitleTextStyle.copyWith(color: Theme.of(context)
+                                  .colorScheme
+                                  .onSurface)
                       ),
                     ),
-                    Expanded(child: Divider()),
+                    Expanded(child: Divider(
+                      color: Theme.of(context).colorScheme.onBackground
+                    )),
                     Padding(
                       padding: const EdgeInsets.only(left: 5),
                       child: Text(
                         getPercentAsString(cashPercentage),
-                        style: kCardTitleTextStyle,
+                        style: kCardTitleTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface),
                       ),
                     )
                   ],
                 ),
                 Text(
                   getInvestmentAsString(cashAmount),
-                  style: kAssetListAmountTextStyle,
+                  style: kAssetListAmountTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface),
                 ),
               ],
             ),
