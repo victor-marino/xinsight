@@ -158,6 +158,11 @@ class _RootScreenState extends State<RootScreen> with WidgetsBindingObserver{
     }
   }
 
+  void _onTappedBar(int value) {
+    _pageController!.animateToPage(value,
+        duration: Duration(milliseconds: 500), curve: Curves.ease);
+  }
+
   @override
   void initState() {
     WidgetsBinding.instance.addObserver(this);
@@ -347,10 +352,5 @@ class _RootScreenState extends State<RootScreen> with WidgetsBindingObserver{
         return child;
       },
     );
-  }
-
-  void _onTappedBar(int value) {
-    _pageController!.animateToPage(value,
-        duration: Duration(milliseconds: 500), curve: Curves.ease);
   }
 }
