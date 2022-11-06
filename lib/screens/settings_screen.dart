@@ -84,22 +84,32 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   trailing: Row(
                     children: [
                       if (currentThemePreference != null)
-                      Text(
-                        ("settings_screen." + currentThemePreference.toString().split(".").last).tr(),
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.onSurface,
+                        Text(
+                          ("settings_screen." +
+                                  currentThemePreference
+                                      .toString()
+                                      .split(".")
+                                      .last)
+                              .tr(),
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.onSurface,
+                          ),
                         ),
-                      ),
                       if (currentThemePreference == ThemePreference.system)
                         Text(
                           " (" +
-                              ("settings_screen." + currentSystemTheme.toString().split(".").last).tr() +
+                              ("settings_screen." +
+                                      currentSystemTheme
+                                          .toString()
+                                          .split(".")
+                                          .last)
+                                  .tr() +
                               ")",
-                              style: TextStyle(
-                            color: Theme.of(context).colorScheme.onSurfaceVariant,
+                          style: TextStyle(
+                            color:
+                                Theme.of(context).colorScheme.onSurfaceVariant,
                           ),
                         ),
-                      Icon(Icons.chevron_right_rounded),
                     ],
                   ),
                   onPressed: (BuildContext context) {
@@ -117,7 +127,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     );
                   },
                 ),
-
                 SettingsTile(
                   title: Text('settings_screen.about'.tr()),
                   trailing: Icon(Icons.chevron_right_rounded),
