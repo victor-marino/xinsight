@@ -63,7 +63,7 @@ class MyApp extends StatelessWidget {
       onSurface: Colors.white,
       onSurfaceVariant: Colors.white60,
       background: Colors.black,
-      onBackground: Colors.white54
+      onBackground: Colors.white54,
     );
 
     TextTheme darkTextTheme = Typography.material2021().black.copyWith(
@@ -124,7 +124,10 @@ class MyApp extends StatelessWidget {
                 //         statusBarIconBrightness: Brightness.light)),
 
                 /* dark theme settings */
-                ),
+                ).copyWith(
+                bottomSheetTheme:
+                    BottomSheetThemeData(backgroundColor: Colors.grey[900])),
+                
             localizationsDelegates: context.localizationDelegates,
             //themeMode: ThemeMode.dark,
             themeMode:

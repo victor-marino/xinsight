@@ -23,7 +23,8 @@ Future<ThemePreference?> readThemePreference(BuildContext context) async {
 Future<void> storeThemePreference(
     BuildContext context, ThemePreference themePreference) async {
   await storage.storeKey(
-      keyName: "themePreference", value: themePreference.toString().split(".").last);
+      keyName: "themePreference",
+      value: themePreference.toString().split(".").last);
 }
 
 Brightness getCurrentSystemTheme(BuildContext context) {
@@ -31,6 +32,7 @@ Brightness getCurrentSystemTheme(BuildContext context) {
 }
 
 void updateTheme(BuildContext context) async {
+  print("Updating theme");
   ThemePreference? currentThemePreference = await readThemePreference(context);
   if (currentThemePreference == null) {
     currentThemePreference = ThemePreference.system;

@@ -5,15 +5,12 @@ import 'package:indexax/tools/local_authentication.dart'
     as local_authentication;
 import 'package:easy_localization/easy_localization.dart';
 import 'package:indexax/tools/theme_operations.dart' as theme_operations;
-import 'package:provider/provider.dart';
 import 'package:indexax/tools/validations.dart' as validations;
 import 'package:indexax/tools/secure_storage.dart';
 import 'package:indexax/tools/token_operations.dart' as token_operations;
-import 'package:indexax/tools/theme_provider.dart';
 import 'package:indexax/tools/snackbar.dart' as snackbar;
 import 'package:indexax/widgets/login_screen/token_instructions_popup.dart';
 import 'package:indexax/widgets/login_screen/forget_token_popup.dart';
-import 'package:indexax/models/theme_preference_data.dart';
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({
@@ -26,7 +23,7 @@ class LoginScreen extends StatefulWidget {
   _LoginScreenState createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver{
   final storage = SecureStorage();
 
   bool storedToken = false;
@@ -125,45 +122,11 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
-  // Future<ThemePreference?> findStoredThemePreference() async {
-  //   ThemePreference? themePreference = await readThemePreference(context);
-  //   if (themePreference != null) {
-  //     print('Existing theme preference found');
-  //   } else {
-  //     print('No existing theme preference');
-  //   }
-  //   return themePreference;
-  // }
-
-  // void setThemePreference() async {
-  //   ThemePreference? storedThemePreference = await findStoredThemePreference();
-  //   if (themePreference != null) {
-  //     themePreference = storedThemePreference;
-  //   } else {
-  //     themePreference = ThemePreference.system;
-  //   }
-  // }
-  // void setInitialThemePreference() async {
-  //   //print(MediaQuery.of(context).platformBrightness.toString().split(".").last);
-  //   ThemePreference? storedThemePreference = await findStoredThemePreference();
-  //   if (storedThemePreference == null ||
-  //       storedThemePreference == ThemePreference.system) {
-  //     Provider.of<ThemeProvider>(context, listen: false).currentTheme =
-  //         ThemeMode.values.byName(MediaQuery.of(context)
-  //             .platformBrightness
-  //             .toString()
-  //             .split(".")
-  //             .last);
-  //   } else {
-  //     Provider.of<ThemeProvider>(context, listen: false).currentTheme =
-  //         ThemeMode.values
-  //             .byName(storedThemePreference.toString().split(".").last);
-  //   }
-  // }
-
   @override
   void initState() {
+    WidgetsBinding.instance.addObserver(this);
     super.initState();
+    theme_operations.updateTheme(context);
 
     if (widget.errorMessage == null) {
       tryToLoginWithStoredToken();
@@ -180,8 +143,20 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      theme_operations.updateTheme(context);
+    }
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    theme_operations.updateTheme(context);
 
     bool landscapeOrientation = false;
     double availableWidth = MediaQuery.of(context).size.width;
@@ -230,9 +205,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Text('login_screen.for'.tr() + " Indexa Capital",
-                                  style: TextStyle(color: Colors.black38)),
-                              // Image.asset('assets/images/indexa_logo.png',
-                              //     height: 30),
+                                  style: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant)),
                             ],
                           )
                         ],
@@ -268,7 +241,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                       child: Text(
                                         'login_screen.how_to_get_token'.tr(),
                                         style: TextStyle(
-                                          color: Colors.black38,
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .onSurface,
                                         ),
                                       ),
                                     ),
@@ -288,6 +263,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           keyboardType: TextInputType.text,
                           maxLines: null,
                           maxLength: 400,
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.onSurface
+                          ),
                           decoration: storedToken
                               ? InputDecoration(
                                   border: OutlineInputBorder(),
@@ -314,7 +292,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   rememberToken
                                       ? Icons.lock_outline
                                       : Icons.lock_open,
-                                  color: Colors.black54,
+                                  color: Theme.of(context).colorScheme.onSurfaceVariant,
                                 ),
                                 SizedBox(
                                   width: 10,
@@ -322,7 +300,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 Text(
                                   'login_screen.remember_token'.tr(),
                                   style: TextStyle(
-                                    color: Colors.black54,
+                                    color: Theme.of(context).colorScheme.onSurfaceVariant,
                                     fontSize: 16,
                                   ),
                                 ),

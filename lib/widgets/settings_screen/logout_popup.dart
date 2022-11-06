@@ -52,7 +52,7 @@ class LogoutPopup extends StatelessWidget {
             'logout_popup.logout_button'.tr(),
             style: TextStyle(
                 //color: Colors.red.shade900
-                color: Theme.of(context).colorScheme.error),
+                color: Colors.red),
           ),
           onPressed: () {
             logout(context);

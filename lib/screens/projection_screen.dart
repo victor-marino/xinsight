@@ -9,7 +9,6 @@ import 'package:indexax/widgets/reusable_card.dart';
 import 'package:indexax/widgets/projection_screen/projection_chart.dart';
 import 'package:indexax/widgets/projection_screen/risk_chart.dart';
 import 'package:indexax/widgets/projection_screen/expectations_popup.dart';
-import 'package:indexax/tools/theme_operations.dart' as theme_operations;
 
 class ProjectionScreen extends StatefulWidget {
   const ProjectionScreen({
@@ -71,17 +70,12 @@ class _ProjectionScreenState extends State<ProjectionScreen>
     currentAccountNumber = widget.currentAccountNumber;
     accountData = widget.accountData;
     refreshData = widget.refreshData;
-
-    // dropdownItems =
-    //     AccountDropdownItems(userAccounts: widget.userAccounts).dropdownItems;
   }
 
   @override
   Widget build(BuildContext context) {
     // This super call is required for the Mixin that keeps the page state
     super.build(context);
-
-    theme_operations.updateTheme(context);
 
     return Scaffold(
       body: SafeArea(

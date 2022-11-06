@@ -15,8 +15,6 @@ class AboutScreen extends StatefulWidget {
 class _AboutScreenState extends State<AboutScreen> {
   @override
   Widget build(BuildContext context) {
-    theme_operations.updateTheme(context);
-
     // Get screen dimensions and orientation
     bool landscapeOrientation = false;
     double availableWidth = MediaQuery.of(context).size.width;
@@ -137,7 +135,7 @@ class _AboutScreenState extends State<AboutScreen> {
                                   style: TextStyle(
                                       color: Theme.of(context)
                                           .colorScheme
-                                          .onSurface),
+                                          .onSurfaceVariant),
                                   // style: TextStyle(
                                   //     color: Colors.black38)),
                                   // Image.asset(

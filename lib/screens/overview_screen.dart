@@ -2,10 +2,8 @@
 import 'package:flutter/material.dart';
 import '../models/account.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import '../tools/constants.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:expandable/expandable.dart';
-// import 'package:indexax/widgets/overview_screen/account_summary.dart';
 import 'package:indexax/widgets/overview_screen/expanded_account_summary.dart';
 import 'package:indexax/widgets/overview_screen/collapsed_account_summary.dart';
 import 'package:indexax/widgets/reusable_card.dart';
@@ -15,7 +13,6 @@ import 'package:indexax/widgets/overview_screen/profit_popup.dart';
 import 'package:indexax/widgets/overview_screen/minimum_transfer_card.dart';
 import 'package:indexax/widgets/overview_screen/fee_free_amount_card.dart';
 import 'package:indexax/widgets/overview_screen/expanded_account_summary_single_view.dart';
-import 'package:indexax/tools/theme_operations.dart' as theme_operations;
 
 const int nbsp = 0x00A0;
 
@@ -88,8 +85,6 @@ class _OverviewScreenState extends State<OverviewScreen>
   Widget build(BuildContext context) {
     // This super call is required for the Mixin that keeps the page state
     super.build(context);
-
-    theme_operations.updateTheme(context);
 
     return Scaffold(
       body: SafeArea(

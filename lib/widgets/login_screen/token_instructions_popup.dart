@@ -19,10 +19,16 @@ class TokenInstructionsPopup extends StatelessWidget {
     );
 
     return AlertDialog(
+      backgroundColor: Theme.of(context).colorScheme.background,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text('login_screen.get_token'.tr()),
+          Text('login_screen.get_token'.tr(),
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.onSurface
+          ),
+          ),
         ],
       ),
       content: SingleChildScrollView(
@@ -32,7 +38,7 @@ class TokenInstructionsPopup extends StatelessWidget {
           children: [
             Text(
               'login_screen.in_your_client_area'.tr() + ':\n',
-              style: kPopUpNormalTextStyle,
+              style: kPopUpNormalTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
             ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -40,7 +46,7 @@ class TokenInstructionsPopup extends StatelessWidget {
                 Text(
                   '1. ',
                   style: kPopUpNormalTextStyle.copyWith(
-                      //fontSize: 12,
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
                       ),
                 ),
                 Expanded(
@@ -65,7 +71,7 @@ class TokenInstructionsPopup extends StatelessWidget {
                         ),
                       ],
                     ),
-                    style: kPopUpNormalTextStyle,
+                    style: kPopUpNormalTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
                   ),
                 ),
               ],
@@ -74,11 +80,11 @@ class TokenInstructionsPopup extends StatelessWidget {
               children: [
                 Text(
                   '2. ',
-                  style: kPopUpNormalTextStyle,
+                  style: kPopUpNormalTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
                 ),
                 Text(
                   'login_screen.go_to_applications'.tr(),
-                  style: kPopUpNormalTextStyle,
+                  style: kPopUpNormalTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
                 ),
               ],
             ),
@@ -86,11 +92,11 @@ class TokenInstructionsPopup extends StatelessWidget {
               children: [
                 Text(
                   '3. ',
-                  style: kPopUpNormalTextStyle,
+                  style: kPopUpNormalTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
                 ),
                 Text(
                   'login_screen.press_generate_token'.tr(),
-                  style: kPopUpNormalTextStyle,
+                  style: kPopUpNormalTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
                 ),
               ],
             ),

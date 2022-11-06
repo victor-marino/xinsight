@@ -4,7 +4,6 @@ import '../models/account.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:indexax/widgets/transactions_screen/transaction_tile.dart';
 import 'package:indexax/widgets/transactions_screen/pending_transactions_card.dart';
-import 'package:indexax/tools/theme_operations.dart' as theme_operations;
 
 const int nbsp = 0x00A0;
 
@@ -76,8 +75,6 @@ class _TransactionsScreenState extends State<TransactionsScreen>
   Widget build(BuildContext context) {
     // This super call is required for the Mixin that keeps the page state
     super.build(context);
-
-    theme_operations.updateTheme(context);
 
     return Scaffold(
       body: SafeArea(

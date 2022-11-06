@@ -51,8 +51,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    theme_operations.updateTheme(context);
-
     Brightness currentSystemTheme =
         theme_operations.getCurrentSystemTheme(context);
 
@@ -82,7 +80,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             SettingsSection(
               tiles: [
                 SettingsTile(
-                  title: Text('Theme'),
+                  title: Text('settings_screen.theme'.tr()),
                   trailing: Row(
                     children: [
                       Text(
@@ -106,11 +104,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   onPressed: (BuildContext context) {
                     showModalBottomSheet<void>(
                       context: context,
-                      //backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
-                      barrierColor: Theme.of(context)
-                          .colorScheme
-                          .onBackground
-                          .withOpacity(0.4),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(20),
@@ -123,6 +116,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     );
                   },
                 ),
+
                 SettingsTile(
                   title: Text('settings_screen.about'.tr()),
                   trailing: Icon(Icons.chevron_right_rounded),

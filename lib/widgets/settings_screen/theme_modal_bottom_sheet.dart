@@ -4,10 +4,10 @@ import 'package:indexax/models/theme_preference_data.dart';
 import 'package:indexax/tools/theme_operations.dart' as theme_operations;
 
 class ThemeModalBottomSheet extends StatefulWidget {
-  const ThemeModalBottomSheet({
-    Key? key,
-    required this.updateCurrentThemePreference,
-  }) : super(key: key);
+  const ThemeModalBottomSheet(
+      {Key? key,
+      required this.updateCurrentThemePreference,})
+      : super(key: key);
   final Function updateCurrentThemePreference;
 
   @override
@@ -46,11 +46,11 @@ class _ThemeModalBottomSheetState extends State<ThemeModalBottomSheet> {
   void initState() {
     super.initState();
     getCurrentThemePreference();
+    theme_operations.updateTheme(context);
   }
 
   @override
   Widget build(BuildContext context) {
-    theme_operations.updateTheme(context);
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [

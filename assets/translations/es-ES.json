@@ -175,6 +175,7 @@
     "settings": "@:page_titles.settings",
     "about": "Sobre Indexa X",
     "logout": "Cerrar sesión",
+    "theme": "Tema",
     "system": "Sistema",
     "light": "Claro",
     "dark": "Oscuro"

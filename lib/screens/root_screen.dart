@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'dart:async';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:indexax/models/account.dart';
@@ -19,7 +18,7 @@ import '../widgets/page_header.dart';
 import '../widgets/settings_popup_menu.dart';
 import '../widgets/current_account_indicator.dart';
 import 'login_screen.dart';
-import 'package:indexax/tools/theme_provider.dart';
+import 'package:indexax/tools/theme_operations.dart' as theme_operations;
 
 class RootScreen extends StatefulWidget {
   RootScreen({
@@ -38,7 +37,7 @@ class RootScreen extends StatefulWidget {
   _RootScreenState createState() => _RootScreenState();
 }
 
-class _RootScreenState extends State<RootScreen> {
+class _RootScreenState extends State<RootScreen> with WidgetsBindingObserver{
   PageController? _pageController;
 
   List<Map<String, String>>? userAccounts = [];
@@ -161,20 +160,28 @@ class _RootScreenState extends State<RootScreen> {
 
   @override
   void initState() {
+    WidgetsBinding.instance.addObserver(this);
     super.initState();
+    theme_operations.updateTheme(context);
+
     if (widget.previousUserAccounts != null) {
       userAccounts = widget.previousUserAccounts;
-      // dropdownItems =
-      //     AccountDropdownItems(userAccounts: widget.previousUserAccounts)
-      //         .dropdownItems;
     }
     loadData(widget.accountNumber);
     _pageController =
         PageController(initialPage: widget.pageNumber, viewportFraction: 1);
   }
+  
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      theme_operations.updateTheme(context);
+    }
+  }
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     _pageController!.dispose();
     super.dispose();
   }
@@ -214,9 +221,6 @@ class _RootScreenState extends State<RootScreen> {
             appBar: AppBar(
               titleSpacing: 20,
               backgroundColor: Theme.of(context).colorScheme.background,
-              //foregroundColor: Theme.of(context).colorScheme.onSurface,
-              // backgroundColor: Theme.of(context).colorScheme.background,
-              // foregroundColor: Theme.of(context).colorScheme.onBackground,
               elevation: 0,
               toolbarHeight: landscapeOrientation ? 40 + topPadding : 100,
               centerTitle: false,

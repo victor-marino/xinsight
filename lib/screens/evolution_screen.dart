@@ -9,7 +9,6 @@ import '../widgets/evolution_screen/amounts_chart.dart';
 import 'package:indexax/widgets/evolution_screen/profit_loss_chart.dart';
 import 'package:indexax/widgets/evolution_screen/profit_loss_year_switcher.dart';
 import 'package:indexax/widgets/evolution_screen/amounts_chart_zoom_chips.dart';
-import 'package:indexax/tools/theme_operations.dart' as theme_operations;
 
 class EvolutionScreen extends StatefulWidget {
   const EvolutionScreen({
@@ -123,8 +122,6 @@ class _EvolutionScreenState extends State<EvolutionScreen>
   Widget build(BuildContext context) {
     // This super call is required for the Mixin that keeps the page state
     super.build(context);
-
-    theme_operations.updateTheme(context);
 
     //print(widget.availableWidth);
     return Scaffold(
