@@ -273,7 +273,7 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver{
                                   hintText:
                                       'login_screen.your_indexa_token'.tr(),
                                   filled: true,
-                                  fillColor: Colors.grey[300],
+                                  fillColor: Theme.of(context).colorScheme.onSurface.withOpacity(0.1),
                                 )
                               : InputDecoration(
                                   border: OutlineInputBorder(),
