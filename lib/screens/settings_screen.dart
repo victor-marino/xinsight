@@ -83,6 +83,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   title: Text('settings_screen.theme'.tr()),
                   trailing: Row(
                     children: [
+                      if (currentThemePreference != null)
                       Text(
                         ("settings_screen." + currentThemePreference.toString().split(".").last).tr(),
                         style: TextStyle(
