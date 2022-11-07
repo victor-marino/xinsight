@@ -1,43 +1,42 @@
-import 'dart:io';
-
-import 'package:flutter/material.dart';
 import 'dart:async';
+import 'dart:io';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
 import 'package:indexax/models/account.dart';
+import 'package:indexax/screens/evolution_screen.dart';
 import 'package:indexax/screens/overview_screen.dart';
 import 'package:indexax/screens/portfolio_screen.dart';
-import 'package:indexax/screens/evolution_screen.dart';
 import 'package:indexax/screens/projection_screen.dart';
 import 'package:indexax/screens/transactions_screen.dart';
-import 'settings_screen.dart';
-import '../services/indexa_data.dart';
+import 'package:indexax/tools/theme_operations.dart' as theme_operations;
 import 'package:provider/provider.dart';
+import 'package:indexax/tools/indexa_operations.dart' as indexa_operations;
 import '../tools/bottom_navigation_bar_provider.dart';
 import '../widgets/bottom_navigation_bar.dart';
+import '../widgets/current_account_indicator.dart';
 import '../widgets/page_header.dart';
 import '../widgets/settings_popup_menu.dart';
-import '../widgets/current_account_indicator.dart';
 import 'login_screen.dart';
-import 'package:indexax/tools/theme_operations.dart' as theme_operations;
+import 'settings_screen.dart';
 
 class RootScreen extends StatefulWidget {
   RootScreen({
     required this.token,
-    required this.accountNumber,
-    required this.pageNumber,
+    required this.accountIndex,
+    required this.pageIndex,
     this.previousUserAccounts,
   });
 
   final String token;
-  final int accountNumber;
-  final int pageNumber;
+  final int accountIndex;
+  final int pageIndex;
   final List<Map<String, String>>? previousUserAccounts;
 
   @override
   _RootScreenState createState() => _RootScreenState();
 }
 
-class _RootScreenState extends State<RootScreen> with WidgetsBindingObserver{
+class _RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
   PageController? _pageController;
 
   List<Map<String, String>>? userAccounts = [];
@@ -49,12 +48,12 @@ class _RootScreenState extends State<RootScreen> with WidgetsBindingObserver{
 
   bool reloading = false;
 
-  Future<Future<Account>?> loadData(int accountNumber) async {
+  Future<Future<Account>?> loadData(int accountIndex) async {
     try {
       userAccounts = await getUserAccounts(widget.token);
       setState(() {
-        accountData = getAccountData(
-            context, widget.token, accountNumber, currentAccount);
+        accountData =
+            getAccountData(context, widget.token, accountIndex, currentAccount);
       });
       return accountData;
     } on Exception catch (e) {
@@ -69,9 +68,9 @@ class _RootScreenState extends State<RootScreen> with WidgetsBindingObserver{
     return null;
   }
 
-  Future<void>? refreshData(int accountNumber) {
+  Future<void>? refreshData(int accountIndex) {
     accountData =
-        getAccountData(context, widget.token, accountNumber, currentAccount);
+        getAccountData(context, widget.token, accountIndex, currentAccount);
     return accountData;
   }
 
@@ -79,21 +78,21 @@ class _RootScreenState extends State<RootScreen> with WidgetsBindingObserver{
     setState(() {
       reloading = true;
     });
-    await loadData(widget.pageNumber);
+    await loadData(widget.pageIndex);
     Provider.of<BottomNavigationBarProvider>(context, listen: false)
-        .currentIndex = widget.pageNumber;
+        .currentIndex = widget.pageIndex;
   }
 
-  void reloadPage(int accountNumber, int pageNumber) async {
-    pageNumber = _pageController!.page!.toInt();
-    print(pageNumber);
+  void reloadPage(int accountIndex, int pageIndex) async {
+    pageIndex = _pageController!.page!.toInt();
+    print(pageIndex);
     Navigator.pushReplacement(
         context,
         MaterialPageRoute(
             builder: (BuildContext context) => RootScreen(
                 token: widget.token,
-                accountNumber: accountNumber,
-                pageNumber: pageNumber,
+                accountIndex: accountIndex,
+                pageIndex: pageIndex,
                 previousUserAccounts: userAccounts)));
   }
 
@@ -103,33 +102,32 @@ class _RootScreenState extends State<RootScreen> with WidgetsBindingObserver{
   }
 
   Future<List<Map<String, String>>> getUserAccounts(String token) async {
-    IndexaData indexaData = IndexaData(token: token);
-    var userAccounts = await indexaData.getUserAccounts();
+    var userAccounts = await indexa_operations.getUserAccounts(token: token);
     // dropdownItems =
     //     AccountDropdownItems(userAccounts: userAccounts).dropdownItems;
     return userAccounts;
   }
 
   static Future<Account> getAccountData(BuildContext context, String token,
-      int accountNumber, Account? currentAccount) async {
+      int accountIndex, Account? currentAccount) async {
     //Account currentAccount;
-    IndexaData indexaData = IndexaData(token: token);
     try {
-      var userAccounts = await indexaData.getUserAccounts();
-      var currentAccountInfo = await indexaData
-          .getAccountInfo(userAccounts[accountNumber]['number']);
-      var currentAccountPerformanceData = await indexaData
-          .getAccountPerformanceData(userAccounts[accountNumber]['number']);
-      var currentAccountPortfolioData = await indexaData
-          .getAccountPortfolioData(userAccounts[accountNumber]['number']);
+      var userAccounts = await indexa_operations.getUserAccounts(token: token);
+      var currentAccountInfo =
+          await indexa_operations
+          .getAccountInfo(token: token, accountNumber: userAccounts[accountIndex]['number']);
+      var currentAccountPerformanceData = await indexa_operations
+          .getAccountPerformanceData(token: token, accountNumber: userAccounts[accountIndex]['number']);
+      var currentAccountPortfolioData = await indexa_operations
+          .getAccountPortfolioData(token: token, accountNumber: userAccounts[accountIndex]['number']);
       var currentAccountInstrumentTransactionData =
-          await indexaData.getAccountInstrumentTransactionData(
-              userAccounts[accountNumber]['number']);
-      var currentAccountCashTransactionData = await indexaData
-          .getAccountCashTransactionData(userAccounts[accountNumber]['number']);
+          await indexa_operations.getAccountInstrumentTransactionData(token: token,
+              accountNumber: userAccounts[accountIndex]['number']);
+      var currentAccountCashTransactionData = await indexa_operations
+          .getAccountCashTransactionData(token: token, accountNumber: userAccounts[accountIndex]['number']);
       var currentAccountPendingTransactionData =
-          await indexaData.getAccountPendingTransactionData(
-              userAccounts[accountNumber]['number']);
+          await indexa_operations.getAccountPendingTransactionData(token: token,
+              accountNumber: userAccounts[accountIndex]['number']);
       currentAccount = Account(
           accountInfo: currentAccountInfo,
           accountPerformanceData: currentAccountPerformanceData,
@@ -172,11 +170,11 @@ class _RootScreenState extends State<RootScreen> with WidgetsBindingObserver{
     if (widget.previousUserAccounts != null) {
       userAccounts = widget.previousUserAccounts;
     }
-    loadData(widget.accountNumber);
+    loadData(widget.accountIndex);
     _pageController =
-        PageController(initialPage: widget.pageNumber, viewportFraction: 1);
+        PageController(initialPage: widget.pageIndex, viewportFraction: 1);
   }
-  
+
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
@@ -234,10 +232,7 @@ class _RootScreenState extends State<RootScreen> with WidgetsBindingObserver{
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    PageHeader(
-                      accountNumber: snapshot.data!.accountNumber,
-                      accountType: snapshot.data!.type,
-                    ),
+                    PageHeader(),
                     if (!landscapeOrientation) ...[
                       CurrentAccountIndicator(
                           accountNumber: snapshot.data!.accountNumber,
@@ -264,8 +259,8 @@ class _RootScreenState extends State<RootScreen> with WidgetsBindingObserver{
                   padding: EdgeInsets.only(right: 15),
                   child: SettingsPopupMenu(
                       userAccounts: userAccounts,
-                      currentAccountNumber: widget.accountNumber,
-                      currentPage: widget.pageNumber,
+                      currentAccountIndex: widget.accountIndex,
+                      currentPage: widget.pageIndex,
                       reloadPage: reloadPage),
                 ),
                 //SizedBox(width: 10)
@@ -281,7 +276,7 @@ class _RootScreenState extends State<RootScreen> with WidgetsBindingObserver{
                     availableWidth: availableWidth,
                     refreshData: refreshData,
                     reloadPage: reloadPage,
-                    currentAccountNumber: widget.accountNumber),
+                    currentAccountIndex: widget.accountIndex),
                 PortfolioScreen(
                     accountData: snapshot.data,
                     userAccounts: userAccounts,
@@ -289,7 +284,7 @@ class _RootScreenState extends State<RootScreen> with WidgetsBindingObserver{
                     availableWidth: availableWidth,
                     refreshData: refreshData,
                     reloadPage: reloadPage,
-                    currentAccountNumber: widget.accountNumber),
+                    currentAccountIndex: widget.accountIndex),
                 EvolutionScreen(
                     accountData: snapshot.data,
                     userAccounts: userAccounts,
@@ -297,7 +292,7 @@ class _RootScreenState extends State<RootScreen> with WidgetsBindingObserver{
                     reloadPage: reloadPage,
                     landscapeOrientation: landscapeOrientation,
                     availableWidth: availableWidth,
-                    currentAccountNumber: widget.accountNumber),
+                    currentAccountIndex: widget.accountIndex),
                 TransactionsScreen(
                     accountData: snapshot.data,
                     userAccounts: userAccounts,
@@ -305,7 +300,7 @@ class _RootScreenState extends State<RootScreen> with WidgetsBindingObserver{
                     availableWidth: availableWidth,
                     refreshData: refreshData,
                     reloadPage: reloadPage,
-                    currentAccountNumber: widget.accountNumber),
+                    currentAccountIndex: widget.accountIndex),
                 ProjectionScreen(
                     accountData: snapshot.data,
                     userAccounts: userAccounts,
@@ -313,7 +308,7 @@ class _RootScreenState extends State<RootScreen> with WidgetsBindingObserver{
                     availableWidth: availableWidth,
                     refreshData: refreshData,
                     reloadPage: reloadPage,
-                    currentAccountNumber: widget.accountNumber),
+                    currentAccountIndex: widget.accountIndex),
               ],
               onPageChanged: (page) {
                 Provider.of<BottomNavigationBarProvider>(context, listen: false)

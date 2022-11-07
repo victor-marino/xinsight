@@ -1,14 +1,15 @@
 // import 'package:flutter/cupertino.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:indexax/models/account.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
-import '../tools/constants.dart';
-import 'package:easy_localization/easy_localization.dart';
-import 'package:indexax/widgets/reusable_card.dart';
-import '../widgets/evolution_screen/amounts_chart.dart';
+import 'package:indexax/widgets/evolution_screen/amounts_chart_zoom_chips.dart';
 import 'package:indexax/widgets/evolution_screen/profit_loss_chart.dart';
 import 'package:indexax/widgets/evolution_screen/profit_loss_year_switcher.dart';
-import 'package:indexax/widgets/evolution_screen/amounts_chart_zoom_chips.dart';
+import 'package:indexax/widgets/reusable_card.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
+
+import '../tools/constants.dart';
+import '../widgets/evolution_screen/amounts_chart.dart';
 
 class EvolutionScreen extends StatefulWidget {
   const EvolutionScreen({
@@ -17,7 +18,7 @@ class EvolutionScreen extends StatefulWidget {
     required this.userAccounts,
     required this.refreshData,
     required this.reloadPage,
-    required this.currentAccountNumber,
+    required this.currentAccountIndex,
     required this.landscapeOrientation,
     required this.availableWidth,
   }) : super(key: key);
@@ -25,7 +26,7 @@ class EvolutionScreen extends StatefulWidget {
   final List<Map<String, String>>? userAccounts;
   final Function refreshData;
   final Function reloadPage;
-  final int currentAccountNumber;
+  final int currentAccountIndex;
   final bool landscapeOrientation;
   final double availableWidth;
 
@@ -44,7 +45,7 @@ class _EvolutionScreenState extends State<EvolutionScreen>
   Account? accountData;
   late Function refreshData;
   Duration? currentPeriod;
-  int? currentAccountNumber;
+  int? currentAccountIndex;
   int? currentYear;
   List<DropdownMenuItem> profitLossYearDropdownItems = [];
 
@@ -54,7 +55,7 @@ class _EvolutionScreenState extends State<EvolutionScreen>
   void _onRefresh() async {
     // monitor network fetch
     try {
-      accountData = await refreshData(currentAccountNumber);
+      accountData = await refreshData(currentAccountIndex);
     } on Exception catch (e) {
       print("Couldn't refresh data");
       print(e);
@@ -80,7 +81,7 @@ class _EvolutionScreenState extends State<EvolutionScreen>
 
   void initState() {
     super.initState();
-    currentAccountNumber = widget.currentAccountNumber;
+    currentAccountIndex = widget.currentAccountIndex;
     accountData = widget.accountData;
     refreshData = widget.refreshData;
     currentYear = accountData!.profitLossSeries.keys.toList().last;

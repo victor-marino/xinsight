@@ -1,18 +1,19 @@
 // import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import '../models/account.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:expandable/expandable.dart';
-import 'package:indexax/widgets/overview_screen/expanded_account_summary.dart';
+import 'package:flutter/material.dart';
 import 'package:indexax/widgets/overview_screen/collapsed_account_summary.dart';
-import 'package:indexax/widgets/reusable_card.dart';
 import 'package:indexax/widgets/overview_screen/distribution_chart.dart';
 import 'package:indexax/widgets/overview_screen/distribution_legend.dart';
-import 'package:indexax/widgets/overview_screen/profit_popup.dart';
-import 'package:indexax/widgets/overview_screen/minimum_transfer_card.dart';
-import 'package:indexax/widgets/overview_screen/fee_free_amount_card.dart';
+import 'package:indexax/widgets/overview_screen/expanded_account_summary.dart';
 import 'package:indexax/widgets/overview_screen/expanded_account_summary_single_view.dart';
+import 'package:indexax/widgets/overview_screen/fee_free_amount_card.dart';
+import 'package:indexax/widgets/overview_screen/minimum_transfer_card.dart';
+import 'package:indexax/widgets/overview_screen/profit_popup.dart';
+import 'package:indexax/widgets/reusable_card.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
+
+import '../models/account.dart';
 
 const int nbsp = 0x00A0;
 
@@ -25,7 +26,7 @@ class OverviewScreen extends StatefulWidget {
     required this.availableWidth,
     required this.refreshData,
     required this.reloadPage,
-    required this.currentAccountNumber,
+    required this.currentAccountIndex,
   }) : super(key: key);
   final Account? accountData;
   final List<Map<String, String>>? userAccounts;
@@ -33,7 +34,7 @@ class OverviewScreen extends StatefulWidget {
   final double availableWidth;
   final Function refreshData;
   final Function reloadPage;
-  final int currentAccountNumber;
+  final int currentAccountIndex;
 
   @override
   _OverviewScreenState createState() => _OverviewScreenState();
@@ -49,7 +50,7 @@ class _OverviewScreenState extends State<OverviewScreen>
   int currentPage = 0;
   Account? accountData;
   late Function refreshData;
-  int? currentAccountNumber;
+  int? currentAccountIndex;
   List<DropdownMenuItem> dropdownItems = [];
 
   RefreshController _refreshController =
@@ -58,7 +59,7 @@ class _OverviewScreenState extends State<OverviewScreen>
   void _onRefresh() async {
     // monitor network fetch
     try {
-      accountData = await refreshData(currentAccountNumber);
+      accountData = await refreshData(currentAccountIndex);
     } on Exception catch (e) {
       print("Couldn't refresh data");
       print(e);
@@ -73,7 +74,7 @@ class _OverviewScreenState extends State<OverviewScreen>
   @override
   void initState() {
     super.initState();
-    currentAccountNumber = widget.currentAccountNumber;
+    currentAccountIndex = widget.currentAccountIndex;
     accountData = widget.accountData;
     refreshData = widget.refreshData;
 

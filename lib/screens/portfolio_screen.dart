@@ -1,8 +1,9 @@
 // import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../models/account.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:indexax/widgets/portfolio_screen/asset_list.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
+
+import '../models/account.dart';
 
 const int nbsp = 0x00A0;
 
@@ -15,7 +16,7 @@ class PortfolioScreen extends StatefulWidget {
     required this.availableWidth,
     required this.refreshData,
     required this.reloadPage,
-    required this.currentAccountNumber,
+    required this.currentAccountIndex,
   }) : super(key: key);
   final Account? accountData;
   final List<Map<String, String>>? userAccounts;
@@ -23,7 +24,7 @@ class PortfolioScreen extends StatefulWidget {
   final double availableWidth;
   final Function refreshData;
   final Function reloadPage;
-  final int currentAccountNumber;
+  final int currentAccountIndex;
 
   @override
   _PortfolioScreenState createState() => _PortfolioScreenState();
@@ -39,7 +40,7 @@ class _PortfolioScreenState extends State<PortfolioScreen>
   int currentPage = 4;
   Account? accountData;
   late Function refreshData;
-  int? currentAccountNumber;
+  int? currentAccountIndex;
   List<DropdownMenuItem> dropdownItems = [];
 
   RefreshController _refreshController =
@@ -48,7 +49,7 @@ class _PortfolioScreenState extends State<PortfolioScreen>
   void _onRefresh() async {
     // monitor network fetch
     try {
-      accountData = await refreshData(currentAccountNumber);
+      accountData = await refreshData(currentAccountIndex);
     } on Exception catch (e) {
       print("Couldn't refresh data");
       print(e);
@@ -63,7 +64,7 @@ class _PortfolioScreenState extends State<PortfolioScreen>
   @override
   void initState() {
     super.initState();
-    currentAccountNumber = widget.currentAccountNumber;
+    currentAccountIndex = widget.currentAccountIndex;
     accountData = widget.accountData;
     refreshData = widget.refreshData;
 

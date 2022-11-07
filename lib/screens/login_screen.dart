@@ -1,15 +1,16 @@
-import 'package:flutter/material.dart';
 import 'dart:async';
+
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
 import 'package:indexax/screens/root_screen.dart';
 import 'package:indexax/tools/local_authentication.dart'
     as local_authentication;
-import 'package:easy_localization/easy_localization.dart';
-import 'package:indexax/tools/theme_operations.dart' as theme_operations;
 import 'package:indexax/tools/secure_storage.dart';
-import 'package:indexax/tools/token_operations.dart' as token_operations;
 import 'package:indexax/tools/snackbar.dart' as snackbar;
-import 'package:indexax/widgets/login_screen/token_instructions_popup.dart';
+import 'package:indexax/tools/theme_operations.dart' as theme_operations;
+import 'package:indexax/tools/token_operations.dart' as token_operations;
 import 'package:indexax/widgets/login_screen/forget_token_popup.dart';
+import 'package:indexax/widgets/login_screen/token_instructions_popup.dart';
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({
@@ -98,11 +99,10 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
         context,
         MaterialPageRoute(
           builder: (BuildContext context) =>
-              RootScreen(token: token, pageNumber: 0, accountNumber: 0),
+              RootScreen(token: token, pageIndex: 0, accountIndex: 0),
         ),
       );
     } else {
-      
       setState(() {
         tokenTextController.text = token;
       });

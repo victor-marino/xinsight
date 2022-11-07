@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:indexax/services/indexa_data.dart';
 import 'package:indexax/tools/snackbar.dart' as snackbar;
 import 'package:indexax/tools/validations.dart' as validations;
 import 'package:indexax/tools/secure_storage.dart';
 import 'package:indexax/widgets/circular_progress_indicator.dart';
+import 'package:indexax/tools/indexa_operations.dart' as indexa_operations;
 
 final storage = SecureStorage();
 
@@ -47,9 +47,8 @@ Future<bool?> authenticateToken(BuildContext context, String token) async {
   token = validations.sanitizeToken(token);
   if (validations.validateTokenFormat(token)) {
     buildLoading(context);
-    IndexaData indexaData = IndexaData(token: token);
     try {
-      var userAccounts = await indexaData.getUserAccounts();
+      var userAccounts = await indexa_operations.getUserAccounts(token: token);
       if (userAccounts != null) {
         print("Token authenticated!");
         Navigator.of(context).pop();
@@ -66,7 +65,8 @@ Future<bool?> authenticateToken(BuildContext context, String token) async {
       snackbar.showInSnackBar(
         context,
         e.toString(),
-      );    }
+      );
+    }
   } else {
     snackbar.showInSnackBar(
       context,

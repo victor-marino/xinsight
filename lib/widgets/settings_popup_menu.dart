@@ -1,20 +1,20 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:indexax/screens/settings_screen.dart';
-import 'package:indexax/widgets/settings_screen/logout_popup.dart';
 import 'package:indexax/tools/constants.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:indexax/widgets/settings_screen/logout_popup.dart';
 
 class SettingsPopupMenu extends StatelessWidget {
   const SettingsPopupMenu(
       {Key? key,
       required this.userAccounts,
-      required this.currentAccountNumber,
+      required this.currentAccountIndex,
       required this.currentPage,
       required this.reloadPage})
       : super(key: key);
 
   final List<Map<String, String>>? userAccounts;
-  final int currentAccountNumber;
+  final int currentAccountIndex;
   final int currentPage;
   final Function reloadPage;
 
@@ -27,7 +27,8 @@ class SettingsPopupMenu extends StatelessWidget {
     itemList.add(
       PopupMenuItem(
         child: Text('header.accounts'.tr()),
-        textStyle: kAccountSwitcherHintTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+        textStyle: kAccountSwitcherHintTextStyle.copyWith(
+            color: Theme.of(context).colorScheme.onSurfaceVariant),
         enabled: false,
         height: 30,
       ),
@@ -59,7 +60,7 @@ class SettingsPopupMenu extends StatelessWidget {
               width: 26,
               alignment: Alignment.centerLeft,
               //child: i == currentAccountNumber ? Icon(Icons.fiber_manual_record_rounded, size: 10, color: Colors.blue) : null,
-              child: i == currentAccountNumber
+              child: i == currentAccountIndex
                   ? Container(
                       height: 0.8 * itemHeight,
                       width: 4,
@@ -76,25 +77,27 @@ class SettingsPopupMenu extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(userAccounts![i]['number']!,
-                    style: i == currentAccountNumber
-                        ? kAccountSwitcherCurrentAccountNumberTextStyle.copyWith(color: Theme.of(context)
+                    style: i == currentAccountIndex
+                        ? kAccountSwitcherCurrentAccountNumberTextStyle
+                            .copyWith(
+                                color: Theme.of(context)
                                     .colorScheme
                                     .onSurfaceVariant)
-                        : kAccountSwitcherOtherAccountsNumberTextStyle.copyWith(color: Theme.of(context)
-                                .colorScheme
-                                .onSurface)),
+                        : kAccountSwitcherOtherAccountsNumberTextStyle.copyWith(
+                            color: Theme.of(context).colorScheme.onSurface)),
                 Text(accountType!,
-                    style: i == currentAccountNumber
-                        ? kAccountSwitcherCurrentAccountTypeTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant)
-                        : kAccountSwitcherOtherAccountsTypeTextStyle.copyWith(color: Theme.of(context)
-                                .colorScheme
-                                .onSurface)),
+                    style: i == currentAccountIndex
+                        ? kAccountSwitcherCurrentAccountTypeTextStyle.copyWith(
+                            color:
+                                Theme.of(context).colorScheme.onSurfaceVariant)
+                        : kAccountSwitcherOtherAccountsTypeTextStyle.copyWith(
+                            color: Theme.of(context).colorScheme.onSurface)),
               ],
             ),
           ],
         ),
         value: i,
-        enabled: i != currentAccountNumber,
+        enabled: i != currentAccountIndex,
         //enabled: true,
         //padding: const EdgeInsets.fromLTRB(16, 8, 0, 8),
       ));
@@ -107,7 +110,10 @@ class SettingsPopupMenu extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text('header.settings'.tr(), style: TextStyle(color: Theme.of(context).colorScheme.onSurface),),
+          Text(
+            'header.settings'.tr(),
+            style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
+          ),
           IconButton(
               icon: Icon(Icons.checklist),
               color: Theme.of(context).colorScheme.onSurface,
@@ -122,7 +128,8 @@ class SettingsPopupMenu extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text('header.logout'.tr(), style: TextStyle(color: Theme.of(context).colorScheme.onSurface)),
+          Text('header.logout'.tr(),
+              style: TextStyle(color: Theme.of(context).colorScheme.onSurface)),
           IconButton(
               icon: Icon(Icons.logout),
               color: Colors.red.shade900,
@@ -160,7 +167,7 @@ class SettingsPopupMenu extends StatelessWidget {
                   builder: (BuildContext context) => LogoutPopup());
               break;
             default:
-              if (value != currentAccountNumber) {
+              if (value != currentAccountIndex) {
                 reloadPage(value, currentPage);
               }
           }

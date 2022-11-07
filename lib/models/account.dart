@@ -1,9 +1,10 @@
-import 'package:flutter/material.dart';
-import 'amounts_datapoint.dart';
-import 'portfolio_datapoint.dart';
-import 'performance_datapoint.dart';
-import 'transaction.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
+
+import 'amounts_datapoint.dart';
+import 'performance_datapoint.dart';
+import 'portfolio_datapoint.dart';
+import 'transaction.dart';
 
 class Account {
   final accountPerformanceData;
