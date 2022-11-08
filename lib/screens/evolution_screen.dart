@@ -7,9 +7,8 @@ import 'package:indexax/widgets/evolution_screen/profit_loss_chart.dart';
 import 'package:indexax/widgets/evolution_screen/profit_loss_year_switcher.dart';
 import 'package:indexax/widgets/reusable_card.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-
-import '../tools/constants.dart';
 import '../widgets/evolution_screen/amounts_chart.dart';
+import 'package:indexax/tools/snackbar.dart' as snackbar;
 
 class EvolutionScreen extends StatefulWidget {
   const EvolutionScreen({
@@ -17,7 +16,6 @@ class EvolutionScreen extends StatefulWidget {
     required this.accountData,
     required this.userAccounts,
     required this.refreshData,
-    required this.reloadPage,
     required this.currentAccountIndex,
     required this.landscapeOrientation,
     required this.availableWidth,
@@ -25,7 +23,6 @@ class EvolutionScreen extends StatefulWidget {
   final Account? accountData;
   final List<Map<String, String>>? userAccounts;
   final Function refreshData;
-  final Function reloadPage;
   final int currentAccountIndex;
   final bool landscapeOrientation;
   final double availableWidth;
@@ -41,13 +38,11 @@ class _EvolutionScreenState extends State<EvolutionScreen>
   @override
   bool get wantKeepAlive => true;
 
-  int currentPage = 1;
-  Account? accountData;
-  late Function refreshData;
-  Duration? currentPeriod;
-  int? currentAccountIndex;
-  int? currentYear;
-  List<DropdownMenuItem> profitLossYearDropdownItems = [];
+  Account? _accountData;
+  //int _currentPage = 1;
+  Duration? _amountsChartSelectedPeriod;
+  int? _profitLossChartSelectedYear;
+  //List<DropdownMenuItem> profitLossYearDropdownItems = [];
 
   RefreshController _refreshController =
       RefreshController(initialRefresh: false);
@@ -55,39 +50,37 @@ class _EvolutionScreenState extends State<EvolutionScreen>
   void _onRefresh() async {
     // monitor network fetch
     try {
-      accountData = await refreshData(currentAccountIndex);
+      _accountData =
+          await widget.refreshData(accountIndex: widget.currentAccountIndex);
     } on Exception catch (e) {
       print("Couldn't refresh data");
       print(e);
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text(e.toString()),
-      ));
+      snackbar.showInSnackBar(context, e.toString());
     }
     setState(() {});
     _refreshController.refreshCompleted();
   }
 
-  void reloadAmountsChart([Duration? period]) {
+  void _reloadAmountsChart(Duration? period) {
     setState(() {
-      currentPeriod = period;
+      _amountsChartSelectedPeriod = period;
     });
   }
 
-  void reloadProfitLossChart(int year) {
+  void _reloadProfitLossChart(int year) {
     setState(() {
-      currentYear = year;
+      _profitLossChartSelectedYear = year;
     });
   }
 
   void initState() {
     super.initState();
-    currentAccountIndex = widget.currentAccountIndex;
-    accountData = widget.accountData;
-    refreshData = widget.refreshData;
-    currentYear = accountData!.profitLossSeries.keys.toList().last;
+    _accountData = widget.accountData;
+    _profitLossChartSelectedYear =
+        _accountData!.profitLossSeries.keys.toList().last;
   }
 
-  List<Map> zoomLevels = [
+  List<Map> _zoomLevels = [
     {"label": "1m", "duration": Duration(days: 30)},
     {"label": "3m", "duration": Duration(days: 90)},
     {"label": "6m", "duration": Duration(days: 180)},
@@ -96,6 +89,7 @@ class _EvolutionScreenState extends State<EvolutionScreen>
     {"label": "all", "duration": null},
   ];
 
+/* 
   List<ChoiceChip> buildEvolutionChartChipList(List<Map> chipData) {
     List<ChoiceChip> chipList = [];
     for (Map element in chipData) {
@@ -107,10 +101,10 @@ class _EvolutionScreenState extends State<EvolutionScreen>
           elevation: 0,
           pressElevation: 0,
           visualDensity: VisualDensity.compact,
-          selected: currentPeriod == element['duration'],
+          selected: _amountsChartSelectedPeriod == element['duration'],
           onSelected: (bool selected) {
             setState(() {
-              reloadAmountsChart(element['duration']);
+              _reloadAmountsChart(element['duration']);
             });
           },
         ),
@@ -118,6 +112,7 @@ class _EvolutionScreenState extends State<EvolutionScreen>
     }
     return chipList;
   }
+ */
 
   @override
   Widget build(BuildContext context) {
@@ -172,18 +167,20 @@ class _EvolutionScreenState extends State<EvolutionScreen>
                                               alignment: WrapAlignment.end,
                                               spacing: 5,
                                               children: amountsChartZoomChips(
-                                                  currentPeriod: currentPeriod,
-                                                  zoomLevels: zoomLevels,
+                                                  selectedPeriod:
+                                                      _amountsChartSelectedPeriod,
+                                                  zoomLevels: _zoomLevels,
                                                   reloadAmountsChart:
-                                                      reloadAmountsChart,
+                                                      _reloadAmountsChart,
                                                   context: context),
                                             ),
                                           ),
                                         ],
                                       ]),
                                   AmountsChart(
-                                      amountsSeries: accountData!.amountsSeries,
-                                      period: currentPeriod),
+                                      amountsSeries:
+                                          _accountData!.amountsSeries,
+                                      period: _amountsChartSelectedPeriod),
                                   if (!widget.landscapeOrientation) ...[
                                     Container(
                                       width: double.infinity,
@@ -194,10 +191,11 @@ class _EvolutionScreenState extends State<EvolutionScreen>
                                             : WrapAlignment.end,
                                         spacing: 5,
                                         children: amountsChartZoomChips(
-                                            currentPeriod: currentPeriod,
-                                            zoomLevels: zoomLevels,
+                                            selectedPeriod:
+                                                _amountsChartSelectedPeriod,
+                                            zoomLevels: _zoomLevels,
                                             reloadAmountsChart:
-                                                reloadAmountsChart,
+                                                _reloadAmountsChart,
                                             context: context),
                                       ),
                                     ),
@@ -224,20 +222,22 @@ class _EvolutionScreenState extends State<EvolutionScreen>
                                               .textTheme
                                               .labelLarge),
                                       ProfitLossYearSwitcher(
-                                          currentYear: currentYear,
-                                          yearList: accountData!
+                                          currentYear:
+                                              _profitLossChartSelectedYear,
+                                          yearList: _accountData!
                                               .profitLossSeries.keys
                                               .toList(),
                                           reloadProfitLossChart:
-                                              reloadProfitLossChart),
+                                              _reloadProfitLossChart),
                                     ],
                                   ),
                                   Container(
                                     height: 150,
                                     child: ProfitLossChart(
                                         profitLossSeries:
-                                            accountData!.profitLossSeries,
-                                        currentYear: currentYear),
+                                            _accountData!.profitLossSeries,
+                                        selectedYear:
+                                            _profitLossChartSelectedYear),
                                   ),
                                 ],
                               ),

@@ -15,7 +15,6 @@ class PortfolioScreen extends StatefulWidget {
     required this.landscapeOrientation,
     required this.availableWidth,
     required this.refreshData,
-    required this.reloadPage,
     required this.currentAccountIndex,
   }) : super(key: key);
   final Account? accountData;
@@ -23,7 +22,6 @@ class PortfolioScreen extends StatefulWidget {
   final bool landscapeOrientation;
   final double availableWidth;
   final Function refreshData;
-  final Function reloadPage;
   final int currentAccountIndex;
 
   @override
@@ -37,9 +35,8 @@ class _PortfolioScreenState extends State<PortfolioScreen>
   @override
   bool get wantKeepAlive => true;
 
-  int currentPage = 4;
   Account? accountData;
-  late Function refreshData;
+  int currentPage = 4;
   int? currentAccountIndex;
   List<DropdownMenuItem> dropdownItems = [];
 
@@ -49,7 +46,7 @@ class _PortfolioScreenState extends State<PortfolioScreen>
   void _onRefresh() async {
     // monitor network fetch
     try {
-      accountData = await refreshData(currentAccountIndex);
+      accountData = await widget.refreshData(accountIndex: currentAccountIndex);
     } on Exception catch (e) {
       print("Couldn't refresh data");
       print(e);
@@ -64,9 +61,8 @@ class _PortfolioScreenState extends State<PortfolioScreen>
   @override
   void initState() {
     super.initState();
-    currentAccountIndex = widget.currentAccountIndex;
     accountData = widget.accountData;
-    refreshData = widget.refreshData;
+    currentAccountIndex = widget.currentAccountIndex;
 
     //dropdownItems = AccountDropdownItems(userAccounts: widget.userAccounts).dropdownItems;
   }

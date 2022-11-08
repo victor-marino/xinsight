@@ -16,7 +16,6 @@ class TransactionsScreen extends StatefulWidget {
     required this.landscapeOrientation,
     required this.availableWidth,
     required this.refreshData,
-    required this.reloadPage,
     required this.currentAccountIndex,
   }) : super(key: key);
   final Account? accountData;
@@ -24,7 +23,6 @@ class TransactionsScreen extends StatefulWidget {
   final bool landscapeOrientation;
   final double availableWidth;
   final Function refreshData;
-  final Function reloadPage;
   final int currentAccountIndex;
 
   @override
@@ -38,9 +36,8 @@ class _TransactionsScreenState extends State<TransactionsScreen>
   @override
   bool get wantKeepAlive => true;
 
-  int currentPage = 3;
   Account? accountData;
-  late Function refreshData;
+  //int currentPage = 3;
   int? currentAccountIndex;
   List<DropdownMenuItem> dropdownItems = [];
 
@@ -50,7 +47,7 @@ class _TransactionsScreenState extends State<TransactionsScreen>
   void _onRefresh() async {
     // monitor network fetch
     try {
-      accountData = await refreshData(currentAccountIndex);
+      accountData = await widget.refreshData(accountIndex: currentAccountIndex);
     } on Exception catch (e) {
       print("Couldn't refresh data");
       print(e);
@@ -65,11 +62,8 @@ class _TransactionsScreenState extends State<TransactionsScreen>
   @override
   void initState() {
     super.initState();
-    currentAccountIndex = widget.currentAccountIndex;
     accountData = widget.accountData;
-    refreshData = widget.refreshData;
-
-    //dropdownItems = AccountDropdownItems(userAccounts: widget.userAccounts).dropdownItems;
+    currentAccountIndex = widget.currentAccountIndex;
   }
 
   @override

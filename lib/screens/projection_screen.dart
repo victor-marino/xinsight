@@ -19,7 +19,6 @@ class ProjectionScreen extends StatefulWidget {
     required this.landscapeOrientation,
     required this.availableWidth,
     required this.refreshData,
-    required this.reloadPage,
     required this.currentAccountIndex,
   }) : super(key: key);
   final Account? accountData;
@@ -27,7 +26,6 @@ class ProjectionScreen extends StatefulWidget {
   final bool landscapeOrientation;
   final double availableWidth;
   final Function refreshData;
-  final Function reloadPage;
   final int currentAccountIndex;
 
   @override
@@ -41,10 +39,8 @@ class _ProjectionScreenState extends State<ProjectionScreen>
   @override
   bool get wantKeepAlive => true;
 
-  int currentPage = 2;
   Account? accountData;
-  late Function refreshData;
-  int? currentAccountIndex;
+  //int currentPage = 2;
   List<DropdownMenuItem> dropdownItems = [];
 
   RefreshController _refreshController =
@@ -53,7 +49,8 @@ class _ProjectionScreenState extends State<ProjectionScreen>
   void _onRefresh() async {
     // monitor network fetch
     try {
-      accountData = await refreshData(currentAccountIndex);
+      accountData =
+          await widget.refreshData(accountIndex: widget.currentAccountIndex);
     } on Exception catch (e) {
       print("Couldn't refresh data");
       print(e);
@@ -68,9 +65,7 @@ class _ProjectionScreenState extends State<ProjectionScreen>
   @override
   void initState() {
     super.initState();
-    currentAccountIndex = widget.currentAccountIndex;
     accountData = widget.accountData;
-    refreshData = widget.refreshData;
   }
 
   @override
@@ -129,8 +124,8 @@ class _ProjectionScreenState extends State<ProjectionScreen>
                                           .textTheme
                                           .labelLarge),
                                   PerformanceChart(
-                                      performanceSeries:
-                                          accountData!.performanceSeries),
+                                      performanceSeries: widget
+                                          .accountData!.performanceSeries),
                                   Padding(
                                     padding: const EdgeInsets.all(10),
                                     child: RichText(

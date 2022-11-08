@@ -13,7 +13,7 @@ import 'package:indexax/widgets/login_screen/forget_token_popup.dart';
 import 'package:indexax/widgets/login_screen/token_instructions_popup.dart';
 
 class LoginScreen extends StatefulWidget {
-  LoginScreen({
+  const LoginScreen({
     this.errorMessage,
   });
 
