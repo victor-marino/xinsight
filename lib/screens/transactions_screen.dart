@@ -36,18 +36,14 @@ class _TransactionsScreenState extends State<TransactionsScreen>
   @override
   bool get wantKeepAlive => true;
 
-  Account? accountData;
-  //int currentPage = 3;
-  int? currentAccountIndex;
-  List<DropdownMenuItem> dropdownItems = [];
-
   RefreshController _refreshController =
       RefreshController(initialRefresh: false);
 
   void _onRefresh() async {
     // monitor network fetch
     try {
-      accountData = await widget.refreshData(accountIndex: currentAccountIndex);
+      await widget.refreshData(accountIndex: widget.currentAccountIndex);
+      _refreshController.refreshCompleted();
     } on Exception catch (e) {
       print("Couldn't refresh data");
       print(e);
@@ -55,15 +51,11 @@ class _TransactionsScreenState extends State<TransactionsScreen>
         content: Text(e.toString()),
       ));
     }
-    setState(() {});
-    _refreshController.refreshCompleted();
   }
 
   @override
   void initState() {
     super.initState();
-    accountData = widget.accountData;
-    currentAccountIndex = widget.currentAccountIndex;
   }
 
   @override

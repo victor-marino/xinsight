@@ -17,7 +17,7 @@ class ThemeModalBottomSheet extends StatefulWidget {
 class _ThemeModalBottomSheetState extends State<ThemeModalBottomSheet> {
   ThemePreference? currentThemePreference;
 
-  void getCurrentThemePreference() async {
+  void _getCurrentThemePreference() async {
     ThemePreference? storedThemePreference =
         await theme_operations.readThemePreference(context);
     if (storedThemePreference == ThemePreference.system ||
@@ -33,7 +33,7 @@ class _ThemeModalBottomSheetState extends State<ThemeModalBottomSheet> {
     }
   }
 
-  _handleThemeChange(ThemePreference value) async {
+  void _handleThemeChange(ThemePreference value) async {
     await theme_operations.storeThemePreference(context, value);
     setState(() {
       currentThemePreference = value;
@@ -45,7 +45,7 @@ class _ThemeModalBottomSheetState extends State<ThemeModalBottomSheet> {
   @override
   void initState() {
     super.initState();
-    getCurrentThemePreference();
+    _getCurrentThemePreference();
     theme_operations.updateTheme(context);
   }
 

@@ -6,13 +6,13 @@ import 'package:indexax/tools/secure_storage.dart';
 import 'package:indexax/widgets/circular_progress_indicator.dart';
 import 'package:indexax/tools/indexa_operations.dart' as indexa_operations;
 
-final storage = SecureStorage();
+final _storage = SecureStorage();
 
 Future<void> storeToken(BuildContext context, String value) async {
   value = validations.sanitizeToken(value);
   if (validations.validateTokenFormat(value)) {
     try {
-      await storage.storeKey(keyName: "indexaToken", value: value);
+      await _storage.storeKey(keyName: "indexaToken", value: value);
     } on Exception catch (e) {
       snackbar.showInSnackBar(context, e.toString());
     }
@@ -27,7 +27,7 @@ Future<void> storeToken(BuildContext context, String value) async {
 Future<String?> readToken(BuildContext context) async {
   String? token;
   try {
-    token = await storage.read("indexaToken");
+    token = await _storage.read("indexaToken");
   } on Exception catch (e) {
     snackbar.showInSnackBar(context, e.toString());
   }
@@ -36,7 +36,7 @@ Future<String?> readToken(BuildContext context) async {
 
 Future<void> deleteToken(BuildContext context) async {
   try {
-    await storage.deleteKey(keyName: "indexaToken");
+    await _storage.deleteKey(keyName: "indexaToken");
   } on Exception catch (e) {
     snackbar.showInSnackBar(context, e.toString());
   }

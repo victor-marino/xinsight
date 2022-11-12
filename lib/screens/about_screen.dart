@@ -1,11 +1,9 @@
 //import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:indexax/tools/constants.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:indexax/tools/theme_operations.dart' as theme_operations;
 
 class AboutScreen extends StatefulWidget {
   @override

@@ -43,19 +43,20 @@ class _RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
   PageController? _pageController;
 
   List<Map<String, String>>? _userAccounts = [];
-  Account? _currentAccount;
   Future<Account>? _accountData;
 
   bool _reloading = false;
 
-  Future<Future<Account>?> _loadData({required int accountIndex}) async {
+  Future<void> _loadData({required int accountIndex}) async {
     try {
-      _userAccounts = await widget.indexaData.getUserAccounts();
-      setState(() {
-        _accountData = widget.indexaData.populateAccountData(
-            context: context,
-            accountIndex: accountIndex);
-      });
+      if (_userAccounts!.length == 0) {
+        _userAccounts = await widget.indexaData.getUserAccounts();
+      }
+      _accountData = widget.indexaData.populateAccountData(
+          context: context,
+          accountNumber: _userAccounts![accountIndex]['number']!);
+      await _accountData;
+      setState(() {});
     } on Exception catch (e) {
       print(e.toString());
       Navigator.pushAndRemoveUntil(
@@ -65,18 +66,18 @@ class _RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
                   LoginScreen(errorMessage: e.toString())),
           (Route<dynamic> route) => false);
     }
-    return _accountData;
   }
 
-  Future<void>? _refreshData({required int accountIndex}) {
+  Future<void> _refreshData({required int accountIndex}) async {
     try {
       _accountData = widget.indexaData.populateAccountData(
           context: context,
-          accountIndex: accountIndex);
+          accountNumber: _userAccounts![accountIndex]['number']!);
+      await _accountData;
+      setState(() {});
     } on Exception catch (e) {
       snackbar.showInSnackBar(context, e.toString());
     }
-    return _accountData;
   }
 
   void _retryLoadData() async {
@@ -105,65 +106,6 @@ class _RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
     _pageController!.animateToPage(value,
         duration: Duration(milliseconds: 500), curve: Curves.ease);
   }
-
-/* 
-  void loadSettingsScreen() {
-    Navigator.push(context,
-        MaterialPageRoute(builder: (BuildContext context) => SettingsScreen()));
-  }
-
-  Future<Account> getAccountData(
-      {required BuildContext context,
-      required int accountIndex,
-      Account? currentAccount}) async {
-    //Account currentAccount;
-    try {
-      var userAccounts = await widget.indexaData.getUserAccounts();
-      var currentAccountInfo = await widget.indexaData.getAccountInfo(
-          accountNumber: userAccounts[accountIndex]['number']);
-      var currentAccountPerformanceData =
-          await widget.indexaData.getAccountPerformanceData(
-              accountNumber: userAccounts[accountIndex]['number']);
-      var currentAccountPortfolioData =
-          await widget.indexaData.getAccountPortfolioData(
-              accountNumber: userAccounts[accountIndex]['number']);
-      var currentAccountInstrumentTransactionData =
-          await widget.indexaData.getAccountInstrumentTransactionData(
-              accountNumber: userAccounts[accountIndex]['number']);
-      var currentAccountCashTransactionData =
-          await widget.indexaData.getAccountCashTransactionData(
-              accountNumber: userAccounts[accountIndex]['number']);
-      var currentAccountPendingTransactionData =
-          await widget.indexaData.getAccountPendingTransactionData(
-              accountNumber: userAccounts[accountIndex]['number']);
-      currentAccount = Account(
-          accountInfo: currentAccountInfo,
-          accountPerformanceData: currentAccountPerformanceData,
-          accountPortfolioData: currentAccountPortfolioData,
-          accountInstrumentTransactionData:
-              currentAccountInstrumentTransactionData,
-          accountCashTransactionData: currentAccountCashTransactionData,
-          accountPendingTransactionData: currentAccountPendingTransactionData);
-
-      //print(currentAccount);
-
-      return currentAccount;
-    } on Exception catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text(e.toString()),
-      ));
-      print("Couldn't fetch account data");
-      print(e);
-      Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-              builder: (BuildContext context) =>
-                  LoginScreen(errorMessage: e.toString())),
-          (Route<dynamic> route) => false);
-      throw (e);
-    }
-  }
- */
 
   @override
   void initState() {

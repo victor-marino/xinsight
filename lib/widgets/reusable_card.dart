@@ -18,7 +18,6 @@ class ReusableCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Card(
       margin: EdgeInsets.all(0),
       shape: RoundedRectangleBorder(

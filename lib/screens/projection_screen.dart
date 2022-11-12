@@ -39,18 +39,14 @@ class _ProjectionScreenState extends State<ProjectionScreen>
   @override
   bool get wantKeepAlive => true;
 
-  Account? accountData;
-  //int currentPage = 2;
-  List<DropdownMenuItem> dropdownItems = [];
-
   RefreshController _refreshController =
       RefreshController(initialRefresh: false);
 
   void _onRefresh() async {
     // monitor network fetch
     try {
-      accountData =
-          await widget.refreshData(accountIndex: widget.currentAccountIndex);
+      await widget.refreshData(accountIndex: widget.currentAccountIndex);
+      _refreshController.refreshCompleted();
     } on Exception catch (e) {
       print("Couldn't refresh data");
       print(e);
@@ -58,14 +54,11 @@ class _ProjectionScreenState extends State<ProjectionScreen>
         content: Text(e.toString()),
       ));
     }
-    setState(() {});
-    _refreshController.refreshCompleted();
   }
 
   @override
   void initState() {
     super.initState();
-    accountData = widget.accountData;
   }
 
   @override

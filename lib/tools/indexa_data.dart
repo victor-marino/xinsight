@@ -66,7 +66,9 @@ class IndexaData {
         //print(accountPerformanceData);
         return accountPerformanceData;
       } else if (accountPerformanceData != null && accountNumber == "Test") {
-        accountPerformanceData['return']['total_amount'] = 9999.99;
+        //accountPerformanceData['return']['total_amount'] = 9999.99;
+        accountPerformanceData['return']['total_amount'] =
+            DateTime.now().second;
         accountPerformanceData['return']['investment'] = 1000.00;
         return accountPerformanceData;
       }
@@ -145,25 +147,22 @@ class IndexaData {
   }
 
   Future<Account> populateAccountData(
-      {required BuildContext context, required int accountIndex}) async {
+      {required BuildContext context, required String accountNumber}) async {
     Account currentAccount;
     try {
-      var userAccounts = await getUserAccounts();
-      var currentAccountInfo = await getAccountInfo(
-          accountNumber: userAccounts[accountIndex]['number']);
-      var currentAccountPerformanceData = await getAccountPerformanceData(
-          accountNumber: userAccounts[accountIndex]['number']);
-      var currentAccountPortfolioData = await getAccountPortfolioData(
-          accountNumber: userAccounts[accountIndex]['number']);
+      var currentAccountInfo =
+          await getAccountInfo(accountNumber: accountNumber);
+      var currentAccountPerformanceData =
+          await getAccountPerformanceData(accountNumber: accountNumber);
+      var currentAccountPortfolioData =
+          await getAccountPortfolioData(accountNumber: accountNumber);
       var currentAccountInstrumentTransactionData =
           await getAccountInstrumentTransactionData(
-              accountNumber: userAccounts[accountIndex]['number']);
+              accountNumber: accountNumber);
       var currentAccountCashTransactionData =
-          await getAccountCashTransactionData(
-              accountNumber: userAccounts[accountIndex]['number']);
+          await getAccountCashTransactionData(accountNumber: accountNumber);
       var currentAccountPendingTransactionData =
-          await getAccountPendingTransactionData(
-              accountNumber: userAccounts[accountIndex]['number']);
+          await getAccountPendingTransactionData(accountNumber: accountNumber);
       currentAccount = Account(
           accountInfo: currentAccountInfo,
           accountPerformanceData: currentAccountPerformanceData,

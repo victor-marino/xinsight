@@ -5,12 +5,12 @@ import 'package:indexax/models/theme_preference_data.dart';
 import 'package:provider/provider.dart';
 import 'package:indexax/tools/theme_provider.dart';
 
-final storage = SecureStorage();
+final _storage = SecureStorage();
 
 Future<ThemePreference?> readThemePreference(BuildContext context) async {
   ThemePreference? themePreference;
   try {
-    String? themePreferenceString = await storage.read('themePreference');
+    String? themePreferenceString = await _storage.read('themePreference');
     if (themePreferenceString != null) {
       themePreference = ThemePreference.values.byName(themePreferenceString);
     }
@@ -23,7 +23,7 @@ Future<ThemePreference?> readThemePreference(BuildContext context) async {
 Future<void> storeThemePreference(
     BuildContext context, ThemePreference themePreference) async {
   try {
-  await storage.storeKey(
+  await _storage.storeKey(
       keyName: "themePreference",
       value: themePreference.toString().split(".").last);
 } on Exception catch (e) {

@@ -35,18 +35,14 @@ class _PortfolioScreenState extends State<PortfolioScreen>
   @override
   bool get wantKeepAlive => true;
 
-  Account? accountData;
-  int currentPage = 4;
-  int? currentAccountIndex;
-  List<DropdownMenuItem> dropdownItems = [];
-
   RefreshController _refreshController =
       RefreshController(initialRefresh: false);
 
   void _onRefresh() async {
     // monitor network fetch
     try {
-      accountData = await widget.refreshData(accountIndex: currentAccountIndex);
+      await widget.refreshData(accountIndex: widget.currentAccountIndex);
+      _refreshController.refreshCompleted();
     } on Exception catch (e) {
       print("Couldn't refresh data");
       print(e);
@@ -54,17 +50,11 @@ class _PortfolioScreenState extends State<PortfolioScreen>
         content: Text(e.toString()),
       ));
     }
-    setState(() {});
-    _refreshController.refreshCompleted();
   }
 
   @override
   void initState() {
     super.initState();
-    accountData = widget.accountData;
-    currentAccountIndex = widget.currentAccountIndex;
-
-    //dropdownItems = AccountDropdownItems(userAccounts: widget.userAccounts).dropdownItems;
   }
 
   @override

@@ -11,7 +11,6 @@ class PageHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     List<String> pageTitles = [
       'page_titles.overview'.tr(),
       'page_titles.portfolio'.tr(),

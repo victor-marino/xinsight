@@ -38,11 +38,8 @@ class _EvolutionScreenState extends State<EvolutionScreen>
   @override
   bool get wantKeepAlive => true;
 
-  Account? _accountData;
-  //int _currentPage = 1;
   Duration? _amountsChartSelectedPeriod;
   int? _profitLossChartSelectedYear;
-  //List<DropdownMenuItem> profitLossYearDropdownItems = [];
 
   RefreshController _refreshController =
       RefreshController(initialRefresh: false);
@@ -50,15 +47,13 @@ class _EvolutionScreenState extends State<EvolutionScreen>
   void _onRefresh() async {
     // monitor network fetch
     try {
-      _accountData =
-          await widget.refreshData(accountIndex: widget.currentAccountIndex);
+      await widget.refreshData(accountIndex: widget.currentAccountIndex);
+          _refreshController.refreshCompleted();
     } on Exception catch (e) {
       print("Couldn't refresh data");
       print(e);
       snackbar.showInSnackBar(context, e.toString());
     }
-    setState(() {});
-    _refreshController.refreshCompleted();
   }
 
   void _reloadAmountsChart(Duration? period) {
@@ -75,9 +70,8 @@ class _EvolutionScreenState extends State<EvolutionScreen>
 
   void initState() {
     super.initState();
-    _accountData = widget.accountData;
     _profitLossChartSelectedYear =
-        _accountData!.profitLossSeries.keys.toList().last;
+        widget.accountData!.profitLossSeries.keys.toList().last;
   }
 
   List<Map> _zoomLevels = [
@@ -88,31 +82,6 @@ class _EvolutionScreenState extends State<EvolutionScreen>
     {"label": "5y", "duration": Duration(days: 1825)},
     {"label": "all", "duration": null},
   ];
-
-/* 
-  List<ChoiceChip> buildEvolutionChartChipList(List<Map> chipData) {
-    List<ChoiceChip> chipList = [];
-    for (Map element in chipData) {
-      chipList.add(
-        ChoiceChip(
-          label: Text(element['label'], style: kChipTextStyle),
-          autofocus: false,
-          clipBehavior: Clip.none,
-          elevation: 0,
-          pressElevation: 0,
-          visualDensity: VisualDensity.compact,
-          selected: _amountsChartSelectedPeriod == element['duration'],
-          onSelected: (bool selected) {
-            setState(() {
-              _reloadAmountsChart(element['duration']);
-            });
-          },
-        ),
-      );
-    }
-    return chipList;
-  }
- */
 
   @override
   Widget build(BuildContext context) {
@@ -179,7 +148,7 @@ class _EvolutionScreenState extends State<EvolutionScreen>
                                       ]),
                                   AmountsChart(
                                       amountsSeries:
-                                          _accountData!.amountsSeries,
+                                          widget.accountData!.amountsSeries,
                                       period: _amountsChartSelectedPeriod),
                                   if (!widget.landscapeOrientation) ...[
                                     Container(
@@ -224,7 +193,7 @@ class _EvolutionScreenState extends State<EvolutionScreen>
                                       ProfitLossYearSwitcher(
                                           currentYear:
                                               _profitLossChartSelectedYear,
-                                          yearList: _accountData!
+                                          yearList: widget.accountData!
                                               .profitLossSeries.keys
                                               .toList(),
                                           reloadProfitLossChart:
@@ -235,7 +204,7 @@ class _EvolutionScreenState extends State<EvolutionScreen>
                                     height: 150,
                                     child: ProfitLossChart(
                                         profitLossSeries:
-                                            _accountData!.profitLossSeries,
+                                            widget.accountData!.profitLossSeries,
                                         selectedYear:
                                             _profitLossChartSelectedYear),
                                   ),
