@@ -47,6 +47,11 @@ class _RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
 
   bool _reloading = false;
 
+  bool landscapeOrientation = false;
+  late double availableWidth;
+  late double availableHeight;
+  double topPadding = 0;
+
   Future<void> _loadData({required int accountIndex}) async {
     try {
       if (_userAccounts!.length == 0) {
@@ -137,10 +142,8 @@ class _RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    bool landscapeOrientation = false;
-    double availableWidth = MediaQuery.of(context).size.width;
-    double availableHeight = MediaQuery.of(context).size.height;
-    double topPadding = 0;
+    availableWidth = MediaQuery.of(context).size.width;
+    availableHeight = MediaQuery.of(context).size.height;
 
     if (availableHeight <= availableWidth) {
       landscapeOrientation = true;

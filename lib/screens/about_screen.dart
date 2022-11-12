@@ -11,24 +11,25 @@ class AboutScreen extends StatefulWidget {
 }
 
 class _AboutScreenState extends State<AboutScreen> {
-  @override
-  Widget build(BuildContext context) {
-    // Get screen dimensions and orientation
-    bool landscapeOrientation = false;
-    double availableWidth = MediaQuery.of(context).size.width;
-    double availableHeight = MediaQuery.of(context).size.height;
-
-    if (availableHeight <= availableWidth) {
-      landscapeOrientation = true;
-    }
-
-    Uri indexaApiUrl =
+  bool _landscapeOrientation = false;
+  late double _availableWidth;
+  late double _availableHeight;
+  Uri _indexaApiUrl =
         Uri(scheme: 'https', host: 'indexacapital.com', path: 'en/api-rest-v1');
-
-    Uri flutterSecureStorageUrl = Uri(
+  Uri _flutterSecureStorageUrl = Uri(
         scheme: 'https',
         host: 'pub.dev',
         path: 'packages/flutter_secure_storage');
+
+  @override
+  Widget build(BuildContext context) {
+    // Get screen dimensions and orientation
+    _availableWidth = MediaQuery.of(context).size.width;
+    _availableHeight = MediaQuery.of(context).size.height;
+
+    if (_availableHeight <= _availableWidth) {
+      _landscapeOrientation = true;
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -50,8 +51,8 @@ class _AboutScreenState extends State<AboutScreen> {
           child: Center(
             child: SizedBox(
               // Make content narrower in large landscape screens
-              width: landscapeOrientation && availableWidth > 1000
-                  ? availableWidth * 0.5
+              width: _landscapeOrientation && _availableWidth > 1000
+                  ? _availableWidth * 0.5
                   : null,
               child: Column(
                 children: [
@@ -71,7 +72,7 @@ class _AboutScreenState extends State<AboutScreen> {
                         text: 'about_screen.text3'.tr(),
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
-                            launchUrl(indexaApiUrl);
+                            launchUrl(_indexaApiUrl);
                           },
                         style:
                             kAboutScreenTextStyle.copyWith(color: Colors.blue),
@@ -92,7 +93,7 @@ class _AboutScreenState extends State<AboutScreen> {
                             kAboutScreenTextStyle.copyWith(color: Colors.blue),
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
-                            launchUrl(flutterSecureStorageUrl);
+                            launchUrl(_flutterSecureStorageUrl);
                           },
                       ),
                       TextSpan(
@@ -112,8 +113,8 @@ class _AboutScreenState extends State<AboutScreen> {
                         const EdgeInsets.only(top: 30, left: 10, right: 10),
                     child: SizedBox(
                       // Make logo smaller in landscape mode
-                      width: landscapeOrientation
-                          ? availableWidth * 0.5
+                      width: _landscapeOrientation
+                          ? _availableWidth * 0.5
                           : double.infinity,
                       child: Center(
                         child: Column(

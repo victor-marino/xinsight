@@ -13,7 +13,7 @@ class DistributionChartSimplified extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Color> colorList = [equityColors[2]!, fixedColors[2]!, cashColor, otherColor];
+    final List<Color> colorList = [equityColors[2]!, fixedColors[2]!, cashColor, otherColor];
 
     return Container(
       height: 280,

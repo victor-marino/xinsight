@@ -4,7 +4,7 @@ import 'package:indexax/tools/snackbar.dart' as snackbar;
 import 'package:indexax/tools/validations.dart' as validations;
 import 'package:indexax/tools/secure_storage.dart';
 import 'package:indexax/widgets/circular_progress_indicator.dart';
-import 'package:indexax/tools/indexa_operations.dart' as indexa_operations;
+import 'package:indexax/tools/indexa_data.dart';
 
 final _storage = SecureStorage();
 
@@ -47,8 +47,9 @@ Future<bool?> authenticateToken(BuildContext context, String token) async {
   token = validations.sanitizeToken(token);
   if (validations.validateTokenFormat(token)) {
     buildLoading(context);
+    IndexaData indexaData = IndexaData(token: token);
     try {
-      var userAccounts = await indexa_operations.getUserAccounts(token: token);
+      var userAccounts = await indexaData.getUserAccounts();
       if (userAccounts != null) {
         print("Token authenticated!");
         Navigator.of(context).pop();

@@ -77,7 +77,6 @@ class AssetDetailsPopup extends StatelessWidget {
       ),
     );
 
-
     return AlertDialog(
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20)),
