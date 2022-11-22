@@ -13,36 +13,36 @@ class Account {
   final accountInstrumentTransactionData;
   final accountCashTransactionData;
   final accountPendingTransactionData;
-  final String? _accountNumber;
-  final String? _accountType;
-  final int? _risk;
-  final double? _totalAmount;
-  final double? _investment;
-  final double? _timeReturn;
-  final Color _timeReturnColor;
-  final double? _timeReturnAnnual;
-  final double? _moneyReturn;
-  final Color _moneyReturnColor;
-  final double? _moneyReturnAnnual;
-  final double? _volatility;
-  final double? _sharpe;
-  final double? _profitLoss;
-  final Color _profitLossColor;
-  final double? _expectedReturn;
-  final double? _bestReturn1yr;
-  final double? _worstReturn1yr;
-  final double? _bestReturn10yr;
-  final double? _worstReturn10yr;
-  final bool? _hasActiveRewards;
-  final bool _hasPendingTransactions;
-  final double? _feeFreeAmount;
-  final double? _additionalCashNeededToTrade;
-  final List<AmountsDataPoint> _amountsSeries;
-  final List<PortfolioDataPoint> _portfolioData;
-  final Map<InstrumentType, Map<ValueType, double>> _portfolioDistribution;
-  final List<PerformanceDataPoint> _performanceSeries;
-  final Map<int, List<List>> _profitLossSeries;
-  final List<Transaction> _transactionList;
+  final String? accountNumber;
+  final String? accountType;
+  final int? risk;
+  final double? totalAmount;
+  final double? investment;
+  final double? timeReturn;
+  final Color timeReturnColor;
+  final double? timeReturnAnnual;
+  final double? moneyReturn;
+  final Color moneyReturnColor;
+  final double? moneyReturnAnnual;
+  final double? volatility;
+  final double? sharpe;
+  final double? profitLoss;
+  final Color profitLossColor;
+  final double? expectedReturn;
+  final double? bestReturn1yr;
+  final double? worstReturn1yr;
+  final double? bestReturn10yr;
+  final double? worstReturn10yr;
+  final bool? hasActiveRewards;
+  final bool hasPendingTransactions;
+  final double? feeFreeAmount;
+  final double? additionalCashNeededToTrade;
+  final List<AmountsDataPoint> amountsSeries;
+  final List<PortfolioDataPoint> portfolioData;
+  final Map<InstrumentType, Map<ValueType, double>> portfolioDistribution;
+  final List<PerformanceDataPoint> performanceSeries;
+  final Map<int, List<List>> profitLossSeries;
+  final List<Transaction> transactionList;
 
   static Color _obtainColor(double variable) {
     if (variable < 0) {
@@ -581,112 +581,80 @@ class Account {
       required this.accountInstrumentTransactionData,
       required this.accountCashTransactionData,
       required this.accountPendingTransactionData})
-      : _accountNumber = accountInfo['account_number'],
-        _accountType = accountInfo['type'],
-        _risk = accountInfo['risk'],
-        _totalAmount =
+      : accountNumber = accountInfo['account_number'],
+        accountType = accountInfo['type'],
+        risk = accountInfo['risk'],
+        totalAmount =
             accountPerformanceData['return']['total_amount'].toDouble(),
         //_totalAmount = new DateTime.now().second.toDouble(),
         //_totalAmount = 999999.99,
-        _investment = accountPerformanceData['return']['investment'].toDouble(),
-        _timeReturn =
+        investment = accountPerformanceData['return']['investment'].toDouble(),
+        timeReturn =
             accountPerformanceData['return']['time_return'].toDouble(),
-        _timeReturnColor = _obtainColor(
+        timeReturnColor = _obtainColor(
             accountPerformanceData['return']['time_return'].toDouble()),
-        _timeReturnAnnual =
+        timeReturnAnnual =
             accountPerformanceData['return']['time_return_annual'].toDouble(),
-        _moneyReturn =
+        moneyReturn =
             accountPerformanceData['return']['money_return'].toDouble(),
-        _moneyReturnColor = _obtainColor(
+        moneyReturnColor = _obtainColor(
             accountPerformanceData['return']['money_return'].toDouble()),
-        _moneyReturnAnnual =
+        moneyReturnAnnual =
             accountPerformanceData['return']['money_return_annual'].toDouble(),
-        _volatility = accountPerformanceData['return']['volatility'].toDouble(),
-        _sharpe =
+        volatility = accountPerformanceData['return']['volatility'].toDouble(),
+        sharpe =
             accountPerformanceData['return']['time_return_annual'].toDouble() /
                 accountPerformanceData['return']['volatility'].toDouble(),
-        _expectedReturn =
+        expectedReturn =
             accountPerformanceData['plan_expected_return'].toDouble(),
-        _bestReturn1yr =
+        bestReturn1yr =
             (accountPerformanceData['performance']['best_pl'][13] / 100)
                 .toDouble(),
-        _worstReturn1yr =
+        worstReturn1yr =
             (accountPerformanceData['performance']['worst_pl'][13] / 100)
                 .toDouble(),
-        _bestReturn10yr =
+        bestReturn10yr =
             (accountPerformanceData['performance']['best_pl'][120] / 100)
                 .toDouble(),
-        _worstReturn10yr =
+        worstReturn10yr =
             (accountPerformanceData['performance']['worst_pl'][120] / 100)
                 .toDouble(),
-        _profitLoss = accountPerformanceData['return']['pl'].toDouble(),
-        _profitLossColor =
+        profitLoss = accountPerformanceData['return']['pl'].toDouble(),
+        profitLossColor =
             _obtainColor(accountPerformanceData['return']['pl'].toDouble()),
         //_profitLoss = 9999.99
-        _hasActiveRewards = accountInfo['has_active_rewards'],
-        _feeFreeAmount = accountInfo['fee_free_amount'].toDouble(),
-        _amountsSeries = _createAmountsSeries(
+        hasActiveRewards = accountInfo['has_active_rewards'],
+        feeFreeAmount = accountInfo['fee_free_amount'].toDouble(),
+        amountsSeries = _createAmountsSeries(
             accountPerformanceData['return']['net_amounts'],
             accountPerformanceData['return']['total_amounts']),
-        _portfolioData = _createPortfolioData(accountPortfolioData['portfolio'],
+        portfolioData = _createPortfolioData(accountPortfolioData['portfolio'],
             accountPortfolioData['instrument_accounts'][0]['positions']),
-        _portfolioDistribution = _createPortfolioDistribution(
+        portfolioDistribution = _createPortfolioDistribution(
             accountPortfolioData['portfolio'],
             accountPortfolioData['instrument_accounts'][0]['positions']),
-        _performanceSeries = _createPerformanceSeries(
+        performanceSeries = _createPerformanceSeries(
             accountPerformanceData['performance']['period'],
             accountPerformanceData['performance']['best_return'],
             accountPerformanceData['performance']['worst_return'],
             accountPerformanceData['performance']['expected_return'],
             accountPerformanceData['performance']['real']),
-        _profitLossSeries = _createProfitLossSeries(
+        profitLossSeries = _createProfitLossSeries(
             accountPerformanceData['performance']['period'],
             accountPerformanceData['performance']['real']),
-        _transactionList = _createTransactionList(
+        transactionList = _createTransactionList(
             accountInstrumentTransactionData, accountCashTransactionData),
-        _additionalCashNeededToTrade =
+        additionalCashNeededToTrade =
             _getCashNeededToTrade(accountPortfolioData['extra']),
-        _hasPendingTransactions =
+        hasPendingTransactions =
             _checkPendingTransactions(accountPendingTransactionData);
-
-  String? get accountNumber => _accountNumber;
-  String? get type => _accountType;
-  int? get risk => _risk;
-  double? get totalAmount => _totalAmount;
-  double? get investment => _investment;
-  double? get profitLoss => _profitLoss;
-  double? get moneyReturn => _moneyReturn;
-  double? get moneyReturnAnnual => _moneyReturnAnnual;
-  double? get timeReturn => _timeReturn;
-  double? get timeReturnAnnual => _timeReturnAnnual;
-  double? get volatility => _volatility;
-  double? get sharpe => _sharpe;
-  double? get expectedReturn => _expectedReturn;
-  double? get bestReturn1yr => _bestReturn1yr;
-  double? get worstReturn1yr => _worstReturn1yr;
-  double? get bestReturn10yr => _bestReturn10yr;
-  double? get worstReturn10yr => _worstReturn10yr;
-  Color get moneyReturnColor => _moneyReturnColor;
-  Color get timeReturnColor => _timeReturnColor;
-  Color get profitLossColor => _profitLossColor;
-  bool? get hasActiveRewards => _hasActiveRewards;
-  double? get feeFreeAmount => _feeFreeAmount;
-  List<AmountsDataPoint> get amountsSeries => _amountsSeries;
-  List<PortfolioDataPoint> get portfolioData => _portfolioData;
-  Map<InstrumentType, Map<ValueType, double>> get portfolioDistribution =>
-      _portfolioDistribution;
-  List<PerformanceDataPoint> get performanceSeries => _performanceSeries;
-  Map<int, List<List>> get profitLossSeries => _profitLossSeries;
-  List<Transaction> get transactionList => _transactionList;
-  bool get hasPendingTransactions => _hasPendingTransactions;
-  double? get additionalCashNeededToTrade => _additionalCashNeededToTrade;
 
   @override
   String toString() {
     return "accountNumber: " +
         accountNumber.toString() +
         "type: " +
-        type.toString() +
+        accountType.toString() +
         "risk: " +
         risk.toString() +
         "\n" +

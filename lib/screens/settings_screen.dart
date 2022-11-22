@@ -68,6 +68,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
       extendBodyBehindAppBar: true,
       body: SafeArea(
         child: SettingsList(
+          darkTheme: SettingsThemeData(
+            settingsListBackground: Theme.of(context).colorScheme.background
+          ),
           //backgroundColor: Colors.white10,
           // lightTheme: SettingsThemeData(
           //   settingsSectionBackground: Colors.white10,

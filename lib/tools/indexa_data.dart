@@ -24,7 +24,7 @@ class IndexaData {
             });
           }
         }
-        userAccounts.add({"number": "Test", "type": "pension"});
+        //userAccounts.add({"number": "Test", "type": "pension"});
         return userAccounts;
       }
     } on Exception catch (e) {
@@ -34,8 +34,8 @@ class IndexaData {
   }
 
   Future<dynamic> getAccountInfo({required String accountNumber}) async {
-    String url = '$indexaURL/accounts/FHGNB6LM';
-    //String url = '$indexaURL/accounts/$accountNumber';
+    //String url = '$indexaURL/accounts/FHGNB6LM';
+    String url = '$indexaURL/accounts/$accountNumber';
     NetworkHelper networkHelper = NetworkHelper(url, token!);
     try {
       var accountInfo = await networkHelper.getData();
@@ -56,8 +56,8 @@ class IndexaData {
 
   Future<dynamic> getAccountPerformanceData(
       {required String accountNumber}) async {
-    String url = '$indexaURL/accounts/FHGNB6LM/performance';
-    //String url = '$indexaURL/accounts/$accountNumber/performance';
+    //String url = '$indexaURL/accounts/FHGNB6LM/performance';
+    String url = '$indexaURL/accounts/$accountNumber/performance';
     NetworkHelper networkHelper = NetworkHelper(url, token!);
     try {
       var accountPerformanceData = await networkHelper.getData();
@@ -80,8 +80,8 @@ class IndexaData {
 
   Future<dynamic> getAccountPortfolioData(
       {required String accountNumber}) async {
-    String url = '$indexaURL/accounts/FHGNB6LM/portfolio';
-    //String url = '$indexaURL/accounts/$accountNumber/portfolio';
+    //String url = '$indexaURL/accounts/FHGNB6LM/portfolio';
+    String url = '$indexaURL/accounts/$accountNumber/portfolio';
     NetworkHelper networkHelper = NetworkHelper(url, token!);
     try {
       var accountPortfolioData = await networkHelper.getData();
@@ -97,8 +97,8 @@ class IndexaData {
 
   Future<dynamic> getAccountInstrumentTransactionData(
       {required String accountNumber}) async {
-    String url = '$indexaURL/accounts/FHGNB6LM/instrument-transactions';
-    //String url = '$indexaURL/accounts/$accountNumber/instrument-transactions';
+    //String url = '$indexaURL/accounts/FHGNB6LM/instrument-transactions';
+    String url = '$indexaURL/accounts/$accountNumber/instrument-transactions';
     NetworkHelper networkHelper = NetworkHelper(url, token!);
     try {
       var accountInstrumentTransactionData = await networkHelper.getData();
@@ -114,8 +114,8 @@ class IndexaData {
 
   Future<dynamic> getAccountCashTransactionData(
       {required String accountNumber}) async {
-    String url = '$indexaURL/accounts/FHGNB6LM/cash-transactions';
-    //String url = '$indexaURL/accounts/$accountNumber/cash-transactions';
+    //String url = '$indexaURL/accounts/FHGNB6LM/cash-transactions';
+    String url = '$indexaURL/accounts/$accountNumber/cash-transactions';
     NetworkHelper networkHelper = NetworkHelper(url, token!);
     try {
       var accountCashTransactionData = await networkHelper.getData();
@@ -131,8 +131,8 @@ class IndexaData {
 
   Future<dynamic> getAccountPendingTransactionData(
       {required String accountNumber}) async {
-    String url = '$indexaURL/accounts/FHGNB6LM/pending-transactions';
-    //String url = '$indexaURL/accounts/$accountNumber/pending-transactions';
+    //String url = '$indexaURL/accounts/FHGNB6LM/pending-transactions';
+    String url = '$indexaURL/accounts/$accountNumber/pending-transactions';
     NetworkHelper networkHelper = NetworkHelper(url, token!);
     try {
       var accountPendingTransactionData = await networkHelper.getData();

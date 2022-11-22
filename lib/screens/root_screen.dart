@@ -185,7 +185,7 @@ class _RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
                     if (!landscapeOrientation) ...[
                       CurrentAccountIndicator(
                           accountNumber: snapshot.data!.accountNumber,
-                          accountType: snapshot.data!.type)
+                          accountType: snapshot.data!.accountType)
                     ],
                   ],
                 ),
@@ -196,7 +196,7 @@ class _RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
                     padding: EdgeInsets.only(top: topPadding),
                     child: CurrentAccountIndicator(
                         accountNumber: snapshot.data!.accountNumber,
-                        accountType: snapshot.data!.type),
+                        accountType: snapshot.data!.accountType),
                   ),
                   Padding(
                     padding: EdgeInsets.only(top: topPadding),
