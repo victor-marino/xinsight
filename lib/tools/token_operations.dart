@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:indexax/services/indexa_data.dart';
 import 'package:indexax/tools/snackbar.dart' as snackbar;
 import 'package:indexax/tools/validations.dart' as validations;
 import 'package:indexax/tools/secure_storage.dart';
 import 'package:indexax/widgets/circular_progress_indicator.dart';
+import 'package:indexax/tools/indexa_data.dart';
 
-final storage = SecureStorage();
+final _storage = SecureStorage();
 
 Future<void> storeToken(BuildContext context, String value) async {
   value = validations.sanitizeToken(value);
   if (validations.validateTokenFormat(value)) {
     try {
-      await storage.storeKey(keyName: "indexaToken", value: value);
+      await _storage.storeKey(keyName: "indexaToken", value: value);
     } on Exception catch (e) {
       snackbar.showInSnackBar(context, e.toString());
     }
@@ -27,7 +27,7 @@ Future<void> storeToken(BuildContext context, String value) async {
 Future<String?> readToken(BuildContext context) async {
   String? token;
   try {
-    token = await storage.read("indexaToken");
+    token = await _storage.read("indexaToken");
   } on Exception catch (e) {
     snackbar.showInSnackBar(context, e.toString());
   }
@@ -36,7 +36,7 @@ Future<String?> readToken(BuildContext context) async {
 
 Future<void> deleteToken(BuildContext context) async {
   try {
-    await storage.deleteKey(keyName: "indexaToken");
+    await _storage.deleteKey(keyName: "indexaToken");
   } on Exception catch (e) {
     snackbar.showInSnackBar(context, e.toString());
   }
@@ -66,7 +66,8 @@ Future<bool?> authenticateToken(BuildContext context, String token) async {
       snackbar.showInSnackBar(
         context,
         e.toString(),
-      );    }
+      );
+    }
   } else {
     snackbar.showInSnackBar(
       context,

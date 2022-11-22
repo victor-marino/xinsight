@@ -1,9 +1,10 @@
 // import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../models/account.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:indexax/widgets/transactions_screen/transaction_tile.dart';
 import 'package:indexax/widgets/transactions_screen/pending_transactions_card.dart';
+import 'package:indexax/widgets/transactions_screen/transaction_tile.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
+
+import '../models/account.dart';
 
 const int nbsp = 0x00A0;
 
@@ -15,16 +16,14 @@ class TransactionsScreen extends StatefulWidget {
     required this.landscapeOrientation,
     required this.availableWidth,
     required this.refreshData,
-    required this.reloadPage,
-    required this.currentAccountNumber,
+    required this.currentAccountIndex,
   }) : super(key: key);
   final Account? accountData;
   final List<Map<String, String>>? userAccounts;
   final bool landscapeOrientation;
   final double availableWidth;
   final Function refreshData;
-  final Function reloadPage;
-  final int currentAccountNumber;
+  final int currentAccountIndex;
 
   @override
   _TransactionsScreenState createState() => _TransactionsScreenState();
@@ -37,19 +36,14 @@ class _TransactionsScreenState extends State<TransactionsScreen>
   @override
   bool get wantKeepAlive => true;
 
-  int currentPage = 3;
-  Account? accountData;
-  late Function refreshData;
-  int? currentAccountNumber;
-  List<DropdownMenuItem> dropdownItems = [];
-
   RefreshController _refreshController =
       RefreshController(initialRefresh: false);
 
   void _onRefresh() async {
     // monitor network fetch
     try {
-      accountData = await refreshData(currentAccountNumber);
+      await widget.refreshData(accountIndex: widget.currentAccountIndex);
+      _refreshController.refreshCompleted();
     } on Exception catch (e) {
       print("Couldn't refresh data");
       print(e);
@@ -57,18 +51,11 @@ class _TransactionsScreenState extends State<TransactionsScreen>
         content: Text(e.toString()),
       ));
     }
-    setState(() {});
-    _refreshController.refreshCompleted();
   }
 
   @override
   void initState() {
     super.initState();
-    currentAccountNumber = widget.currentAccountNumber;
-    accountData = widget.accountData;
-    refreshData = widget.refreshData;
-
-    //dropdownItems = AccountDropdownItems(userAccounts: widget.userAccounts).dropdownItems;
   }
 
   @override

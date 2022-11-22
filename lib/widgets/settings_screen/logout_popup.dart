@@ -11,7 +11,7 @@ class LogoutPopup extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  void logout(BuildContext context) async {
+  void _logout(BuildContext context) async {
     await token_operations.deleteToken(context);
     Provider.of<BottomNavigationBarProvider>(context, listen: false)
         .currentIndex = 0;
@@ -55,7 +55,7 @@ class LogoutPopup extends StatelessWidget {
                 color: Colors.red),
           ),
           onPressed: () {
-            logout(context);
+            _logout(context);
           },
         ),
       ],

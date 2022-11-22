@@ -7,11 +7,11 @@ class ProfitLossChart extends StatelessWidget {
   const ProfitLossChart({
     Key? key,
     required this.profitLossSeries,
-    required this.currentYear,
+    required this.selectedYear,
   }) : super(key: key);
 
   final Map<int, List<List>> profitLossSeries;
-  final int? currentYear;
+  final int? selectedYear;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,8 @@ class ProfitLossChart extends StatelessWidget {
           placeLabelsNearAxisLine: false,
           majorGridLines: MajorGridLines(width: 0),
           majorTickLines: MajorTickLines(size: 0),
-          labelStyle: kProfitLossChartLabelTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+          labelStyle: kProfitLossChartLabelTextStyle.copyWith(
+              color: Theme.of(context).colorScheme.onSurfaceVariant),
         ),
         primaryYAxis: NumericAxis(
           numberFormat: NumberFormat("#0.0"),
@@ -35,20 +36,23 @@ class ProfitLossChart extends StatelessWidget {
         series: <ChartSeries<List, String>>[
           // Renders column chart
           ColumnSeries<List, String>(
-              spacing: 0,
-              width: 0.7,
-              dataLabelSettings: DataLabelSettings(
-                  isVisible: true,
-                  textStyle: kChartLabelTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface),
-                  labelAlignment: ChartDataLabelAlignment.outer,
-              ),
-                  
-              enableTooltip: false,
-              dataSource: profitLossSeries[currentYear!]!,
-              xValueMapper: (List month, _) => month[0],
-              yValueMapper: (List month, _) => month[1],
-              pointColorMapper: (List month, _) => month[1] == null || month[1] > 0 ? Colors.green[500] : Colors.red[900],
-              ),
+            spacing: 0,
+            width: 0.7,
+            dataLabelSettings: DataLabelSettings(
+              isVisible: true,
+              textStyle: kChartLabelTextStyle.copyWith(
+                  color: Theme.of(context).colorScheme.onSurface),
+              labelAlignment: ChartDataLabelAlignment.outer,
+            ),
+            enableTooltip: false,
+            dataSource: profitLossSeries[selectedYear!]!,
+            xValueMapper: (List month, _) => month[0],
+            yValueMapper: (List month, _) => month[1],
+            pointColorMapper: (List month, _) =>
+                month[1] == null || month[1] > 0
+                    ? Colors.green[500]
+                    : Colors.red[900],
+          ),
         ]);
   }
 }

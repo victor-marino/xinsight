@@ -1,14 +1,15 @@
 // import 'package:flutter/cupertino.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:indexax/models/account.dart';
 import 'package:indexax/tools/number_formatting.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
-import '../tools/constants.dart';
-import 'package:easy_localization/easy_localization.dart';
-import 'package:indexax/widgets/reusable_card.dart';
+import 'package:indexax/widgets/projection_screen/expectations_popup.dart';
 import 'package:indexax/widgets/projection_screen/projection_chart.dart';
 import 'package:indexax/widgets/projection_screen/risk_chart.dart';
-import 'package:indexax/widgets/projection_screen/expectations_popup.dart';
+import 'package:indexax/widgets/reusable_card.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
+
+import '../tools/constants.dart';
 
 class ProjectionScreen extends StatefulWidget {
   const ProjectionScreen({
@@ -18,16 +19,14 @@ class ProjectionScreen extends StatefulWidget {
     required this.landscapeOrientation,
     required this.availableWidth,
     required this.refreshData,
-    required this.reloadPage,
-    required this.currentAccountNumber,
+    required this.currentAccountIndex,
   }) : super(key: key);
   final Account? accountData;
   final List<Map<String, String>>? userAccounts;
   final bool landscapeOrientation;
   final double availableWidth;
   final Function refreshData;
-  final Function reloadPage;
-  final int currentAccountNumber;
+  final int currentAccountIndex;
 
   @override
   _ProjectionScreenState createState() => _ProjectionScreenState();
@@ -40,19 +39,14 @@ class _ProjectionScreenState extends State<ProjectionScreen>
   @override
   bool get wantKeepAlive => true;
 
-  int currentPage = 2;
-  Account? accountData;
-  late Function refreshData;
-  int? currentAccountNumber;
-  List<DropdownMenuItem> dropdownItems = [];
-
   RefreshController _refreshController =
       RefreshController(initialRefresh: false);
 
   void _onRefresh() async {
     // monitor network fetch
     try {
-      accountData = await refreshData(currentAccountNumber);
+      await widget.refreshData(accountIndex: widget.currentAccountIndex);
+      _refreshController.refreshCompleted();
     } on Exception catch (e) {
       print("Couldn't refresh data");
       print(e);
@@ -60,16 +54,11 @@ class _ProjectionScreenState extends State<ProjectionScreen>
         content: Text(e.toString()),
       ));
     }
-    setState(() {});
-    _refreshController.refreshCompleted();
   }
 
   @override
   void initState() {
     super.initState();
-    currentAccountNumber = widget.currentAccountNumber;
-    accountData = widget.accountData;
-    refreshData = widget.refreshData;
   }
 
   @override
@@ -128,8 +117,8 @@ class _ProjectionScreenState extends State<ProjectionScreen>
                                           .textTheme
                                           .labelLarge),
                                   PerformanceChart(
-                                      performanceSeries:
-                                          accountData!.performanceSeries),
+                                      performanceSeries: widget
+                                          .accountData!.performanceSeries),
                                   Padding(
                                     padding: const EdgeInsets.all(10),
                                     child: RichText(

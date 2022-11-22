@@ -1,4 +1,6 @@
-import '../services/networking.dart';
+import "package:indexax/tools/networking.dart";
+import "package:indexax/models/account.dart";
+import "package:flutter/material.dart";
 
 const indexaURL = 'https://api.indexacapital.com';
 
@@ -31,7 +33,7 @@ class IndexaData {
     }
   }
 
-  Future<dynamic> getAccountInfo(accountNumber) async {
+  Future<dynamic> getAccountInfo({required String accountNumber}) async {
     //String url = '$indexaURL/accounts/FHGNB6LM';
     String url = '$indexaURL/accounts/$accountNumber';
     NetworkHelper networkHelper = NetworkHelper(url, token!);
@@ -52,7 +54,8 @@ class IndexaData {
     }
   }
 
-  Future<dynamic> getAccountPerformanceData(accountNumber) async {
+  Future<dynamic> getAccountPerformanceData(
+      {required String accountNumber}) async {
     //String url = '$indexaURL/accounts/FHGNB6LM/performance';
     String url = '$indexaURL/accounts/$accountNumber/performance';
     NetworkHelper networkHelper = NetworkHelper(url, token!);
@@ -63,7 +66,9 @@ class IndexaData {
         //print(accountPerformanceData);
         return accountPerformanceData;
       } else if (accountPerformanceData != null && accountNumber == "Test") {
-        accountPerformanceData['return']['total_amount'] = 9999.99;
+        //accountPerformanceData['return']['total_amount'] = 9999.99;
+        accountPerformanceData['return']['total_amount'] =
+            DateTime.now().second;
         accountPerformanceData['return']['investment'] = 1000.00;
         return accountPerformanceData;
       }
@@ -73,7 +78,8 @@ class IndexaData {
     }
   }
 
-  Future<dynamic> getAccountPortfolioData(accountNumber) async {
+  Future<dynamic> getAccountPortfolioData(
+      {required String accountNumber}) async {
     //String url = '$indexaURL/accounts/FHGNB6LM/portfolio';
     String url = '$indexaURL/accounts/$accountNumber/portfolio';
     NetworkHelper networkHelper = NetworkHelper(url, token!);
@@ -89,7 +95,8 @@ class IndexaData {
     }
   }
 
-  Future<dynamic> getAccountInstrumentTransactionData(accountNumber) async {
+  Future<dynamic> getAccountInstrumentTransactionData(
+      {required String accountNumber}) async {
     //String url = '$indexaURL/accounts/FHGNB6LM/instrument-transactions';
     String url = '$indexaURL/accounts/$accountNumber/instrument-transactions';
     NetworkHelper networkHelper = NetworkHelper(url, token!);
@@ -105,7 +112,8 @@ class IndexaData {
     }
   }
 
-  Future<dynamic> getAccountCashTransactionData(accountNumber) async {
+  Future<dynamic> getAccountCashTransactionData(
+      {required String accountNumber}) async {
     //String url = '$indexaURL/accounts/FHGNB6LM/cash-transactions';
     String url = '$indexaURL/accounts/$accountNumber/cash-transactions';
     NetworkHelper networkHelper = NetworkHelper(url, token!);
@@ -121,7 +129,8 @@ class IndexaData {
     }
   }
 
-  Future<dynamic> getAccountPendingTransactionData(accountNumber) async {
+  Future<dynamic> getAccountPendingTransactionData(
+      {required String accountNumber}) async {
     //String url = '$indexaURL/accounts/FHGNB6LM/pending-transactions';
     String url = '$indexaURL/accounts/$accountNumber/pending-transactions';
     NetworkHelper networkHelper = NetworkHelper(url, token!);
@@ -135,5 +144,39 @@ class IndexaData {
       print(e);
       throw (e);
     }
+  }
+
+  Future<Account> populateAccountData(
+      {required BuildContext context, required String accountNumber}) async {
+    Account currentAccount;
+    try {
+      var currentAccountInfo =
+          await getAccountInfo(accountNumber: accountNumber);
+      var currentAccountPerformanceData =
+          await getAccountPerformanceData(accountNumber: accountNumber);
+      var currentAccountPortfolioData =
+          await getAccountPortfolioData(accountNumber: accountNumber);
+      var currentAccountInstrumentTransactionData =
+          await getAccountInstrumentTransactionData(
+              accountNumber: accountNumber);
+      var currentAccountCashTransactionData =
+          await getAccountCashTransactionData(accountNumber: accountNumber);
+      var currentAccountPendingTransactionData =
+          await getAccountPendingTransactionData(accountNumber: accountNumber);
+      currentAccount = Account(
+          accountInfo: currentAccountInfo,
+          accountPerformanceData: currentAccountPerformanceData,
+          accountPortfolioData: currentAccountPortfolioData,
+          accountInstrumentTransactionData:
+              currentAccountInstrumentTransactionData,
+          accountCashTransactionData: currentAccountCashTransactionData,
+          accountPendingTransactionData: currentAccountPendingTransactionData);
+
+      //print(currentAccount);
+
+    } on Exception catch (e) {
+      throw (e);
+    }
+    return currentAccount;
   }
 }

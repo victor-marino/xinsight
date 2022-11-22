@@ -15,6 +15,7 @@ class SettingsScreen extends StatefulWidget {
 
 class _SettingsScreenState extends State<SettingsScreen> {
   ThemePreference? currentThemePreference;
+  Brightness? currentSystemTheme;
 
   Future<ThemePreference?> findStoredThemePreference() async {
     ThemePreference? themePreference =
@@ -51,7 +52,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Brightness currentSystemTheme =
+    currentSystemTheme =
         theme_operations.getCurrentSystemTheme(context);
 
     return Scaffold(
@@ -67,6 +68,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
       extendBodyBehindAppBar: true,
       body: SafeArea(
         child: SettingsList(
+          darkTheme: SettingsThemeData(
+            settingsListBackground: Theme.of(context).colorScheme.background
+          ),
           //backgroundColor: Colors.white10,
           // lightTheme: SettingsThemeData(
           //   settingsSectionBackground: Colors.white10,

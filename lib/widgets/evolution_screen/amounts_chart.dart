@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:indexax/tools/constants.dart';
@@ -32,13 +30,13 @@ class AmountsChart extends StatelessWidget {
       startDate = amountsSeries.last.date!.subtract(period!);
     }
 
-    final List<Color> color = <Color>[];
-    color.add(Colors.blue.withOpacity(0));
-    color.add(Colors.blue.withOpacity(0.7));
+    final List<Color> color = <Color>[Colors.blue.withOpacity(0), Colors.blue.withOpacity(0.7)];
+    // color.add(Colors.blue.withOpacity(0));
+    // color.add(Colors.blue.withOpacity(0.7));
 
-    final List<double> stops = <double>[];
-    stops.add(0);
-    stops.add(1);
+    final List<double> stops = <double>[0, 1];
+    // stops.add(0);
+    // stops.add(1);
 
     final LinearGradient gradientColors = LinearGradient(
         transform: GradientRotation(pi * 1.5), colors: color, stops: stops);

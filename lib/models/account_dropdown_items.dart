@@ -6,16 +6,16 @@ class AccountDropdownItems {
   AccountDropdownItems({this.userAccounts});
 
   static List<DropdownMenuItem> _dropdownItems(List<String> userAccounts) {
-    List<DropdownMenuItem> accountDropdownItems = [];
+    List<DropdownMenuItem> _accountDropdownItems = [];
     for (var account in userAccounts) {
-      accountDropdownItems.add(
+      _accountDropdownItems.add(
         DropdownMenuItem(
           child: Text(account),
-          value: accountDropdownItems.length,
+          value: _accountDropdownItems.length,
         ),
       );
     }
-    return accountDropdownItems;
+    return _accountDropdownItems;
   }
 
   List<DropdownMenuItem> get dropdownItems => _dropdownItems(userAccounts!);

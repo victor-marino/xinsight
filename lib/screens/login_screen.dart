@@ -1,18 +1,18 @@
-import 'package:flutter/material.dart';
 import 'dart:async';
+
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
 import 'package:indexax/screens/root_screen.dart';
 import 'package:indexax/tools/local_authentication.dart'
     as local_authentication;
-import 'package:easy_localization/easy_localization.dart';
-import 'package:indexax/tools/theme_operations.dart' as theme_operations;
-import 'package:indexax/tools/secure_storage.dart';
-import 'package:indexax/tools/token_operations.dart' as token_operations;
 import 'package:indexax/tools/snackbar.dart' as snackbar;
-import 'package:indexax/widgets/login_screen/token_instructions_popup.dart';
+import 'package:indexax/tools/theme_operations.dart' as theme_operations;
+import 'package:indexax/tools/token_operations.dart' as token_operations;
 import 'package:indexax/widgets/login_screen/forget_token_popup.dart';
+import 'package:indexax/widgets/login_screen/token_instructions_popup.dart';
 
 class LoginScreen extends StatefulWidget {
-  LoginScreen({
+  const LoginScreen({
     this.errorMessage,
   });
 
@@ -23,30 +23,30 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
-  final storage = SecureStorage();
+  //final _storage = SecureStorage();
 
-  bool storedToken = false;
-  bool rememberToken = false;
+  bool _storedToken = false;
+  bool _rememberToken = false;
 
-  final tokenTextController = TextEditingController();
+  final _tokenTextController = TextEditingController();
 
   void enableRememberToken() async {
     if (await local_authentication.authenticateUserLocally(context)) {
       setState(() {
-        rememberToken = true;
+        _rememberToken = true;
       });
     }
   }
 
   void disableRememberToken() async {
-    if (storedToken = true) {
+    if (_storedToken = true) {
       showDialog(
           context: context,
           builder: (BuildContext context) =>
               ForgetTokenPopup(forgetToken: forgetToken));
     } else {
       setState(() {
-        rememberToken = false;
+        _rememberToken = false;
       });
     }
   }
@@ -54,17 +54,17 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
   void forgetToken() async {
     await token_operations.deleteToken(context);
     setState(() {
-      storedToken = false;
-      rememberToken = false;
-      tokenTextController.text = "";
+      _storedToken = false;
+      _rememberToken = false;
+      _tokenTextController.text = "";
     });
   }
 
   Future<String?> findStoredToken() async {
     String? token = await token_operations.readToken(context);
     if (token != null) {
-      storedToken = true;
-      tokenTextController.text = "••••••••••••••••";
+      _storedToken = true;
+      _tokenTextController.text = "••••••••••••••••";
       print('Existing token detected!');
     } else {
       print('No existing token');
@@ -76,14 +76,14 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
     String? storedToken = await findStoredToken();
     if (storedToken != null) {
       setState(() {
-        rememberToken = true;
+        _rememberToken = true;
       });
       if (await local_authentication.authenticateUserLocally(context)) {
         goToMainScreen(token: storedToken, saveToken: false);
       }
     } else {
       setState(() {
-        rememberToken = false;
+        _rememberToken = false;
       });
       print('No existing token');
     }
@@ -98,13 +98,12 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
         context,
         MaterialPageRoute(
           builder: (BuildContext context) =>
-              RootScreen(token: token, pageNumber: 0, accountNumber: 0),
+              RootScreen(token: token, pageIndex: 0, accountIndex: 0),
         ),
       );
     } else {
-      
       setState(() {
-        tokenTextController.text = token;
+        _tokenTextController.text = token;
       });
     }
   }
@@ -248,13 +247,13 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
                           ),
                         ),
                         TextField(
-                          controller: tokenTextController,
+                          controller: _tokenTextController,
                           keyboardType: TextInputType.text,
                           maxLines: null,
                           maxLength: 400,
                           style: TextStyle(
                               color: Theme.of(context).colorScheme.onSurface),
-                          decoration: storedToken
+                          decoration: _storedToken
                               ? InputDecoration(
                                   border: OutlineInputBorder(),
                                   labelText: "login_screen.api_token".tr(),
@@ -272,7 +271,7 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
                                   hintText:
                                       'login_screen.your_indexa_token'.tr(),
                                   counterText: ""),
-                          enabled: storedToken ? false : true,
+                          enabled: _storedToken ? false : true,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -280,7 +279,7 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
                             Row(
                               children: [
                                 Icon(
-                                  rememberToken
+                                  _rememberToken
                                       ? Icons.lock_outline
                                       : Icons.lock_open,
                                   color: Theme.of(context)
@@ -304,7 +303,7 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
                             Switch(
                               activeColor:
                                   Theme.of(context).colorScheme.secondary,
-                              value: rememberToken,
+                              value: _rememberToken,
                               onChanged: (newValue) {
                                 if (newValue) {
                                   enableRememberToken();
@@ -331,20 +330,20 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
                             textColor: Colors.white,
                             elevation: 8,
                             onPressed: () {
-                              if (storedToken) {
+                              if (_storedToken) {
                                 tryToLoginWithStoredToken();
                               } else {
-                                if (tokenTextController.text == "") {
+                                if (_tokenTextController.text == "") {
                                   snackbar.showInSnackBar(context,
                                       "login_screen.please_enter_token".tr());
                                 } else {
-                                  if (rememberToken) {
+                                  if (_rememberToken) {
                                     goToMainScreen(
-                                        token: tokenTextController.text,
+                                        token: _tokenTextController.text,
                                         saveToken: true);
                                   } else {
                                     goToMainScreen(
-                                        token: tokenTextController.text,
+                                        token: _tokenTextController.text,
                                         saveToken: false);
                                   }
                                 }

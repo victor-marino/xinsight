@@ -1,18 +1,19 @@
 // import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import '../models/account.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:expandable/expandable.dart';
-import 'package:indexax/widgets/overview_screen/expanded_account_summary.dart';
+import 'package:flutter/material.dart';
 import 'package:indexax/widgets/overview_screen/collapsed_account_summary.dart';
-import 'package:indexax/widgets/reusable_card.dart';
 import 'package:indexax/widgets/overview_screen/distribution_chart.dart';
 import 'package:indexax/widgets/overview_screen/distribution_legend.dart';
-import 'package:indexax/widgets/overview_screen/profit_popup.dart';
-import 'package:indexax/widgets/overview_screen/minimum_transfer_card.dart';
-import 'package:indexax/widgets/overview_screen/fee_free_amount_card.dart';
+import 'package:indexax/widgets/overview_screen/expanded_account_summary.dart';
 import 'package:indexax/widgets/overview_screen/expanded_account_summary_single_view.dart';
+import 'package:indexax/widgets/overview_screen/fee_free_amount_card.dart';
+import 'package:indexax/widgets/overview_screen/minimum_transfer_card.dart';
+import 'package:indexax/widgets/overview_screen/profit_popup.dart';
+import 'package:indexax/widgets/reusable_card.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
+
+import '../models/account.dart';
 
 const int nbsp = 0x00A0;
 
@@ -24,16 +25,14 @@ class OverviewScreen extends StatefulWidget {
     required this.landscapeOrientation,
     required this.availableWidth,
     required this.refreshData,
-    required this.reloadPage,
-    required this.currentAccountNumber,
+    required this.currentAccountIndex,
   }) : super(key: key);
   final Account? accountData;
   final List<Map<String, String>>? userAccounts;
   final bool landscapeOrientation;
   final double availableWidth;
   final Function refreshData;
-  final Function reloadPage;
-  final int currentAccountNumber;
+  final int currentAccountIndex;
 
   @override
   _OverviewScreenState createState() => _OverviewScreenState();
@@ -46,19 +45,14 @@ class _OverviewScreenState extends State<OverviewScreen>
   @override
   bool get wantKeepAlive => true;
 
-  int currentPage = 0;
-  Account? accountData;
-  late Function refreshData;
-  int? currentAccountNumber;
-  List<DropdownMenuItem> dropdownItems = [];
-
   RefreshController _refreshController =
       RefreshController(initialRefresh: false);
 
   void _onRefresh() async {
     // monitor network fetch
     try {
-      accountData = await refreshData(currentAccountNumber);
+      await widget.refreshData(accountIndex: widget.currentAccountIndex);
+      _refreshController.refreshCompleted();
     } on Exception catch (e) {
       print("Couldn't refresh data");
       print(e);
@@ -66,19 +60,11 @@ class _OverviewScreenState extends State<OverviewScreen>
         content: Text(e.toString()),
       ));
     }
-    setState(() {});
-    _refreshController.refreshCompleted();
   }
 
   @override
   void initState() {
     super.initState();
-    currentAccountNumber = widget.currentAccountNumber;
-    accountData = widget.accountData;
-    refreshData = widget.refreshData;
-
-    // dropdownItems =
-    //     AccountDropdownItems(userAccounts: widget.userAccounts).dropdownItems;
   }
 
   @override
@@ -117,11 +103,11 @@ class _OverviewScreenState extends State<OverviewScreen>
                                     child: ExpandablePanel(
                                       collapsed: ExpandableButton(
                                         child: CollapsedAccountSummary(
-                                            accountData: accountData),
+                                            accountData: widget.accountData),
                                       ),
                                       expanded: ExpandableButton(
                                         child: ExpandedAccountSummary(
-                                            accountData: accountData),
+                                            accountData: widget.accountData),
                                       ),
                                     ),
                                   ),
@@ -142,12 +128,13 @@ class _OverviewScreenState extends State<OverviewScreen>
                                             .labelLarge),
                                     DistributionChart(
                                         portfolioData:
-                                            accountData!.portfolioData),
+                                            widget.accountData!.portfolioData),
                                     // DistributionChartSimplified(
                                     //     portfolioDistribution: accountData.portfolioDistribution),
                                     DistributionChartLegend(
-                                        portfolioDistribution:
-                                            accountData!.portfolioDistribution),
+                                        portfolioDistribution: widget
+                                            .accountData!
+                                            .portfolioDistribution),
                                   ],
                                 ),
                               ),
@@ -161,7 +148,8 @@ class _OverviewScreenState extends State<OverviewScreen>
                                       child: ReusableCard(
                                         childWidget:
                                             ExpandedAccountSummarySingleView(
-                                                accountData: accountData),
+                                                accountData:
+                                                    widget.accountData),
                                       ),
                                     ),
                                     SizedBox(width: 20),
@@ -183,12 +171,13 @@ class _OverviewScreenState extends State<OverviewScreen>
                                                   .labelLarge,
                                             ),
                                             DistributionChart(
-                                                portfolioData:
-                                                    accountData!.portfolioData),
+                                                portfolioData: widget
+                                                    .accountData!
+                                                    .portfolioData),
                                             DistributionChartLegend(
-                                                portfolioDistribution:
-                                                    accountData!
-                                                        .portfolioDistribution),
+                                                portfolioDistribution: widget
+                                                    .accountData!
+                                                    .portfolioDistribution),
                                           ],
                                         ),
                                       ),

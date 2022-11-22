@@ -12,7 +12,7 @@ class TokenInstructionsPopup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     
-    Uri userAreaUrl = Uri(
+    final Uri userAreaUrl = Uri(
       scheme: 'https',
       host: 'indexacapital.com',
       path: 'es/u/user'
