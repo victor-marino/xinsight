@@ -147,10 +147,14 @@ class _RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
 
     if (availableHeight <= availableWidth) {
       landscapeOrientation = true;
+    } else {
+      landscapeOrientation = false;
     }
 
     if (landscapeOrientation && Platform.isIOS) {
       topPadding = 10;
+    } else {
+      topPadding = 0;
     }
 
     return FutureBuilder<Account>(

@@ -2,14 +2,13 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:indexax/models/account.dart';
-import 'package:indexax/widgets/evolution_screen/amounts_chart_zoom_chips.dart';
+import 'package:indexax/tools/snackbar.dart' as snackbar;
+import 'package:indexax/widgets/evolution_screen/evolution_chart_zoom_chips.dart';
 import 'package:indexax/widgets/evolution_screen/profit_loss_chart.dart';
 import 'package:indexax/widgets/evolution_screen/profit_loss_year_switcher.dart';
 import 'package:indexax/widgets/reusable_card.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-//import '../widgets/evolution_screen/amounts_chart.dart';
 import '../widgets/evolution_screen/evolution_chart.dart';
-import 'package:indexax/tools/snackbar.dart' as snackbar;
 
 class EvolutionScreen extends StatefulWidget {
   const EvolutionScreen({
@@ -39,7 +38,8 @@ class _EvolutionScreenState extends State<EvolutionScreen>
   @override
   bool get wantKeepAlive => true;
 
-  Duration? _evolutionChartSelectedPeriod;
+  Duration _evolutionChartSelectedPeriod = Duration(seconds: 0);
+  bool _evolutionChartShowReturns = false;
   int? _profitLossChartSelectedYear;
 
   RefreshController _refreshController =
@@ -49,7 +49,7 @@ class _EvolutionScreenState extends State<EvolutionScreen>
     // monitor network fetch
     try {
       await widget.refreshData(accountIndex: widget.currentAccountIndex);
-          _refreshController.refreshCompleted();
+      _refreshController.refreshCompleted();
     } on Exception catch (e) {
       print("Couldn't refresh data");
       print(e);
@@ -57,10 +57,17 @@ class _EvolutionScreenState extends State<EvolutionScreen>
     }
   }
 
-  void _reloadAmountsChart(Duration? period) {
-    setState(() {
-      _evolutionChartSelectedPeriod = period;
-    });
+  void _reloadEvolutionChart({Duration? period, bool? showReturns}) {
+    if (period != null) {
+      setState(() {
+        _evolutionChartSelectedPeriod = period;
+      });
+    }
+    if (showReturns != null) {
+      setState(() {
+        _evolutionChartShowReturns = showReturns;
+      });
+    }
   }
 
   void _reloadProfitLossChart(int year) {
@@ -81,7 +88,7 @@ class _EvolutionScreenState extends State<EvolutionScreen>
     {"label": "6m", "duration": Duration(days: 180)},
     {"label": "1y", "duration": Duration(days: 365)},
     {"label": "5y", "duration": Duration(days: 1825)},
-    {"label": "all", "duration": null},
+    {"label": "all", "duration": Duration(seconds: 0)},
   ];
 
   @override
@@ -130,47 +137,93 @@ class _EvolutionScreenState extends State<EvolutionScreen>
                                               .textTheme
                                               .labelLarge,
                                         ),
-                                        if (widget.landscapeOrientation) ...[
-                                          Container(
-                                            child: Wrap(
-                                              direction: Axis.horizontal,
-                                              alignment: WrapAlignment.end,
-                                              spacing: 5,
-                                              children: amountsChartZoomChips(
-                                                  selectedPeriod:
-                                                      _evolutionChartSelectedPeriod,
-                                                  zoomLevels: _zoomLevels,
-                                                  reloadAmountsChart:
-                                                      _reloadAmountsChart,
-                                                  context: context),
-                                            ),
-                                          ),
-                                        ],
+                                        !_evolutionChartShowReturns
+                                            ? Row(
+                                                children: [
+                                                  Icon(Icons.euro, size: 17),
+                                                  Text(
+                                                    " | ",
+                                                    style: TextStyle(
+                                                        color: Theme.of(context)
+                                                            .colorScheme
+                                                            .onSurface),
+                                                  ),
+                                                  InkWell(
+                                                    child: Container(
+                                                      child: Icon(
+                                                        Icons.percent,
+                                                        size: 17,
+                                                        color: Theme.of(context)
+                                                            .colorScheme
+                                                            .primary,
+                                                      ),
+                                                    ),
+                                                    onTap: () =>
+                                                        _reloadEvolutionChart(
+                                                            showReturns: true),
+                                                  ),
+                                                  SizedBox(width: 7)
+                                                ],
+                                              )
+                                            : Row(
+                                                children: [
+                                                  InkWell(
+                                                    child: Container(
+                                                      child: Icon(
+                                                        Icons.euro,
+                                                        size: 17,
+                                                        color: Theme.of(context)
+                                                            .colorScheme
+                                                            .primary,
+                                                      ),
+                                                    ),
+                                                    onTap: () =>
+                                                        _reloadEvolutionChart(
+                                                            showReturns: false),
+                                                  ),
+                                                  Text(
+                                                    " | ",
+                                                    style: TextStyle(
+                                                        color: Theme.of(context)
+                                                            .colorScheme
+                                                            .onSurface),
+                                                  ),
+                                                  Icon(
+                                                    Icons.percent,
+                                                    size: 17,
+                                                  ),
+                                                  SizedBox(width: 7)
+                                                ],
+                                              )
                                       ]),
                                   EvolutionChart(
                                       amountsSeries:
                                           widget.accountData!.amountsSeries,
-                                          returnsSeries: widget.accountData!.returnsSeries,
-                                      period: _evolutionChartSelectedPeriod),
-                                  if (!widget.landscapeOrientation) ...[
-                                    Container(
-                                      width: double.infinity,
-                                      child: Wrap(
-                                        direction: Axis.horizontal,
-                                        alignment: widget.availableWidth < 500
-                                            ? WrapAlignment.center
-                                            : WrapAlignment.end,
-                                        spacing: 5,
-                                        children: amountsChartZoomChips(
-                                            selectedPeriod:
-                                                _evolutionChartSelectedPeriod,
-                                            zoomLevels: _zoomLevels,
-                                            reloadAmountsChart:
-                                                _reloadAmountsChart,
-                                            context: context),
-                                      ),
+                                      returnsSeries:
+                                          widget.accountData!.returnsSeries,
+                                      period: _evolutionChartSelectedPeriod,
+                                      showReturns: _evolutionChartShowReturns),
+                                  //if (!widget.landscapeOrientation) ...[
+                                  Container(
+                                    width: double.infinity,
+                                    child: Wrap(
+                                      direction: Axis.horizontal,
+                                      alignment: widget.availableWidth < 500 ||
+                                              widget.landscapeOrientation ==
+                                                  false
+                                          ? WrapAlignment.center
+                                          : WrapAlignment.end,
+                                      spacing: 5,
+                                      children: evolutionChartZoomChips(
+                                          selectedPeriod:
+                                              _evolutionChartSelectedPeriod,
+                                          zoomLevels: _zoomLevels,
+                                          reloadEvolutionChart:
+                                              _reloadEvolutionChart,
+                                          context: context),
                                     ),
-                                  ],
+                                  ),
+                                  //],
                                 ],
                               ),
                             ),
@@ -205,8 +258,8 @@ class _EvolutionScreenState extends State<EvolutionScreen>
                                   Container(
                                     height: 150,
                                     child: ProfitLossChart(
-                                        profitLossSeries:
-                                            widget.accountData!.profitLossSeries,
+                                        profitLossSeries: widget
+                                            .accountData!.profitLossSeries,
                                         selectedYear:
                                             _profitLossChartSelectedYear),
                                   ),

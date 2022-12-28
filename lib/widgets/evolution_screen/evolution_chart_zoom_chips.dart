@@ -2,10 +2,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:indexax/tools/constants.dart';
 
-List<ChoiceChip> amountsChartZoomChips(
+List<ChoiceChip> evolutionChartZoomChips(
     {Duration? selectedPeriod,
     required List<Map> zoomLevels,
-    Function? reloadAmountsChart,
+    Function? reloadEvolutionChart,
     required BuildContext context}) {
   List<ChoiceChip> chipList = [];
 
@@ -22,7 +22,7 @@ List<ChoiceChip> amountsChartZoomChips(
         visualDensity: VisualDensity.compact,
         selected: selectedPeriod == element['duration'],
         onSelected: (bool selected) {
-          reloadAmountsChart!(element['duration']);
+          reloadEvolutionChart!(period: element['duration']);
         },
       ),
     );

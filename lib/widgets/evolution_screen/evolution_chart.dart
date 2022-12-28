@@ -12,27 +12,27 @@ class EvolutionChart extends StatelessWidget {
     Key? key,
     required this.amountsSeries,
     required this.returnsSeries,
-    this.showProfitLoss = true,
-    this.period,
+    required this.period,
+    required this.showReturns,
   }) : super(key: key);
 
   final List<AmountsDataPoint> amountsSeries;
   final List<ReturnsDataPoint> returnsSeries;
-  final Duration? period;
-  final bool showProfitLoss;
+  final Duration period;
+  final bool showReturns;
 
   @override
   Widget build(BuildContext context) {
     DateTime? startDate;
 
-    if (period == null) {
+    if (period == Duration(seconds: 0)) {
       startDate = amountsSeries[0].date;
     } else if (amountsSeries.last.date!
-        .subtract(period!)
+        .subtract(period)
         .isBefore(amountsSeries[0].date!)) {
       startDate = amountsSeries[0].date;
     } else {
-      startDate = amountsSeries.last.date!.subtract(period!);
+      startDate = amountsSeries.last.date!.subtract(period);
     }
 
     final List<Color> color = <Color>[
@@ -52,15 +52,15 @@ class EvolutionChart extends StatelessWidget {
     return SfCartesianChart(
       margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
       //plotAreaBackgroundColor: Theme.of(context).colorScheme.background,
-      primaryYAxis: showProfitLoss
+      primaryYAxis: showReturns
           ? NumericAxis(
               labelFormat: '{value}%',
               labelStyle: kProfitLossChartLabelTextStyle,
-              // axisLabelFormatter: (AxisLabelRenderDetails details) =>
-              //     ChartAxisLabel(
-              //         getWholePercentWithoutPercentSignAsString(details.value),
-              //         kProfitLossChartLabelTextStyle.copyWith(
-              //             color: Theme.of(context).colorScheme.onSurface)),
+              axisLabelFormatter: (AxisLabelRenderDetails details) =>
+                   ChartAxisLabel(
+                       getWholePercentWithPercentSignAsString(details.value/100),
+                       kProfitLossChartLabelTextStyle.copyWith(
+                           color: Theme.of(context).colorScheme.onSurface)),
               // numberFormat: NumberFormat.currency(
               //     locale: getCurrentLocale(), symbol: '€', decimalDigits: 2),
             )
@@ -119,7 +119,7 @@ class EvolutionChart extends StatelessWidget {
         ),
         enableAutoIntervalOnZooming: true,
       ),
-      series: showProfitLoss
+      series: showReturns
           ? <ChartSeries<ReturnsDataPoint, DateTime>>[
               AreaSeries<ReturnsDataPoint, DateTime>(
                 name: 'amounts_chart.return'.tr(),

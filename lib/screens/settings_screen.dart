@@ -119,6 +119,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   onPressed: (BuildContext context) {
                     showModalBottomSheet<void>(
                       context: context,
+                      isScrollControlled: true,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(20),
