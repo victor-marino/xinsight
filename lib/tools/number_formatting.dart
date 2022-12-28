@@ -118,6 +118,11 @@ String getWholePercentWithoutPercentSignAsString(num number) {
   return numberString;
 }
 
+String getWholePercentWithPercentSignAsString(num number) {
+  String numberString = (number * 100).toStringAsFixed(0) + "%";
+  return numberString;
+}
+
 String getPLPercentAsString(num number) {
   String numberString;
   if (number < 0) {
