@@ -116,7 +116,8 @@
   },
   "amounts_chart": {
     "total": "Total",
-    "invested": "Invested"
+    "invested": "Invested",
+    "return": "Return"
   },
   "transaction_info": {
     "fund_purchase": "Fund purchase",

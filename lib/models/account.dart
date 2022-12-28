@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'amounts_datapoint.dart';
 import 'performance_datapoint.dart';
 import 'portfolio_datapoint.dart';
+import 'returns_datapoint.dart';
 import 'transaction.dart';
 
 class Account {
@@ -38,6 +39,7 @@ class Account {
   final double? feeFreeAmount;
   final double? additionalCashNeededToTrade;
   final List<AmountsDataPoint> amountsSeries;
+  final List<ReturnsDataPoint> returnsSeries;
   final List<PortfolioDataPoint> portfolioData;
   final Map<InstrumentType, Map<ValueType, double>> portfolioDistribution;
   final List<PerformanceDataPoint> performanceSeries;
@@ -67,6 +69,19 @@ class Account {
       newAmountSeries.add(newPoint);
     });
     return (newAmountSeries);
+  }
+
+  static List<ReturnsDataPoint> _createReturnsSeries(
+      returnsList) {
+    List<ReturnsDataPoint> newReturnSeries = [];
+    returnsList.keys.forEach((k) {
+      ReturnsDataPoint newPoint = ReturnsDataPoint(
+          date: DateTime.parse(k),
+          totalReturn: (returnsList[k].toDouble() - 1) * 100,
+      );
+      newReturnSeries.add(newPoint);
+    });
+    return (newReturnSeries);
   }
 
   static List<PortfolioDataPoint> _createPortfolioData(portfolio, instruments) {
@@ -589,8 +604,7 @@ class Account {
         //_totalAmount = new DateTime.now().second.toDouble(),
         //_totalAmount = 999999.99,
         investment = accountPerformanceData['return']['investment'].toDouble(),
-        timeReturn =
-            accountPerformanceData['return']['time_return'].toDouble(),
+        timeReturn = accountPerformanceData['return']['time_return'].toDouble(),
         timeReturnColor = _obtainColor(
             accountPerformanceData['return']['time_return'].toDouble()),
         timeReturnAnnual =
@@ -628,6 +642,8 @@ class Account {
         amountsSeries = _createAmountsSeries(
             accountPerformanceData['return']['net_amounts'],
             accountPerformanceData['return']['total_amounts']),
+        returnsSeries = _createReturnsSeries(
+            accountPerformanceData['return']['index']),
         portfolioData = _createPortfolioData(accountPortfolioData['portfolio'],
             accountPortfolioData['instrument_accounts'][0]['positions']),
         portfolioDistribution = _createPortfolioDistribution(

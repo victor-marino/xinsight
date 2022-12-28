@@ -115,7 +115,8 @@
   },
   "amounts_chart": {
     "total": "Total",
-    "invested": "Aportado"
+    "invested": "Aportado",
+    "return": "Rentabilidad"
   },
   "transaction_info": {
     "fund_purchase": "Compra de fondos",

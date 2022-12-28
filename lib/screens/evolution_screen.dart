@@ -7,7 +7,8 @@ import 'package:indexax/widgets/evolution_screen/profit_loss_chart.dart';
 import 'package:indexax/widgets/evolution_screen/profit_loss_year_switcher.dart';
 import 'package:indexax/widgets/reusable_card.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import '../widgets/evolution_screen/amounts_chart.dart';
+//import '../widgets/evolution_screen/amounts_chart.dart';
+import '../widgets/evolution_screen/evolution_chart.dart';
 import 'package:indexax/tools/snackbar.dart' as snackbar;
 
 class EvolutionScreen extends StatefulWidget {
@@ -38,7 +39,7 @@ class _EvolutionScreenState extends State<EvolutionScreen>
   @override
   bool get wantKeepAlive => true;
 
-  Duration? _amountsChartSelectedPeriod;
+  Duration? _evolutionChartSelectedPeriod;
   int? _profitLossChartSelectedYear;
 
   RefreshController _refreshController =
@@ -58,7 +59,7 @@ class _EvolutionScreenState extends State<EvolutionScreen>
 
   void _reloadAmountsChart(Duration? period) {
     setState(() {
-      _amountsChartSelectedPeriod = period;
+      _evolutionChartSelectedPeriod = period;
     });
   }
 
@@ -137,7 +138,7 @@ class _EvolutionScreenState extends State<EvolutionScreen>
                                               spacing: 5,
                                               children: amountsChartZoomChips(
                                                   selectedPeriod:
-                                                      _amountsChartSelectedPeriod,
+                                                      _evolutionChartSelectedPeriod,
                                                   zoomLevels: _zoomLevels,
                                                   reloadAmountsChart:
                                                       _reloadAmountsChart,
@@ -146,10 +147,11 @@ class _EvolutionScreenState extends State<EvolutionScreen>
                                           ),
                                         ],
                                       ]),
-                                  AmountsChart(
+                                  EvolutionChart(
                                       amountsSeries:
                                           widget.accountData!.amountsSeries,
-                                      period: _amountsChartSelectedPeriod),
+                                          returnsSeries: widget.accountData!.returnsSeries,
+                                      period: _evolutionChartSelectedPeriod),
                                   if (!widget.landscapeOrientation) ...[
                                     Container(
                                       width: double.infinity,
@@ -161,7 +163,7 @@ class _EvolutionScreenState extends State<EvolutionScreen>
                                         spacing: 5,
                                         children: amountsChartZoomChips(
                                             selectedPeriod:
-                                                _amountsChartSelectedPeriod,
+                                                _evolutionChartSelectedPeriod,
                                             zoomLevels: _zoomLevels,
                                             reloadAmountsChart:
                                                 _reloadAmountsChart,
