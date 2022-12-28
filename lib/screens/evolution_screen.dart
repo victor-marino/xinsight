@@ -120,7 +120,8 @@ class _EvolutionScreenState extends State<EvolutionScreen>
                             ReusableCard(
                               paddingBottom:
                                   widget.landscapeOrientation ? 16 : 8,
-                              paddingTop: widget.landscapeOrientation ? 8 : 16,
+                              //paddingTop: widget.landscapeOrientation ? 8 : 16,
+                              paddingTop: 16,
                               childWidget: Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -139,20 +140,31 @@ class _EvolutionScreenState extends State<EvolutionScreen>
                                         ),
                                         !_evolutionChartShowReturns
                                             ? Row(
+                                              crossAxisAlignment: CrossAxisAlignment.center,
                                                 children: [
-                                                  Icon(Icons.euro, size: 17),
+                                                  Container(
+                                                    width: 30,
+                                                    height: 30,
+                                                    child: Icon(
+                                                      Icons.euro,
+                                                      size: 20),
+                                                    ),
                                                   Text(
                                                     " | ",
                                                     style: TextStyle(
+                                                      fontSize: 18,
+                                                      height: 0.9,
                                                         color: Theme.of(context)
                                                             .colorScheme
                                                             .onSurface),
                                                   ),
                                                   InkWell(
                                                     child: Container(
+                                                      width: 30,
+                                                      height: 30,
                                                       child: Icon(
                                                         Icons.percent,
-                                                        size: 17,
+                                                        size: 20,
                                                         color: Theme.of(context)
                                                             .colorScheme
                                                             .primary,
@@ -166,12 +178,15 @@ class _EvolutionScreenState extends State<EvolutionScreen>
                                                 ],
                                               )
                                             : Row(
+                                              crossAxisAlignment: CrossAxisAlignment.center,
                                                 children: [
                                                   InkWell(
                                                     child: Container(
+                                                      width: 30,
+                                                      height: 30,
                                                       child: Icon(
                                                         Icons.euro,
-                                                        size: 17,
+                                                        size: 20,
                                                         color: Theme.of(context)
                                                             .colorScheme
                                                             .primary,
@@ -184,13 +199,19 @@ class _EvolutionScreenState extends State<EvolutionScreen>
                                                   Text(
                                                     " | ",
                                                     style: TextStyle(
+                                                      fontSize: 18,
+                                                      height: 0.9,
                                                         color: Theme.of(context)
                                                             .colorScheme
                                                             .onSurface),
                                                   ),
-                                                  Icon(
-                                                    Icons.percent,
-                                                    size: 17,
+                                                  Container(
+                                                    width: 30,
+                                                    height: 30,
+                                                    child: Icon(
+                                                      Icons.percent,
+                                                      size: 20,
+                                                    ),
                                                   ),
                                                   SizedBox(width: 7)
                                                 ],
