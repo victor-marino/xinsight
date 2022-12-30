@@ -2,6 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:indexax/tools/constants.dart';
 
+// Creates the chip buttons for the zoom levels in the evolution chart
+
 List<ChoiceChip> evolutionChartZoomChips(
     {Duration? selectedPeriod,
     required List<Map> zoomLevels,

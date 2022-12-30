@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:indexax/tools/constants.dart';
 
+// Dropdown year switcher for the profit-loss chart
+
 class ProfitLossYearSwitcher extends StatelessWidget {
   const ProfitLossYearSwitcher(
       {Key? key,
-      this.currentYear,
+      required this.currentYear,
       required this.yearList,
       required this.reloadProfitLossChart})
       : super(key: key);
 
-  final int? currentYear;
-  // final List<DropdownMenuItem> profitLossYearDropdownItems;
+  final int currentYear;
   final List<int> yearList;
   final Function reloadProfitLossChart;
 

@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:indexax/models/account.dart';
@@ -13,7 +12,6 @@ import 'package:indexax/tools/indexa_data.dart';
 import 'package:indexax/tools/snackbar.dart' as snackbar;
 import 'package:indexax/tools/theme_operations.dart' as theme_operations;
 import 'package:provider/provider.dart';
-
 import '../tools/bottom_navigation_bar_provider.dart';
 import '../widgets/bottom_navigation_bar.dart';
 import '../widgets/current_account_indicator.dart';
@@ -53,6 +51,7 @@ class _RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
   double topPadding = 0;
 
   Future<void> _loadData({required int accountIndex}) async {
+    // Main function that is called when account data is loaded
     try {
       if (_userAccounts!.length == 0) {
         _userAccounts = await widget.indexaData.getUserAccounts();
@@ -74,6 +73,7 @@ class _RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
   }
 
   Future<void> _refreshData({required int accountIndex}) async {
+    // Called after account data is downloaded
     try {
       _accountData = widget.indexaData.populateAccountData(
           context: context,
@@ -86,6 +86,7 @@ class _RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
   }
 
   void _retryLoadData() async {
+    // Called when a "retry" button is pushed after network failure
     setState(() {
       _reloading = true;
     });
@@ -95,6 +96,7 @@ class _RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
   }
 
   void _reloadPage(int accountIndex, int pageIndex) async {
+    // Called when the user switches to a different account
     pageIndex = _pageController!.page!.toInt();
     print(pageIndex);
     Navigator.pushReplacement(
@@ -108,6 +110,7 @@ class _RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
   }
 
   void _onTappedBar(int value) {
+    // Called when the user taps the bottom navigation bar
     _pageController!.animateToPage(value,
         duration: Duration(milliseconds: 500), curve: Curves.ease);
   }
@@ -116,12 +119,16 @@ class _RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
   void initState() {
     WidgetsBinding.instance.addObserver(this);
     super.initState();
+
+    // Update theme based on system theme
     theme_operations.updateTheme(context);
 
     if (widget.previousUserAccounts != null) {
+      // Avoid reloading the account list if already loaded
       _userAccounts = widget.previousUserAccounts;
     }
     _loadData(accountIndex: widget.accountIndex);
+
     _pageController =
         PageController(initialPage: widget.pageIndex, viewportFraction: 1);
   }
@@ -129,6 +136,7 @@ class _RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
+      // Check if system theme has changed when app is resumed
       theme_operations.updateTheme(context);
     }
   }
@@ -142,6 +150,7 @@ class _RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
+    // Get screen dimensions and orientation
     availableWidth = MediaQuery.of(context).size.width;
     availableHeight = MediaQuery.of(context).size.height;
 
@@ -151,6 +160,7 @@ class _RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
       landscapeOrientation = false;
     }
 
+    // Fix upper padding bug in iOS in landscape mode
     if (landscapeOrientation && Platform.isIOS) {
       topPadding = 10;
     } else {
@@ -165,14 +175,6 @@ class _RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
           _reloading = false;
         }
         if (snapshot.hasData) {
-          // print(userAccounts.toString());
-          // bool landscapeOrientation = false;
-          // double availableWidth = MediaQuery.of(context).size.width;
-          // double availableHeight = MediaQuery.of(context).size.height;
-
-          // if (availableHeight <= availableWidth) {
-          //   landscapeOrientation = true;
-          // }
           child = Scaffold(
             appBar: AppBar(
               titleSpacing: 20,
@@ -216,7 +218,6 @@ class _RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
                       currentPage: widget.pageIndex,
                       reloadPage: _reloadPage),
                 ),
-                //SizedBox(width: 10)
               ],
             ),
             body: PageView(
@@ -267,7 +268,6 @@ class _RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
           );
         } else if (snapshot.hasError) {
           print(snapshot.error);
-
           if (_reloading) {
             child = Center(child: CircularProgressIndicator());
           } else {

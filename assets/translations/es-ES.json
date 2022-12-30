@@ -113,7 +113,7 @@
     "all": "Todo",
     "returns": "RENTABILIDADES"
   },
-  "amounts_chart": {
+  "evolution_chart": {
     "total": "Total",
     "invested": "Aportado",
     "return": "Rentabilidad"

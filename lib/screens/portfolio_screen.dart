@@ -39,7 +39,7 @@ class _PortfolioScreenState extends State<PortfolioScreen>
       RefreshController(initialRefresh: false);
 
   void _onRefresh() async {
-    // monitor network fetch
+    // Monitor network fetch
     try {
       await widget.refreshData(accountIndex: widget.currentAccountIndex);
       _refreshController.refreshCompleted();

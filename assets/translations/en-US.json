@@ -114,7 +114,7 @@
     "all": "All",
     "returns": "RETURNS"
   },
-  "amounts_chart": {
+  "evolution_chart": {
     "total": "Total",
     "invested": "Invested",
     "return": "Return"

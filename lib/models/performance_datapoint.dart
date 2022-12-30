@@ -1,4 +1,5 @@
 class PerformanceDataPoint {
+  // Datapoint model for the time series that tracks performance of the portfolio
   final DateTime? date;
   final double? bestReturn;
   final double? worstReturn;
@@ -10,6 +11,7 @@ class PerformanceDataPoint {
 
   @override
   String toString() {
+    // Override toString() method for easier printing and troubleshooting
     return date.toString() + ", " + bestReturn.toString() + ", " + worstReturn.toString() + ", " + expectedReturn.toString() + ", " + realReturn.toString() + ", " + realMonthlyReturn.toString();
   }
 }

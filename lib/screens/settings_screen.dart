@@ -59,11 +59,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
       appBar: AppBar(
         title: Text('settings_screen.settings'.tr()),
         elevation: 0,
-        // backgroundColor: Theme.of(context).colorScheme.background,
-        // foregroundColor: Theme.of(context).colorScheme.onBackground,
-        // systemOverlayStyle: SystemUiOverlayStyle(
-        //   systemStatusBarContrastEnforced: true,
-        // ),
       ),
       extendBodyBehindAppBar: true,
       body: SafeArea(
@@ -71,15 +66,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
           darkTheme: SettingsThemeData(
             settingsListBackground: Theme.of(context).colorScheme.background
           ),
-          //backgroundColor: Colors.white10,
-          // lightTheme: SettingsThemeData(
-          //   settingsSectionBackground: Colors.white10,
-          //   settingsListBackground: Colors.white10,
-          // ),
-          // darkTheme: SettingsThemeData(
-          //   settingsSectionBackground: Colors.white10,
-          //   settingsListBackground: Colors.white10,
-          // ),
           sections: [
             SettingsSection(
               tiles: [

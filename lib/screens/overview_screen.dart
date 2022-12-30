@@ -1,4 +1,3 @@
-// import 'package:flutter/cupertino.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +8,7 @@ import 'package:indexax/widgets/overview_screen/expanded_account_summary.dart';
 import 'package:indexax/widgets/overview_screen/expanded_account_summary_single_view.dart';
 import 'package:indexax/widgets/overview_screen/fee_free_amount_card.dart';
 import 'package:indexax/widgets/overview_screen/minimum_transfer_card.dart';
-import 'package:indexax/widgets/overview_screen/profit_popup.dart';
+import 'package:indexax/widgets/overview_screen/returns_popup.dart';
 import 'package:indexax/widgets/reusable_card.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -49,7 +48,7 @@ class _OverviewScreenState extends State<OverviewScreen>
       RefreshController(initialRefresh: false);
 
   void _onRefresh() async {
-    // monitor network fetch
+    // Monitor network fetch
     try {
       await widget.refreshData(accountIndex: widget.currentAccountIndex);
       _refreshController.refreshCompleted();
@@ -122,15 +121,12 @@ class _OverviewScreenState extends State<OverviewScreen>
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
                                     Text('overview_screen.distribution'.tr(),
-                                        //style: kCardTitleTextStyle,
                                         style: Theme.of(context)
                                             .textTheme
                                             .labelLarge),
                                     DistributionChart(
                                         portfolioData:
                                             widget.accountData!.portfolioData),
-                                    // DistributionChartSimplified(
-                                    //     portfolioDistribution: accountData.portfolioDistribution),
                                     DistributionChartLegend(
                                         portfolioDistribution: widget
                                             .accountData!
@@ -165,7 +161,6 @@ class _OverviewScreenState extends State<OverviewScreen>
                                             Text(
                                               'overview_screen.distribution'
                                                   .tr(),
-                                              //style: kCardTitleTextStyle,
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .labelLarge,
@@ -221,7 +216,7 @@ class _OverviewScreenState extends State<OverviewScreen>
                                     showDialog(
                                         context: context,
                                         builder: (BuildContext context) =>
-                                            ProfitPopUp());
+                                            ReturnsPopUp());
                                   },
                                 ),
                               ],

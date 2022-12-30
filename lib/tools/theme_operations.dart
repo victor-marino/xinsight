@@ -5,9 +5,12 @@ import 'package:indexax/models/theme_preference_data.dart';
 import 'package:provider/provider.dart';
 import 'package:indexax/tools/theme_provider.dart';
 
+// Theme-related functions are stored here
+
 final _storage = SecureStorage();
 
 Future<ThemePreference?> readThemePreference(BuildContext context) async {
+  // Check if there's any stored theme preference
   ThemePreference? themePreference;
   try {
     String? themePreferenceString = await _storage.read('themePreference');
@@ -35,6 +38,8 @@ Brightness getCurrentSystemTheme(BuildContext context) {
 }
 
 void updateTheme(BuildContext context) async {
+  /* Applies app theme based on current theme preference and current system theme.
+  Can be called from any screen by passing its context. */
   print("Updating theme");
   ThemePreference? currentThemePreference = await readThemePreference(context);
   if (currentThemePreference == null) {

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:indexax/tools/number_formatting.dart';
 import 'package:easy_localization/easy_localization.dart';
 
+// Text showing the fee-free assets due to referral promotions
+
 class FeeFreeAmountCard extends StatelessWidget {
   const FeeFreeAmountCard({
     Key? key,
@@ -17,13 +19,10 @@ class FeeFreeAmountCard extends StatelessWidget {
         children: [
           TextSpan(
             text: 'fee_free_amount_card.fee_free_amount'.tr() + ': ',
-            //style: kCardSubTextStyle
             style: Theme.of(context).textTheme.labelLarge
           ),
           TextSpan(
             text: getInvestmentAsString(feeFreeAmount!),
-            // style: kMinimumTransferCardTextStyle.copyWith(
-            //     fontWeight: FontWeight.bold)
             style: Theme.of(context).textTheme.titleSmall
           ),
         ],

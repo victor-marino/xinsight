@@ -2,8 +2,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:indexax/tools/constants.dart';
 
-class ProfitPopUp extends StatelessWidget {
-  const ProfitPopUp({
+// Pop-up explaining the difference between time-weighted and money-weighted returns
+
+class ReturnsPopUp extends StatelessWidget {
+  const ReturnsPopUp({
     Key? key,
   }) : super(key: key);
 
@@ -51,9 +53,7 @@ class ProfitPopUp extends StatelessWidget {
                   color: Theme.of(context).colorScheme.onSurfaceVariant),
             ),
             Divider(
-              height: 30,
-              color: Theme.of(context).colorScheme.onBackground
-            ),
+                height: 30, color: Theme.of(context).colorScheme.onBackground),
             Row(
               children: <Widget>[
                 Text(

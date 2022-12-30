@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class NetworkHelper {
+  // Class that handles all network operations
   final String url;
   final String token;
 

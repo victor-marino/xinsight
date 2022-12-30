@@ -5,6 +5,8 @@ import 'package:easy_localization/easy_localization.dart';
 import '../../tools/constants.dart';
 import 'package:indexax/tools/number_formatting.dart';
 
+// Plots the chart showing the portfolio distribution in overview screen
+
 class DistributionChart extends StatelessWidget {
   const DistributionChart({
     Key? key,
@@ -76,7 +78,6 @@ class DistributionChart extends StatelessWidget {
         }
       ),
       series: <CircularSeries>[
-        // Renders doughnut chart
         DoughnutSeries<PortfolioDataPoint,
             String>(
           dataSource: portfolioData,
@@ -124,7 +125,6 @@ class DistributionChart extends StatelessWidget {
                 .outside,
             connectorLineSettings:
             ConnectorLineSettings(
-              // Type of the connector line
                 type:
                 ConnectorType.line),
               builder: (dynamic data, dynamic point, dynamic series, int pointIndex, int seriesIndex) {

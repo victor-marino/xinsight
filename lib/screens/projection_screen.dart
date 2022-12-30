@@ -8,7 +8,6 @@ import 'package:indexax/widgets/projection_screen/projection_chart.dart';
 import 'package:indexax/widgets/projection_screen/risk_chart.dart';
 import 'package:indexax/widgets/reusable_card.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-
 import '../tools/constants.dart';
 
 class ProjectionScreen extends StatefulWidget {
@@ -43,7 +42,7 @@ class _ProjectionScreenState extends State<ProjectionScreen>
       RefreshController(initialRefresh: false);
 
   void _onRefresh() async {
-    // monitor network fetch
+    // Monitor network fetch
     try {
       await widget.refreshData(accountIndex: widget.currentAccountIndex);
       _refreshController.refreshCompleted();
@@ -94,7 +93,6 @@ class _ProjectionScreenState extends State<ProjectionScreen>
                                 children: <Widget>[
                                   Text('projection_screen.risk'.tr(),
                                       textAlign: TextAlign.left,
-                                      //style: kCardTitleTextStyle,
                                       style: Theme.of(context)
                                           .textTheme
                                           .labelLarge),
@@ -112,7 +110,6 @@ class _ProjectionScreenState extends State<ProjectionScreen>
                                 children: <Widget>[
                                   Text('projection_screen.projection'.tr(),
                                       textAlign: TextAlign.left,
-                                      //style: kCardTitleTextStyle,
                                       style: Theme.of(context)
                                           .textTheme
                                           .labelLarge),
@@ -133,7 +130,7 @@ class _ProjectionScreenState extends State<ProjectionScreen>
                                           TextSpan(
                                               text: getPLPercentAsString(widget
                                                   .accountData!
-                                                  .expectedReturn!),
+                                                  .expectedReturn),
                                               style:
                                                   kExpectedReturnProjectionTextStyle
                                                       .copyWith(

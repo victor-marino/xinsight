@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:indexax/tools/constants.dart';
 import 'package:indexax/models/portfolio_datapoint.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:indexax/tools/RadiantLinearMask.dart';
+import 'package:indexax/tools/radiant_linear_mask.dart';
 import 'package:indexax/tools/number_formatting.dart';
+
+// Legend for the distribution chart in overview screen
 
 class DistributionChartLegend extends StatelessWidget {
   const DistributionChartLegend({

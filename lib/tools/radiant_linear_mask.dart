@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+// Gradient mask used for the legend icons in distribution chart
+
 class RadiantLinearMask extends StatelessWidget {
   RadiantLinearMask({this.child, this.color1, this.color2});
   final Widget? child;

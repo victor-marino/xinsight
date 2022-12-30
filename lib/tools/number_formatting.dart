@@ -1,6 +1,9 @@
 import 'package:intl/intl.dart' show NumberFormat;
 import 'package:intl/number_symbols_data.dart' show numberFormatSymbols;
 import 'dart:ui' as ui;
+import 'package:flutter/material.dart';
+
+// All operations regarding number and string formatting are grouped here
 
 String getCurrentLocale() {
   final locale = ui.window.locale;
@@ -9,6 +12,18 @@ String getCurrentLocale() {
     return joined;
   }
   return locale.languageCode;
+}
+
+double getDoubleWithTwoDecimalPlaces(double number) {
+  return (number * 100).toInt() / 100;
+}
+
+Color getNumberColor(double variable) {
+  if (variable < 0) {
+    return Colors.red;
+  } else {
+    return Colors.green;
+  }
 }
 
 String getBalanceAsString(num number) {

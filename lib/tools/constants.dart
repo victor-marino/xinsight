@@ -1,27 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-const String SYNCFUSION_LICENSE =
-    'NT8mJyc2IWhia31hfWN9Z2doYmF8YGJ8ampqanNiYmlmamlmanMDHmglOjAnPCE+MiE6PTwTND4yOj99MDw+';
-
 TextStyle kTitleTextStyle = GoogleFonts.oxygen(
   textStyle: TextStyle(
     fontSize: 33.0,
-    //color: Colors.black,
     fontWeight: FontWeight.bold,
   ),
 );
 
 TextStyle kCardTitleTextStyle = GoogleFonts.roboto(
   textStyle: TextStyle(
-    //color: Colors.grey,
     fontSize: 15.0,
   ),
 );
 
 TextStyle kCardPrimaryContentTextStyle = GoogleFonts.ubuntu(
   textStyle: TextStyle(
-    //color: Colors.red,
     fontSize: 40.0,
     fontWeight: FontWeight.bold,
   ),
@@ -53,7 +47,6 @@ TextStyle kCardPrimaryContentTextStyleSmaller = GoogleFonts.ubuntu(
 
 TextStyle kCardSecondaryContentTextStyle = GoogleFonts.roboto(
   textStyle: TextStyle(
-    //color: Colors.black,
     fontSize: 20.0,
     fontWeight: FontWeight.bold,
   ),
@@ -97,16 +90,12 @@ TextStyle kPopUpNormalTextStyle = GoogleFonts.roboto(
 TextStyle kPopUpFootnoteTextStyle = GoogleFonts.roboto(
   textStyle: TextStyle(
     color: Colors.grey,
-    // fontStyle: FontStyle.italic,
-    //fontSize: 14,
   ),
 );
 
 TextStyle kLoginErrorsTextStyle = GoogleFonts.roboto(
   textStyle: TextStyle(
     color: Colors.red[400],
-    //fontWeight: FontWeight.bold,
-    //fontSize: 14,
   ),
 );
 
@@ -120,8 +109,6 @@ TextStyle kChipTextStyle = GoogleFonts.roboto(
 
 TextStyle kAccountNumberTextStyle = GoogleFonts.roboto(
   textStyle: TextStyle(
-    //color: Colors.black38,
-    //fontWeight: FontWeight.bold,
     fontSize: 15.0,
   ),
 );
@@ -144,7 +131,6 @@ TextStyle kAccountSwitcherCurrentAccountTypeTextStyle = GoogleFonts.roboto(
   textStyle: TextStyle(
     color: Colors.black45,
     fontSize: 14.0,
-    //fontWeight: FontWeight.bold,
   ),
 );
 
@@ -159,7 +145,6 @@ TextStyle kAccountSwitcherOtherAccountsTypeTextStyle = GoogleFonts.roboto(
   textStyle: TextStyle(
     color: Colors.black,
     fontSize: 14.0,
-    //fontWeight: FontWeight.bold,
   ),
 );
 
@@ -173,7 +158,6 @@ TextStyle kAccountSwitcherTextStyle = GoogleFonts.roboto(
 TextStyle kAccountSwitcherSelectedTextStyle = GoogleFonts.roboto(
   textStyle: TextStyle(
     color: Colors.black,
-    //fontWeight: FontWeight.bold,
     fontSize: 15.0,
   ),
 );
@@ -316,7 +300,6 @@ TextStyle kMinimumTransferCardTextStyle = GoogleFonts.roboto(
 
 TextStyle kAboutScreenTextStyle = GoogleFonts.roboto(
   textStyle: TextStyle(
-    //color: Colors.black54,
     fontSize: 16,
   ),
 );

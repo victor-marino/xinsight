@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Transaction {
+  // Data model to hold the data of each transaction
   final DateTime? date;
   final DateTime? valueDate;
   final DateTime? fiscalDate;
@@ -20,6 +21,7 @@ class Transaction {
 
   @override
   String toString() {
+    // Override toString() method for easier priting and troubleshooting
     return date.toString() + ", " + valueDate.toString() + ", " + fiscalDate.toString() + ", " + accountType.toString() + ", " + operationCode.toString() + ", " + operationType.toString() + ", " + icon.toString() + ", " + instrumentCodeType.toString() + ", " + instrumentCode.toString() + ", " + instrumentName.toString() + ", " + titles.toString() + ", " + price.toString() + ", " + amount.toString() + ", " + status.toString();
   }
 }

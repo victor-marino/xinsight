@@ -1,4 +1,3 @@
-// import 'package:flutter/cupertino.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:indexax/models/account.dart';
@@ -40,13 +39,13 @@ class _EvolutionScreenState extends State<EvolutionScreen>
 
   Duration _evolutionChartSelectedPeriod = Duration(seconds: 0);
   bool _evolutionChartShowReturns = false;
-  int? _profitLossChartSelectedYear;
+  late int _profitLossChartSelectedYear;
 
   RefreshController _refreshController =
       RefreshController(initialRefresh: false);
 
   void _onRefresh() async {
-    // monitor network fetch
+    // Monitor network fetch
     try {
       await widget.refreshData(accountIndex: widget.currentAccountIndex);
       _refreshController.refreshCompleted();
@@ -58,6 +57,7 @@ class _EvolutionScreenState extends State<EvolutionScreen>
   }
 
   void _reloadEvolutionChart({Duration? period, bool? showReturns}) {
+    // Called when any setting in the evolution chart is changed by the user
     if (period != null) {
       setState(() {
         _evolutionChartSelectedPeriod = period;
@@ -71,6 +71,7 @@ class _EvolutionScreenState extends State<EvolutionScreen>
   }
 
   void _reloadProfitLossChart(int year) {
+    // Called when the user changes the year in the profit loss chart
     setState(() {
       _profitLossChartSelectedYear = year;
     });
@@ -78,10 +79,12 @@ class _EvolutionScreenState extends State<EvolutionScreen>
 
   void initState() {
     super.initState();
+    // Show the current year by default in the profit loss chart
     _profitLossChartSelectedYear =
         widget.accountData!.profitLossSeries.keys.toList().last;
   }
 
+  // Zoom options for the evolution chart
   List<Map> _zoomLevels = [
     {"label": "1m", "duration": Duration(days: 30)},
     {"label": "3m", "duration": Duration(days: 90)},
@@ -96,7 +99,6 @@ class _EvolutionScreenState extends State<EvolutionScreen>
     // This super call is required for the Mixin that keeps the page state
     super.build(context);
 
-    //print(widget.availableWidth);
     return Scaffold(
       body: SafeArea(
         child: Center(
@@ -120,7 +122,6 @@ class _EvolutionScreenState extends State<EvolutionScreen>
                             ReusableCard(
                               paddingBottom:
                                   widget.landscapeOrientation ? 16 : 8,
-                              //paddingTop: widget.landscapeOrientation ? 8 : 16,
                               paddingTop: 16,
                               childWidget: Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
@@ -133,7 +134,6 @@ class _EvolutionScreenState extends State<EvolutionScreen>
                                         Text(
                                           'evolution_screen.evolution'.tr(),
                                           textAlign: TextAlign.left,
-                                          // style: kCardTitleTextStyle,
                                           style: Theme.of(context)
                                               .textTheme
                                               .labelLarge,
@@ -224,7 +224,6 @@ class _EvolutionScreenState extends State<EvolutionScreen>
                                           widget.accountData!.returnsSeries,
                                       period: _evolutionChartSelectedPeriod,
                                       showReturns: _evolutionChartShowReturns),
-                                  //if (!widget.landscapeOrientation) ...[
                                   Container(
                                     width: double.infinity,
                                     child: Wrap(
@@ -244,7 +243,6 @@ class _EvolutionScreenState extends State<EvolutionScreen>
                                           context: context),
                                     ),
                                   ),
-                                  //],
                                 ],
                               ),
                             ),
@@ -262,7 +260,6 @@ class _EvolutionScreenState extends State<EvolutionScreen>
                                     children: [
                                       Text('evolution_screen.returns'.tr(),
                                           textAlign: TextAlign.left,
-                                          //style: kCardTitleTextStyle,
                                           style: Theme.of(context)
                                               .textTheme
                                               .labelLarge),

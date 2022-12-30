@@ -5,6 +5,9 @@ import 'package:indexax/tools/constants.dart';
 import 'package:indexax/tools/number_formatting.dart';
 import 'package:indexax/models/account.dart';
 
+/* Expanded version of the account summary.
+Shown when the user clicks the expansion arrow in smaller screens. */
+
 class ExpandedAccountSummary extends StatelessWidget {
   const ExpandedAccountSummary({
     Key? key,
@@ -25,17 +28,16 @@ class ExpandedAccountSummary extends StatelessWidget {
                 Text(
                   'account_summary.value'.tr(),
                   textAlign: TextAlign.left,
-                  //style: kCardTitleTextStyle,
                   style: Theme.of(context).textTheme.labelLarge,
                 ),
                 RichText(
                   text: TextSpan(children: [
                     TextSpan(
-                      text: getInvestmentAsString(accountData!.investment!) + " ",
+                      text: getInvestmentAsString(accountData!.investment) + " ",
                       style: kCardSubTextStyle,
                     ),
                     TextSpan(
-                      text: getPLAsString(accountData!.profitLoss!),
+                      text: getPLAsString(accountData!.profitLoss),
                       style: kCardSubTextStyle.copyWith(
                         color: accountData!.profitLossColor,
                         fontWeight: FontWeight.bold,
@@ -66,9 +68,7 @@ class ExpandedAccountSummary extends StatelessWidget {
           height: 15,
         ),
         Container(
-          //height: 55,
           child: Padding(
-            //padding: const EdgeInsets.only(top: 7),
             padding: const EdgeInsets.symmetric(vertical: 7),
             child: IntrinsicHeight(
               child: Row(
@@ -88,7 +88,6 @@ class ExpandedAccountSummary extends StatelessWidget {
                               Text(
                                 'account_summary.return'.tr() + ' ',
                                 textAlign: TextAlign.left,
-                                //style: kCardTitleTextStyle,
                                 style: Theme.of(context).textTheme.labelLarge,
                               ),
                               Icon(
@@ -107,14 +106,14 @@ class ExpandedAccountSummary extends StatelessWidget {
                                 text: TextSpan(children: [
                                   TextSpan(
                                     text: getWholePLPercentAsString(
-                                        accountData!.timeReturn!),
+                                        accountData!.timeReturn),
                                     style: kCardPLTextStyle.copyWith(
                                         color: accountData!.timeReturnColor),
                                   ),
                                   TextSpan(
                                     text: getDecimalSeparator() +
                                         getFractionalPLPercentAsString(
-                                            accountData!.timeReturn!),
+                                            accountData!.timeReturn),
                                     style: kCardPLTextStyleSmaller.copyWith(
                                         color: accountData!.timeReturnColor),
                                   ),
@@ -131,7 +130,7 @@ class ExpandedAccountSummary extends StatelessWidget {
                                 TextSpan(
                                   text: "(" +
                                       getPLPercentAsString(
-                                          accountData!.timeReturnAnnual!) +
+                                          accountData!.timeReturnAnnual) +
                                       " " + 'account_summary.annual'.tr() + ")",
                                   style: kAccountSummaryCardSubtextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
                                 ),
@@ -159,7 +158,6 @@ class ExpandedAccountSummary extends StatelessWidget {
                               Text(
                                 'account_summary.return'.tr() + ' ',
                                 textAlign: TextAlign.left,
-                                //style: kCardTitleTextStyle,
                                 style: Theme.of(context).textTheme.labelLarge,
                               ),
                               Icon(
@@ -178,14 +176,14 @@ class ExpandedAccountSummary extends StatelessWidget {
                                 text: TextSpan(children: [
                                   TextSpan(
                                     text: getWholePLPercentAsString(
-                                        accountData!.moneyReturn!),
+                                        accountData!.moneyReturn),
                                     style: kCardPLTextStyle.copyWith(
                                         color: accountData!.moneyReturnColor),
                                   ),
                                   TextSpan(
                                     text: getDecimalSeparator() +
                                         getFractionalPLPercentAsString(
-                                            accountData!.moneyReturn!),
+                                            accountData!.moneyReturn),
                                     style: kCardPLTextStyleSmaller.copyWith(
                                         color: accountData!.moneyReturnColor),
                                   ),
@@ -202,7 +200,7 @@ class ExpandedAccountSummary extends StatelessWidget {
                                 TextSpan(
                                   text: "(" +
                                       getPLPercentAsString(
-                                          accountData!.moneyReturnAnnual!) +
+                                          accountData!.moneyReturnAnnual) +
                                       " " + 'account_summary.annual'.tr() + ")",
                                   style: kAccountSummaryCardSubtextStyle.copyWith(
                                           color: Theme.of(context)
@@ -225,10 +223,8 @@ class ExpandedAccountSummary extends StatelessWidget {
           height: 15,
         ),
         Container(
-          //height: 55,
           child: Padding(
             padding: const EdgeInsets.only(top: 7),
-            //padding: const EdgeInsets.symmetric(vertical: 7),
             child: IntrinsicHeight(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -247,7 +243,6 @@ class ExpandedAccountSummary extends StatelessWidget {
                               Text(
                                 'account_summary.volatility'.tr(),
                                 textAlign: TextAlign.left,
-                                //style: kCardTitleTextStyle,
                                 style: Theme.of(context).textTheme.labelLarge
                               ),
                             ],
@@ -289,7 +284,6 @@ class ExpandedAccountSummary extends StatelessWidget {
                               Text(
                                 'account_summary.sharpe'.tr(),
                                 textAlign: TextAlign.left,
-                                //style: kCardTitleTextStyle,
                                 style: Theme.of(context).textTheme.labelLarge,
                               ),
                             ],
@@ -302,8 +296,6 @@ class ExpandedAccountSummary extends StatelessWidget {
                               RichText(
                                 text: TextSpan(children: [
                                   TextSpan(
-                                    // text: accountData.sharpe
-                                    //     .toStringAsFixed(2),
                                     text: getNumberAsStringWithTwoDecimals(accountData!.sharpe),
                                     style: kCardPLTextStyleSmaller.copyWith(
                                         color: Theme.of(context)

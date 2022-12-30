@@ -1,4 +1,5 @@
 class PortfolioDataPoint {
+  // Datapoint model for the list containing all portfolio assets
   final InstrumentType? instrumentType;
   final String? instrumentName;
   final String? instrumentCodeType;
@@ -15,6 +16,7 @@ class PortfolioDataPoint {
 
   @override
   String toString() {
+    // Override toString() method for easier printing and troubleshooting
     return instrumentType.toString() + ", " + instrumentName.toString() + ", " + instrumentCodeType.toString() + ", " + instrumentCode.toString() + ", " + instrumentCompany.toString() + ", " + instrumentDescription.toString() + ", " + titles.toString() + ", " + amount.toString() + ", " + cost.toString() + ", " + profitLoss.toString() + ", " + percentage.toString();
   }
 }
