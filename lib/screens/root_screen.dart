@@ -19,6 +19,8 @@ import '../widgets/page_header.dart';
 import '../widgets/settings_popup_menu.dart';
 import 'login_screen.dart';
 
+// Base screen where all other screens are loaded after loggin in
+
 class RootScreen extends StatefulWidget {
   RootScreen({
     required this.token,
@@ -38,9 +40,9 @@ class RootScreen extends StatefulWidget {
 }
 
 class _RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
-  PageController? _pageController;
+  late PageController _pageController;
 
-  List<Map<String, String>>? _userAccounts = [];
+  List<Map<String, String>> _userAccounts = [];
   Future<Account>? _accountData;
 
   bool _reloading = false;
@@ -53,12 +55,14 @@ class _RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
   Future<void> _loadData({required int accountIndex}) async {
     // Main function that is called when account data is loaded
     try {
-      if (_userAccounts!.length == 0) {
+        // Avoid loading the account list again if we already have it (e.g.: 
+        // because we're reloading the screen after the user switches accounts)
+      if (_userAccounts.length == 0) {
         _userAccounts = await widget.indexaData.getUserAccounts();
       }
       _accountData = widget.indexaData.populateAccountData(
           context: context,
-          accountNumber: _userAccounts![accountIndex]['number']!);
+          accountNumber: _userAccounts[accountIndex]['number']!);
       await _accountData;
       setState(() {});
     } on Exception catch (e) {
@@ -77,7 +81,7 @@ class _RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
     try {
       _accountData = widget.indexaData.populateAccountData(
           context: context,
-          accountNumber: _userAccounts![accountIndex]['number']!);
+          accountNumber: _userAccounts[accountIndex]['number']!);
       await _accountData;
       setState(() {});
     } on Exception catch (e) {
@@ -86,7 +90,7 @@ class _RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
   }
 
   void _retryLoadData() async {
-    // Called when a "retry" button is pushed after network failure
+    // Called when "retry" button is pushed after a loading error
     setState(() {
       _reloading = true;
     });
@@ -97,7 +101,7 @@ class _RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
 
   void _reloadPage(int accountIndex, int pageIndex) async {
     // Called when the user switches to a different account
-    pageIndex = _pageController!.page!.toInt();
+    pageIndex = _pageController.page!.toInt();
     print(pageIndex);
     Navigator.pushReplacement(
         context,
@@ -111,7 +115,7 @@ class _RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
 
   void _onTappedBar(int value) {
     // Called when the user taps the bottom navigation bar
-    _pageController!.animateToPage(value,
+    _pageController.animateToPage(value,
         duration: Duration(milliseconds: 500), curve: Curves.ease);
   }
 
@@ -124,8 +128,9 @@ class _RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
     theme_operations.updateTheme(context);
 
     if (widget.previousUserAccounts != null) {
-      // Avoid reloading the account list if already loaded
-      _userAccounts = widget.previousUserAccounts;
+      // If we're just reloading the screen (e.g.: when the user switches
+      // between accounts), we reuse the existing account list.
+      _userAccounts = widget.previousUserAccounts!;
     }
     _loadData(accountIndex: widget.accountIndex);
 
@@ -144,7 +149,7 @@ class _RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
-    _pageController!.dispose();
+    _pageController.dispose();
     super.dispose();
   }
 
@@ -160,7 +165,7 @@ class _RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
       landscapeOrientation = false;
     }
 
-    // Fix upper padding bug in iOS in landscape mode
+    // Fix a bug in iOS where top padding isn't right in landscape mode
     if (landscapeOrientation && Platform.isIOS) {
       topPadding = 10;
     } else {

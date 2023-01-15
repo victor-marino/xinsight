@@ -115,11 +115,13 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
     super.initState();
     theme_operations.updateTheme(context);
 
+    // Check if we were thrown back to the login screen after an error
+    // Otherwise, try to find a stored token and login with it
     if (widget.errorMessage == null) {
       tryToLoginWithStoredToken();
     } else {
       String? message;
-      if ((widget.errorMessage == null) || (widget.errorMessage == "")) {
+      if (widget.errorMessage == "") {
         message = "login_screen.default_error_message".tr();
       } else {
         message = widget.errorMessage;
@@ -131,7 +133,7 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    // Check if system theme has changed when the app is reopened
+    // Check if system theme has changed after the app is resumed
     if (state == AppLifecycleState.resumed) {
       theme_operations.updateTheme(context);
     }

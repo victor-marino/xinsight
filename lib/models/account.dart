@@ -550,7 +550,7 @@ class Account {
 
     int compareTransactions(
         Transaction transactionA, Transaction transactionB) {
-          // Sorts transactions by date, amount and account type
+          // Sorts transactions by date, amount and account type.
       if (transactionA.date != transactionB.date) {
         return transactionB.date!.compareTo(transactionA.date!);
       } else if (transactionA.amount!.abs() != transactionB.amount!.abs()) {
@@ -598,8 +598,8 @@ class Account {
         totalAmount =
             accountPerformanceData['return']['total_amount'].toDouble(),
         // The two commented lines below allow for some quick data tests
-        //_totalAmount = new DateTime.now().second.toDouble(),
-        //_totalAmount = 999999.99,
+        // totalAmount = new DateTime.now().second.toDouble(),
+        // totalAmount = 999999.99,
         investment = accountPerformanceData['return']['investment'].toDouble(),
         timeReturn = accountPerformanceData['return']['time_return'].toDouble(),
         timeReturnColor = getNumberColor(

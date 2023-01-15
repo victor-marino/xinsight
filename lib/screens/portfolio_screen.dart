@@ -5,8 +5,6 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../models/account.dart';
 
-const int nbsp = 0x00A0;
-
 class PortfolioScreen extends StatefulWidget {
   const PortfolioScreen({
     Key? key,

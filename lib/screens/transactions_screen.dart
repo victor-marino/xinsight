@@ -1,12 +1,8 @@
-// import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:indexax/widgets/transactions_screen/pending_transactions_card.dart';
 import 'package:indexax/widgets/transactions_screen/transaction_tile.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-
-import '../models/account.dart';
-
-const int nbsp = 0x00A0;
+import 'package:indexax/models/account.dart';
 
 class TransactionsScreen extends StatefulWidget {
   const TransactionsScreen({

@@ -11,10 +11,7 @@ import 'package:indexax/widgets/overview_screen/minimum_transfer_card.dart';
 import 'package:indexax/widgets/overview_screen/returns_popup.dart';
 import 'package:indexax/widgets/reusable_card.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-
-import '../models/account.dart';
-
-const int nbsp = 0x00A0;
+import 'package:indexax/models/account.dart';
 
 class OverviewScreen extends StatefulWidget {
   const OverviewScreen({

@@ -1,13 +1,13 @@
-import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
 import 'package:indexax/models/theme_preference_data.dart';
 import 'package:indexax/tools/theme_operations.dart' as theme_operations;
 
 class ThemeModalBottomSheet extends StatefulWidget {
-  const ThemeModalBottomSheet(
-      {Key? key,
-      required this.updateCurrentThemePreference,})
-      : super(key: key);
+  const ThemeModalBottomSheet({
+    Key? key,
+    required this.updateCurrentThemePreference,
+  }) : super(key: key);
   final Function updateCurrentThemePreference;
 
   @override
@@ -19,7 +19,7 @@ class _ThemeModalBottomSheetState extends State<ThemeModalBottomSheet> {
 
   void _getCurrentThemePreference() async {
     ThemePreference? storedThemePreference =
-        await theme_operations.readThemePreference(context);
+        await theme_operations.readStoredThemePreference(context);
     if (storedThemePreference == ThemePreference.system ||
         storedThemePreference == null) {
       setState(() {
