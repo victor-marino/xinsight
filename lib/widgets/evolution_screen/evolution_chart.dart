@@ -7,8 +7,8 @@ import 'dart:math';
 import 'package:indexax/models/amounts_datapoint.dart';
 import 'package:indexax/models/returns_datapoint.dart';
 
-/* Draws the evolution chart. If showReturns=true, plots the returns (%).
-Otherwise it plots the amounts (€) */
+// Draws the evolution chart.
+// If showReturns=true, it plots the returns (%). Otherwise it plots the amounts (€)
 
 class EvolutionChart extends StatelessWidget {
   const EvolutionChart({

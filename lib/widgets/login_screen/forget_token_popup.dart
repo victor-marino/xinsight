@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 
-// Confirmation pop-up before deleting locally stored token
+// Confirmation pop-up before deleting the token stored locally
 
 class ForgetTokenPopup extends StatelessWidget {
   const ForgetTokenPopup({

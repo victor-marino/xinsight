@@ -4,7 +4,7 @@ import 'package:indexax/tools/constants.dart';
 import 'package:flutter/gestures.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-// Information pop-up with instructions to obtain user token
+// Informational pop-up with instructions on how to obtain the user token
 
 class TokenInstructionsPopup extends StatelessWidget {
   const TokenInstructionsPopup({

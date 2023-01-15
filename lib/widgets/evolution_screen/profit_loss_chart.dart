@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:indexax/tools/constants.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
-// Plots the profit-loss chart with the monhtly returns
+// Plots the profit-loss chart with the monthly returns
 
 class ProfitLossChart extends StatelessWidget {
   const ProfitLossChart({

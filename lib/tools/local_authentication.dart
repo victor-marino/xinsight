@@ -43,7 +43,8 @@ Future<bool> supportsBiometrics(BuildContext context) async {
 }
 
 Future<bool> authenticateUserLocally(BuildContext context) async {
-  // Executes biomestric authentication or falls back to alternative method (e.g.: PIN)
+  // Executes biometric authentication if possible
+  // Otherwise falls back to alternative method (e.g.: PIN)
   bool isAuthenticated = false;
   try {
     if (await (supportsBiometrics(context))) {

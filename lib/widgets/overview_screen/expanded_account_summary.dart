@@ -5,8 +5,8 @@ import 'package:indexax/tools/constants.dart';
 import 'package:indexax/tools/number_formatting.dart';
 import 'package:indexax/models/account.dart';
 
-/* Expanded version of the account summary.
-Shown when the user clicks the expansion arrow in smaller screens. */
+// Expanded version of the account summary.
+// Shown when the user clicks the expansion arrow in smaller screens (e.g.: phones). 
 
 class ExpandedAccountSummary extends StatelessWidget {
   const ExpandedAccountSummary({

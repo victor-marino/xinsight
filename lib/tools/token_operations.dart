@@ -45,7 +45,7 @@ Future<void> deleteToken(BuildContext context) async {
 }
 
 Future<bool?> authenticateToken(BuildContext context, String token) async {
-  // Checks if a token is valid
+  // Checks if a token is valid by trying to authenticate with it
   bool? authenticatedToken;
   token = validations.sanitizeToken(token);
   if (validations.validateTokenFormat(token)) {

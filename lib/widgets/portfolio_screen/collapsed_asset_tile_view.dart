@@ -3,6 +3,7 @@ import 'package:indexax/models/portfolio_datapoint.dart';
 import 'package:indexax/tools/number_formatting.dart';
 import 'package:indexax/tools/constants.dart';
 
+// Collapsed view of each asset tile
 class CollapsedAssetTileView extends StatelessWidget {
   const CollapsedAssetTileView({
     Key? key,

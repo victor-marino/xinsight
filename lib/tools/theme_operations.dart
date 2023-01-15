@@ -24,6 +24,7 @@ Future<ThemePreference?> readStoredThemePreference(BuildContext context) async {
 }
 
 Future<void> storeThemePreference(
+  // Save theme preference to device
     BuildContext context, ThemePreference themePreference) async {
   try {
     await _storage.storeKey(
@@ -39,8 +40,8 @@ Brightness getCurrentSystemTheme(BuildContext context) {
 }
 
 void updateTheme(BuildContext context) async {
-  /* Applies app theme based on current theme preference and current system theme.
-  Can be called from any screen by passing its context. */
+  // Applies theme based on current theme preference and current system theme.
+  // Can be called from any screen by passing its context.
   print("Updating theme");
   ThemePreference? currentThemePreference =
       await readStoredThemePreference(context);

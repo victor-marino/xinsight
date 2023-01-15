@@ -5,8 +5,8 @@ import 'package:indexax/tools/constants.dart';
 import 'package:indexax/tools/number_formatting.dart';
 import 'package:indexax/models/account.dart';
 
-/* Full view, always-expanded version of the account summary.
-Shown in landscape mode when using larger screens (e.g.: tablets) */
+// Full view, always-expanded version of the account summary.
+// Shown in landscape mode when using larger screens (e.g.: tablets).
 
 class ExpandedAccountSummarySingleView extends StatelessWidget {
   const ExpandedAccountSummarySingleView({

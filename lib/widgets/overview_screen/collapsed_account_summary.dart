@@ -5,8 +5,8 @@ import 'package:indexax/tools/constants.dart';
 import 'package:indexax/tools/number_formatting.dart';
 import 'package:indexax/models/account.dart';
 
-/* Collapsed version of the account summary.
-Default view in portrait mode, as well as landscape mode in smaller screens. */
+// Collapsed version of the account summary.
+// This is the default view in portrait mode, as well as landscape mode in smaller screens.
 
 class CollapsedAccountSummary extends StatelessWidget {
   const CollapsedAccountSummary({

@@ -3,6 +3,8 @@ import 'package:indexax/tools/constants.dart';
 import 'package:indexax/models/portfolio_datapoint.dart';
 import 'package:indexax/tools/number_formatting.dart';
 
+// Header of the expanded view of each asset tile for landscape orientation
+
 class ExpandedAssetTileHeaderLandscape extends StatelessWidget {
   const ExpandedAssetTileHeaderLandscape({
     Key? key,

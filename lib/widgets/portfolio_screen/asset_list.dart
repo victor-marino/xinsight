@@ -6,6 +6,13 @@ import 'package:indexax/widgets/reusable_card.dart';
 import '../../tools/constants.dart';
 import 'package:indexax/widgets/portfolio_screen/asset_tile.dart';
 
+// The list of assets shown in the portfolio screen
+// Grouped by asset type:
+// 1. Equity
+// 2. Fixed
+// 3. Others
+// Instruments within each asset class are sorted by amount
+
 class AssetList extends StatelessWidget {
   const AssetList({
     Key? key,
@@ -22,14 +29,10 @@ class AssetList extends StatelessWidget {
     List<Widget> fixedInstruments = [];
     List<Widget> cashInstruments = [];
     List<Widget> otherInstruments = [];
-    // double equityAmount = 0;
     double equityPercentage = 0;
-    // double fixedAmount = 0;
     double fixedPercentage = 0;
     double cashAmount = 0;
     double cashPercentage = 0;
-    // double otherAmount = 0;
-    // double otherPercentage = 0;
 
     for (var assetData in portfolioData) {
       switch (assetData.instrumentType) {
@@ -38,7 +41,6 @@ class AssetList extends StatelessWidget {
             if (equityInstruments.length > 0) {
               equityInstruments.add(Divider(height: 0));
             }
-            // equityAmount += assetData.amount;
             equityPercentage += assetData.percentage!;
             equityInstruments.add(AssetTile(assetData: assetData, landscapeOrientation: landscapeOrientation));
           }
@@ -50,7 +52,6 @@ class AssetList extends StatelessWidget {
               fixedInstruments.add(Divider(
                 height: 0));
             }
-            // fixedAmount += assetData.amount;
             fixedPercentage += assetData.percentage!;
             fixedInstruments.add(AssetTile(assetData: assetData, landscapeOrientation: landscapeOrientation,));
           }
@@ -66,8 +67,6 @@ class AssetList extends StatelessWidget {
 
         default:
           {
-            // otherAmount += assetData.amount;
-            // otherPercentage += assetData.percentage;
             otherInstruments.add(AssetTile(assetData: assetData, landscapeOrientation: landscapeOrientation));
           }
           break;

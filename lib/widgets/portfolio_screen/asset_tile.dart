@@ -1,4 +1,3 @@
-// import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:indexax/models/portfolio_datapoint.dart';
 import 'package:indexax/tools/constants.dart';
@@ -10,6 +9,7 @@ import 'package:indexax/widgets/portfolio_screen/expanded_asset_tile_header_land
 import 'package:indexax/widgets/portfolio_screen/expanded_asset_tile_body_portrait.dart';
 import 'package:indexax/widgets/portfolio_screen/expanded_asset_tile_body_landscape.dart';
 
+// Class containing each individual tile shown in the asset list in portfolio screen
 class AssetTile extends StatelessWidget {
   const AssetTile({
     Key? key,

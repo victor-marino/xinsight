@@ -98,7 +98,7 @@ class Account {
       if (instrument['instrument']['description'] == "" ||
           instrument['instrument']['description'] == null) {
         currentInstrumentDescription =
-            'asset_details_popup.description_not_available'.tr();
+            'asset_details.description_not_available'.tr();
       } else if (instrument['instrument']['description']
           .contains(' Código ISIN')) {
         currentInstrumentDescription =

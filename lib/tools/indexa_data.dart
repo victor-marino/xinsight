@@ -6,9 +6,13 @@ const indexaURL = 'https://api.indexacapital.com';
 
 class IndexaData {
   // Class that fetches account data from API endpoint
-  /* Commented lines below can help test support for multiple accounts
-  as well as reload functions by making some account values change every second.
-  Just replace XXXXXXXX with a valid account number and uncomment relevant lines */
+  // Commented lines below can help test switching between multiple accounts.
+  // They also make some values change every second, which allows for easier
+  // testing of some reload/refresh functions as well.
+  // You need to:
+  // 1. Uncomment said lines
+  // 2. Replace 'XXXXXXXX' with a valid account number (e.g.: yours)
+  // 3. Comment out the real lines they replace
   
   final String? token;
 

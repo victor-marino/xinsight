@@ -1,6 +1,6 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-// Class that handles all secure storage operations: token, theme preferences.
+// Class that handles all secure storage operations (token, theme preferences)
 
 class SecureStorage {
   final _storage = FlutterSecureStorage();
