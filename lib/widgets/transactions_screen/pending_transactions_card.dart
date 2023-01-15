@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:indexax/tools/constants.dart';
 import 'package:easy_localization/easy_localization.dart';
 
+// Banner showing if there are pending transactions in this account
+
 class PendingTransactionsCard extends StatelessWidget {
   const PendingTransactionsCard({
     Key? key,
@@ -12,7 +14,6 @@ class PendingTransactionsCard extends StatelessWidget {
     return Container(
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.primary,
-          //color: Colors.blue[100],
           borderRadius: BorderRadius.circular(20),
         ),
         child: Padding(

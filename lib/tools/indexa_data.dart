@@ -12,7 +12,7 @@ class IndexaData {
   // You need to:
   // 1. Uncomment said lines
   // 2. Replace 'XXXXXXXX' with a valid account number (e.g.: yours)
-  // 3. Comment out the real lines they replace
+  // 3. Comment out the real lines they
   
   final String? token;
 

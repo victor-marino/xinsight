@@ -4,6 +4,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:indexax/models/performance_datapoint.dart';
 import 'package:indexax/tools/number_formatting.dart';
 
+// Chart showing the future projection and expectations of the portfolio
+
 class PerformanceChart extends StatelessWidget {
   const PerformanceChart({
     Key? key,
@@ -45,7 +47,6 @@ class PerformanceChart extends StatelessWidget {
           padding: 4,
           itemPadding: 10,
       overflowMode: LegendItemOverflowMode.wrap),
-      // Initialize DateTime axis
       primaryXAxis: DateTimeAxis(
         edgeLabelPlacement: EdgeLabelPlacement.shift,
       ),
@@ -53,7 +54,6 @@ class PerformanceChart extends StatelessWidget {
         LineSeries<PerformanceDataPoint, DateTime>(
           name: 'performance_chart.positive'.tr(),
           opacity: 1,
-          // Bind data source
           dataSource: performanceSeries,
           xValueMapper: (PerformanceDataPoint performances, _) => performances.date,
           yValueMapper: (PerformanceDataPoint performances, _) => performances.bestReturn,
@@ -61,7 +61,6 @@ class PerformanceChart extends StatelessWidget {
         LineSeries<PerformanceDataPoint, DateTime>(
           name: 'performance_chart.negative'.tr(),
           opacity: 0.5,
-          // Bind data source
           dataSource: performanceSeries,
           xValueMapper: (PerformanceDataPoint performances, _) => performances.date,
           yValueMapper: (PerformanceDataPoint performances, _) => performances.worstReturn,
@@ -69,7 +68,6 @@ class PerformanceChart extends StatelessWidget {
         LineSeries<PerformanceDataPoint, DateTime>(
           name: 'performance_chart.expected'.tr(),
           opacity: 0.5,
-          // Bind data source
           dataSource: performanceSeries,
           xValueMapper: (PerformanceDataPoint performances, _) => performances.date,
           yValueMapper: (PerformanceDataPoint performances, _) => performances.expectedReturn,
@@ -77,7 +75,6 @@ class PerformanceChart extends StatelessWidget {
         LineSeries<PerformanceDataPoint, DateTime>(
           name: 'performance_chart.real'.tr(),
           animationDuration: 2000,
-          // Bind data source
           dataSource: performanceSeries,
           xValueMapper: (PerformanceDataPoint performances, _) => performances.date,
           yValueMapper: (PerformanceDataPoint performances, _) => performances.realReturn,

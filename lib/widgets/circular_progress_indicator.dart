@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+// Indicator shown while account data is being downloaded
+
 buildLoading(BuildContext context) {
   return showDialog(
       context: context,

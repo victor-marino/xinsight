@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 
+// Text showing the current account at the top of the page.
+// First line shows the account number, second line shows the account type.
 class CurrentAccountIndicator extends StatelessWidget {
   const CurrentAccountIndicator({
     Key? key,
@@ -8,8 +10,8 @@ class CurrentAccountIndicator extends StatelessWidget {
     required this.accountType,
   }) : super(key: key);
 
-  final String? accountNumber;
-  final String? accountType;
+  final String accountNumber;
+  final String accountType;
 
   @override
   Widget build(BuildContext context) {
@@ -37,19 +39,14 @@ class CurrentAccountIndicator extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          accountNumber != null
-              ? accountNumber!
-              : "",
-          //style: kAccountNumberTextStyle.copyWith(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onSurfaceVariant),
+          accountNumber,
           style: Theme.of(context).textTheme.titleSmall,
           overflow: TextOverflow.fade,
           maxLines: 1,
           softWrap: false,
         ),
         Text(
-          accountType != null ? accountTypeText!.toUpperCase() : "",
-          //  style: kAccountNumberTextStyle.copyWith(
-          //      color: Theme.of(context).colorScheme.onSurfaceVariant),
+          accountTypeText.toUpperCase(),
           style: Theme.of(context).textTheme.labelLarge,
           overflow: TextOverflow.fade,
           maxLines: 1,

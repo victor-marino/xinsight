@@ -6,6 +6,8 @@ import 'package:provider/provider.dart';
 import '../../tools/bottom_navigation_bar_provider.dart';
 import 'package:indexax/tools/token_operations.dart' as token_operations;
 
+// Pop-up asking for confirmation before logging the user out
+
 class LogoutPopup extends StatelessWidget {
   const LogoutPopup({
     Key? key,
@@ -51,7 +53,6 @@ class LogoutPopup extends StatelessWidget {
           child: Text(
             'logout_popup.logout_button'.tr(),
             style: TextStyle(
-                //color: Colors.red.shade900
                 color: Colors.red),
           ),
           onPressed: () {

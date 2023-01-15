@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:indexax/tools/constants.dart';
 import 'package:indexax/tools/number_formatting.dart';
 
+// Pop-up showing the details of an individual transaction in landscape mode
+
 class TransactionDetailsPopupLandscape extends StatelessWidget {
   const TransactionDetailsPopupLandscape({
     Key? key,
@@ -192,7 +194,6 @@ class TransactionDetailsPopupLandscape extends StatelessWidget {
         ),
       ),
       content: Scrollbar(
-        //isAlwaysShown: true,
         thumbVisibility: true,
         child: SingleChildScrollView(
           child: Padding(

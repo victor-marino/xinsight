@@ -3,6 +3,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:provider/provider.dart';
 import '../tools/bottom_navigation_bar_provider.dart';
 
+// Header showing the current section of the app
+
 class PageHeader extends StatelessWidget {
   const PageHeader({
     Key? key,
@@ -24,7 +26,6 @@ class PageHeader extends StatelessWidget {
           pageTitles[
               Provider.of<BottomNavigationBarProvider>(context, listen: true)
                   .currentIndex],
-          //style: kTitleTextStyle,
           style: Theme.of(context).textTheme.headlineLarge,
           overflow: TextOverflow.fade,
           maxLines: 1,

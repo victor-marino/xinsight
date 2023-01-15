@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:indexax/models/theme_preference_data.dart';
 import 'package:indexax/tools/theme_operations.dart' as theme_operations;
 
+// Bottom sheet to pick the preferred theme configuration
+
 class ThemeModalBottomSheet extends StatefulWidget {
   const ThemeModalBottomSheet({
     Key? key,

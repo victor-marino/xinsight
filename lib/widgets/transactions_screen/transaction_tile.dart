@@ -1,4 +1,3 @@
-// import 'package:flutter/cupertino.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:indexax/tools/constants.dart';
@@ -6,6 +5,8 @@ import 'package:indexax/models/transaction.dart';
 import 'package:indexax/widgets/transactions_screen/transaction_details_popup_portrait.dart';
 import 'package:indexax/widgets/transactions_screen/transaction_details_popup_landscape.dart';
 import 'package:indexax/tools/number_formatting.dart';
+
+// Individual tiles for each transaction in the list
 
 class TransactionTile extends StatelessWidget {
   const TransactionTile({
@@ -112,7 +113,6 @@ class TransactionTile extends StatelessWidget {
                 ),
               ),
               Text(
-                //transactionData.amount.toStringAsFixed(2) + " €",
                 getAmountAsStringWithTwoDecimals(transactionData.amount),
                 textAlign: TextAlign.right,
                 style: kTransactionListAmountTextStyle.copyWith(

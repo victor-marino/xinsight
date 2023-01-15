@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:indexax/tools/constants.dart';
 import 'package:easy_localization/easy_localization.dart';
 
+// Informational pop-up explaining how expectations are calculated
+
 class ExpectationsPopUp extends StatelessWidget {
   const ExpectationsPopUp({
     Key? key,

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 
+// Gauge showing the risk level of the portfolio
+
 class RiskChart extends StatelessWidget {
   const RiskChart({
     Key? key,

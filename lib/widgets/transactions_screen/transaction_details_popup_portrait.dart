@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:indexax/tools/constants.dart';
 import 'package:indexax/tools/number_formatting.dart';
 
+// Pop-up showing the details of an individual transaction in portrait mode
+
 class TransactionDetailsPopup extends StatelessWidget {
   const TransactionDetailsPopup({
     Key? key,
@@ -90,7 +92,6 @@ class TransactionDetailsPopup extends StatelessWidget {
         style: kTransactionListTitleTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface),
       ));
       transactionDetails.add(Text(
-        // transactionData.titles.toString(),
         getNumberAsStringWithMaxDecimals(transactionData.titles),
         style: kTransactionDetailValueTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
       ));
@@ -99,7 +100,6 @@ class TransactionDetailsPopup extends StatelessWidget {
         style: kTransactionListTitleTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface),
       ));
       transactionDetails.add(Text(
-        // transactionData.price.toString() + " €",
         getAmountAsStringWithMaxDecimals(transactionData.price),
         style: kTransactionDetailValueTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
       ));
@@ -108,7 +108,6 @@ class TransactionDetailsPopup extends StatelessWidget {
         style: kTransactionListTitleTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface),
       ));
       transactionDetails.add(Text(
-        // transactionData.amount.toStringAsFixed(2) + " €",
         getAmountAsStringWithTwoDecimals(transactionData.amount),
         style: kTransactionDetailValueTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
       ));
@@ -137,7 +136,6 @@ class TransactionDetailsPopup extends StatelessWidget {
         ),
       ),
       content: Scrollbar(
-        //isAlwaysShown: true,
         thumbVisibility: true,
         child: SingleChildScrollView(
           child: Padding(
