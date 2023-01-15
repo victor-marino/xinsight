@@ -84,11 +84,11 @@ class DistributionChart extends StatelessWidget {
           xValueMapper:
               (PortfolioDataPoint data, _) {
             if (data.instrumentType == InstrumentType.equity) {
-              return data.instrumentName! + '\n' + 'distribution_chart.instrument_type_equity'.tr() +
+              return data.instrumentName + '\n' + 'distribution_chart.instrument_type_equity'.tr() +
                   '\n(' +
                   getPercentAsString(data.percentage) + ')';
               } else if (data.instrumentType == InstrumentType.fixed) {
-              return data.instrumentName! + '\n' + 'distribution_chart.instrument_type_fixed'.tr() +
+              return data.instrumentName + '\n' + 'distribution_chart.instrument_type_fixed'.tr() +
                   '\n(' +
                   getPercentAsString(data.percentage) + ')';
             } else if (data.instrumentType == InstrumentType.cash) {
@@ -101,7 +101,7 @@ class DistributionChart extends StatelessWidget {
             } else {
               return data.instrumentType.toString().tr() +
                   '\n' +
-                  data.instrumentName! +
+                  data.instrumentName +
                   '\n(' +
                   getPercentAsString(data.percentage) + ')';
             }

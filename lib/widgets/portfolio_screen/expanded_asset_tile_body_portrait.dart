@@ -85,7 +85,7 @@ class ExpandedAssetTileBodyPortrait extends StatelessWidget {
                   text: 'asset_details.current_value'.tr() + ': ',
                   style: kTransactionListTitleTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface)),
               TextSpan(
-                  text: getInvestmentAsString(assetData.amount!),
+                  text: getInvestmentAsString(assetData.amount),
                   style: kTransactionDetailValueTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant)),
             ],
           ),

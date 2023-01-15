@@ -15,8 +15,8 @@ class PortfolioScreen extends StatefulWidget {
     required this.refreshData,
     required this.currentAccountIndex,
   }) : super(key: key);
-  final Account? accountData;
-  final List<Map<String, String>>? userAccounts;
+  final Account accountData;
+  final List<Map<String, String>> userAccounts;
   final bool landscapeOrientation;
   final double availableWidth;
   final Function refreshData;
@@ -83,7 +83,7 @@ class _PortfolioScreenState extends State<PortfolioScreen>
                           children: <Widget>[
                             AssetList(
                                 portfolioData:
-                                    widget.accountData!.portfolioData,
+                                    widget.accountData.portfolioData,
                                 landscapeOrientation:
                                     widget.landscapeOrientation)
                           ],

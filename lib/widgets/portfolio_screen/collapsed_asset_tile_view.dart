@@ -19,7 +19,7 @@ class CollapsedAssetTileView extends StatelessWidget {
         Container(
           width: 40,
           child: Text(
-              getWholePercentWithoutPercentSignAsString(assetData.percentage!) +
+              getWholePercentWithoutPercentSignAsString(assetData.percentage) +
                   "%",
               textAlign: TextAlign.center,
               style: kAssetListPercentageTextStyle),
@@ -31,7 +31,7 @@ class CollapsedAssetTileView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  assetData.instrumentName!,
+                  assetData.instrumentName,
                   maxLines: 1,
                   style: kAssetListMainTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface),
                   overflow: TextOverflow.fade,
@@ -49,7 +49,7 @@ class CollapsedAssetTileView extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 20),
               child: Text(
-                getInvestmentAsString(assetData.amount!),
+                getInvestmentAsString(assetData.amount),
                 style: kAssetListAmountTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface),
               ),
             ),

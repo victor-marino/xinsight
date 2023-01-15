@@ -18,7 +18,7 @@ class ExpandedAssetTileHeaderPortrait extends StatelessWidget {
     return Expanded(
       child: Row(children: [
         Expanded(
-          child: Text(assetData.instrumentName!, style: kAssetListMainTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface)),
+          child: Text(assetData.instrumentName, style: kAssetListMainTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface)),
         ),
         Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -28,7 +28,7 @@ class ExpandedAssetTileHeaderPortrait extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 20),
               child: Text(
-                getInvestmentAsString(assetData.amount!),
+                getInvestmentAsString(assetData.amount),
                 style: kAssetListAmountTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface),
               ),
             ),

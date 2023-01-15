@@ -150,7 +150,7 @@ class Account {
             .toString()
             .compareTo(instrumentB.instrumentType.toString());
       } else {
-        return instrumentB.amount!.compareTo(instrumentA.amount!);
+        return instrumentB.amount.compareTo(instrumentA.amount);
       }
     }
     newPortfolioData.sort(compareInstruments);
@@ -347,7 +347,7 @@ class Account {
         // Creates a merged list including all cash and securities transactions 
     List<Transaction> newTransactionList = [];
     for (var transaction in accountInstrumentTransactionData) {
-      String? operationType;
+      String operationType;
       IconData icon = Icons.pie_chart;
       
       // Reformat the text for some typical strings to improve readability
@@ -416,7 +416,7 @@ class Account {
           break;
       }
 
-      String? operationStatus;
+      String operationStatus;
       switch (transaction['status']) {
         case 'closed':
           {
@@ -450,7 +450,7 @@ class Account {
 
     // Reformat the text for some typical strings to improve readability
     for (var transaction in accountCashTransactionData) {
-      String? operationType;
+      String operationType;
       IconData icon = Icons.toll;
       switch (transaction['operation_code']) {
         case 9200:
@@ -516,7 +516,7 @@ class Account {
           break;
       }
 
-      String? operationStatus;
+      String operationStatus;
       switch (transaction['status']) {
         case 'closed':
           {
@@ -552,9 +552,9 @@ class Account {
         Transaction transactionA, Transaction transactionB) {
           // Sorts transactions by date, amount and account type.
       if (transactionA.date != transactionB.date) {
-        return transactionB.date!.compareTo(transactionA.date!);
-      } else if (transactionA.amount!.abs() != transactionB.amount!.abs()) {
-        return transactionB.amount!.abs().compareTo(transactionA.amount!.abs());
+        return transactionB.date.compareTo(transactionA.date);
+      } else if (transactionA.amount.abs() != transactionB.amount.abs()) {
+        return transactionB.amount.abs().compareTo(transactionA.amount.abs());
       } else {
         return transactionB.accountType
             .toString()

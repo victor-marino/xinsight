@@ -21,7 +21,7 @@ class ExpandedAssetTileHeaderLandscape extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(assetData.instrumentName!, style: kAssetListMainTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface)),
+              Text(assetData.instrumentName, style: kAssetListMainTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface)),
               Text(assetData.instrumentCompany!,
                   style: kTransactionDetailValueTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant)),
             ],
@@ -35,7 +35,7 @@ class ExpandedAssetTileHeaderLandscape extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 20),
               child: Text(
-                getInvestmentAsString(assetData.amount!),
+                getInvestmentAsString(assetData.amount),
                 style: kAssetListAmountTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface),
               ),
             ),

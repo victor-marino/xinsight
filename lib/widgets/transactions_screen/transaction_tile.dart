@@ -48,7 +48,7 @@ class TransactionTile extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 5),
                 child: Text(
                   DateFormat("MMMM y")
-                      .format(transactionData.date!)
+                      .format(transactionData.date)
                       .toUpperCase(),
                   style: kDividerTextStyle,
                 ),
@@ -80,7 +80,7 @@ class TransactionTile extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        transactionData.operationType!,
+                        transactionData.operationType,
                         textAlign: TextAlign.left,
                         style: kTransactionListTitleTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface),
                         maxLines: 1,
@@ -94,14 +94,14 @@ class TransactionTile extends StatelessWidget {
                         text: TextSpan(children: [
                           TextSpan(
                             text: DateFormat("dd/MM")
-                                .format(transactionData.date!)
+                                .format(transactionData.date)
                                 .replaceAll(".", ""),
                             style: kCardSubTextStyle.copyWith(
                               fontSize: 12,
                             ),
                           ),
                           TextSpan(
-                            text: " · " + transactionData.accountType!,
+                            text: " · " + transactionData.accountType,
                             style: kCardSubTextStyle.copyWith(
                               fontSize: 12,
                             ),

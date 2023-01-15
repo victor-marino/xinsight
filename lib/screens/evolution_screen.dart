@@ -19,8 +19,8 @@ class EvolutionScreen extends StatefulWidget {
     required this.landscapeOrientation,
     required this.availableWidth,
   }) : super(key: key);
-  final Account? accountData;
-  final List<Map<String, String>>? userAccounts;
+  final Account accountData;
+  final List<Map<String, String>> userAccounts;
   final Function refreshData;
   final int currentAccountIndex;
   final bool landscapeOrientation;
@@ -81,7 +81,7 @@ class _EvolutionScreenState extends State<EvolutionScreen>
     super.initState();
     // Show the current year by default in the profit loss chart
     _profitLossChartSelectedYear =
-        widget.accountData!.profitLossSeries.keys.toList().last;
+        widget.accountData.profitLossSeries.keys.toList().last;
   }
 
   // Zoom options for the evolution chart
@@ -219,9 +219,9 @@ class _EvolutionScreenState extends State<EvolutionScreen>
                                       ]),
                                   EvolutionChart(
                                       amountsSeries:
-                                          widget.accountData!.amountsSeries,
+                                          widget.accountData.amountsSeries,
                                       returnsSeries:
-                                          widget.accountData!.returnsSeries,
+                                          widget.accountData.returnsSeries,
                                       period: _evolutionChartSelectedPeriod,
                                       showReturns: _evolutionChartShowReturns),
                                   Container(
@@ -266,7 +266,7 @@ class _EvolutionScreenState extends State<EvolutionScreen>
                                       ProfitLossYearSwitcher(
                                           currentYear:
                                               _profitLossChartSelectedYear,
-                                          yearList: widget.accountData!
+                                          yearList: widget.accountData
                                               .profitLossSeries.keys
                                               .toList(),
                                           reloadProfitLossChart:
@@ -277,7 +277,7 @@ class _EvolutionScreenState extends State<EvolutionScreen>
                                     height: 150,
                                     child: ProfitLossChart(
                                         profitLossSeries: widget
-                                            .accountData!.profitLossSeries,
+                                            .accountData.profitLossSeries,
                                         selectedYear:
                                             _profitLossChartSelectedYear),
                                   ),

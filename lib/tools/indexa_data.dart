@@ -14,14 +14,14 @@ class IndexaData {
   // 2. Replace 'XXXXXXXX' with a valid account number (e.g.: yours)
   // 3. Comment out the real lines they
   
-  final String? token;
+  final String token;
 
-  IndexaData({this.token});
+  IndexaData({required this.token});
 
   Future<dynamic> getUserAccounts() async {
     String url = '$indexaURL/users/me';
     List<Map<String, String>> userAccounts = [];
-    NetworkHelper networkHelper = NetworkHelper(url, token!);
+    NetworkHelper networkHelper = NetworkHelper(url, token);
     try {
       var userData = await networkHelper.getData();
       if (userData != null) {
@@ -45,7 +45,7 @@ class IndexaData {
   Future<dynamic> getAccountInfo({required String accountNumber}) async {
     //String url = '$indexaURL/accounts/XXXXXXXX';
     String url = '$indexaURL/accounts/$accountNumber';
-    NetworkHelper networkHelper = NetworkHelper(url, token!);
+    NetworkHelper networkHelper = NetworkHelper(url, token);
     try {
       var accountInfo = await networkHelper.getData();
       if (accountInfo != null && accountNumber != "Test") {
@@ -65,7 +65,7 @@ class IndexaData {
       {required String accountNumber}) async {
     //String url = '$indexaURL/accounts/XXXXXXXX/performance';
     String url = '$indexaURL/accounts/$accountNumber/performance';
-    NetworkHelper networkHelper = NetworkHelper(url, token!);
+    NetworkHelper networkHelper = NetworkHelper(url, token);
     try {
       var accountPerformanceData = await networkHelper.getData();
       /* Provide fake, time-bound numbers if we're using a "Test" account.
@@ -89,7 +89,7 @@ class IndexaData {
       {required String accountNumber}) async {
     //String url = '$indexaURL/accounts/XXXXXXXX/portfolio';
     String url = '$indexaURL/accounts/$accountNumber/portfolio';
-    NetworkHelper networkHelper = NetworkHelper(url, token!);
+    NetworkHelper networkHelper = NetworkHelper(url, token);
     try {
       var accountPortfolioData = await networkHelper.getData();
       if (accountPortfolioData != null) {
@@ -105,7 +105,7 @@ class IndexaData {
       {required String accountNumber}) async {
     //String url = '$indexaURL/accounts/XXXXXXXX/instrument-transactions';
     String url = '$indexaURL/accounts/$accountNumber/instrument-transactions';
-    NetworkHelper networkHelper = NetworkHelper(url, token!);
+    NetworkHelper networkHelper = NetworkHelper(url, token);
     try {
       var accountInstrumentTransactionData = await networkHelper.getData();
       if (accountInstrumentTransactionData != null) {
@@ -121,7 +121,7 @@ class IndexaData {
       {required String accountNumber}) async {
     //String url = '$indexaURL/accounts/XXXXXXXX/cash-transactions';
     String url = '$indexaURL/accounts/$accountNumber/cash-transactions';
-    NetworkHelper networkHelper = NetworkHelper(url, token!);
+    NetworkHelper networkHelper = NetworkHelper(url, token);
     try {
       var accountCashTransactionData = await networkHelper.getData();
       if (accountCashTransactionData != null) {
@@ -137,7 +137,7 @@ class IndexaData {
       {required String accountNumber}) async {
     //String url = '$indexaURL/accounts/XXXXXXXX/pending-transactions';
     String url = '$indexaURL/accounts/$accountNumber/pending-transactions';
-    NetworkHelper networkHelper = NetworkHelper(url, token!);
+    NetworkHelper networkHelper = NetworkHelper(url, token);
     try {
       var accountPendingTransactionData = await networkHelper.getData();
       if (accountPendingTransactionData != null) {

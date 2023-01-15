@@ -12,7 +12,7 @@ class CollapsedAccountSummary extends StatelessWidget {
     Key? key,
     required this.accountData,
   }) : super(key: key);
-  final Account? accountData;
+  final Account accountData;
 
   @override
   Widget build(BuildContext context) {
@@ -32,13 +32,13 @@ class CollapsedAccountSummary extends StatelessWidget {
               RichText(
                 text: TextSpan(children: [
                   TextSpan(
-                    text: getInvestmentAsString(accountData!.investment) + " ",
+                    text: getInvestmentAsString(accountData.investment) + " ",
                     style: kCardSubTextStyle,
                   ),
                   TextSpan(
-                    text: getPLAsString(accountData!.profitLoss),
+                    text: getPLAsString(accountData.profitLoss),
                     style: kCardSubTextStyle.copyWith(
-                      color: accountData!.profitLossColor,
+                      color: accountData.profitLossColor,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -49,12 +49,12 @@ class CollapsedAccountSummary extends StatelessWidget {
               text: TextSpan(children: [
                 TextSpan(
                   text:
-                      getWholeBalanceAsString(accountData!.totalAmount),
+                      getWholeBalanceAsString(accountData.totalAmount),
                   style: kCardPrimaryContentTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface),
                 ),
                 TextSpan(
                   text: getDecimalSeparator() +
-                      getFractionalBalanceAsString(accountData!.totalAmount),
+                      getFractionalBalanceAsString(accountData.totalAmount),
                   style: kCardSecondaryContentTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface),
                 ),
               ]),
@@ -103,14 +103,14 @@ class CollapsedAccountSummary extends StatelessWidget {
                             RichText(
                               text: TextSpan(children: [
                                 TextSpan(
-                                  text: getWholePLPercentAsString(accountData!.timeReturn),
+                                  text: getWholePLPercentAsString(accountData.timeReturn),
                                   style: kCardPLTextStyle.copyWith(
-                                      color: accountData!.timeReturnColor),
+                                      color: accountData.timeReturnColor),
                                 ),
                                 TextSpan(
-                                  text: getDecimalSeparator() + getFractionalPLPercentAsString(accountData!.timeReturn),
+                                  text: getDecimalSeparator() + getFractionalPLPercentAsString(accountData.timeReturn),
                                   style: kCardPLTextStyleSmaller.copyWith(
-                                      color: accountData!.timeReturnColor),
+                                      color: accountData.timeReturnColor),
                                 ),
                               ]),
                             ),
@@ -154,14 +154,14 @@ class CollapsedAccountSummary extends StatelessWidget {
                             RichText(
                               text: TextSpan(children: [
                                 TextSpan(
-                                  text: getWholePLPercentAsString(accountData!.moneyReturn),
+                                  text: getWholePLPercentAsString(accountData.moneyReturn),
                                   style: kCardPLTextStyle.copyWith(
-                                      color: accountData!.moneyReturnColor),
+                                      color: accountData.moneyReturnColor),
                                 ),
                                 TextSpan(
-                                  text: getDecimalSeparator() + getFractionalPLPercentAsString(accountData!.moneyReturn),
+                                  text: getDecimalSeparator() + getFractionalPLPercentAsString(accountData.moneyReturn),
                                   style: kCardPLTextStyleSmaller.copyWith(
-                                      color: accountData!.moneyReturnColor),
+                                      color: accountData.moneyReturnColor),
                                 ),
                               ]),
                             ),

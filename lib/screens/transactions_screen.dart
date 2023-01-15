@@ -14,8 +14,8 @@ class TransactionsScreen extends StatefulWidget {
     required this.refreshData,
     required this.currentAccountIndex,
   }) : super(key: key);
-  final Account? accountData;
-  final List<Map<String, String>>? userAccounts;
+  final Account accountData;
+  final List<Map<String, String>> userAccounts;
   final bool landscapeOrientation;
   final double availableWidth;
   final Function refreshData;
@@ -69,7 +69,7 @@ class _TransactionsScreenState extends State<TransactionsScreen>
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                if (widget.accountData!.hasPendingTransactions)
+                if (widget.accountData.hasPendingTransactions)
                   Padding(
                     padding:
                         const EdgeInsets.only(left: 20, right: 20, bottom: 10),
@@ -82,7 +82,7 @@ class _TransactionsScreenState extends State<TransactionsScreen>
                     onRefresh: _onRefresh,
                     child: ListView.builder(
                         padding: const EdgeInsets.all(20),
-                        itemCount: widget.accountData!.transactionList.length,
+                        itemCount: widget.accountData.transactionList.length,
                         itemBuilder: (BuildContext context, int index) {
                           bool firstTransaction = false;
                           bool firstTransactionOfMonth = false;
@@ -90,26 +90,26 @@ class _TransactionsScreenState extends State<TransactionsScreen>
                           if (index == 0) {
                             firstTransaction = true;
                             firstTransactionOfMonth = true;
-                          } else if (widget.accountData!.transactionList[index]
-                                  .date!.month !=
-                              widget.accountData!.transactionList[index - 1]
-                                  .date!.month) {
+                          } else if (widget.accountData.transactionList[index]
+                                  .date.month !=
+                              widget.accountData.transactionList[index - 1]
+                                  .date.month) {
                             firstTransactionOfMonth = true;
                           }
                           if (index ==
-                              (widget.accountData!.transactionList.length -
+                              (widget.accountData.transactionList.length -
                                   1)) {
                             lastTransactionOfMonth = true;
-                          } else if (widget.accountData!.transactionList[index]
-                                  .date!.month !=
-                              widget.accountData!.transactionList[index + 1]
-                                  .date!.month) {
+                          } else if (widget.accountData.transactionList[index]
+                                  .date.month !=
+                              widget.accountData.transactionList[index + 1]
+                                  .date.month) {
                             lastTransactionOfMonth = true;
                           }
                           return Container(
                             child: TransactionTile(
                                 transactionData:
-                                    widget.accountData!.transactionList[index],
+                                    widget.accountData.transactionList[index],
                                 firstTransaction: firstTransaction,
                                 firstTransactionOfMonth:
                                     firstTransactionOfMonth,

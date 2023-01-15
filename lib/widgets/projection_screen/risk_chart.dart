@@ -8,7 +8,7 @@ class RiskChart extends StatelessWidget {
     Key? key,
     required this.risk,
   }) : super(key: key);
-  final int? risk;
+  final int risk;
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +46,7 @@ class RiskChart extends StatelessWidget {
             color: Colors.red)
       ],
       markerPointers: [LinearShapePointer(
-          value: risk!.toDouble(),
+          value: risk.toDouble(),
         shapeType: LinearShapePointerType.invertedTriangle,
       )],
     );

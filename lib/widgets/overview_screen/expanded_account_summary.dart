@@ -12,7 +12,7 @@ class ExpandedAccountSummary extends StatelessWidget {
     Key? key,
     required this.accountData,
   }) : super(key: key);
-  final Account? accountData;
+  final Account accountData;
 
   @override
   Widget build(BuildContext context) {
@@ -32,13 +32,13 @@ class ExpandedAccountSummary extends StatelessWidget {
                 RichText(
                   text: TextSpan(children: [
                     TextSpan(
-                      text: getInvestmentAsString(accountData!.investment) + " ",
+                      text: getInvestmentAsString(accountData.investment) + " ",
                       style: kCardSubTextStyle,
                     ),
                     TextSpan(
-                      text: getPLAsString(accountData!.profitLoss),
+                      text: getPLAsString(accountData.profitLoss),
                       style: kCardSubTextStyle.copyWith(
-                        color: accountData!.profitLossColor,
+                        color: accountData.profitLossColor,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -49,13 +49,13 @@ class ExpandedAccountSummary extends StatelessWidget {
             RichText(
               text: TextSpan(children: [
                 TextSpan(
-                  text: getWholeBalanceAsString(accountData!.totalAmount),
+                  text: getWholeBalanceAsString(accountData.totalAmount),
                   style: kCardPrimaryContentTextStyle.copyWith(
                       color: Theme.of(context).colorScheme.onSurface),
                 ),
                 TextSpan(
                   text: getDecimalSeparator() +
-                      getFractionalBalanceAsString(accountData!.totalAmount),
+                      getFractionalBalanceAsString(accountData.totalAmount),
                   style: kCardSecondaryContentTextStyle.copyWith(
                       color: Theme.of(context).colorScheme.onSurface),
                 ),
@@ -105,16 +105,16 @@ class ExpandedAccountSummary extends StatelessWidget {
                                 text: TextSpan(children: [
                                   TextSpan(
                                     text: getWholePLPercentAsString(
-                                        accountData!.timeReturn),
+                                        accountData.timeReturn),
                                     style: kCardPLTextStyle.copyWith(
-                                        color: accountData!.timeReturnColor),
+                                        color: accountData.timeReturnColor),
                                   ),
                                   TextSpan(
                                     text: getDecimalSeparator() +
                                         getFractionalPLPercentAsString(
-                                            accountData!.timeReturn),
+                                            accountData.timeReturn),
                                     style: kCardPLTextStyleSmaller.copyWith(
-                                        color: accountData!.timeReturnColor),
+                                        color: accountData.timeReturnColor),
                                   ),
                                 ]),
                               ),
@@ -129,7 +129,7 @@ class ExpandedAccountSummary extends StatelessWidget {
                                 TextSpan(
                                   text: "(" +
                                       getPLPercentAsString(
-                                          accountData!.timeReturnAnnual) +
+                                          accountData.timeReturnAnnual) +
                                       " " + 'account_summary.annual'.tr() + ")",
                                   style: kAccountSummaryCardSubtextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
                                 ),
@@ -175,16 +175,16 @@ class ExpandedAccountSummary extends StatelessWidget {
                                 text: TextSpan(children: [
                                   TextSpan(
                                     text: getWholePLPercentAsString(
-                                        accountData!.moneyReturn),
+                                        accountData.moneyReturn),
                                     style: kCardPLTextStyle.copyWith(
-                                        color: accountData!.moneyReturnColor),
+                                        color: accountData.moneyReturnColor),
                                   ),
                                   TextSpan(
                                     text: getDecimalSeparator() +
                                         getFractionalPLPercentAsString(
-                                            accountData!.moneyReturn),
+                                            accountData.moneyReturn),
                                     style: kCardPLTextStyleSmaller.copyWith(
-                                        color: accountData!.moneyReturnColor),
+                                        color: accountData.moneyReturnColor),
                                   ),
                                 ]),
                               ),
@@ -199,7 +199,7 @@ class ExpandedAccountSummary extends StatelessWidget {
                                 TextSpan(
                                   text: "(" +
                                       getPLPercentAsString(
-                                          accountData!.moneyReturnAnnual) +
+                                          accountData.moneyReturnAnnual) +
                                       " " + 'account_summary.annual'.tr() + ")",
                                   style: kAccountSummaryCardSubtextStyle.copyWith(
                                           color: Theme.of(context)
@@ -255,7 +255,7 @@ class ExpandedAccountSummary extends StatelessWidget {
                                 text: TextSpan(children: [
                                   TextSpan(
                                     text: getPercentAsString(
-                                        accountData!.volatility),
+                                        accountData.volatility),
                                     style: kCardPLTextStyleSmaller.copyWith(color: Theme.of(context).colorScheme.onSurface),
                                   ),
                                 ]),
@@ -295,7 +295,7 @@ class ExpandedAccountSummary extends StatelessWidget {
                               RichText(
                                 text: TextSpan(children: [
                                   TextSpan(
-                                    text: getNumberAsStringWithTwoDecimals(accountData!.sharpe),
+                                    text: getNumberAsStringWithTwoDecimals(accountData.sharpe),
                                     style: kCardPLTextStyleSmaller.copyWith(
                                         color: Theme.of(context)
                                             .colorScheme

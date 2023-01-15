@@ -5,9 +5,9 @@ import 'package:easy_localization/easy_localization.dart';
 
 class ForgetTokenPopup extends StatelessWidget {
   const ForgetTokenPopup({
-    Key? key, this.forgetToken,
+    Key? key, required this.forgetToken,
   }) : super(key: key);
-  final VoidCallback? forgetToken;
+  final VoidCallback forgetToken;
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +43,7 @@ class ForgetTokenPopup extends StatelessWidget {
             ),
           ),
           onPressed: () {
-            forgetToken!();
+            forgetToken();
             Navigator.of(context).pop();
             },
         ),

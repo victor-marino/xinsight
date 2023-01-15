@@ -13,7 +13,7 @@ class ProfitLossChart extends StatelessWidget {
   }) : super(key: key);
 
   final Map<int, List<List>> profitLossSeries;
-  final int? selectedYear;
+  final int selectedYear;
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +46,7 @@ class ProfitLossChart extends StatelessWidget {
               labelAlignment: ChartDataLabelAlignment.outer,
             ),
             enableTooltip: false,
-            dataSource: profitLossSeries[selectedYear!]!,
+            dataSource: profitLossSeries[selectedYear]!,
             xValueMapper: (List month, _) => month[0],
             yValueMapper: (List month, _) => month[1],
             pointColorMapper: (List month, _) =>

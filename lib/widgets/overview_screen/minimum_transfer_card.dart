@@ -10,7 +10,7 @@ class MinimumTransferCard extends StatelessWidget {
     required this.additionalCashNeededToTrade,
   }) : super(key: key);
 
-  final double? additionalCashNeededToTrade;
+  final double additionalCashNeededToTrade;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class MinimumTransferCard extends StatelessWidget {
             style: Theme.of(context).textTheme.labelLarge
           ),
           TextSpan(
-            text: getInvestmentAsString(additionalCashNeededToTrade!),
+            text: getInvestmentAsString(additionalCashNeededToTrade),
             style: Theme.of(context).textTheme.titleSmall
           ),
       ]),

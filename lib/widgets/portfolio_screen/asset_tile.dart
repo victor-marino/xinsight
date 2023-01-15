@@ -37,7 +37,7 @@ class AssetTile extends StatelessWidget {
         child: Container(
           width: 40,
           child: Text(
-              getWholePercentWithoutPercentSignAsString(assetData.percentage!) +
+              getWholePercentWithoutPercentSignAsString(assetData.percentage) +
                   "%",
               textAlign: TextAlign.center,
               style: kAssetListPercentageTextStyle),

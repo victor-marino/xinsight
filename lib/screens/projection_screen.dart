@@ -20,8 +20,8 @@ class ProjectionScreen extends StatefulWidget {
     required this.refreshData,
     required this.currentAccountIndex,
   }) : super(key: key);
-  final Account? accountData;
-  final List<Map<String, String>>? userAccounts;
+  final Account accountData;
+  final List<Map<String, String>> userAccounts;
   final bool landscapeOrientation;
   final double availableWidth;
   final Function refreshData;
@@ -96,7 +96,7 @@ class _ProjectionScreenState extends State<ProjectionScreen>
                                       style: Theme.of(context)
                                           .textTheme
                                           .labelLarge),
-                                  RiskChart(risk: widget.accountData!.risk),
+                                  RiskChart(risk: widget.accountData.risk),
                                 ],
                               ),
                             ),
@@ -115,7 +115,7 @@ class _ProjectionScreenState extends State<ProjectionScreen>
                                           .labelLarge),
                                   PerformanceChart(
                                       performanceSeries: widget
-                                          .accountData!.performanceSeries),
+                                          .accountData.performanceSeries),
                                   Padding(
                                     padding: const EdgeInsets.all(10),
                                     child: RichText(
@@ -129,7 +129,7 @@ class _ProjectionScreenState extends State<ProjectionScreen>
                                               style: kCardSubTextStyle),
                                           TextSpan(
                                               text: getPLPercentAsString(widget
-                                                  .accountData!
+                                                  .accountData
                                                   .expectedReturn),
                                               style:
                                                   kExpectedReturnProjectionTextStyle

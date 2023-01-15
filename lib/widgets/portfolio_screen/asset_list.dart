@@ -41,7 +41,7 @@ class AssetList extends StatelessWidget {
             if (equityInstruments.length > 0) {
               equityInstruments.add(Divider(height: 0));
             }
-            equityPercentage += assetData.percentage!;
+            equityPercentage += assetData.percentage;
             equityInstruments.add(AssetTile(assetData: assetData, landscapeOrientation: landscapeOrientation));
           }
           break;
@@ -52,15 +52,15 @@ class AssetList extends StatelessWidget {
               fixedInstruments.add(Divider(
                 height: 0));
             }
-            fixedPercentage += assetData.percentage!;
+            fixedPercentage += assetData.percentage;
             fixedInstruments.add(AssetTile(assetData: assetData, landscapeOrientation: landscapeOrientation,));
           }
           break;
 
         case InstrumentType.cash:
           {
-            cashAmount += assetData.amount!;
-            cashPercentage += assetData.percentage!;
+            cashAmount += assetData.amount;
+            cashPercentage += assetData.percentage;
             cashInstruments.add(AssetTile(assetData: assetData, landscapeOrientation: landscapeOrientation));
           }
           break;

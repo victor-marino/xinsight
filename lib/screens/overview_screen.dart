@@ -23,7 +23,7 @@ class OverviewScreen extends StatefulWidget {
     required this.refreshData,
     required this.currentAccountIndex,
   }) : super(key: key);
-  final Account? accountData;
+  final Account accountData;
   final List<Map<String, String>>? userAccounts;
   final bool landscapeOrientation;
   final double availableWidth;
@@ -123,10 +123,10 @@ class _OverviewScreenState extends State<OverviewScreen>
                                             .labelLarge),
                                     DistributionChart(
                                         portfolioData:
-                                            widget.accountData!.portfolioData),
+                                            widget.accountData.portfolioData),
                                     DistributionChartLegend(
                                         portfolioDistribution: widget
-                                            .accountData!
+                                            .accountData
                                             .portfolioDistribution),
                                   ],
                                 ),
@@ -164,11 +164,11 @@ class _OverviewScreenState extends State<OverviewScreen>
                                             ),
                                             DistributionChart(
                                                 portfolioData: widget
-                                                    .accountData!
+                                                    .accountData
                                                     .portfolioData),
                                             DistributionChartLegend(
                                                 portfolioDistribution: widget
-                                                    .accountData!
+                                                    .accountData
                                                     .portfolioDistribution),
                                           ],
                                         ),
@@ -190,12 +190,12 @@ class _OverviewScreenState extends State<OverviewScreen>
                                   children: [
                                     MinimumTransferCard(
                                         additionalCashNeededToTrade: widget
-                                            .accountData!
+                                            .accountData
                                             .additionalCashNeededToTrade),
                                     SizedBox(height: 5),
                                     FeeFreeAmountCard(
                                         feeFreeAmount:
-                                            widget.accountData!.feeFreeAmount),
+                                            widget.accountData.feeFreeAmount),
                                   ],
                                 ),
                                 MaterialButton(

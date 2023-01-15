@@ -10,7 +10,7 @@ class FeeFreeAmountCard extends StatelessWidget {
     required this.feeFreeAmount,
   }) : super(key: key);
 
-  final double? feeFreeAmount;
+  final double feeFreeAmount;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class FeeFreeAmountCard extends StatelessWidget {
             style: Theme.of(context).textTheme.labelLarge
           ),
           TextSpan(
-            text: getInvestmentAsString(feeFreeAmount!),
+            text: getInvestmentAsString(feeFreeAmount),
             style: Theme.of(context).textTheme.titleSmall
           ),
         ],
