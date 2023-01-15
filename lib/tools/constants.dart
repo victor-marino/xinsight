@@ -1,13 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-TextStyle kTitleTextStyle = GoogleFonts.oxygen(
-  textStyle: TextStyle(
-    fontSize: 33.0,
-    fontWeight: FontWeight.bold,
-  ),
-);
-
 TextStyle kCardTitleTextStyle = GoogleFonts.roboto(
   textStyle: TextStyle(
     fontSize: 15.0,
@@ -37,14 +30,6 @@ TextStyle kCardPLTextStyleSmaller = GoogleFonts.ubuntu(
   ),
 );
 
-TextStyle kCardPrimaryContentTextStyleSmaller = GoogleFonts.ubuntu(
-  textStyle: TextStyle(
-    color: Colors.black,
-    fontSize: 30.0,
-    fontWeight: FontWeight.bold,
-  ),
-);
-
 TextStyle kCardSecondaryContentTextStyle = GoogleFonts.roboto(
   textStyle: TextStyle(
     fontSize: 20.0,
@@ -67,13 +52,6 @@ TextStyle kCardSubTextStyle = GoogleFonts.roboto(
   ),
 );
 
-TextStyle kPopUpTitleTextStyle = GoogleFonts.roboto(
-  textStyle: TextStyle(
-    fontSize: 20,
-    fontWeight: FontWeight.bold,
-  ),
-);
-
 TextStyle kPopUpSubtitleTextStyle = GoogleFonts.roboto(
   textStyle: TextStyle(
     color: Colors.black54,
@@ -93,23 +71,11 @@ TextStyle kPopUpFootnoteTextStyle = GoogleFonts.roboto(
   ),
 );
 
-TextStyle kLoginErrorsTextStyle = GoogleFonts.roboto(
-  textStyle: TextStyle(
-    color: Colors.red[400],
-  ),
-);
-
 TextStyle kChipTextStyle = GoogleFonts.roboto(
   textStyle: TextStyle(
     color: Colors.black,
     fontWeight: FontWeight.bold,
     fontSize: 12.0,
-  ),
-);
-
-TextStyle kAccountNumberTextStyle = GoogleFonts.roboto(
-  textStyle: TextStyle(
-    fontSize: 15.0,
   ),
 );
 
@@ -291,13 +257,6 @@ TextStyle kAccountSummaryCardSubtextStyle = GoogleFonts.roboto(
   ),
 );
 
-TextStyle kMinimumTransferCardTextStyle = GoogleFonts.roboto(
-  textStyle: TextStyle(
-    color: Colors.black54,
-    fontSize: 14.0,
-  ),
-);
-
 TextStyle kAboutScreenTextStyle = GoogleFonts.roboto(
   textStyle: TextStyle(
     fontSize: 16,
@@ -308,19 +267,6 @@ TextStyle kDividerTextStyle = GoogleFonts.roboto(
   textStyle: TextStyle(
     color: Colors.grey,
     fontSize: 13.0,
-  ),
-);
-
-Decoration kEnabledAccountSwitcherBoxDecoration = ShapeDecoration(
-  color: Colors.blueGrey[100],
-  shape: RoundedRectangleBorder(
-    borderRadius: BorderRadius.all(Radius.circular(20.0)),
-  ),
-);
-
-Decoration kDisabledAccountSwitcherBoxDecoration = ShapeDecoration(
-  shape: RoundedRectangleBorder(
-    borderRadius: BorderRadius.all(Radius.circular(20.0)),
   ),
 );
 
