@@ -1,11 +1,12 @@
+import 'dart:math';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:indexax/tools/constants.dart';
-import 'package:indexax/tools/number_formatting.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
-import 'dart:math';
 import 'package:indexax/models/amounts_datapoint.dart';
 import 'package:indexax/models/returns_datapoint.dart';
+import 'package:indexax/tools/number_formatting.dart';
+import 'package:indexax/tools/text_styles.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
 // Draws the evolution chart.
 // If showReturns=true, it plots the returns (%). Otherwise it plots the amounts (€)
@@ -52,19 +53,18 @@ class EvolutionChart extends StatelessWidget {
       margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
       primaryYAxis: showReturns
           ? NumericAxis(
-              labelStyle: kProfitLossChartLabelTextStyle,
               axisLabelFormatter: (AxisLabelRenderDetails details) =>
-                   ChartAxisLabel(
-                       getWholePercentWithPercentSignAsString(details.value/100),
-                       kProfitLossChartLabelTextStyle.copyWith(
-                           color: Theme.of(context).colorScheme.onSurface)),
+                  ChartAxisLabel(
+                      getWholePercentWithPercentSignAsString(
+                          details.value / 100),
+                      roboto10.copyWith(
+                          color: Theme.of(context).colorScheme.onSurface)),
             )
           : NumericAxis(
-              labelStyle: kProfitLossChartLabelTextStyle,
               axisLabelFormatter: (AxisLabelRenderDetails details) =>
                   ChartAxisLabel(
                       getAmountAsStringWithZeroDecimals(details.value),
-                      kProfitLossChartLabelTextStyle.copyWith(
+                      roboto10.copyWith(
                           color: Theme.of(context).colorScheme.onSurface)),
               numberFormat: NumberFormat.currency(
                   locale: getCurrentLocale(), symbol: '€', decimalDigits: 2)),
@@ -86,9 +86,7 @@ class EvolutionChart extends StatelessWidget {
         ),
       ),
       zoomPanBehavior: ZoomPanBehavior(
-          enablePinching: false,
-          zoomMode: ZoomMode.x,
-          enablePanning: false),
+          enablePinching: false, zoomMode: ZoomMode.x, enablePanning: false),
       palette: <Color>[
         Colors.blue,
         Colors.black,
@@ -101,8 +99,8 @@ class EvolutionChart extends StatelessWidget {
       primaryXAxis: DateTimeAxis(
         minimum: startDate,
         dateFormat: DateFormat("dd/MM/yy"),
-        labelStyle: kProfitLossChartLabelTextStyle.copyWith(
-            color: Theme.of(context).colorScheme.onSurface),
+        labelStyle:
+            roboto10.copyWith(color: Theme.of(context).colorScheme.onSurface),
         intervalType: DateTimeIntervalType.months,
         majorGridLines: MajorGridLines(
           width: 1,

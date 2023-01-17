@@ -1,10 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:indexax/tools/constants.dart';
 import 'package:indexax/models/transaction.dart';
-import 'package:indexax/widgets/transactions_screen/transaction_details_popup_portrait.dart';
-import 'package:indexax/widgets/transactions_screen/transaction_details_popup_landscape.dart';
 import 'package:indexax/tools/number_formatting.dart';
+import 'package:indexax/tools/text_styles.dart';
+import 'package:indexax/widgets/transactions_screen/transaction_details_popup_landscape.dart';
+import 'package:indexax/widgets/transactions_screen/transaction_details_popup_portrait.dart';
 
 // Individual tiles for each transaction in the list
 
@@ -41,7 +41,8 @@ class TransactionTile extends StatelessWidget {
           padding: EdgeInsets.only(top: topPadding, bottom: 5),
           child: Row(
             children: [
-              Expanded(child: Divider(
+              Expanded(
+                  child: Divider(
                 color: Theme.of(context).colorScheme.onBackground,
               )),
               Padding(
@@ -50,10 +51,12 @@ class TransactionTile extends StatelessWidget {
                   DateFormat("MMMM y")
                       .format(transactionData.date)
                       .toUpperCase(),
-                  style: kDividerTextStyle,
+                  style: roboto13.copyWith(
+                      color: Theme.of(context).colorScheme.onSurfaceVariant),
                 ),
               ),
-              Expanded(child: Divider(
+              Expanded(
+                  child: Divider(
                 color: Theme.of(context).colorScheme.onBackground,
               )),
             ],
@@ -82,7 +85,8 @@ class TransactionTile extends StatelessWidget {
                       Text(
                         transactionData.operationType,
                         textAlign: TextAlign.left,
-                        style: kTransactionListTitleTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface),
+                        style: roboto15Bold.copyWith(
+                            color: Theme.of(context).colorScheme.onSurface),
                         maxLines: 1,
                         softWrap: false,
                         overflow: TextOverflow.fade,
@@ -93,19 +97,19 @@ class TransactionTile extends StatelessWidget {
                         overflow: TextOverflow.fade,
                         text: TextSpan(children: [
                           TextSpan(
-                            text: DateFormat("dd/MM")
-                                .format(transactionData.date)
-                                .replaceAll(".", ""),
-                            style: kCardSubTextStyle.copyWith(
-                              fontSize: 12,
-                            ),
-                          ),
+                              text: DateFormat("dd/MM")
+                                  .format(transactionData.date)
+                                  .replaceAll(".", ""),
+                              style: roboto12.copyWith(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onSurfaceVariant)),
                           TextSpan(
-                            text: " · " + transactionData.accountType,
-                            style: kCardSubTextStyle.copyWith(
-                              fontSize: 12,
-                            ),
-                          ),
+                              text: " · " + transactionData.accountType,
+                              style: roboto12.copyWith(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onSurfaceVariant)),
                         ]),
                       ),
                     ],
@@ -115,19 +119,20 @@ class TransactionTile extends StatelessWidget {
               Text(
                 getAmountAsStringWithTwoDecimals(transactionData.amount),
                 textAlign: TextAlign.right,
-                style: kTransactionListAmountTextStyle.copyWith(
-                    fontWeight: FontWeight.normal),
+                style: ubuntu17Bold.copyWith(
+                    color: Theme.of(context).colorScheme.onSurfaceVariant),
               ),
             ],
           ),
         ),
         onTap: () {
           showDialog(
-            context: context,
-            builder: landscapeOrientation ? (BuildContext context) =>
-                TransactionDetailsPopupLandscape(transactionData: transactionData) : (BuildContext context) =>
-                TransactionDetailsPopup(transactionData: transactionData)
-          );
+              context: context,
+              builder: landscapeOrientation
+                  ? (BuildContext context) => TransactionDetailsPopupLandscape(
+                      transactionData: transactionData)
+                  : (BuildContext context) => TransactionDetailsPopup(
+                      transactionData: transactionData));
         },
       ),
     );

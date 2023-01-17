@@ -8,7 +8,8 @@ import 'package:indexax/widgets/projection_screen/projection_chart.dart';
 import 'package:indexax/widgets/projection_screen/risk_chart.dart';
 import 'package:indexax/widgets/reusable_card.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import '../tools/constants.dart';
+
+import '../tools/text_styles.dart';
 
 class ProjectionScreen extends StatefulWidget {
   const ProjectionScreen({
@@ -114,8 +115,8 @@ class _ProjectionScreenState extends State<ProjectionScreen>
                                           .textTheme
                                           .labelLarge),
                                   PerformanceChart(
-                                      performanceSeries: widget
-                                          .accountData.performanceSeries),
+                                      performanceSeries:
+                                          widget.accountData.performanceSeries),
                                   Padding(
                                     padding: const EdgeInsets.all(10),
                                     child: RichText(
@@ -126,18 +127,14 @@ class _ProjectionScreenState extends State<ProjectionScreen>
                                                   'projection_screen.expected_annual_return'
                                                           .tr() +
                                                       ': ',
-                                              style: kCardSubTextStyle),
+                                              style: roboto15.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant)),
                                           TextSpan(
                                               text: getPLPercentAsString(widget
-                                                  .accountData
-                                                  .expectedReturn),
-                                              style:
-                                                  kExpectedReturnProjectionTextStyle
-                                                      .copyWith(
-                                                          color:
-                                                              Theme.of(context)
-                                                                  .colorScheme
-                                                                  .onSurface))
+                                                  .accountData.expectedReturn),
+                                              style: roboto16Bold.copyWith(
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .onSurface))
                                         ],
                                       ),
                                     ),

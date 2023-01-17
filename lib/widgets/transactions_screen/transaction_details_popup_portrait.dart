@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:indexax/tools/constants.dart';
 import 'package:indexax/tools/number_formatting.dart';
+import 'package:indexax/tools/text_styles.dart';
 
 // Pop-up showing the details of an individual transaction in portrait mode
 
@@ -19,49 +19,59 @@ class TransactionDetailsPopup extends StatelessWidget {
 
     transactionDetails.add(Text(
       'transaction_details_popup.account'.tr() + ':',
-      style: kTransactionDetailTitleTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface),
+      style:
+          roboto15Bold.copyWith(color: Theme.of(context).colorScheme.onSurface),
     ));
     transactionDetails.add(Text(
       transactionData.accountType,
-      style: kTransactionDetailValueTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+      style: roboto15.copyWith(
+          color: Theme.of(context).colorScheme.onSurfaceVariant),
     ));
     transactionDetails.add(Text(
       'transaction_details_popup.concept'.tr() + ':',
-      style: kTransactionListTitleTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface),
+      style:
+          roboto15Bold.copyWith(color: Theme.of(context).colorScheme.onSurface),
     ));
     transactionDetails.add(Text(
       transactionData.operationType,
-      style: kTransactionDetailValueTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+      style: roboto15.copyWith(
+          color: Theme.of(context).colorScheme.onSurfaceVariant),
     ));
     transactionDetails.add(
       Text(
         'transaction_details_popup.operation_date'.tr() + ':',
-        style: kTransactionListTitleTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface),
+        style: roboto15Bold.copyWith(
+            color: Theme.of(context).colorScheme.onSurface),
       ),
     );
     transactionDetails.add(
       Text(
         DateFormat("dd/MM/yyyy").format(transactionData.date),
-        style: kTransactionDetailValueTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+        style: roboto15.copyWith(
+            color: Theme.of(context).colorScheme.onSurfaceVariant),
       ),
     );
     if (transactionData.accountType ==
         'transaction_info.securities_account'.tr()) {
       transactionDetails.add(Text(
         'transaction_details_popup.value_date'.tr() + ':',
-        style: kTransactionListTitleTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface),
+        style: roboto15Bold.copyWith(
+            color: Theme.of(context).colorScheme.onSurface),
       ));
       transactionDetails.add(Text(
         DateFormat("dd/MM/yyyy").format(transactionData.valueDate),
-        style: kTransactionDetailValueTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+        style: roboto15.copyWith(
+            color: Theme.of(context).colorScheme.onSurfaceVariant),
       ));
       transactionDetails.add(Text(
         'transaction_details_popup.fiscal_date'.tr() + ':',
-        style: kTransactionListTitleTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface),
+        style: roboto15Bold.copyWith(
+            color: Theme.of(context).colorScheme.onSurface),
       ));
       transactionDetails.add(Text(
         DateFormat("dd/MM/yyyy").format(transactionData.fiscalDate),
-        style: kTransactionDetailValueTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+        style: roboto15.copyWith(
+            color: Theme.of(context).colorScheme.onSurfaceVariant),
       ));
     }
 
@@ -73,67 +83,79 @@ class TransactionDetailsPopup extends StatelessWidget {
         'transaction_info.securities_account'.tr()) {
       transactionDetails.add(Text(
         'transaction_details_popup.fund'.tr() + ':',
-        style: kTransactionListTitleTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface),
+        style: roboto15Bold.copyWith(
+            color: Theme.of(context).colorScheme.onSurface),
       ));
       transactionDetails.add(Text(
         transactionData.instrumentName,
-        style: kTransactionDetailValueTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+        style: roboto15.copyWith(
+            color: Theme.of(context).colorScheme.onSurfaceVariant),
       ));
       transactionDetails.add(Text(
         transactionData.instrumentCodeType + ":",
-        style: kTransactionListTitleTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface),
+        style: roboto15Bold.copyWith(
+            color: Theme.of(context).colorScheme.onSurface),
       ));
       transactionDetails.add(Text(
         transactionData.instrumentCode,
-        style: kTransactionDetailValueTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+        style: roboto15.copyWith(
+            color: Theme.of(context).colorScheme.onSurfaceVariant),
       ));
       transactionDetails.add(Text(
         'transaction_details_popup.fund_shares'.tr() + ':',
-        style: kTransactionListTitleTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface),
+        style: roboto15Bold.copyWith(
+            color: Theme.of(context).colorScheme.onSurface),
       ));
       transactionDetails.add(Text(
         getNumberAsStringWithMaxDecimals(transactionData.titles),
-        style: kTransactionDetailValueTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+        style: roboto15.copyWith(
+            color: Theme.of(context).colorScheme.onSurfaceVariant),
       ));
       transactionDetails.add(Text(
         'transaction_details_popup.fund_nav'.tr() + ':',
-        style: kTransactionListTitleTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface),
+        style: roboto15Bold.copyWith(
+            color: Theme.of(context).colorScheme.onSurface),
       ));
       transactionDetails.add(Text(
         getAmountAsStringWithMaxDecimals(transactionData.price),
-        style: kTransactionDetailValueTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+        style: roboto15.copyWith(
+            color: Theme.of(context).colorScheme.onSurfaceVariant),
       ));
       transactionDetails.add(Text(
         'transaction_details_popup.cost'.tr() + ':',
-        style: kTransactionListTitleTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface),
+        style: roboto15Bold.copyWith(
+            color: Theme.of(context).colorScheme.onSurface),
       ));
       transactionDetails.add(Text(
         getAmountAsStringWithTwoDecimals(transactionData.amount),
-        style: kTransactionDetailValueTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+        style: roboto15.copyWith(
+            color: Theme.of(context).colorScheme.onSurfaceVariant),
       ));
       transactionDetails.add(
-        Divider(color: Theme.of(context).colorScheme.onBackground,),
+        Divider(
+          color: Theme.of(context).colorScheme.onBackground,
+        ),
       );
     }
     transactionDetails.add(
       Text(
         'transaction_details_popup.status'.tr() + ':',
-        style: kTransactionListTitleTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface),
+        style: roboto15Bold.copyWith(
+            color: Theme.of(context).colorScheme.onSurface),
       ),
     );
     transactionDetails.add(
       Text(
         transactionData.status,
-        style: kTransactionDetailValueTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+        style: roboto15.copyWith(
+            color: Theme.of(context).colorScheme.onSurfaceVariant),
       ),
     );
     return AlertDialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       title: Text(
         'transaction_details_popup.details'.tr(),
-        style: TextStyle(
-          color: Theme.of(context).colorScheme.onSurface
-        ),
+        style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
       ),
       content: Scrollbar(
         thumbVisibility: true,

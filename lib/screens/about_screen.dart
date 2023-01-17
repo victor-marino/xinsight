@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:indexax/tools/constants.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
+import 'package:flutter/material.dart';
+import 'package:indexax/tools/text_styles.dart' as text_styles;
 import 'package:url_launcher/url_launcher.dart';
 
 class AboutScreen extends StatefulWidget {
@@ -52,12 +52,12 @@ class _AboutScreenState extends State<AboutScreen> {
                     TextSpan(children: [
                       TextSpan(
                         text: 'about_screen.text1'.tr(),
-                        style: kAboutScreenTextStyle.copyWith(
+                        style: text_styles.roboto16.copyWith(
                             color: Theme.of(context).colorScheme.onSurface),
                       ),
                       TextSpan(
                         text: 'about_screen.text2'.tr(),
-                        style: kAboutScreenTextStyle.copyWith(
+                        style: text_styles.roboto16.copyWith(
                             color: Theme.of(context).colorScheme.onSurface),
                       ),
                       TextSpan(
@@ -67,22 +67,22 @@ class _AboutScreenState extends State<AboutScreen> {
                             launchUrl(_indexaApiUrl);
                           },
                         style:
-                            kAboutScreenTextStyle.copyWith(color: Colors.blue),
+                            text_styles.roboto16.copyWith(color: Colors.blue),
                       ),
                       TextSpan(
                         text: 'about_screen.text4'.tr(),
-                        style: kAboutScreenTextStyle.copyWith(
+                        style: text_styles.roboto16.copyWith(
                             color: Theme.of(context).colorScheme.onSurface),
                       ),
                       TextSpan(
                         text: 'about_screen.text5'.tr(),
-                        style: kAboutScreenTextStyle.copyWith(
+                        style: text_styles.roboto16.copyWith(
                             color: Theme.of(context).colorScheme.onSurface),
                       ),
                       TextSpan(
                         text: "flutter_secure_storage",
                         style:
-                            kAboutScreenTextStyle.copyWith(color: Colors.blue),
+                            text_styles.roboto16.copyWith(color: Colors.blue),
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
                             launchUrl(_flutterSecureStorageUrl);
@@ -90,12 +90,12 @@ class _AboutScreenState extends State<AboutScreen> {
                       ),
                       TextSpan(
                         text: 'about_screen.text6'.tr(),
-                        style: kAboutScreenTextStyle.copyWith(
+                        style: text_styles.roboto16.copyWith(
                             color: Theme.of(context).colorScheme.onSurface),
                       ),
                       TextSpan(
                         text: 'about_screen.text7'.tr(),
-                        style: kAboutScreenTextStyle.copyWith(
+                        style: text_styles.roboto16.copyWith(
                             color: Theme.of(context).colorScheme.onSurface),
                       ),
                     ]),

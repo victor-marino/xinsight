@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:indexax/models/portfolio_datapoint.dart';
 import 'package:indexax/tools/number_formatting.dart';
-import 'package:indexax/tools/constants.dart';
+import 'package:indexax/tools/text_styles.dart';
 
 // Collapsed view of each asset tile
 class CollapsedAssetTileView extends StatelessWidget {
@@ -22,7 +22,8 @@ class CollapsedAssetTileView extends StatelessWidget {
               getWholePercentWithoutPercentSignAsString(assetData.percentage) +
                   "%",
               textAlign: TextAlign.center,
-              style: kAssetListPercentageTextStyle),
+              style: roboto17Bold.copyWith(
+                  color: Theme.of(context).colorScheme.onSurfaceVariant)),
         ),
         Expanded(
           child: Padding(
@@ -33,12 +34,17 @@ class CollapsedAssetTileView extends StatelessWidget {
                 Text(
                   assetData.instrumentName,
                   maxLines: 1,
-                  style: kAssetListMainTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface),
+                  style: roboto15Bold.copyWith(
+                      color: Theme.of(context).colorScheme.onSurface),
                   overflow: TextOverflow.fade,
                   softWrap: false,
                 ),
-                Text(assetData.instrumentCodeType! + ": " + assetData.instrumentCode!,
-                    style: kAssetListSecondaryTextStyle),
+                Text(
+                    assetData.instrumentCodeType! +
+                        ": " +
+                        assetData.instrumentCode!,
+                    style: roboto14.copyWith(
+                        color: Theme.of(context).colorScheme.onSurfaceVariant)),
               ],
             ),
           ),
@@ -50,16 +56,16 @@ class CollapsedAssetTileView extends StatelessWidget {
               padding: const EdgeInsets.only(left: 20),
               child: Text(
                 getInvestmentAsString(assetData.amount),
-                style: kAssetListAmountTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface),
+                style: ubuntu16Bold.copyWith(
+                    color: Theme.of(context).colorScheme.onSurface),
               ),
             ),
             Text("(" + getPLAsString(assetData.profitLoss!) + ")",
                 style: assetData.profitLoss! < 0
-                    ? kAssetListSecondaryTextStyle.copyWith(
-                    //color: Colors.red[800])
-                    color: Theme.of(context).colorScheme.error)
-                    : kAssetListSecondaryTextStyle.copyWith(
-                    color: Colors.green[600])),
+                    ? roboto14.copyWith(
+                        //color: Colors.red[800])
+                        color: Theme.of(context).colorScheme.error)
+                    : roboto14.copyWith(color: Colors.green[600])),
           ],
         ),
       ],

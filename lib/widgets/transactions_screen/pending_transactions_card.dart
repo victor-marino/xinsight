@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:indexax/tools/constants.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
+import 'package:indexax/tools/text_styles.dart';
 
 // Banner showing if there are pending transactions in this account
 
@@ -27,8 +27,10 @@ class PendingTransactionsCard extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10.0),
                 child: Text(
-                    'pending_transactions_popup.pending_transactions_message'.tr(),
-                style: kPendingTransactionsWidgetTextStyle.copyWith(color: Theme.of(context).colorScheme.onPrimary)),
+                    'pending_transactions_popup.pending_transactions_message'
+                        .tr(),
+                    style: roboto15.copyWith(
+                        color: Theme.of(context).colorScheme.onPrimary)),
               ),
             ],
           ),

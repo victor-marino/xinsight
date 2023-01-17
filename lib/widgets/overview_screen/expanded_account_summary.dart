@@ -1,11 +1,11 @@
-import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:indexax/tools/constants.dart';
-import 'package:indexax/tools/number_formatting.dart';
+import 'package:flutter/material.dart';
 import 'package:indexax/models/account.dart';
+import 'package:indexax/tools/number_formatting.dart';
+import 'package:indexax/tools/text_styles.dart';
 
 // Expanded version of the account summary.
-// Shown when the user clicks the expansion arrow in smaller screens (e.g.: phones). 
+// Shown when the user clicks the expansion arrow in smaller screens (e.g.: phones).
 
 class ExpandedAccountSummary extends StatelessWidget {
   const ExpandedAccountSummary({
@@ -33,11 +33,11 @@ class ExpandedAccountSummary extends StatelessWidget {
                   text: TextSpan(children: [
                     TextSpan(
                       text: getInvestmentAsString(accountData.investment) + " ",
-                      style: kCardSubTextStyle,
+                      style: roboto15,
                     ),
                     TextSpan(
                       text: getPLAsString(accountData.profitLoss),
-                      style: kCardSubTextStyle.copyWith(
+                      style: roboto15.copyWith(
                         color: accountData.profitLossColor,
                         fontWeight: FontWeight.bold,
                       ),
@@ -50,13 +50,13 @@ class ExpandedAccountSummary extends StatelessWidget {
               text: TextSpan(children: [
                 TextSpan(
                   text: getWholeBalanceAsString(accountData.totalAmount),
-                  style: kCardPrimaryContentTextStyle.copyWith(
+                  style: ubuntu40Bold.copyWith(
                       color: Theme.of(context).colorScheme.onSurface),
                 ),
                 TextSpan(
                   text: getDecimalSeparator() +
                       getFractionalBalanceAsString(accountData.totalAmount),
-                  style: kCardSecondaryContentTextStyle.copyWith(
+                  style: roboto20Bold.copyWith(
                       color: Theme.of(context).colorScheme.onSurface),
                 ),
               ]),
@@ -106,14 +106,14 @@ class ExpandedAccountSummary extends StatelessWidget {
                                   TextSpan(
                                     text: getWholePLPercentAsString(
                                         accountData.timeReturn),
-                                    style: kCardPLTextStyle.copyWith(
+                                    style: ubuntu25Bold.copyWith(
                                         color: accountData.timeReturnColor),
                                   ),
                                   TextSpan(
                                     text: getDecimalSeparator() +
                                         getFractionalPLPercentAsString(
                                             accountData.timeReturn),
-                                    style: kCardPLTextStyleSmaller.copyWith(
+                                    style: ubuntu20Bold.copyWith(
                                         color: accountData.timeReturnColor),
                                   ),
                                 ]),
@@ -130,8 +130,13 @@ class ExpandedAccountSummary extends StatelessWidget {
                                   text: "(" +
                                       getPLPercentAsString(
                                           accountData.timeReturnAnnual) +
-                                      " " + 'account_summary.annual'.tr() + ")",
-                                  style: kAccountSummaryCardSubtextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                                      " " +
+                                      'account_summary.annual'.tr() +
+                                      ")",
+                                  style: roboto14Bold.copyWith(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onSurfaceVariant),
                                 ),
                               ]),
                             ),
@@ -176,14 +181,14 @@ class ExpandedAccountSummary extends StatelessWidget {
                                   TextSpan(
                                     text: getWholePLPercentAsString(
                                         accountData.moneyReturn),
-                                    style: kCardPLTextStyle.copyWith(
+                                    style: ubuntu25Bold.copyWith(
                                         color: accountData.moneyReturnColor),
                                   ),
                                   TextSpan(
                                     text: getDecimalSeparator() +
                                         getFractionalPLPercentAsString(
                                             accountData.moneyReturn),
-                                    style: kCardPLTextStyleSmaller.copyWith(
+                                    style: ubuntu20Bold.copyWith(
                                         color: accountData.moneyReturnColor),
                                   ),
                                 ]),
@@ -200,11 +205,13 @@ class ExpandedAccountSummary extends StatelessWidget {
                                   text: "(" +
                                       getPLPercentAsString(
                                           accountData.moneyReturnAnnual) +
-                                      " " + 'account_summary.annual'.tr() + ")",
-                                  style: kAccountSummaryCardSubtextStyle.copyWith(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .onSurfaceVariant),
+                                      " " +
+                                      'account_summary.annual'.tr() +
+                                      ")",
+                                  style: roboto14Bold.copyWith(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onSurfaceVariant),
                                 ),
                               ]),
                             ),
@@ -239,11 +246,10 @@ class ExpandedAccountSummary extends StatelessWidget {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text(
-                                'account_summary.volatility'.tr(),
-                                textAlign: TextAlign.left,
-                                style: Theme.of(context).textTheme.labelLarge
-                              ),
+                              Text('account_summary.volatility'.tr(),
+                                  textAlign: TextAlign.left,
+                                  style:
+                                      Theme.of(context).textTheme.labelLarge),
                             ],
                           ),
                         ),
@@ -256,7 +262,10 @@ class ExpandedAccountSummary extends StatelessWidget {
                                   TextSpan(
                                     text: getPercentAsString(
                                         accountData.volatility),
-                                    style: kCardPLTextStyleSmaller.copyWith(color: Theme.of(context).colorScheme.onSurface),
+                                    style: ubuntu20Bold.copyWith(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onSurface),
                                   ),
                                 ]),
                               ),
@@ -295,8 +304,9 @@ class ExpandedAccountSummary extends StatelessWidget {
                               RichText(
                                 text: TextSpan(children: [
                                   TextSpan(
-                                    text: getNumberAsStringWithTwoDecimals(accountData.sharpe),
-                                    style: kCardPLTextStyleSmaller.copyWith(
+                                    text: getNumberAsStringWithTwoDecimals(
+                                        accountData.sharpe),
+                                    style: ubuntu20Bold.copyWith(
                                         color: Theme.of(context)
                                             .colorScheme
                                             .onSurface),

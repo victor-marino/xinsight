@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:indexax/tools/constants.dart';
+import 'package:indexax/tools/text_styles.dart';
 import 'package:flutter/gestures.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -40,14 +40,14 @@ class TokenInstructionsPopup extends StatelessWidget {
           children: [
             Text(
               'login_screen.in_your_client_area'.tr() + ':\n',
-              style: kPopUpNormalTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+              style: roboto16.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
             ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   '1. ',
-                  style: kPopUpNormalTextStyle.copyWith(
+                  style: roboto16.copyWith(
                       color: Theme.of(context).colorScheme.onSurfaceVariant,
                       ),
                 ),
@@ -73,7 +73,7 @@ class TokenInstructionsPopup extends StatelessWidget {
                         ),
                       ],
                     ),
-                    style: kPopUpNormalTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                    style: roboto16.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
                   ),
                 ),
               ],
@@ -82,11 +82,11 @@ class TokenInstructionsPopup extends StatelessWidget {
               children: [
                 Text(
                   '2. ',
-                  style: kPopUpNormalTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                  style: roboto16.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
                 ),
                 Text(
                   'login_screen.go_to_applications'.tr(),
-                  style: kPopUpNormalTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                  style: roboto16.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
                 ),
               ],
             ),
@@ -94,11 +94,11 @@ class TokenInstructionsPopup extends StatelessWidget {
               children: [
                 Text(
                   '3. ',
-                  style: kPopUpNormalTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                  style: roboto16.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
                 ),
                 Text(
                   'login_screen.press_generate_token'.tr(),
-                  style: kPopUpNormalTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                  style: roboto16.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
                 ),
               ],
             ),

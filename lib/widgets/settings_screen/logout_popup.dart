@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:indexax/tools/constants.dart';
+import 'package:indexax/tools/text_styles.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:indexax/screens/login_screen.dart';
 import 'package:provider/provider.dart';
@@ -38,7 +38,7 @@ class LogoutPopup extends StatelessWidget {
       ),
       content: Text(
         'logout_popup.text'.tr(),
-        style: kPopUpNormalTextStyle.copyWith(
+        style: roboto16.copyWith(
             color: Theme.of(context).colorScheme.onSurfaceVariant),
       ),
       contentPadding: EdgeInsets.fromLTRB(24, 24, 24, 0),

@@ -1,8 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:indexax/tools/constants.dart';
-import 'package:indexax/tools/number_formatting.dart';
-import 'package:indexax/models/portfolio_datapoint.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
+import 'package:indexax/models/portfolio_datapoint.dart';
+import 'package:indexax/tools/number_formatting.dart';
+import 'package:indexax/tools/text_styles.dart';
 
 // Body of the expanded view of each asset tile for portrait orientation
 
@@ -32,15 +32,20 @@ class ExpandedAssetTileBodyPortrait extends StatelessWidget {
       children: [
         Divider(),
         Text(assetData.instrumentCompany!,
-                  style: kTransactionDetailValueTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant)),
+            style: roboto15.copyWith(
+                color: Theme.of(context).colorScheme.onSurfaceVariant)),
         Divider(),
         RichText(
           text: TextSpan(
             children: [
-              TextSpan(text: assetData.instrumentCodeType! + ': ', style: kTransactionListTitleTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface)),
+              TextSpan(
+                  text: assetData.instrumentCodeType! + ': ',
+                  style: roboto15Bold.copyWith(
+                      color: Theme.of(context).colorScheme.onSurface)),
               TextSpan(
                   text: assetData.instrumentCode,
-                  style: kTransactionDetailValueTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant)),
+                  style: roboto15.copyWith(
+                      color: Theme.of(context).colorScheme.onSurfaceVariant)),
             ],
           ),
         ),
@@ -49,10 +54,12 @@ class ExpandedAssetTileBodyPortrait extends StatelessWidget {
             children: [
               TextSpan(
                   text: 'asset_details.asset_class'.tr() + ': ',
-                  style: kTransactionListTitleTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface)),
+                  style: roboto15Bold.copyWith(
+                      color: Theme.of(context).colorScheme.onSurface)),
               TextSpan(
                   text: instrumentType,
-                  style: kTransactionDetailValueTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant)),
+                  style: roboto15.copyWith(
+                      color: Theme.of(context).colorScheme.onSurfaceVariant)),
             ],
           ),
         ),
@@ -61,20 +68,26 @@ class ExpandedAssetTileBodyPortrait extends StatelessWidget {
             children: [
               TextSpan(
                   text: 'asset_details.titles'.tr() + ': ',
-                  style: kTransactionListTitleTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface)),
+                  style: roboto15Bold.copyWith(
+                      color: Theme.of(context).colorScheme.onSurface)),
               TextSpan(
                   text: getNumberAsStringWithMaxDecimals(assetData.titles),
-                  style: kTransactionDetailValueTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant)),
+                  style: roboto15.copyWith(
+                      color: Theme.of(context).colorScheme.onSurfaceVariant)),
             ],
           ),
         ),
         RichText(
           text: TextSpan(
             children: [
-              TextSpan(text: 'asset_details.cost'.tr() + ': ', style: kTransactionListTitleTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface)),
+              TextSpan(
+                  text: 'asset_details.cost'.tr() + ': ',
+                  style: roboto15Bold.copyWith(
+                      color: Theme.of(context).colorScheme.onSurface)),
               TextSpan(
                   text: getInvestmentAsString(assetData.cost!),
-                  style: kTransactionDetailValueTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant)),
+                  style: roboto15.copyWith(
+                      color: Theme.of(context).colorScheme.onSurfaceVariant)),
             ],
           ),
         ),
@@ -83,10 +96,12 @@ class ExpandedAssetTileBodyPortrait extends StatelessWidget {
             children: [
               TextSpan(
                   text: 'asset_details.current_value'.tr() + ': ',
-                  style: kTransactionListTitleTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface)),
+                  style: roboto15Bold.copyWith(
+                      color: Theme.of(context).colorScheme.onSurface)),
               TextSpan(
                   text: getInvestmentAsString(assetData.amount),
-                  style: kTransactionDetailValueTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant)),
+                  style: roboto15.copyWith(
+                      color: Theme.of(context).colorScheme.onSurfaceVariant)),
             ],
           ),
         ),
@@ -95,10 +110,11 @@ class ExpandedAssetTileBodyPortrait extends StatelessWidget {
             children: [
               TextSpan(
                   text: 'asset_details.profit_loss'.tr() + ': ',
-                  style: kTransactionListTitleTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface)),
+                  style: roboto15Bold.copyWith(
+                      color: Theme.of(context).colorScheme.onSurface)),
               TextSpan(
                   text: getPLAsString(assetData.profitLoss!),
-                  style: kTransactionDetailValueTextStyle.copyWith(
+                  style: roboto15.copyWith(
                       color: Theme.of(context).colorScheme.onSurfaceVariant)),
             ],
           ),
@@ -107,10 +123,12 @@ class ExpandedAssetTileBodyPortrait extends StatelessWidget {
             'asset_details.description_not_available'.tr()) ...[
           Divider(),
           Text('asset_details.description'.tr() + ': ',
-              style: kTransactionListTitleTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface)),
+              style: roboto15Bold.copyWith(
+                  color: Theme.of(context).colorScheme.onSurface)),
           Text(
             assetData.instrumentDescription!,
-            style: kTransactionDetailValueTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+            style: roboto15.copyWith(
+                color: Theme.of(context).colorScheme.onSurfaceVariant),
           ),
         ],
       ],

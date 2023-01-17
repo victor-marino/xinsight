@@ -1,8 +1,8 @@
-import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:indexax/tools/constants.dart';
-import 'package:indexax/tools/number_formatting.dart';
+import 'package:flutter/material.dart';
 import 'package:indexax/models/account.dart';
+import 'package:indexax/tools/number_formatting.dart';
+import 'package:indexax/tools/text_styles.dart';
 
 // Collapsed version of the account summary.
 // This is the default view in portrait mode, as well as landscape mode in smaller screens.
@@ -24,38 +24,41 @@ class CollapsedAccountSummary extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-              Text(
-                'account_summary.value'.tr(),
-                textAlign: TextAlign.left,
-                style: Theme.of(context).textTheme.labelLarge,
-              ),
-              RichText(
-                text: TextSpan(children: [
-                  TextSpan(
-                    text: getInvestmentAsString(accountData.investment) + " ",
-                    style: kCardSubTextStyle,
-                  ),
-                  TextSpan(
-                    text: getPLAsString(accountData.profitLoss),
-                    style: kCardSubTextStyle.copyWith(
-                      color: accountData.profitLossColor,
-                      fontWeight: FontWeight.bold,
+                Text(
+                  'account_summary.value'.tr(),
+                  textAlign: TextAlign.left,
+                  style: Theme.of(context).textTheme.labelLarge,
+                ),
+                RichText(
+                  text: TextSpan(children: [
+                    TextSpan(
+                      text: getInvestmentAsString(accountData.investment) + " ",
+                      style: roboto15.copyWith(
+                        color: Theme.of(context).colorScheme.onSurfaceVariant),
                     ),
-                  ),
-                ]),
-              ),
-            ],),
+                    TextSpan(
+                      text: getPLAsString(accountData.profitLoss),
+                      style: roboto15.copyWith(
+                        color: accountData.profitLossColor,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ]),
+                ),
+              ],
+            ),
             RichText(
               text: TextSpan(children: [
                 TextSpan(
-                  text:
-                      getWholeBalanceAsString(accountData.totalAmount),
-                  style: kCardPrimaryContentTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface),
+                  text: getWholeBalanceAsString(accountData.totalAmount),
+                  style: ubuntu40Bold.copyWith(
+                      color: Theme.of(context).colorScheme.onSurface),
                 ),
                 TextSpan(
                   text: getDecimalSeparator() +
                       getFractionalBalanceAsString(accountData.totalAmount),
-                  style: kCardSecondaryContentTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface),
+                  style: roboto20Bold.copyWith(
+                      color: Theme.of(context).colorScheme.onSurface),
                 ),
               ]),
             ),
@@ -98,18 +101,20 @@ class CollapsedAccountSummary extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Row(
-                              children: <Widget>[
+                          Row(children: <Widget>[
                             RichText(
                               text: TextSpan(children: [
                                 TextSpan(
-                                  text: getWholePLPercentAsString(accountData.timeReturn),
-                                  style: kCardPLTextStyle.copyWith(
+                                  text: getWholePLPercentAsString(
+                                      accountData.timeReturn),
+                                  style: ubuntu25Bold.copyWith(
                                       color: accountData.timeReturnColor),
                                 ),
                                 TextSpan(
-                                  text: getDecimalSeparator() + getFractionalPLPercentAsString(accountData.timeReturn),
-                                  style: kCardPLTextStyleSmaller.copyWith(
+                                  text: getDecimalSeparator() +
+                                      getFractionalPLPercentAsString(
+                                          accountData.timeReturn),
+                                  style: ubuntu20Bold.copyWith(
                                       color: accountData.timeReturnColor),
                                 ),
                               ]),
@@ -134,11 +139,9 @@ class CollapsedAccountSummary extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(
-                              'account_summary.return'.tr() + ' ',
-                              textAlign: TextAlign.left,
-                              style: Theme.of(context).textTheme.labelLarge
-                            ),
+                            Text('account_summary.return'.tr() + ' ',
+                                textAlign: TextAlign.left,
+                                style: Theme.of(context).textTheme.labelLarge),
                             Icon(
                               Icons.euro_symbol,
                               color: Colors.grey,
@@ -154,13 +157,16 @@ class CollapsedAccountSummary extends StatelessWidget {
                             RichText(
                               text: TextSpan(children: [
                                 TextSpan(
-                                  text: getWholePLPercentAsString(accountData.moneyReturn),
-                                  style: kCardPLTextStyle.copyWith(
+                                  text: getWholePLPercentAsString(
+                                      accountData.moneyReturn),
+                                  style: ubuntu25Bold.copyWith(
                                       color: accountData.moneyReturnColor),
                                 ),
                                 TextSpan(
-                                  text: getDecimalSeparator() + getFractionalPLPercentAsString(accountData.moneyReturn),
-                                  style: kCardPLTextStyleSmaller.copyWith(
+                                  text: getDecimalSeparator() +
+                                      getFractionalPLPercentAsString(
+                                          accountData.moneyReturn),
+                                  style: ubuntu20Bold.copyWith(
                                       color: accountData.moneyReturnColor),
                                 ),
                               ]),
