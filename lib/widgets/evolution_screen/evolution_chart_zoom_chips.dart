@@ -1,6 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:indexax/tools/text_styles.dart';
+import 'package:indexax/tools/text_styles.dart' as text_styles;
 
 // Creates the chip buttons for the zoom levels in the evolution chart
 
@@ -9,13 +9,14 @@ List<ChoiceChip> evolutionChartZoomChips(
     required List<Map> zoomLevels,
     Function? reloadEvolutionChart,
     required BuildContext context}) {
+  final TextStyle choiceChipsTextStyle = text_styles.robotoBold(12);
   List<ChoiceChip> chipList = [];
 
   for (Map element in zoomLevels) {
     chipList.add(
       ChoiceChip(
         label: Text(('evolution_screen.' + element['label']).tr(),
-            style: roboto12Bold.copyWith(
+            style: choiceChipsTextStyle.copyWith(
                 color: Theme.of(context).colorScheme.onSurface)),
         autofocus: false,
         clipBehavior: Clip.none,

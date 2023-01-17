@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:indexax/models/transaction.dart';
 import 'package:indexax/tools/number_formatting.dart';
-import 'package:indexax/tools/text_styles.dart';
+import 'package:indexax/tools/text_styles.dart' as text_styles;
 import 'package:indexax/widgets/transactions_screen/transaction_details_popup_landscape.dart';
 import 'package:indexax/widgets/transactions_screen/transaction_details_popup_portrait.dart';
 
@@ -27,6 +27,11 @@ class TransactionTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Widget> tileElements = [];
+    TextStyle tileTitleTextStyle = text_styles.robotoBold(15);
+    TextStyle tileSubtitleTextStyle = text_styles.roboto(12);
+    TextStyle dividerTextStyle = text_styles.roboto(13);
+    TextStyle transactionAmountTextStyle = text_styles.ubuntuBold(17);
+
     double topPadding;
 
     if (firstTransactionOfMonth && !firstTransaction) {
@@ -51,7 +56,7 @@ class TransactionTile extends StatelessWidget {
                   DateFormat("MMMM y")
                       .format(transactionData.date)
                       .toUpperCase(),
-                  style: roboto13.copyWith(
+                  style: dividerTextStyle.copyWith(
                       color: Theme.of(context).colorScheme.onSurfaceVariant),
                 ),
               ),
@@ -85,7 +90,7 @@ class TransactionTile extends StatelessWidget {
                       Text(
                         transactionData.operationType,
                         textAlign: TextAlign.left,
-                        style: roboto15Bold.copyWith(
+                        style: tileTitleTextStyle.copyWith(
                             color: Theme.of(context).colorScheme.onSurface),
                         maxLines: 1,
                         softWrap: false,
@@ -100,13 +105,13 @@ class TransactionTile extends StatelessWidget {
                               text: DateFormat("dd/MM")
                                   .format(transactionData.date)
                                   .replaceAll(".", ""),
-                              style: roboto12.copyWith(
+                              style: tileSubtitleTextStyle.copyWith(
                                   color: Theme.of(context)
                                       .colorScheme
                                       .onSurfaceVariant)),
                           TextSpan(
                               text: " · " + transactionData.accountType,
-                              style: roboto12.copyWith(
+                              style: tileSubtitleTextStyle.copyWith(
                                   color: Theme.of(context)
                                       .colorScheme
                                       .onSurfaceVariant)),
@@ -119,7 +124,7 @@ class TransactionTile extends StatelessWidget {
               Text(
                 getAmountAsStringWithTwoDecimals(transactionData.amount),
                 textAlign: TextAlign.right,
-                style: ubuntu17Bold.copyWith(
+                style: transactionAmountTextStyle.copyWith(
                     color: Theme.of(context).colorScheme.onSurfaceVariant),
               ),
             ],

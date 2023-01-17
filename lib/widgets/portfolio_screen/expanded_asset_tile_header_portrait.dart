@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:indexax/models/portfolio_datapoint.dart';
 import 'package:indexax/tools/number_formatting.dart';
-import 'package:indexax/tools/text_styles.dart';
+import 'package:indexax/tools/text_styles.dart' as text_styles;
 
 // Header of the expanded view of each asset tile for portrait orientation
 
@@ -15,11 +15,15 @@ class ExpandedAssetTileHeaderPortrait extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextStyle headerTitleTextStyle = text_styles.robotoBold(15);
+    TextStyle headerSubtitleTextStyle = text_styles.roboto(14);
+    TextStyle assetAmountTextStyle = text_styles.ubuntuBold(16);
+
     return Expanded(
       child: Row(children: [
         Expanded(
           child: Text(assetData.instrumentName,
-              style: roboto15Bold.copyWith(
+              style: headerTitleTextStyle.copyWith(
                   color: Theme.of(context).colorScheme.onSurface)),
         ),
         Column(
@@ -31,16 +35,17 @@ class ExpandedAssetTileHeaderPortrait extends StatelessWidget {
               padding: const EdgeInsets.only(left: 20),
               child: Text(
                 getInvestmentAsString(assetData.amount),
-                style: ubuntu16Bold.copyWith(
+                style: assetAmountTextStyle.copyWith(
                     color: Theme.of(context).colorScheme.onSurface),
               ),
             ),
             Text("(" + getPLAsString(assetData.profitLoss!) + ")",
                 style: assetData.profitLoss! < 0
-                    ? roboto14.copyWith(
+                    ? headerSubtitleTextStyle.copyWith(
                         //color: Colors.red[800])
                         color: Theme.of(context).colorScheme.error)
-                    : roboto14.copyWith(color: Colors.green[600])),
+                    : headerSubtitleTextStyle.copyWith(
+                        color: Colors.green[600])),
           ],
         ),
       ]),

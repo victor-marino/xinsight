@@ -8,8 +8,7 @@ import 'package:indexax/widgets/projection_screen/projection_chart.dart';
 import 'package:indexax/widgets/projection_screen/risk_chart.dart';
 import 'package:indexax/widgets/reusable_card.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-
-import '../tools/text_styles.dart';
+import '../tools/text_styles.dart' as text_styles;
 
 class ProjectionScreen extends StatefulWidget {
   const ProjectionScreen({
@@ -65,6 +64,9 @@ class _ProjectionScreenState extends State<ProjectionScreen>
   Widget build(BuildContext context) {
     // This super call is required for the Mixin that keeps the page state
     super.build(context);
+
+    TextStyle annualReturnDescriptionTextStyle = text_styles.roboto(15);
+    TextStyle annualReturnValueTextStyle = text_styles.robotoBold(16);
 
     return Scaffold(
       body: SafeArea(
@@ -127,11 +129,14 @@ class _ProjectionScreenState extends State<ProjectionScreen>
                                                   'projection_screen.expected_annual_return'
                                                           .tr() +
                                                       ': ',
-                                              style: roboto15.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant)),
+                                              style: annualReturnDescriptionTextStyle.copyWith(
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .onSurfaceVariant)),
                                           TextSpan(
                                               text: getPLPercentAsString(widget
                                                   .accountData.expectedReturn),
-                                              style: roboto16Bold.copyWith(
+                                              style: annualReturnValueTextStyle.copyWith(
                                                   color: Theme.of(context)
                                                       .colorScheme
                                                       .onSurface))

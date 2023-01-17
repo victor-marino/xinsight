@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:indexax/models/portfolio_datapoint.dart';
 import 'package:indexax/tools/number_formatting.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-
-import '../../tools/text_styles.dart';
+import '../../tools/text_styles.dart' as text_styles;
 
 // Plots the chart showing the portfolio distribution in overview screen
 
@@ -20,13 +19,14 @@ class DistributionChart extends StatelessWidget {
     int equityCount = 0;
     int fixedCount = 0;
     List<Color> colorList = [];
+    TextStyle tooltipTextStyle = text_styles.roboto(12);
 
     for (var element in portfolioData) {
       switch (element.instrumentType) {
         case InstrumentType.equity:
           {
-            colorList.add(equityColors[equityCount] ?? Colors.purple);
-            if (equityCount < equityColors.length - 1) {
+            colorList.add(text_styles.equityColors[equityCount] ?? Colors.purple);
+            if (equityCount < text_styles.equityColors.length - 1) {
               equityCount++;
             } else {
               equityCount = 0;
@@ -36,8 +36,8 @@ class DistributionChart extends StatelessWidget {
 
         case InstrumentType.fixed:
           {
-            colorList.add(fixedColors[fixedCount] ?? Colors.blue);
-            if (fixedCount < fixedColors.length - 1) {
+            colorList.add(text_styles.fixedColors[fixedCount] ?? Colors.blue);
+            if (fixedCount < text_styles.fixedColors.length - 1) {
               fixedCount++;
             } else {
               fixedCount = 0;
@@ -47,19 +47,19 @@ class DistributionChart extends StatelessWidget {
 
         case InstrumentType.cash:
           {
-            colorList.add(cashColor);
+            colorList.add(text_styles.cashColor);
           }
           break;
 
         case InstrumentType.other:
           {
-            colorList.add(otherColor);
+            colorList.add(text_styles.otherColor);
           }
           break;
 
         default:
           {
-            colorList.add(otherColor);
+            colorList.add(text_styles.otherColor);
           }
           break;
       }
@@ -79,7 +79,7 @@ class DistributionChart extends StatelessWidget {
               child: Text(point.x + "\n" + getInvestmentAsString(point.y),
                   overflow: TextOverflow.ellipsis,
                   softWrap: false,
-                  style: roboto12.copyWith(
+                  style: tooltipTextStyle.copyWith(
                       color: Theme.of(context).colorScheme.onSurface)),
             );
           }),

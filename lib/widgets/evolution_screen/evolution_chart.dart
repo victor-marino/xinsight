@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:indexax/models/amounts_datapoint.dart';
 import 'package:indexax/models/returns_datapoint.dart';
 import 'package:indexax/tools/number_formatting.dart';
-import 'package:indexax/tools/text_styles.dart';
+import 'package:indexax/tools/text_styles.dart' as text_styles;
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 // Draws the evolution chart.
@@ -28,6 +28,8 @@ class EvolutionChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     DateTime? startDate;
+    TextStyle yAxisTextStyle = text_styles.roboto(10);
+    TextStyle xAxisTextStyle = text_styles.roboto(10);
 
     // If a period of 0 is passed, we plot the full history.
     if (period == Duration(seconds: 0)) {
@@ -57,14 +59,14 @@ class EvolutionChart extends StatelessWidget {
                   ChartAxisLabel(
                       getWholePercentWithPercentSignAsString(
                           details.value / 100),
-                      roboto10.copyWith(
+                      yAxisTextStyle.copyWith(
                           color: Theme.of(context).colorScheme.onSurface)),
             )
           : NumericAxis(
               axisLabelFormatter: (AxisLabelRenderDetails details) =>
                   ChartAxisLabel(
                       getAmountAsStringWithZeroDecimals(details.value),
-                      roboto10.copyWith(
+                      yAxisTextStyle.copyWith(
                           color: Theme.of(context).colorScheme.onSurface)),
               numberFormat: NumberFormat.currency(
                   locale: getCurrentLocale(), symbol: '€', decimalDigits: 2)),
@@ -100,7 +102,7 @@ class EvolutionChart extends StatelessWidget {
         minimum: startDate,
         dateFormat: DateFormat("dd/MM/yy"),
         labelStyle:
-            roboto10.copyWith(color: Theme.of(context).colorScheme.onSurface),
+            xAxisTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface),
         intervalType: DateTimeIntervalType.months,
         majorGridLines: MajorGridLines(
           width: 1,

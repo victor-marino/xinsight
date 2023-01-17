@@ -1,6 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:indexax/tools/text_styles.dart';
+import 'package:indexax/tools/text_styles.dart' as text_styles;
 
 // Pop-up explaining the difference between time-weighted and money-weighted returns
 
@@ -11,6 +11,9 @@ class ReturnsPopUp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextStyle returnNameTextStyle = text_styles.robotoBold(16);
+    TextStyle returnDescriptionTextStyle = text_styles.roboto(16);
+
     return AlertDialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       title: Row(
@@ -31,7 +34,7 @@ class ReturnsPopUp extends StatelessWidget {
               children: <Widget>[
                 Text(
                   'profit_popup.time_weighted'.tr(),
-                  style: roboto16Bold.copyWith(
+                  style: returnNameTextStyle.copyWith(
                       color: Theme.of(context).colorScheme.onSurfaceVariant),
                 ),
                 SizedBox(
@@ -49,7 +52,7 @@ class ReturnsPopUp extends StatelessWidget {
             ),
             Text(
               'profit_popup.twr_explanation'.tr(),
-              style: roboto16.copyWith(
+              style: returnDescriptionTextStyle.copyWith(
                   color: Theme.of(context).colorScheme.onSurfaceVariant),
             ),
             Divider(
@@ -58,7 +61,7 @@ class ReturnsPopUp extends StatelessWidget {
               children: <Widget>[
                 Text(
                   'profit_popup.money_weighted'.tr(),
-                  style: roboto16Bold.copyWith(
+                  style: returnNameTextStyle.copyWith(
                       color: Theme.of(context).colorScheme.onSurfaceVariant),
                 ),
                 SizedBox(
@@ -76,7 +79,7 @@ class ReturnsPopUp extends StatelessWidget {
             ),
             Text(
               'profit_popup.mwr_explanation'.tr(),
-              style: roboto16.copyWith(
+              style: returnDescriptionTextStyle.copyWith(
                   color: Theme.of(context).colorScheme.onSurfaceVariant),
             ),
             SizedBox(
@@ -84,7 +87,7 @@ class ReturnsPopUp extends StatelessWidget {
             ),
             Text(
               'profit_popup.returns_calculated_net_of_fees'.tr(),
-              style: roboto16.copyWith(
+              style: returnDescriptionTextStyle.copyWith(
                   color: Theme.of(context).colorScheme.onSurfaceVariant),
             ),
           ],

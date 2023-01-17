@@ -5,7 +5,7 @@ import 'package:indexax/tools/number_formatting.dart';
 import 'package:indexax/widgets/portfolio_screen/asset_tile.dart';
 import 'package:indexax/widgets/reusable_card.dart';
 
-import '../../tools/text_styles.dart';
+import '../../tools/text_styles.dart' as text_styles;
 
 // The list of assets shown in the portfolio screen
 // Grouped by asset type:
@@ -26,6 +26,9 @@ class AssetList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextStyle listDividerTextStyle = text_styles.roboto(15);
+    TextStyle cashAmountTextStyle = text_styles.ubuntuBold(16);
+    
     List<Widget> equityInstruments = [];
     List<Widget> fixedInstruments = [];
     List<Widget> cashInstruments = [];
@@ -93,7 +96,7 @@ class AssetList extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(right: 5),
                 child: Text('portfolio_screen.equity'.tr(),
-                    style: roboto15.copyWith(
+                    style: listDividerTextStyle.copyWith(
                         color: Theme.of(context).colorScheme.onSurface)),
               ),
               Expanded(
@@ -103,7 +106,7 @@ class AssetList extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 5),
                 child: Text(
                   getPercentAsString(equityPercentage),
-                  style: roboto15.copyWith(
+                  style: listDividerTextStyle.copyWith(
                       color: Theme.of(context).colorScheme.onSurface),
                 ),
               ),
@@ -129,7 +132,7 @@ class AssetList extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(right: 5),
                 child: Text('portfolio_screen.fixed'.tr(),
-                    style: roboto15.copyWith(
+                    style: listDividerTextStyle.copyWith(
                         color: Theme.of(context).colorScheme.onSurface)),
               ),
               Expanded(
@@ -139,7 +142,7 @@ class AssetList extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 5),
                 child: Text(
                   getPercentAsString(fixedPercentage),
-                  style: roboto15.copyWith(
+                  style: listDividerTextStyle.copyWith(
                       color: Theme.of(context).colorScheme.onSurface),
                 ),
               ),
@@ -169,7 +172,7 @@ class AssetList extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(right: 5),
                       child: Text('portfolio_screen.cash'.tr(),
-                          style: roboto15.copyWith(
+                          style: listDividerTextStyle.copyWith(
                               color: Theme.of(context).colorScheme.onSurface)),
                     ),
                     Expanded(
@@ -179,7 +182,7 @@ class AssetList extends StatelessWidget {
                       padding: const EdgeInsets.only(left: 5),
                       child: Text(
                         getPercentAsString(cashPercentage),
-                        style: roboto15.copyWith(
+                        style: listDividerTextStyle.copyWith(
                             color: Theme.of(context).colorScheme.onSurface),
                       ),
                     )
@@ -187,7 +190,7 @@ class AssetList extends StatelessWidget {
                 ),
                 Text(
                   getInvestmentAsString(cashAmount),
-                  style: ubuntu16Bold.copyWith(
+                  style: cashAmountTextStyle.copyWith(
                       color: Theme.of(context).colorScheme.onSurface),
                 ),
               ],

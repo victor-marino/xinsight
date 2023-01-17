@@ -26,6 +26,8 @@ class _AboutScreenState extends State<AboutScreen> {
     _availableWidth = MediaQuery.of(context).size.width;
     _availableHeight = MediaQuery.of(context).size.height;
 
+    TextStyle contentTextStyle = text_styles.roboto(16);
+    
     if (_availableHeight <= _availableWidth) {
       _landscapeOrientation = true;
     }
@@ -52,12 +54,12 @@ class _AboutScreenState extends State<AboutScreen> {
                     TextSpan(children: [
                       TextSpan(
                         text: 'about_screen.text1'.tr(),
-                        style: text_styles.roboto16.copyWith(
+                        style: contentTextStyle.copyWith(
                             color: Theme.of(context).colorScheme.onSurface),
                       ),
                       TextSpan(
                         text: 'about_screen.text2'.tr(),
-                        style: text_styles.roboto16.copyWith(
+                        style: contentTextStyle.copyWith(
                             color: Theme.of(context).colorScheme.onSurface),
                       ),
                       TextSpan(
@@ -67,22 +69,22 @@ class _AboutScreenState extends State<AboutScreen> {
                             launchUrl(_indexaApiUrl);
                           },
                         style:
-                            text_styles.roboto16.copyWith(color: Colors.blue),
+                            contentTextStyle.copyWith(color: Colors.blue),
                       ),
                       TextSpan(
                         text: 'about_screen.text4'.tr(),
-                        style: text_styles.roboto16.copyWith(
+                        style: contentTextStyle.copyWith(
                             color: Theme.of(context).colorScheme.onSurface),
                       ),
                       TextSpan(
                         text: 'about_screen.text5'.tr(),
-                        style: text_styles.roboto16.copyWith(
+                        style: contentTextStyle.copyWith(
                             color: Theme.of(context).colorScheme.onSurface),
                       ),
                       TextSpan(
                         text: "flutter_secure_storage",
                         style:
-                            text_styles.roboto16.copyWith(color: Colors.blue),
+                            contentTextStyle.copyWith(color: Colors.blue),
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
                             launchUrl(_flutterSecureStorageUrl);
@@ -90,12 +92,12 @@ class _AboutScreenState extends State<AboutScreen> {
                       ),
                       TextSpan(
                         text: 'about_screen.text6'.tr(),
-                        style: text_styles.roboto16.copyWith(
+                        style: contentTextStyle.copyWith(
                             color: Theme.of(context).colorScheme.onSurface),
                       ),
                       TextSpan(
                         text: 'about_screen.text7'.tr(),
-                        style: text_styles.roboto16.copyWith(
+                        style: contentTextStyle.copyWith(
                             color: Theme.of(context).colorScheme.onSurface),
                       ),
                     ]),

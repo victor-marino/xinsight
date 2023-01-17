@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:indexax/models/portfolio_datapoint.dart';
 import 'package:indexax/tools/number_formatting.dart';
-import 'package:indexax/tools/text_styles.dart';
+import 'package:indexax/tools/text_styles.dart' as text_styles;
 
 // Collapsed view of each asset tile
 class CollapsedAssetTileView extends StatelessWidget {
@@ -14,6 +14,11 @@ class CollapsedAssetTileView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextStyle headerTitleTextStyle = text_styles.robotoBold(15);
+    TextStyle headerSubtitleTextStyle = text_styles.roboto(14);
+    TextStyle assetPercentageTextStyle = text_styles.robotoBold(17);
+    TextStyle assetAmountTextStyle = text_styles.ubuntuBold(16);
+
     return Row(
       children: [
         Container(
@@ -22,7 +27,7 @@ class CollapsedAssetTileView extends StatelessWidget {
               getWholePercentWithoutPercentSignAsString(assetData.percentage) +
                   "%",
               textAlign: TextAlign.center,
-              style: roboto17Bold.copyWith(
+              style: assetPercentageTextStyle.copyWith(
                   color: Theme.of(context).colorScheme.onSurfaceVariant)),
         ),
         Expanded(
@@ -34,7 +39,7 @@ class CollapsedAssetTileView extends StatelessWidget {
                 Text(
                   assetData.instrumentName,
                   maxLines: 1,
-                  style: roboto15Bold.copyWith(
+                  style: headerTitleTextStyle.copyWith(
                       color: Theme.of(context).colorScheme.onSurface),
                   overflow: TextOverflow.fade,
                   softWrap: false,
@@ -43,7 +48,7 @@ class CollapsedAssetTileView extends StatelessWidget {
                     assetData.instrumentCodeType! +
                         ": " +
                         assetData.instrumentCode!,
-                    style: roboto14.copyWith(
+                    style: headerSubtitleTextStyle.copyWith(
                         color: Theme.of(context).colorScheme.onSurfaceVariant)),
               ],
             ),
@@ -56,16 +61,17 @@ class CollapsedAssetTileView extends StatelessWidget {
               padding: const EdgeInsets.only(left: 20),
               child: Text(
                 getInvestmentAsString(assetData.amount),
-                style: ubuntu16Bold.copyWith(
+                style: assetAmountTextStyle.copyWith(
                     color: Theme.of(context).colorScheme.onSurface),
               ),
             ),
             Text("(" + getPLAsString(assetData.profitLoss!) + ")",
                 style: assetData.profitLoss! < 0
-                    ? roboto14.copyWith(
+                    ? headerSubtitleTextStyle.copyWith(
                         //color: Colors.red[800])
                         color: Theme.of(context).colorScheme.error)
-                    : roboto14.copyWith(color: Colors.green[600])),
+                    : headerSubtitleTextStyle.copyWith(
+                        color: Colors.green[600])),
           ],
         ),
       ],

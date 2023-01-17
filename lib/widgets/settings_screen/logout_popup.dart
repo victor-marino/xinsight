@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:indexax/tools/text_styles.dart';
+import 'package:indexax/tools/text_styles.dart' as text_styles;
 import 'package:easy_localization/easy_localization.dart';
 import 'package:indexax/screens/login_screen.dart';
 import 'package:provider/provider.dart';
@@ -25,6 +25,8 @@ class LogoutPopup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextStyle descriptionTextStyle = text_styles.roboto(16);
+
     return AlertDialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       title: Row(
@@ -38,7 +40,7 @@ class LogoutPopup extends StatelessWidget {
       ),
       content: Text(
         'logout_popup.text'.tr(),
-        style: roboto16.copyWith(
+        style: descriptionTextStyle.copyWith(
             color: Theme.of(context).colorScheme.onSurfaceVariant),
       ),
       contentPadding: EdgeInsets.fromLTRB(24, 24, 24, 0),
@@ -52,8 +54,7 @@ class LogoutPopup extends StatelessWidget {
         TextButton(
           child: Text(
             'logout_popup.logout_button'.tr(),
-            style: TextStyle(
-                color: Colors.red),
+            style: TextStyle(color: Colors.red),
           ),
           onPressed: () {
             _logout(context);

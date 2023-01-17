@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:indexax/screens/settings_screen.dart';
-import 'package:indexax/tools/text_styles.dart';
+import 'package:indexax/tools/text_styles.dart' as text_styles;
 import 'package:indexax/widgets/settings_screen/logout_popup.dart';
 
 // Pop-up menu that dropws down when clicking the settings wheel.
@@ -28,11 +28,14 @@ class SettingsPopupMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     List<PopupMenuEntry> itemList = [];
     double itemHeight = 50;
+    TextStyle accountsHeaderTextStyle = text_styles.roboto(14);
+    TextStyle accountNumberTextStyle = text_styles.robotoBold(16);
+    TextStyle accountTypeTextStyle = text_styles.roboto(14);
 
     itemList.add(
       PopupMenuItem(
         child: Text('header.accounts'.tr()),
-        textStyle: roboto14.copyWith(
+        textStyle: accountsHeaderTextStyle.copyWith(
             color: Theme.of(context).colorScheme.onSurfaceVariant),
         enabled: false,
         height: 30,
@@ -81,19 +84,17 @@ class SettingsPopupMenu extends StatelessWidget {
               children: [
                 Text(userAccounts[i]['number']!,
                     style: i == currentAccountIndex
-                        ? roboto16Bold
-                            .copyWith(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .onSurfaceVariant)
-                        : roboto16Bold.copyWith(
+                        ? accountNumberTextStyle.copyWith(
+                            color:
+                                Theme.of(context).colorScheme.onSurfaceVariant)
+                        : accountNumberTextStyle.copyWith(
                             color: Theme.of(context).colorScheme.onSurface)),
                 Text(accountType!,
                     style: i == currentAccountIndex
-                        ? roboto14.copyWith(
+                        ? accountTypeTextStyle.copyWith(
                             color:
                                 Theme.of(context).colorScheme.onSurfaceVariant)
-                        : roboto14.copyWith(
+                        : accountTypeTextStyle.copyWith(
                             color: Theme.of(context).colorScheme.onSurface)),
               ],
             ),

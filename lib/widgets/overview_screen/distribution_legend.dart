@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:indexax/models/portfolio_datapoint.dart';
 import 'package:indexax/tools/number_formatting.dart';
 import 'package:indexax/tools/radiant_linear_mask.dart';
-import 'package:indexax/tools/text_styles.dart';
+import 'package:indexax/tools/text_styles.dart' as text_styles;
 
 // Legend for the distribution chart in overview screen
 
@@ -17,6 +17,7 @@ class DistributionChartLegend extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Widget> legendItems = [];
+    TextStyle legendTextStyle = text_styles.roboto(12);
 
     if (portfolioDistribution.containsKey(InstrumentType.equity)) {
       legendItems.add(
@@ -29,23 +30,24 @@ class DistributionChartLegend extends StatelessWidget {
                 size: 12,
                 color: Colors.white,
               ),
-              color1: equityColors[0],
-              color2: equityColors[7],
+              color1: text_styles.equityColors[0],
+              color2: text_styles.equityColors[7],
             ),
             RichText(
               text: TextSpan(
                 children: [
                   TextSpan(
                       text: 'distribution_legend.instrument_type_equity'.tr(),
-                      style: roboto12.copyWith(
+                      style: legendTextStyle.copyWith(
                           color: Theme.of(context).colorScheme.onSurface)),
                   TextSpan(
                       text: " (" +
                           getPercentAsString(portfolioDistribution[
                               InstrumentType.equity]![ValueType.percentage]) +
                           ")",
-                      style: roboto12.copyWith(
-                          color: Theme.of(context).colorScheme.onSurfaceVariant))
+                      style: legendTextStyle.copyWith(
+                          color:
+                              Theme.of(context).colorScheme.onSurfaceVariant))
                 ],
               ),
             ),
@@ -64,22 +66,24 @@ class DistributionChartLegend extends StatelessWidget {
                 size: 12,
                 color: Colors.white,
               ),
-              color1: fixedColors[0],
-              color2: fixedColors[7],
+              color1: text_styles.fixedColors[0],
+              color2: text_styles.fixedColors[7],
             ),
             RichText(
               text: TextSpan(
                 children: [
                   TextSpan(
                       text: 'distribution_legend.instrument_type_fixed'.tr(),
-                      style: roboto12.copyWith(
+                      style: legendTextStyle.copyWith(
                           color: Theme.of(context).colorScheme.onSurface)),
                   TextSpan(
                       text: " (" +
                           getPercentAsString(portfolioDistribution[
                               InstrumentType.fixed]![ValueType.percentage]) +
                           ")",
-                      style: roboto12.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant))
+                      style: legendTextStyle.copyWith(
+                          color:
+                              Theme.of(context).colorScheme.onSurfaceVariant))
                 ],
               ),
             ),
@@ -95,21 +99,23 @@ class DistributionChartLegend extends StatelessWidget {
             Icon(
               Icons.fiber_manual_record,
               size: 12,
-              color: otherColor,
+              color: text_styles.otherColor,
             ),
             RichText(
               text: TextSpan(
                 children: [
                   TextSpan(
                       text: 'distribution_legend.instrument_type_other'.tr(),
-                      style: roboto12.copyWith(
+                      style: legendTextStyle.copyWith(
                           color: Theme.of(context).colorScheme.onSurface)),
                   TextSpan(
                       text: " (" +
                           getPercentAsString(portfolioDistribution[
                               InstrumentType.other]![ValueType.percentage]) +
                           ")",
-                      style: roboto12.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant))
+                      style: legendTextStyle.copyWith(
+                          color:
+                              Theme.of(context).colorScheme.onSurfaceVariant))
                 ],
               ),
             ),
@@ -126,21 +132,23 @@ class DistributionChartLegend extends StatelessWidget {
             Icon(
               Icons.fiber_manual_record,
               size: 12,
-              color: cashColor,
+              color: text_styles.cashColor,
             ),
             RichText(
               text: TextSpan(
                 children: [
                   TextSpan(
                       text: 'distribution_legend.instrument_type_cash'.tr(),
-                      style: roboto12.copyWith(
+                      style: legendTextStyle.copyWith(
                           color: Theme.of(context).colorScheme.onSurface)),
                   TextSpan(
                       text: " (" +
                           getPercentAsString(portfolioDistribution[
                               InstrumentType.cash]![ValueType.percentage]) +
                           ")",
-                      style: roboto12.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant))
+                      style: legendTextStyle.copyWith(
+                          color:
+                              Theme.of(context).colorScheme.onSurfaceVariant))
                 ],
               ),
             ),
