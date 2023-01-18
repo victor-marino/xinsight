@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:indexax/tools/text_styles.dart' as text_styles;
+import 'package:indexax/tools/styles.dart' as text_styles;
 import 'package:url_launcher/url_launcher.dart';
 
 class AboutScreen extends StatefulWidget {
@@ -26,7 +26,7 @@ class _AboutScreenState extends State<AboutScreen> {
     _availableWidth = MediaQuery.of(context).size.width;
     _availableHeight = MediaQuery.of(context).size.height;
 
-    TextStyle contentTextStyle = text_styles.roboto(16);
+    TextStyle contentTextStyle = text_styles.roboto(context, 16);
     
     if (_availableHeight <= _availableWidth) {
       _landscapeOrientation = true;

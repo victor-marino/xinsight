@@ -1,10 +1,11 @@
-import 'package:flutter/material.dart';
-import 'package:indexax/tools/text_styles.dart' as text_styles;
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
 import 'package:indexax/screens/login_screen.dart';
-import 'package:provider/provider.dart';
-import '../../tools/bottom_navigation_bar_provider.dart';
+import 'package:indexax/tools/styles.dart' as text_styles;
 import 'package:indexax/tools/token_operations.dart' as token_operations;
+import 'package:provider/provider.dart';
+
+import '../../tools/bottom_navigation_bar_provider.dart';
 
 // Pop-up asking for confirmation before logging the user out
 
@@ -25,7 +26,7 @@ class LogoutPopup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextStyle descriptionTextStyle = text_styles.roboto(16);
+    TextStyle descriptionTextStyle = text_styles.robotoLighter(context, 16);
 
     return AlertDialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
@@ -40,8 +41,7 @@ class LogoutPopup extends StatelessWidget {
       ),
       content: Text(
         'logout_popup.text'.tr(),
-        style: descriptionTextStyle.copyWith(
-            color: Theme.of(context).colorScheme.onSurfaceVariant),
+        style: descriptionTextStyle,
       ),
       contentPadding: EdgeInsets.fromLTRB(24, 24, 24, 0),
       actions: [

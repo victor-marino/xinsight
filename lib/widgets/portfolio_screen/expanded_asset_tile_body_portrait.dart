@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:indexax/models/portfolio_datapoint.dart';
 import 'package:indexax/tools/number_formatting.dart';
-import 'package:indexax/tools/text_styles.dart' as text_styles;
+import 'package:indexax/tools/styles.dart' as text_styles;
 
 // Body of the expanded view of each asset tile for portrait orientation
 
@@ -17,9 +17,9 @@ class ExpandedAssetTileBodyPortrait extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String instrumentType;
-    TextStyle headerSubtitleTextStyle = text_styles.roboto(14);
-    TextStyle detailNameTextStyle = text_styles.robotoBold(15);
-    TextStyle detailValueTextStyle = text_styles.roboto(15);
+    TextStyle headerSubtitleTextStyle = text_styles.robotoLighter(context, 14);
+    TextStyle detailNameTextStyle = text_styles.robotoBold(context, 15);
+    TextStyle detailValueTextStyle = text_styles.robotoLighter(context, 15);
 
     if (assetData.instrumentType == InstrumentType.equity) {
       instrumentType = "asset_details.instrument_type_equity".tr();
@@ -34,21 +34,16 @@ class ExpandedAssetTileBodyPortrait extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Divider(),
-        Text(assetData.instrumentCompany!,
-            style: headerSubtitleTextStyle.copyWith(
-                color: Theme.of(context).colorScheme.onSurfaceVariant)),
+        Text(assetData.instrumentCompany!, style: headerSubtitleTextStyle),
         Divider(),
         RichText(
           text: TextSpan(
             children: [
               TextSpan(
                   text: assetData.instrumentCodeType! + ': ',
-                  style: detailNameTextStyle.copyWith(
-                      color: Theme.of(context).colorScheme.onSurface)),
+                  style: detailNameTextStyle),
               TextSpan(
-                  text: assetData.instrumentCode,
-                  style: detailValueTextStyle.copyWith(
-                      color: Theme.of(context).colorScheme.onSurfaceVariant)),
+                  text: assetData.instrumentCode, style: detailValueTextStyle),
             ],
           ),
         ),
@@ -57,12 +52,8 @@ class ExpandedAssetTileBodyPortrait extends StatelessWidget {
             children: [
               TextSpan(
                   text: 'asset_details.asset_class'.tr() + ': ',
-                  style: detailNameTextStyle.copyWith(
-                      color: Theme.of(context).colorScheme.onSurface)),
-              TextSpan(
-                  text: instrumentType,
-                  style: detailValueTextStyle.copyWith(
-                      color: Theme.of(context).colorScheme.onSurfaceVariant)),
+                  style: detailNameTextStyle),
+              TextSpan(text: instrumentType, style: detailValueTextStyle),
             ],
           ),
         ),
@@ -71,12 +62,10 @@ class ExpandedAssetTileBodyPortrait extends StatelessWidget {
             children: [
               TextSpan(
                   text: 'asset_details.titles'.tr() + ': ',
-                  style: detailNameTextStyle.copyWith(
-                      color: Theme.of(context).colorScheme.onSurface)),
+                  style: detailNameTextStyle),
               TextSpan(
                   text: getNumberAsStringWithMaxDecimals(assetData.titles),
-                  style: detailValueTextStyle.copyWith(
-                      color: Theme.of(context).colorScheme.onSurfaceVariant)),
+                  style: detailValueTextStyle),
             ],
           ),
         ),
@@ -85,12 +74,10 @@ class ExpandedAssetTileBodyPortrait extends StatelessWidget {
             children: [
               TextSpan(
                   text: 'asset_details.cost'.tr() + ': ',
-                  style: detailNameTextStyle.copyWith(
-                      color: Theme.of(context).colorScheme.onSurface)),
+                  style: detailNameTextStyle),
               TextSpan(
                   text: getInvestmentAsString(assetData.cost!),
-                  style: detailValueTextStyle.copyWith(
-                      color: Theme.of(context).colorScheme.onSurfaceVariant)),
+                  style: detailValueTextStyle),
             ],
           ),
         ),
@@ -99,12 +86,10 @@ class ExpandedAssetTileBodyPortrait extends StatelessWidget {
             children: [
               TextSpan(
                   text: 'asset_details.current_value'.tr() + ': ',
-                  style: detailNameTextStyle.copyWith(
-                      color: Theme.of(context).colorScheme.onSurface)),
+                  style: detailNameTextStyle),
               TextSpan(
                   text: getInvestmentAsString(assetData.amount),
-                  style: detailValueTextStyle.copyWith(
-                      color: Theme.of(context).colorScheme.onSurfaceVariant)),
+                  style: detailValueTextStyle),
             ],
           ),
         ),
@@ -113,12 +98,10 @@ class ExpandedAssetTileBodyPortrait extends StatelessWidget {
             children: [
               TextSpan(
                   text: 'asset_details.profit_loss'.tr() + ': ',
-                  style: detailNameTextStyle.copyWith(
-                      color: Theme.of(context).colorScheme.onSurface)),
+                  style: detailNameTextStyle),
               TextSpan(
                   text: getPLAsString(assetData.profitLoss!),
-                  style: detailValueTextStyle.copyWith(
-                      color: Theme.of(context).colorScheme.onSurfaceVariant)),
+                  style: detailValueTextStyle),
             ],
           ),
         ),
@@ -126,12 +109,10 @@ class ExpandedAssetTileBodyPortrait extends StatelessWidget {
             'asset_details.description_not_available'.tr()) ...[
           Divider(),
           Text('asset_details.description'.tr() + ': ',
-              style: detailNameTextStyle.copyWith(
-                  color: Theme.of(context).colorScheme.onSurface)),
+              style: detailNameTextStyle),
           Text(
             assetData.instrumentDescription!,
-            style: detailValueTextStyle.copyWith(
-                color: Theme.of(context).colorScheme.onSurfaceVariant),
+            style: detailValueTextStyle,
           ),
         ],
       ],

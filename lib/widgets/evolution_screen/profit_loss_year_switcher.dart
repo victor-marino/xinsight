@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:indexax/tools/text_styles.dart' as text_styles;
+import 'package:indexax/tools/styles.dart' as text_styles;
 
 // Dropdown year switcher for the profit-loss chart
 
@@ -17,8 +17,10 @@ class ProfitLossYearSwitcher extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextStyle nonSelectedYearTextStyle = text_styles.roboto(15);
-    TextStyle selectedYearTextStyle = text_styles.robotoBold(15);
+    TextStyle nonSelectedYearTextStyle = text_styles.roboto(context, 15);
+    TextStyle selectedYearTextStyle = text_styles.robotoBold(context, 15);
+    TextStyle disabledYearTextStyle =
+        text_styles.robotoBoldLighter(context, 15);
 
     bool dropdownEnabled = false;
 
@@ -33,11 +35,8 @@ class ProfitLossYearSwitcher extends StatelessWidget {
         DropdownMenuItem(
           child: Text(yearList[i].toString(),
               style: yearList[i] == currentYear
-                  ? nonSelectedYearTextStyle.copyWith(
-                      color: Theme.of(context).colorScheme.onSurface,
-                      fontWeight: FontWeight.bold)
-                  : nonSelectedYearTextStyle.copyWith(
-                      color: Theme.of(context).colorScheme.onSurface)),
+                  ? selectedYearTextStyle
+                  : nonSelectedYearTextStyle),
           value: yearList[i],
           enabled: yearList[i] == currentYear ? false : true,
         ),
@@ -65,7 +64,7 @@ class ProfitLossYearSwitcher extends StatelessWidget {
                   disabledHint: DropdownMenuItem(
                       child: Text(
                     currentYear.toString(),
-                    style: selectedYearTextStyle.copyWith(color: Colors.black38),
+                    style: selectedYearTextStyle,
                   )),
                   value: currentYear,
                   items: profitLossYearDropdownItems,
@@ -77,9 +76,8 @@ class ProfitLossYearSwitcher extends StatelessWidget {
                           child: Text(
                         (item.child as Text).data!,
                         style: dropdownEnabled
-                            ? selectedYearTextStyle.copyWith(
-                                color: Theme.of(context).colorScheme.onSurface)
-                            : selectedYearTextStyle.copyWith(color: Colors.black45),
+                            ? selectedYearTextStyle
+                            : disabledYearTextStyle,
                       ));
                     }).toList();
                   },

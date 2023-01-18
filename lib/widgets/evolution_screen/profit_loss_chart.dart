@@ -1,6 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:indexax/tools/text_styles.dart' as text_styles;
+import 'package:indexax/tools/styles.dart' as text_styles;
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 // Plots the profit-loss chart with the monthly returns
@@ -17,8 +17,8 @@ class ProfitLossChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TextStyle xAxisTextStyle = text_styles.roboto(10);
-    final TextStyle dataLabelTextStyle = text_styles.robotoBold(8);
+    final TextStyle axisTextStyle = text_styles.roboto(context, 10);
+    final TextStyle dataLabelTextStyle = text_styles.robotoBold(context, 8);
 
     return SfCartesianChart(
         plotAreaBorderWidth: 0,
@@ -29,8 +29,7 @@ class ProfitLossChart extends StatelessWidget {
           placeLabelsNearAxisLine: false,
           majorGridLines: MajorGridLines(width: 0),
           majorTickLines: MajorTickLines(size: 0),
-          labelStyle: xAxisTextStyle
-              .copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+          labelStyle: axisTextStyle,
         ),
         primaryYAxis: NumericAxis(
           numberFormat: NumberFormat("#0.0"),
@@ -44,8 +43,7 @@ class ProfitLossChart extends StatelessWidget {
             width: 0.7,
             dataLabelSettings: DataLabelSettings(
               isVisible: true,
-              textStyle: dataLabelTextStyle
-                  .copyWith(color: Theme.of(context).colorScheme.onSurface),
+              textStyle: dataLabelTextStyle,
               labelAlignment: ChartDataLabelAlignment.outer,
             ),
             enableTooltip: false,

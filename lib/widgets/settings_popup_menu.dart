@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:indexax/screens/settings_screen.dart';
-import 'package:indexax/tools/text_styles.dart' as text_styles;
+import 'package:indexax/tools/styles.dart' as text_styles;
 import 'package:indexax/widgets/settings_screen/logout_popup.dart';
 
 // Pop-up menu that dropws down when clicking the settings wheel.
@@ -28,15 +28,16 @@ class SettingsPopupMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     List<PopupMenuEntry> itemList = [];
     double itemHeight = 50;
-    TextStyle accountsHeaderTextStyle = text_styles.roboto(14);
-    TextStyle accountNumberTextStyle = text_styles.robotoBold(16);
-    TextStyle accountTypeTextStyle = text_styles.roboto(14);
+    TextStyle accountsHeaderTextStyle = text_styles.robotoLighter(context, 14);
+    TextStyle currentAccountNumberTextStyle = text_styles.robotoBoldLighter(context, 16);
+    TextStyle otherAccountNumberTextStyle = text_styles.robotoBold(context, 16);
+    TextStyle currentAccountTypeTextStyle = text_styles.robotoLighter(context, 14);
+    TextStyle otherAccountTypeTextStyle = text_styles.roboto(context, 14);
 
     itemList.add(
       PopupMenuItem(
         child: Text('header.accounts'.tr()),
-        textStyle: accountsHeaderTextStyle.copyWith(
-            color: Theme.of(context).colorScheme.onSurfaceVariant),
+        textStyle: accountsHeaderTextStyle,
         enabled: false,
         height: 30,
       ),
@@ -84,18 +85,12 @@ class SettingsPopupMenu extends StatelessWidget {
               children: [
                 Text(userAccounts[i]['number']!,
                     style: i == currentAccountIndex
-                        ? accountNumberTextStyle.copyWith(
-                            color:
-                                Theme.of(context).colorScheme.onSurfaceVariant)
-                        : accountNumberTextStyle.copyWith(
-                            color: Theme.of(context).colorScheme.onSurface)),
+                        ? currentAccountNumberTextStyle
+                        : otherAccountNumberTextStyle),
                 Text(accountType!,
                     style: i == currentAccountIndex
-                        ? accountTypeTextStyle.copyWith(
-                            color:
-                                Theme.of(context).colorScheme.onSurfaceVariant)
-                        : accountTypeTextStyle.copyWith(
-                            color: Theme.of(context).colorScheme.onSurface)),
+                        ? currentAccountTypeTextStyle
+                        : otherAccountTypeTextStyle),
               ],
             ),
           ],

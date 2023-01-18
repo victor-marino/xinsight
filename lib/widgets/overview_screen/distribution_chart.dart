@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:indexax/models/portfolio_datapoint.dart';
 import 'package:indexax/tools/number_formatting.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-import '../../tools/text_styles.dart' as text_styles;
+import '../../tools/styles.dart' as text_styles;
 
 // Plots the chart showing the portfolio distribution in overview screen
 
@@ -19,7 +19,7 @@ class DistributionChart extends StatelessWidget {
     int equityCount = 0;
     int fixedCount = 0;
     List<Color> colorList = [];
-    TextStyle tooltipTextStyle = text_styles.roboto(12);
+    TextStyle tooltipTextStyle = text_styles.roboto(context, 12);
 
     for (var element in portfolioData) {
       switch (element.instrumentType) {
@@ -79,8 +79,7 @@ class DistributionChart extends StatelessWidget {
               child: Text(point.x + "\n" + getInvestmentAsString(point.y),
                   overflow: TextOverflow.ellipsis,
                   softWrap: false,
-                  style: tooltipTextStyle.copyWith(
-                      color: Theme.of(context).colorScheme.onSurface)),
+                  style: tooltipTextStyle),
             );
           }),
       series: <CircularSeries>[

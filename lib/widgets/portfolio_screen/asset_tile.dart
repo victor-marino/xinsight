@@ -2,7 +2,7 @@ import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:indexax/models/portfolio_datapoint.dart';
 import 'package:indexax/tools/number_formatting.dart';
-import 'package:indexax/tools/text_styles.dart' as text_styles;
+import 'package:indexax/tools/styles.dart' as text_styles;
 import 'package:indexax/widgets/portfolio_screen/collapsed_asset_tile_view.dart';
 import 'package:indexax/widgets/portfolio_screen/expanded_asset_tile_body_landscape.dart';
 import 'package:indexax/widgets/portfolio_screen/expanded_asset_tile_body_portrait.dart';
@@ -27,7 +27,7 @@ class AssetTile extends StatelessWidget {
     Widget expandedHeader;
     Widget expandedBody;
 
-    TextStyle assetPercentageTextStyle = text_styles.robotoBold(17);
+    TextStyle assetPercentageTextStyle = text_styles.robotoBoldLighter(context, 17);
 
     collapsedView = CollapsedAssetTileView(assetData: assetData);
     expandedHeader = landscapeOrientation
@@ -46,8 +46,7 @@ class AssetTile extends StatelessWidget {
               getWholePercentWithoutPercentSignAsString(assetData.percentage) +
                   "%",
               textAlign: TextAlign.center,
-              style: assetPercentageTextStyle.copyWith(
-                  color: Theme.of(context).colorScheme.onSurfaceVariant)),
+              style: assetPercentageTextStyle),
         ),
       ),
       Flexible(

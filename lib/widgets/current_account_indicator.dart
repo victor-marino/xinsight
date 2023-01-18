@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
+import 'package:indexax/tools/styles.dart' as text_styles;
 
 // Text showing the current account at the top of the page.
 // First line shows the account number, second line shows the account type.
@@ -15,8 +16,10 @@ class CurrentAccountIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     String? accountTypeText;
+    TextStyle accountNumberTextStyle =
+        text_styles.robotoBoldLighter(context, 15);
+    TextStyle accountTypeTextStyle = text_styles.robotoLighter(context, 15);
 
     switch (accountType) {
       case 'mutual':
@@ -40,14 +43,14 @@ class CurrentAccountIndicator extends StatelessWidget {
       children: [
         Text(
           accountNumber,
-          style: Theme.of(context).textTheme.titleSmall,
+          style: accountNumberTextStyle,
           overflow: TextOverflow.fade,
           maxLines: 1,
           softWrap: false,
         ),
         Text(
           accountTypeText.toUpperCase(),
-          style: Theme.of(context).textTheme.labelLarge,
+          style: accountTypeTextStyle,
           overflow: TextOverflow.fade,
           maxLines: 1,
           softWrap: false,

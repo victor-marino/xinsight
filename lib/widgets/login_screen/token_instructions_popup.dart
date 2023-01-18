@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:indexax/tools/text_styles.dart' as text_styles;
 import 'package:flutter/gestures.dart';
+import 'package:flutter/material.dart';
+import 'package:indexax/tools/styles.dart' as text_styles;
 import 'package:url_launcher/url_launcher.dart';
 
 // Informational pop-up with instructions on how to obtain the user token
@@ -13,7 +13,7 @@ class TokenInstructionsPopup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextStyle instructionsTextStyle = text_styles.roboto(16);
+    TextStyle instructionsTextStyle = text_styles.robotoLighter(context, 16);
 
     final Uri userAreaUrl =
         Uri(scheme: 'https', host: 'indexacapital.com', path: 'es/u/user');
@@ -37,17 +37,14 @@ class TokenInstructionsPopup extends StatelessWidget {
           children: [
             Text(
               'login_screen.in_your_client_area'.tr() + ':\n',
-              style: instructionsTextStyle.copyWith(
-                  color: Theme.of(context).colorScheme.onSurfaceVariant),
+              style: instructionsTextStyle,
             ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   '1. ',
-                  style: instructionsTextStyle.copyWith(
-                    color: Theme.of(context).colorScheme.onSurfaceVariant,
-                  ),
+                  style: instructionsTextStyle,
                 ),
                 Expanded(
                   child: Text.rich(
@@ -70,8 +67,7 @@ class TokenInstructionsPopup extends StatelessWidget {
                         ),
                       ],
                     ),
-                    style: instructionsTextStyle.copyWith(
-                        color: Theme.of(context).colorScheme.onSurfaceVariant),
+                    style: instructionsTextStyle,
                   ),
                 ),
               ],
@@ -80,13 +76,11 @@ class TokenInstructionsPopup extends StatelessWidget {
               children: [
                 Text(
                   '2. ',
-                  style: instructionsTextStyle.copyWith(
-                      color: Theme.of(context).colorScheme.onSurfaceVariant),
+                  style: instructionsTextStyle,
                 ),
                 Text(
                   'login_screen.go_to_applications'.tr(),
-                  style: instructionsTextStyle.copyWith(
-                      color: Theme.of(context).colorScheme.onSurfaceVariant),
+                  style: instructionsTextStyle,
                 ),
               ],
             ),
@@ -94,13 +88,11 @@ class TokenInstructionsPopup extends StatelessWidget {
               children: [
                 Text(
                   '3. ',
-                  style: instructionsTextStyle.copyWith(
-                      color: Theme.of(context).colorScheme.onSurfaceVariant),
+                  style: instructionsTextStyle,
                 ),
                 Text(
                   'login_screen.press_generate_token'.tr(),
-                  style: instructionsTextStyle.copyWith(
-                      color: Theme.of(context).colorScheme.onSurfaceVariant),
+                  style: instructionsTextStyle,
                 ),
               ],
             ),

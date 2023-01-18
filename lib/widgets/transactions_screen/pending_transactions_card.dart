@@ -1,6 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:indexax/tools/text_styles.dart' as text_styles;
+import 'package:indexax/tools/styles.dart' as text_styles;
 
 // Banner showing if there are pending transactions in this account
 
@@ -11,7 +11,7 @@ class PendingTransactionsCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextStyle pendingTransactionsTextStyle = text_styles.roboto(15);
+    TextStyle pendingTransactionsTextStyle = text_styles.roboto(context, 15);
 
     return Container(
         decoration: BoxDecoration(

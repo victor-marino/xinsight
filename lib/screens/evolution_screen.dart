@@ -2,11 +2,13 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:indexax/models/account.dart';
 import 'package:indexax/tools/snackbar.dart' as snackbar;
+import 'package:indexax/tools/styles.dart' as text_styles;
 import 'package:indexax/widgets/evolution_screen/evolution_chart_zoom_chips.dart';
 import 'package:indexax/widgets/evolution_screen/profit_loss_chart.dart';
 import 'package:indexax/widgets/evolution_screen/profit_loss_year_switcher.dart';
 import 'package:indexax/widgets/reusable_card.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+
 import '../widgets/evolution_screen/evolution_chart.dart';
 
 class EvolutionScreen extends StatefulWidget {
@@ -99,6 +101,8 @@ class _EvolutionScreenState extends State<EvolutionScreen>
     // This super call is required for the Mixin that keeps the page state
     super.build(context);
 
+    TextStyle cardHeaderTextStyle = text_styles.robotoLighter(context, 15);
+
     return Scaffold(
       body: SafeArea(
         child: Center(
@@ -134,26 +138,24 @@ class _EvolutionScreenState extends State<EvolutionScreen>
                                         Text(
                                           'evolution_screen.evolution'.tr(),
                                           textAlign: TextAlign.left,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .labelLarge,
+                                          style: cardHeaderTextStyle,
                                         ),
                                         !_evolutionChartShowReturns
                                             ? Row(
-                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
                                                 children: [
                                                   Container(
                                                     width: 30,
                                                     height: 30,
-                                                    child: Icon(
-                                                      Icons.euro,
-                                                      size: 20),
-                                                    ),
+                                                    child: Icon(Icons.euro,
+                                                        size: 20),
+                                                  ),
                                                   Text(
                                                     " | ",
                                                     style: TextStyle(
-                                                      fontSize: 18,
-                                                      height: 0.9,
+                                                        fontSize: 18,
+                                                        height: 0.9,
                                                         color: Theme.of(context)
                                                             .colorScheme
                                                             .onSurface),
@@ -178,7 +180,8 @@ class _EvolutionScreenState extends State<EvolutionScreen>
                                                 ],
                                               )
                                             : Row(
-                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
                                                 children: [
                                                   InkWell(
                                                     child: Container(
@@ -199,8 +202,8 @@ class _EvolutionScreenState extends State<EvolutionScreen>
                                                   Text(
                                                     " | ",
                                                     style: TextStyle(
-                                                      fontSize: 18,
-                                                      height: 0.9,
+                                                        fontSize: 18,
+                                                        height: 0.9,
                                                         color: Theme.of(context)
                                                             .colorScheme
                                                             .onSurface),
@@ -260,14 +263,12 @@ class _EvolutionScreenState extends State<EvolutionScreen>
                                     children: [
                                       Text('evolution_screen.returns'.tr(),
                                           textAlign: TextAlign.left,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .labelLarge),
+                                          style: cardHeaderTextStyle),
                                       ProfitLossYearSwitcher(
                                           currentYear:
                                               _profitLossChartSelectedYear,
-                                          yearList: widget.accountData
-                                              .profitLossSeries.keys
+                                          yearList: widget
+                                              .accountData.profitLossSeries.keys
                                               .toList(),
                                           reloadProfitLossChart:
                                               _reloadProfitLossChart),
@@ -276,8 +277,8 @@ class _EvolutionScreenState extends State<EvolutionScreen>
                                   Container(
                                     height: 150,
                                     child: ProfitLossChart(
-                                        profitLossSeries: widget
-                                            .accountData.profitLossSeries,
+                                        profitLossSeries:
+                                            widget.accountData.profitLossSeries,
                                         selectedYear:
                                             _profitLossChartSelectedYear),
                                   ),

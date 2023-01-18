@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:indexax/models/portfolio_datapoint.dart';
 import 'package:indexax/tools/number_formatting.dart';
 import 'package:indexax/tools/radiant_linear_mask.dart';
-import 'package:indexax/tools/text_styles.dart' as text_styles;
+import 'package:indexax/tools/styles.dart' as text_styles;
 
 // Legend for the distribution chart in overview screen
 
@@ -17,7 +17,8 @@ class DistributionChartLegend extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Widget> legendItems = [];
-    TextStyle legendTextStyle = text_styles.roboto(12);
+    TextStyle primaryLegendTextStyle = text_styles.roboto(context, 12);
+    TextStyle secondaryLegendTextStyle = text_styles.robotoLighter(context, 12);
 
     if (portfolioDistribution.containsKey(InstrumentType.equity)) {
       legendItems.add(
@@ -38,16 +39,13 @@ class DistributionChartLegend extends StatelessWidget {
                 children: [
                   TextSpan(
                       text: 'distribution_legend.instrument_type_equity'.tr(),
-                      style: legendTextStyle.copyWith(
-                          color: Theme.of(context).colorScheme.onSurface)),
+                      style: primaryLegendTextStyle),
                   TextSpan(
                       text: " (" +
                           getPercentAsString(portfolioDistribution[
                               InstrumentType.equity]![ValueType.percentage]) +
                           ")",
-                      style: legendTextStyle.copyWith(
-                          color:
-                              Theme.of(context).colorScheme.onSurfaceVariant))
+                      style: secondaryLegendTextStyle)
                 ],
               ),
             ),
@@ -74,16 +72,13 @@ class DistributionChartLegend extends StatelessWidget {
                 children: [
                   TextSpan(
                       text: 'distribution_legend.instrument_type_fixed'.tr(),
-                      style: legendTextStyle.copyWith(
-                          color: Theme.of(context).colorScheme.onSurface)),
+                      style: primaryLegendTextStyle),
                   TextSpan(
                       text: " (" +
                           getPercentAsString(portfolioDistribution[
                               InstrumentType.fixed]![ValueType.percentage]) +
                           ")",
-                      style: legendTextStyle.copyWith(
-                          color:
-                              Theme.of(context).colorScheme.onSurfaceVariant))
+                      style: secondaryLegendTextStyle)
                 ],
               ),
             ),
@@ -106,16 +101,13 @@ class DistributionChartLegend extends StatelessWidget {
                 children: [
                   TextSpan(
                       text: 'distribution_legend.instrument_type_other'.tr(),
-                      style: legendTextStyle.copyWith(
-                          color: Theme.of(context).colorScheme.onSurface)),
+                      style: primaryLegendTextStyle),
                   TextSpan(
                       text: " (" +
                           getPercentAsString(portfolioDistribution[
                               InstrumentType.other]![ValueType.percentage]) +
                           ")",
-                      style: legendTextStyle.copyWith(
-                          color:
-                              Theme.of(context).colorScheme.onSurfaceVariant))
+                      style: secondaryLegendTextStyle)
                 ],
               ),
             ),
@@ -139,16 +131,13 @@ class DistributionChartLegend extends StatelessWidget {
                 children: [
                   TextSpan(
                       text: 'distribution_legend.instrument_type_cash'.tr(),
-                      style: legendTextStyle.copyWith(
-                          color: Theme.of(context).colorScheme.onSurface)),
+                      style: primaryLegendTextStyle),
                   TextSpan(
                       text: " (" +
                           getPercentAsString(portfolioDistribution[
                               InstrumentType.cash]![ValueType.percentage]) +
                           ")",
-                      style: legendTextStyle.copyWith(
-                          color:
-                              Theme.of(context).colorScheme.onSurfaceVariant))
+                      style: secondaryLegendTextStyle)
                 ],
               ),
             ),

@@ -1,6 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:indexax/tools/number_formatting.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:indexax/tools/styles.dart' as text_styles;
 
 // Text showing the fee-free assets due to referral promotions
 
@@ -14,17 +15,17 @@ class FeeFreeAmountCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextStyle itemNameText = text_styles.robotoLighter(context, 15);
+    TextStyle itemValueText = text_styles.robotoBoldLighter(context, 15);
+
     return RichText(
       text: TextSpan(
         children: [
           TextSpan(
-            text: 'fee_free_amount_card.fee_free_amount'.tr() + ': ',
-            style: Theme.of(context).textTheme.labelLarge
-          ),
+              text: 'fee_free_amount_card.fee_free_amount'.tr() + ': ',
+              style: itemNameText),
           TextSpan(
-            text: getInvestmentAsString(feeFreeAmount),
-            style: Theme.of(context).textTheme.titleSmall
-          ),
+              text: getInvestmentAsString(feeFreeAmount), style: itemValueText),
         ],
       ),
     );

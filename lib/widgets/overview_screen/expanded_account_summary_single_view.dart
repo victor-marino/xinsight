@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:indexax/models/account.dart';
 import 'package:indexax/tools/number_formatting.dart';
-import 'package:indexax/tools/text_styles.dart' as text_styles;
+import 'package:indexax/tools/styles.dart' as text_styles;
 
 // Full view, always-expanded version of the account summary.
 // Shown in landscape mode when using larger screens (e.g.: tablets).
@@ -16,12 +16,13 @@ class ExpandedAccountSummarySingleView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextStyle cardHeaderTextStyle = text_styles.roboto(15);
-    TextStyle wholeBalanceTextStyle = text_styles.ubuntuBold(40);
-    TextStyle decimalBalanceTextStyle = text_styles.ubuntuBold(20);
-    TextStyle wholeReturnTextStyle = text_styles.ubuntuBold(25);
-    TextStyle decimalReturnTextStyle = text_styles.ubuntuBold(20);
-    TextStyle annualReturnTextStyle = text_styles.robotoBold(14);
+    TextStyle cardHeaderTextStyle = text_styles.robotoLighter(context, 15);
+    TextStyle largeBalanceTextStyle = text_styles.ubuntuBold(context, 40);
+    TextStyle smallBalanceTextStyle = text_styles.ubuntuBold(context, 20);
+    TextStyle largeReturnTextStyle = text_styles.ubuntuBold(context, 25);
+    TextStyle smallReturnTextStyle = text_styles.ubuntuBold(context, 20);
+    TextStyle annualReturnTextStyle =
+        text_styles.robotoBoldLighter(context, 14);
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
@@ -39,15 +40,14 @@ class ExpandedAccountSummarySingleView extends StatelessWidget {
                     Text(
                       'account_summary.value'.tr(),
                       textAlign: TextAlign.left,
-                      style: Theme.of(context).textTheme.labelLarge,
+                      style: cardHeaderTextStyle,
                     ),
                     RichText(
                       text: TextSpan(children: [
                         TextSpan(
                           text: getInvestmentAsString(accountData.investment) +
                               " ",
-                          style: cardHeaderTextStyle.copyWith(
-                            color: Theme.of(context).colorScheme.onSurfaceVariant),
+                          style: cardHeaderTextStyle,
                         ),
                         TextSpan(
                           text: getPLAsString(accountData.profitLoss),
@@ -68,15 +68,13 @@ class ExpandedAccountSummarySingleView extends StatelessWidget {
                         TextSpan(
                           text:
                               getWholeBalanceAsString(accountData.totalAmount),
-                          style: wholeBalanceTextStyle.copyWith(
-                              color: Theme.of(context).colorScheme.onSurface),
+                          style: largeBalanceTextStyle,
                         ),
                         TextSpan(
                           text: getDecimalSeparator() +
                               getFractionalBalanceAsString(
                                   accountData.totalAmount),
-                          style: decimalBalanceTextStyle.copyWith(
-                              color: Theme.of(context).colorScheme.onSurface),
+                          style: smallBalanceTextStyle,
                         ),
                       ]),
                     ),
@@ -112,11 +110,13 @@ class ExpandedAccountSummarySingleView extends StatelessWidget {
                                 Text(
                                   'account_summary.return'.tr() + ' ',
                                   textAlign: TextAlign.left,
-                                  style: Theme.of(context).textTheme.labelLarge,
+                                  style: cardHeaderTextStyle,
                                 ),
                                 Icon(
                                   Icons.access_time,
-                                  color: Colors.grey,
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onSurfaceVariant,
                                   size: 15.0,
                                 ),
                               ],
@@ -135,17 +135,19 @@ class ExpandedAccountSummarySingleView extends StatelessWidget {
                                           TextSpan(
                                             text: getWholePLPercentAsString(
                                                 accountData.timeReturn),
-                                            style: wholeReturnTextStyle.copyWith(
-                                                color: accountData
-                                                    .timeReturnColor),
+                                            style:
+                                                largeReturnTextStyle.copyWith(
+                                                    color: accountData
+                                                        .timeReturnColor),
                                           ),
                                           TextSpan(
                                             text: getDecimalSeparator() +
                                                 getFractionalPLPercentAsString(
                                                     accountData.timeReturn),
-                                            style: decimalReturnTextStyle.copyWith(
-                                                color: accountData
-                                                    .timeReturnColor),
+                                            style:
+                                                smallReturnTextStyle.copyWith(
+                                                    color: accountData
+                                                        .timeReturnColor),
                                           ),
                                         ]),
                                       ),
@@ -164,10 +166,7 @@ class ExpandedAccountSummarySingleView extends StatelessWidget {
                                               " " +
                                               'account_summary.annual'.tr() +
                                               ")",
-                                          style: annualReturnTextStyle.copyWith(
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .onSurfaceVariant),
+                                          style: annualReturnTextStyle,
                                         ),
                                       ]),
                                     ),
@@ -196,11 +195,13 @@ class ExpandedAccountSummarySingleView extends StatelessWidget {
                                 Text(
                                   'account_summary.return'.tr() + ' ',
                                   textAlign: TextAlign.left,
-                                  style: Theme.of(context).textTheme.labelLarge,
+                                  style: cardHeaderTextStyle,
                                 ),
                                 Icon(
                                   Icons.euro_symbol,
-                                  color: Colors.grey,
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onSurfaceVariant,
                                   size: 15.0,
                                 ),
                               ],
@@ -219,17 +220,19 @@ class ExpandedAccountSummarySingleView extends StatelessWidget {
                                           TextSpan(
                                             text: getWholePLPercentAsString(
                                                 accountData.moneyReturn),
-                                            style: wholeReturnTextStyle.copyWith(
-                                                color: accountData
-                                                    .moneyReturnColor),
+                                            style:
+                                                largeReturnTextStyle.copyWith(
+                                                    color: accountData
+                                                        .moneyReturnColor),
                                           ),
                                           TextSpan(
                                             text: getDecimalSeparator() +
                                                 getFractionalPLPercentAsString(
                                                     accountData.moneyReturn),
-                                            style: decimalReturnTextStyle.copyWith(
-                                                color: accountData
-                                                    .moneyReturnColor),
+                                            style:
+                                                smallReturnTextStyle.copyWith(
+                                                    color: accountData
+                                                        .moneyReturnColor),
                                           ),
                                         ]),
                                       ),
@@ -248,10 +251,7 @@ class ExpandedAccountSummarySingleView extends StatelessWidget {
                                               " " +
                                               'account_summary.annual'.tr() +
                                               ")",
-                                          style: annualReturnTextStyle.copyWith(
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .onSurfaceVariant),
+                                          style: annualReturnTextStyle,
                                         ),
                                       ]),
                                     ),
@@ -295,7 +295,7 @@ class ExpandedAccountSummarySingleView extends StatelessWidget {
                                 Text(
                                   'account_summary.volatility'.tr(),
                                   textAlign: TextAlign.left,
-                                  style: Theme.of(context).textTheme.labelLarge,
+                                  style: cardHeaderTextStyle,
                                 ),
                               ],
                             ),
@@ -310,8 +310,7 @@ class ExpandedAccountSummarySingleView extends StatelessWidget {
                                       TextSpan(
                                         text: getPercentAsString(
                                             accountData.volatility),
-                                        style: wholeReturnTextStyle.copyWith(
-                                            color: Colors.black54),
+                                        style: largeReturnTextStyle,
                                       ),
                                     ]),
                                   ),
@@ -339,7 +338,7 @@ class ExpandedAccountSummarySingleView extends StatelessWidget {
                                 Text(
                                   'account_summary.sharpe'.tr(),
                                   textAlign: TextAlign.left,
-                                  style: Theme.of(context).textTheme.labelLarge,
+                                  style: cardHeaderTextStyle,
                                 ),
                               ],
                             ),
@@ -354,8 +353,7 @@ class ExpandedAccountSummarySingleView extends StatelessWidget {
                                       TextSpan(
                                         text: getNumberAsStringWithTwoDecimals(
                                             accountData.sharpe),
-                                        style: wholeReturnTextStyle.copyWith(
-                                            color: Colors.black54),
+                                        style: largeReturnTextStyle,
                                       ),
                                     ]),
                                   ),

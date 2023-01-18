@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:indexax/tools/text_styles.dart' as text_styles;
+import 'package:indexax/tools/styles.dart' as text_styles;
 import 'package:easy_localization/easy_localization.dart';
 
 // Informational pop-up explaining how expectations are calculated
@@ -11,7 +11,7 @@ class ExpectationsPopUp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextStyle descriptionTextStyle = text_styles.roboto(16);
+    TextStyle descriptionTextStyle = text_styles.roboto(context, 16);
 
     return AlertDialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),

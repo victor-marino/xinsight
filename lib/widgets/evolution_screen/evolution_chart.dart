@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:indexax/models/amounts_datapoint.dart';
 import 'package:indexax/models/returns_datapoint.dart';
 import 'package:indexax/tools/number_formatting.dart';
-import 'package:indexax/tools/text_styles.dart' as text_styles;
+import 'package:indexax/tools/styles.dart' as text_styles;
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 // Draws the evolution chart.
@@ -28,8 +28,7 @@ class EvolutionChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     DateTime? startDate;
-    TextStyle yAxisTextStyle = text_styles.roboto(10);
-    TextStyle xAxisTextStyle = text_styles.roboto(10);
+    TextStyle axisTextStyle = text_styles.roboto(context, 10);
 
     // If a period of 0 is passed, we plot the full history.
     if (period == Duration(seconds: 0)) {
@@ -59,15 +58,13 @@ class EvolutionChart extends StatelessWidget {
                   ChartAxisLabel(
                       getWholePercentWithPercentSignAsString(
                           details.value / 100),
-                      yAxisTextStyle.copyWith(
-                          color: Theme.of(context).colorScheme.onSurface)),
+                      axisTextStyle),
             )
           : NumericAxis(
               axisLabelFormatter: (AxisLabelRenderDetails details) =>
                   ChartAxisLabel(
                       getAmountAsStringWithZeroDecimals(details.value),
-                      yAxisTextStyle.copyWith(
-                          color: Theme.of(context).colorScheme.onSurface)),
+                      axisTextStyle),
               numberFormat: NumberFormat.currency(
                   locale: getCurrentLocale(), symbol: '€', decimalDigits: 2)),
       tooltipBehavior: TooltipBehavior(
@@ -102,7 +99,7 @@ class EvolutionChart extends StatelessWidget {
         minimum: startDate,
         dateFormat: DateFormat("dd/MM/yy"),
         labelStyle:
-            xAxisTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface),
+            axisTextStyle,
         intervalType: DateTimeIntervalType.months,
         majorGridLines: MajorGridLines(
           width: 1,
