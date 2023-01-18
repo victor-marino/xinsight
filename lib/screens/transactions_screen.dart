@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:indexax/widgets/transactions_screen/pending_transactions_card.dart';
 import 'package:indexax/widgets/transactions_screen/transaction_tile.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:indexax/models/account.dart';
 
 class TransactionsScreen extends StatefulWidget {
@@ -32,14 +31,10 @@ class _TransactionsScreenState extends State<TransactionsScreen>
   @override
   bool get wantKeepAlive => true;
 
-  RefreshController _refreshController =
-      RefreshController(initialRefresh: false);
-
-  void _onRefresh() async {
+  Future<void> _onRefresh() async {
     // Monitor network fetch
     try {
       await widget.refreshData(accountIndex: widget.currentAccountIndex);
-      _refreshController.refreshCompleted();
     } on Exception catch (e) {
       print("Couldn't refresh data");
       print(e);
@@ -76,9 +71,7 @@ class _TransactionsScreenState extends State<TransactionsScreen>
                     child: (PendingTransactionsCard()),
                   ),
                 Expanded(
-                  child: SmartRefresher(
-                    enablePullDown: true,
-                    controller: _refreshController,
+                  child: RefreshIndicator(
                     onRefresh: _onRefresh,
                     child: ListView.builder(
                         padding: const EdgeInsets.all(20),

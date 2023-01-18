@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:indexax/widgets/portfolio_screen/asset_list.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:indexax/models/account.dart';
 
 class PortfolioScreen extends StatefulWidget {
@@ -31,14 +30,10 @@ class _PortfolioScreenState extends State<PortfolioScreen>
   @override
   bool get wantKeepAlive => true;
 
-  RefreshController _refreshController =
-      RefreshController(initialRefresh: false);
-
-  void _onRefresh() async {
+  Future<void> _onRefresh() async {
     // Monitor network fetch
     try {
       await widget.refreshData(accountIndex: widget.currentAccountIndex);
-      _refreshController.refreshCompleted();
     } on Exception catch (e) {
       print("Couldn't refresh data");
       print(e);
@@ -69,11 +64,10 @@ class _PortfolioScreenState extends State<PortfolioScreen>
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 Expanded(
-                  child: SmartRefresher(
-                    enablePullDown: true,
-                    controller: _refreshController,
+                  child: RefreshIndicator(
                     onRefresh: _onRefresh,
                     child: SingleChildScrollView(
+                      physics: const AlwaysScrollableScrollPhysics(),
                       child: Padding(
                         padding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
                         child: Column(
