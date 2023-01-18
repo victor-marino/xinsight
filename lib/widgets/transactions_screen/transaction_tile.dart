@@ -28,7 +28,7 @@ class TransactionTile extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Widget> tileElements = [];
     TextStyle tileTitleTextStyle = text_styles.robotoBold(context, 15);
-    TextStyle tileSubtitleTextStyle = text_styles.robotoLighter(context, 12);
+    TextStyle tileSubtitleTextStyle = text_styles.robotoLighter(context, 13);
     TextStyle dividerTextStyle = text_styles.robotoLighter(context, 13);
     TextStyle transactionAmountTextStyle = text_styles.ubuntuBold(context, 17);
 

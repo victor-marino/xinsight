@@ -1,4 +1,3 @@
-// import 'package:flutter/cupertino.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:indexax/models/account.dart';
@@ -8,8 +7,7 @@ import 'package:indexax/widgets/projection_screen/projection_chart.dart';
 import 'package:indexax/widgets/projection_screen/risk_chart.dart';
 import 'package:indexax/widgets/reusable_card.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-
-import '../tools/styles.dart' as text_styles;
+import 'package:indexax/tools/styles.dart' as text_styles;
 
 class ProjectionScreen extends StatefulWidget {
   const ProjectionScreen({

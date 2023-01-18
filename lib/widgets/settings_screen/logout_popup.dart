@@ -4,8 +4,7 @@ import 'package:indexax/screens/login_screen.dart';
 import 'package:indexax/tools/styles.dart' as text_styles;
 import 'package:indexax/tools/token_operations.dart' as token_operations;
 import 'package:provider/provider.dart';
-
-import '../../tools/bottom_navigation_bar_provider.dart';
+import 'package:indexax/tools/bottom_navigation_bar_provider.dart';
 
 // Pop-up asking for confirmation before logging the user out
 

@@ -4,7 +4,7 @@ import 'package:indexax/models/portfolio_datapoint.dart';
 import 'package:indexax/tools/number_formatting.dart';
 import 'package:indexax/widgets/portfolio_screen/asset_tile.dart';
 import 'package:indexax/widgets/reusable_card.dart';
-import '../../tools/styles.dart' as text_styles;
+import 'package:indexax/tools/styles.dart' as text_styles;
 
 // The list of assets shown in the portfolio screen
 // Grouped by asset type:

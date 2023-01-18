@@ -1,9 +1,7 @@
-// import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:indexax/widgets/portfolio_screen/asset_list.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-
-import '../models/account.dart';
+import 'package:indexax/models/account.dart';
 
 class PortfolioScreen extends StatefulWidget {
   const PortfolioScreen({
@@ -82,8 +80,7 @@ class _PortfolioScreenState extends State<PortfolioScreen>
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: <Widget>[
                             AssetList(
-                                portfolioData:
-                                    widget.accountData.portfolioData,
+                                portfolioData: widget.accountData.portfolioData,
                                 landscapeOrientation:
                                     widget.landscapeOrientation)
                           ],
