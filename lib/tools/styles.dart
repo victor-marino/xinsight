@@ -80,27 +80,27 @@ TextStyle ubuntuBoldLighter(BuildContext context, double size) {
 }
 
 // These are the colors used by the distribution chart in the overview screen.
-List<Color?> equityColors = [
-  Colors.purple[800],
-  Colors.purple[700],
-  Colors.purple[600],
-  Colors.purple[500],
-  Colors.purple[400],
-  Colors.purple[300],
-  Colors.purple[200],
-  Colors.purple[100],
-  Colors.purple[50],
+List<Color> equityColors = [
+  Colors.purple.shade800,
+  Colors.purple.shade700,
+  Colors.purple.shade600,
+  Colors.purple.shade500,
+  Colors.purple.shade400,
+  Colors.purple.shade300,
+  Colors.purple.shade200,
+  Colors.purple.shade100,
+  Colors.purple.shade50,
 ];
-List<Color?> fixedColors = [
-  Colors.indigo[800],
-  Colors.indigo[700],
-  Colors.indigo[600],
-  Colors.indigo[500],
-  Colors.indigo[400],
-  Colors.indigo[300],
-  Colors.indigo[200],
-  Colors.indigo[100],
-  Colors.indigo[50]
+List<Color> fixedColors = [
+  Colors.indigo.shade800,
+  Colors.indigo.shade700,
+  Colors.indigo.shade600,
+  Colors.indigo.shade500,
+  Colors.indigo.shade400,
+  Colors.indigo.shade300,
+  Colors.indigo.shade200,
+  Colors.indigo.shade100,
+  Colors.indigo.shade50
 ];
 Color cashColor = Colors.grey;
 Color otherColor = Colors.black12;

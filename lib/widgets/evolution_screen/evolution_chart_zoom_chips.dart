@@ -7,7 +7,7 @@ import 'package:indexax/tools/styles.dart' as text_styles;
 List<ChoiceChip> evolutionChartZoomChips(
     {Duration? selectedPeriod,
     required List<Map> zoomLevels,
-    Function? reloadEvolutionChart,
+    required Function reloadEvolutionChart,
     required BuildContext context}) {
   final TextStyle choiceChipsTextStyle = text_styles.robotoBold(context, 12);
   List<ChoiceChip> chipList = [];
@@ -24,7 +24,7 @@ List<ChoiceChip> evolutionChartZoomChips(
         visualDensity: VisualDensity.compact,
         selected: selectedPeriod == element['duration'],
         onSelected: (bool selected) {
-          reloadEvolutionChart!(period: element['duration']);
+          reloadEvolutionChart(period: element['duration']);
         },
       ),
     );

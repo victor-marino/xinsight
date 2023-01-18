@@ -43,7 +43,7 @@ class SettingsPopupMenu extends StatelessWidget {
       ),
     );
     for (int i = 0; i < userAccounts.length; i++) {
-      String? accountType;
+      String accountType;
       switch (userAccounts[i]['type']) {
         case 'mutual':
           accountType = 'header.mutual_account'.tr();
@@ -58,7 +58,7 @@ class SettingsPopupMenu extends StatelessWidget {
           accountType = 'header.employment_plan_account'.tr();
           break;
         default:
-          accountType = userAccounts[i]['type'];
+          accountType = userAccounts[i]['type']!;
       }
       itemList.add(PopupMenuItem(
         height: itemHeight,
@@ -87,7 +87,7 @@ class SettingsPopupMenu extends StatelessWidget {
                     style: i == currentAccountIndex
                         ? currentAccountNumberTextStyle
                         : otherAccountNumberTextStyle),
-                Text(accountType!,
+                Text(accountType,
                     style: i == currentAccountIndex
                         ? currentAccountTypeTextStyle
                         : otherAccountTypeTextStyle),

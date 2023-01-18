@@ -90,11 +90,11 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
     }
   }
 
-  void goToMainScreen({required String token, bool? saveToken}) async {
+  void goToMainScreen({required String token, required bool saveToken}) async {
     bool? authenticatedToken =
         await (token_operations.authenticateToken(context, token));
     if (authenticatedToken ?? false) {
-      if (saveToken!) await token_operations.storeToken(context, token);
+      if (saveToken) await token_operations.storeToken(context, token);
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(

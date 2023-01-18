@@ -25,7 +25,7 @@ class DistributionChart extends StatelessWidget {
       switch (element.instrumentType) {
         case InstrumentType.equity:
           {
-            colorList.add(text_styles.equityColors[equityCount] ?? Colors.purple);
+            colorList.add(text_styles.equityColors[equityCount]);
             if (equityCount < text_styles.equityColors.length - 1) {
               equityCount++;
             } else {
@@ -36,7 +36,7 @@ class DistributionChart extends StatelessWidget {
 
         case InstrumentType.fixed:
           {
-            colorList.add(text_styles.fixedColors[fixedCount] ?? Colors.blue);
+            colorList.add(text_styles.fixedColors[fixedCount]);
             if (fixedCount < text_styles.fixedColors.length - 1) {
               fixedCount++;
             } else {
