@@ -1,14 +1,20 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:indexax/tools/constants.dart';
+import 'package:indexax/tools/styles.dart' as text_styles;
 
-class ProfitPopUp extends StatelessWidget {
-  const ProfitPopUp({
+// Pop-up explaining the difference between time-weighted and money-weighted returns
+
+class ReturnsPopUp extends StatelessWidget {
+  const ReturnsPopUp({
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    TextStyle returnNameTextStyle = text_styles.robotoBoldLighter(context, 16);
+    TextStyle returnDescriptionTextStyle =
+        text_styles.robotoLighter(context, 16);
+
     return AlertDialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       title: Row(
@@ -29,8 +35,7 @@ class ProfitPopUp extends StatelessWidget {
               children: <Widget>[
                 Text(
                   'profit_popup.time_weighted'.tr(),
-                  style: kPopUpSubtitleTextStyle.copyWith(
-                      color: Theme.of(context).colorScheme.onSurfaceVariant),
+                  style: returnNameTextStyle,
                 ),
                 SizedBox(
                   width: 5,
@@ -47,19 +52,15 @@ class ProfitPopUp extends StatelessWidget {
             ),
             Text(
               'profit_popup.twr_explanation'.tr(),
-              style: kPopUpNormalTextStyle.copyWith(
-                  color: Theme.of(context).colorScheme.onSurfaceVariant),
+              style: returnDescriptionTextStyle,
             ),
             Divider(
-              height: 30,
-              color: Theme.of(context).colorScheme.onBackground
-            ),
+                height: 30, color: Theme.of(context).colorScheme.onBackground),
             Row(
               children: <Widget>[
                 Text(
                   'profit_popup.money_weighted'.tr(),
-                  style: kPopUpSubtitleTextStyle.copyWith(
-                      color: Theme.of(context).colorScheme.onSurfaceVariant),
+                  style: returnNameTextStyle,
                 ),
                 SizedBox(
                   width: 5,
@@ -76,16 +77,14 @@ class ProfitPopUp extends StatelessWidget {
             ),
             Text(
               'profit_popup.mwr_explanation'.tr(),
-              style: kPopUpNormalTextStyle.copyWith(
-                  color: Theme.of(context).colorScheme.onSurfaceVariant),
+              style: returnDescriptionTextStyle,
             ),
             SizedBox(
               height: 20,
             ),
             Text(
               'profit_popup.returns_calculated_net_of_fees'.tr(),
-              style: kPopUpFootnoteTextStyle.copyWith(
-                  color: Theme.of(context).colorScheme.onSurfaceVariant),
+              style: returnDescriptionTextStyle,
             ),
           ],
         ),

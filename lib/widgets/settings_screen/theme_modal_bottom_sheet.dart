@@ -1,13 +1,15 @@
-import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
 import 'package:indexax/models/theme_preference_data.dart';
 import 'package:indexax/tools/theme_operations.dart' as theme_operations;
 
+// Bottom sheet to pick the preferred theme configuration
+
 class ThemeModalBottomSheet extends StatefulWidget {
-  const ThemeModalBottomSheet(
-      {Key? key,
-      required this.updateCurrentThemePreference,})
-      : super(key: key);
+  const ThemeModalBottomSheet({
+    Key? key,
+    required this.updateCurrentThemePreference,
+  }) : super(key: key);
   final Function updateCurrentThemePreference;
 
   @override
@@ -15,19 +17,19 @@ class ThemeModalBottomSheet extends StatefulWidget {
 }
 
 class _ThemeModalBottomSheetState extends State<ThemeModalBottomSheet> {
-  ThemePreference? currentThemePreference;
+  ThemePreference? _currentThemePreference;
 
   void _getCurrentThemePreference() async {
     ThemePreference? storedThemePreference =
-        await theme_operations.readThemePreference(context);
+        await theme_operations.readStoredThemePreference(context);
     if (storedThemePreference == ThemePreference.system ||
         storedThemePreference == null) {
       setState(() {
-        currentThemePreference = ThemePreference.system;
+        _currentThemePreference = ThemePreference.system;
       });
     } else {
       setState(() {
-        currentThemePreference = ThemePreference.values
+        _currentThemePreference = ThemePreference.values
             .byName(storedThemePreference.toString().split(".").last);
       });
     }
@@ -36,7 +38,7 @@ class _ThemeModalBottomSheetState extends State<ThemeModalBottomSheet> {
   void _handleThemeChange(ThemePreference value) async {
     await theme_operations.storeThemePreference(context, value);
     setState(() {
-      currentThemePreference = value;
+      _currentThemePreference = value;
     });
     widget.updateCurrentThemePreference();
     theme_operations.updateTheme(context);
@@ -92,10 +94,10 @@ class _ThemeModalBottomSheetState extends State<ThemeModalBottomSheet> {
                       Radio<ThemePreference>(
                         value: ThemePreference.system,
                         activeColor: Colors.blue,
-                        groupValue: currentThemePreference,
+                        groupValue: _currentThemePreference,
                         onChanged: (ThemePreference? value) {
                           setState(() {
-                            currentThemePreference = value;
+                            _currentThemePreference = value;
                           });
                         },
                       ),
@@ -128,10 +130,10 @@ class _ThemeModalBottomSheetState extends State<ThemeModalBottomSheet> {
                       Radio<ThemePreference>(
                         value: ThemePreference.light,
                         activeColor: Colors.blue,
-                        groupValue: currentThemePreference,
+                        groupValue: _currentThemePreference,
                         onChanged: (ThemePreference? value) {
                           setState(() {
-                            currentThemePreference = value;
+                            _currentThemePreference = value;
                           });
                         },
                       ),
@@ -164,10 +166,10 @@ class _ThemeModalBottomSheetState extends State<ThemeModalBottomSheet> {
                       Radio<ThemePreference>(
                         value: ThemePreference.dark,
                         activeColor: Colors.blue,
-                        groupValue: currentThemePreference,
+                        groupValue: _currentThemePreference,
                         onChanged: (ThemePreference? value) {
                           setState(() {
-                            currentThemePreference = value;
+                            _currentThemePreference = value;
                           });
                         },
                       ),

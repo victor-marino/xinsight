@@ -1,7 +1,8 @@
-// import 'package:flutter/cupertino.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
+import 'package:indexax/models/account.dart';
+import 'package:indexax/tools/styles.dart' as text_styles;
 import 'package:indexax/widgets/overview_screen/collapsed_account_summary.dart';
 import 'package:indexax/widgets/overview_screen/distribution_chart.dart';
 import 'package:indexax/widgets/overview_screen/distribution_legend.dart';
@@ -9,13 +10,9 @@ import 'package:indexax/widgets/overview_screen/expanded_account_summary.dart';
 import 'package:indexax/widgets/overview_screen/expanded_account_summary_single_view.dart';
 import 'package:indexax/widgets/overview_screen/fee_free_amount_card.dart';
 import 'package:indexax/widgets/overview_screen/minimum_transfer_card.dart';
-import 'package:indexax/widgets/overview_screen/profit_popup.dart';
+import 'package:indexax/widgets/overview_screen/returns_popup.dart';
 import 'package:indexax/widgets/reusable_card.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-
-import '../models/account.dart';
-
-const int nbsp = 0x00A0;
 
 class OverviewScreen extends StatefulWidget {
   const OverviewScreen({
@@ -27,7 +24,7 @@ class OverviewScreen extends StatefulWidget {
     required this.refreshData,
     required this.currentAccountIndex,
   }) : super(key: key);
-  final Account? accountData;
+  final Account accountData;
   final List<Map<String, String>>? userAccounts;
   final bool landscapeOrientation;
   final double availableWidth;
@@ -49,7 +46,7 @@ class _OverviewScreenState extends State<OverviewScreen>
       RefreshController(initialRefresh: false);
 
   void _onRefresh() async {
-    // monitor network fetch
+    // Monitor network fetch
     try {
       await widget.refreshData(accountIndex: widget.currentAccountIndex);
       _refreshController.refreshCompleted();
@@ -71,6 +68,8 @@ class _OverviewScreenState extends State<OverviewScreen>
   Widget build(BuildContext context) {
     // This super call is required for the Mixin that keeps the page state
     super.build(context);
+
+    TextStyle cardHeaderTextStyle = text_styles.robotoLighter(context, 15);
 
     return Scaffold(
       body: SafeArea(
@@ -122,19 +121,13 @@ class _OverviewScreenState extends State<OverviewScreen>
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
                                     Text('overview_screen.distribution'.tr(),
-                                        //style: kCardTitleTextStyle,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .labelLarge),
+                                        style: cardHeaderTextStyle),
                                     DistributionChart(
                                         portfolioData:
-                                            widget.accountData!.portfolioData),
-                                    // DistributionChartSimplified(
-                                    //     portfolioDistribution: accountData.portfolioDistribution),
+                                            widget.accountData.portfolioData),
                                     DistributionChartLegend(
                                         portfolioDistribution: widget
-                                            .accountData!
-                                            .portfolioDistribution),
+                                            .accountData.portfolioDistribution),
                                   ],
                                 ),
                               ),
@@ -165,18 +158,14 @@ class _OverviewScreenState extends State<OverviewScreen>
                                             Text(
                                               'overview_screen.distribution'
                                                   .tr(),
-                                              //style: kCardTitleTextStyle,
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .labelLarge,
+                                              style: cardHeaderTextStyle,
                                             ),
                                             DistributionChart(
                                                 portfolioData: widget
-                                                    .accountData!
-                                                    .portfolioData),
+                                                    .accountData.portfolioData),
                                             DistributionChartLegend(
                                                 portfolioDistribution: widget
-                                                    .accountData!
+                                                    .accountData
                                                     .portfolioDistribution),
                                           ],
                                         ),
@@ -198,12 +187,12 @@ class _OverviewScreenState extends State<OverviewScreen>
                                   children: [
                                     MinimumTransferCard(
                                         additionalCashNeededToTrade: widget
-                                            .accountData!
+                                            .accountData
                                             .additionalCashNeededToTrade),
                                     SizedBox(height: 5),
                                     FeeFreeAmountCard(
                                         feeFreeAmount:
-                                            widget.accountData!.feeFreeAmount),
+                                            widget.accountData.feeFreeAmount),
                                   ],
                                 ),
                                 MaterialButton(
@@ -221,7 +210,7 @@ class _OverviewScreenState extends State<OverviewScreen>
                                     showDialog(
                                         context: context,
                                         builder: (BuildContext context) =>
-                                            ProfitPopUp());
+                                            ReturnsPopUp());
                                   },
                                 ),
                               ],

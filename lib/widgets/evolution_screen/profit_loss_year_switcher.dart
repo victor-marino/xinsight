@@ -1,21 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:indexax/tools/constants.dart';
+import 'package:indexax/tools/styles.dart' as text_styles;
+
+// Dropdown year switcher for the profit-loss chart
 
 class ProfitLossYearSwitcher extends StatelessWidget {
   const ProfitLossYearSwitcher(
       {Key? key,
-      this.currentYear,
+      required this.currentYear,
       required this.yearList,
       required this.reloadProfitLossChart})
       : super(key: key);
 
-  final int? currentYear;
-  // final List<DropdownMenuItem> profitLossYearDropdownItems;
+  final int currentYear;
   final List<int> yearList;
   final Function reloadProfitLossChart;
 
   @override
   Widget build(BuildContext context) {
+    TextStyle nonSelectedYearTextStyle = text_styles.roboto(context, 15);
+    TextStyle selectedYearTextStyle = text_styles.robotoBold(context, 15);
+    TextStyle disabledYearTextStyle =
+        text_styles.robotoBoldLighter(context, 15);
+
     bool dropdownEnabled = false;
 
     if (yearList.length > 1) {
@@ -29,8 +35,8 @@ class ProfitLossYearSwitcher extends StatelessWidget {
         DropdownMenuItem(
           child: Text(yearList[i].toString(),
               style: yearList[i] == currentYear
-                  ? kAccountSwitcherSelectedTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.bold)
-                  : kAccountSwitcherSelectedTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface)),
+                  ? selectedYearTextStyle
+                  : nonSelectedYearTextStyle),
           value: yearList[i],
           enabled: yearList[i] == currentYear ? false : true,
         ),
@@ -58,11 +64,11 @@ class ProfitLossYearSwitcher extends StatelessWidget {
                   disabledHint: DropdownMenuItem(
                       child: Text(
                     currentYear.toString(),
-                    style: kAccountSwitcherDisabledSelectedTextStyle,
+                    style: selectedYearTextStyle,
                   )),
                   value: currentYear,
                   items: profitLossYearDropdownItems,
-                  style: kAccountSwitcherTextStyle,
+                  style: nonSelectedYearTextStyle,
                   selectedItemBuilder: (BuildContext context) {
                     return profitLossYearDropdownItems
                         .map<Widget>((DropdownMenuItem item) {
@@ -70,9 +76,8 @@ class ProfitLossYearSwitcher extends StatelessWidget {
                           child: Text(
                         (item.child as Text).data!,
                         style: dropdownEnabled
-                            ? kAccountSwitcherSelectedTextStyle.copyWith(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onSurface)
-                            : kAccountSwitcherSelectedTextStyle.copyWith(fontWeight: FontWeight.bold,
-                                color: Colors.black45),
+                            ? selectedYearTextStyle
+                            : disabledYearTextStyle,
                       ));
                     }).toList();
                   },

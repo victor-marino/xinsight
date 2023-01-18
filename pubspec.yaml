@@ -32,8 +32,8 @@ dependencies:
   easy_localization: ^3.0.1
   pull_to_refresh: ^2.0.0
   google_fonts: ^3.0.1
-  syncfusion_flutter_charts: ^20.2.39
-  syncfusion_flutter_gauges: ^20.2.39
+  syncfusion_flutter_charts: '20.2.39'
+  syncfusion_flutter_gauges: '20.2.39'
   flutter_secure_storage: ^5.0.2
   provider: ^6.0.3
   url_launcher: ^6.1.5
@@ -60,6 +60,9 @@ flutter:
   assets:
     - assets/translations/
     - assets/images/
+    - assets/fonts/Roboto/
+    - assets/fonts/Ubuntu/
+    - assets/fonts/Oxygen/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

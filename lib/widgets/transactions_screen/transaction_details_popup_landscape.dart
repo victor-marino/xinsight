@@ -1,7 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:indexax/tools/constants.dart';
 import 'package:indexax/tools/number_formatting.dart';
+import 'package:indexax/tools/styles.dart' as text_styles;
+
+// Pop-up showing the details of an individual transaction in landscape mode
 
 class TransactionDetailsPopupLandscape extends StatelessWidget {
   const TransactionDetailsPopupLandscape({
@@ -14,16 +16,18 @@ class TransactionDetailsPopupLandscape extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Widget> transactionDetails = [];
+    TextStyle detailNameTextStyle = text_styles.robotoBold(context, 15);
+    TextStyle detailValueTextStyle = text_styles.robotoLighter(context, 15);
 
     transactionDetails.add(RichText(
       text: TextSpan(children: [
         TextSpan(
           text: 'transaction_details_popup.account'.tr() + ': ',
-          style: kTransactionDetailTitleTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface),
+          style: detailNameTextStyle,
         ),
         TextSpan(
           text: transactionData.accountType,
-          style: kTransactionDetailValueTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+          style: detailValueTextStyle,
         ),
       ]),
     ));
@@ -32,11 +36,11 @@ class TransactionDetailsPopupLandscape extends StatelessWidget {
       text: TextSpan(children: [
         TextSpan(
           text: 'transaction_details_popup.concept'.tr() + ': ',
-          style: kTransactionDetailTitleTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface),
+          style: detailNameTextStyle,
         ),
         TextSpan(
           text: transactionData.operationType,
-          style: kTransactionDetailValueTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+          style: detailValueTextStyle,
         ),
       ]),
     ));
@@ -45,11 +49,11 @@ class TransactionDetailsPopupLandscape extends StatelessWidget {
       text: TextSpan(children: [
         TextSpan(
           text: 'transaction_details_popup.operation_date'.tr() + ': ',
-          style: kTransactionDetailTitleTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface),
+          style: detailNameTextStyle,
         ),
         TextSpan(
           text: DateFormat("dd/MM/yyyy").format(transactionData.date),
-          style: kTransactionDetailValueTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+          style: detailValueTextStyle,
         ),
       ]),
     ));
@@ -60,11 +64,11 @@ class TransactionDetailsPopupLandscape extends StatelessWidget {
         text: TextSpan(children: [
           TextSpan(
             text: 'transaction_details_popup.value_date'.tr() + ': ',
-            style: kTransactionDetailTitleTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface),
+            style: detailNameTextStyle,
           ),
           TextSpan(
             text: DateFormat("dd/MM/yyyy").format(transactionData.valueDate),
-            style: kTransactionDetailValueTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+            style: detailValueTextStyle,
           ),
         ]),
       ));
@@ -73,11 +77,11 @@ class TransactionDetailsPopupLandscape extends StatelessWidget {
         text: TextSpan(children: [
           TextSpan(
             text: 'transaction_details_popup.value_date'.tr() + ': ',
-            style: kTransactionDetailTitleTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface),
+            style: detailNameTextStyle,
           ),
           TextSpan(
             text: DateFormat("dd/MM/yyyy").format(transactionData.valueDate),
-            style: kTransactionDetailValueTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+            style: detailValueTextStyle,
           ),
         ]),
       ));
@@ -86,11 +90,11 @@ class TransactionDetailsPopupLandscape extends StatelessWidget {
         text: TextSpan(children: [
           TextSpan(
             text: 'transaction_details_popup.fiscal_date'.tr() + ': ',
-            style: kTransactionDetailTitleTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface),
+            style: detailNameTextStyle,
           ),
           TextSpan(
             text: DateFormat("dd/MM/yyyy").format(transactionData.fiscalDate),
-            style: kTransactionDetailValueTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+            style: detailValueTextStyle,
           ),
         ]),
       ));
@@ -105,11 +109,11 @@ class TransactionDetailsPopupLandscape extends StatelessWidget {
           text: TextSpan(children: [
             TextSpan(
               text: 'transaction_details_popup.fund'.tr() + ': ',
-              style: kTransactionDetailTitleTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface),
+              style: detailNameTextStyle,
             ),
             TextSpan(
               text: transactionData.instrumentName,
-              style: kTransactionDetailValueTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+              style: detailValueTextStyle,
             ),
           ]),
         ));
@@ -118,11 +122,11 @@ class TransactionDetailsPopupLandscape extends StatelessWidget {
           text: TextSpan(children: [
             TextSpan(
               text: transactionData.instrumentCodeType + ": ",
-              style: kTransactionDetailTitleTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface),
+              style: detailNameTextStyle,
             ),
             TextSpan(
               text: transactionData.instrumentCode,
-              style: kTransactionDetailValueTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+              style: detailValueTextStyle,
             ),
           ]),
         ));
@@ -131,11 +135,11 @@ class TransactionDetailsPopupLandscape extends StatelessWidget {
           text: TextSpan(children: [
             TextSpan(
               text: 'transaction_details_popup.fund_shares'.tr() + ': ',
-              style: kTransactionDetailTitleTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface),
+              style: detailNameTextStyle,
             ),
             TextSpan(
               text: getNumberAsStringWithMaxDecimals(transactionData.titles),
-              style: kTransactionDetailValueTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+              style: detailValueTextStyle,
             ),
           ]),
         ));
@@ -144,11 +148,11 @@ class TransactionDetailsPopupLandscape extends StatelessWidget {
           text: TextSpan(children: [
             TextSpan(
               text: 'transaction_details_popup.fund_nav'.tr() + ': ',
-              style: kTransactionDetailTitleTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface),
+              style: detailNameTextStyle,
             ),
             TextSpan(
               text: getAmountAsStringWithMaxDecimals(transactionData.price),
-              style: kTransactionDetailValueTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+              style: detailValueTextStyle,
             ),
           ]),
         ));
@@ -157,11 +161,11 @@ class TransactionDetailsPopupLandscape extends StatelessWidget {
           text: TextSpan(children: [
             TextSpan(
               text: 'transaction_details_popup.cost'.tr() + ': ',
-              style: kTransactionDetailTitleTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface),
+              style: detailNameTextStyle,
             ),
             TextSpan(
               text: getAmountAsStringWithTwoDecimals(transactionData.amount),
-              style: kTransactionDetailValueTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+              style: detailValueTextStyle,
             ),
           ]),
         ));
@@ -174,11 +178,11 @@ class TransactionDetailsPopupLandscape extends StatelessWidget {
         text: TextSpan(children: [
           TextSpan(
             text: 'transaction_details_popup.status'.tr() + ': ',
-            style: kTransactionDetailTitleTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface),
+            style: detailNameTextStyle,
           ),
           TextSpan(
             text: transactionData.status,
-            style: kTransactionDetailValueTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+            style: detailValueTextStyle,
           ),
         ]),
       ));
@@ -187,12 +191,9 @@ class TransactionDetailsPopupLandscape extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       title: Text(
         'transaction_details_popup.details'.tr(),
-        style: TextStyle(
-          color: Theme.of(context).colorScheme.onSurface
-        ),
+        style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
       ),
       content: Scrollbar(
-        //isAlwaysShown: true,
         thumbVisibility: true,
         child: SingleChildScrollView(
           child: Padding(

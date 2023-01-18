@@ -5,6 +5,8 @@ import 'package:local_auth_ios/local_auth_ios.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:indexax/tools/snackbar.dart' as snackbar;
 
+// Module that handles all biometric operations
+
 final LocalAuthentication localAuthentication = LocalAuthentication();
 final AndroidAuthMessages androidStrings = AndroidAuthMessages(
   biometricHint: "",
@@ -24,26 +26,25 @@ final IOSAuthMessages iosStrings = IOSAuthMessages(
 );
 
 Future<bool> supportsBiometrics(BuildContext context) async {
-  //bool supportsBiometrics = false;
+  // Check if device supports biometric authentication
   bool isDeviceSupported = false;
   try {
     print("Checking support...");
-    //supportsBiometrics = await localAuthentication.canCheckBiometrics;
     isDeviceSupported = await localAuthentication.isDeviceSupported();
   } on Exception catch (e) {
     print(e);
     snackbar.showInSnackBar(context, e.toString());
   }
-//    (supportsBiometrics && isDeviceSupported)
   (isDeviceSupported)
       ? print("Biometrics supported")
       : print("Biometrics not supported");
 
-  //return (supportsBiometrics && isDeviceSupported);
   return isDeviceSupported;
 }
 
 Future<bool> authenticateUserLocally(BuildContext context) async {
+  // Executes biometric authentication if possible
+  // Otherwise falls back to alternative method (e.g.: PIN)
   bool isAuthenticated = false;
   try {
     if (await (supportsBiometrics(context))) {

@@ -1,11 +1,12 @@
-// import 'package:flutter/cupertino.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:indexax/tools/constants.dart';
 import 'package:indexax/models/transaction.dart';
-import 'package:indexax/widgets/transactions_screen/transaction_details_popup_portrait.dart';
-import 'package:indexax/widgets/transactions_screen/transaction_details_popup_landscape.dart';
 import 'package:indexax/tools/number_formatting.dart';
+import 'package:indexax/tools/styles.dart' as text_styles;
+import 'package:indexax/widgets/transactions_screen/transaction_details_popup_landscape.dart';
+import 'package:indexax/widgets/transactions_screen/transaction_details_popup_portrait.dart';
+
+// Individual tiles for each transaction in the list
 
 class TransactionTile extends StatelessWidget {
   const TransactionTile({
@@ -26,6 +27,11 @@ class TransactionTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Widget> tileElements = [];
+    TextStyle tileTitleTextStyle = text_styles.robotoBold(context, 15);
+    TextStyle tileSubtitleTextStyle = text_styles.robotoLighter(context, 13);
+    TextStyle dividerTextStyle = text_styles.robotoLighter(context, 13);
+    TextStyle transactionAmountTextStyle = text_styles.ubuntuBold(context, 17);
+
     double topPadding;
 
     if (firstTransactionOfMonth && !firstTransaction) {
@@ -40,19 +46,21 @@ class TransactionTile extends StatelessWidget {
           padding: EdgeInsets.only(top: topPadding, bottom: 5),
           child: Row(
             children: [
-              Expanded(child: Divider(
+              Expanded(
+                  child: Divider(
                 color: Theme.of(context).colorScheme.onBackground,
               )),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 5),
                 child: Text(
                   DateFormat("MMMM y")
-                      .format(transactionData.date!)
+                      .format(transactionData.date)
                       .toUpperCase(),
-                  style: kDividerTextStyle,
+                  style: dividerTextStyle,
                 ),
               ),
-              Expanded(child: Divider(
+              Expanded(
+                  child: Divider(
                 color: Theme.of(context).colorScheme.onBackground,
               )),
             ],
@@ -79,9 +87,9 @@ class TransactionTile extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        transactionData.operationType!,
+                        transactionData.operationType,
                         textAlign: TextAlign.left,
-                        style: kTransactionListTitleTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface),
+                        style: tileTitleTextStyle,
                         maxLines: 1,
                         softWrap: false,
                         overflow: TextOverflow.fade,
@@ -92,19 +100,13 @@ class TransactionTile extends StatelessWidget {
                         overflow: TextOverflow.fade,
                         text: TextSpan(children: [
                           TextSpan(
-                            text: DateFormat("dd/MM")
-                                .format(transactionData.date!)
-                                .replaceAll(".", ""),
-                            style: kCardSubTextStyle.copyWith(
-                              fontSize: 12,
-                            ),
-                          ),
+                              text: DateFormat("dd/MM")
+                                  .format(transactionData.date)
+                                  .replaceAll(".", ""),
+                              style: tileSubtitleTextStyle),
                           TextSpan(
-                            text: " · " + transactionData.accountType!,
-                            style: kCardSubTextStyle.copyWith(
-                              fontSize: 12,
-                            ),
-                          ),
+                              text: " · " + transactionData.accountType,
+                              style: tileSubtitleTextStyle),
                         ]),
                       ),
                     ],
@@ -112,22 +114,22 @@ class TransactionTile extends StatelessWidget {
                 ),
               ),
               Text(
-                //transactionData.amount.toStringAsFixed(2) + " €",
                 getAmountAsStringWithTwoDecimals(transactionData.amount),
                 textAlign: TextAlign.right,
-                style: kTransactionListAmountTextStyle.copyWith(
-                    fontWeight: FontWeight.normal),
+                style: transactionAmountTextStyle.copyWith(
+                    color: Theme.of(context).colorScheme.onSurfaceVariant),
               ),
             ],
           ),
         ),
         onTap: () {
           showDialog(
-            context: context,
-            builder: landscapeOrientation ? (BuildContext context) =>
-                TransactionDetailsPopupLandscape(transactionData: transactionData) : (BuildContext context) =>
-                TransactionDetailsPopup(transactionData: transactionData)
-          );
+              context: context,
+              builder: landscapeOrientation
+                  ? (BuildContext context) => TransactionDetailsPopupLandscape(
+                      transactionData: transactionData)
+                  : (BuildContext context) => TransactionDetailsPopup(
+                      transactionData: transactionData));
         },
       ),
     );

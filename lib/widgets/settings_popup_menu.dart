@@ -1,8 +1,14 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:indexax/screens/settings_screen.dart';
-import 'package:indexax/tools/constants.dart';
+import 'package:indexax/tools/styles.dart' as text_styles;
 import 'package:indexax/widgets/settings_screen/logout_popup.dart';
+
+// Pop-up menu that dropws down when clicking the settings wheel.
+// Allows the user to:
+// 1. Switch between accounts
+// 2. Access the settings menu
+// 3. Logout
 
 class SettingsPopupMenu extends StatelessWidget {
   const SettingsPopupMenu(
@@ -13,7 +19,7 @@ class SettingsPopupMenu extends StatelessWidget {
       required this.reloadPage})
       : super(key: key);
 
-  final List<Map<String, String>>? userAccounts;
+  final List<Map<String, String>> userAccounts;
   final int currentAccountIndex;
   final int currentPage;
   final Function reloadPage;
@@ -22,20 +28,23 @@ class SettingsPopupMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     List<PopupMenuEntry> itemList = [];
     double itemHeight = 50;
+    TextStyle accountsHeaderTextStyle = text_styles.robotoLighter(context, 14);
+    TextStyle currentAccountNumberTextStyle = text_styles.robotoBoldLighter(context, 16);
+    TextStyle otherAccountNumberTextStyle = text_styles.robotoBold(context, 16);
+    TextStyle currentAccountTypeTextStyle = text_styles.robotoLighter(context, 14);
+    TextStyle otherAccountTypeTextStyle = text_styles.roboto(context, 14);
 
-    //if (userAccounts.length > 1) {
     itemList.add(
       PopupMenuItem(
         child: Text('header.accounts'.tr()),
-        textStyle: kAccountSwitcherHintTextStyle.copyWith(
-            color: Theme.of(context).colorScheme.onSurfaceVariant),
+        textStyle: accountsHeaderTextStyle,
         enabled: false,
         height: 30,
       ),
     );
-    for (int i = 0; i < userAccounts!.length; i++) {
-      String? accountType;
-      switch (userAccounts![i]['type']) {
+    for (int i = 0; i < userAccounts.length; i++) {
+      String accountType;
+      switch (userAccounts[i]['type']) {
         case 'mutual':
           accountType = 'header.mutual_account'.tr();
           break;
@@ -49,17 +58,15 @@ class SettingsPopupMenu extends StatelessWidget {
           accountType = 'header.employment_plan_account'.tr();
           break;
         default:
-          accountType = userAccounts![i]['type'];
+          accountType = userAccounts[i]['type']!;
       }
       itemList.add(PopupMenuItem(
         height: itemHeight,
-        //padding: EdgeInsets.only(left: 32),
         child: Row(
           children: [
             Container(
               width: 26,
               alignment: Alignment.centerLeft,
-              //child: i == currentAccountNumber ? Icon(Icons.fiber_manual_record_rounded, size: 10, color: Colors.blue) : null,
               child: i == currentAccountIndex
                   ? Container(
                       height: 0.8 * itemHeight,
@@ -76,35 +83,23 @@ class SettingsPopupMenu extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(userAccounts![i]['number']!,
+                Text(userAccounts[i]['number']!,
                     style: i == currentAccountIndex
-                        ? kAccountSwitcherCurrentAccountNumberTextStyle
-                            .copyWith(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .onSurfaceVariant)
-                        : kAccountSwitcherOtherAccountsNumberTextStyle.copyWith(
-                            color: Theme.of(context).colorScheme.onSurface)),
-                Text(accountType!,
+                        ? currentAccountNumberTextStyle
+                        : otherAccountNumberTextStyle),
+                Text(accountType,
                     style: i == currentAccountIndex
-                        ? kAccountSwitcherCurrentAccountTypeTextStyle.copyWith(
-                            color:
-                                Theme.of(context).colorScheme.onSurfaceVariant)
-                        : kAccountSwitcherOtherAccountsTypeTextStyle.copyWith(
-                            color: Theme.of(context).colorScheme.onSurface)),
+                        ? currentAccountTypeTextStyle
+                        : otherAccountTypeTextStyle),
               ],
             ),
           ],
         ),
         value: i,
         enabled: i != currentAccountIndex,
-        //enabled: true,
-        //padding: const EdgeInsets.fromLTRB(16, 8, 0, 8),
       ));
     }
     itemList.add(PopupMenuDivider());
-    //}
-
     itemList.add(PopupMenuItem(
       height: itemHeight,
       child: Row(
@@ -138,7 +133,6 @@ class SettingsPopupMenu extends StatelessWidget {
         ],
       ),
       value: "logout",
-      //padding: const EdgeInsets.fromLTRB(16, 8, 0, 8),
     ));
 
     return Container(

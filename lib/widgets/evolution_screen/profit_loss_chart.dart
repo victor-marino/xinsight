@@ -1,7 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:indexax/tools/constants.dart';
+import 'package:indexax/tools/styles.dart' as text_styles;
 import 'package:syncfusion_flutter_charts/charts.dart';
+
+// Plots the profit-loss chart with the monthly returns
 
 class ProfitLossChart extends StatelessWidget {
   const ProfitLossChart({
@@ -11,10 +13,13 @@ class ProfitLossChart extends StatelessWidget {
   }) : super(key: key);
 
   final Map<int, List<List>> profitLossSeries;
-  final int? selectedYear;
+  final int selectedYear;  
 
   @override
   Widget build(BuildContext context) {
+    final TextStyle axisTextStyle = text_styles.roboto(context, 10);
+    final TextStyle dataLabelTextStyle = text_styles.robotoBold(context, 8);
+
     return SfCartesianChart(
         plotAreaBorderWidth: 0,
         axes: [],
@@ -24,8 +29,7 @@ class ProfitLossChart extends StatelessWidget {
           placeLabelsNearAxisLine: false,
           majorGridLines: MajorGridLines(width: 0),
           majorTickLines: MajorTickLines(size: 0),
-          labelStyle: kProfitLossChartLabelTextStyle.copyWith(
-              color: Theme.of(context).colorScheme.onSurfaceVariant),
+          labelStyle: axisTextStyle,
         ),
         primaryYAxis: NumericAxis(
           numberFormat: NumberFormat("#0.0"),
@@ -34,18 +38,16 @@ class ProfitLossChart extends StatelessWidget {
           crossesAt: 0,
         ),
         series: <ChartSeries<List, String>>[
-          // Renders column chart
           ColumnSeries<List, String>(
             spacing: 0,
             width: 0.7,
             dataLabelSettings: DataLabelSettings(
               isVisible: true,
-              textStyle: kChartLabelTextStyle.copyWith(
-                  color: Theme.of(context).colorScheme.onSurface),
+              textStyle: dataLabelTextStyle,
               labelAlignment: ChartDataLabelAlignment.outer,
             ),
             enableTooltip: false,
-            dataSource: profitLossSeries[selectedYear!]!,
+            dataSource: profitLossSeries[selectedYear]!,
             xValueMapper: (List month, _) => month[0],
             yValueMapper: (List month, _) => month[1],
             pointColorMapper: (List month, _) =>

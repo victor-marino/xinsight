@@ -1,4 +1,3 @@
-// import 'package:flutter/cupertino.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:indexax/models/account.dart';
@@ -8,8 +7,7 @@ import 'package:indexax/widgets/projection_screen/projection_chart.dart';
 import 'package:indexax/widgets/projection_screen/risk_chart.dart';
 import 'package:indexax/widgets/reusable_card.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-
-import '../tools/constants.dart';
+import 'package:indexax/tools/styles.dart' as text_styles;
 
 class ProjectionScreen extends StatefulWidget {
   const ProjectionScreen({
@@ -21,8 +19,8 @@ class ProjectionScreen extends StatefulWidget {
     required this.refreshData,
     required this.currentAccountIndex,
   }) : super(key: key);
-  final Account? accountData;
-  final List<Map<String, String>>? userAccounts;
+  final Account accountData;
+  final List<Map<String, String>> userAccounts;
   final bool landscapeOrientation;
   final double availableWidth;
   final Function refreshData;
@@ -43,7 +41,7 @@ class _ProjectionScreenState extends State<ProjectionScreen>
       RefreshController(initialRefresh: false);
 
   void _onRefresh() async {
-    // monitor network fetch
+    // Monitor network fetch
     try {
       await widget.refreshData(accountIndex: widget.currentAccountIndex);
       _refreshController.refreshCompleted();
@@ -65,6 +63,11 @@ class _ProjectionScreenState extends State<ProjectionScreen>
   Widget build(BuildContext context) {
     // This super call is required for the Mixin that keeps the page state
     super.build(context);
+
+    TextStyle cardHeaderTextStyle = text_styles.robotoLighter(context, 15);
+    TextStyle annualReturnDescriptionTextStyle =
+        text_styles.robotoLighter(context, 15);
+    TextStyle annualReturnValueTextStyle = text_styles.robotoBold(context, 16);
 
     return Scaffold(
       body: SafeArea(
@@ -94,11 +97,8 @@ class _ProjectionScreenState extends State<ProjectionScreen>
                                 children: <Widget>[
                                   Text('projection_screen.risk'.tr(),
                                       textAlign: TextAlign.left,
-                                      //style: kCardTitleTextStyle,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .labelLarge),
-                                  RiskChart(risk: widget.accountData!.risk),
+                                      style: cardHeaderTextStyle),
+                                  RiskChart(risk: widget.accountData.risk),
                                 ],
                               ),
                             ),
@@ -112,13 +112,10 @@ class _ProjectionScreenState extends State<ProjectionScreen>
                                 children: <Widget>[
                                   Text('projection_screen.projection'.tr(),
                                       textAlign: TextAlign.left,
-                                      //style: kCardTitleTextStyle,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .labelLarge),
+                                      style: cardHeaderTextStyle),
                                   PerformanceChart(
-                                      performanceSeries: widget
-                                          .accountData!.performanceSeries),
+                                      performanceSeries:
+                                          widget.accountData.performanceSeries),
                                   Padding(
                                     padding: const EdgeInsets.all(10),
                                     child: RichText(
@@ -129,18 +126,12 @@ class _ProjectionScreenState extends State<ProjectionScreen>
                                                   'projection_screen.expected_annual_return'
                                                           .tr() +
                                                       ': ',
-                                              style: kCardSubTextStyle),
+                                              style:
+                                                  annualReturnDescriptionTextStyle),
                                           TextSpan(
                                               text: getPLPercentAsString(widget
-                                                  .accountData!
-                                                  .expectedReturn!),
-                                              style:
-                                                  kExpectedReturnProjectionTextStyle
-                                                      .copyWith(
-                                                          color:
-                                                              Theme.of(context)
-                                                                  .colorScheme
-                                                                  .onSurface))
+                                                  .accountData.expectedReturn),
+                                              style: annualReturnValueTextStyle)
                                         ],
                                       ),
                                     ),

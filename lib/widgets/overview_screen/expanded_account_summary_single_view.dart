@@ -1,19 +1,29 @@
-// import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:indexax/tools/constants.dart';
-import 'package:indexax/tools/number_formatting.dart';
+import 'package:flutter/material.dart';
 import 'package:indexax/models/account.dart';
+import 'package:indexax/tools/number_formatting.dart';
+import 'package:indexax/tools/styles.dart' as text_styles;
+
+// Full view, always-expanded version of the account summary.
+// Shown in landscape mode when using larger screens (e.g.: tablets).
 
 class ExpandedAccountSummarySingleView extends StatelessWidget {
   const ExpandedAccountSummarySingleView({
     Key? key,
     required this.accountData,
   }) : super(key: key);
-  final Account? accountData;
+  final Account accountData;
 
   @override
   Widget build(BuildContext context) {
+    TextStyle cardHeaderTextStyle = text_styles.robotoLighter(context, 15);
+    TextStyle largeBalanceTextStyle = text_styles.ubuntuBold(context, 40);
+    TextStyle smallBalanceTextStyle = text_styles.ubuntuBold(context, 20);
+    TextStyle largeReturnTextStyle = text_styles.ubuntuBold(context, 25);
+    TextStyle smallReturnTextStyle = text_styles.ubuntuBold(context, 20);
+    TextStyle annualReturnTextStyle =
+        text_styles.robotoBoldLighter(context, 14);
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       mainAxisSize: MainAxisSize.max,
@@ -30,20 +40,19 @@ class ExpandedAccountSummarySingleView extends StatelessWidget {
                     Text(
                       'account_summary.value'.tr(),
                       textAlign: TextAlign.left,
-                      //style: kCardTitleTextStyle,
-                      style: Theme.of(context).textTheme.labelLarge,
+                      style: cardHeaderTextStyle,
                     ),
                     RichText(
                       text: TextSpan(children: [
                         TextSpan(
-                          text:
-                              getInvestmentAsString(accountData!.investment!) + " ",
-                          style: kCardSubTextStyle,
+                          text: getInvestmentAsString(accountData.investment) +
+                              " ",
+                          style: cardHeaderTextStyle,
                         ),
                         TextSpan(
-                          text: getPLAsString(accountData!.profitLoss!),
-                          style: kCardSubTextStyle.copyWith(
-                            color: accountData!.profitLossColor,
+                          text: getPLAsString(accountData.profitLoss),
+                          style: cardHeaderTextStyle.copyWith(
+                            color: accountData.profitLossColor,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -57,16 +66,15 @@ class ExpandedAccountSummarySingleView extends StatelessWidget {
                     child: RichText(
                       text: TextSpan(children: [
                         TextSpan(
-                          text: getWholeBalanceAsString(accountData!.totalAmount),
-                          style: kCardPrimaryContentTextStyle.copyWith(
-                              color: Theme.of(context).colorScheme.onSurface),
+                          text:
+                              getWholeBalanceAsString(accountData.totalAmount),
+                          style: largeBalanceTextStyle,
                         ),
                         TextSpan(
                           text: getDecimalSeparator() +
                               getFractionalBalanceAsString(
-                                  accountData!.totalAmount),
-                          style: kCardSecondaryContentTextStyle.copyWith(
-                              color: Theme.of(context).colorScheme.onSurface),
+                                  accountData.totalAmount),
+                          style: smallBalanceTextStyle,
                         ),
                       ]),
                     ),
@@ -83,7 +91,6 @@ class ExpandedAccountSummarySingleView extends StatelessWidget {
           flex: 1,
           child: Expanded(
             child: Padding(
-              //padding: const EdgeInsets.only(top: 7),
               padding: const EdgeInsets.symmetric(vertical: 7),
               child: IntrinsicHeight(
                 child: Row(
@@ -103,12 +110,13 @@ class ExpandedAccountSummarySingleView extends StatelessWidget {
                                 Text(
                                   'account_summary.return'.tr() + ' ',
                                   textAlign: TextAlign.left,
-                                  //style: kCardTitleTextStyle,
-                                  style: Theme.of(context).textTheme.labelLarge,
+                                  style: cardHeaderTextStyle,
                                 ),
                                 Icon(
                                   Icons.access_time,
-                                  color: Colors.grey,
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onSurfaceVariant,
                                   size: 15.0,
                                 ),
                               ],
@@ -126,16 +134,20 @@ class ExpandedAccountSummarySingleView extends StatelessWidget {
                                         text: TextSpan(children: [
                                           TextSpan(
                                             text: getWholePLPercentAsString(
-                                                accountData!.timeReturn!),
-                                            style: kCardPLTextStyle.copyWith(
-                                                color: accountData!.timeReturnColor),
+                                                accountData.timeReturn),
+                                            style:
+                                                largeReturnTextStyle.copyWith(
+                                                    color: accountData
+                                                        .timeReturnColor),
                                           ),
                                           TextSpan(
                                             text: getDecimalSeparator() +
                                                 getFractionalPLPercentAsString(
-                                                    accountData!.timeReturn!),
-                                            style: kCardPLTextStyleSmaller.copyWith(
-                                                color: accountData!.timeReturnColor),
+                                                    accountData.timeReturn),
+                                            style:
+                                                smallReturnTextStyle.copyWith(
+                                                    color: accountData
+                                                        .timeReturnColor),
                                           ),
                                         ]),
                                       ),
@@ -149,16 +161,12 @@ class ExpandedAccountSummarySingleView extends StatelessWidget {
                                       text: TextSpan(children: [
                                         TextSpan(
                                           text: "(" +
-                                              getPLPercentAsString(
-                                                  accountData!.timeReturnAnnual!) +
+                                              getPLPercentAsString(accountData
+                                                  .timeReturnAnnual) +
                                               " " +
                                               'account_summary.annual'.tr() +
                                               ")",
-                                          style: kAccountSummaryCardSubtextStyle
-                                              .copyWith(
-                                                  color: Theme.of(context)
-                                                      .colorScheme
-                                                      .onSurfaceVariant),
+                                          style: annualReturnTextStyle,
                                         ),
                                       ]),
                                     ),
@@ -167,7 +175,6 @@ class ExpandedAccountSummarySingleView extends StatelessWidget {
                               ],
                             ),
                           ),
-                          
                         ],
                       ),
                     ),
@@ -188,12 +195,13 @@ class ExpandedAccountSummarySingleView extends StatelessWidget {
                                 Text(
                                   'account_summary.return'.tr() + ' ',
                                   textAlign: TextAlign.left,
-                                  //style: kCardTitleTextStyle,
-                                  style: Theme.of(context).textTheme.labelLarge,
+                                  style: cardHeaderTextStyle,
                                 ),
                                 Icon(
                                   Icons.euro_symbol,
-                                  color: Colors.grey,
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onSurfaceVariant,
                                   size: 15.0,
                                 ),
                               ],
@@ -211,16 +219,20 @@ class ExpandedAccountSummarySingleView extends StatelessWidget {
                                         text: TextSpan(children: [
                                           TextSpan(
                                             text: getWholePLPercentAsString(
-                                                accountData!.moneyReturn!),
-                                            style: kCardPLTextStyle.copyWith(
-                                                color: accountData!.moneyReturnColor),
+                                                accountData.moneyReturn),
+                                            style:
+                                                largeReturnTextStyle.copyWith(
+                                                    color: accountData
+                                                        .moneyReturnColor),
                                           ),
                                           TextSpan(
                                             text: getDecimalSeparator() +
                                                 getFractionalPLPercentAsString(
-                                                    accountData!.moneyReturn!),
-                                            style: kCardPLTextStyleSmaller.copyWith(
-                                                color: accountData!.moneyReturnColor),
+                                                    accountData.moneyReturn),
+                                            style:
+                                                smallReturnTextStyle.copyWith(
+                                                    color: accountData
+                                                        .moneyReturnColor),
                                           ),
                                         ]),
                                       ),
@@ -228,27 +240,23 @@ class ExpandedAccountSummarySingleView extends StatelessWidget {
                                   ],
                                 ),
                                 Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                RichText(
-                                  text: TextSpan(children: [
-                                    TextSpan(
-                                      text: "(" +
-                                          getPLPercentAsString(
-                                              accountData!.moneyReturnAnnual!) +
-                                          " " +
-                                          'account_summary.annual'.tr() +
-                                          ")",
-                                      style: kAccountSummaryCardSubtextStyle
-                                              .copyWith(
-                                                  color: Theme.of(context)
-                                                      .colorScheme
-                                                      .onSurfaceVariant),
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    RichText(
+                                      text: TextSpan(children: [
+                                        TextSpan(
+                                          text: "(" +
+                                              getPLPercentAsString(accountData
+                                                  .moneyReturnAnnual) +
+                                              " " +
+                                              'account_summary.annual'.tr() +
+                                              ")",
+                                          style: annualReturnTextStyle,
+                                        ),
+                                      ]),
                                     ),
-                                  ]),
-                                ),
-                              ],
-                            )
+                                  ],
+                                )
                               ],
                             ),
                           ),
@@ -269,7 +277,6 @@ class ExpandedAccountSummarySingleView extends StatelessWidget {
           child: Expanded(
             child: Padding(
               padding: const EdgeInsets.only(top: 7),
-              //padding: const EdgeInsets.symmetric(vertical: 7),
               child: IntrinsicHeight(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -288,8 +295,7 @@ class ExpandedAccountSummarySingleView extends StatelessWidget {
                                 Text(
                                   'account_summary.volatility'.tr(),
                                   textAlign: TextAlign.left,
-                                  //style: kCardTitleTextStyle,
-                                  style: Theme.of(context).textTheme.labelLarge,
+                                  style: cardHeaderTextStyle,
                                 ),
                               ],
                             ),
@@ -303,9 +309,8 @@ class ExpandedAccountSummarySingleView extends StatelessWidget {
                                     text: TextSpan(children: [
                                       TextSpan(
                                         text: getPercentAsString(
-                                            accountData!.volatility),
-                                        style: kCardPLTextStyle.copyWith(
-                                            color: Colors.black54),
+                                            accountData.volatility),
+                                        style: largeReturnTextStyle,
                                       ),
                                     ]),
                                   ),
@@ -333,8 +338,7 @@ class ExpandedAccountSummarySingleView extends StatelessWidget {
                                 Text(
                                   'account_summary.sharpe'.tr(),
                                   textAlign: TextAlign.left,
-                                  //style: kCardTitleTextStyle,
-                                  style: Theme.of(context).textTheme.labelLarge,
+                                  style: cardHeaderTextStyle,
                                 ),
                               ],
                             ),
@@ -347,11 +351,9 @@ class ExpandedAccountSummarySingleView extends StatelessWidget {
                                   RichText(
                                     text: TextSpan(children: [
                                       TextSpan(
-                                        text:
-                                            //accountData.sharpe.toStringAsFixed(2),
-                                            getNumberAsStringWithTwoDecimals(accountData!.sharpe),
-                                        style: kCardPLTextStyle.copyWith(
-                                            color: Colors.black54),
+                                        text: getNumberAsStringWithTwoDecimals(
+                                            accountData.sharpe),
+                                        style: largeReturnTextStyle,
                                       ),
                                     ]),
                                   ),

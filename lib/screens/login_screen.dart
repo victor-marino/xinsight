@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:indexax/screens/root_screen.dart';
@@ -23,14 +22,13 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
-  //final _storage = SecureStorage();
-
   bool _storedToken = false;
   bool _rememberToken = false;
 
   final _tokenTextController = TextEditingController();
 
   void enableRememberToken() async {
+    // Called when the user flips on the switch to remember the token
     if (await local_authentication.authenticateUserLocally(context)) {
       setState(() {
         _rememberToken = true;
@@ -39,6 +37,7 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
   }
 
   void disableRememberToken() async {
+    // Called when the user flips off the switch to remember the token
     if (_storedToken = true) {
       showDialog(
           context: context,
@@ -52,6 +51,7 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
   }
 
   void forgetToken() async {
+    // Delete the token from secure storage and clear the text field
     await token_operations.deleteToken(context);
     setState(() {
       _storedToken = false;
@@ -61,6 +61,7 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
   }
 
   Future<String?> findStoredToken() async {
+    // Check if a token is stored in this device
     String? token = await token_operations.readToken(context);
     if (token != null) {
       _storedToken = true;
@@ -89,11 +90,11 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
     }
   }
 
-  void goToMainScreen({required String token, bool? saveToken}) async {
+  void goToMainScreen({required String token, required bool saveToken}) async {
     bool? authenticatedToken =
         await (token_operations.authenticateToken(context, token));
     if (authenticatedToken ?? false) {
-      if (saveToken!) await token_operations.storeToken(context, token);
+      if (saveToken) await token_operations.storeToken(context, token);
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
@@ -114,11 +115,13 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
     super.initState();
     theme_operations.updateTheme(context);
 
+    // Check if we were thrown back to the login screen after an error
+    // Otherwise, try to find a stored token and login with it
     if (widget.errorMessage == null) {
       tryToLoginWithStoredToken();
     } else {
       String? message;
-      if ((widget.errorMessage == null) || (widget.errorMessage == "")) {
+      if (widget.errorMessage == "") {
         message = "login_screen.default_error_message".tr();
       } else {
         message = widget.errorMessage;
@@ -130,6 +133,7 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
+    // Check if system theme has changed after the app is resumed
     if (state == AppLifecycleState.resumed) {
       theme_operations.updateTheme(context);
     }
@@ -151,14 +155,7 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
       landscapeOrientation = true;
     }
 
-    return
-        // AnnotatedRegion<SystemUiOverlayStyle>(
-        //   value: SystemUiOverlayStyle(
-        //       statusBarColor: Theme.of(context).canvasColor,
-        //       statusBarBrightness: Brightness.light, // iOS
-        //       statusBarIconBrightness: Brightness.dark), // Android
-        //   child:
-        Scaffold(
+    return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(

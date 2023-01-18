@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+// Provider to handle theme changes
+
 class ThemeProvider with ChangeNotifier {
   ThemeMode _currentTheme = ThemeMode.light;
 

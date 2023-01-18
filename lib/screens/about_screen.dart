@@ -1,8 +1,7 @@
-//import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:indexax/tools/constants.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
+import 'package:flutter/material.dart';
+import 'package:indexax/tools/styles.dart' as text_styles;
 import 'package:url_launcher/url_launcher.dart';
 
 class AboutScreen extends StatefulWidget {
@@ -15,11 +14,11 @@ class _AboutScreenState extends State<AboutScreen> {
   late double _availableWidth;
   late double _availableHeight;
   Uri _indexaApiUrl =
-        Uri(scheme: 'https', host: 'indexacapital.com', path: 'en/api-rest-v1');
+      Uri(scheme: 'https', host: 'indexacapital.com', path: 'en/api-rest-v1');
   Uri _flutterSecureStorageUrl = Uri(
-        scheme: 'https',
-        host: 'pub.dev',
-        path: 'packages/flutter_secure_storage');
+      scheme: 'https',
+      host: 'pub.dev',
+      path: 'packages/flutter_secure_storage');
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +26,8 @@ class _AboutScreenState extends State<AboutScreen> {
     _availableWidth = MediaQuery.of(context).size.width;
     _availableHeight = MediaQuery.of(context).size.height;
 
+    TextStyle contentTextStyle = text_styles.roboto(context, 16);
+    
     if (_availableHeight <= _availableWidth) {
       _landscapeOrientation = true;
     }
@@ -35,13 +36,6 @@ class _AboutScreenState extends State<AboutScreen> {
       appBar: AppBar(
         title: Text('about_screen.about'.tr()),
         elevation: 0,
-        // backgroundColor: Theme.of(context).colorScheme.background,
-        // foregroundColor: Theme.of(context).colorScheme.onBackground,
-        // backgroundColor: Colors.transparent,
-        // foregroundColor: Colors.black,
-        // systemOverlayStyle: SystemUiOverlayStyle(
-        //   systemStatusBarContrastEnforced: true,
-        // ),
       ),
       extendBodyBehindAppBar: true,
       body: SafeArea(
@@ -60,12 +54,12 @@ class _AboutScreenState extends State<AboutScreen> {
                     TextSpan(children: [
                       TextSpan(
                         text: 'about_screen.text1'.tr(),
-                        style: kAboutScreenTextStyle.copyWith(
+                        style: contentTextStyle.copyWith(
                             color: Theme.of(context).colorScheme.onSurface),
                       ),
                       TextSpan(
                         text: 'about_screen.text2'.tr(),
-                        style: kAboutScreenTextStyle.copyWith(
+                        style: contentTextStyle.copyWith(
                             color: Theme.of(context).colorScheme.onSurface),
                       ),
                       TextSpan(
@@ -75,22 +69,22 @@ class _AboutScreenState extends State<AboutScreen> {
                             launchUrl(_indexaApiUrl);
                           },
                         style:
-                            kAboutScreenTextStyle.copyWith(color: Colors.blue),
+                            contentTextStyle.copyWith(color: Colors.blue),
                       ),
                       TextSpan(
                         text: 'about_screen.text4'.tr(),
-                        style: kAboutScreenTextStyle.copyWith(
+                        style: contentTextStyle.copyWith(
                             color: Theme.of(context).colorScheme.onSurface),
                       ),
                       TextSpan(
                         text: 'about_screen.text5'.tr(),
-                        style: kAboutScreenTextStyle.copyWith(
+                        style: contentTextStyle.copyWith(
                             color: Theme.of(context).colorScheme.onSurface),
                       ),
                       TextSpan(
                         text: "flutter_secure_storage",
                         style:
-                            kAboutScreenTextStyle.copyWith(color: Colors.blue),
+                            contentTextStyle.copyWith(color: Colors.blue),
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
                             launchUrl(_flutterSecureStorageUrl);
@@ -98,12 +92,12 @@ class _AboutScreenState extends State<AboutScreen> {
                       ),
                       TextSpan(
                         text: 'about_screen.text6'.tr(),
-                        style: kAboutScreenTextStyle.copyWith(
+                        style: contentTextStyle.copyWith(
                             color: Theme.of(context).colorScheme.onSurface),
                       ),
                       TextSpan(
                         text: 'about_screen.text7'.tr(),
-                        style: kAboutScreenTextStyle.copyWith(
+                        style: contentTextStyle.copyWith(
                             color: Theme.of(context).colorScheme.onSurface),
                       ),
                     ]),
@@ -120,7 +114,6 @@ class _AboutScreenState extends State<AboutScreen> {
                         child: Column(
                           children: [
                             Container(
-                              //padding: const EdgeInsets.only(bottom: 10),
                               alignment: Alignment.center,
                               child: Image.asset(
                                   'assets/images/indexax_logo_wide.png'),
@@ -135,11 +128,6 @@ class _AboutScreenState extends State<AboutScreen> {
                                       color: Theme.of(context)
                                           .colorScheme
                                           .onSurfaceVariant),
-                                  // style: TextStyle(
-                                  //     color: Colors.black38)),
-                                  // Image.asset(
-                                  //     'assets/images/indexa_logo.png',
-                                  //     height: 30
                                 ),
                               ],
                             )

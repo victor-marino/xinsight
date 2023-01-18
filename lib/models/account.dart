@@ -1,12 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-
 import 'amounts_datapoint.dart';
 import 'performance_datapoint.dart';
 import 'portfolio_datapoint.dart';
 import 'returns_datapoint.dart';
 import 'transaction.dart';
+import 'package:indexax/tools/number_formatting.dart';
 
+// Main class that stores and processes all account data
 class Account {
   final accountPerformanceData;
   final accountPortfolioData;
@@ -14,30 +15,30 @@ class Account {
   final accountInstrumentTransactionData;
   final accountCashTransactionData;
   final accountPendingTransactionData;
-  final String? accountNumber;
-  final String? accountType;
-  final int? risk;
-  final double? totalAmount;
-  final double? investment;
-  final double? timeReturn;
+  final String accountNumber;
+  final String accountType;
+  final int risk;
+  final double totalAmount;
+  final double investment;
+  final double timeReturn;
   final Color timeReturnColor;
-  final double? timeReturnAnnual;
-  final double? moneyReturn;
+  final double timeReturnAnnual;
+  final double moneyReturn;
   final Color moneyReturnColor;
-  final double? moneyReturnAnnual;
-  final double? volatility;
-  final double? sharpe;
-  final double? profitLoss;
+  final double moneyReturnAnnual;
+  final double volatility;
+  final double sharpe;
+  final double profitLoss;
   final Color profitLossColor;
-  final double? expectedReturn;
-  final double? bestReturn1yr;
-  final double? worstReturn1yr;
-  final double? bestReturn10yr;
-  final double? worstReturn10yr;
-  final bool? hasActiveRewards;
+  final double expectedReturn;
+  final double bestReturn1yr;
+  final double worstReturn1yr;
+  final double bestReturn10yr;
+  final double worstReturn10yr;
+  final bool hasActiveRewards;
   final bool hasPendingTransactions;
-  final double? feeFreeAmount;
-  final double? additionalCashNeededToTrade;
+  final double feeFreeAmount;
+  final double additionalCashNeededToTrade;
   final List<AmountsDataPoint> amountsSeries;
   final List<ReturnsDataPoint> returnsSeries;
   final List<PortfolioDataPoint> portfolioData;
@@ -46,20 +47,10 @@ class Account {
   final Map<int, List<List>> profitLossSeries;
   final List<Transaction> transactionList;
 
-  static Color _obtainColor(double variable) {
-    if (variable < 0) {
-      return Colors.red;
-    } else {
-      return Colors.green;
-    }
-  }
-
-  static double _doubleWithTwoDecimalPlaces(double number) {
-    return (number * 100).toInt() / 100;
-  }
-
   static List<AmountsDataPoint> _createAmountsSeries(
-      netAmountsList, totalAmountsList) {
+      netAmountsList,
+      totalAmountsList) {
+      // Creates a time series with the value of the portfolio overtime
     List<AmountsDataPoint> newAmountSeries = [];
     netAmountsList.keys.forEach((k) {
       AmountsDataPoint newPoint = AmountsDataPoint(
@@ -71,13 +62,13 @@ class Account {
     return (newAmountSeries);
   }
 
-  static List<ReturnsDataPoint> _createReturnsSeries(
-      returnsList) {
+  static List<ReturnsDataPoint> _createReturnsSeries(returnsList) {
+  // Creates a time series with the returns of the portfolio overtime
     List<ReturnsDataPoint> newReturnSeries = [];
     returnsList.keys.forEach((k) {
       ReturnsDataPoint newPoint = ReturnsDataPoint(
-          date: DateTime.parse(k),
-          totalReturn: (returnsList[k].toDouble() - 1) * 100,
+        date: DateTime.parse(k),
+        totalReturn: (returnsList[k].toDouble() - 1) * 100,
       );
       newReturnSeries.add(newPoint);
     });
@@ -85,6 +76,7 @@ class Account {
   }
 
   static List<PortfolioDataPoint> _createPortfolioData(portfolio, instruments) {
+    // Contains a list with all the assets in the portfolio
     List<PortfolioDataPoint> newPortfolioData = [];
     for (var instrument in instruments) {
       InstrumentType currentInstrumentType;
@@ -106,7 +98,7 @@ class Account {
       if (instrument['instrument']['description'] == "" ||
           instrument['instrument']['description'] == null) {
         currentInstrumentDescription =
-            'asset_details_popup.description_not_available'.tr();
+            'asset_details.description_not_available'.tr();
       } else if (instrument['instrument']['description']
           .contains(' Código ISIN')) {
         currentInstrumentDescription =
@@ -132,8 +124,8 @@ class Account {
             instrumentDescription: currentInstrumentDescription,
             titles: instrument['titles'].toDouble(),
             amount:
-                _doubleWithTwoDecimalPlaces(instrument['amount'].toDouble()),
-            cost: _doubleWithTwoDecimalPlaces(
+                getDoubleWithTwoDecimalPlaces(instrument['amount'].toDouble()),
+            cost: getDoubleWithTwoDecimalPlaces(
                 instrument['cost_amount'].toDouble()),
             profitLoss: currentInstrumentProfitLoss!.toDouble(),
             percentage: currentInstrumentPercentage!.toDouble());
@@ -146,28 +138,28 @@ class Account {
         instrumentType: InstrumentType.cash,
         instrumentName: 'cash',
         amount:
-            _doubleWithTwoDecimalPlaces(portfolio['cash_amount'].toDouble()),
+            getDoubleWithTwoDecimalPlaces(portfolio['cash_amount'].toDouble()),
         percentage: portfolio['cash_amount'].toDouble() /
             portfolio['total_amount'].toDouble()));
 
     int compareInstruments(
         PortfolioDataPoint instrumentA, PortfolioDataPoint instrumentB) {
+          // Sorts assets by type first, held amount second.
       if (instrumentA.instrumentType != instrumentB.instrumentType) {
         return instrumentA.instrumentType
             .toString()
             .compareTo(instrumentB.instrumentType.toString());
       } else {
-        return instrumentB.amount!.compareTo(instrumentA.amount!);
+        return instrumentB.amount.compareTo(instrumentA.amount);
       }
     }
-
     newPortfolioData.sort(compareInstruments);
-
     return (newPortfolioData);
   }
 
   static Map<InstrumentType, Map<ValueType, double>>
       _createPortfolioDistribution(portfolio, instruments) {
+        // Creates a map with the portfolio distribution (equity, fixed, cash)
     Map<InstrumentType, Map<ValueType, double>> portfolioDistribution = {};
 
     if (instruments.any((element) =>
@@ -239,6 +231,7 @@ class Account {
   }
 
   static List<PerformanceDataPoint> _createPerformanceSeries(
+    // Creates a time series with the real and estimated performance overtime
       performancePeriodList,
       bestPerformanceList,
       worstPerformanceList,
@@ -275,12 +268,12 @@ class Account {
       newPerformanceSeries.add(newPoint);
       currentPeriod++;
     }
-
     return (newPerformanceSeries);
   }
 
   static Map<int, List<List>> _createProfitLossSeries(
       performancePeriodList, realPerformanceList) {
+        // Creates the profit-loss time series for the monthly chart
     Map<int, List<List>> profitLossSeries = {};
     List<String> monthList = [
       'months_short.january'.tr(),
@@ -351,10 +344,13 @@ class Account {
 
   static List<Transaction> _createTransactionList(
       accountInstrumentTransactionData, accountCashTransactionData) {
+        // Creates a merged list including all cash and securities transactions 
     List<Transaction> newTransactionList = [];
     for (var transaction in accountInstrumentTransactionData) {
-      String? operationType;
+      String operationType;
       IconData icon = Icons.pie_chart;
+      
+      // Reformat the text for some typical strings to improve readability
       switch (transaction['operation_code']) {
         case 20:
           {
@@ -420,7 +416,7 @@ class Account {
           break;
       }
 
-      String? operationStatus;
+      String operationStatus;
       switch (transaction['status']) {
         case 'closed':
           {
@@ -452,8 +448,9 @@ class Account {
       newTransactionList.add(newTransaction);
     }
 
+    // Reformat the text for some typical strings to improve readability
     for (var transaction in accountCashTransactionData) {
-      String? operationType;
+      String operationType;
       IconData icon = Icons.toll;
       switch (transaction['operation_code']) {
         case 9200:
@@ -519,7 +516,7 @@ class Account {
           break;
       }
 
-      String? operationStatus;
+      String operationStatus;
       switch (transaction['status']) {
         case 'closed':
           {
@@ -553,19 +550,18 @@ class Account {
 
     int compareTransactions(
         Transaction transactionA, Transaction transactionB) {
+          // Sorts transactions by date, amount and account type.
       if (transactionA.date != transactionB.date) {
-        return transactionB.date!.compareTo(transactionA.date!);
-      } else if (transactionA.amount!.abs() != transactionB.amount!.abs()) {
-        return transactionB.amount!.abs().compareTo(transactionA.amount!.abs());
+        return transactionB.date.compareTo(transactionA.date);
+      } else if (transactionA.amount.abs() != transactionB.amount.abs()) {
+        return transactionB.amount.abs().compareTo(transactionA.amount.abs());
       } else {
         return transactionB.accountType
             .toString()
             .compareTo(transactionA.accountType.toString());
       }
     }
-
     newTransactionList.sort(compareTransactions);
-
     return (newTransactionList);
   }
 
@@ -582,8 +578,8 @@ class Account {
     return (hasPendingTransactions);
   }
 
-  static double? _getCashNeededToTrade(portfolioExtraInfo) {
-    double? additionalCashNeededToTrade =
+  static double _getCashNeededToTrade(portfolioExtraInfo) {
+    double additionalCashNeededToTrade =
         portfolioExtraInfo['additional_cash_needed_to_trade'].toDouble();
 
     return (additionalCashNeededToTrade);
@@ -601,17 +597,18 @@ class Account {
         risk = accountInfo['risk'],
         totalAmount =
             accountPerformanceData['return']['total_amount'].toDouble(),
-        //_totalAmount = new DateTime.now().second.toDouble(),
-        //_totalAmount = 999999.99,
+        // The two commented lines below allow for some quick data tests
+        // totalAmount = new DateTime.now().second.toDouble(),
+        // totalAmount = 999999.99,
         investment = accountPerformanceData['return']['investment'].toDouble(),
         timeReturn = accountPerformanceData['return']['time_return'].toDouble(),
-        timeReturnColor = _obtainColor(
+        timeReturnColor = getNumberColor(
             accountPerformanceData['return']['time_return'].toDouble()),
         timeReturnAnnual =
             accountPerformanceData['return']['time_return_annual'].toDouble(),
         moneyReturn =
             accountPerformanceData['return']['money_return'].toDouble(),
-        moneyReturnColor = _obtainColor(
+        moneyReturnColor = getNumberColor(
             accountPerformanceData['return']['money_return'].toDouble()),
         moneyReturnAnnual =
             accountPerformanceData['return']['money_return_annual'].toDouble(),
@@ -635,15 +632,14 @@ class Account {
                 .toDouble(),
         profitLoss = accountPerformanceData['return']['pl'].toDouble(),
         profitLossColor =
-            _obtainColor(accountPerformanceData['return']['pl'].toDouble()),
-        //_profitLoss = 9999.99
+            getNumberColor(accountPerformanceData['return']['pl'].toDouble()),
         hasActiveRewards = accountInfo['has_active_rewards'],
         feeFreeAmount = accountInfo['fee_free_amount'].toDouble(),
         amountsSeries = _createAmountsSeries(
             accountPerformanceData['return']['net_amounts'],
             accountPerformanceData['return']['total_amounts']),
-        returnsSeries = _createReturnsSeries(
-            accountPerformanceData['return']['index']),
+        returnsSeries =
+            _createReturnsSeries(accountPerformanceData['return']['index']),
         portfolioData = _createPortfolioData(accountPortfolioData['portfolio'],
             accountPortfolioData['instrument_accounts'][0]['positions']),
         portfolioDistribution = _createPortfolioDistribution(
@@ -667,6 +663,7 @@ class Account {
 
   @override
   String toString() {
+    // Override toString() method for quick troubleshooting
     return "accountNumber: " +
         accountNumber.toString() +
         "type: " +

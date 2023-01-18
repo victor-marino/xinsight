@@ -1,22 +1,22 @@
-// import 'package:flutter/cupertino.dart';
+import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:indexax/models/portfolio_datapoint.dart';
-import 'package:indexax/tools/constants.dart';
 import 'package:indexax/tools/number_formatting.dart';
-import 'package:expandable/expandable.dart';
+import 'package:indexax/tools/styles.dart' as text_styles;
 import 'package:indexax/widgets/portfolio_screen/collapsed_asset_tile_view.dart';
-import 'package:indexax/widgets/portfolio_screen/expanded_asset_tile_header_portrait.dart';
-import 'package:indexax/widgets/portfolio_screen/expanded_asset_tile_header_landscape.dart';
-import 'package:indexax/widgets/portfolio_screen/expanded_asset_tile_body_portrait.dart';
 import 'package:indexax/widgets/portfolio_screen/expanded_asset_tile_body_landscape.dart';
+import 'package:indexax/widgets/portfolio_screen/expanded_asset_tile_body_portrait.dart';
+import 'package:indexax/widgets/portfolio_screen/expanded_asset_tile_header_landscape.dart';
+import 'package:indexax/widgets/portfolio_screen/expanded_asset_tile_header_portrait.dart';
 
+// Class containing each individual tile shown in the asset list in portfolio screen
 class AssetTile extends StatelessWidget {
   const AssetTile({
     Key? key,
     required this.assetData,
     required this.landscapeOrientation,
   }) : super(key: key);
-  
+
   final PortfolioDataPoint assetData;
   final bool landscapeOrientation;
 
@@ -27,9 +27,15 @@ class AssetTile extends StatelessWidget {
     Widget expandedHeader;
     Widget expandedBody;
 
+    TextStyle assetPercentageTextStyle = text_styles.robotoBoldLighter(context, 17);
+
     collapsedView = CollapsedAssetTileView(assetData: assetData);
-    expandedHeader = landscapeOrientation ? ExpandedAssetTileHeaderLandscape(assetData: assetData) : ExpandedAssetTileHeaderPortrait(assetData: assetData);
-    expandedBody = landscapeOrientation ? ExpandedAssetTileBodyLandscape(assetData: assetData) : ExpandedAssetTileBodyPortrait(assetData: assetData);
+    expandedHeader = landscapeOrientation
+        ? ExpandedAssetTileHeaderLandscape(assetData: assetData)
+        : ExpandedAssetTileHeaderPortrait(assetData: assetData);
+    expandedBody = landscapeOrientation
+        ? ExpandedAssetTileBodyLandscape(assetData: assetData)
+        : ExpandedAssetTileBodyPortrait(assetData: assetData);
 
     expandedView = Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Padding(
@@ -37,10 +43,10 @@ class AssetTile extends StatelessWidget {
         child: Container(
           width: 40,
           child: Text(
-              getWholePercentWithoutPercentSignAsString(assetData.percentage!) +
+              getWholePercentWithoutPercentSignAsString(assetData.percentage) +
                   "%",
               textAlign: TextAlign.center,
-              style: kAssetListPercentageTextStyle),
+              style: assetPercentageTextStyle),
         ),
       ),
       Flexible(
@@ -95,7 +101,3 @@ class AssetTile extends StatelessWidget {
     );
   }
 }
-
-
-
-

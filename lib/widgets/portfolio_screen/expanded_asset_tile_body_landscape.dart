@@ -1,9 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:indexax/tools/constants.dart';
-import 'package:indexax/tools/number_formatting.dart';
-import 'package:indexax/models/portfolio_datapoint.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
+import 'package:indexax/models/portfolio_datapoint.dart';
+import 'package:indexax/tools/number_formatting.dart';
+import 'package:indexax/tools/styles.dart' as text_styles;
 
+// Body of the expanded view of each asset tile for landscape orientation
 class ExpandedAssetTileBodyLandscape extends StatelessWidget {
   const ExpandedAssetTileBodyLandscape({
     Key? key,
@@ -15,15 +16,17 @@ class ExpandedAssetTileBodyLandscape extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String instrumentType;
+    TextStyle detailNameTextStyle = text_styles.robotoBold(context, 15);
+    TextStyle detailValueTextStyle = text_styles.robotoLighter(context, 15);
 
     if (assetData.instrumentType == InstrumentType.equity) {
-      instrumentType = "asset_details_popup.instrument_type_equity".tr();
+      instrumentType = "asset_details.instrument_type_equity".tr();
     } else if (assetData.instrumentType == InstrumentType.fixed) {
-      instrumentType = "asset_details_popup.instrument_type_fixed".tr();
+      instrumentType = "asset_details.instrument_type_fixed".tr();
     } else if (assetData.instrumentType == InstrumentType.cash) {
-      instrumentType = "asset_details_popup.instrument_type_cash".tr();
+      instrumentType = "asset_details.instrument_type_cash".tr();
     } else {
-      instrumentType = "asset_details_popup.instrument_type_other".tr();
+      instrumentType = "asset_details.instrument_type_other".tr();
     }
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -32,11 +35,11 @@ class ExpandedAssetTileBodyLandscape extends StatelessWidget {
         RichText(
           text: TextSpan(
             children: [
-              TextSpan(text: assetData.instrumentCodeType! + ': ', style: kTransactionListTitleTextStyle.copyWith(
-                      color: Theme.of(context).colorScheme.onSurface)),
               TextSpan(
-                  text: assetData.instrumentCode,
-                  style: kTransactionDetailValueTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant)),
+                  text: assetData.instrumentCodeType! + ': ',
+                  style: detailNameTextStyle),
+              TextSpan(
+                  text: assetData.instrumentCode, style: detailValueTextStyle),
             ],
           ),
         ),
@@ -44,11 +47,9 @@ class ExpandedAssetTileBodyLandscape extends StatelessWidget {
           text: TextSpan(
             children: [
               TextSpan(
-                  text: 'asset_details_popup.asset_class'.tr() + ': ',
-                  style: kTransactionListTitleTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface)),
-              TextSpan(
-                  text: instrumentType,
-                  style: kTransactionDetailValueTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant)),
+                  text: 'asset_details.asset_class'.tr() + ': ',
+                  style: detailNameTextStyle),
+              TextSpan(text: instrumentType, style: detailValueTextStyle),
             ],
           ),
         ),
@@ -56,21 +57,23 @@ class ExpandedAssetTileBodyLandscape extends StatelessWidget {
           text: TextSpan(
             children: [
               TextSpan(
-                  text: 'asset_details_popup.titles'.tr() + ': ',
-                  style: kTransactionListTitleTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface)),
+                  text: 'asset_details.titles'.tr() + ': ',
+                  style: detailNameTextStyle),
               TextSpan(
                   text: getNumberAsStringWithMaxDecimals(assetData.titles),
-                  style: kTransactionDetailValueTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant)),
+                  style: detailValueTextStyle),
             ],
           ),
         ),
         RichText(
           text: TextSpan(
             children: [
-              TextSpan(text: 'asset_details_popup.cost'.tr() + ': ', style: kTransactionListTitleTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface)),
+              TextSpan(
+                  text: 'asset_details.cost'.tr() + ': ',
+                  style: detailNameTextStyle),
               TextSpan(
                   text: getInvestmentAsString(assetData.cost!),
-                  style: kTransactionDetailValueTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant)),
+                  style: detailValueTextStyle),
             ],
           ),
         ),
@@ -78,11 +81,11 @@ class ExpandedAssetTileBodyLandscape extends StatelessWidget {
           text: TextSpan(
             children: [
               TextSpan(
-                  text: 'asset_details_popup.current_value'.tr() + ': ',
-                  style: kTransactionListTitleTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface)),
+                  text: 'asset_details.current_value'.tr() + ': ',
+                  style: detailNameTextStyle),
               TextSpan(
-                  text: getInvestmentAsString(assetData.amount!),
-                  style: kTransactionDetailValueTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant)),
+                  text: getInvestmentAsString(assetData.amount),
+                  style: detailValueTextStyle),
             ],
           ),
         ),
@@ -90,22 +93,22 @@ class ExpandedAssetTileBodyLandscape extends StatelessWidget {
           text: TextSpan(
             children: [
               TextSpan(
-                  text: 'asset_details_popup.profit_loss'.tr() + ': ',
-                  style: kTransactionListTitleTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface)),
+                  text: 'asset_details.profit_loss'.tr() + ': ',
+                  style: detailNameTextStyle),
               TextSpan(
                   text: getPLAsString(assetData.profitLoss!),
-                  style: kAssetListSecondaryTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant)),
+                  style: detailValueTextStyle),
             ],
           ),
         ),
         if (assetData.instrumentDescription !=
-            'asset_details_popup.description_not_available'.tr()) ...[
+            'asset_details.description_not_available'.tr()) ...[
           Divider(),
-          Text('asset_details_popup.description'.tr() + ': ',
-              style: kTransactionListTitleTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface)),
+          Text('asset_details.description'.tr() + ': ',
+              style: detailNameTextStyle),
           Text(
             assetData.instrumentDescription!,
-            style: kTransactionDetailValueTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+            style: detailValueTextStyle,
           ),
         ],
       ],

@@ -1,12 +1,11 @@
-//import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:settings_ui/settings_ui.dart';
-import 'package:indexax/widgets/settings_screen/logout_popup.dart';
-import 'package:indexax/screens/about_screen.dart';
-import 'package:indexax/widgets/settings_screen/theme_modal_bottom_sheet.dart';
+import 'package:flutter/material.dart';
 import 'package:indexax/models/theme_preference_data.dart';
+import 'package:indexax/screens/about_screen.dart';
 import 'package:indexax/tools/theme_operations.dart' as theme_operations;
+import 'package:indexax/widgets/settings_screen/logout_popup.dart';
+import 'package:indexax/widgets/settings_screen/theme_modal_bottom_sheet.dart';
+import 'package:settings_ui/settings_ui.dart';
 
 class SettingsScreen extends StatefulWidget {
   @override
@@ -14,12 +13,14 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  ThemePreference? currentThemePreference;
-  Brightness? currentSystemTheme;
+  String _currentThemePreferenceText = "";
+  String _currentSystemThemeText = "";
 
-  Future<ThemePreference?> findStoredThemePreference() async {
+  Future<ThemePreference?> findCurrentThemePreference() async {
+    // Check if we already have a theme preference stored in the device.
+    // If not, return 'System' as default preference.
     ThemePreference? themePreference =
-        await theme_operations.readThemePreference(context);
+        await theme_operations.readStoredThemePreference(context);
     if (themePreference != null) {
       print('Existing theme preference detected');
     } else {
@@ -29,17 +30,21 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return themePreference;
   }
 
-  void updateCurrentThemePreference() async {
-    ThemePreference? storedThemePreference = await findStoredThemePreference();
+  void updateCurrentThemePreferenceText() async {
+    // Function that updates the text showing the current theme preference
+    ThemePreference? storedThemePreference = await findCurrentThemePreference();
     if (storedThemePreference == null ||
         storedThemePreference == ThemePreference.system) {
       setState(() {
-        currentThemePreference = ThemePreference.system;
+        _currentThemePreferenceText = ("settings_screen." +
+                ThemePreference.system.toString().split(".").last)
+            .tr();
       });
     } else {
       setState(() {
-        currentThemePreference = ThemePreference.values
-            .byName(storedThemePreference.toString().split(".").last);
+        _currentThemePreferenceText = ("settings_screen." +
+                storedThemePreference.toString().split(".").last)
+            .tr();
       });
     }
   }
@@ -47,39 +52,30 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   void initState() {
     super.initState();
-    updateCurrentThemePreference();
+    updateCurrentThemePreferenceText();
   }
 
   @override
   Widget build(BuildContext context) {
-    currentSystemTheme =
-        theme_operations.getCurrentSystemTheme(context);
+    // Update the text showing the current system theme
+    _currentSystemThemeText = ("settings_screen." +
+            theme_operations
+                .getCurrentSystemTheme(context)
+                .toString()
+                .split(".")
+                .last)
+        .tr();
 
     return Scaffold(
       appBar: AppBar(
         title: Text('settings_screen.settings'.tr()),
         elevation: 0,
-        // backgroundColor: Theme.of(context).colorScheme.background,
-        // foregroundColor: Theme.of(context).colorScheme.onBackground,
-        // systemOverlayStyle: SystemUiOverlayStyle(
-        //   systemStatusBarContrastEnforced: true,
-        // ),
       ),
       extendBodyBehindAppBar: true,
       body: SafeArea(
         child: SettingsList(
           darkTheme: SettingsThemeData(
-            settingsListBackground: Theme.of(context).colorScheme.background
-          ),
-          //backgroundColor: Colors.white10,
-          // lightTheme: SettingsThemeData(
-          //   settingsSectionBackground: Colors.white10,
-          //   settingsListBackground: Colors.white10,
-          // ),
-          // darkTheme: SettingsThemeData(
-          //   settingsSectionBackground: Colors.white10,
-          //   settingsListBackground: Colors.white10,
-          // ),
+              settingsListBackground: Theme.of(context).colorScheme.background),
           sections: [
             SettingsSection(
               tiles: [
@@ -87,28 +83,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   title: Text('settings_screen.theme'.tr()),
                   trailing: Row(
                     children: [
-                      if (currentThemePreference != null)
-                        Text(
-                          ("settings_screen." +
-                                  currentThemePreference
-                                      .toString()
-                                      .split(".")
-                                      .last)
-                              .tr(),
-                          style: TextStyle(
-                            color: Theme.of(context).colorScheme.onSurface,
-                          ),
+                      Text(
+                        _currentThemePreferenceText,
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.onSurface,
                         ),
-                      if (currentThemePreference == ThemePreference.system)
+                      ),
+                      if (_currentThemePreferenceText ==
+                          "settings_screen.system".tr())
                         Text(
-                          " (" +
-                              ("settings_screen." +
-                                      currentSystemTheme
-                                          .toString()
-                                          .split(".")
-                                          .last)
-                                  .tr() +
-                              ")",
+                          " (" + _currentSystemThemeText + ")",
                           style: TextStyle(
                             color:
                                 Theme.of(context).colorScheme.onSurfaceVariant,
@@ -127,7 +111,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       builder: (BuildContext context) {
                         return ThemeModalBottomSheet(
                             updateCurrentThemePreference:
-                                updateCurrentThemePreference);
+                                updateCurrentThemePreferenceText);
                       },
                     );
                   },

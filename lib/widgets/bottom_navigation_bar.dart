@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../tools/bottom_navigation_bar_provider.dart';
+import 'package:indexax/tools/bottom_navigation_bar_provider.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 class MyBottomNavigationBar extends StatelessWidget {

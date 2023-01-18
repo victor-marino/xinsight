@@ -5,6 +5,7 @@ String sanitizeToken(String token) {
 }
 
 bool validateTokenFormat(String token) {
+  // RegEx to check if the token format is valid
   RegExp tokenFormat = RegExp(r'^[\w-]+\.[\w-]+\.[\w-]+$');
   if (tokenFormat.hasMatch(token)) {
     return true;

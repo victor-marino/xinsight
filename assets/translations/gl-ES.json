@@ -80,7 +80,7 @@
     "cash": "@:distribution_chart.instrument_type_cash",
     "other": "@:distribution_chart.instrument_type_other"
   },
-  "asset_details_popup": {
+  "asset_details": {
     "instrument_type_equity": "@:distribution_chart.instrument_type_equity",
     "instrument_type_fixed": "@:distribution_chart.instrument_type_fixed",
     "instrument_type_cash": "@:distribution_chart.instrument_type_cash",
@@ -113,7 +113,7 @@
     "all": "Todo",
     "returns": "RENDIBILIDADES"
   },
-  "amounts_chart": {
+  "evolution_chart": {
     "total": "Total",
     "invested": "Aportado",
     "return": "Rentabilidade"

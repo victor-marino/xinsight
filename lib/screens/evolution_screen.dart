@@ -1,14 +1,14 @@
-// import 'package:flutter/cupertino.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:indexax/models/account.dart';
 import 'package:indexax/tools/snackbar.dart' as snackbar;
+import 'package:indexax/tools/styles.dart' as text_styles;
 import 'package:indexax/widgets/evolution_screen/evolution_chart_zoom_chips.dart';
 import 'package:indexax/widgets/evolution_screen/profit_loss_chart.dart';
 import 'package:indexax/widgets/evolution_screen/profit_loss_year_switcher.dart';
 import 'package:indexax/widgets/reusable_card.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import '../widgets/evolution_screen/evolution_chart.dart';
+import 'package:indexax/widgets/evolution_screen/evolution_chart.dart';
 
 class EvolutionScreen extends StatefulWidget {
   const EvolutionScreen({
@@ -20,8 +20,8 @@ class EvolutionScreen extends StatefulWidget {
     required this.landscapeOrientation,
     required this.availableWidth,
   }) : super(key: key);
-  final Account? accountData;
-  final List<Map<String, String>>? userAccounts;
+  final Account accountData;
+  final List<Map<String, String>> userAccounts;
   final Function refreshData;
   final int currentAccountIndex;
   final bool landscapeOrientation;
@@ -40,13 +40,13 @@ class _EvolutionScreenState extends State<EvolutionScreen>
 
   Duration _evolutionChartSelectedPeriod = Duration(seconds: 0);
   bool _evolutionChartShowReturns = false;
-  int? _profitLossChartSelectedYear;
+  late int _profitLossChartSelectedYear;
 
   RefreshController _refreshController =
       RefreshController(initialRefresh: false);
 
   void _onRefresh() async {
-    // monitor network fetch
+    // Monitor network fetch
     try {
       await widget.refreshData(accountIndex: widget.currentAccountIndex);
       _refreshController.refreshCompleted();
@@ -58,6 +58,7 @@ class _EvolutionScreenState extends State<EvolutionScreen>
   }
 
   void _reloadEvolutionChart({Duration? period, bool? showReturns}) {
+    // Called when any setting in the evolution chart is changed by the user
     if (period != null) {
       setState(() {
         _evolutionChartSelectedPeriod = period;
@@ -71,6 +72,7 @@ class _EvolutionScreenState extends State<EvolutionScreen>
   }
 
   void _reloadProfitLossChart(int year) {
+    // Called when the user changes the year in the profit loss chart
     setState(() {
       _profitLossChartSelectedYear = year;
     });
@@ -78,10 +80,12 @@ class _EvolutionScreenState extends State<EvolutionScreen>
 
   void initState() {
     super.initState();
+    // Show the current year by default in the profit loss chart
     _profitLossChartSelectedYear =
-        widget.accountData!.profitLossSeries.keys.toList().last;
+        widget.accountData.profitLossSeries.keys.toList().last;
   }
 
+  // Zoom options for the evolution chart
   List<Map> _zoomLevels = [
     {"label": "1m", "duration": Duration(days: 30)},
     {"label": "3m", "duration": Duration(days: 90)},
@@ -96,7 +100,8 @@ class _EvolutionScreenState extends State<EvolutionScreen>
     // This super call is required for the Mixin that keeps the page state
     super.build(context);
 
-    //print(widget.availableWidth);
+    TextStyle cardHeaderTextStyle = text_styles.robotoLighter(context, 15);
+
     return Scaffold(
       body: SafeArea(
         child: Center(
@@ -120,7 +125,6 @@ class _EvolutionScreenState extends State<EvolutionScreen>
                             ReusableCard(
                               paddingBottom:
                                   widget.landscapeOrientation ? 16 : 8,
-                              //paddingTop: widget.landscapeOrientation ? 8 : 16,
                               paddingTop: 16,
                               childWidget: Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
@@ -133,27 +137,24 @@ class _EvolutionScreenState extends State<EvolutionScreen>
                                         Text(
                                           'evolution_screen.evolution'.tr(),
                                           textAlign: TextAlign.left,
-                                          // style: kCardTitleTextStyle,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .labelLarge,
+                                          style: cardHeaderTextStyle,
                                         ),
                                         !_evolutionChartShowReturns
                                             ? Row(
-                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
                                                 children: [
                                                   Container(
                                                     width: 30,
                                                     height: 30,
-                                                    child: Icon(
-                                                      Icons.euro,
-                                                      size: 20),
-                                                    ),
+                                                    child: Icon(Icons.euro,
+                                                        size: 20),
+                                                  ),
                                                   Text(
                                                     " | ",
                                                     style: TextStyle(
-                                                      fontSize: 18,
-                                                      height: 0.9,
+                                                        fontSize: 18,
+                                                        height: 0.9,
                                                         color: Theme.of(context)
                                                             .colorScheme
                                                             .onSurface),
@@ -178,7 +179,8 @@ class _EvolutionScreenState extends State<EvolutionScreen>
                                                 ],
                                               )
                                             : Row(
-                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
                                                 children: [
                                                   InkWell(
                                                     child: Container(
@@ -199,8 +201,8 @@ class _EvolutionScreenState extends State<EvolutionScreen>
                                                   Text(
                                                     " | ",
                                                     style: TextStyle(
-                                                      fontSize: 18,
-                                                      height: 0.9,
+                                                        fontSize: 18,
+                                                        height: 0.9,
                                                         color: Theme.of(context)
                                                             .colorScheme
                                                             .onSurface),
@@ -219,12 +221,11 @@ class _EvolutionScreenState extends State<EvolutionScreen>
                                       ]),
                                   EvolutionChart(
                                       amountsSeries:
-                                          widget.accountData!.amountsSeries,
+                                          widget.accountData.amountsSeries,
                                       returnsSeries:
-                                          widget.accountData!.returnsSeries,
+                                          widget.accountData.returnsSeries,
                                       period: _evolutionChartSelectedPeriod,
                                       showReturns: _evolutionChartShowReturns),
-                                  //if (!widget.landscapeOrientation) ...[
                                   Container(
                                     width: double.infinity,
                                     child: Wrap(
@@ -244,7 +245,6 @@ class _EvolutionScreenState extends State<EvolutionScreen>
                                           context: context),
                                     ),
                                   ),
-                                  //],
                                 ],
                               ),
                             ),
@@ -262,15 +262,12 @@ class _EvolutionScreenState extends State<EvolutionScreen>
                                     children: [
                                       Text('evolution_screen.returns'.tr(),
                                           textAlign: TextAlign.left,
-                                          //style: kCardTitleTextStyle,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .labelLarge),
+                                          style: cardHeaderTextStyle),
                                       ProfitLossYearSwitcher(
                                           currentYear:
                                               _profitLossChartSelectedYear,
-                                          yearList: widget.accountData!
-                                              .profitLossSeries.keys
+                                          yearList: widget
+                                              .accountData.profitLossSeries.keys
                                               .toList(),
                                           reloadProfitLossChart:
                                               _reloadProfitLossChart),
@@ -279,8 +276,8 @@ class _EvolutionScreenState extends State<EvolutionScreen>
                                   Container(
                                     height: 150,
                                     child: ProfitLossChart(
-                                        profitLossSeries: widget
-                                            .accountData!.profitLossSeries,
+                                        profitLossSeries:
+                                            widget.accountData.profitLossSeries,
                                         selectedYear:
                                             _profitLossChartSelectedYear),
                                   ),

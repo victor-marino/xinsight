@@ -1,8 +1,10 @@
-import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:indexax/tools/constants.dart';
 import 'package:flutter/gestures.dart';
+import 'package:flutter/material.dart';
+import 'package:indexax/tools/styles.dart' as text_styles;
 import 'package:url_launcher/url_launcher.dart';
+
+// Informational pop-up with instructions on how to obtain the user token
 
 class TokenInstructionsPopup extends StatelessWidget {
   const TokenInstructionsPopup({
@@ -11,12 +13,10 @@ class TokenInstructionsPopup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
-    final Uri userAreaUrl = Uri(
-      scheme: 'https',
-      host: 'indexacapital.com',
-      path: 'es/u/user'
-    );
+    TextStyle instructionsTextStyle = text_styles.robotoLighter(context, 16);
+
+    final Uri userAreaUrl =
+        Uri(scheme: 'https', host: 'indexacapital.com', path: 'es/u/user');
 
     return AlertDialog(
       backgroundColor: Theme.of(context).colorScheme.background,
@@ -24,10 +24,9 @@ class TokenInstructionsPopup extends StatelessWidget {
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text('login_screen.get_token'.tr(),
-          style: TextStyle(
-            color: Theme.of(context).colorScheme.onSurface
-          ),
+          Text(
+            'login_screen.get_token'.tr(),
+            style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
           ),
         ],
       ),
@@ -38,16 +37,14 @@ class TokenInstructionsPopup extends StatelessWidget {
           children: [
             Text(
               'login_screen.in_your_client_area'.tr() + ':\n',
-              style: kPopUpNormalTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+              style: instructionsTextStyle,
             ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   '1. ',
-                  style: kPopUpNormalTextStyle.copyWith(
-                      color: Theme.of(context).colorScheme.onSurfaceVariant,
-                      ),
+                  style: instructionsTextStyle,
                 ),
                 Expanded(
                   child: Text.rich(
@@ -60,8 +57,7 @@ class TokenInstructionsPopup extends StatelessWidget {
                             text: 'login_screen.user_configuration'.tr(),
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
-                                launchUrl(
-                                    userAreaUrl);
+                                launchUrl(userAreaUrl);
                               },
                             style: TextStyle(
                               color: Colors.blue,
@@ -71,7 +67,7 @@ class TokenInstructionsPopup extends StatelessWidget {
                         ),
                       ],
                     ),
-                    style: kPopUpNormalTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                    style: instructionsTextStyle,
                   ),
                 ),
               ],
@@ -80,11 +76,11 @@ class TokenInstructionsPopup extends StatelessWidget {
               children: [
                 Text(
                   '2. ',
-                  style: kPopUpNormalTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                  style: instructionsTextStyle,
                 ),
                 Text(
                   'login_screen.go_to_applications'.tr(),
-                  style: kPopUpNormalTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                  style: instructionsTextStyle,
                 ),
               ],
             ),
@@ -92,11 +88,11 @@ class TokenInstructionsPopup extends StatelessWidget {
               children: [
                 Text(
                   '3. ',
-                  style: kPopUpNormalTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                  style: instructionsTextStyle,
                 ),
                 Text(
                   'login_screen.press_generate_token'.tr(),
-                  style: kPopUpNormalTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                  style: instructionsTextStyle,
                 ),
               ],
             ),

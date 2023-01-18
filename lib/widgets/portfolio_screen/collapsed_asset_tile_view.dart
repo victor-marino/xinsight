@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:indexax/models/portfolio_datapoint.dart';
 import 'package:indexax/tools/number_formatting.dart';
-import 'package:indexax/tools/constants.dart';
+import 'package:indexax/tools/styles.dart' as text_styles;
 
+// Collapsed view of each asset tile
 class CollapsedAssetTileView extends StatelessWidget {
   const CollapsedAssetTileView({
     Key? key,
@@ -13,15 +14,21 @@ class CollapsedAssetTileView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextStyle headerTitleTextStyle = text_styles.robotoBold(context, 15);
+    TextStyle headerSubtitleTextStyle = text_styles.robotoLighter(context, 14);
+    TextStyle assetPercentageTextStyle =
+        text_styles.robotoBoldLighter(context, 17);
+    TextStyle assetAmountTextStyle = text_styles.ubuntuBold(context, 16);
+
     return Row(
       children: [
         Container(
           width: 40,
           child: Text(
-              getWholePercentWithoutPercentSignAsString(assetData.percentage!) +
+              getWholePercentWithoutPercentSignAsString(assetData.percentage) +
                   "%",
               textAlign: TextAlign.center,
-              style: kAssetListPercentageTextStyle),
+              style: assetPercentageTextStyle),
         ),
         Expanded(
           child: Padding(
@@ -30,14 +37,17 @@ class CollapsedAssetTileView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  assetData.instrumentName!,
+                  assetData.instrumentName,
                   maxLines: 1,
-                  style: kAssetListMainTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface),
+                  style: headerTitleTextStyle,
                   overflow: TextOverflow.fade,
                   softWrap: false,
                 ),
-                Text(assetData.instrumentCodeType! + ": " + assetData.instrumentCode!,
-                    style: kAssetListSecondaryTextStyle),
+                Text(
+                    assetData.instrumentCodeType! +
+                        ": " +
+                        assetData.instrumentCode!,
+                    style: headerSubtitleTextStyle),
               ],
             ),
           ),
@@ -48,17 +58,17 @@ class CollapsedAssetTileView extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 20),
               child: Text(
-                getInvestmentAsString(assetData.amount!),
-                style: kAssetListAmountTextStyle.copyWith(color: Theme.of(context).colorScheme.onSurface),
+                getInvestmentAsString(assetData.amount),
+                style: assetAmountTextStyle,
               ),
             ),
             Text("(" + getPLAsString(assetData.profitLoss!) + ")",
                 style: assetData.profitLoss! < 0
-                    ? kAssetListSecondaryTextStyle.copyWith(
-                    //color: Colors.red[800])
-                    color: Theme.of(context).colorScheme.error)
-                    : kAssetListSecondaryTextStyle.copyWith(
-                    color: Colors.green[600])),
+                    ? headerSubtitleTextStyle.copyWith(
+                        //color: Colors.red[800])
+                        color: Theme.of(context).colorScheme.error)
+                    : headerSubtitleTextStyle.copyWith(
+                        color: Colors.green[600])),
           ],
         ),
       ],

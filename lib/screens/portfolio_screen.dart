@@ -1,11 +1,7 @@
-// import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:indexax/widgets/portfolio_screen/asset_list.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-
-import '../models/account.dart';
-
-const int nbsp = 0x00A0;
+import 'package:indexax/models/account.dart';
 
 class PortfolioScreen extends StatefulWidget {
   const PortfolioScreen({
@@ -17,8 +13,8 @@ class PortfolioScreen extends StatefulWidget {
     required this.refreshData,
     required this.currentAccountIndex,
   }) : super(key: key);
-  final Account? accountData;
-  final List<Map<String, String>>? userAccounts;
+  final Account accountData;
+  final List<Map<String, String>> userAccounts;
   final bool landscapeOrientation;
   final double availableWidth;
   final Function refreshData;
@@ -39,7 +35,7 @@ class _PortfolioScreenState extends State<PortfolioScreen>
       RefreshController(initialRefresh: false);
 
   void _onRefresh() async {
-    // monitor network fetch
+    // Monitor network fetch
     try {
       await widget.refreshData(accountIndex: widget.currentAccountIndex);
       _refreshController.refreshCompleted();
@@ -84,8 +80,7 @@ class _PortfolioScreenState extends State<PortfolioScreen>
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: <Widget>[
                             AssetList(
-                                portfolioData:
-                                    widget.accountData!.portfolioData,
+                                portfolioData: widget.accountData.portfolioData,
                                 landscapeOrientation:
                                     widget.landscapeOrientation)
                           ],

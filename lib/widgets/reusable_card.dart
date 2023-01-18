@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+// Reusable card widget on which most of the app content is drawn.
+// Optionally accepts custom padding values, as they're needed in some cases.
+
 class ReusableCard extends StatelessWidget {
   const ReusableCard({
     Key? key,
@@ -15,7 +18,6 @@ class ReusableCard extends StatelessWidget {
   final double paddingLeft;
   final double paddingRight;
 
-
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -23,7 +25,6 @@ class ReusableCard extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
       ),
-      //color: Colors.white,
       elevation: 10,
       clipBehavior: Clip.antiAlias,
       child: Padding(
