@@ -19,7 +19,7 @@ Indexa X no recoge ningún tipo de información sobre ti ni tu cuenta de Indexa.
 
 Si eliges recordar el token, éste se guardará en tu dispositivo de forma segura y encriptada mediante la librería [flutter_secure_storage](https://pub.dev/packages/flutter_secure_storage). Puedes eliminarlo en cualquier momento cerrando sesión en la app.
 
-La API de Indexa sólo permite operaciones de lectura (métodos GET), por lo que la app en ningún caso puede operar con tu cuenta ni modificar ningún dato.
+La API de Indexa sólo permite operaciones de lectura (métodos GET), por lo que Indexa X no puede operar con tu cuenta ni modificarla de ninguna forma.
 
 ## Contribuir
 Si quieres ayudar a mejorar Indexa X, puedes:
