@@ -12,6 +12,7 @@ import 'package:indexax/widgets/overview_screen/fee_free_amount_card.dart';
 import 'package:indexax/widgets/overview_screen/minimum_transfer_card.dart';
 import 'package:indexax/widgets/overview_screen/returns_popup.dart';
 import 'package:indexax/widgets/reusable_card.dart';
+import 'package:indexax/widgets/not_reconciled_card.dart';
 
 class OverviewScreen extends StatefulWidget {
   const OverviewScreen({
@@ -88,6 +89,11 @@ class _OverviewScreenState extends State<OverviewScreen>
                           children: <Widget>[
                             if (!widget.landscapeOrientation ||
                                 widget.availableWidth <= 1000) ...[
+                                  if (!widget.accountData.isReconciledToday) ...[
+                                  NotReconciledCard(reconciledUntil: widget.accountData.reconciledUntil),
+                                  SizedBox(
+                                height: 20,
+                              ),],
                               ReusableCard(
                                 childWidget: ExpandableNotifier(
                                   child: ScrollOnExpand(
@@ -126,6 +132,11 @@ class _OverviewScreenState extends State<OverviewScreen>
                                 ),
                               ),
                             ] else ...[
+                              if (!widget.accountData.isReconciledToday) ...[
+                                  NotReconciledCard(reconciledUntil: widget.accountData.reconciledUntil),
+                                  SizedBox(
+                                height: 20,
+                              ),],
                               SizedBox(
                                 height: 362,
                                 child: Row(

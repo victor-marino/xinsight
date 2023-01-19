@@ -37,6 +37,8 @@ class Account {
   final double worstReturn10yr;
   final bool hasActiveRewards;
   final bool hasPendingTransactions;
+  final DateTime reconciledUntil;
+  final bool isReconciledToday;
   final double feeFreeAmount;
   final double additionalCashNeededToTrade;
   final List<AmountsDataPoint> amountsSeries;
@@ -48,9 +50,8 @@ class Account {
   final List<Transaction> transactionList;
 
   static List<AmountsDataPoint> _createAmountsSeries(
-      netAmountsList,
-      totalAmountsList) {
-      // Creates a time series with the value of the portfolio overtime
+      netAmountsList, totalAmountsList) {
+    // Creates a time series with the value of the portfolio overtime
     List<AmountsDataPoint> newAmountSeries = [];
     netAmountsList.keys.forEach((k) {
       AmountsDataPoint newPoint = AmountsDataPoint(
@@ -63,7 +64,7 @@ class Account {
   }
 
   static List<ReturnsDataPoint> _createReturnsSeries(returnsList) {
-  // Creates a time series with the returns of the portfolio overtime
+    // Creates a time series with the returns of the portfolio overtime
     List<ReturnsDataPoint> newReturnSeries = [];
     returnsList.keys.forEach((k) {
       ReturnsDataPoint newPoint = ReturnsDataPoint(
@@ -144,7 +145,7 @@ class Account {
 
     int compareInstruments(
         PortfolioDataPoint instrumentA, PortfolioDataPoint instrumentB) {
-          // Sorts assets by type first, held amount second.
+      // Sorts assets by type first, held amount second.
       if (instrumentA.instrumentType != instrumentB.instrumentType) {
         return instrumentA.instrumentType
             .toString()
@@ -153,13 +154,14 @@ class Account {
         return instrumentB.amount.compareTo(instrumentA.amount);
       }
     }
+
     newPortfolioData.sort(compareInstruments);
     return (newPortfolioData);
   }
 
   static Map<InstrumentType, Map<ValueType, double>>
       _createPortfolioDistribution(portfolio, instruments) {
-        // Creates a map with the portfolio distribution (equity, fixed, cash)
+    // Creates a map with the portfolio distribution (equity, fixed, cash)
     Map<InstrumentType, Map<ValueType, double>> portfolioDistribution = {};
 
     if (instruments.any((element) =>
@@ -231,7 +233,7 @@ class Account {
   }
 
   static List<PerformanceDataPoint> _createPerformanceSeries(
-    // Creates a time series with the real and estimated performance overtime
+      // Creates a time series with the real and estimated performance overtime
       performancePeriodList,
       bestPerformanceList,
       worstPerformanceList,
@@ -273,7 +275,7 @@ class Account {
 
   static Map<int, List<List>> _createProfitLossSeries(
       performancePeriodList, realPerformanceList) {
-        // Creates the profit-loss time series for the monthly chart
+    // Creates the profit-loss time series for the monthly chart
     Map<int, List<List>> profitLossSeries = {};
     List<String> monthList = [
       'months_short.january'.tr(),
@@ -344,12 +346,12 @@ class Account {
 
   static List<Transaction> _createTransactionList(
       accountInstrumentTransactionData, accountCashTransactionData) {
-        // Creates a merged list including all cash and securities transactions 
+    // Creates a merged list including all cash and securities transactions
     List<Transaction> newTransactionList = [];
     for (var transaction in accountInstrumentTransactionData) {
       String operationType;
       IconData icon = Icons.pie_chart;
-      
+
       // Reformat the text for some typical strings to improve readability
       switch (transaction['operation_code']) {
         case 20:
@@ -550,7 +552,7 @@ class Account {
 
     int compareTransactions(
         Transaction transactionA, Transaction transactionB) {
-          // Sorts transactions by date, amount and account type.
+      // Sorts transactions by date, amount and account type.
       if (transactionA.date != transactionB.date) {
         return transactionB.date.compareTo(transactionA.date);
       } else if (transactionA.amount.abs() != transactionB.amount.abs()) {
@@ -561,6 +563,7 @@ class Account {
             .compareTo(transactionA.accountType.toString());
       }
     }
+
     newTransactionList.sort(compareTransactions);
     return (newTransactionList);
   }
@@ -576,6 +579,15 @@ class Account {
     }
 
     return (hasPendingTransactions);
+  }
+
+  static bool _isReconciledToday(accountInfo) {
+    DateTime today = DateTime.now();
+    DateTime todayAtMidnight = DateTime(today.year, today.month, today.day);
+    DateTime yesterday = todayAtMidnight.subtract(Duration(days: 1));
+    DateTime reconciledUntil = DateTime.parse(accountInfo['reconciled_until']);
+    
+    return (reconciledUntil == yesterday);
   }
 
   static double _getCashNeededToTrade(portfolioExtraInfo) {
@@ -635,6 +647,8 @@ class Account {
             getNumberColor(accountPerformanceData['return']['pl'].toDouble()),
         hasActiveRewards = accountInfo['has_active_rewards'],
         feeFreeAmount = accountInfo['fee_free_amount'].toDouble(),
+        reconciledUntil = DateTime.parse(accountInfo['reconciled_until']),
+        isReconciledToday = _isReconciledToday(accountInfo),
         amountsSeries = _createAmountsSeries(
             accountPerformanceData['return']['net_amounts'],
             accountPerformanceData['return']['total_amounts']),
