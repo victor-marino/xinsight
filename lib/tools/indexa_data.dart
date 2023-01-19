@@ -6,14 +6,14 @@ const indexaURL = 'https://api.indexacapital.com';
 
 class IndexaData {
   // Class that fetches account data from API endpoint
-  // Commented lines below can help test switching between multiple accounts.
-  // They also make some values change every second, which allows for easier
-  // testing of some reload/refresh functions as well.
-  // You need to:
-  // 1. Uncomment said lines
-  // 2. Replace 'XXXXXXXX' with a valid account number (e.g.: yours)
-  // 3. Comment out the real lines they
-  
+
+  // If you want to test support for multiple accounts, set 'addTestAccounts' to
+  // true and enter a real account number in the 'testAccountNumber' variable.
+  // This will load the same account data every time.
+
+  final bool addTestAccounts = false;
+  final String testAccountNumber = "";
+
   final String token;
 
   IndexaData({required this.token});
@@ -33,7 +33,15 @@ class IndexaData {
             });
           }
         }
-        //userAccounts.add({"number": "Test", "type": "pension"});
+        // If 'addTestAccounts' has been set, we add the fake accounts here.
+        // You can add as many as you want. Just make sure their names contain
+        // the string "Test", and that you enter a valid account type ('mutual',
+        // 'pension', 'epsv' or 'employment_plan').
+        if (addTestAccounts) {
+          userAccounts.add({"number": "Test1", "type": "pension"});
+          userAccounts.add({"number": "Test2", "type": "employment_plan"});
+        }
+
         return userAccounts;
       }
     } on Exception catch (e) {
@@ -41,20 +49,18 @@ class IndexaData {
       throw (e);
     }
   }
-  
+
   Future<dynamic> getAccountInfo({required String accountNumber}) async {
-    //String url = '$indexaURL/accounts/XXXXXXXX';
-    String url = '$indexaURL/accounts/$accountNumber';
+    String url;
+    if (addTestAccounts) {
+      url = '$indexaURL/accounts/$testAccountNumber';
+    } else {
+      url = '$indexaURL/accounts/$accountNumber';
+    }
     NetworkHelper networkHelper = NetworkHelper(url, token);
     try {
       var accountInfo = await networkHelper.getData();
-      if (accountInfo != null && accountNumber != "Test") {
-        return accountInfo;
-      } else if (accountInfo != null && accountNumber == "Test") {
-        accountInfo['account_number'] = 'Test';
-        accountInfo['type'] = 'pension';
-        return accountInfo;
-      }
+      return accountInfo;
     } on Exception catch (e) {
       print(e);
       throw (e);
@@ -63,17 +69,23 @@ class IndexaData {
 
   Future<dynamic> getAccountPerformanceData(
       {required String accountNumber}) async {
-    //String url = '$indexaURL/accounts/XXXXXXXX/performance';
-    String url = '$indexaURL/accounts/$accountNumber/performance';
+    String url;
+    if (addTestAccounts) {
+      url = '$indexaURL/accounts/$testAccountNumber/performance';
+    } else {
+      url = '$indexaURL/accounts/$accountNumber/performance';
+    }
     NetworkHelper networkHelper = NetworkHelper(url, token);
     try {
       var accountPerformanceData = await networkHelper.getData();
-      /* Provide fake, time-bound numbers if we're using a "Test" account.
-      This can be useful to check if 'reload' functions are really reloading data */
-      if (accountPerformanceData != null && accountNumber != "Test") {
+      if (accountPerformanceData != null && !accountNumber.contains("Test")) {
         return accountPerformanceData;
-      } else if (accountPerformanceData != null && accountNumber == "Test") {
-        //accountPerformanceData['return']['total_amount'] = 9999.99;
+      } else if (accountPerformanceData != null &&
+          accountNumber.contains("Test")) {
+        // We use fake, time-bound numbers as balance for the test accounts.
+        // This can be useful to check if reload/refresh functions are actually
+        // reloading the data when triggered (e.g.: pulling down to refresh),
+        // as the values keep changing every second.
         accountPerformanceData['return']['total_amount'] =
             DateTime.now().second;
         accountPerformanceData['return']['investment'] = 1000.00;
@@ -87,8 +99,12 @@ class IndexaData {
 
   Future<dynamic> getAccountPortfolioData(
       {required String accountNumber}) async {
-    //String url = '$indexaURL/accounts/XXXXXXXX/portfolio';
-    String url = '$indexaURL/accounts/$accountNumber/portfolio';
+    String url;
+    if (addTestAccounts) {
+      url = '$indexaURL/accounts/$testAccountNumber/portfolio';
+    } else {
+      url = '$indexaURL/accounts/$accountNumber/portfolio';
+    }
     NetworkHelper networkHelper = NetworkHelper(url, token);
     try {
       var accountPortfolioData = await networkHelper.getData();
@@ -103,8 +119,12 @@ class IndexaData {
 
   Future<dynamic> getAccountInstrumentTransactionData(
       {required String accountNumber}) async {
-    //String url = '$indexaURL/accounts/XXXXXXXX/instrument-transactions';
-    String url = '$indexaURL/accounts/$accountNumber/instrument-transactions';
+    String url;
+    if (addTestAccounts) {
+      url = '$indexaURL/accounts/$testAccountNumber/instrument-transactions';
+    } else {
+      url = '$indexaURL/accounts/$accountNumber/instrument-transactions';
+    }
     NetworkHelper networkHelper = NetworkHelper(url, token);
     try {
       var accountInstrumentTransactionData = await networkHelper.getData();
@@ -119,8 +139,12 @@ class IndexaData {
 
   Future<dynamic> getAccountCashTransactionData(
       {required String accountNumber}) async {
-    //String url = '$indexaURL/accounts/XXXXXXXX/cash-transactions';
-    String url = '$indexaURL/accounts/$accountNumber/cash-transactions';
+    String url;
+    if (addTestAccounts) {
+      url = '$indexaURL/accounts/$testAccountNumber/cash-transactions';
+    } else {
+      url = '$indexaURL/accounts/$accountNumber/cash-transactions';
+    }
     NetworkHelper networkHelper = NetworkHelper(url, token);
     try {
       var accountCashTransactionData = await networkHelper.getData();
@@ -135,8 +159,12 @@ class IndexaData {
 
   Future<dynamic> getAccountPendingTransactionData(
       {required String accountNumber}) async {
-    //String url = '$indexaURL/accounts/XXXXXXXX/pending-transactions';
-    String url = '$indexaURL/accounts/$accountNumber/pending-transactions';
+    String url;
+    if (addTestAccounts) {
+      url = '$indexaURL/accounts/$testAccountNumber/pending-transactions';
+    } else {
+      url = '$indexaURL/accounts/$accountNumber/pending-transactions';
+    }
     NetworkHelper networkHelper = NetworkHelper(url, token);
     try {
       var accountPendingTransactionData = await networkHelper.getData();
@@ -151,7 +179,7 @@ class IndexaData {
 
   Future<Account> populateAccountData(
       {required BuildContext context, required String accountNumber}) async {
-        // Populates a new Account object with all fetched data
+    // Populates a new Account object with all fetched data
     Account currentAccount;
     try {
       var currentAccountInfo =

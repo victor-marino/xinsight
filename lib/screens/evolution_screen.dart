@@ -7,7 +7,6 @@ import 'package:indexax/widgets/evolution_screen/evolution_chart_zoom_chips.dart
 import 'package:indexax/widgets/evolution_screen/profit_loss_chart.dart';
 import 'package:indexax/widgets/evolution_screen/profit_loss_year_switcher.dart';
 import 'package:indexax/widgets/reusable_card.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:indexax/widgets/evolution_screen/evolution_chart.dart';
 
 class EvolutionScreen extends StatefulWidget {
@@ -42,14 +41,10 @@ class _EvolutionScreenState extends State<EvolutionScreen>
   bool _evolutionChartShowReturns = false;
   late int _profitLossChartSelectedYear;
 
-  RefreshController _refreshController =
-      RefreshController(initialRefresh: false);
-
-  void _onRefresh() async {
+  Future<void> _onRefresh() async {
     // Monitor network fetch
     try {
       await widget.refreshData(accountIndex: widget.currentAccountIndex);
-      _refreshController.refreshCompleted();
     } on Exception catch (e) {
       print("Couldn't refresh data");
       print(e);
@@ -113,11 +108,10 @@ class _EvolutionScreenState extends State<EvolutionScreen>
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 Expanded(
-                  child: SmartRefresher(
-                    enablePullDown: true,
-                    controller: _refreshController,
+                  child: RefreshIndicator(
                     onRefresh: _onRefresh,
                     child: SingleChildScrollView(
+                      physics: const AlwaysScrollableScrollPhysics(),
                       child: Padding(
                         padding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
                         child: Column(
