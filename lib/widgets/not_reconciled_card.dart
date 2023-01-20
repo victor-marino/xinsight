@@ -33,7 +33,7 @@ class NotReconciledCard extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10.0),
                   child: Text(
-                      'Posiciones pendientes de actualización. La fecha de tus datos sigue siendo el ' +
+                      'not_reconciled_card.not_reconciled_explanation'.tr() +
                           reconciledUntil.day.toString() + "/" + reconciledUntil.month.toString() + "/" + reconciledUntil.year.toString() + ".",
                       style: pendingTransactionsTextStyle.copyWith(
                           color: Theme.of(context).colorScheme.onPrimary)),

@@ -56,6 +56,9 @@
     "volatility": "VOLATILITY",
     "sharpe": "SHARPE"
   },
+  "not_reconciled_card": {
+    "not_reconciled_explanation": "Items pending update. The date of your data is still "
+  },
   "minimum_transfer_card": {
     "minimum_transfer_to_invest": "Minimum deposit to invest"
   },
