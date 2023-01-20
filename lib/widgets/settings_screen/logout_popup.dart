@@ -19,7 +19,7 @@ class LogoutPopup extends StatelessWidget {
         .currentIndex = 0;
     Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(builder: (BuildContext context) => LoginScreen()),
+        MaterialPageRoute(builder: (BuildContext context) => const LoginScreen()),
         (Route<dynamic> route) => false);
   }
 
@@ -42,7 +42,7 @@ class LogoutPopup extends StatelessWidget {
         'logout_popup.text'.tr(),
         style: descriptionTextStyle,
       ),
-      contentPadding: EdgeInsets.fromLTRB(24, 24, 24, 0),
+      contentPadding: const EdgeInsets.fromLTRB(24, 24, 24, 0),
       actions: [
         TextButton(
           child: Text('logout_popup.cancel_button'.tr()),
@@ -53,7 +53,7 @@ class LogoutPopup extends StatelessWidget {
         TextButton(
           child: Text(
             'logout_popup.logout_button'.tr(),
-            style: TextStyle(color: Colors.red),
+            style: const TextStyle(color: Colors.red),
           ),
           onPressed: () {
             _logout(context);

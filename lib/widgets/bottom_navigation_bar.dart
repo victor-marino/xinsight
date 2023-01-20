@@ -11,21 +11,22 @@ class MyBottomNavigationBar extends StatelessWidget {
   }) : super(key: key);
   final Function onTapped;
 
+  @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
       selectedItemColor: Theme.of(context).colorScheme.primary,
       unselectedItemColor: Theme.of(context).colorScheme.onSurfaceVariant,
 
       items: [
-        BottomNavigationBarItem(icon: Icon(Icons.pie_chart), label: 'page_titles.overview'.tr()),
+        BottomNavigationBarItem(icon: const Icon(Icons.pie_chart), label: 'page_titles.overview'.tr()),
         BottomNavigationBarItem(
-            icon: Icon(Icons.list), label: 'page_titles.portfolio'.tr()),
+            icon: const Icon(Icons.list), label: 'page_titles.portfolio'.tr()),
         BottomNavigationBarItem(
-            icon: Icon(Icons.assessment), label: 'page_titles.evolution'.tr()),
+            icon: const Icon(Icons.assessment), label: 'page_titles.evolution'.tr()),
         BottomNavigationBarItem(
-            icon: Icon(Icons.sync_alt), label: 'page_titles.transactions'.tr()),
+            icon: const Icon(Icons.sync_alt), label: 'page_titles.transactions'.tr()),
         BottomNavigationBarItem(
-            icon: Icon(Icons.trending_up), label: 'page_titles.projection'.tr()),
+            icon: const Icon(Icons.trending_up), label: 'page_titles.projection'.tr()),
       ],
       onTap: onTapped as void Function(int)?,
       currentIndex:

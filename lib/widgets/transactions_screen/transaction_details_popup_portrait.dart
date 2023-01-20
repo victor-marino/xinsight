@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:indexax/tools/number_formatting.dart';
 import 'package:indexax/tools/styles.dart' as text_styles;
+import 'package:indexax/models/transaction.dart';
 
 // Pop-up showing the details of an individual transaction in portrait mode
 
@@ -11,7 +12,7 @@ class TransactionDetailsPopup extends StatelessWidget {
     required this.transactionData,
   }) : super(key: key);
 
-  final transactionData;
+  final Transaction transactionData;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,7 @@ class TransactionDetailsPopup extends StatelessWidget {
     TextStyle detailValueTextStyle = text_styles.robotoLighter(context, 15);
 
     transactionDetails.add(Text(
-      'transaction_details_popup.account'.tr() + ':',
+      '${'transaction_details_popup.account'.tr()}:',
       style: detailNameTextStyle,
     ));
     transactionDetails.add(Text(
@@ -28,7 +29,7 @@ class TransactionDetailsPopup extends StatelessWidget {
       style: detailValueTextStyle,
     ));
     transactionDetails.add(Text(
-      'transaction_details_popup.concept'.tr() + ':',
+      '${'transaction_details_popup.concept'.tr()}:',
       style: detailNameTextStyle,
     ));
     transactionDetails.add(Text(
@@ -37,7 +38,7 @@ class TransactionDetailsPopup extends StatelessWidget {
     ));
     transactionDetails.add(
       Text(
-        'transaction_details_popup.operation_date'.tr() + ':',
+        '${'transaction_details_popup.operation_date'.tr()}:',
         style: detailNameTextStyle,
       ),
     );
@@ -50,19 +51,19 @@ class TransactionDetailsPopup extends StatelessWidget {
     if (transactionData.accountType ==
         'transaction_info.securities_account'.tr()) {
       transactionDetails.add(Text(
-        'transaction_details_popup.value_date'.tr() + ':',
+        '${'transaction_details_popup.value_date'.tr()}:',
         style: detailValueTextStyle,
       ));
       transactionDetails.add(Text(
-        DateFormat("dd/MM/yyyy").format(transactionData.valueDate),
+        DateFormat("dd/MM/yyyy").format(transactionData.valueDate!),
         style: detailValueTextStyle,
       ));
       transactionDetails.add(Text(
-        'transaction_details_popup.fiscal_date'.tr() + ':',
+        '${'transaction_details_popup.fiscal_date'.tr()}:',
         style: detailNameTextStyle,
       ));
       transactionDetails.add(Text(
-        DateFormat("dd/MM/yyyy").format(transactionData.fiscalDate),
+        DateFormat("dd/MM/yyyy").format(transactionData.fiscalDate!),
         style: detailValueTextStyle,
       ));
     }
@@ -74,23 +75,23 @@ class TransactionDetailsPopup extends StatelessWidget {
     if (transactionData.accountType ==
         'transaction_info.securities_account'.tr()) {
       transactionDetails.add(Text(
-        'transaction_details_popup.fund'.tr() + ':',
+        '${'transaction_details_popup.fund'.tr()}:',
         style: detailNameTextStyle,
       ));
       transactionDetails.add(Text(
-        transactionData.instrumentName,
+        transactionData.instrumentName!,
         style: detailValueTextStyle,
       ));
       transactionDetails.add(Text(
-        transactionData.instrumentCodeType + ":",
+        "${transactionData.instrumentCodeType}:",
         style: detailNameTextStyle,
       ));
       transactionDetails.add(Text(
-        transactionData.instrumentCode,
+        transactionData.instrumentCode!,
         style: detailValueTextStyle,
       ));
       transactionDetails.add(Text(
-        'transaction_details_popup.fund_shares'.tr() + ':',
+        '${'transaction_details_popup.fund_shares'.tr()}:',
         style: detailNameTextStyle,
       ));
       transactionDetails.add(Text(
@@ -98,7 +99,7 @@ class TransactionDetailsPopup extends StatelessWidget {
         style: detailValueTextStyle,
       ));
       transactionDetails.add(Text(
-        'transaction_details_popup.fund_nav'.tr() + ':',
+        '${'transaction_details_popup.fund_nav'.tr()}:',
         style: detailNameTextStyle,
       ));
       transactionDetails.add(Text(
@@ -106,7 +107,7 @@ class TransactionDetailsPopup extends StatelessWidget {
         style: detailValueTextStyle,
       ));
       transactionDetails.add(Text(
-        'transaction_details_popup.cost'.tr() + ':',
+        '${'transaction_details_popup.cost'.tr()}:',
         style: detailNameTextStyle,
       ));
       transactionDetails.add(Text(
@@ -121,7 +122,7 @@ class TransactionDetailsPopup extends StatelessWidget {
     }
     transactionDetails.add(
       Text(
-        'transaction_details_popup.status'.tr() + ':',
+        '${'transaction_details_popup.status'.tr()}:',
         style: detailNameTextStyle,
       ),
     );
@@ -150,10 +151,10 @@ class TransactionDetailsPopup extends StatelessWidget {
           ),
         ),
       ),
-      contentPadding: EdgeInsets.fromLTRB(24, 24, 24, 0),
+      contentPadding: const EdgeInsets.fromLTRB(24, 24, 24, 0),
       actions: [
         TextButton(
-          child: Text('OK'),
+          child: const Text('OK'),
           onPressed: () {
             Navigator.of(context).pop();
           },

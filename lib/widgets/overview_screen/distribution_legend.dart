@@ -26,13 +26,13 @@ class DistributionChartLegend extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             RadiantLinearMask(
-              child: Icon(
+              color1: text_styles.equityColors[0],
+              color2: text_styles.equityColors[7],
+              child: const Icon(
                 Icons.fiber_manual_record,
                 size: 12,
                 color: Colors.white,
               ),
-              color1: text_styles.equityColors[0],
-              color2: text_styles.equityColors[7],
             ),
             RichText(
               text: TextSpan(
@@ -41,10 +41,8 @@ class DistributionChartLegend extends StatelessWidget {
                       text: 'distribution_legend.instrument_type_equity'.tr(),
                       style: primaryLegendTextStyle),
                   TextSpan(
-                      text: " (" +
-                          getPercentAsString(portfolioDistribution[
-                              InstrumentType.equity]![ValueType.percentage]) +
-                          ")",
+                      text: " (${getPercentAsString(portfolioDistribution[
+                              InstrumentType.equity]![ValueType.percentage])})",
                       style: secondaryLegendTextStyle)
                 ],
               ),
@@ -59,13 +57,13 @@ class DistributionChartLegend extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             RadiantLinearMask(
-              child: Icon(
+              color1: text_styles.fixedColors[0],
+              color2: text_styles.fixedColors[7],
+              child: const Icon(
                 Icons.fiber_manual_record,
                 size: 12,
                 color: Colors.white,
               ),
-              color1: text_styles.fixedColors[0],
-              color2: text_styles.fixedColors[7],
             ),
             RichText(
               text: TextSpan(
@@ -74,10 +72,8 @@ class DistributionChartLegend extends StatelessWidget {
                       text: 'distribution_legend.instrument_type_fixed'.tr(),
                       style: primaryLegendTextStyle),
                   TextSpan(
-                      text: " (" +
-                          getPercentAsString(portfolioDistribution[
-                              InstrumentType.fixed]![ValueType.percentage]) +
-                          ")",
+                      text: " (${getPercentAsString(portfolioDistribution[
+                              InstrumentType.fixed]![ValueType.percentage])})",
                       style: secondaryLegendTextStyle)
                 ],
               ),
@@ -103,10 +99,8 @@ class DistributionChartLegend extends StatelessWidget {
                       text: 'distribution_legend.instrument_type_other'.tr(),
                       style: primaryLegendTextStyle),
                   TextSpan(
-                      text: " (" +
-                          getPercentAsString(portfolioDistribution[
-                              InstrumentType.other]![ValueType.percentage]) +
-                          ")",
+                      text: " (${getPercentAsString(portfolioDistribution[
+                              InstrumentType.other]![ValueType.percentage])})",
                       style: secondaryLegendTextStyle)
                 ],
               ),
@@ -133,10 +127,8 @@ class DistributionChartLegend extends StatelessWidget {
                       text: 'distribution_legend.instrument_type_cash'.tr(),
                       style: primaryLegendTextStyle),
                   TextSpan(
-                      text: " (" +
-                          getPercentAsString(portfolioDistribution[
-                              InstrumentType.cash]![ValueType.percentage]) +
-                          ")",
+                      text: " (${getPercentAsString(portfolioDistribution[
+                              InstrumentType.cash]![ValueType.percentage])})",
                       style: secondaryLegendTextStyle)
                 ],
               ),
@@ -146,9 +138,9 @@ class DistributionChartLegend extends StatelessWidget {
       );
     }
     return Wrap(
-      children: legendItems,
       spacing: 10,
       runSpacing: 5,
+      children: legendItems,
     );
   }
 }

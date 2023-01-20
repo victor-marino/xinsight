@@ -33,14 +33,14 @@ class ExpandedAssetTileBodyPortrait extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Divider(),
+        const Divider(),
         Text(assetData.instrumentCompany!, style: headerSubtitleTextStyle),
-        Divider(),
+        const Divider(),
         RichText(
           text: TextSpan(
             children: [
               TextSpan(
-                  text: assetData.instrumentCodeType! + ': ',
+                  text: '${assetData.instrumentCodeType!}: ',
                   style: detailNameTextStyle),
               TextSpan(
                   text: assetData.instrumentCode, style: detailValueTextStyle),
@@ -51,7 +51,7 @@ class ExpandedAssetTileBodyPortrait extends StatelessWidget {
           text: TextSpan(
             children: [
               TextSpan(
-                  text: 'asset_details.asset_class'.tr() + ': ',
+                  text: '${'asset_details.asset_class'.tr()}: ',
                   style: detailNameTextStyle),
               TextSpan(text: instrumentType, style: detailValueTextStyle),
             ],
@@ -61,7 +61,7 @@ class ExpandedAssetTileBodyPortrait extends StatelessWidget {
           text: TextSpan(
             children: [
               TextSpan(
-                  text: 'asset_details.titles'.tr() + ': ',
+                  text: '${'asset_details.titles'.tr()}: ',
                   style: detailNameTextStyle),
               TextSpan(
                   text: getNumberAsStringWithMaxDecimals(assetData.titles),
@@ -73,7 +73,7 @@ class ExpandedAssetTileBodyPortrait extends StatelessWidget {
           text: TextSpan(
             children: [
               TextSpan(
-                  text: 'asset_details.cost'.tr() + ': ',
+                  text: '${'asset_details.cost'.tr()}: ',
                   style: detailNameTextStyle),
               TextSpan(
                   text: getInvestmentAsString(assetData.cost!),
@@ -85,7 +85,7 @@ class ExpandedAssetTileBodyPortrait extends StatelessWidget {
           text: TextSpan(
             children: [
               TextSpan(
-                  text: 'asset_details.current_value'.tr() + ': ',
+                  text: '${'asset_details.current_value'.tr()}: ',
                   style: detailNameTextStyle),
               TextSpan(
                   text: getInvestmentAsString(assetData.amount),
@@ -97,7 +97,7 @@ class ExpandedAssetTileBodyPortrait extends StatelessWidget {
           text: TextSpan(
             children: [
               TextSpan(
-                  text: 'asset_details.profit_loss'.tr() + ': ',
+                  text: '${'asset_details.profit_loss'.tr()}: ',
                   style: detailNameTextStyle),
               TextSpan(
                   text: getPLAsString(assetData.profitLoss!),
@@ -107,8 +107,8 @@ class ExpandedAssetTileBodyPortrait extends StatelessWidget {
         ),
         if (assetData.instrumentDescription !=
             'asset_details.description_not_available'.tr()) ...[
-          Divider(),
-          Text('asset_details.description'.tr() + ': ',
+          const Divider(),
+          Text('${'asset_details.description'.tr()}: ',
               style: detailNameTextStyle),
           Text(
             assetData.instrumentDescription!,

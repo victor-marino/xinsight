@@ -31,10 +31,10 @@ class ExpectationsPopUp extends StatelessWidget {
               color: Theme.of(context).colorScheme.onSurfaceVariant),
         ),
       ),
-      contentPadding: EdgeInsets.fromLTRB(24, 24, 24, 0),
+      contentPadding: const EdgeInsets.fromLTRB(24, 24, 24, 0),
       actions: [
         TextButton(
-          child: Text('OK'),
+          child: const Text('OK'),
           onPressed: () {
             Navigator.of(context).pop();
           },

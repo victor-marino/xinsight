@@ -20,7 +20,7 @@ class PerformanceChart extends StatelessWidget {
     TextStyle axisTextStyle = text_styles.roboto(context, 10);
 
     return SfCartesianChart(
-      margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
+      margin: const EdgeInsets.fromLTRB(10, 0, 10, 0),
       primaryYAxis: NumericAxis(
           labelFormat: '{value} %',
           numberFormat: NumberFormat.decimalPattern(getCurrentLocale()),

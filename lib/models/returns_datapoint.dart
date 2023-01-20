@@ -5,9 +5,4 @@ class ReturnsDataPoint {
 
   ReturnsDataPoint({required this.date, required this.totalReturn});
 
-  @override
-  String toString() {
-    // Override toString() method for easier printing and troubleshooting
-    return date.toString() + ", " + totalReturn.toString();
-  }
 }

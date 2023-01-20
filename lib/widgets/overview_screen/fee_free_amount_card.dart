@@ -22,7 +22,7 @@ class FeeFreeAmountCard extends StatelessWidget {
       text: TextSpan(
         children: [
           TextSpan(
-              text: 'fee_free_amount_card.fee_free_amount'.tr() + ': ',
+              text: '${'fee_free_amount_card.fee_free_amount'.tr()}: ',
               style: itemNameText),
           TextSpan(
               text: getInvestmentAsString(feeFreeAmount), style: itemValueText),

@@ -15,7 +15,7 @@ List<ChoiceChip> evolutionChartZoomChips(
   for (Map element in zoomLevels) {
     chipList.add(
       ChoiceChip(
-        label: Text(('evolution_screen.' + element['label']).tr(),
+        label: Text("evolution_screen.${element['label']}".tr(),
             style: choiceChipsTextStyle),
         autofocus: false,
         clipBehavior: Clip.none,

@@ -37,17 +37,17 @@ class ReturnsPopUp extends StatelessWidget {
                   'profit_popup.time_weighted'.tr(),
                   style: returnNameTextStyle,
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 5,
                 ),
-                Icon(
+                const Icon(
                   Icons.access_time,
                   color: Colors.grey,
                   size: 20,
                 ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
             Text(
@@ -62,24 +62,24 @@ class ReturnsPopUp extends StatelessWidget {
                   'profit_popup.money_weighted'.tr(),
                   style: returnNameTextStyle,
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 5,
                 ),
-                Icon(
+                const Icon(
                   Icons.euro_symbol,
                   color: Colors.grey,
                   size: 20,
                 ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
             Text(
               'profit_popup.mwr_explanation'.tr(),
               style: returnDescriptionTextStyle,
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Text(
@@ -89,10 +89,10 @@ class ReturnsPopUp extends StatelessWidget {
           ],
         ),
       ),
-      contentPadding: EdgeInsets.fromLTRB(24, 24, 24, 0),
+      contentPadding: const EdgeInsets.fromLTRB(24, 24, 24, 0),
       actions: [
         TextButton(
-          child: Text('OK'),
+          child: const Text('OK'),
           onPressed: () {
             Navigator.of(context).pop();
           },

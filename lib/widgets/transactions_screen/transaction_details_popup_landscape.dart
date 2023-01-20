@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:indexax/tools/number_formatting.dart';
 import 'package:indexax/tools/styles.dart' as text_styles;
+import 'package:indexax/models/transaction.dart';
 
 // Pop-up showing the details of an individual transaction in landscape mode
 
@@ -11,7 +12,7 @@ class TransactionDetailsPopupLandscape extends StatelessWidget {
     required this.transactionData,
   }) : super(key: key);
 
-  final transactionData;
+  final Transaction transactionData;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +23,7 @@ class TransactionDetailsPopupLandscape extends StatelessWidget {
     transactionDetails.add(RichText(
       text: TextSpan(children: [
         TextSpan(
-          text: 'transaction_details_popup.account'.tr() + ': ',
+          text: '${'transaction_details_popup.account'.tr()}: ',
           style: detailNameTextStyle,
         ),
         TextSpan(
@@ -35,7 +36,7 @@ class TransactionDetailsPopupLandscape extends StatelessWidget {
     transactionDetails.add(RichText(
       text: TextSpan(children: [
         TextSpan(
-          text: 'transaction_details_popup.concept'.tr() + ': ',
+          text: '${'transaction_details_popup.concept'.tr()}: ',
           style: detailNameTextStyle,
         ),
         TextSpan(
@@ -48,7 +49,7 @@ class TransactionDetailsPopupLandscape extends StatelessWidget {
     transactionDetails.add(RichText(
       text: TextSpan(children: [
         TextSpan(
-          text: 'transaction_details_popup.operation_date'.tr() + ': ',
+          text: '${'transaction_details_popup.operation_date'.tr()}: ',
           style: detailNameTextStyle,
         ),
         TextSpan(
@@ -63,11 +64,11 @@ class TransactionDetailsPopupLandscape extends StatelessWidget {
       transactionDetails.add(RichText(
         text: TextSpan(children: [
           TextSpan(
-            text: 'transaction_details_popup.value_date'.tr() + ': ',
+            text: '${'transaction_details_popup.value_date'.tr()}: ',
             style: detailNameTextStyle,
           ),
           TextSpan(
-            text: DateFormat("dd/MM/yyyy").format(transactionData.valueDate),
+            text: DateFormat("dd/MM/yyyy").format(transactionData.valueDate!),
             style: detailValueTextStyle,
           ),
         ]),
@@ -76,11 +77,11 @@ class TransactionDetailsPopupLandscape extends StatelessWidget {
       transactionDetails.add(RichText(
         text: TextSpan(children: [
           TextSpan(
-            text: 'transaction_details_popup.value_date'.tr() + ': ',
+            text: '${'transaction_details_popup.value_date'.tr()}: ',
             style: detailNameTextStyle,
           ),
           TextSpan(
-            text: DateFormat("dd/MM/yyyy").format(transactionData.valueDate),
+            text: DateFormat("dd/MM/yyyy").format(transactionData.valueDate!),
             style: detailValueTextStyle,
           ),
         ]),
@@ -89,11 +90,11 @@ class TransactionDetailsPopupLandscape extends StatelessWidget {
       transactionDetails.add(RichText(
         text: TextSpan(children: [
           TextSpan(
-            text: 'transaction_details_popup.fiscal_date'.tr() + ': ',
+            text: '${'transaction_details_popup.fiscal_date'.tr()}: ',
             style: detailNameTextStyle,
           ),
           TextSpan(
-            text: DateFormat("dd/MM/yyyy").format(transactionData.fiscalDate),
+            text: DateFormat("dd/MM/yyyy").format(transactionData.fiscalDate!),
             style: detailValueTextStyle,
           ),
         ]),
@@ -108,7 +109,7 @@ class TransactionDetailsPopupLandscape extends StatelessWidget {
         transactionDetails.add(RichText(
           text: TextSpan(children: [
             TextSpan(
-              text: 'transaction_details_popup.fund'.tr() + ': ',
+              text: '${'transaction_details_popup.fund'.tr()}: ',
               style: detailNameTextStyle,
             ),
             TextSpan(
@@ -121,7 +122,7 @@ class TransactionDetailsPopupLandscape extends StatelessWidget {
         transactionDetails.add(RichText(
           text: TextSpan(children: [
             TextSpan(
-              text: transactionData.instrumentCodeType + ": ",
+              text: "${transactionData.instrumentCodeType}: ",
               style: detailNameTextStyle,
             ),
             TextSpan(
@@ -134,7 +135,7 @@ class TransactionDetailsPopupLandscape extends StatelessWidget {
         transactionDetails.add(RichText(
           text: TextSpan(children: [
             TextSpan(
-              text: 'transaction_details_popup.fund_shares'.tr() + ': ',
+              text: '${'transaction_details_popup.fund_shares'.tr()}: ',
               style: detailNameTextStyle,
             ),
             TextSpan(
@@ -147,7 +148,7 @@ class TransactionDetailsPopupLandscape extends StatelessWidget {
         transactionDetails.add(RichText(
           text: TextSpan(children: [
             TextSpan(
-              text: 'transaction_details_popup.fund_nav'.tr() + ': ',
+              text: '${'transaction_details_popup.fund_nav'.tr()}: ',
               style: detailNameTextStyle,
             ),
             TextSpan(
@@ -160,7 +161,7 @@ class TransactionDetailsPopupLandscape extends StatelessWidget {
         transactionDetails.add(RichText(
           text: TextSpan(children: [
             TextSpan(
-              text: 'transaction_details_popup.cost'.tr() + ': ',
+              text: '${'transaction_details_popup.cost'.tr()}: ',
               style: detailNameTextStyle,
             ),
             TextSpan(
@@ -177,7 +178,7 @@ class TransactionDetailsPopupLandscape extends StatelessWidget {
       transactionDetails.add(RichText(
         text: TextSpan(children: [
           TextSpan(
-            text: 'transaction_details_popup.status'.tr() + ': ',
+            text: '${'transaction_details_popup.status'.tr()}: ',
             style: detailNameTextStyle,
           ),
           TextSpan(
@@ -206,10 +207,10 @@ class TransactionDetailsPopupLandscape extends StatelessWidget {
           ),
         ),
       ),
-      contentPadding: EdgeInsets.fromLTRB(24, 24, 24, 0),
+      contentPadding: const EdgeInsets.fromLTRB(24, 24, 24, 0),
       actions: [
         TextButton(
-          child: Text('OK'),
+          child: const Text('OK'),
           onPressed: () {
             Navigator.of(context).pop();
           },

@@ -3,7 +3,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 // Class that handles all secure storage operations (token, theme preferences)
 
 class SecureStorage {
-  final _storage = FlutterSecureStorage();
+  final _storage = const FlutterSecureStorage();
 
   Future<String?> read(String key) async {
     final value = await _storage.read(key: key);

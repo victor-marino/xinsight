@@ -19,7 +19,7 @@ class RiskChart extends StatelessWidget {
 
       interval: 1,
       minorTicksPerInterval: 0,
-      ranges: <LinearGaugeRange>[
+      ranges: const <LinearGaugeRange>[
         LinearGaugeRange(
             startWidth: 5,
             endWidth: 5,

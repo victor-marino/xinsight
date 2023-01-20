@@ -19,9 +19,4 @@ class Transaction {
 
   Transaction({required this.date, this.valueDate, this.fiscalDate, required this.accountType, required this.operationCode, required this.operationType, required this.icon, this.instrumentCodeType, this.instrumentCode, this.instrumentName, this.titles, this.price, required this.amount, required this.status});
 
-  @override
-  String toString() {
-    // Override toString() method for easier priting and troubleshooting
-    return date.toString() + ", " + valueDate.toString() + ", " + fiscalDate.toString() + ", " + accountType.toString() + ", " + operationCode.toString() + ", " + operationType.toString() + ", " + icon.toString() + ", " + instrumentCodeType.toString() + ", " + instrumentCode.toString() + ", " + instrumentName.toString() + ", " + titles.toString() + ", " + price.toString() + ", " + amount.toString() + ", " + status.toString();
-  }
 }

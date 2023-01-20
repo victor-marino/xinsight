@@ -9,9 +9,4 @@ class PerformanceDataPoint {
 
   PerformanceDataPoint({required this.date, required this.bestReturn, required this.worstReturn, required this.expectedReturn, required this.realReturn, required this.realMonthlyReturn});
 
-  @override
-  String toString() {
-    // Override toString() method for easier printing and troubleshooting
-    return date.toString() + ", " + bestReturn.toString() + ", " + worstReturn.toString() + ", " + expectedReturn.toString() + ", " + realReturn.toString() + ", " + realMonthlyReturn.toString();
-  }
 }

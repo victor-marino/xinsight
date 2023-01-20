@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:indexax/models/account.dart';
@@ -27,17 +28,17 @@ class EvolutionScreen extends StatefulWidget {
   final double availableWidth;
 
   @override
-  _EvolutionScreenState createState() => _EvolutionScreenState();
+  EvolutionScreenState createState() => EvolutionScreenState();
 }
 
-class _EvolutionScreenState extends State<EvolutionScreen>
+class EvolutionScreenState extends State<EvolutionScreen>
     with AutomaticKeepAliveClientMixin<EvolutionScreen> {
   // The Mixin keeps state of the page instead of reloading it every time
   // It requires this 'wantKeepAlive', as well as the 'super' in the build method down below
   @override
   bool get wantKeepAlive => true;
 
-  Duration _evolutionChartSelectedPeriod = Duration(seconds: 0);
+  Duration _evolutionChartSelectedPeriod = const Duration(seconds: 0);
   bool _evolutionChartShowReturns = false;
   late int _profitLossChartSelectedYear;
 
@@ -46,8 +47,10 @@ class _EvolutionScreenState extends State<EvolutionScreen>
     try {
       await widget.refreshData(accountIndex: widget.currentAccountIndex);
     } on Exception catch (e) {
-      print("Couldn't refresh data");
-      print(e);
+      if (kDebugMode) {
+        print("Couldn't refresh data");
+        print(e);
+      }
       snackbar.showInSnackBar(context, e.toString());
     }
   }
@@ -73,6 +76,7 @@ class _EvolutionScreenState extends State<EvolutionScreen>
     });
   }
 
+  @override
   void initState() {
     super.initState();
     // Show the current year by default in the profit loss chart
@@ -81,13 +85,13 @@ class _EvolutionScreenState extends State<EvolutionScreen>
   }
 
   // Zoom options for the evolution chart
-  List<Map> _zoomLevels = [
-    {"label": "1m", "duration": Duration(days: 30)},
-    {"label": "3m", "duration": Duration(days: 90)},
-    {"label": "6m", "duration": Duration(days: 180)},
-    {"label": "1y", "duration": Duration(days: 365)},
-    {"label": "5y", "duration": Duration(days: 1825)},
-    {"label": "all", "duration": Duration(seconds: 0)},
+  final List<Map> _zoomLevels = [
+    {"label": "1m", "duration": const Duration(days: 30)},
+    {"label": "3m", "duration": const Duration(days: 90)},
+    {"label": "6m", "duration": const Duration(days: 180)},
+    {"label": "1y", "duration": const Duration(days: 365)},
+    {"label": "5y", "duration": const Duration(days: 1825)},
+    {"label": "all", "duration": const Duration(seconds: 0)},
   ];
 
   @override
@@ -138,7 +142,7 @@ class _EvolutionScreenState extends State<EvolutionScreen>
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.center,
                                                 children: [
-                                                  Container(
+                                                  const SizedBox(
                                                     width: 30,
                                                     height: 30,
                                                     child: Icon(Icons.euro,
@@ -154,7 +158,7 @@ class _EvolutionScreenState extends State<EvolutionScreen>
                                                             .onSurface),
                                                   ),
                                                   InkWell(
-                                                    child: Container(
+                                                    child: SizedBox(
                                                       width: 30,
                                                       height: 30,
                                                       child: Icon(
@@ -169,7 +173,7 @@ class _EvolutionScreenState extends State<EvolutionScreen>
                                                         _reloadEvolutionChart(
                                                             showReturns: true),
                                                   ),
-                                                  SizedBox(width: 7)
+                                                  const SizedBox(width: 7)
                                                 ],
                                               )
                                             : Row(
@@ -177,7 +181,7 @@ class _EvolutionScreenState extends State<EvolutionScreen>
                                                     CrossAxisAlignment.center,
                                                 children: [
                                                   InkWell(
-                                                    child: Container(
+                                                    child: SizedBox(
                                                       width: 30,
                                                       height: 30,
                                                       child: Icon(
@@ -201,7 +205,7 @@ class _EvolutionScreenState extends State<EvolutionScreen>
                                                             .colorScheme
                                                             .onSurface),
                                                   ),
-                                                  Container(
+                                                  const SizedBox(
                                                     width: 30,
                                                     height: 30,
                                                     child: Icon(
@@ -209,7 +213,7 @@ class _EvolutionScreenState extends State<EvolutionScreen>
                                                       size: 20,
                                                     ),
                                                   ),
-                                                  SizedBox(width: 7)
+                                                  const SizedBox(width: 7)
                                                 ],
                                               )
                                       ]),
@@ -220,7 +224,7 @@ class _EvolutionScreenState extends State<EvolutionScreen>
                                           widget.accountData.returnsSeries,
                                       period: _evolutionChartSelectedPeriod,
                                       showReturns: _evolutionChartShowReturns),
-                                  Container(
+                                  SizedBox(
                                     width: double.infinity,
                                     child: Wrap(
                                       direction: Axis.horizontal,
@@ -242,7 +246,7 @@ class _EvolutionScreenState extends State<EvolutionScreen>
                                 ],
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 20,
                             ),
                             ReusableCard(
@@ -267,7 +271,7 @@ class _EvolutionScreenState extends State<EvolutionScreen>
                                               _reloadProfitLossChart),
                                     ],
                                   ),
-                                  Container(
+                                  SizedBox(
                                     height: 150,
                                     child: ProfitLossChart(
                                         profitLossSeries:

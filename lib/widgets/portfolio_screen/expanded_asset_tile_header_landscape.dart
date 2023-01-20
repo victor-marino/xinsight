@@ -43,7 +43,7 @@ class ExpandedAssetTileHeaderLandscape extends StatelessWidget {
                 style: assetAmountTextStyle,
               ),
             ),
-            Text("(" + getPLAsString(assetData.profitLoss!) + ")",
+            Text("(${getPLAsString(assetData.profitLoss!)})",
                 style: assetData.profitLoss! < 0
                     ? headerSubtitleTextStyle.copyWith(
                         //color: Colors.red[800])

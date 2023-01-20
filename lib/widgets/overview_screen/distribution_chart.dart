@@ -87,36 +87,15 @@ class DistributionChart extends StatelessWidget {
           dataSource: portfolioData,
           xValueMapper: (PortfolioDataPoint data, _) {
             if (data.instrumentType == InstrumentType.equity) {
-              return data.instrumentName +
-                  '\n' +
-                  'distribution_chart.instrument_type_equity'.tr() +
-                  '\n(' +
-                  getPercentAsString(data.percentage) +
-                  ')';
+              return '${data.instrumentName}\n${'distribution_chart.instrument_type_equity'.tr()}\n(${getPercentAsString(data.percentage)})';
             } else if (data.instrumentType == InstrumentType.fixed) {
-              return data.instrumentName +
-                  '\n' +
-                  'distribution_chart.instrument_type_fixed'.tr() +
-                  '\n(' +
-                  getPercentAsString(data.percentage) +
-                  ')';
+              return '${data.instrumentName}\n${'distribution_chart.instrument_type_fixed'.tr()}\n(${getPercentAsString(data.percentage)})';
             } else if (data.instrumentType == InstrumentType.cash) {
-              return 'distribution_chart.instrument_type_cash'.tr() +
-                  '\n(' +
-                  getPercentAsString(data.percentage) +
-                  ')';
+              return '${'distribution_chart.instrument_type_cash'.tr()}\n(${getPercentAsString(data.percentage)})';
             } else if (data.instrumentType == InstrumentType.other) {
-              return 'distribution_chart.instrument_type_other'.tr() +
-                  '\n(' +
-                  getPercentAsString(data.percentage) +
-                  ')';
+              return '${'distribution_chart.instrument_type_other'.tr()}\n(${getPercentAsString(data.percentage)})';
             } else {
-              return data.instrumentType.toString().tr() +
-                  '\n' +
-                  data.instrumentName +
-                  '\n(' +
-                  getPercentAsString(data.percentage) +
-                  ')';
+              return '${data.instrumentType.toString().tr()}\n${data.instrumentName}\n(${getPercentAsString(data.percentage)})';
             }
           },
           yValueMapper: (PortfolioDataPoint data, _) => data.amount,

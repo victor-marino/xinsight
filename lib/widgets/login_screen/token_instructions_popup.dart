@@ -36,7 +36,7 @@ class TokenInstructionsPopup extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'login_screen.in_your_client_area'.tr() + ':\n',
+              '${'login_screen.in_your_client_area'.tr()}:\n',
               style: instructionsTextStyle,
             ),
             Row(
@@ -51,7 +51,7 @@ class TokenInstructionsPopup extends StatelessWidget {
                     TextSpan(
                       children: [
                         TextSpan(
-                          text: 'login_screen.go_to'.tr() + ' "',
+                          text: '${'login_screen.go_to'.tr()} "',
                         ),
                         TextSpan(
                             text: 'login_screen.user_configuration'.tr(),
@@ -59,10 +59,10 @@ class TokenInstructionsPopup extends StatelessWidget {
                               ..onTap = () {
                                 launchUrl(userAreaUrl);
                               },
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Colors.blue,
                             )),
-                        TextSpan(
+                        const TextSpan(
                           text: '"',
                         ),
                       ],
@@ -105,7 +105,7 @@ class TokenInstructionsPopup extends StatelessWidget {
       ),
       actions: [
         TextButton(
-          child: Text(
+          child: const Text(
             "OK",
           ),
           onPressed: () {

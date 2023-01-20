@@ -22,13 +22,13 @@ class ProfitLossChart extends StatelessWidget {
 
     return SfCartesianChart(
         plotAreaBorderWidth: 0,
-        axes: [],
+        axes: const [],
         primaryXAxis: CategoryAxis(
           interval: 1,
           crossesAt: 0,
           placeLabelsNearAxisLine: false,
-          majorGridLines: MajorGridLines(width: 0),
-          majorTickLines: MajorTickLines(size: 0),
+          majorGridLines: const MajorGridLines(width: 0),
+          majorTickLines: const MajorTickLines(size: 0),
           labelStyle: axisTextStyle,
         ),
         primaryYAxis: NumericAxis(

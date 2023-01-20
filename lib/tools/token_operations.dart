@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:indexax/tools/snackbar.dart' as snackbar;
@@ -54,7 +55,9 @@ Future<bool?> authenticateToken(BuildContext context, String token) async {
     try {
       var userAccounts = await indexaData.getUserAccounts();
       if (userAccounts != null) {
-        print("Token authenticated!");
+        if (kDebugMode) {
+          print("Token authenticated!");
+        }
         Navigator.of(context).pop();
         authenticatedToken = true;
       } else {
@@ -65,7 +68,9 @@ Future<bool?> authenticateToken(BuildContext context, String token) async {
       }
     } on Exception catch (e) {
       Navigator.of(context).pop();
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
       snackbar.showInSnackBar(
         context,
         e.toString(),

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:indexax/models/theme_preference_data.dart';
 import 'package:indexax/tools/secure_storage.dart';
@@ -42,7 +43,9 @@ Brightness getCurrentSystemTheme(BuildContext context) {
 void updateTheme(BuildContext context) async {
   // Applies theme based on current theme preference and current system theme.
   // Can be called from any screen by passing its context.
-  print("Updating theme");
+  if (kDebugMode) {
+    print("Updating theme");
+  }
   ThemePreference? currentThemePreference =
       await readStoredThemePreference(context);
   if (currentThemePreference == null) {

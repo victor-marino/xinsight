@@ -40,11 +40,10 @@ class AssetTile extends StatelessWidget {
     expandedView = Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Padding(
         padding: const EdgeInsets.only(top: 5.0),
-        child: Container(
+        child: SizedBox(
           width: 40,
           child: Text(
-              getWholePercentWithoutPercentSignAsString(assetData.percentage) +
-                  "%",
+              "${getWholePercentWithoutPercentSignAsString(assetData.percentage)}%",
               textAlign: TextAlign.center,
               style: assetPercentageTextStyle),
         ),
@@ -67,7 +66,7 @@ class AssetTile extends StatelessWidget {
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
-                children: [
+                children: const [
                   Icon(Icons.keyboard_arrow_up_rounded, color: Colors.blue),
                 ],
               ),

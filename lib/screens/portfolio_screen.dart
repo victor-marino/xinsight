@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:indexax/widgets/portfolio_screen/asset_list.dart';
 import 'package:indexax/models/account.dart';
@@ -21,10 +22,10 @@ class PortfolioScreen extends StatefulWidget {
   final int currentAccountIndex;
 
   @override
-  _PortfolioScreenState createState() => _PortfolioScreenState();
+  PortfolioScreenState createState() => PortfolioScreenState();
 }
 
-class _PortfolioScreenState extends State<PortfolioScreen>
+class PortfolioScreenState extends State<PortfolioScreen>
     with AutomaticKeepAliveClientMixin<PortfolioScreen> {
   // The Mixin keeps state of the page instead of reloading it every time
   // It requires this 'wantKeepAlive', as well as the 'super' in the build method down below
@@ -36,8 +37,10 @@ class _PortfolioScreenState extends State<PortfolioScreen>
     try {
       await widget.refreshData(accountIndex: widget.currentAccountIndex);
     } on Exception catch (e) {
-      print("Couldn't refresh data");
-      print(e);
+      if (kDebugMode) {
+        print("Couldn't refresh data");
+        print(e);
+      }
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(e.toString()),
       ));
@@ -78,7 +81,7 @@ class _PortfolioScreenState extends State<PortfolioScreen>
                               NotReconciledCard(
                                   reconciledUntil:
                                       widget.accountData.reconciledUntil),
-                              SizedBox(
+                              const SizedBox(
                                 height: 20,
                               ),
                             ],

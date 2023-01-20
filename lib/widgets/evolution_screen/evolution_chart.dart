@@ -30,7 +30,7 @@ class EvolutionChart extends StatelessWidget {
     TextStyle axisTextStyle = text_styles.roboto(context, 10);
 
     // If a period of 0 is passed, we plot the full history.
-    if (period == Duration(seconds: 0)) {
+    if (period == const Duration(seconds: 0)) {
       startDate = amountsSeries[0].date;
     } else if (amountsSeries.last.date
         .subtract(period)
@@ -47,10 +47,10 @@ class EvolutionChart extends StatelessWidget {
     ];
     final List<double> stops = <double>[0, 1];
     final LinearGradient gradientColors = LinearGradient(
-        transform: GradientRotation(pi * 1.5), colors: color, stops: stops);
+        transform: const GradientRotation(pi * 1.5), colors: color, stops: stops);
 
     return SfCartesianChart(
-      margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
+      margin: const EdgeInsets.fromLTRB(10, 0, 10, 0),
       primaryYAxis: showReturns
           ? NumericAxis(
               axisLabelFormatter: (AxisLabelRenderDetails details) =>
@@ -85,7 +85,7 @@ class EvolutionChart extends StatelessWidget {
       ),
       zoomPanBehavior: ZoomPanBehavior(
           enablePinching: false, zoomMode: ZoomMode.x, enablePanning: false),
-      palette: <Color>[
+      palette: const <Color>[
         Colors.blue,
         Colors.black,
       ],
@@ -100,7 +100,7 @@ class EvolutionChart extends StatelessWidget {
         labelStyle:
             axisTextStyle,
         intervalType: DateTimeIntervalType.months,
-        majorGridLines: MajorGridLines(
+        majorGridLines: const MajorGridLines(
           width: 1,
           color: Colors.black12,
         ),
@@ -136,7 +136,7 @@ class EvolutionChart extends StatelessWidget {
               LineSeries<AmountsDataPoint, DateTime>(
                 name: 'evolution_chart.invested'.tr(),
                 color: Theme.of(context).colorScheme.outline,
-                markerSettings: MarkerSettings(
+                markerSettings: const MarkerSettings(
                   isVisible: false,
                 ),
                 dataSource: amountsSeries,

@@ -105,7 +105,7 @@ class TransactionTile extends StatelessWidget {
                                   .replaceAll(".", ""),
                               style: tileSubtitleTextStyle),
                           TextSpan(
-                              text: " · " + transactionData.accountType,
+                              text: " · ${transactionData.accountType}",
                               style: tileSubtitleTextStyle),
                         ]),
                       ),

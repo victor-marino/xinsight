@@ -26,7 +26,7 @@ class ForgetTokenPopup extends StatelessWidget {
           ),
         ],
       ),
-      contentPadding: EdgeInsets.fromLTRB(
+      contentPadding: const EdgeInsets.fromLTRB(
           24, 24, 24, 0),
       actions: [
         TextButton(
@@ -38,7 +38,7 @@ class ForgetTokenPopup extends StatelessWidget {
         TextButton(
           child: Text(
               'login_screen.forget_token_popup_ok_button'.tr(),
-            style: TextStyle(
+            style: const TextStyle(
               color: Colors.red
             ),
           ),

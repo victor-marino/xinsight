@@ -57,7 +57,7 @@ class _ThemeModalBottomSheetState extends State<ThemeModalBottomSheet> {
       mainAxisSize: MainAxisSize.min,
       children: [
         Container(
-          margin: EdgeInsets.symmetric(vertical: 10),
+          margin: const EdgeInsets.symmetric(vertical: 10),
           width: 70,
           height: 5,
           decoration: BoxDecoration(
@@ -80,7 +80,7 @@ class _ThemeModalBottomSheetState extends State<ThemeModalBottomSheet> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 5),
-                        child: Container(
+                        child: SizedBox(
                           height: 200,
                           child: Image.asset(
                               'assets/images/phone_mock_system.png'),
@@ -116,7 +116,7 @@ class _ThemeModalBottomSheetState extends State<ThemeModalBottomSheet> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 5),
-                        child: Container(
+                        child: SizedBox(
                           height: 200,
                           child:
                               Image.asset('assets/images/phone_mock_light.png'),
@@ -152,7 +152,7 @@ class _ThemeModalBottomSheetState extends State<ThemeModalBottomSheet> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 5),
-                        child: Container(
+                        child: SizedBox(
                           height: 200,
                           child:
                               Image.asset('assets/images/phone_mock_dark.png'),

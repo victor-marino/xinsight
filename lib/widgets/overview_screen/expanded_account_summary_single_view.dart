@@ -44,8 +44,7 @@ class ExpandedAccountSummarySingleView extends StatelessWidget {
                   RichText(
                     text: TextSpan(children: [
                       TextSpan(
-                        text: getInvestmentAsString(accountData.investment) +
-                            " ",
+                        text: "${getInvestmentAsString(accountData.investment)} ",
                         style: cardHeaderTextStyle,
                       ),
                       TextSpan(
@@ -82,7 +81,7 @@ class ExpandedAccountSummarySingleView extends StatelessWidget {
             ],
           ),
         ),
-        Divider(
+        const Divider(
           height: 15,
         ),
         Flexible(
@@ -105,7 +104,7 @@ class ExpandedAccountSummarySingleView extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                'account_summary.return'.tr() + ' ',
+                                '${'account_summary.return'.tr()} ',
                                 textAlign: TextAlign.left,
                                 style: cardHeaderTextStyle,
                               ),
@@ -157,12 +156,8 @@ class ExpandedAccountSummarySingleView extends StatelessWidget {
                                   RichText(
                                     text: TextSpan(children: [
                                       TextSpan(
-                                        text: "(" +
-                                            getPLPercentAsString(accountData
-                                                .timeReturnAnnual) +
-                                            " " +
-                                            'account_summary.annual'.tr() +
-                                            ")",
+                                        text: "(${getPLPercentAsString(accountData
+                                                .timeReturnAnnual)} ${'account_summary.annual'.tr()})",
                                         style: annualReturnTextStyle,
                                       ),
                                     ]),
@@ -175,7 +170,7 @@ class ExpandedAccountSummarySingleView extends StatelessWidget {
                       ],
                     ),
                   ),
-                  VerticalDivider(
+                  const VerticalDivider(
                     indent: 0,
                     thickness: 1,
                   ),
@@ -190,7 +185,7 @@ class ExpandedAccountSummarySingleView extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                'account_summary.return'.tr() + ' ',
+                                '${'account_summary.return'.tr()} ',
                                 textAlign: TextAlign.left,
                                 style: cardHeaderTextStyle,
                               ),
@@ -242,12 +237,8 @@ class ExpandedAccountSummarySingleView extends StatelessWidget {
                                   RichText(
                                     text: TextSpan(children: [
                                       TextSpan(
-                                        text: "(" +
-                                            getPLPercentAsString(accountData
-                                                .moneyReturnAnnual) +
-                                            " " +
-                                            'account_summary.annual'.tr() +
-                                            ")",
+                                        text: "(${getPLPercentAsString(accountData
+                                                .moneyReturnAnnual)} ${'account_summary.annual'.tr()})",
                                         style: annualReturnTextStyle,
                                       ),
                                     ]),
@@ -265,7 +256,7 @@ class ExpandedAccountSummarySingleView extends StatelessWidget {
             ),
           ),
         ),
-        Divider(
+        const Divider(
           height: 15,
         ),
         Flexible(
@@ -316,7 +307,7 @@ class ExpandedAccountSummarySingleView extends StatelessWidget {
                       ],
                     ),
                   ),
-                  VerticalDivider(
+                  const VerticalDivider(
                     indent: 0,
                     thickness: 1,
                   ),

@@ -110,10 +110,9 @@ String getPLAsString(num number) {
             locale: getCurrentLocale(), symbol: '€', decimalDigits: 2)
         .format(number);
   } else {
-    numberString = '+' +
-        NumberFormat.currency(
+    numberString = '+${NumberFormat.currency(
                 locale: getCurrentLocale(), symbol: '€', decimalDigits: 2)
-            .format(number);
+            .format(number)}';
   }
   return numberString;
 }
@@ -123,7 +122,7 @@ String getPercentAsString(num? number) {
           locale: getCurrentLocale(), decimalDigits: 1)
       .format(number);
   if (numberString[numberString.length - 2] == '\u00A0') {
-    return (numberString.substring(0, numberString.length - 2) + "%");
+    return ("${numberString.substring(0, numberString.length - 2)}%");
   }
   return numberString;
 }
@@ -134,7 +133,7 @@ String getWholePercentWithoutPercentSignAsString(num number) {
 }
 
 String getWholePercentWithPercentSignAsString(num number) {
-  String numberString = (number * 100).toStringAsFixed(0) + "%";
+  String numberString = "${(number * 100).toStringAsFixed(0)}%";
   return numberString;
 }
 
@@ -145,13 +144,12 @@ String getPLPercentAsString(num number) {
             locale: getCurrentLocale(), decimalDigits: 1)
         .format(number);
   } else {
-    numberString = '+' +
-        NumberFormat.decimalPercentPattern(
+    numberString = '+${NumberFormat.decimalPercentPattern(
                 locale: getCurrentLocale(), decimalDigits: 1)
-            .format(number);
+            .format(number)}';
   }
   if (numberString[numberString.length - 2] == '\u00A0') {
-    return (numberString.substring(0, numberString.length - 2) + "%");
+    return ("${numberString.substring(0, numberString.length - 2)}%");
   }
   return numberString;
 }
@@ -163,10 +161,9 @@ String getWholePLPercentAsString(num number) {
             locale: getCurrentLocale(), decimalDigits: 1)
         .format(number);
   } else {
-    numberString = '+' +
-        NumberFormat.decimalPercentPattern(
+    numberString = '+${NumberFormat.decimalPercentPattern(
                 locale: getCurrentLocale(), decimalDigits: 1)
-            .format(number);
+            .format(number)}';
   }
   return numberString
       .split(numberFormatSymbols[getCurrentLocale()]?.DECIMAL_SEP ?? "")[0];
@@ -179,16 +176,15 @@ String getFractionalPLPercentAsString(num number) {
             locale: getCurrentLocale(), decimalDigits: 1)
         .format(number);
   } else {
-    numberString = '+' +
-        NumberFormat.decimalPercentPattern(
+    numberString = '+${NumberFormat.decimalPercentPattern(
                 locale: getCurrentLocale(), decimalDigits: 1)
-            .format(number);
+            .format(number)}';
   }
   numberString = numberString
       .split(numberFormatSymbols[getCurrentLocale()]?.DECIMAL_SEP ?? "")[1];
 
   if (numberString[numberString.length - 2] == '\u00A0') {
-    return (numberString.substring(0, numberString.length - 2) + "%");
+    return ("${numberString.substring(0, numberString.length - 2)}%");
   }
   return numberString;
 }

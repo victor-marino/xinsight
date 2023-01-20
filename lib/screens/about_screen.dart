@@ -5,17 +5,19 @@ import 'package:indexax/tools/styles.dart' as text_styles;
 import 'package:url_launcher/url_launcher.dart';
 
 class AboutScreen extends StatefulWidget {
+  const AboutScreen({Key? key}) : super(key: key);
+
   @override
-  _AboutScreenState createState() => _AboutScreenState();
+  AboutScreenState createState() => AboutScreenState();
 }
 
-class _AboutScreenState extends State<AboutScreen> {
+class AboutScreenState extends State<AboutScreen> {
   bool _landscapeOrientation = false;
   late double _availableWidth;
   late double _availableHeight;
-  Uri _indexaApiUrl =
+  final Uri _indexaApiUrl =
       Uri(scheme: 'https', host: 'indexacapital.com', path: 'en/api-rest-v1');
-  Uri _flutterSecureStorageUrl = Uri(
+  final Uri _flutterSecureStorageUrl = Uri(
       scheme: 'https',
       host: 'pub.dev',
       path: 'packages/flutter_secure_storage');
@@ -123,7 +125,7 @@ class _AboutScreenState extends State<AboutScreen> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Text(
-                                  'about_screen.for'.tr() + " Indexa Capital",
+                                  "${'about_screen.for'.tr()} Indexa Capital",
                                   style: TextStyle(
                                       color: Theme.of(context)
                                           .colorScheme

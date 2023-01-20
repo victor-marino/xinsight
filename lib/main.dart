@@ -13,24 +13,26 @@ void main() async {
     statusBarColor: Colors.transparent,
   ));
   runApp(ChangeNotifierProvider<ThemeProvider>(
-    create: (_) => new ThemeProvider(),
+    create: (_) => ThemeProvider(),
     child: EasyLocalization(
-      supportedLocales: [
+      supportedLocales: const [
         Locale('en', 'US'),
         Locale('es', 'ES'),
         Locale('gl', 'ES')
       ],
       path: 'assets/translations',
-      fallbackLocale: Locale('en', 'US'),
-      child: MyApp(),
+      fallbackLocale: const Locale('en', 'US'),
+      child: const MyApp(),
     ),
   ));
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    ColorScheme lightColorScheme = ColorScheme.light(
+    ColorScheme lightColorScheme = const ColorScheme.light(
         primary: Colors.blue,
         onPrimary: Colors.white,
         secondary: Colors.blue,
@@ -38,7 +40,7 @@ class MyApp extends StatelessWidget {
         onSurfaceVariant: Colors.black45,
         onBackground: Colors.black12);
 
-    ColorScheme darkColorScheme = ColorScheme.dark(
+    ColorScheme darkColorScheme = const ColorScheme.dark(
       primary: Colors.blue,
       secondary: Colors.blue,
       surface: Colors.black87,
@@ -70,7 +72,7 @@ class MyApp extends StatelessWidget {
           supportedLocales: context.supportedLocales,
           locale: context.locale,
           debugShowCheckedModeBanner: false,
-          home: LoginScreen(),
+          home: const LoginScreen(),
         ),
       ),
     );

@@ -27,7 +27,7 @@ class NetworkHelper {
   }
 
   Future getData() async {
-    var responseJson;
+    dynamic responseJson;
     try {
       final response = await http.get(
         Uri.parse(url),
@@ -45,11 +45,12 @@ class NetworkHelper {
 }
 
 class CustomException implements Exception {
-  final _message;
-  final _prefix;
+  final dynamic _message;
+  final dynamic _prefix;
 
   CustomException([this._message, this._prefix]);
 
+  @override
   String toString() {
     return "$_prefix$_message";
   }

@@ -31,12 +31,12 @@ class ExpandedAssetTileBodyLandscape extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Divider(),
+        const Divider(),
         RichText(
           text: TextSpan(
             children: [
               TextSpan(
-                  text: assetData.instrumentCodeType! + ': ',
+                  text: '${assetData.instrumentCodeType!}: ',
                   style: detailNameTextStyle),
               TextSpan(
                   text: assetData.instrumentCode, style: detailValueTextStyle),
@@ -47,7 +47,7 @@ class ExpandedAssetTileBodyLandscape extends StatelessWidget {
           text: TextSpan(
             children: [
               TextSpan(
-                  text: 'asset_details.asset_class'.tr() + ': ',
+                  text: '${'asset_details.asset_class'.tr()}: ',
                   style: detailNameTextStyle),
               TextSpan(text: instrumentType, style: detailValueTextStyle),
             ],
@@ -57,7 +57,7 @@ class ExpandedAssetTileBodyLandscape extends StatelessWidget {
           text: TextSpan(
             children: [
               TextSpan(
-                  text: 'asset_details.titles'.tr() + ': ',
+                  text: '${'asset_details.titles'.tr()}: ',
                   style: detailNameTextStyle),
               TextSpan(
                   text: getNumberAsStringWithMaxDecimals(assetData.titles),
@@ -69,7 +69,7 @@ class ExpandedAssetTileBodyLandscape extends StatelessWidget {
           text: TextSpan(
             children: [
               TextSpan(
-                  text: 'asset_details.cost'.tr() + ': ',
+                  text: '${'asset_details.cost'.tr()}: ',
                   style: detailNameTextStyle),
               TextSpan(
                   text: getInvestmentAsString(assetData.cost!),
@@ -81,7 +81,7 @@ class ExpandedAssetTileBodyLandscape extends StatelessWidget {
           text: TextSpan(
             children: [
               TextSpan(
-                  text: 'asset_details.current_value'.tr() + ': ',
+                  text: '${'asset_details.current_value'.tr()}: ',
                   style: detailNameTextStyle),
               TextSpan(
                   text: getInvestmentAsString(assetData.amount),
@@ -93,7 +93,7 @@ class ExpandedAssetTileBodyLandscape extends StatelessWidget {
           text: TextSpan(
             children: [
               TextSpan(
-                  text: 'asset_details.profit_loss'.tr() + ': ',
+                  text: '${'asset_details.profit_loss'.tr()}: ',
                   style: detailNameTextStyle),
               TextSpan(
                   text: getPLAsString(assetData.profitLoss!),
@@ -103,8 +103,8 @@ class ExpandedAssetTileBodyLandscape extends StatelessWidget {
         ),
         if (assetData.instrumentDescription !=
             'asset_details.description_not_available'.tr()) ...[
-          Divider(),
-          Text('asset_details.description'.tr() + ': ',
+          const Divider(),
+          Text('${'asset_details.description'.tr()}: ',
               style: detailNameTextStyle),
           Text(
             assetData.instrumentDescription!,

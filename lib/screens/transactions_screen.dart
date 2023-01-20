@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:indexax/widgets/transactions_screen/pending_transactions_card.dart';
 import 'package:indexax/widgets/transactions_screen/transaction_tile.dart';
@@ -21,10 +22,10 @@ class TransactionsScreen extends StatefulWidget {
   final int currentAccountIndex;
 
   @override
-  _TransactionsScreenState createState() => _TransactionsScreenState();
+  TransactionsScreenState createState() => TransactionsScreenState();
 }
 
-class _TransactionsScreenState extends State<TransactionsScreen>
+class TransactionsScreenState extends State<TransactionsScreen>
     with AutomaticKeepAliveClientMixin<TransactionsScreen> {
   // The Mixin keeps state of the page instead of reloading it every time
   // It requires this 'wantKeepAlive', as well as the 'super' in the build method down below
@@ -36,8 +37,10 @@ class _TransactionsScreenState extends State<TransactionsScreen>
     try {
       await widget.refreshData(accountIndex: widget.currentAccountIndex);
     } on Exception catch (e) {
-      print("Couldn't refresh data");
-      print(e);
+      if (kDebugMode) {
+        print("Couldn't refresh data");
+        print(e);
+      }
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(e.toString()),
       ));
@@ -65,9 +68,9 @@ class _TransactionsScreenState extends State<TransactionsScreen>
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 if (widget.accountData.hasPendingTransactions)
-                  Padding(
+                  const Padding(
                     padding:
-                        const EdgeInsets.only(left: 20, right: 20, bottom: 10),
+                        EdgeInsets.only(left: 20, right: 20, bottom: 10),
                     child: (PendingTransactionsCard()),
                   ),
                 Expanded(
@@ -99,17 +102,15 @@ class _TransactionsScreenState extends State<TransactionsScreen>
                                   .date.month) {
                             lastTransactionOfMonth = true;
                           }
-                          return Container(
-                            child: TransactionTile(
-                                transactionData:
-                                    widget.accountData.transactionList[index],
-                                firstTransaction: firstTransaction,
-                                firstTransactionOfMonth:
-                                    firstTransactionOfMonth,
-                                lastTransactionOfMonth: lastTransactionOfMonth,
-                                landscapeOrientation:
-                                    widget.landscapeOrientation),
-                          );
+                          return TransactionTile(
+                              transactionData:
+                                  widget.accountData.transactionList[index],
+                              firstTransaction: firstTransaction,
+                              firstTransactionOfMonth:
+                                  firstTransactionOfMonth,
+                              lastTransactionOfMonth: lastTransactionOfMonth,
+                              landscapeOrientation:
+                                  widget.landscapeOrientation);
                         }),
                   ),
                 ),

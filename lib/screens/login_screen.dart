@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'dart:async';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -11,17 +12,17 @@ import 'package:indexax/widgets/login_screen/forget_token_popup.dart';
 import 'package:indexax/widgets/login_screen/token_instructions_popup.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({
+  const LoginScreen({Key? key, 
     this.errorMessage,
-  });
+  }) : super(key: key);
 
   final String? errorMessage;
 
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  LoginScreenState createState() => LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
+class LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
   bool _storedToken = false;
   bool _rememberToken = false;
 
@@ -66,9 +67,13 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
     if (token != null) {
       _storedToken = true;
       _tokenTextController.text = "••••••••••••••••";
-      print('Existing token detected!');
+      if (kDebugMode) {
+        print('Existing token detected!');
+      }
     } else {
-      print('No existing token');
+      if (kDebugMode) {
+        print('No existing token');
+      }
     }
     return token;
   }
@@ -86,7 +91,9 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
       setState(() {
         _rememberToken = false;
       });
-      print('No existing token');
+      if (kDebugMode) {
+        print('No existing token');
+      }
     }
   }
 
@@ -172,21 +179,19 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
                         height: (MediaQuery.of(context).size.height * 0.15 < 60)
                             ? 60
                             : MediaQuery.of(context).size.height * 0.15),
-                    Container(
+                    SizedBox(
                       width: landscapeOrientation
                           ? availableWidth * 0.5
                           : double.infinity,
                       child: Column(
                         children: [
-                          Container(
-                            child: Image.asset(
-                                'assets/images/indexax_logo_wide.png'),
-                          ),
+                          Image.asset(
+                              'assets/images/indexax_logo_wide.png'),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Text('login_screen.for'.tr() + " Indexa Capital",
+                              Text("${'login_screen.for'.tr()} Indexa Capital",
                                   style: TextStyle(
                                       color: Theme.of(context)
                                           .colorScheme
@@ -215,7 +220,7 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
                                   showDialog(
                                     context: context,
                                     builder: (BuildContext context) =>
-                                        TokenInstructionsPopup(),
+                                        const TokenInstructionsPopup(),
                                   );
                                 },
                                 child: Row(
@@ -232,7 +237,7 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
                                         ),
                                       ),
                                     ),
-                                    Icon(
+                                    const Icon(
                                       Icons.help_outline,
                                       color: Colors.blue,
                                       size: 20,
@@ -252,7 +257,7 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
                               color: Theme.of(context).colorScheme.onSurface),
                           decoration: _storedToken
                               ? InputDecoration(
-                                  border: OutlineInputBorder(),
+                                  border: const OutlineInputBorder(),
                                   labelText: "login_screen.api_token".tr(),
                                   hintText:
                                       'login_screen.your_indexa_token'.tr(),
@@ -263,7 +268,7 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
                                       .withOpacity(0.1),
                                 )
                               : InputDecoration(
-                                  border: OutlineInputBorder(),
+                                  border: const OutlineInputBorder(),
                                   labelText: 'login_screen.api_token'.tr(),
                                   hintText:
                                       'login_screen.your_indexa_token'.tr(),
@@ -283,7 +288,7 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
                                       .colorScheme
                                       .onSurfaceVariant,
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 10,
                                 ),
                                 Text(
@@ -311,18 +316,14 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
                             ),
                           ],
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 40,
                         ),
                         SizedBox(
                           width: 60,
                           height: 60,
                           child: MaterialButton(
-                            child: Icon(
-                              Icons.arrow_forward,
-                              color: Colors.white,
-                            ),
-                            padding: EdgeInsets.all(0),
+                            padding: const EdgeInsets.all(0),
                             color: Colors.blue,
                             textColor: Colors.white,
                             elevation: 8,
@@ -346,7 +347,11 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
                                 }
                               }
                             },
-                            shape: CircleBorder(),
+                            shape: const CircleBorder(),
+                            child: const Icon(
+                              Icons.arrow_forward,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                       ],

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'dart:async';
 import 'dart:io';
 import 'package:easy_localization/easy_localization.dart';
@@ -22,12 +23,12 @@ import 'login_screen.dart';
 // Base screen where all other screens are loaded after loggin in
 
 class RootScreen extends StatefulWidget {
-  RootScreen({
+  RootScreen({Key? key, 
     required this.token,
     required this.accountIndex,
     required this.pageIndex,
     this.previousUserAccounts,
-  });
+  }) : super(key: key);
 
   final String token;
   final int accountIndex;
@@ -36,10 +37,10 @@ class RootScreen extends StatefulWidget {
   late final IndexaData indexaData = IndexaData(token: token);
 
   @override
-  _RootScreenState createState() => _RootScreenState();
+  RootScreenState createState() => RootScreenState();
 }
 
-class _RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
+class RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
   late PageController _pageController;
 
   List<Map<String, String>> _userAccounts = [];
@@ -57,7 +58,7 @@ class _RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
     try {
         // Avoid loading the account list again if we already have it (e.g.: 
         // because we're reloading the screen after the user switches accounts)
-      if (_userAccounts.length == 0) {
+      if (_userAccounts.isEmpty) {
         _userAccounts = await widget.indexaData.getUserAccounts();
       }
       _accountData = widget.indexaData.populateAccountData(
@@ -66,7 +67,9 @@ class _RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
       await _accountData;
       setState(() {});
     } on Exception catch (e) {
-      print(e.toString());
+      if (kDebugMode) {
+        print(e.toString());
+      }
       Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
@@ -102,7 +105,9 @@ class _RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
   void _reloadPage(int accountIndex, int pageIndex) async {
     // Called when the user switches to a different account
     pageIndex = _pageController.page!.toInt();
-    print(pageIndex);
+    if (kDebugMode) {
+      print(pageIndex);
+    }
     Navigator.pushReplacement(
         context,
         MaterialPageRoute(
@@ -116,7 +121,7 @@ class _RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
   void _onTappedBar(int value) {
     // Called when the user taps the bottom navigation bar
     _pageController.animateToPage(value,
-        duration: Duration(milliseconds: 500), curve: Curves.ease);
+        duration: const Duration(milliseconds: 500), curve: Curves.ease);
   }
 
   @override
@@ -192,7 +197,7 @@ class _RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    PageHeader(),
+                    const PageHeader(),
                     if (!landscapeOrientation) ...[
                       CurrentAccountIndicator(
                           accountNumber: snapshot.data!.accountNumber,
@@ -211,12 +216,12 @@ class _RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
                   ),
                   Padding(
                     padding: EdgeInsets.only(top: topPadding),
-                    child: SizedBox(width: 10),
+                    child: const SizedBox(width: 10),
                   ),
                 ],
                 Container(
                   alignment: Alignment.center,
-                  padding: EdgeInsets.only(right: 15),
+                  padding: const EdgeInsets.only(right: 15),
                   child: SettingsPopupMenu(
                       userAccounts: _userAccounts,
                       currentAccountIndex: widget.accountIndex,
@@ -272,30 +277,32 @@ class _RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
             bottomNavigationBar: MyBottomNavigationBar(onTapped: _onTappedBar),
           );
         } else if (snapshot.hasError) {
-          print(snapshot.error);
+          if (kDebugMode) {
+            print(snapshot.error);
+          }
           if (_reloading) {
-            child = Center(child: CircularProgressIndicator());
+            child = const Center(child: CircularProgressIndicator());
           } else {
             child = Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Icon(Icons.error_outline),
+                  const Icon(Icons.error_outline),
                   Text(snapshot.error.toString()),
                   MaterialButton(
-                    child: Text(
-                      'retry'.tr(),
-                    ),
                     color: Colors.blue,
                     textColor: Colors.white,
                     onPressed: _retryLoadData,
+                    child: Text(
+                      'retry'.tr(),
+                    ),
                   )
                 ],
               ),
             );
           }
         } else {
-          child = Center(child: CircularProgressIndicator());
+          child = const Center(child: CircularProgressIndicator());
         }
         return child;
       },

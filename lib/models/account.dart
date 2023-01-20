@@ -9,12 +9,12 @@ import 'package:indexax/tools/number_formatting.dart';
 
 // Main class that stores and processes all account data
 class Account {
-  final accountPerformanceData;
-  final accountPortfolioData;
-  final accountInfo;
-  final accountInstrumentTransactionData;
-  final accountCashTransactionData;
-  final accountPendingTransactionData;
+  final dynamic accountPerformanceData;
+  final dynamic accountPortfolioData;
+  final dynamic accountInfo;
+  final dynamic accountInstrumentTransactionData;
+  final dynamic accountCashTransactionData;
+  final dynamic accountPendingTransactionData;
   final String accountNumber;
   final String accountType;
   final int risk;
@@ -309,13 +309,13 @@ class Account {
 
     years = years.toSet().toList();
 
-    years.forEach((year) {
+    for (int year in years) {
       profitLossSeries.putIfAbsent(year, () => []);
       profitLossSeries[year] = List<List>.generate(13, (index) => ["", null]);
       profitLossSeries[year]!.asMap().forEach((index, value) {
         profitLossSeries[year]![index][0] = monthList[index];
       });
-    });
+    }
 
     for (int i = 0; i < realPerformanceList.length; i++) {
       profitLossSeries[DateTime.parse(performancePeriodList[i]).year]![
@@ -323,7 +323,7 @@ class Account {
           realPerformanceList[i].toDouble();
     }
 
-    years.forEach((year) {
+    for (int year in years) {
       double totalProfit = 1;
       for (int i = 0; i < profitLossSeries[year]!.length - 1; i++) {
         if (profitLossSeries[year]![i][1] != null) {
@@ -331,16 +331,16 @@ class Account {
         }
       }
       profitLossSeries[year]![12][1] = totalProfit - 1;
-    });
+    }
 
-    years.forEach((year) {
+    for (int year in years) {
       for (int i = 0; i < profitLossSeries[year]!.length; i++) {
         if (profitLossSeries[year]![i][1] != null) {
           profitLossSeries[year]![i][1] = num.parse(
               (profitLossSeries[year]![i][1] * 100).toStringAsFixed(1));
         }
       }
-    });
+    }
     return (profitLossSeries);
   }
 
@@ -584,7 +584,7 @@ class Account {
   static bool _isReconciledToday(accountInfo) {
     DateTime today = DateTime.now();
     DateTime todayAtMidnight = DateTime(today.year, today.month, today.day);
-    DateTime yesterday = todayAtMidnight.subtract(Duration(days: 1));
+    DateTime yesterday = todayAtMidnight.subtract(const Duration(days: 1));
     DateTime reconciledUntil = DateTime.parse(accountInfo['reconciled_until']);
     
     return (reconciledUntil == yesterday);
@@ -675,95 +675,4 @@ class Account {
         hasPendingTransactions =
             _checkPendingTransactions(accountPendingTransactionData);
 
-  @override
-  String toString() {
-    // Override toString() method for quick troubleshooting
-    return "accountNumber: " +
-        accountNumber.toString() +
-        "type: " +
-        accountType.toString() +
-        "risk: " +
-        risk.toString() +
-        "\n" +
-        "totalAmount: " +
-        totalAmount.toString() +
-        "\n" +
-        "investment: " +
-        investment.toString() +
-        "\n" +
-        "timeReturn: " +
-        timeReturn.toString() +
-        "\n" +
-        "timeReturnColor: " +
-        timeReturnColor.toString() +
-        "\n" +
-        "timeReturnAnnual: " +
-        timeReturnAnnual.toString() +
-        "\n" +
-        "moneyReturn: " +
-        moneyReturn.toString() +
-        "\n" +
-        "moneyReturnColor: " +
-        moneyReturnColor.toString() +
-        "\n" +
-        "moneyReturnAnnual: " +
-        moneyReturnAnnual.toString() +
-        "\n" +
-        "volatility: " +
-        volatility.toString() +
-        "\n" +
-        "sharpe: " +
-        sharpe.toString() +
-        "\n" +
-        "expectedReturn: " +
-        expectedReturn.toString() +
-        "\n" +
-        "bestReturn1yr: " +
-        bestReturn1yr.toString() +
-        "\n" +
-        "worstReturn1yr: " +
-        worstReturn1yr.toString() +
-        "\n" +
-        "bestReturn10yr: " +
-        bestReturn10yr.toString() +
-        "\n" +
-        "worstReturn10yr: " +
-        worstReturn10yr.toString() +
-        "\n" +
-        "profitLoss: " +
-        profitLoss.toString() +
-        "\n" +
-        "profitLossColor: " +
-        profitLossColor.toString() +
-        "\n" +
-        "hasActiveRewards: " +
-        hasActiveRewards.toString() +
-        "\n" +
-        "feeFreeAmount: " +
-        feeFreeAmount.toString() +
-        "\n" +
-        "amountsSeries: " +
-        amountsSeries.toString() +
-        "\n" +
-        "portfolioData: " +
-        portfolioData.toString() +
-        "\n" +
-        "portfolioDistribution: " +
-        portfolioDistribution.toString() +
-        "\n" +
-        "performanceSeries: " +
-        performanceSeries.toString() +
-        "\n" +
-        "profitLossSeries: " +
-        profitLossSeries.toString() +
-        "\n" +
-        "transactionList: " +
-        transactionList.toString() +
-        "\n" +
-        "additionalCashNeededToTrade: " +
-        additionalCashNeededToTrade.toString() +
-        "\n" +
-        "hasPendingTransactions: " +
-        hasPendingTransactions.toString();
-  }
 }

@@ -22,11 +22,10 @@ class CollapsedAssetTileView extends StatelessWidget {
 
     return Row(
       children: [
-        Container(
+        SizedBox(
           width: 40,
           child: Text(
-              getWholePercentWithoutPercentSignAsString(assetData.percentage) +
-                  "%",
+              "${getWholePercentWithoutPercentSignAsString(assetData.percentage)}%",
               textAlign: TextAlign.center,
               style: assetPercentageTextStyle),
         ),
@@ -44,9 +43,7 @@ class CollapsedAssetTileView extends StatelessWidget {
                   softWrap: false,
                 ),
                 Text(
-                    assetData.instrumentCodeType! +
-                        ": " +
-                        assetData.instrumentCode!,
+                    "${assetData.instrumentCodeType!}: ${assetData.instrumentCode!}",
                     style: headerSubtitleTextStyle),
               ],
             ),
@@ -62,7 +59,7 @@ class CollapsedAssetTileView extends StatelessWidget {
                 style: assetAmountTextStyle,
               ),
             ),
-            Text("(" + getPLAsString(assetData.profitLoss!) + ")",
+            Text("(${getPLAsString(assetData.profitLoss!)})",
                 style: assetData.profitLoss! < 0
                     ? headerSubtitleTextStyle.copyWith(
                         //color: Colors.red[800])

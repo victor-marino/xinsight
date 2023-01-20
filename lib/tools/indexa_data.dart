@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import "package:indexax/tools/networking.dart";
 import "package:indexax/models/account.dart";
 import "package:flutter/material.dart";
@@ -45,8 +46,10 @@ class IndexaData {
         return userAccounts;
       }
     } on Exception catch (e) {
-      print(e);
-      throw (e);
+      if (kDebugMode) {
+        print(e);
+      }
+      rethrow;
     }
   }
 
@@ -62,8 +65,10 @@ class IndexaData {
       var accountInfo = await networkHelper.getData();
       return accountInfo;
     } on Exception catch (e) {
-      print(e);
-      throw (e);
+      if (kDebugMode) {
+        print(e);
+      }
+      rethrow;
     }
   }
 
@@ -92,8 +97,10 @@ class IndexaData {
         return accountPerformanceData;
       }
     } on Exception catch (e) {
-      print(e);
-      throw (e);
+      if (kDebugMode) {
+        print(e);
+      }
+      rethrow;
     }
   }
 
@@ -112,8 +119,10 @@ class IndexaData {
         return accountPortfolioData;
       }
     } on Exception catch (e) {
-      print(e);
-      throw (e);
+      if (kDebugMode) {
+        print(e);
+      }
+      rethrow;
     }
   }
 
@@ -132,8 +141,10 @@ class IndexaData {
         return accountInstrumentTransactionData;
       }
     } on Exception catch (e) {
-      print(e);
-      throw (e);
+      if (kDebugMode) {
+        print(e);
+      }
+      rethrow;
     }
   }
 
@@ -152,8 +163,10 @@ class IndexaData {
         return accountCashTransactionData;
       }
     } on Exception catch (e) {
-      print(e);
-      throw (e);
+      if (kDebugMode) {
+        print(e);
+      }
+      rethrow;
     }
   }
 
@@ -172,8 +185,10 @@ class IndexaData {
         return accountPendingTransactionData;
       }
     } on Exception catch (e) {
-      print(e);
-      throw (e);
+      if (kDebugMode) {
+        print(e);
+      }
+      rethrow;
     }
   }
 
@@ -203,8 +218,8 @@ class IndexaData {
               currentAccountInstrumentTransactionData,
           accountCashTransactionData: currentAccountCashTransactionData,
           accountPendingTransactionData: currentAccountPendingTransactionData);
-    } on Exception catch (e) {
-      throw (e);
+    } on Exception {
+      rethrow;
     }
     return currentAccount;
   }

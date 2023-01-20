@@ -41,8 +41,8 @@ class AssetList extends StatelessWidget {
       switch (assetData.instrumentType) {
         case InstrumentType.equity:
           {
-            if (equityInstruments.length > 0) {
-              equityInstruments.add(Divider(height: 0));
+            if (equityInstruments.isNotEmpty) {
+              equityInstruments.add(const Divider(height: 0));
             }
             equityPercentage += assetData.percentage;
             equityInstruments.add(AssetTile(
@@ -53,8 +53,8 @@ class AssetList extends StatelessWidget {
 
         case InstrumentType.fixed:
           {
-            if (fixedInstruments.length > 0) {
-              fixedInstruments.add(Divider(height: 0));
+            if (fixedInstruments.isNotEmpty) {
+              fixedInstruments.add(const Divider(height: 0));
             }
             fixedPercentage += assetData.percentage;
             fixedInstruments.add(AssetTile(
@@ -120,7 +120,7 @@ class AssetList extends StatelessWidget {
           paddingLeft: 15,
           paddingRight: 15,
         ),
-        SizedBox(height: 20),
+        const SizedBox(height: 20),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 5),
           child: Row(
@@ -155,7 +155,7 @@ class AssetList extends StatelessWidget {
           paddingRight: 15,
         ),
         if (cashAmount != 0) ...[
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 5),
             child: Column(

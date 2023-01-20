@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:indexax/models/theme_preference_data.dart';
@@ -8,11 +9,13 @@ import 'package:indexax/widgets/settings_screen/theme_modal_bottom_sheet.dart';
 import 'package:settings_ui/settings_ui.dart';
 
 class SettingsScreen extends StatefulWidget {
+  const SettingsScreen({Key? key}) : super(key: key);
+
   @override
-  _SettingsScreenState createState() => _SettingsScreenState();
+  SettingsScreenState createState() => SettingsScreenState();
 }
 
-class _SettingsScreenState extends State<SettingsScreen> {
+class SettingsScreenState extends State<SettingsScreen> {
   String _currentThemePreferenceText = "";
   String _currentSystemThemeText = "";
 
@@ -22,10 +25,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
     ThemePreference? themePreference =
         await theme_operations.readStoredThemePreference(context);
     if (themePreference != null) {
-      print('Existing theme preference detected');
+      if (kDebugMode) {
+        print('Existing theme preference detected');
+      }
     } else {
       themePreference = ThemePreference.system;
-      print('No existing theme preference');
+      if (kDebugMode) {
+        print('No existing theme preference');
+      }
     }
     return themePreference;
   }
@@ -36,14 +43,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
     if (storedThemePreference == null ||
         storedThemePreference == ThemePreference.system) {
       setState(() {
-        _currentThemePreferenceText = ("settings_screen." +
-                ThemePreference.system.toString().split(".").last)
+        _currentThemePreferenceText = ("settings_screen.${ThemePreference.system.toString().split(".").last}")
             .tr();
       });
     } else {
       setState(() {
-        _currentThemePreferenceText = ("settings_screen." +
-                storedThemePreference.toString().split(".").last)
+        _currentThemePreferenceText = ("settings_screen.${storedThemePreference.toString().split(".").last}")
             .tr();
       });
     }
@@ -58,12 +63,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     // Update the text showing the current system theme
-    _currentSystemThemeText = ("settings_screen." +
-            theme_operations
+    _currentSystemThemeText = ("settings_screen.${theme_operations
                 .getCurrentSystemTheme(context)
                 .toString()
                 .split(".")
-                .last)
+                .last}")
         .tr();
 
     return Scaffold(
@@ -92,7 +96,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       if (_currentThemePreferenceText ==
                           "settings_screen.system".tr())
                         Text(
-                          " (" + _currentSystemThemeText + ")",
+                          " ($_currentSystemThemeText)",
                           style: TextStyle(
                             color:
                                 Theme.of(context).colorScheme.onSurfaceVariant,
@@ -104,7 +108,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     showModalBottomSheet<void>(
                       context: context,
                       isScrollControlled: true,
-                      shape: RoundedRectangleBorder(
+                      shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(20),
                               topRight: Radius.circular(20))),
@@ -118,12 +122,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
                 SettingsTile(
                   title: Text('settings_screen.about'.tr()),
-                  trailing: Icon(Icons.chevron_right_rounded),
+                  trailing: const Icon(Icons.chevron_right_rounded),
                   onPressed: (BuildContext context) {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (BuildContext context) => AboutScreen()));
+                            builder: (BuildContext context) => const AboutScreen()));
                   },
                 ),
                 SettingsTile(
@@ -132,7 +136,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   onPressed: (BuildContext context) {
                     showDialog(
                         context: context,
-                        builder: (BuildContext context) => LogoutPopup());
+                        builder: (BuildContext context) => const LogoutPopup());
                   },
                 ),
               ],

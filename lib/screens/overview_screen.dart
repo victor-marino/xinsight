@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
@@ -32,10 +33,10 @@ class OverviewScreen extends StatefulWidget {
   final int currentAccountIndex;
 
   @override
-  _OverviewScreenState createState() => _OverviewScreenState();
+  OverviewScreenState createState() => OverviewScreenState();
 }
 
-class _OverviewScreenState extends State<OverviewScreen>
+class OverviewScreenState extends State<OverviewScreen>
     with AutomaticKeepAliveClientMixin<OverviewScreen> {
   // The Mixin keeps state of the page instead of reloading it every time
   // It requires this 'wantKeepAlive', as well as the 'super' in the build method down below
@@ -47,8 +48,10 @@ class _OverviewScreenState extends State<OverviewScreen>
     try {
       await widget.refreshData(accountIndex: widget.currentAccountIndex);
     } on Exception catch (e) {
-      print("Couldn't refresh data");
-      print(e);
+      if (kDebugMode) {
+        print("Couldn't refresh data");
+        print(e);
+      }
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(e.toString()),
       ));
@@ -91,7 +94,7 @@ class _OverviewScreenState extends State<OverviewScreen>
                                 widget.availableWidth <= 1000) ...[
                                   if (!widget.accountData.isReconciledToday) ...[
                                   NotReconciledCard(reconciledUntil: widget.accountData.reconciledUntil),
-                                  SizedBox(
+                                  const SizedBox(
                                 height: 20,
                               ),],
                               ReusableCard(
@@ -112,7 +115,7 @@ class _OverviewScreenState extends State<OverviewScreen>
                                   ),
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 20,
                               ),
                               ReusableCard(
@@ -134,7 +137,7 @@ class _OverviewScreenState extends State<OverviewScreen>
                             ] else ...[
                               if (!widget.accountData.isReconciledToday) ...[
                                   NotReconciledCard(reconciledUntil: widget.accountData.reconciledUntil),
-                                  SizedBox(
+                                  const SizedBox(
                                 height: 20,
                               ),],
                               SizedBox(
@@ -150,7 +153,7 @@ class _OverviewScreenState extends State<OverviewScreen>
                                                     widget.accountData),
                                       ),
                                     ),
-                                    SizedBox(width: 20),
+                                    const SizedBox(width: 20),
                                     Flexible(
                                       flex: 1,
                                       child: ReusableCard(
@@ -180,7 +183,7 @@ class _OverviewScreenState extends State<OverviewScreen>
                                 ),
                               ),
                             ],
-                            SizedBox(
+                            const SizedBox(
                               height: 15,
                             ),
                             Row(
@@ -194,7 +197,7 @@ class _OverviewScreenState extends State<OverviewScreen>
                                         additionalCashNeededToTrade: widget
                                             .accountData
                                             .additionalCashNeededToTrade),
-                                    SizedBox(height: 5),
+                                    const SizedBox(height: 5),
                                     FeeFreeAmountCard(
                                         feeFreeAmount:
                                             widget.accountData.feeFreeAmount),
@@ -203,7 +206,7 @@ class _OverviewScreenState extends State<OverviewScreen>
                                 MaterialButton(
                                   height: 40,
                                   minWidth: 40,
-                                  shape: CircleBorder(),
+                                  shape: const CircleBorder(),
                                   materialTapTargetSize:
                                       MaterialTapTargetSize.shrinkWrap,
                                   padding: EdgeInsets.zero,
@@ -215,7 +218,7 @@ class _OverviewScreenState extends State<OverviewScreen>
                                     showDialog(
                                         context: context,
                                         builder: (BuildContext context) =>
-                                            ReturnsPopUp());
+                                            const ReturnsPopUp());
                                   },
                                 ),
                               ],

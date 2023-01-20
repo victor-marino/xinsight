@@ -22,7 +22,7 @@ class MinimumTransferCard extends StatelessWidget {
       text: TextSpan(children: [
         TextSpan(
             text:
-                'minimum_transfer_card.minimum_transfer_to_invest'.tr() + ': ',
+                '${'minimum_transfer_card.minimum_transfer_to_invest'.tr()}: ',
             style: itemNameText),
         TextSpan(
             text: getInvestmentAsString(additionalCashNeededToTrade),

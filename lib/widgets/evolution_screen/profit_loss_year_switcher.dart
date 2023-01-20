@@ -33,12 +33,12 @@ class ProfitLossYearSwitcher extends StatelessWidget {
     for (int i = 0; i < yearList.length; i++) {
       profitLossYearDropdownItems.add(
         DropdownMenuItem(
+          value: yearList[i],
+          enabled: yearList[i] == currentYear ? false : true,
           child: Text(yearList[i].toString(),
               style: yearList[i] == currentYear
                   ? selectedYearTextStyle
                   : nonSelectedYearTextStyle),
-          value: yearList[i],
-          enabled: yearList[i] == currentYear ? false : true,
         ),
       );
     }
@@ -50,17 +50,17 @@ class ProfitLossYearSwitcher extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          child: Container(
+          child: SizedBox(
             height: 20,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 if (dropdownEnabled)
-                  Icon(Icons.arrow_drop_down_rounded,
+                  const Icon(Icons.arrow_drop_down_rounded,
                       size: 20, color: Colors.blue),
                 DropdownButton(
                   iconSize: 0,
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                  borderRadius: const BorderRadius.all(Radius.circular(10)),
                   disabledHint: DropdownMenuItem(
                       child: Text(
                     currentYear.toString(),
@@ -81,7 +81,7 @@ class ProfitLossYearSwitcher extends StatelessWidget {
                       ));
                     }).toList();
                   },
-                  underline: SizedBox(),
+                  underline: const SizedBox(),
                   onChanged: dropdownEnabled
                       ? (dynamic value) {
                           reloadProfitLossChart(value);

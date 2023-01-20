@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:indexax/models/account.dart';
@@ -26,10 +27,10 @@ class ProjectionScreen extends StatefulWidget {
   final int currentAccountIndex;
 
   @override
-  _ProjectionScreenState createState() => _ProjectionScreenState();
+  ProjectionScreenState createState() => ProjectionScreenState();
 }
 
-class _ProjectionScreenState extends State<ProjectionScreen>
+class ProjectionScreenState extends State<ProjectionScreen>
     with AutomaticKeepAliveClientMixin<ProjectionScreen> {
   // The Mixin keeps state of the page instead of reloading it every time
   // It requires this 'wantKeepAlive', as well as the 'super' in the build method down below
@@ -41,8 +42,10 @@ class _ProjectionScreenState extends State<ProjectionScreen>
     try {
       await widget.refreshData(accountIndex: widget.currentAccountIndex);
     } on Exception catch (e) {
-      print("Couldn't refresh data");
-      print(e);
+      if (kDebugMode) {
+        print("Couldn't refresh data");
+        print(e);
+      }
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(e.toString()),
       ));
@@ -96,7 +99,7 @@ class _ProjectionScreenState extends State<ProjectionScreen>
                                 ],
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 20,
                             ),
                             ReusableCard(
@@ -117,9 +120,8 @@ class _ProjectionScreenState extends State<ProjectionScreen>
                                         children: [
                                           TextSpan(
                                               text:
-                                                  'projection_screen.expected_annual_return'
-                                                          .tr() +
-                                                      ': ',
+                                                  '${'projection_screen.expected_annual_return'
+                                                          .tr()}: ',
                                               style:
                                                   annualReturnDescriptionTextStyle),
                                           TextSpan(
@@ -133,13 +135,13 @@ class _ProjectionScreenState extends State<ProjectionScreen>
                                 ],
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 15,
                             ),
                             MaterialButton(
                               height: 40,
                               minWidth: 40,
-                              shape: CircleBorder(),
+                              shape: const CircleBorder(),
                               materialTapTargetSize:
                                   MaterialTapTargetSize.shrinkWrap,
                               padding: EdgeInsets.zero,
@@ -151,7 +153,7 @@ class _ProjectionScreenState extends State<ProjectionScreen>
                                 showDialog(
                                     context: context,
                                     builder: (BuildContext context) =>
-                                        ExpectationsPopUp());
+                                        const ExpectationsPopUp());
                               },
                             ),
                           ],

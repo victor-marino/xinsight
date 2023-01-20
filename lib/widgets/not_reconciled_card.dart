@@ -33,8 +33,7 @@ class NotReconciledCard extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10.0),
                   child: Text(
-                      'not_reconciled_card.not_reconciled_explanation'.tr() +
-                          reconciledUntil.day.toString() + "/" + reconciledUntil.month.toString() + "/" + reconciledUntil.year.toString() + ".",
+                      "${'not_reconciled_card.not_reconciled_explanation'.tr()}${reconciledUntil.day}/${reconciledUntil.month}/${reconciledUntil.year}.",
                       style: pendingTransactionsTextStyle.copyWith(
                           color: Theme.of(context).colorScheme.onPrimary)),
                 ),

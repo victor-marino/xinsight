@@ -36,10 +36,10 @@ class SettingsPopupMenu extends StatelessWidget {
 
     itemList.add(
       PopupMenuItem(
-        child: Text('header.accounts'.tr()),
         textStyle: accountsHeaderTextStyle,
         enabled: false,
         height: 30,
+        child: Text('header.accounts'.tr()),
       ),
     );
     for (int i = 0; i < userAccounts.length; i++) {
@@ -62,6 +62,8 @@ class SettingsPopupMenu extends StatelessWidget {
       }
       itemList.add(PopupMenuItem(
         height: itemHeight,
+        value: i,
+        enabled: i != currentAccountIndex,
         child: Row(
           children: [
             Container(
@@ -76,7 +78,7 @@ class SettingsPopupMenu extends StatelessWidget {
                             color: Colors.blue,
                           ),
                           borderRadius:
-                              BorderRadius.horizontal(left: Radius.circular(4)),
+                              const BorderRadius.horizontal(left: Radius.circular(4)),
                           color: Colors.blue))
                   : null,
             ),
@@ -95,13 +97,12 @@ class SettingsPopupMenu extends StatelessWidget {
             ),
           ],
         ),
-        value: i,
-        enabled: i != currentAccountIndex,
       ));
     }
-    itemList.add(PopupMenuDivider());
+    itemList.add(const PopupMenuDivider());
     itemList.add(PopupMenuItem(
       height: itemHeight,
+      value: "options",
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -110,65 +111,62 @@ class SettingsPopupMenu extends StatelessWidget {
             style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
           ),
           IconButton(
-              icon: Icon(Icons.checklist),
+              icon: const Icon(Icons.checklist),
               color: Theme.of(context).colorScheme.onSurface,
               disabledColor: Theme.of(context).colorScheme.onSurfaceVariant,
               onPressed: null),
         ],
       ),
-      value: "options",
     ));
     itemList.add(PopupMenuItem(
       height: itemHeight,
+      value: "logout",
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text('header.logout'.tr(),
               style: TextStyle(color: Theme.of(context).colorScheme.onSurface)),
           IconButton(
-              icon: Icon(Icons.logout),
+              icon: const Icon(Icons.logout),
               color: Colors.red.shade900,
               disabledColor: Colors.red.shade900,
               onPressed: null),
         ],
       ),
-      value: "logout",
     ));
 
-    return Container(
-      child: PopupMenuButton(
-        color: Theme.of(context).colorScheme.background,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Icon(Icons.settings, color: Colors.blue),
-            Icon(Icons.arrow_drop_down_rounded, color: Colors.blue)
-          ],
-        ),
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(10))),
-        onSelected: (dynamic value) {
-          switch (value) {
-            case "options":
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (BuildContext context) => SettingsScreen()));
-              break;
-            case "logout":
-              showDialog(
-                  context: context,
-                  builder: (BuildContext context) => LogoutPopup());
-              break;
-            default:
-              if (value != currentAccountIndex) {
-                reloadPage(value, currentPage);
-              }
-          }
-        },
-        itemBuilder: (context) {
-          return itemList;
-        },
+    return PopupMenuButton(
+      color: Theme.of(context).colorScheme.background,
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(10))),
+      onSelected: (dynamic value) {
+        switch (value) {
+          case "options":
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (BuildContext context) => const SettingsScreen()));
+            break;
+          case "logout":
+            showDialog(
+                context: context,
+                builder: (BuildContext context) => const LogoutPopup());
+            break;
+          default:
+            if (value != currentAccountIndex) {
+              reloadPage(value, currentPage);
+            }
+        }
+      },
+      itemBuilder: (context) {
+        return itemList;
+      },
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: const [
+          Icon(Icons.settings, color: Colors.blue),
+          Icon(Icons.arrow_drop_down_rounded, color: Colors.blue)
+        ],
       ),
     );
   }

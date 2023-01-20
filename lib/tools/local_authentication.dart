@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:local_auth_android/local_auth_android.dart';
@@ -29,16 +30,21 @@ Future<bool> supportsBiometrics(BuildContext context) async {
   // Check if device supports biometric authentication
   bool isDeviceSupported = false;
   try {
-    print("Checking support...");
+    if (kDebugMode) {
+      print("Checking support...");
+    }
     isDeviceSupported = await localAuthentication.isDeviceSupported();
   } on Exception catch (e) {
-    print(e);
+    if (kDebugMode) {
+      print(e);
+    }
     snackbar.showInSnackBar(context, e.toString());
   }
-  (isDeviceSupported)
-      ? print("Biometrics supported")
-      : print("Biometrics not supported");
-
+  if (kDebugMode) {
+    (isDeviceSupported)
+        ? print("Biometrics supported")
+        : print("Biometrics not supported");
+  }
   return isDeviceSupported;
 }
 
@@ -48,29 +54,36 @@ Future<bool> authenticateUserLocally(BuildContext context) async {
   bool isAuthenticated = false;
   try {
     if (await (supportsBiometrics(context))) {
-      print("Trying to authenticate...");
+      if (kDebugMode) {
+        print("Trying to authenticate...");
+      }
       isAuthenticated = await localAuthentication.authenticate(
           authMessages: [androidStrings, iosStrings],
           localizedReason: "login_screen.please_authenticate".tr(),
-          options: AuthenticationOptions(
+          options: const AuthenticationOptions(
             useErrorDialogs: true,
             stickyAuth: true,
             biometricOnly: false,
             sensitiveTransaction: false,
           ));
     } else {
-      print("Biometrics not supported");
+      if (kDebugMode) {
+        print("Biometrics not supported");
+      }
       isAuthenticated = false;
       snackbar.showInSnackBar(
           context, "login_screen.screen_lock_required".tr());
     }
   } on Exception catch (e) {
-    print(e);
+    if (kDebugMode) {
+      print(e);
+    }
   }
 
-  isAuthenticated
-      ? print("User authenticated")
-      : print("User not authenticated");
-
+  if (kDebugMode) {
+    isAuthenticated
+        ? print("User authenticated")
+        : print("User not authenticated");
+  }
   return isAuthenticated;
 }
