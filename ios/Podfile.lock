@@ -40,7 +40,7 @@ SPEC CHECKSUMS:
   local_auth_ios: 0d333dde7780f669e66f19d2ff6005f3ea84008d
   path_provider_ios: 14f3d2fd28c4fdb42f44e0f751d12861c43cee02
   shared_preferences_foundation: 297b3ebca31b34ec92be11acd7fb0ba932c822ca
-  url_launcher_ios: 839c58cdb4279282219f5e248c3321761ff3c4de
+  url_launcher_ios: ae1517e5e344f5544fb090b079e11f399dfbe4d2
 
 PODFILE CHECKSUM: ef19549a9bc3046e7bb7d2fab4d021637c0c58a3
 

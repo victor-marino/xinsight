@@ -33,8 +33,8 @@ dependencies:
   local_auth_ios: ^1.0.12
   easy_localization: ^3.0.1
   google_fonts: ^3.0.1
-  syncfusion_flutter_charts: '20.2.39'
-  syncfusion_flutter_gauges: '20.2.39'
+  syncfusion_flutter_charts: ^20.4.44
+  syncfusion_flutter_gauges: ^20.4.44
   flutter_secure_storage: ^5.0.2
   provider: ^6.0.3
   url_launcher: ^6.1.5
