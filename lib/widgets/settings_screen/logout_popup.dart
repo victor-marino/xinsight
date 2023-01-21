@@ -14,13 +14,17 @@ class LogoutPopup extends StatelessWidget {
   }) : super(key: key);
 
   void _logout(BuildContext context) async {
-    await token_operations.deleteToken(context);
-    Provider.of<BottomNavigationBarProvider>(context, listen: false)
-        .currentIndex = 0;
-    Navigator.pushAndRemoveUntil(
+    
+    BottomNavigationBarProvider currentBottomNavigationProvider =
+        Provider.of<BottomNavigationBarProvider>(context, listen: false);
+    Future<dynamic> futureNavigationRoute = Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(builder: (BuildContext context) => const LoginScreen()),
+        MaterialPageRoute(
+            builder: (BuildContext context) => const LoginScreen()),
         (Route<dynamic> route) => false);
+    await token_operations.deleteToken(context);
+    currentBottomNavigationProvider.currentIndex = 0;
+    futureNavigationRoute;
   }
 
   @override

@@ -25,14 +25,14 @@ Future<ThemePreference?> readStoredThemePreference(BuildContext context) async {
 }
 
 Future<void> storeThemePreference(
-  // Save theme preference to device
-    BuildContext context, ThemePreference themePreference) async {
+    // Save theme preference to device
+    ThemePreference themePreference) async {
   try {
     await _storage.storeKey(
         keyName: "themePreference",
         value: themePreference.toString().split(".").last);
-  } on Exception catch (e) {
-    snackbar.showInSnackBar(context, e.toString());
+  } on Exception {
+    rethrow;
   }
 }
 
@@ -46,21 +46,24 @@ void updateTheme(BuildContext context) async {
   if (kDebugMode) {
     print("Updating theme");
   }
+  ThemeProvider currentThemeProvider =
+      Provider.of<ThemeProvider>(context, listen: false);
+  MediaQueryData currentMediaQueryData = MediaQuery.of(context);
   ThemePreference? currentThemePreference =
       await readStoredThemePreference(context);
   if (currentThemePreference == null) {
     currentThemePreference = ThemePreference.system;
-    await storeThemePreference(context, ThemePreference.system);
+    try {
+      await storeThemePreference(ThemePreference.system);
+    } on Exception {
+      rethrow;
+    }
   }
   if (currentThemePreference == ThemePreference.system) {
-    Provider.of<ThemeProvider>(context, listen: false).currentTheme =
-        ThemeMode.values.byName(MediaQuery.of(context)
-            .platformBrightness
-            .toString()
-            .split(".")
-            .last);
+    currentThemeProvider.currentTheme = ThemeMode.values.byName(
+        currentMediaQueryData.platformBrightness.toString().split(".").last);
   } else {
-    Provider.of<ThemeProvider>(context, listen: false).currentTheme = ThemeMode
+    currentThemeProvider.currentTheme = ThemeMode
         .values
         .byName(currentThemePreference.toString().split(".").last);
   }

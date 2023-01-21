@@ -53,18 +53,19 @@ Future<bool?> authenticateToken(BuildContext context, String token) async {
     buildLoading(context);
     IndexaData indexaData = IndexaData(token: token);
     try {
+      // Flutter warns against passing contexts across async calls, so instead 
+      // we store the navigator in a variable and pass that later
+      NavigatorState currentNavigator = Navigator.of(context);
       var userAccounts = await indexaData.getUserAccounts();
       if (userAccounts != null) {
         if (kDebugMode) {
           print("Token authenticated!");
         }
-        Navigator.of(context).pop();
+        currentNavigator.pop();
         authenticatedToken = true;
       } else {
-        Navigator.of(context).pop();
+        currentNavigator.pop();
         authenticatedToken = false;
-        snackbar.showInSnackBar(
-            context, "login_screen.token_authentication_failed".tr());
       }
     } on Exception catch (e) {
       Navigator.of(context).pop();

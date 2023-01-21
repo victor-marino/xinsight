@@ -12,7 +12,8 @@ import 'package:indexax/widgets/login_screen/forget_token_popup.dart';
 import 'package:indexax/widgets/login_screen/token_instructions_popup.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key, 
+  const LoginScreen({
+    Key? key,
     this.errorMessage,
   }) : super(key: key);
 
@@ -84,6 +85,7 @@ class LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
       setState(() {
         _rememberToken = true;
       });
+      if (!mounted) return;
       if (await local_authentication.authenticateUserLocally(context)) {
         goToMainScreen(token: storedToken, saveToken: false);
       }
@@ -101,7 +103,9 @@ class LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
     bool? authenticatedToken =
         await (token_operations.authenticateToken(context, token));
     if (authenticatedToken ?? false) {
+      if (!mounted) return;
       if (saveToken) await token_operations.storeToken(context, token);
+      if (!mounted) return;
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
@@ -112,6 +116,8 @@ class LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
     } else {
       setState(() {
         _tokenTextController.text = token;
+        snackbar.showInSnackBar(
+            context, "login_screen.token_authentication_failed".tr());
       });
     }
   }
@@ -120,7 +126,6 @@ class LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
   void initState() {
     WidgetsBinding.instance.addObserver(this);
     super.initState();
-    theme_operations.updateTheme(context);
 
     // Check if we were thrown back to the login screen after an error
     // Otherwise, try to find a stored token and login with it
@@ -154,6 +159,7 @@ class LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
+    theme_operations.updateTheme(context);
     bool landscapeOrientation = false;
     double availableWidth = MediaQuery.of(context).size.width;
     double availableHeight = MediaQuery.of(context).size.height;
@@ -185,8 +191,7 @@ class LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
                           : double.infinity,
                       child: Column(
                         children: [
-                          Image.asset(
-                              'assets/images/indexax_logo_wide.png'),
+                          Image.asset('assets/images/indexax_logo_wide.png'),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             crossAxisAlignment: CrossAxisAlignment.center,

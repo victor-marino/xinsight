@@ -23,7 +23,8 @@ import 'login_screen.dart';
 // Base screen where all other screens are loaded after loggin in
 
 class RootScreen extends StatefulWidget {
-  RootScreen({Key? key, 
+  RootScreen({
+    Key? key,
     required this.token,
     required this.accountIndex,
     required this.pageIndex,
@@ -56,8 +57,8 @@ class RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
   Future<void> _loadData({required int accountIndex}) async {
     // Main function that is called when account data is loaded
     try {
-        // Avoid loading the account list again if we already have it (e.g.: 
-        // because we're reloading the screen after the user switches accounts)
+      // Avoid loading the account list again if we already have it (e.g.:
+      // because we're reloading the screen after the user switches accounts)
       if (_userAccounts.isEmpty) {
         _userAccounts = await widget.indexaData.getUserAccounts();
       }
@@ -98,6 +99,7 @@ class RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
       _reloading = true;
     });
     await _loadData(accountIndex: widget.accountIndex);
+    if (!mounted) return;
     Provider.of<BottomNavigationBarProvider>(context, listen: false)
         .currentIndex = widget.pageIndex;
   }
@@ -128,9 +130,6 @@ class RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
   void initState() {
     WidgetsBinding.instance.addObserver(this);
     super.initState();
-
-    // Update theme based on system theme
-    theme_operations.updateTheme(context);
 
     if (widget.previousUserAccounts != null) {
       // If we're just reloading the screen (e.g.: when the user switches

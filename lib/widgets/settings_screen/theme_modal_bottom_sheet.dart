@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:indexax/models/theme_preference_data.dart';
 import 'package:indexax/tools/theme_operations.dart' as theme_operations;
+import 'package:indexax/tools/snackbar.dart' as snackbar;
 
 // Bottom sheet to pick the preferred theme configuration
 
@@ -36,11 +37,16 @@ class _ThemeModalBottomSheetState extends State<ThemeModalBottomSheet> {
   }
 
   void _handleThemeChange(ThemePreference value) async {
-    await theme_operations.storeThemePreference(context, value);
+    try {
+      await theme_operations.storeThemePreference(value);
+    } on Exception catch (e) {
+      snackbar.showInSnackBar(context, e.toString());
+    }
     setState(() {
       _currentThemePreference = value;
     });
     widget.updateCurrentThemePreference();
+    if (!mounted) return;
     theme_operations.updateTheme(context);
   }
 
@@ -48,7 +54,6 @@ class _ThemeModalBottomSheetState extends State<ThemeModalBottomSheet> {
   void initState() {
     super.initState();
     _getCurrentThemePreference();
-    theme_operations.updateTheme(context);
   }
 
   @override
