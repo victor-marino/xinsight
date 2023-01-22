@@ -609,9 +609,6 @@ class Account {
         risk = accountInfo['risk'],
         totalAmount =
             accountPerformanceData['return']['total_amount'].toDouble(),
-        // The two commented lines below allow for some quick data tests
-        // totalAmount = new DateTime.now().second.toDouble(),
-        // totalAmount = 999999.99,
         investment = accountPerformanceData['return']['investment'].toDouble(),
         timeReturn = accountPerformanceData['return']['time_return'].toDouble(),
         timeReturnColor = getNumberColor(

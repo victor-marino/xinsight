@@ -39,7 +39,6 @@ class ExpandedAssetTileHeaderPortrait extends StatelessWidget {
             Text("(${getPLAsString(assetData.profitLoss!)})",
                 style: assetData.profitLoss! < 0
                     ? headerSubtitleTextStyle.copyWith(
-                        //color: Colors.red[800])
                         color: Theme.of(context).colorScheme.error)
                     : headerSubtitleTextStyle.copyWith(
                         color: Colors.green[600])),
