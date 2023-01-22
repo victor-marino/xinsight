@@ -53,8 +53,8 @@ Future<bool?> authenticateToken(BuildContext context, String token) async {
     buildLoading(context);
     IndexaData indexaData = IndexaData(token: token);
     try {
-      // Flutter warns against passing contexts across async calls, so instead 
-      // we store the navigator in a variable and pass that later
+      // Passing contexts across async calls can cause problems, so instead 
+      // we previously store the navigator in a variable and pass it later
       NavigatorState currentNavigator = Navigator.of(context);
       var userAccounts = await indexaData.getUserAccounts();
       if (userAccounts != null) {

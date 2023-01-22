@@ -46,6 +46,8 @@ void updateTheme(BuildContext context) async {
   if (kDebugMode) {
     print("Updating theme");
   }
+  // Passing contexts across async calls can cause problems, so instead we store
+  // the ThemeProvider and MediaQuery objects in a variable and pass those later
   ThemeProvider currentThemeProvider =
       Provider.of<ThemeProvider>(context, listen: false);
   MediaQueryData currentMediaQueryData = MediaQuery.of(context);

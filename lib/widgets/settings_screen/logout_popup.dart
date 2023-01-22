@@ -14,7 +14,9 @@ class LogoutPopup extends StatelessWidget {
   }) : super(key: key);
 
   void _logout(BuildContext context) async {
-    
+    // Passing contexts across async calls can cause problems, so instead we
+    // store the Provider and the navigation route in a variable to pass them
+    // later.
     BottomNavigationBarProvider currentBottomNavigationProvider =
         Provider.of<BottomNavigationBarProvider>(context, listen: false);
     Future<dynamic> futureNavigationRoute = Navigator.pushAndRemoveUntil(
