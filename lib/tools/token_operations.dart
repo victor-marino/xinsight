@@ -7,7 +7,7 @@ import 'package:indexax/tools/secure_storage.dart';
 import 'package:indexax/widgets/circular_progress_indicator.dart';
 import 'package:indexax/tools/indexa_data.dart';
 
-// All token-related methods are grouped here
+// All token-related functions are grouped here
 
 final _storage = SecureStorage();
 
