@@ -36,12 +36,13 @@ class ExpandedAssetTileHeaderPortrait extends StatelessWidget {
                 style: assetAmountTextStyle,
               ),
             ),
-            Text("(${getPLAsString(assetData.profitLoss!)})",
-                style: assetData.profitLoss! < 0
-                    ? headerSubtitleTextStyle.copyWith(
-                        color: Theme.of(context).colorScheme.error)
-                    : headerSubtitleTextStyle.copyWith(
-                        color: Colors.green[600])),
+            Text(
+              "(${getPLAsString(assetData.profitLoss!)})",
+              style: assetData.profitLoss! < 0
+                  ? headerSubtitleTextStyle.copyWith(
+                      color: Theme.of(context).colorScheme.error)
+                  : headerSubtitleTextStyle.copyWith(color: Colors.green[600]),
+            ),
           ],
         ),
       ]),
