@@ -10,6 +10,8 @@ Está desarrollado en [Flutter](https://flutter.dev/), y utiliza la [API oficial
 
 Actualmente está disponible para Android y iOS.
 
+<img src="assets/images/01.png" width=200/><img src="assets/images/02.png" width=200/><img src="assets/images/03.png" width=200/><img src="assets/images/04.png" width=200/><img src="assets/images/05.png" width=200/>
+
 ## Descargar
 [![google_play_badge](assets/images/google_play_badge_small.png)](https://play.google.com/store/apps/details?id=com.victormarino.indexax)  [![app_store_badge](assets/images/app_store_badge_small.png)](https://apps.apple.com/es/app/indexa-x/id1637446036)
 
