@@ -1,6 +1,6 @@
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
-![](assets/images/indexax_logo_wide_smaller.png)
+![](assets/readme/indexax_logo_wide_smaller.png)
 
 # Indexa X
 
@@ -10,10 +10,10 @@ Está desarrollado en [Flutter](https://flutter.dev/), y utiliza la [API oficial
 
 Actualmente está disponible para Android y iOS.
 
-<img src="assets/images/screenshot_01_500.png" width=160/><img src="assets/images/screenshot_02_500.png" width=160/><img src="assets/images/screenshot_03_500.png" width=160/><img src="assets/images/screenshot_04_500.png" width=160/><img src="assets/images/screenshot_05_500.png" width=160/>
+<img src="assets/readme/screenshot_01_500.png" width=160/><img src="assets/readme/screenshot_02_500.png" width=160/><img src="assets/readme/screenshot_03_500.png" width=160/><img src="assets/readme/screenshot_04_500.png" width=160/><img src="assets/readme/screenshot_05_500.png" width=160/>
 
 ## Descargar
-[![google_play_badge](assets/images/google_play_badge_small.png)](https://play.google.com/store/apps/details?id=com.victormarino.indexax)  [![app_store_badge](assets/images/app_store_badge_small.png)](https://apps.apple.com/es/app/indexa-x/id1637446036)
+[![google_play_badge](assets/readme/google_play_badge_small.png)](https://play.google.com/store/apps/details?id=com.victormarino.indexax)  [![app_store_badge](assets/readme/app_store_badge_small.png)](https://apps.apple.com/es/app/indexa-x/id1637446036)
 
 
 ## Privacidad y seguridad
