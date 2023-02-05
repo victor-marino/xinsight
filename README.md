@@ -4,7 +4,7 @@
 
 # Indexa X
 
-Indexa X es un cliente multiplataforma no oficial para Indexa Capital.
+Indexa X es un cliente multiplataforma no oficial y de código abierto para Indexa Capital.
 
 Está desarrollado en [Flutter](https://flutter.dev/), y utiliza la [API oficial de Indexa Capital](https://indexacapital.com/en/api-rest-v1) para leer los datos de tu cuenta de forma segura.
 

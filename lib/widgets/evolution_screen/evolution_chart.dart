@@ -73,7 +73,7 @@ class EvolutionChart extends StatelessWidget {
         enable: true,
         activationMode: ActivationMode.singleTap,
         tooltipDisplayMode: TrackballDisplayMode.groupAllPoints,
-        tooltipAlignment: ChartAlignment.near,
+        tooltipAlignment: ChartAlignment.far,
         tooltipSettings: InteractiveTooltip(
           enable: true,
           decimalPlaces: 2,
