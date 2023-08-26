@@ -75,7 +75,7 @@
   "distribution_legend": {
     "instrument_type_equity": "Accións",
     "instrument_type_fixed": "Bonos",
-    "instrument_type_moneymarket": "Fondo de emerxencia",
+    "instrument_type_moneymarket": "Colchón de seguridade",
     "instrument_type_cash": "@:distribution_chart.instrument_type_cash",
     "instrument_type_other": "@:distribution_chart.instrument_type_other"
   },

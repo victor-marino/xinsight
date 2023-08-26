@@ -8,13 +8,13 @@ import 'package:indexax/tools/number_formatting.dart';
 import 'package:indexax/tools/sorting.dart';
 import 'package:easy_localization/easy_localization.dart';
 
-// This file groups all the functions that process the raw account data
-// and create the final data structures stored in the Account class, to be used
-// throughout the app.
+/* This file groups all the functions that process the raw account data
+and create the final data structures stored in the Account class, to be used
+throughout the app. */
 
-// Option to add fake emergency fund for testing purposes.
-// To use it, set to true and fill out the fund details.
-// Do NOT use if the real account already has an emergency fund.
+/* The settings below add a fake emergency fund for testing purposes.
+To use it, set 'addTestEmergencyFund' to 'true' and fill out the fund details.
+Do NOT use if the real account already has an emergency fund! */
 bool addTestEmergencyFund = false;
 double testEmergencyFundAmount = 1200.055863;
 double testEmergencyFundCostAmount = 1000;
@@ -24,6 +24,7 @@ String testEmergencyFundISIN = "IE00B44QSK78";
 String testEmergencyFundCompany = "";
 String testEmergencyFundDescription =
     "Es un fondo monetario de 1 día de horizonte temporal cuyo objetivo es la conservación de capital invirtiendo en activos de alta liquidez, de corto plazo y de bajo riesgo y obtener una rentabilidad acorde con los tipos del mercado monetario (€STR index).";
+/* End of test settings for emergency fund */
 
 List<AmountsDataPoint> createAmountsSeries(netAmountsList, totalAmountsList) {
   // Creates a time series with the value of the portfolio overtime
