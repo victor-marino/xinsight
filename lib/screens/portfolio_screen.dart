@@ -47,10 +47,6 @@ class PortfolioScreenState extends State<PortfolioScreen>
     }
   }
 
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {

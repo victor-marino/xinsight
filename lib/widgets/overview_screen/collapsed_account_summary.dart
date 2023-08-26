@@ -188,9 +188,9 @@ class CollapsedAccountSummary extends StatelessWidget {
             ),
           ),
         ),
-        Row(
+        const Row(
           mainAxisAlignment: MainAxisAlignment.end,
-          children: const [
+          children: [
             Icon(Icons.keyboard_arrow_down_rounded, color: Colors.blue),
           ],
         ),

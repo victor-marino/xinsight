@@ -68,24 +68,28 @@
   "distribution_chart": {
     "instrument_type_equity": "Equity",
     "instrument_type_fixed": "Fixed income",
+    "instrument_type_moneymarket": "Money market",
     "instrument_type_cash": "Cash",
     "instrument_type_other": "Others"
   },
   "distribution_legend": {
     "instrument_type_equity": "Stocks",
     "instrument_type_fixed": "Bonds",
+    "instrument_type_moneymarket": "Emergency fund",
     "instrument_type_cash": "@:distribution_chart.instrument_type_cash",
     "instrument_type_other": "@:distribution_chart.instrument_type_other"
   },
   "portfolio_screen": {
     "equity": "@:distribution_chart.instrument_type_equity",
     "fixed": "@:distribution_chart.instrument_type_fixed",
+    "moneymarket": "@:distribution_chart.instrument_type_moneymarket",
     "cash": "@:distribution_chart.instrument_type_cash",
     "other": "@:distribution_chart.instrument_type_other"
   },
   "asset_details": {
     "instrument_type_equity": "@:distribution_chart.instrument_type_equity",
     "instrument_type_fixed": "@:distribution_chart.instrument_type_fixed",
+    "instrument_type_moneymarket": "@:distribution_chart.instrument_type_moneymarket",
     "instrument_type_cash": "@:distribution_chart.instrument_type_cash",
     "instrument_type_other": "@:distribution_chart.instrument_type_other",
     "description_not_available": "Not available",
@@ -178,6 +182,7 @@
   },
   "settings_screen": {
     "settings": "@:page_titles.settings",
+    "github": "GitHub",
     "about": "About Indexa X",
     "logout": "Log out",
     "theme": "Theme",
@@ -195,6 +200,11 @@
     "text6": " library, and is only used to authenticate you against Indexa Capital servers. It is never sent or stored in any other server.",
     "text7": "\n\nYou can delete the token from your device at any time by simply logging out.",
     "for": "@:login_screen.for"
+  },
+  "github_screen": {
+    "github": "@:settings_screen.github",
+    "text1": "Indexa X is an open source project.",
+    "text2": "\n\nIf you want to contribute to its development, propose a new feature or just take a look at its code, head over to its GitHub repository:"
   },
   "logout_popup": {
     "title": "Log out?",

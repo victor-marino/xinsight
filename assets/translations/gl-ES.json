@@ -68,24 +68,28 @@
   "distribution_chart": {
     "instrument_type_equity": "Renda variable",
     "instrument_type_fixed": "Renda fixa",
+    "instrument_type_moneymarket": "Mercado monetario",
     "instrument_type_cash": "Efectivo",
     "instrument_type_other": "Outros"
   },
   "distribution_legend": {
     "instrument_type_equity": "Accións",
     "instrument_type_fixed": "Bonos",
+    "instrument_type_moneymarket": "Fondo de emerxencia",
     "instrument_type_cash": "@:distribution_chart.instrument_type_cash",
     "instrument_type_other": "@:distribution_chart.instrument_type_other"
   },
   "portfolio_screen": {
     "equity": "@:distribution_chart.instrument_type_equity",
     "fixed": "@:distribution_chart.instrument_type_fixed",
+    "moneymarket": "@:distribution_chart.instrument_type_moneymarket",
     "cash": "@:distribution_chart.instrument_type_cash",
     "other": "@:distribution_chart.instrument_type_other"
   },
   "asset_details": {
     "instrument_type_equity": "@:distribution_chart.instrument_type_equity",
     "instrument_type_fixed": "@:distribution_chart.instrument_type_fixed",
+    "instrument_type_moneymarket": "@:distribution_chart.instrument_type_moneymarket",
     "instrument_type_cash": "@:distribution_chart.instrument_type_cash",
     "instrument_type_other": "@:distribution_chart.instrument_type_other",
     "description_not_available": "Non dispoñible",
@@ -178,6 +182,7 @@
   "settings_screen": {
     "settings": "@:page_titles.settings",
     "about": "Sobre Indexa X",
+    "github": "GitHub",
     "logout": "Pechar sesión",
     "theme": "Tema",
     "system": "Sistema",
@@ -194,6 +199,11 @@
     "text6": ", e só se emprega para indentificarte contra os servidores de Indexa Capital. Nunca se envía nin almacena en ningún outro servidor.",
     "text7": "\n\nPodes eliminar o token do teu dispositivo en calquer momento pechando a sesión.",
     "for": "@:login_screen.for"
+  },
+  "github_screen": {
+    "github": "@:settings_screen.github",
+    "text1": "Indexa X é un proxecto de código aberto.",
+    "text2": "\n\nSe queres contribuír ao seu desenvolvemento, propor novas funcionalidades ou simplemente botarlle unha ollada ao código, visita o repositorio de GitHub:"
   },
   "logout_popup": {
     "title": "¿Pechar sesión?",

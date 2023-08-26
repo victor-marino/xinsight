@@ -18,6 +18,7 @@ class DistributionChart extends StatelessWidget {
   Widget build(BuildContext context) {
     int equityCount = 0;
     int fixedCount = 0;
+    int moneyMarketCount = 0;
     List<Color> colorList = [];
     TextStyle tooltipTextStyle = text_styles.roboto(context, 12);
 
@@ -44,6 +45,12 @@ class DistributionChart extends StatelessWidget {
             }
           }
           break;
+
+        case InstrumentType.moneymarket:
+          {
+            colorList.add(text_styles.moneyMarketColor);
+            break;
+          }
 
         case InstrumentType.cash:
           {
@@ -90,6 +97,8 @@ class DistributionChart extends StatelessWidget {
               return '${data.instrumentName}\n${'distribution_chart.instrument_type_equity'.tr()}\n(${getPercentAsString(data.percentage)})';
             } else if (data.instrumentType == InstrumentType.fixed) {
               return '${data.instrumentName}\n${'distribution_chart.instrument_type_fixed'.tr()}\n(${getPercentAsString(data.percentage)})';
+            } else if (data.instrumentType == InstrumentType.moneymarket) {
+              return '${data.instrumentName}\n${'distribution_chart.instrument_type_moneymarket'.tr()}\n(${getPercentAsString(data.percentage)})';
             } else if (data.instrumentType == InstrumentType.cash) {
               return '${'distribution_chart.instrument_type_cash'.tr()}\n(${getPercentAsString(data.percentage)})';
             } else if (data.instrumentType == InstrumentType.other) {

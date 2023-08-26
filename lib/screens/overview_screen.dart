@@ -58,10 +58,6 @@ class OverviewScreenState extends State<OverviewScreen>
     }
   }
 
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {

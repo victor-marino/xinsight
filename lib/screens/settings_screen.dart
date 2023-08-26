@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:indexax/models/theme_preference_data.dart';
 import 'package:indexax/screens/about_screen.dart';
+import 'package:indexax/screens/github_screen.dart';
 import 'package:indexax/tools/theme_operations.dart' as theme_operations;
 import 'package:indexax/widgets/settings_screen/logout_popup.dart';
 import 'package:indexax/widgets/settings_screen/theme_modal_bottom_sheet.dart';
@@ -43,13 +44,15 @@ class SettingsScreenState extends State<SettingsScreen> {
     if (storedThemePreference == null ||
         storedThemePreference == ThemePreference.system) {
       setState(() {
-        _currentThemePreferenceText = ("settings_screen.${ThemePreference.system.toString().split(".").last}")
-            .tr();
+        _currentThemePreferenceText =
+            ("settings_screen.${ThemePreference.system.toString().split(".").last}")
+                .tr();
       });
     } else {
       setState(() {
-        _currentThemePreferenceText = ("settings_screen.${storedThemePreference.toString().split(".").last}")
-            .tr();
+        _currentThemePreferenceText =
+            ("settings_screen.${storedThemePreference.toString().split(".").last}")
+                .tr();
       });
     }
   }
@@ -63,12 +66,9 @@ class SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     // Update the text showing the current system theme
-    _currentSystemThemeText = ("settings_screen.${theme_operations
-                .getCurrentSystemTheme(context)
-                .toString()
-                .split(".")
-                .last}")
-        .tr();
+    _currentSystemThemeText =
+        ("settings_screen.${theme_operations.getCurrentSystemTheme(context).toString().split(".").last}")
+            .tr();
 
     return Scaffold(
       appBar: AppBar(
@@ -127,7 +127,19 @@ class SettingsScreenState extends State<SettingsScreen> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (BuildContext context) => const AboutScreen()));
+                            builder: (BuildContext context) =>
+                                const AboutScreen()));
+                  },
+                ),
+                SettingsTile(
+                  title: Text('settings_screen.github'.tr()),
+                  trailing: const Icon(Icons.chevron_right_rounded),
+                  onPressed: (BuildContext context) {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                const GithubScreen()));
                   },
                 ),
                 SettingsTile(

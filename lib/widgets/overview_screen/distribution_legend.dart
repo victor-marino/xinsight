@@ -82,6 +82,34 @@ class DistributionChartLegend extends StatelessWidget {
         ),
       );
     }
+    if (portfolioDistribution.containsKey(InstrumentType.moneymarket) &&
+        portfolioDistribution[InstrumentType.moneymarket]![ValueType.amount] != 0) {
+      legendItems.add(
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Icon(
+              Icons.fiber_manual_record,
+              size: 12,
+              color: text_styles.moneyMarketColor,
+            ),
+            RichText(
+              text: TextSpan(
+                children: [
+                  TextSpan(
+                      text: 'distribution_legend.instrument_type_moneymarket'.tr(),
+                      style: primaryLegendTextStyle),
+                  TextSpan(
+                      text:
+                          " (${getPercentAsString(portfolioDistribution[InstrumentType.moneymarket]![ValueType.percentage])})",
+                      style: secondaryLegendTextStyle)
+                ],
+              ),
+            ),
+          ],
+        ),
+      );
+    }
     if (portfolioDistribution.containsKey(InstrumentType.other)) {
       legendItems.add(
         Row(

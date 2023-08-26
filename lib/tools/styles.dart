@@ -100,5 +100,6 @@ List<Color> fixedColors = [
   Colors.indigo.shade100,
   Colors.indigo.shade50
 ];
+Color moneyMarketColor = Colors.teal.shade800;
 Color cashColor = Colors.grey;
 Color otherColor = Colors.black12;

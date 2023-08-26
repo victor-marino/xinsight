@@ -19,6 +19,7 @@ class PortfolioDataPoint {
 enum InstrumentType {
   fixed,
   equity,
+  moneymarket,
   cash,
   other,
 }

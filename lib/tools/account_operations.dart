@@ -12,6 +12,19 @@ import 'package:easy_localization/easy_localization.dart';
 // and create the final data structures stored in the Account class, to be used
 // throughout the app.
 
+// Option to add fake emergency fund for testing purposes.
+// To use it, set to true and fill out the fund details.
+// Do NOT use if the real account already has an emergency fund.
+bool addTestEmergencyFund = false;
+double testEmergencyFundAmount = 1200.055863;
+double testEmergencyFundCostAmount = 1000;
+double testEmergencyFundTitles = 205.31;
+String testEmergencyFundName = "BlackRock ICS Euro Liquidity";
+String testEmergencyFundISIN = "IE00B44QSK78";
+String testEmergencyFundCompany = "";
+String testEmergencyFundDescription =
+    "Es un fondo monetario de 1 día de horizonte temporal cuyo objetivo es la conservación de capital invirtiendo en activos de alta liquidez, de corto plazo y de bajo riesgo y obtener una rentabilidad acorde con los tipos del mercado monetario (€STR index).";
+
 List<AmountsDataPoint> createAmountsSeries(netAmountsList, totalAmountsList) {
   // Creates a time series with the value of the portfolio overtime
   List<AmountsDataPoint> newAmountSeries = [];
@@ -43,19 +56,21 @@ List<PortfolioDataPoint> createPortfolioData(portfolio, instruments) {
   List<PortfolioDataPoint> newPortfolioData = [];
   for (var instrument in instruments) {
     InstrumentType currentInstrumentType;
+    if (instrument['instrument']['asset_class'].contains('equity')) {
+      currentInstrumentType = InstrumentType.equity;
+    } else if (instrument['instrument']['asset_class'].contains('fixed')) {
+      currentInstrumentType = InstrumentType.fixed;
+    } else if (instrument['instrument']['asset_class'].contains('cash_euro')) {
+      currentInstrumentType = InstrumentType.moneymarket;
+    } else {
+      currentInstrumentType = InstrumentType.other;
+    }
+
     double? currentInstrumentPercentage =
         instrument['amount'].toDouble() / portfolio['total_amount'].toDouble();
     double? currentInstrumentProfitLoss =
         instrument['amount'].toDouble() - instrument['cost_amount'].toDouble();
     String? currentInstrumentDescription;
-
-    if (instrument['instrument']['asset_class'].contains('equity')) {
-      currentInstrumentType = InstrumentType.equity;
-    } else if (instrument['instrument']['asset_class'].contains('fixed')) {
-      currentInstrumentType = InstrumentType.fixed;
-    } else {
-      currentInstrumentType = InstrumentType.other;
-    }
 
     // Filter out hyperlinks from descriptions
     if (instrument['instrument']['description'] == "" ||
@@ -94,7 +109,28 @@ List<PortfolioDataPoint> createPortfolioData(portfolio, instruments) {
           percentage: currentInstrumentPercentage!.toDouble());
 
       newPortfolioData.add(newPoint);
+
     }
+
+  }
+
+  if (addTestEmergencyFund) {
+    // Add test money market fund for testing purposes
+    PortfolioDataPoint newPoint = PortfolioDataPoint(
+        instrumentType: InstrumentType.moneymarket,
+        instrumentName: testEmergencyFundName,
+        instrumentCodeType: "ISIN",
+        instrumentCode: testEmergencyFundISIN,
+        instrumentCompany: testEmergencyFundCompany,
+        instrumentDescription: testEmergencyFundDescription,
+        titles: testEmergencyFundTitles,
+        amount: testEmergencyFundAmount,
+        cost: testEmergencyFundCostAmount,
+        profitLoss: testEmergencyFundAmount - testEmergencyFundCostAmount,
+        percentage:
+            testEmergencyFundAmount / portfolio['total_amount'].toDouble());
+
+    newPortfolioData.add(newPoint);
   }
 
   newPortfolioData.add(PortfolioDataPoint(
@@ -106,6 +142,7 @@ List<PortfolioDataPoint> createPortfolioData(portfolio, instruments) {
           portfolio['total_amount'].toDouble()));
 
   newPortfolioData.sort(compareInstruments);
+
   return (newPortfolioData);
 }
 
@@ -126,13 +163,31 @@ Map<InstrumentType, Map<ValueType, double>> createPortfolioDistribution(
     portfolioDistribution[InstrumentType.fixed]![ValueType.percentage] = 0;
     portfolioDistribution[InstrumentType.fixed]![ValueType.amount] = 0;
   }
+  if (instruments.any((element) =>
+      element['instrument']['asset_class'].toString().contains('cash_euro'))) {
+    portfolioDistribution[InstrumentType.moneymarket] = {};
+    portfolioDistribution[InstrumentType.moneymarket]![ValueType.percentage] =
+        0;
+    portfolioDistribution[InstrumentType.moneymarket]![ValueType.amount] = 0;
+  }
   if (instruments.any((element) => (!(element['instrument']['asset_class']
           .toString()
           .contains('equity')) &&
-      !(element['instrument']['asset_class'].toString().contains('fixed'))))) {
+      !(element['instrument']['asset_class'].toString().contains('fixed')) &&
+      !(element['instrument']['asset_class']
+          .toString()
+          .contains('cash_euro'))))) {
     portfolioDistribution[InstrumentType.other] = {};
     portfolioDistribution[InstrumentType.other]![ValueType.amount] = 0;
     portfolioDistribution[InstrumentType.other]![ValueType.percentage] = 0;
+  }
+
+  if (addTestEmergencyFund) {
+    // Add fake money market category for testing
+    portfolioDistribution[InstrumentType.moneymarket] = {};
+    portfolioDistribution[InstrumentType.moneymarket]![ValueType.amount] = 0;
+    portfolioDistribution[InstrumentType.moneymarket]![ValueType.percentage] =
+        0;
   }
 
   portfolioDistribution[InstrumentType.cash] = {};
@@ -158,6 +213,15 @@ Map<InstrumentType, Map<ValueType, double>> createPortfolioDistribution(
       portfolioDistribution[InstrumentType.fixed]![ValueType.percentage] =
           portfolioDistribution[InstrumentType.fixed]![ValueType.percentage]! +
               currentInstrumentPercentage!;
+    } else if (instrument['instrument']['asset_class'].contains('cash_euro')) {
+      portfolioDistribution[InstrumentType.moneymarket]![ValueType.amount] =
+          portfolioDistribution[InstrumentType.moneymarket]![
+                  ValueType.amount]! +
+              currentInstrumentAmount!;
+      portfolioDistribution[InstrumentType.moneymarket]![ValueType.percentage] =
+          portfolioDistribution[InstrumentType.moneymarket]![
+                  ValueType.percentage]! +
+              currentInstrumentPercentage!;
     } else {
       portfolioDistribution[InstrumentType.other]![ValueType.amount] =
           portfolioDistribution[InstrumentType.other]![ValueType.amount]! +
@@ -167,6 +231,18 @@ Map<InstrumentType, Map<ValueType, double>> createPortfolioDistribution(
               currentInstrumentPercentage!;
     }
   }
+
+  if (addTestEmergencyFund) {
+    // Add fake money market fund for testing
+    portfolioDistribution[InstrumentType.moneymarket]![ValueType.amount] =
+        portfolioDistribution[InstrumentType.moneymarket]![ValueType.amount]! +
+            testEmergencyFundAmount;
+    portfolioDistribution[InstrumentType.moneymarket]![ValueType.percentage] =
+        portfolioDistribution[InstrumentType.moneymarket]![
+                ValueType.percentage]! +
+            testEmergencyFundAmount / portfolio['total_amount'];
+  }
+
   portfolioDistribution[InstrumentType.cash]![ValueType.amount] =
       portfolioDistribution[InstrumentType.cash]![ValueType.amount]! +
           portfolio['cash_amount'];

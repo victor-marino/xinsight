@@ -47,10 +47,6 @@ class TransactionsScreenState extends State<TransactionsScreen>
     }
   }
 
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {

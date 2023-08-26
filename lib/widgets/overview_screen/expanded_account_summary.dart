@@ -309,9 +309,9 @@ class ExpandedAccountSummary extends StatelessWidget {
             ),
           ),
         ),
-        Row(
+        const Row(
           mainAxisAlignment: MainAxisAlignment.end,
-          children: const [
+          children: [
             Icon(Icons.keyboard_arrow_up_rounded, color: Colors.blue),
           ],
         ),

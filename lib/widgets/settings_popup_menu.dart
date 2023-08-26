@@ -161,9 +161,9 @@ class SettingsPopupMenu extends StatelessWidget {
       itemBuilder: (context) {
         return itemList;
       },
-      child: Row(
+      child: const Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: const [
+        children: [
           Icon(Icons.settings, color: Colors.blue),
           Icon(Icons.arrow_drop_down_rounded, color: Colors.blue)
         ],

@@ -52,10 +52,6 @@ class ProjectionScreenState extends State<ProjectionScreen>
     }
   }
 
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {

@@ -10,7 +10,8 @@ import 'package:indexax/tools/styles.dart' as text_styles;
 // Grouped by asset type:
 // 1. Equity
 // 2. Fixed
-// 3. Others
+// 3. Emergency fund (money market)
+// 4. Others
 // Instruments within each asset class are sorted by amount
 
 class AssetList extends StatelessWidget {
@@ -27,13 +28,15 @@ class AssetList extends StatelessWidget {
   Widget build(BuildContext context) {
     TextStyle listDividerTextStyle = text_styles.roboto(context, 15);
     TextStyle cashAmountTextStyle = text_styles.ubuntuBold(context, 16);
-    
+
     List<Widget> equityInstruments = [];
     List<Widget> fixedInstruments = [];
+    List<Widget> moneyMarketInstruments = [];
     List<Widget> cashInstruments = [];
     List<Widget> otherInstruments = [];
     double equityPercentage = 0;
     double fixedPercentage = 0;
+    double moneyMarketPercentage = 0;
     double cashAmount = 0;
     double cashPercentage = 0;
 
@@ -58,6 +61,19 @@ class AssetList extends StatelessWidget {
             }
             fixedPercentage += assetData.percentage;
             fixedInstruments.add(AssetTile(
+              assetData: assetData,
+              landscapeOrientation: landscapeOrientation,
+            ));
+          }
+          break;
+
+        case InstrumentType.moneymarket:
+          {
+            if (moneyMarketInstruments.isNotEmpty) {
+              moneyMarketInstruments.add(const Divider(height: 0));
+            }
+            moneyMarketPercentage += assetData.percentage;
+            moneyMarketInstruments.add(AssetTile(
               assetData: assetData,
               landscapeOrientation: landscapeOrientation,
             ));
@@ -154,6 +170,42 @@ class AssetList extends StatelessWidget {
           paddingLeft: 15,
           paddingRight: 15,
         ),
+        if (moneyMarketInstruments.isNotEmpty) ...[
+          const SizedBox(height: 20),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 5),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 5),
+                  child: Text('portfolio_screen.moneymarket'.tr(),
+                      style: listDividerTextStyle),
+                ),
+                Expanded(
+                    child: Divider(
+                        color: Theme.of(context).colorScheme.onBackground)),
+                Padding(
+                  padding: const EdgeInsets.only(left: 5),
+                  child: Text(
+                    getPercentAsString(moneyMarketPercentage),
+                    style: listDividerTextStyle,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          ReusableCard(
+            childWidget:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Column(children: moneyMarketInstruments),
+            ]),
+            paddingTop: 0,
+            paddingBottom: 0,
+            paddingLeft: 15,
+            paddingRight: 15,
+          ),
+        ],
         if (cashAmount != 0) ...[
           const SizedBox(height: 20),
           Padding(

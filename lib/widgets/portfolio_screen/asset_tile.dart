@@ -64,9 +64,9 @@ class AssetTile extends StatelessWidget {
                 padding: const EdgeInsets.only(right: 40.0),
                 child: expandedBody,
               ),
-              Row(
+              const Row(
                 mainAxisAlignment: MainAxisAlignment.end,
-                children: const [
+                children: [
                   Icon(Icons.keyboard_arrow_up_rounded, color: Colors.blue),
                 ],
               ),
