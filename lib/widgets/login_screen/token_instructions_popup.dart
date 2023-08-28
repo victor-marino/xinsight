@@ -15,8 +15,11 @@ class TokenInstructionsPopup extends StatelessWidget {
   Widget build(BuildContext context) {
     TextStyle instructionsTextStyle = text_styles.robotoLighter(context, 16);
 
-    final Uri userAreaUrl =
-        Uri(scheme: 'https', host: 'indexacapital.com', path: 'es/u/user');
+    final Uri userSettingsUrl = Uri(
+        scheme: 'https',
+        host: 'indexacapital.com',
+        path: 'es/u/user',
+        fragment: 'settings-apps');
 
     return AlertDialog(
       backgroundColor: Theme.of(context).colorScheme.background,
@@ -57,7 +60,7 @@ class TokenInstructionsPopup extends StatelessWidget {
                             text: 'login_screen.user_configuration'.tr(),
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
-                                launchUrl(userAreaUrl);
+                                launchUrl(userSettingsUrl);
                               },
                             style: const TextStyle(
                               color: Colors.blue,

@@ -29,9 +29,11 @@ class SettingsPopupMenu extends StatelessWidget {
     List<PopupMenuEntry> itemList = [];
     double itemHeight = 50;
     TextStyle accountsHeaderTextStyle = text_styles.robotoLighter(context, 14);
-    TextStyle currentAccountNumberTextStyle = text_styles.robotoBoldLighter(context, 16);
+    TextStyle currentAccountNumberTextStyle =
+        text_styles.robotoBoldLighter(context, 16);
     TextStyle otherAccountNumberTextStyle = text_styles.robotoBold(context, 16);
-    TextStyle currentAccountTypeTextStyle = text_styles.robotoLighter(context, 14);
+    TextStyle currentAccountTypeTextStyle =
+        text_styles.robotoLighter(context, 14);
     TextStyle otherAccountTypeTextStyle = text_styles.roboto(context, 14);
 
     itemList.add(
@@ -77,8 +79,8 @@ class SettingsPopupMenu extends StatelessWidget {
                           border: Border.all(
                             color: Colors.blue,
                           ),
-                          borderRadius:
-                              const BorderRadius.horizontal(left: Radius.circular(4)),
+                          borderRadius: const BorderRadius.horizontal(
+                              left: Radius.circular(4)),
                           color: Colors.blue))
                   : null,
             ),
@@ -102,7 +104,7 @@ class SettingsPopupMenu extends StatelessWidget {
     itemList.add(const PopupMenuDivider());
     itemList.add(PopupMenuItem(
       height: itemHeight,
-      value: "options",
+      value: "settings",
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -141,7 +143,7 @@ class SettingsPopupMenu extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(10))),
       onSelected: (dynamic value) {
         switch (value) {
-          case "options":
+          case "settings":
             Navigator.push(
                 context,
                 MaterialPageRoute(

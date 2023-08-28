@@ -15,12 +15,9 @@ class AboutScreenState extends State<AboutScreen> {
   bool _landscapeOrientation = false;
   late double _availableWidth;
   late double _availableHeight;
-  final Uri _indexaApiUrl =
-      Uri(scheme: 'https', host: 'indexacapital.com', path: 'en/api-rest-v1');
-  final Uri _flutterSecureStorageUrl = Uri(
-      scheme: 'https',
-      host: 'pub.dev',
-      path: 'packages/flutter_secure_storage');
+  final Uri _githubRepository =
+      Uri(scheme: 'https', host: 'github.com', path: '/victor-marino/indexax');
+  final Uri _flutterURL = Uri(scheme: 'https', host: 'flutter.dev');
 
   @override
   Widget build(BuildContext context) {
@@ -29,9 +26,11 @@ class AboutScreenState extends State<AboutScreen> {
     _availableHeight = MediaQuery.of(context).size.height;
 
     TextStyle contentTextStyle = text_styles.roboto(context, 16);
-    
+
     if (_availableHeight <= _availableWidth) {
       _landscapeOrientation = true;
+    } else {
+      _landscapeOrientation = false;
     }
 
     return Scaffold(
@@ -41,108 +40,133 @@ class AboutScreenState extends State<AboutScreen> {
       ),
       extendBodyBehindAppBar: true,
       body: SafeArea(
-          child: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Center(
-            child: SizedBox(
-              // Make content narrower in large landscape screens
-              width: _landscapeOrientation && _availableWidth > 1000
-                  ? _availableWidth * 0.5
-                  : null,
-              child: Column(
-                children: [
-                  Text.rich(
-                    TextSpan(children: [
-                      TextSpan(
-                        text: 'about_screen.text1'.tr(),
-                        style: contentTextStyle.copyWith(
-                            color: Theme.of(context).colorScheme.onSurface),
-                      ),
-                      TextSpan(
-                        text: 'about_screen.text2'.tr(),
-                        style: contentTextStyle.copyWith(
-                            color: Theme.of(context).colorScheme.onSurface),
-                      ),
-                      TextSpan(
-                        text: 'about_screen.text3'.tr(),
-                        recognizer: TapGestureRecognizer()
-                          ..onTap = () {
-                            launchUrl(_indexaApiUrl);
-                          },
-                        style:
-                            contentTextStyle.copyWith(color: Colors.blue),
-                      ),
-                      TextSpan(
-                        text: 'about_screen.text4'.tr(),
-                        style: contentTextStyle.copyWith(
-                            color: Theme.of(context).colorScheme.onSurface),
-                      ),
-                      TextSpan(
-                        text: 'about_screen.text5'.tr(),
-                        style: contentTextStyle.copyWith(
-                            color: Theme.of(context).colorScheme.onSurface),
-                      ),
-                      TextSpan(
-                        text: "flutter_secure_storage",
-                        style:
-                            contentTextStyle.copyWith(color: Colors.blue),
-                        recognizer: TapGestureRecognizer()
-                          ..onTap = () {
-                            launchUrl(_flutterSecureStorageUrl);
-                          },
-                      ),
-                      TextSpan(
-                        text: 'about_screen.text6'.tr(),
-                        style: contentTextStyle.copyWith(
-                            color: Theme.of(context).colorScheme.onSurface),
-                      ),
-                      TextSpan(
-                        text: 'about_screen.text7'.tr(),
-                        style: contentTextStyle.copyWith(
-                            color: Theme.of(context).colorScheme.onSurface),
-                      ),
-                    ]),
-                  ),
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(top: 30, left: 10, right: 10),
-                    child: SizedBox(
-                      // Make logo smaller in landscape mode
-                      width: _landscapeOrientation
-                          ? _availableWidth * 0.5
-                          : double.infinity,
-                      child: Center(
-                        child: Column(
-                          children: [
-                            Container(
-                              alignment: Alignment.center,
-                              child: Image.asset(
-                                  'assets/images/indexax_logo_wide.png'),
+          child: Column(
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Center(
+                  child: SizedBox(
+                    // Make content narrower in large landscape screens
+                    width: _landscapeOrientation && _availableWidth > 1000
+                        ? _availableWidth * 0.5
+                        : null,
+                    child: Column(
+                      children: [
+                        Text.rich(
+                          TextSpan(children: [
+                            TextSpan(
+                              text: 'about_screen.text1'.tr(),
+                              style: contentTextStyle.copyWith(
+                                  color:
+                                      Theme.of(context).colorScheme.onSurface),
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "${'about_screen.for'.tr()} Indexa Capital",
-                                  style: TextStyle(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .onSurfaceVariant),
-                                ),
-                              ],
-                            )
-                          ],
+                            TextSpan(
+                              text: 'about_screen.text2'.tr(),
+                              style:
+                                  contentTextStyle.copyWith(color: Colors.blue),
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {
+                                  launchUrl(_flutterURL);
+                                },
+                            ),
+                            TextSpan(
+                              text: 'about_screen.text3'.tr(),
+                              style: contentTextStyle.copyWith(
+                                  color:
+                                      Theme.of(context).colorScheme.onSurface),
+                            ),
+                            TextSpan(
+                              text: '\n\n',
+                              style: contentTextStyle.copyWith(
+                                  color:
+                                      Theme.of(context).colorScheme.onSurface),
+                            ),
+                            TextSpan(
+                              text: 'about_screen.text4'.tr(),
+                              style: contentTextStyle.copyWith(
+                                  color:
+                                      Theme.of(context).colorScheme.onSurface),
+                            ),
+                            const TextSpan(text: '\n'),
+                          ]),
                         ),
-                      ),
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                width: 20,
+                                height: 20,
+                                child: Image.asset(
+                                    'assets/images/github_mark.png'),
+                              ),
+                              const SizedBox(width: 5),
+                              Text.rich(
+                                TextSpan(
+                                  text:
+                                      "https://github.com/victor-marino/indexax",
+                                  style: contentTextStyle.copyWith(
+                                      color: Colors.blue),
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap = () {
+                                      launchUrl(_githubRepository);
+                                    },
+                                ),
+                              ),
+                            ]),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              top: 30, left: 10, right: 10),
+                          child: SizedBox(
+                            // Make logo smaller in landscape mode
+                            width: _landscapeOrientation
+                                ? _availableWidth * 0.5
+                                : double.infinity,
+                            child: Center(
+                              child: Column(
+                                children: [
+                                  Container(
+                                    alignment: Alignment.center,
+                                    child: Image.asset(
+                                        'assets/images/indexax_logo_wide.png'),
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        "${'about_screen.for'.tr()} Indexa Capital",
+                                        style: TextStyle(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .onSurfaceVariant),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                ],
+                ),
               ),
             ),
           ),
-        ),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Text(
+              'about_screen.text5'.tr(),
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  color: Theme.of(context).colorScheme.onSurfaceVariant),
+            ),
+          ),
+        ],
       )),
     );
   }

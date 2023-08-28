@@ -1,13 +1,15 @@
 import 'package:flutter/foundation.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'dart:io' show Platform;
 import 'package:indexax/models/theme_preference_data.dart';
 import 'package:indexax/screens/about_screen.dart';
-import 'package:indexax/screens/github_screen.dart';
+import 'package:indexax/screens/privacy_screen.dart';
 import 'package:indexax/tools/theme_operations.dart' as theme_operations;
 import 'package:indexax/widgets/settings_screen/logout_popup.dart';
 import 'package:indexax/widgets/settings_screen/theme_modal_bottom_sheet.dart';
 import 'package:settings_ui/settings_ui.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -19,6 +21,8 @@ class SettingsScreen extends StatefulWidget {
 class SettingsScreenState extends State<SettingsScreen> {
   String _currentThemePreferenceText = "";
   String _currentSystemThemeText = "";
+  String _currentAppVersion = "";
+  String _currentBuildNumber = "";
 
   Future<ThemePreference?> findCurrentThemePreference() async {
     // Check if we already have a theme preference stored in the device.
@@ -57,10 +61,20 @@ class SettingsScreenState extends State<SettingsScreen> {
     }
   }
 
+  void _getAppVersion() async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+
+    setState(() {
+      _currentAppVersion = packageInfo.version;
+      _currentBuildNumber = packageInfo.buildNumber;
+    });
+  }
+
   @override
   void initState() {
     super.initState();
     updateCurrentThemePreferenceText();
+    _getAppVersion();
   }
 
   @override
@@ -82,9 +96,13 @@ class SettingsScreenState extends State<SettingsScreen> {
               settingsListBackground: Theme.of(context).colorScheme.background),
           sections: [
             SettingsSection(
+              title: Text('settings_screen.preferences'.tr()),
               tiles: [
                 SettingsTile(
                   title: Text('settings_screen.theme'.tr()),
+                  leading: const Icon(
+                    Icons.format_paint_rounded,
+                  ),
                   trailing: Row(
                     children: [
                       Text(
@@ -120,8 +138,26 @@ class SettingsScreenState extends State<SettingsScreen> {
                     );
                   },
                 ),
+              ],
+            ),
+            SettingsSection(
+              title: Text('settings_screen.information'.tr()),
+              tiles: [
+                SettingsTile(
+                  title: Text('settings_screen.privacy'.tr()),
+                  leading: const Icon(Icons.security_rounded),
+                  trailing: const Icon(Icons.chevron_right_rounded),
+                  onPressed: (BuildContext context) {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                const PrivacyScreen()));
+                  },
+                ),
                 SettingsTile(
                   title: Text('settings_screen.about'.tr()),
+                  leading: const Icon(Icons.info),
                   trailing: const Icon(Icons.chevron_right_rounded),
                   onPressed: (BuildContext context) {
                     Navigator.push(
@@ -131,17 +167,11 @@ class SettingsScreenState extends State<SettingsScreen> {
                                 const AboutScreen()));
                   },
                 ),
-                SettingsTile(
-                  title: Text('settings_screen.github'.tr()),
-                  trailing: const Icon(Icons.chevron_right_rounded),
-                  onPressed: (BuildContext context) {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (BuildContext context) =>
-                                const GithubScreen()));
-                  },
-                ),
+              ],
+            ),
+            SettingsSection(
+              title: Platform.isIOS ? null : const Text(" "),
+              tiles: [
                 SettingsTile(
                   title: Text('settings_screen.logout'.tr()),
                   trailing: Icon(Icons.logout, color: Colors.red.shade900),
@@ -153,6 +183,19 @@ class SettingsScreenState extends State<SettingsScreen> {
                 ),
               ],
             ),
+            SettingsSection(
+              margin: const EdgeInsetsDirectional.fromSTEB(20, 0, 20, 20),
+              tiles: [
+                CustomSettingsTile(
+                  child: Text(
+                    "v$_currentAppVersion ($_currentBuildNumber)",
+                    style: TextStyle(
+                        color: Theme.of(context).colorScheme.onSurfaceVariant),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ],
+            )
           ],
         ),
       ),
