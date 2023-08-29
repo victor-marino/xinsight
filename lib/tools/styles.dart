@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-// These functions can be called from anywhere in the app to pick a text style.
-// Fontsize is passed as an argument to avoid creating too many text styles.
-// By passing the BuildContext as an argument, the function can also return
-// the correct onSurface/onSurfaceVariant color based on the active theme.
+/* These functions can be called from anywhere in the app to pick a text style.
+Fontsize is passed as an argument to avoid creating too many text styles.
+By passing the BuildContext as an argument, the function also returns
+the correct onSurface/onSurfaceVariant color based on the active theme. */
 TextStyle oxygenBold(BuildContext context, double size) {
   return GoogleFonts.oxygen(
       textStyle: TextStyle(

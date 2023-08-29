@@ -1,12 +1,12 @@
 import 'package:intl/intl.dart' show NumberFormat;
 import 'package:intl/number_symbols_data.dart' show numberFormatSymbols;
-import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 
 // All operations regarding number and string formatting are grouped here
 
 String getCurrentLocale() {
-  final locale = ui.window.locale;
+  final locale = WidgetsBinding.instance.platformDispatcher.locale;
+  
   final joined = "${locale.languageCode}_${locale.countryCode}";
   if (numberFormatSymbols.keys.contains(joined)) {
     return joined;

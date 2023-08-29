@@ -8,12 +8,12 @@ const indexaURL = 'https://api.indexacapital.com';
 class IndexaData {
   // Class that fetches account data from API endpoint
 
-  // If you want to test support for multiple accounts, set 'addTestAccounts' to
-  // true and enter a real account number in the 'testAccountNumber' variable.
-  // This will load the same account data every time.
-
+  /* If you want to test support for multiple accounts, set 'addTestAccounts' to
+  true and enter a real account number in the 'testAccountNumber' variable.
+  This will load the same account data every time. */
   final bool addTestAccounts = false;
   final String testAccountNumber = "";
+  /* End of test account parameters */
 
   final String token;
 
@@ -34,10 +34,10 @@ class IndexaData {
             });
           }
         }
-        // If 'addTestAccounts' has been set, we add the fake accounts here.
-        // You can add as many as you want. Just make sure their names contain
-        // the string "Test", and that you enter a valid account type ('mutual',
-        // 'pension', 'epsv' or 'employment_plan').
+        /* If 'addTestAccounts' has been set, we add the fake accounts here.
+        You can add as many as you want. Just make sure their names contain
+        the string "Test", and that you enter a valid account type ('mutual',
+        'pension', 'epsv' or 'employment_plan'). */
         if (addTestAccounts) {
           userAccounts.add({"number": "Test1", "type": "pension"});
           userAccounts.add({"number": "Test2", "type": "employment_plan"});
@@ -87,10 +87,10 @@ class IndexaData {
         return accountPerformanceData;
       } else if (accountPerformanceData != null &&
           accountNumber.contains("Test")) {
-        // We use fake, time-bound numbers as balance for the test accounts.
-        // This can be useful to check if reload/refresh functions are actually
-        // reloading the data when triggered (e.g.: pulling down to refresh),
-        // as the values keep changing every second.
+        /* We use fake, time-bound numbers as balance for the test accounts.
+        This can be useful to check if reload/refresh functions are actually
+        reloading the data when triggered (e.g.: pulling down to refresh),
+        as the values keep changing every second. */
         accountPerformanceData['return']['total_amount'] =
             DateTime.now().second;
         accountPerformanceData['return']['investment'] = 1000.00;

@@ -18,7 +18,6 @@ class DistributionChart extends StatelessWidget {
   Widget build(BuildContext context) {
     int equityCount = 0;
     int fixedCount = 0;
-    int moneyMarketCount = 0;
     List<Color> colorList = [];
     TextStyle tooltipTextStyle = text_styles.roboto(context, 12);
 
