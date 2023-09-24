@@ -1,7 +1,10 @@
 import 'package:flutter/foundation.dart';
+import "package:flutter/services.dart";
 import "package:indexax/tools/networking.dart";
 import "package:indexax/models/account.dart";
 import "package:flutter/material.dart";
+
+import 'dart:convert';
 
 const indexaURL = 'https://api.indexacapital.com';
 
@@ -19,12 +22,20 @@ class IndexaData {
 
   IndexaData({required this.token});
 
+  Future getLocalAccounts() async {
+    final String response =
+        await rootBundle.loadString('assets/test_json/me_vacio.json');
+    final data = await json.decode(response);
+    return data;
+  }
+
   Future<dynamic> getUserAccounts() async {
     String url = '$indexaURL/users/me';
     List<Map<String, String>> userAccounts = [];
     NetworkHelper networkHelper = NetworkHelper(url, token);
     try {
-      var userData = await networkHelper.getData();
+      // var userData = await networkHelper.getData();
+      var userData = await getLocalAccounts();
       if (userData != null) {
         for (var account in userData['accounts']) {
           if (account['status'].toString() == "active") {
@@ -53,6 +64,13 @@ class IndexaData {
     }
   }
 
+  Future getLocalAccountInfo() async {
+    final String response = await rootBundle
+        .loadString('assets/test_json/account_info_vacio.json');
+    final data = await json.decode(response);
+    return data;
+  }
+
   Future<dynamic> getAccountInfo({required String accountNumber}) async {
     String url;
     if (addTestAccounts) {
@@ -62,7 +80,8 @@ class IndexaData {
     }
     NetworkHelper networkHelper = NetworkHelper(url, token);
     try {
-      var accountInfo = await networkHelper.getData();
+      // var accountInfo = await networkHelper.getData();
+      var accountInfo = await getLocalAccountInfo();
       return accountInfo;
     } on Exception catch (e) {
       if (kDebugMode) {
@@ -70,6 +89,13 @@ class IndexaData {
       }
       rethrow;
     }
+  }
+
+  Future getLocalPerformanceData() async {
+    final String response = await rootBundle
+        .loadString('assets/test_json/performance_cuenta_sin_inversiones.json');
+    final data = await json.decode(response);
+    return data;
   }
 
   Future<dynamic> getAccountPerformanceData(
@@ -82,7 +108,8 @@ class IndexaData {
     }
     NetworkHelper networkHelper = NetworkHelper(url, token);
     try {
-      var accountPerformanceData = await networkHelper.getData();
+      //var accountPerformanceData = await networkHelper.getData();
+      var accountPerformanceData = await getLocalPerformanceData();
       if (accountPerformanceData != null && !accountNumber.contains("Test")) {
         return accountPerformanceData;
       } else if (accountPerformanceData != null &&
@@ -104,6 +131,13 @@ class IndexaData {
     }
   }
 
+  Future getLocalPortfolioData() async {
+    final String response = await rootBundle
+        .loadString('assets/test_json/portfolio_cuenta_sin_inversiones.json');
+    final data = await json.decode(response);
+    return data;
+  }
+
   Future<dynamic> getAccountPortfolioData(
       {required String accountNumber}) async {
     String url;
@@ -114,7 +148,9 @@ class IndexaData {
     }
     NetworkHelper networkHelper = NetworkHelper(url, token);
     try {
-      var accountPortfolioData = await networkHelper.getData();
+      // var accountPortfolioData = await networkHelper.getData();
+      var accountPortfolioData = await getLocalPortfolioData();
+
       if (accountPortfolioData != null) {
         return accountPortfolioData;
       }
@@ -124,6 +160,13 @@ class IndexaData {
       }
       rethrow;
     }
+  }
+
+  Future getLocalInstrumentTransactions() async {
+    final String response = await rootBundle
+        .loadString('assets/test_json/instrument_transactions_vacio.json');
+    final data = await json.decode(response);
+    return data;
   }
 
   Future<dynamic> getAccountInstrumentTransactionData(
@@ -136,7 +179,8 @@ class IndexaData {
     }
     NetworkHelper networkHelper = NetworkHelper(url, token);
     try {
-      var accountInstrumentTransactionData = await networkHelper.getData();
+      //var accountInstrumentTransactionData = await networkHelper.getData();
+      var accountInstrumentTransactionData = await getLocalInstrumentTransactions();
       if (accountInstrumentTransactionData != null) {
         return accountInstrumentTransactionData;
       }
@@ -146,6 +190,13 @@ class IndexaData {
       }
       rethrow;
     }
+  }
+
+  Future getLocalCashTransactions() async {
+    final String response = await rootBundle
+        .loadString('assets/test_json/cash_transactions_vacio.json');
+    final data = await json.decode(response);
+    return data;
   }
 
   Future<dynamic> getAccountCashTransactionData(
@@ -158,7 +209,8 @@ class IndexaData {
     }
     NetworkHelper networkHelper = NetworkHelper(url, token);
     try {
-      var accountCashTransactionData = await networkHelper.getData();
+      // var accountCashTransactionData = await networkHelper.getData();
+      var accountCashTransactionData = await getLocalCashTransactions();
       if (accountCashTransactionData != null) {
         return accountCashTransactionData;
       }
