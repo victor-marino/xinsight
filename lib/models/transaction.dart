@@ -16,7 +16,22 @@ class Transaction {
   final double? price;
   final double amount;
   final String status;
+  final Uri? downloadLink;
 
-  Transaction({required this.date, this.valueDate, this.fiscalDate, required this.accountType, required this.operationCode, required this.operationType, required this.icon, this.instrumentCodeType, this.instrumentCode, this.instrumentName, this.titles, this.price, required this.amount, required this.status});
-
+  Transaction(
+      {required this.date,
+      this.valueDate,
+      this.fiscalDate,
+      required this.accountType,
+      required this.operationCode,
+      required this.operationType,
+      required this.icon,
+      this.instrumentCodeType,
+      this.instrumentCode,
+      this.instrumentName,
+      this.titles,
+      this.price,
+      required this.amount,
+      required this.status,
+      this.downloadLink});
 }
