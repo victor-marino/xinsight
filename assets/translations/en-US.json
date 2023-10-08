@@ -44,6 +44,7 @@
     "forget_token_popup_ok_button": "OK",
     "screen_lock_required": "An active screen lock must be enabled to store the token locally.",
     "invalid_token_format": "Invalid token format",
+    "no_active_accounts": "No active accounts found for this user",
     "default_error_message": "Couldn't load data"
   },
   "overview_screen": {

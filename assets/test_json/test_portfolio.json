@@ -1,0 +1,271 @@
+{
+    "extra": {
+        "additional_cash_needed_to_trade": 0
+    },
+    "portfolio": {
+        "account_id": 1,
+        "cash_amount": 10100,
+        "date": "2023-09-21",
+        "instruments_amount": 0,
+        "instruments_cost": 0,
+        "total_amount": 10100,
+        "inflows": 0,
+        "tax_outflows": 0,
+        "outflows": 0
+    },
+    "instrument_accounts": [
+        {
+            "amount": 0,
+            "date": "2023-09-21",
+            "positions": []
+        }
+    ],
+    "cash_accounts": [
+        {
+            "amount": 10100,
+            "date": "2023-09-21"
+        }
+    ],
+    "comparison": [
+        {
+            "amount": 0,
+            "amount_diff": 1706.698,
+            "instrument": {
+                "asset_class": "fixed_income_euro_government",
+                "asset_class_description": "fixed_income_euro_government",
+                "bloomberg_code": "IE0007472990 ISIN",
+                "description": "El objetivo del fondo es proporcionar retornos consistentes con el rendimiento del Barclays Capital Government Bond Index Euro-Aggregate. El Fondo emplea la gestión pasiva para realizar el seguimiento del rendimiento del índice. Código ISIN: <a href='http://www.morningstar.es/es/funds/snapshot/snapshot.aspx?id=F0GBR04SKM' rel='external nofollow'>IE0007472990 <i class='fa-regular fa-arrow-up-right-from-square i-space--left--small i-space--right--small'></i></a>. Clase Institucional. Coste anual de 0,12%",
+                "dgs_code": "",
+                "dgs_fund_code": "",
+                "epsv_fund_code": "",
+                "epsv_plan_code": "",
+                "identifier_name": "ISIN",
+                "identifier": "IE0007472990",
+                "isin_code": "IE0007472990",
+                "management_company_description": "Vanguard Asset Management",
+                "market_code": "FEX",
+                "name": "Vanguard Eur Gv Bnd Idx -Acc"
+            },
+            "weight_plan": 0.16898000000000002,
+            "weight_real": 0,
+            "weight_diff": 0.16898000000000002,
+            "position_type": "spot"
+        },
+        {
+            "amount": 0,
+            "amount_diff": 1706.698,
+            "instrument": {
+                "asset_class": "fixed_income_usd_government_hedged",
+                "asset_class_description": "fixed_income_usd_government_hedged",
+                "bloomberg_code": "IE0007471471 ISIN",
+                "description": "El objetivo del fondo es proporcionar retornos consistentes con el rendimiento del índice Bloomberg Barclays U.S. Government Float Adjusted Bond Index en EUR. El Fondo emplea la gestión pasiva para realizar el seguimiento del rendimiento del índice. Código ISIN: <a href='https://www.morningstar.es/es/funds/snapshot/snapshot.aspx?id=F0GBR052E1' rel='external nofollow'>IE0007471471 <i class='fa-regular fa-arrow-up-right-from-square i-space--left--small i-space--right--small'></i></a>. Clase general. Coste anual de 0,12%",
+                "dgs_code": "",
+                "dgs_fund_code": "",
+                "epsv_fund_code": "",
+                "epsv_plan_code": "",
+                "identifier_name": "ISIN",
+                "identifier": "IE0007471471",
+                "isin_code": "IE0007471471",
+                "management_company_description": "Vanguard Asset Management",
+                "market_code": "FEX",
+                "name": "Vanguard U.S. Gv Bnd Idx Eur Hdg -Acc"
+            },
+            "weight_plan": 0.16898000000000002,
+            "weight_real": 0,
+            "weight_diff": 0.16898000000000002,
+            "position_type": "spot"
+        },
+        {
+            "amount": 0,
+            "amount_diff": 1606.304,
+            "instrument": {
+                "asset_class": "equity_north_america",
+                "asset_class_description": "equity_north_america",
+                "bloomberg_code": "IE0032126645 ISIN",
+                "description": "Es un fondo abierto incorporado en Irlanda cuyo objetivo es hacer un seguimiento del índice Standard & Poor 's 500 Composite Stock Price Index. Por tanto, el fondo invertirá en acciones de grandes empresas estadounidenses. Código ISIN: <a href='http://www.morningstar.es/es/funds/snapshot/snapshot.aspx?id=F0GBR04UOL' rel='external nofollow'>IE0032126645 <i class='fa-regular fa-arrow-up-right-from-square i-space--left--small i-space--right--small'></i></a>. Clase Institucional. Coste anual de 0,1%",
+                "dgs_code": "",
+                "dgs_fund_code": "",
+                "epsv_fund_code": "",
+                "epsv_plan_code": "",
+                "identifier_name": "ISIN",
+                "identifier": "IE0032126645",
+                "isin_code": "IE0032126645",
+                "management_company_description": "Vanguard Asset Management",
+                "market_code": "FEX",
+                "name": "Vanguard US 500 Stk Idx Eur -Acc"
+            },
+            "weight_plan": 0.15904000000000001,
+            "weight_real": 0,
+            "weight_diff": 0.15904000000000001,
+            "position_type": "spot"
+        },
+        {
+            "amount": 0,
+            "amount_diff": 1204.728,
+            "instrument": {
+                "asset_class": "fixed_income_usd_corporates_hedged",
+                "asset_class_description": "fixed_income_usd_corporates_hedged",
+                "bloomberg_code": "IE00BL6VHD58 ISIN",
+                "description": "El objetivo del fondo es proporcionar retornos consistentes con el rendimiento del índice FTSE Euro Dollar Bond Index en Euros. El Fondo emplea la gestión pasiva para realizar el seguimiento del rendimiento del índice. Código ISIN: <a href='https://www.morningstar.es/es/funds/snapshot/snapshot.aspx?id=F000014M3Z' rel='external nofollow'>IE00BL6VHD58 <i class='fa-regular fa-arrow-up-right-from-square i-space--left--small i-space--right--small'></i></a>. Clase Institutional. Coste anual de 0,19%",
+                "dgs_code": "",
+                "dgs_fund_code": "",
+                "epsv_fund_code": "",
+                "epsv_plan_code": "",
+                "identifier_name": "ISIN",
+                "identifier": "IE00BL6VHD58",
+                "isin_code": "IE00BL6VHD58",
+                "management_company_description": "Ishares",
+                "market_code": "FEX",
+                "name": "iShares US Corporate Bnd Idx Eur Hdg -Ins Acc"
+            },
+            "weight_plan": 0.11928,
+            "weight_real": 0,
+            "weight_diff": 0.11928,
+            "position_type": "spot"
+        },
+        {
+            "amount": 0,
+            "amount_diff": 1204.728,
+            "instrument": {
+                "asset_class": "fixed_income_euro_corporates",
+                "asset_class_description": "fixed_income_euro_corporates",
+                "bloomberg_code": "IE00B04FFJ44 ISIN",
+                "description": "El objetivo de este fondo en la inversión en una cartera de gobiernos, agencias, bonos respaldados por hipotecas y bonos de renta fija corporativa coticen o se negocien en mercados reconocidos de la OCDE. Código ISIN: <a href='http://www.morningstar.es/es/funds/snapshot/snapshot.aspx?id=F0GBR04N8I' rel='external nofollow'>IE00B04FFJ44 <i class='fa-regular fa-arrow-up-right-from-square i-space--left--small i-space--right--small'></i></a>. Clase Institucional. Coste anual de 0,12%",
+                "dgs_code": "",
+                "dgs_fund_code": "",
+                "epsv_fund_code": "",
+                "epsv_plan_code": "",
+                "identifier_name": "ISIN",
+                "identifier": "IE00B04FFJ44",
+                "isin_code": "IE00B04FFJ44",
+                "management_company_description": "Vanguard Asset Management",
+                "market_code": "FEX",
+                "name": "Vanguard Euro Inv Gr Bnd Idx Eur -Acc"
+            },
+            "weight_plan": 0.11928,
+            "weight_real": 0,
+            "weight_diff": 0.11928,
+            "position_type": "spot"
+        },
+        {
+            "amount": 0,
+            "amount_diff": 903.5459999999999,
+            "instrument": {
+                "asset_class": "equity_europe",
+                "asset_class_description": "equity_europe",
+                "bloomberg_code": "IE0007987708 ISIN",
+                "description": "Es un fondo abierto incorporado en Irlanda cuyo objetivo es hacer un seguimiento del índice MSCI Europe. Por tanto, el fondo invertirá en acciones de grandes empresas europeas, suizas e inglesas. Código ISIN: <a href='http://www.morningstar.es/es/funds/snapshot/snapshot.aspx?id=F0GBR04SGM' rel='external nofollow'>IE0007987708 <i class='fa-regular fa-arrow-up-right-from-square i-space--left--small i-space--right--small'></i></a>. Clase Institucional. Coste anual de 0,12%",
+                "dgs_code": "",
+                "dgs_fund_code": "",
+                "epsv_fund_code": "",
+                "epsv_plan_code": "",
+                "identifier_name": "ISIN",
+                "identifier": "IE0007987708",
+                "isin_code": "IE0007987708",
+                "management_company_description": "Vanguard Asset Management",
+                "market_code": "FEX",
+                "name": "Vanguard European Stk Idx Eur -Acc"
+            },
+            "weight_plan": 0.08946,
+            "weight_real": 0,
+            "weight_diff": 0.08946,
+            "position_type": "spot"
+        },
+        {
+            "amount": 0,
+            "amount_diff": 602.364,
+            "instrument": {
+                "asset_class": "fixed_income_euro_inflation_linked",
+                "asset_class_description": "fixed_income_euro_inflation_linked",
+                "bloomberg_code": "IE00B04GQR24 ISIN",
+                "description": "El objetivo es proporcionar retornos consistentes con el rendimiento de el Inflation-Linked Barclays Eurozona Bond Index. El Fondo invierte en bonos ligados a la inflación, denominados en euros, contenidos en este índice. Código ISIN: <a href='http://www.morningstar.es/es/funds/snapshot/snapshot.aspx?id=F0GBR05WKI' rel='external nofollow'>IE00B04GQR24 <i class='fa-regular fa-arrow-up-right-from-square i-space--left--small i-space--right--small'></i></a>. Clase Institucional. Coste anual de 0,12%",
+                "dgs_code": "",
+                "dgs_fund_code": "",
+                "epsv_fund_code": "",
+                "epsv_plan_code": "",
+                "identifier_name": "ISIN",
+                "identifier": "IE00B04GQR24",
+                "isin_code": "IE00B04GQR24",
+                "management_company_description": "Vanguard Asset Management",
+                "market_code": "FEX",
+                "name": "Vanguard Euroz Inf Lk Bnd Idx -Acc"
+            },
+            "weight_plan": 0.05964,
+            "weight_real": 0,
+            "weight_diff": 0.05964,
+            "position_type": "spot"
+        },
+        {
+            "amount": 0,
+            "amount_diff": 401.576,
+            "instrument": {
+                "asset_class": "equity_small_caps",
+                "asset_class_description": "equity_small_caps",
+                "bloomberg_code": "IE00B42W4L06 ISIN",
+                "description": "El objetivo del fondo es proporcionar retornos consistentes con el rendimiento del Morgan Stanley Capital International (MSCI) Small Cap World Index. El Fondo emplea la gestión pasiva para realizar el seguimiento del rendimiento del índice. Código ISIN: <a href='https://www.morningstar.es/es/funds/snapshot/snapshot.aspx?id=F00000PA9N' rel='external nofollow'>IE00B42W4L06 <i class='fa-regular fa-arrow-up-right-from-square i-space--left--small i-space--right--small'></i></a>. Coste anual de 0,29%",
+                "dgs_code": "",
+                "dgs_fund_code": "",
+                "epsv_fund_code": "",
+                "epsv_plan_code": "",
+                "identifier_name": "ISIN",
+                "identifier": "IE00B42W4L06",
+                "isin_code": "IE00B42W4L06",
+                "management_company_description": "Vanguard Asset Management",
+                "market_code": "FEX",
+                "name": "Vanguard Global Small Cap Idx Eur -Acc"
+            },
+            "weight_plan": 0.039760000000000004,
+            "weight_real": 0,
+            "weight_diff": 0.039760000000000004,
+            "position_type": "spot"
+        },
+        {
+            "amount": 0,
+            "amount_diff": 401.576,
+            "instrument": {
+                "asset_class": "equity_japan",
+                "asset_class_description": "equity_japan",
+                "bloomberg_code": "IE0007286036 ISIN",
+                "description": "El fondo sigue la evolución del índice MSCI Japan en euros, que invierte en acciones de las mayores empresas domiciliadas en Japón. Código ISIN: <a href='http://www.morningstar.es/es/funds/snapshot/snapshot.aspx?id=F0GBR061XN' rel='external nofollow'>IE0007286036 <i class='fa-regular fa-arrow-up-right-from-square i-space--left--small i-space--right--small'></i></a>. Clase Institucional. Coste anual de 0,16%",
+                "dgs_code": "",
+                "dgs_fund_code": "",
+                "epsv_fund_code": "",
+                "epsv_plan_code": "",
+                "identifier_name": "ISIN",
+                "identifier": "IE0007286036",
+                "isin_code": "IE0007286036",
+                "management_company_description": "Vanguard Asset Management",
+                "market_code": "FEX",
+                "name": "Vanguard Japan Stk Idx Eur -Acc"
+            },
+            "weight_plan": 0.039760000000000004,
+            "weight_real": 0,
+            "weight_diff": 0.039760000000000004,
+            "position_type": "spot"
+        },
+        {
+            "amount": 0,
+            "amount_diff": 301.182,
+            "instrument": {
+                "asset_class": "equity_emerging",
+                "asset_class_description": "equity_emerging",
+                "bloomberg_code": "IE0031786696 ISIN",
+                "description": "Vanguard Emerging Markets Stock Index Fund es un fondo abierto constituido en Irlanda. El objetivo del fondo es el seguimiento del rendimiento del Índice Fondo MSCI Select Emerging Markets Index Stock, (índice de empresas de 18 mercados emergentes de Europa, Asia, África y America latina). Código ISIN: <a href='http://www.morningstar.es/es/funds/snapshot/snapshot.aspx?id=F00000T1HU' rel='external nofollow'>IE0031786696 <i class='fa-regular fa-arrow-up-right-from-square i-space--left--small i-space--right--small'></i></a>. Clase Institucional. Coste anual de 0,23%",
+                "dgs_code": "",
+                "dgs_fund_code": "",
+                "epsv_fund_code": "",
+                "epsv_plan_code": "",
+                "identifier_name": "ISIN",
+                "identifier": "IE0031786696",
+                "isin_code": "IE0031786696",
+                "management_company_description": "Vanguard Asset Management",
+                "market_code": "FEX",
+                "name": "Vanguard Emrg Mk Stk Idx Eur -Acc"
+            },
+            "weight_plan": 0.02982,
+            "weight_real": 0,
+            "weight_diff": 0.02982,
+            "position_type": "spot"
+        }
+    ]
+}
