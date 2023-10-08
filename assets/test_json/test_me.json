@@ -146,7 +146,7 @@
             "reconciled_until": "2023-09-21 00:00:00",
             "risk": 10,
             "size": "small",
-            "status": "active",
+            "status": "inactive",
             "status_provider": "active",
             "type": "mutual",
             "postal_address": {
