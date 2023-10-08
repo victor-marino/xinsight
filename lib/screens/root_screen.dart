@@ -62,11 +62,20 @@ class RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
       if (_userAccounts.isEmpty) {
         _userAccounts = await widget.indexaData.getUserAccounts();
       }
-      _accountData = widget.indexaData.populateAccountData(
-          context: context,
-          accountNumber: _userAccounts[accountIndex]['number']!);
-      await _accountData;
-      setState(() {});
+      if (_userAccounts.isNotEmpty) {
+        _accountData = widget.indexaData.populateAccountData(
+            context: context,
+            accountNumber: _userAccounts[accountIndex]['number']!);
+        await _accountData;
+        setState(() {});
+      } else {
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+                builder: (BuildContext context) =>
+                    LoginScreen(errorMessage: "login_screen.no_active_accounts".tr())),
+            (Route<dynamic> route) => false);
+      }
     } on Exception catch (e) {
       if (kDebugMode) {
         print(e.toString());

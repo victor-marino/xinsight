@@ -67,6 +67,7 @@ flutter:
     - assets/fonts/Roboto/
     - assets/fonts/Ubuntu/
     - assets/fonts/Oxygen/
+    - assets/test_json/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
