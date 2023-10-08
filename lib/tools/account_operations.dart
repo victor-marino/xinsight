@@ -110,9 +110,7 @@ List<PortfolioDataPoint> createPortfolioData(portfolio, instruments) {
           percentage: currentInstrumentPercentage!.toDouble());
 
       newPortfolioData.add(newPoint);
-
     }
-
   }
 
   if (addTestEmergencyFund) {
@@ -453,6 +451,14 @@ List<Transaction> createTransactionList(
         }
         break;
     }
+    
+    final Uri pdfDownloadLink = Uri(
+        scheme: 'https',
+        host: 'indexacapital.com',
+        path:
+            'es/u/view-document/${transaction['document']['name']}/${transaction['document']['clean_show_name']}',
+        fragment: 'settings-apps');
+    
     Transaction newTransaction = Transaction(
         date: DateTime.parse(transaction['date']),
         valueDate: DateTime.parse(transaction['value_date']),
@@ -467,7 +473,8 @@ List<Transaction> createTransactionList(
         titles: transaction['titles'].toDouble(),
         price: transaction['price'].toDouble(),
         amount: transaction['amount'].toDouble(),
-        status: operationStatus);
+        status: operationStatus,
+        downloadLink: pdfDownloadLink);
     newTransactionList.add(newTransaction);
   }
 

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:indexax/tools/number_formatting.dart';
 import 'package:indexax/tools/styles.dart' as text_styles;
 import 'package:indexax/models/transaction.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 // Pop-up showing the details of an individual transaction in landscape mode
 
@@ -189,6 +190,9 @@ class TransactionDetailsPopupLandscape extends StatelessWidget {
       ));
     }
     return AlertDialog(
+            actionsAlignment: transactionData.downloadLink != null
+          ? MainAxisAlignment.spaceBetween
+          : MainAxisAlignment.end,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       title: Text(
         'transaction_details_popup.details'.tr(),
@@ -209,6 +213,18 @@ class TransactionDetailsPopupLandscape extends StatelessWidget {
       ),
       contentPadding: const EdgeInsets.fromLTRB(24, 24, 24, 0),
       actions: [
+        if (transactionData.downloadLink != null) ...[
+          TextButton(
+            child: const Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(Icons.download_sharp),
+                Text('PDF'),
+              ],
+            ),
+            onPressed: () => launchUrl(transactionData.downloadLink!),
+          ),
+        ],
         TextButton(
           child: const Text('OK'),
           onPressed: () {
