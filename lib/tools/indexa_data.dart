@@ -1,10 +1,8 @@
 import 'package:flutter/foundation.dart';
-import "package:flutter/services.dart";
 import "package:indexax/tools/networking.dart";
 import "package:indexax/models/account.dart";
 import "package:flutter/material.dart";
 
-import 'dart:convert';
 
 const indexaURL = 'https://api.indexacapital.com';
 
@@ -31,20 +29,20 @@ class IndexaData {
 
   IndexaData({required this.token});
 
-  Future getLocalAccounts() async {
-    final String response =
-        await rootBundle.loadString('assets/test_json/test_me.json');
-    final data = await json.decode(response);
-    return data;
-  }
+  // Future getLocalAccounts() async {
+  //   final String response =
+  //       await rootBundle.loadString('assets/test_json/test_me.json');
+  //   final data = await json.decode(response);
+  //   return data;
+  // }
 
   Future<dynamic> getUserAccounts() async {
     String url = '$indexaURL/users/me';
     List<Map<String, String>> userAccounts = [];
     NetworkHelper networkHelper = NetworkHelper(url, token);
     try {
-      // var userData = await networkHelper.getData();
-      var userData = await getLocalAccounts();
+      var userData = await networkHelper.getData();
+      // var userData = await getLocalAccounts();
       if (userData != null) {
         for (var account in userData['accounts']) {
           // if (account['status'].toString() == "active") {
