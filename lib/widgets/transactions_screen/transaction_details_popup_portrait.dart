@@ -171,7 +171,7 @@ class TransactionDetailsPopup extends StatelessWidget {
                 Text('PDF'),
               ],
             ),
-            onPressed: () => launchUrl(transactionData.downloadLink!),
+            onPressed: () => launchUrl(transactionData.downloadLink!, mode: LaunchMode.externalApplication),
           ),
         ],
         TextButton(
