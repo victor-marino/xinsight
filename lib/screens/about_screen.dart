@@ -68,7 +68,7 @@ class AboutScreenState extends State<AboutScreen> {
                                   contentTextStyle.copyWith(color: Colors.blue),
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () {
-                                  launchUrl(_flutterURL);
+                                  launchUrl(_flutterURL, mode: LaunchMode.externalApplication);
                                 },
                             ),
                             TextSpan(
@@ -110,7 +110,7 @@ class AboutScreenState extends State<AboutScreen> {
                                       color: Colors.blue),
                                   recognizer: TapGestureRecognizer()
                                     ..onTap = () {
-                                      launchUrl(_githubRepository);
+                                      launchUrl(_githubRepository, mode: LaunchMode.externalApplication);
                                     },
                                 ),
                               ),

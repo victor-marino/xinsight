@@ -60,7 +60,7 @@ class TokenInstructionsPopup extends StatelessWidget {
                             text: 'login_screen.user_configuration'.tr(),
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
-                                launchUrl(userSettingsUrl);
+                                launchUrl(userSettingsUrl, mode: LaunchMode.externalApplication);
                               },
                             style: const TextStyle(
                               color: Colors.blue,
