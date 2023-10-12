@@ -56,45 +56,24 @@ class CollapsedAccountSummary extends StatelessWidget {
                 ),
               ],
             ),
-            BackdropFilter(
-              blendMode: BlendMode.screen,
-              filter: ImageFilter.blur(
-                sigmaX:
-                        Provider.of<HiddenAmountsProvider>(context, listen: true)
-                                .hiddenAmounts
-                            ? 0
-                            : 0,
-                    sigmaY:
-                        Provider.of<HiddenAmountsProvider>(context, listen: true)
-                                .hiddenAmounts
-                            ? 0
-                            : 0),
-              child: ImageFiltered(
-                imageFilter: ImageFilter.blur(
-                  // tileMode: TileMode.clamp,
-                    sigmaX:
-                        Provider.of<HiddenAmountsProvider>(context, listen: true)
-                                .hiddenAmounts
-                            ? 10
-                            : 0,
-                    sigmaY:
-                        Provider.of<HiddenAmountsProvider>(context, listen: true)
-                                .hiddenAmounts
-                            ? 10
-                            : 0),
-                child: RichText(
-                  text: TextSpan(children: [
-                    TextSpan(
-                      text: getWholeBalanceAsString(accountData.totalAmount),
-                      style: largeBalanceTextStyle,
-                    ),
-                    TextSpan(
-                      text: getDecimalSeparator() +
-                          getFractionalBalanceAsString(accountData.totalAmount),
-                      style: smallBalanceTextStyle,
-                    ),
-                  ]),
-                ),
+            ImageFiltered(
+              enabled: Provider.of<HiddenAmountsProvider>(context, listen: true)
+                  .hiddenAmounts,
+              imageFilter: ImageFilter.blur(
+                  sigmaX: 10,
+                  sigmaY: 10),
+              child: RichText(
+                text: TextSpan(children: [
+                  TextSpan(
+                    text: getWholeBalanceAsString(accountData.totalAmount),
+                    style: largeBalanceTextStyle,
+                  ),
+                  TextSpan(
+                    text: getDecimalSeparator() +
+                        getFractionalBalanceAsString(accountData.totalAmount),
+                    style: smallBalanceTextStyle,
+                  ),
+                ]),
               ),
             ),
           ],
