@@ -14,6 +14,7 @@ import 'package:indexax/tools/snackbar.dart' as snackbar;
 import 'package:indexax/tools/theme_operations.dart' as theme_operations;
 import 'package:provider/provider.dart';
 import '../tools/bottom_navigation_bar_provider.dart';
+import '../tools/hidden_amounts_provider.dart';
 import '../widgets/bottom_navigation_bar.dart';
 import '../widgets/current_account_indicator.dart';
 import '../widgets/page_header.dart';
@@ -54,6 +55,8 @@ class RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
   late double availableHeight;
   double topPadding = 0;
 
+  bool hiddenAmounts = false;
+
   Future<void> _loadData({required int accountIndex}) async {
     // Main function that is called when account data is loaded
     try {
@@ -72,8 +75,8 @@ class RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
         Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
-                builder: (BuildContext context) =>
-                    LoginScreen(errorMessage: "login_screen.no_active_accounts".tr())),
+                builder: (BuildContext context) => LoginScreen(
+                    errorMessage: "login_screen.no_active_accounts".tr())),
             (Route<dynamic> route) => false);
       }
     } on Exception catch (e) {
@@ -133,6 +136,17 @@ class RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
     // Called when the user taps the bottom navigation bar
     _pageController.animateToPage(value,
         duration: const Duration(milliseconds: 500), curve: Curves.ease);
+  }
+
+  void _toggleHiddenAmounts() {
+    if (Provider.of<HiddenAmountsProvider>(context, listen: false)
+        .hiddenAmounts) {
+      Provider.of<HiddenAmountsProvider>(context, listen: false).hiddenAmounts =
+          false;
+    } else {
+      Provider.of<HiddenAmountsProvider>(context, listen: false).hiddenAmounts =
+          true;
+    }
   }
 
   @override
@@ -205,7 +219,30 @@ class RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const PageHeader(),
+                    Row(
+                      children: [
+                        const PageHeader(),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 7),
+                          child: IconButton(
+                            onPressed: _toggleHiddenAmounts,
+                            icon: Icon(Provider.of<HiddenAmountsProvider>(
+                                        context,
+                                        listen: true)
+                                    .hiddenAmounts
+                                ? Icons.visibility_off_rounded
+                                : Icons.visibility_rounded),
+                            color: Provider.of<HiddenAmountsProvider>(context,
+                                        listen: true)
+                                    .hiddenAmounts
+                                ? Theme.of(context).colorScheme.primary
+                                : Colors.grey,
+                            splashRadius: 20,
+                            iconSize: 20,
+                          ),
+                        )
+                      ],
+                    ),
                     if (!landscapeOrientation) ...[
                       CurrentAccountIndicator(
                           accountNumber: snapshot.data!.accountNumber,

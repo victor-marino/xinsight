@@ -1,8 +1,12 @@
+import 'dart:ui';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:indexax/models/account.dart';
 import 'package:indexax/tools/number_formatting.dart';
 import 'package:indexax/tools/styles.dart' as text_styles;
+import 'package:provider/provider.dart';
+import 'package:indexax/tools/hidden_amounts_provider.dart';
 
 // Collapsed version of the account summary.
 // This is the default view in portrait mode, as well as landscape mode in smaller screens.
@@ -52,18 +56,46 @@ class CollapsedAccountSummary extends StatelessWidget {
                 ),
               ],
             ),
-            RichText(
-              text: TextSpan(children: [
-                TextSpan(
-                  text: getWholeBalanceAsString(accountData.totalAmount),
-                  style: largeBalanceTextStyle,
+            BackdropFilter(
+              blendMode: BlendMode.screen,
+              filter: ImageFilter.blur(
+                sigmaX:
+                        Provider.of<HiddenAmountsProvider>(context, listen: true)
+                                .hiddenAmounts
+                            ? 0
+                            : 0,
+                    sigmaY:
+                        Provider.of<HiddenAmountsProvider>(context, listen: true)
+                                .hiddenAmounts
+                            ? 0
+                            : 0),
+              child: ImageFiltered(
+                imageFilter: ImageFilter.blur(
+                  // tileMode: TileMode.clamp,
+                    sigmaX:
+                        Provider.of<HiddenAmountsProvider>(context, listen: true)
+                                .hiddenAmounts
+                            ? 10
+                            : 0,
+                    sigmaY:
+                        Provider.of<HiddenAmountsProvider>(context, listen: true)
+                                .hiddenAmounts
+                            ? 10
+                            : 0),
+                child: RichText(
+                  text: TextSpan(children: [
+                    TextSpan(
+                      text: getWholeBalanceAsString(accountData.totalAmount),
+                      style: largeBalanceTextStyle,
+                    ),
+                    TextSpan(
+                      text: getDecimalSeparator() +
+                          getFractionalBalanceAsString(accountData.totalAmount),
+                      style: smallBalanceTextStyle,
+                    ),
+                  ]),
                 ),
-                TextSpan(
-                  text: getDecimalSeparator() +
-                      getFractionalBalanceAsString(accountData.totalAmount),
-                  style: smallBalanceTextStyle,
-                ),
-              ]),
+              ),
             ),
           ],
         ),
