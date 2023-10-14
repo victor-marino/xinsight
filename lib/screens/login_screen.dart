@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:indexax/screens/root_screen.dart';
-import 'package:indexax/tools/hidden_amounts_provider.dart';
+import 'package:indexax/tools/private_mode_provider.dart';
 import 'package:indexax/tools/local_authentication.dart'
     as local_authentication;
 import 'package:indexax/tools/snackbar.dart' as snackbar;
@@ -112,7 +112,10 @@ class LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
         context,
         MaterialPageRoute(
           builder: (BuildContext context) =>
-              ChangeNotifierProvider<HiddenAmountsProvider>(create: (context) => HiddenAmountsProvider(), child: RootScreen(token: token, pageIndex: 0, accountIndex: 0)),
+              ChangeNotifierProvider<PrivateModeProvider>(
+                  create: (context) => PrivateModeProvider(),
+                  child:
+                      RootScreen(token: token, pageIndex: 0, accountIndex: 0)),
         ),
       );
     } else {

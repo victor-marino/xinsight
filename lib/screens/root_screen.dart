@@ -14,12 +14,13 @@ import 'package:indexax/tools/snackbar.dart' as snackbar;
 import 'package:indexax/tools/theme_operations.dart' as theme_operations;
 import 'package:provider/provider.dart';
 import '../tools/bottom_navigation_bar_provider.dart';
-import '../tools/hidden_amounts_provider.dart';
+import '../tools/private_mode_provider.dart';
 import '../widgets/bottom_navigation_bar.dart';
 import '../widgets/current_account_indicator.dart';
 import '../widgets/page_header.dart';
 import '../widgets/settings_popup_menu.dart';
 import 'login_screen.dart';
+import '../tools/local_authentication.dart';
 
 // Base screen where all other screens are loaded after loggin in
 
@@ -138,13 +139,15 @@ class RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
         duration: const Duration(milliseconds: 500), curve: Curves.ease);
   }
 
-  void _toggleHiddenAmounts() {
-    if (Provider.of<HiddenAmountsProvider>(context, listen: false)
-        .hiddenAmounts) {
-      Provider.of<HiddenAmountsProvider>(context, listen: false).hiddenAmounts =
-          false;
+  void _togglePrivateMode() async {
+    if (Provider.of<PrivateModeProvider>(context, listen: false).privateMode) {
+      // bool isAuthenticated = await authenticateUserLocally(context);
+      // if (isAuthenticated) {
+        Provider.of<PrivateModeProvider>(context, listen: false).privateMode =
+            false;
+      // }
     } else {
-      Provider.of<HiddenAmountsProvider>(context, listen: false).hiddenAmounts =
+      Provider.of<PrivateModeProvider>(context, listen: false).privateMode =
           true;
     }
   }
@@ -225,16 +228,15 @@ class RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
                         Padding(
                           padding: const EdgeInsets.only(top: 7),
                           child: IconButton(
-                            onPressed: _toggleHiddenAmounts,
-                            icon: Icon(Provider.of<HiddenAmountsProvider>(
-                                        context,
+                            onPressed: _togglePrivateMode,
+                            icon: Icon(Provider.of<PrivateModeProvider>(context,
                                         listen: true)
-                                    .hiddenAmounts
+                                    .privateMode
                                 ? Icons.visibility_off_rounded
                                 : Icons.visibility_rounded),
-                            color: Provider.of<HiddenAmountsProvider>(context,
+                            color: Provider.of<PrivateModeProvider>(context,
                                         listen: true)
-                                    .hiddenAmounts
+                                    .privateMode
                                 ? Theme.of(context).colorScheme.primary
                                 : Colors.grey,
                             splashRadius: 20,

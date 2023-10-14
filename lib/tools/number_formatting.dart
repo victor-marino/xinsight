@@ -1,12 +1,14 @@
 import 'package:intl/intl.dart' show NumberFormat;
 import 'package:intl/number_symbols_data.dart' show numberFormatSymbols;
 import 'package:flutter/material.dart';
+import 'package:indexax/tools/private_mode_provider.dart';
+import 'package:provider/provider.dart';
 
 // All operations regarding number and string formatting are grouped here
 
 String getCurrentLocale() {
   final locale = WidgetsBinding.instance.platformDispatcher.locale;
-  
+
   final joined = "${locale.languageCode}_${locale.countryCode}";
   if (numberFormatSymbols.keys.contains(joined)) {
     return joined;
@@ -110,9 +112,8 @@ String getPLAsString(num number) {
             locale: getCurrentLocale(), symbol: '€', decimalDigits: 2)
         .format(number);
   } else {
-    numberString = '+${NumberFormat.currency(
-                locale: getCurrentLocale(), symbol: '€', decimalDigits: 2)
-            .format(number)}';
+    numberString =
+        '+${NumberFormat.currency(locale: getCurrentLocale(), symbol: '€', decimalDigits: 2).format(number)}';
   }
   return numberString;
 }
@@ -144,9 +145,8 @@ String getPLPercentAsString(num number) {
             locale: getCurrentLocale(), decimalDigits: 1)
         .format(number);
   } else {
-    numberString = '+${NumberFormat.decimalPercentPattern(
-                locale: getCurrentLocale(), decimalDigits: 1)
-            .format(number)}';
+    numberString =
+        '+${NumberFormat.decimalPercentPattern(locale: getCurrentLocale(), decimalDigits: 1).format(number)}';
   }
   if (numberString[numberString.length - 2] == '\u00A0') {
     return ("${numberString.substring(0, numberString.length - 2)}%");
@@ -161,9 +161,8 @@ String getWholePLPercentAsString(num number) {
             locale: getCurrentLocale(), decimalDigits: 1)
         .format(number);
   } else {
-    numberString = '+${NumberFormat.decimalPercentPattern(
-                locale: getCurrentLocale(), decimalDigits: 1)
-            .format(number)}';
+    numberString =
+        '+${NumberFormat.decimalPercentPattern(locale: getCurrentLocale(), decimalDigits: 1).format(number)}';
   }
   return numberString
       .split(numberFormatSymbols[getCurrentLocale()]?.DECIMAL_SEP ?? "")[0];
@@ -176,9 +175,8 @@ String getFractionalPLPercentAsString(num number) {
             locale: getCurrentLocale(), decimalDigits: 1)
         .format(number);
   } else {
-    numberString = '+${NumberFormat.decimalPercentPattern(
-                locale: getCurrentLocale(), decimalDigits: 1)
-            .format(number)}';
+    numberString =
+        '+${NumberFormat.decimalPercentPattern(locale: getCurrentLocale(), decimalDigits: 1).format(number)}';
   }
   numberString = numberString
       .split(numberFormatSymbols[getCurrentLocale()]?.DECIMAL_SEP ?? "")[1];
@@ -191,4 +189,12 @@ String getFractionalPLPercentAsString(num number) {
 
 String getDecimalSeparator() {
   return numberFormatSymbols[getCurrentLocale()]?.DECIMAL_SEP ?? "";
+}
+
+String protectValue(String text, BuildContext context) {
+  if (Provider.of<PrivateModeProvider>(context, listen: true).privateMode) {
+    return "•••";
+  } else {
+    return text;
+  }
 }
