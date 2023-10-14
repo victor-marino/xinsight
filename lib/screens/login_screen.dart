@@ -112,10 +112,7 @@ class LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
         context,
         MaterialPageRoute(
           builder: (BuildContext context) =>
-              ChangeNotifierProvider<PrivateModeProvider>(
-                  create: (context) => PrivateModeProvider(),
-                  child:
-                      RootScreen(token: token, pageIndex: 0, accountIndex: 0)),
+              RootScreen(token: token, pageIndex: 0, accountIndex: 0),
         ),
       );
     } else {

@@ -114,7 +114,8 @@ class TransactionTile extends StatelessWidget {
                 ),
               ),
               Text(
-                getAmountAsStringWithTwoDecimals(transactionData.amount),
+                protectValue(
+                    getAmountAsStringWithTwoDecimals(transactionData.amount), context) ,
                 textAlign: TextAlign.right,
                 style: transactionAmountTextStyle.copyWith(
                     color: Theme.of(context).colorScheme.onSurfaceVariant),

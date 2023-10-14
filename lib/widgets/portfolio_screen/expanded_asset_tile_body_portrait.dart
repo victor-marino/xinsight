@@ -68,7 +68,8 @@ class ExpandedAssetTileBodyPortrait extends StatelessWidget {
                   text: '${'asset_details.titles'.tr()}: ',
                   style: detailNameTextStyle),
               TextSpan(
-                  text: getNumberAsStringWithMaxDecimals(assetData.titles),
+                  text: protectValue(
+                      getNumberAsStringWithMaxDecimals(assetData.titles), context),
                   style: detailValueTextStyle),
             ],
           ),
@@ -80,7 +81,8 @@ class ExpandedAssetTileBodyPortrait extends StatelessWidget {
                   text: '${'asset_details.cost'.tr()}: ',
                   style: detailNameTextStyle),
               TextSpan(
-                  text: getInvestmentAsString(assetData.cost!),
+                  text: protectValue(
+                      getInvestmentAsString(assetData.cost!), context),
                   style: detailValueTextStyle),
             ],
           ),
@@ -92,7 +94,8 @@ class ExpandedAssetTileBodyPortrait extends StatelessWidget {
                   text: '${'asset_details.current_value'.tr()}: ',
                   style: detailNameTextStyle),
               TextSpan(
-                  text: getInvestmentAsString(assetData.amount),
+                  text: protectValue(
+                      getInvestmentAsString(assetData.amount), context),
                   style: detailValueTextStyle),
             ],
           ),
@@ -104,7 +107,8 @@ class ExpandedAssetTileBodyPortrait extends StatelessWidget {
                   text: '${'asset_details.profit_loss'.tr()}: ',
                   style: detailNameTextStyle),
               TextSpan(
-                  text: getPLAsString(assetData.profitLoss!),
+                  text: protectValue(
+                      getPLAsString(assetData.profitLoss!), context),
                   style: detailValueTextStyle),
             ],
           ),

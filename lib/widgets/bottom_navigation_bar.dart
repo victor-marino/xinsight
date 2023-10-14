@@ -30,7 +30,7 @@ class MyBottomNavigationBar extends StatelessWidget {
       ],
       onTap: onTapped as void Function(int)?,
       currentIndex:
-          Provider.of<BottomNavigationBarProvider>(context).currentIndex,
+          context.watch<BottomNavigationBarProvider>().currentIndex,
     );
   }
 }

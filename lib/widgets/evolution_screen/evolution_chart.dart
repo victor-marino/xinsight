@@ -62,7 +62,8 @@ class EvolutionChart extends StatelessWidget {
           : NumericAxis(
               axisLabelFormatter: (AxisLabelRenderDetails details) =>
                   ChartAxisLabel(
-                      getAmountAsStringWithZeroDecimals(details.value),
+                      (protectValue(
+                          getAmountAsStringWithZeroDecimals(details.value), context)),
                       axisTextStyle),
               numberFormat: NumberFormat.currency(
                   locale: getCurrentLocale(), symbol: '€', decimalDigits: 2)),
@@ -81,6 +82,9 @@ class EvolutionChart extends StatelessWidget {
           borderColor: Theme.of(context).colorScheme.outline,
           borderWidth: 1,
           textStyle: TextStyle(color: Theme.of(context).colorScheme.onSurface),
+          format: showReturns
+            ? 'series.name: point.y%'
+            : 'series.name: ${protectValue('point.y', context)}'
         ),
       ),
       zoomPanBehavior: ZoomPanBehavior(
@@ -89,7 +93,7 @@ class EvolutionChart extends StatelessWidget {
         Colors.blue,
         Colors.black,
       ],
-      legend: Legend(
+      legend: const Legend(
           isVisible: true,
           position: LegendPosition.top,
           padding: 4,
@@ -130,7 +134,7 @@ class EvolutionChart extends StatelessWidget {
                 dataSource: amountsSeries,
                 xValueMapper: (AmountsDataPoint amounts, _) => amounts.date,
                 yValueMapper: (AmountsDataPoint amounts, _) =>
-                    amounts.totalAmount,
+                     amounts.totalAmount,
                 gradient: gradientColors,
               ),
               LineSeries<AmountsDataPoint, DateTime>(

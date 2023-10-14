@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-// Provider for toggling between hidden and visible amounts
+// Provider for toggling privacy mode
 class PrivateModeProvider with ChangeNotifier {
   bool _privateMode = false;
 

@@ -66,30 +66,34 @@ class RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
       if (_userAccounts.isEmpty) {
         _userAccounts = await widget.indexaData.getUserAccounts();
       }
-      if (_userAccounts.isNotEmpty) {
+      if (_userAccounts.isNotEmpty && context.mounted) {
         _accountData = widget.indexaData.populateAccountData(
             context: context,
             accountNumber: _userAccounts[accountIndex]['number']!);
         await _accountData;
         setState(() {});
       } else {
-        Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(
-                builder: (BuildContext context) => LoginScreen(
-                    errorMessage: "login_screen.no_active_accounts".tr())),
-            (Route<dynamic> route) => false);
+        if (context.mounted) {
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                  builder: (BuildContext context) => LoginScreen(
+                      errorMessage: "login_screen.no_active_accounts".tr())),
+              (Route<dynamic> route) => false);
+        }
       }
     } on Exception catch (e) {
       if (kDebugMode) {
         print(e.toString());
       }
-      Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-              builder: (BuildContext context) =>
-                  LoginScreen(errorMessage: e.toString())),
-          (Route<dynamic> route) => false);
+      if (context.mounted) {
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+                builder: (BuildContext context) =>
+                    LoginScreen(errorMessage: e.toString())),
+            (Route<dynamic> route) => false);
+      }
     }
   }
 
@@ -102,7 +106,7 @@ class RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
       await _accountData;
       setState(() {});
     } on Exception catch (e) {
-      snackbar.showInSnackBar(context, e.toString());
+      if (context.mounted) snackbar.showInSnackBar(context, e.toString());
     }
   }
 
@@ -113,8 +117,7 @@ class RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
     });
     await _loadData(accountIndex: widget.accountIndex);
     if (!mounted) return;
-    Provider.of<BottomNavigationBarProvider>(context, listen: false)
-        .currentIndex = widget.pageIndex;
+    context.read<BottomNavigationBarProvider>().currentIndex;
   }
 
   void _reloadPage(int accountIndex, int pageIndex) async {
@@ -140,15 +143,13 @@ class RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
   }
 
   void _togglePrivateMode() async {
-    if (Provider.of<PrivateModeProvider>(context, listen: false).privateMode) {
-      // bool isAuthenticated = await authenticateUserLocally(context);
-      // if (isAuthenticated) {
-        Provider.of<PrivateModeProvider>(context, listen: false).privateMode =
-            false;
-      // }
+    if (context.read<PrivateModeProvider>().privateMode) {
+      bool isAuthenticated = await authenticateUserLocally(context);
+      if (isAuthenticated && context.mounted) {
+        context.read<PrivateModeProvider>().privateMode = false;
+      }
     } else {
-      Provider.of<PrivateModeProvider>(context, listen: false).privateMode =
-          true;
+      context.read<PrivateModeProvider>().privateMode = true;
     }
   }
 
@@ -229,13 +230,11 @@ class RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
                           padding: const EdgeInsets.only(top: 7),
                           child: IconButton(
                             onPressed: _togglePrivateMode,
-                            icon: Icon(Provider.of<PrivateModeProvider>(context,
-                                        listen: true)
+                            icon: Icon(context.watch<PrivateModeProvider>()
                                     .privateMode
                                 ? Icons.visibility_off_rounded
                                 : Icons.visibility_rounded),
-                            color: Provider.of<PrivateModeProvider>(context,
-                                        listen: true)
+                            color: context.watch<PrivateModeProvider>()
                                     .privateMode
                                 ? Theme.of(context).colorScheme.primary
                                 : Colors.grey,
@@ -317,7 +316,7 @@ class RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
                     currentAccountIndex: widget.accountIndex),
               ],
               onPageChanged: (page) {
-                Provider.of<BottomNavigationBarProvider>(context, listen: false)
+                context.read<BottomNavigationBarProvider>()
                     .currentIndex = page;
               },
             ),

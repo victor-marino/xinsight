@@ -192,7 +192,7 @@ String getDecimalSeparator() {
 }
 
 String protectValue(String text, BuildContext context) {
-  if (Provider.of<PrivateModeProvider>(context, listen: true).privateMode) {
+  if (context.read<PrivateModeProvider>().privateMode) {
     return "•••";
   } else {
     return text;

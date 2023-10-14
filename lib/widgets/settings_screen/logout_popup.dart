@@ -18,14 +18,14 @@ class LogoutPopup extends StatelessWidget {
     // store the Provider and the navigation route in a variable to pass them
     // later.
     BottomNavigationBarProvider currentBottomNavigationProvider =
-        Provider.of<BottomNavigationBarProvider>(context, listen: false);
+        context.read<BottomNavigationBarProvider>();
     Future<dynamic> futureNavigationRoute = Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
             builder: (BuildContext context) => const LoginScreen()),
         (Route<dynamic> route) => false);
     await token_operations.deleteToken(context);
-    currentBottomNavigationProvider.currentIndex = 0;
+    if (context.mounted) context.read<BottomNavigationBarProvider>().currentIndex = 0;
     futureNavigationRoute;
   }
 

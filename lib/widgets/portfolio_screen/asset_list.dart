@@ -234,7 +234,7 @@ class AssetList extends StatelessWidget {
                   ],
                 ),
                 Text(
-                  getInvestmentAsString(cashAmount),
+                  protectValue(getInvestmentAsString(cashAmount), context),
                   style: cashAmountTextStyle,
                 ),
               ],

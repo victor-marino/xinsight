@@ -39,11 +39,11 @@ class ExpandedAssetTileHeaderLandscape extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 20),
               child: Text(
-                getInvestmentAsString(assetData.amount),
+                protectValue(getInvestmentAsString(assetData.amount), context),
                 style: assetAmountTextStyle,
               ),
             ),
-            Text("(${getPLAsString(assetData.profitLoss!)})",
+            Text("(${protectValue(getPLAsString(assetData.profitLoss!), context) })",
                 style: assetData.profitLoss! < 0
                     ? headerSubtitleTextStyle.copyWith(
                         color: Theme.of(context).colorScheme.error)

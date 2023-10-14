@@ -25,7 +25,7 @@ class FeeFreeAmountCard extends StatelessWidget {
               text: '${'fee_free_amount_card.fee_free_amount'.tr()}: ',
               style: itemNameText),
           TextSpan(
-              text: getInvestmentAsString(feeFreeAmount), style: itemValueText),
+              text: protectValue(getInvestmentAsString(feeFreeAmount), context), style: itemValueText),
         ],
       ),
     );

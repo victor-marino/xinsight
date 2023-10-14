@@ -1,8 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:indexax/tools/number_formatting.dart';
+import 'package:indexax/tools/private_mode_provider.dart';
 import 'package:indexax/tools/styles.dart' as text_styles;
 import 'package:indexax/models/transaction.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 // Pop-up showing the details of an individual transaction in portrait mode
@@ -96,7 +98,8 @@ class TransactionDetailsPopup extends StatelessWidget {
         style: detailNameTextStyle,
       ));
       transactionDetails.add(Text(
-        getNumberAsStringWithMaxDecimals(transactionData.titles),
+        protectValue(
+            getNumberAsStringWithMaxDecimals(transactionData.titles), context),
         style: detailValueTextStyle,
       ));
       transactionDetails.add(Text(
@@ -112,7 +115,8 @@ class TransactionDetailsPopup extends StatelessWidget {
         style: detailNameTextStyle,
       ));
       transactionDetails.add(Text(
-        getAmountAsStringWithTwoDecimals(transactionData.amount),
+        protectValue(
+            getAmountAsStringWithTwoDecimals(transactionData.amount), context),
         style: detailValueTextStyle,
       ));
       transactionDetails.add(
@@ -164,14 +168,27 @@ class TransactionDetailsPopup extends StatelessWidget {
       actions: [
         if (transactionData.downloadLink != null) ...[
           TextButton(
-            child: const Row(
+            style: context.read<PrivateModeProvider>().privateMode ? ButtonStyle(
+              overlayColor: MaterialStateProperty.all(Colors.transparent)) : null,
+            child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(Icons.download_sharp),
-                Text('PDF'),
+                Icon(
+                  Icons.download_sharp,
+                  color: context.read<PrivateModeProvider>().privateMode
+                ? Colors.grey : null),
+                Text(
+                  'PDF',
+                  style: TextStyle(
+                    color: context.read<PrivateModeProvider>().privateMode
+                ? Colors.grey : null
+                  ),),
               ],
             ),
-            onPressed: () => launchUrl(transactionData.downloadLink!, mode: LaunchMode.externalApplication),
+            onPressed: () => context.read<PrivateModeProvider>().privateMode
+                ? null 
+                : launchUrl(transactionData.downloadLink!,
+                    mode: LaunchMode.externalApplication),
           ),
         ],
         TextButton(

@@ -5,6 +5,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:provider/provider.dart';
 import 'tools/bottom_navigation_bar_provider.dart';
 import 'tools/theme_provider.dart';
+import 'tools/private_mode_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -54,25 +55,27 @@ class MyApp extends StatelessWidget {
       create: (context) {
         return BottomNavigationBarProvider();
       },
-      child: Center(
-        child: MaterialApp(
-          title: 'Indexa X',
-          theme: ThemeData.from(
-            colorScheme: lightColorScheme,
+      child: ChangeNotifierProvider<PrivateModeProvider>(
+        create: (context) => PrivateModeProvider(),
+        child: Center(
+          child: MaterialApp(
+            title: 'Indexa X',
+            theme: ThemeData.from(
+              colorScheme: lightColorScheme,
+            ),
+            darkTheme: ThemeData.from(
+              colorScheme: darkColorScheme,
+              /* dark theme settings */
+            ).copyWith(
+                bottomSheetTheme:
+                    BottomSheetThemeData(backgroundColor: Colors.grey[900])),
+            localizationsDelegates: context.localizationDelegates,
+            themeMode: context.watch<ThemeProvider>().currentTheme,
+            supportedLocales: context.supportedLocales,
+            locale: context.locale,
+            debugShowCheckedModeBanner: false,
+            home: const LoginScreen(),
           ),
-          darkTheme: ThemeData.from(
-            colorScheme: darkColorScheme,
-            /* dark theme settings */
-          ).copyWith(
-              bottomSheetTheme:
-                  BottomSheetThemeData(backgroundColor: Colors.grey[900])),
-          localizationsDelegates: context.localizationDelegates,
-          themeMode:
-              Provider.of<ThemeProvider>(context, listen: true).currentTheme,
-          supportedLocales: context.supportedLocales,
-          locale: context.locale,
-          debugShowCheckedModeBanner: false,
-          home: const LoginScreen(),
         ),
       ),
     );

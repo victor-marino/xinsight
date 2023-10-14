@@ -25,7 +25,8 @@ class MinimumTransferCard extends StatelessWidget {
                 '${'minimum_transfer_card.minimum_transfer_to_invest'.tr()}: ',
             style: itemNameText),
         TextSpan(
-            text: getInvestmentAsString(additionalCashNeededToTrade),
+            text: protectValue(
+                getInvestmentAsString(additionalCashNeededToTrade), context),
             style: itemValueText),
       ]),
     );

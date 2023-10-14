@@ -46,11 +46,7 @@ void updateTheme(BuildContext context) async {
   if (kDebugMode) {
     print("Updating theme");
   }
-  // Passing contexts across async calls can cause problems, so instead we store
-  // the ThemeProvider and MediaQuery objects in a variable and pass those later
-  ThemeProvider currentThemeProvider =
-      Provider.of<ThemeProvider>(context, listen: false);
-  MediaQueryData currentMediaQueryData = MediaQuery.of(context);
+
   ThemePreference? currentThemePreference =
       await readStoredThemePreference(context);
   if (currentThemePreference == null) {
@@ -61,12 +57,13 @@ void updateTheme(BuildContext context) async {
       rethrow;
     }
   }
-  if (currentThemePreference == ThemePreference.system) {
-    currentThemeProvider.currentTheme = ThemeMode.values.byName(
-        currentMediaQueryData.platformBrightness.toString().split(".").last);
+  if (currentThemePreference == ThemePreference.system && context.mounted) {
+    context.read<ThemeProvider>().currentTheme = ThemeMode.values.byName(
+        MediaQuery.of(context).platformBrightness.toString().split(".").last);
   } else {
-    currentThemeProvider.currentTheme = ThemeMode
-        .values
-        .byName(currentThemePreference.toString().split(".").last);
+    if (context.mounted) {
+      context.read<ThemeProvider>().currentTheme = ThemeMode.values
+          .byName(currentThemePreference.toString().split(".").last);
+    }
   }
 }

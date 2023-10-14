@@ -44,11 +44,12 @@ class ExpandedAccountSummarySingleView extends StatelessWidget {
                   RichText(
                     text: TextSpan(children: [
                       TextSpan(
-                        text: "${getInvestmentAsString(accountData.investment)} ",
+                        text: "${protectValue(getInvestmentAsString(accountData.investment), context)} ",
                         style: cardHeaderTextStyle,
                       ),
                       TextSpan(
-                        text: getPLAsString(accountData.profitLoss),
+                        text: protectValue(
+                            getPLAsString(accountData.profitLoss), context),
                         style: cardHeaderTextStyle.copyWith(
                           color: accountData.profitLossColor,
                           fontWeight: FontWeight.bold,
@@ -65,13 +66,15 @@ class ExpandedAccountSummarySingleView extends StatelessWidget {
                     text: TextSpan(children: [
                       TextSpan(
                         text:
-                            getWholeBalanceAsString(accountData.totalAmount),
+                            protectValue(
+                            getWholeBalanceAsString(accountData.totalAmount), context),
                         style: largeBalanceTextStyle,
                       ),
                       TextSpan(
                         text: getDecimalSeparator() +
-                            getFractionalBalanceAsString(
-                                accountData.totalAmount),
+                            protectValue(
+                                getFractionalBalanceAsString(
+                                    accountData.totalAmount), context),
                         style: smallBalanceTextStyle,
                       ),
                     ]),

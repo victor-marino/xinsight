@@ -82,7 +82,7 @@ class DistributionChart extends StatelessWidget {
               int seriesIndex) {
             return Padding(
               padding: const EdgeInsets.all(5.0),
-              child: Text(point.x + "\n" + getInvestmentAsString(point.y),
+              child: Text(point.x + "\n" + protectValue(getInvestmentAsString(point.y), context),
                   overflow: TextOverflow.ellipsis,
                   softWrap: false,
                   style: tooltipTextStyle),
