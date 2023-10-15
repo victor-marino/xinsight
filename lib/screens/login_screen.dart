@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:indexax/screens/root_screen.dart';
 import 'package:indexax/tools/local_authentication.dart'
     as local_authentication;
+import 'package:indexax/tools/number_formatting.dart';
 import 'package:indexax/tools/snackbar.dart' as snackbar;
 import 'package:indexax/tools/theme_operations.dart' as theme_operations;
 import 'package:indexax/tools/token_operations.dart' as token_operations;
@@ -67,7 +68,7 @@ class LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
     String? token = await token_operations.readToken(context);
     if (token != null) {
       _storedToken = true;
-      _tokenTextController.text = "••••••••••••••••";
+      _tokenTextController.text = getMaskedString(length: 16);
       if (kDebugMode) {
         print('Existing token detected!');
       }

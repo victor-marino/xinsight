@@ -34,30 +34,31 @@ String getBalanceAsString(num number) {
 }
 
 String getWholeBalanceAsString(num? number, {bool maskValue = false}) {
+  if (maskValue) return getMaskedString();
+
   String numberString = NumberFormat.currency(
           locale: getCurrentLocale(), symbol: '€', decimalDigits: 2)
       .format(number);
   numberString = numberString
       .split(numberFormatSymbols[getCurrentLocale()]?.DECIMAL_SEP ?? "")[0];
 
-  if (maskValue) numberString = maskMonetaryString(numberString);
-
   return numberString;
 }
 
 String getFractionalBalanceAsString(num? number, {bool maskValue = false}) {
+  if (maskValue) return "";
+
   String numberString = NumberFormat.currency(
           locale: getCurrentLocale(), symbol: '€', decimalDigits: 2)
       .format(number);
   numberString = numberString
       .split(numberFormatSymbols[getCurrentLocale()]?.DECIMAL_SEP ?? "")[1];
-
-  if (maskValue) numberString = maskMonetaryString(numberString, length: 2);
-
-  return numberString;
+  return getDecimalSeparator() + numberString;
 }
 
 String getInvestmentAsString(num number, {bool maskValue = false}) {
+  if (maskValue) return getMaskedString();
+
   int decimalPlaces;
   if (number == number.roundToDouble()) {
     decimalPlaces = 0;
@@ -68,8 +69,6 @@ String getInvestmentAsString(num number, {bool maskValue = false}) {
           locale: getCurrentLocale(), symbol: '€', decimalDigits: decimalPlaces)
       .format(number);
 
-  if (maskValue) numberString = maskMonetaryString(numberString);
-
   return numberString;
 }
 
@@ -78,7 +77,7 @@ String getAmountAsStringWithTwoDecimals(num? number, {bool maskValue = false}) {
           locale: getCurrentLocale(), symbol: '€', decimalDigits: 2)
       .format(number);
 
-  if (maskValue) numberString = maskMonetaryString(numberString);
+  if (maskValue) numberString = getMaskedString();
 
   return numberString;
 }
@@ -94,16 +93,18 @@ String getAmountAsStringWithMaxDecimals(num? number) {
 }
 
 String getAmountAsStringWithZeroDecimals(num number, {bool maskValue = false}) {
+  if (maskValue) return getMaskedString();
+
   String numberString = NumberFormat.currency(
           locale: getCurrentLocale(), symbol: '€', decimalDigits: 0)
       .format(number);
-
-  if (maskValue) numberString = maskMonetaryString(numberString);
 
   return numberString;
 }
 
 String getNumberAsStringWithMaxDecimals(num? number, {bool maskValue = false}) {
+  if (maskValue) return getMaskedString();
+
   int numberOfDecimals = number.toString().split(".")[1].length;
   String numberString = NumberFormat.currency(
           locale: getCurrentLocale(),
@@ -111,7 +112,6 @@ String getNumberAsStringWithMaxDecimals(num? number, {bool maskValue = false}) {
           decimalDigits: numberOfDecimals)
       .format(number);
 
-  if (maskValue) numberString = maskMonetaryString(numberString);
   return numberString;
 }
 
@@ -123,6 +123,8 @@ String getNumberAsStringWithTwoDecimals(num? number) {
 }
 
 String getPLAsString(num number, {bool maskValue = false}) {
+  if (maskValue) return getMaskedString();
+
   String numberString;
   if (number < 0) {
     numberString = NumberFormat.currency(
@@ -132,7 +134,6 @@ String getPLAsString(num number, {bool maskValue = false}) {
     numberString =
         '+${NumberFormat.currency(locale: getCurrentLocale(), symbol: '€', decimalDigits: 2).format(number)}';
   }
-  if (maskValue) numberString = maskMonetaryString(numberString);
 
   return numberString;
 }
@@ -214,17 +215,8 @@ String testParse(String amount) {
   return amount.substring(0, 2);
 }
 
-String maskMonetaryString(String text, {int length = 3}) {
-  int firstDigit = text.split('').indexWhere((character) => isDigit(character));
-  int lastDigit = text
-      .split('')
-      .lastIndexWhere((character) => character.codeUnitAt(0) ^ 0x30 <= 9);
+String getMaskedString({int length = 3}) {
+  String maskedString = "•" * length;
 
-  String maskedValue =
-      text.replaceRange(firstDigit, lastDigit + 1, "•" * length);
-
-  return maskedValue;
+  return maskedString;
 }
-
-// Check if a character is a numerical digit
-bool isDigit(String s) => (s.codeUnitAt(0) ^ 0x30) <= 9;

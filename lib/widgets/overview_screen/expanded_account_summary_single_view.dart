@@ -77,8 +77,7 @@ class ExpandedAccountSummarySingleView extends StatelessWidget {
                         style: largeBalanceTextStyle,
                       ),
                       TextSpan(
-                        text: getDecimalSeparator() +
-                            getFractionalBalanceAsString(
+                        text: getFractionalBalanceAsString(
                                 accountData.totalAmount,
                                 maskValue: context
                                     .watch<PrivateModeProvider>()
