@@ -147,9 +147,11 @@ class RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
       bool isAuthenticated = await authenticateUserLocally(context);
       if (isAuthenticated && context.mounted) {
         context.read<PrivateModeProvider>().privateModeEnabled = false;
+        snackbar.showInSnackBar(context, "root_screen.private_mode_disabled".tr());
       }
     } else {
       context.read<PrivateModeProvider>().privateModeEnabled = true;
+      snackbar.showInSnackBar(context, "root_screen.private_mode_enabled".tr());
     }
   }
 
@@ -239,7 +241,7 @@ class RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
                                     .watch<PrivateModeProvider>()
                                     .privateModeEnabled
                                 ? Theme.of(context).colorScheme.primary
-                                : Colors.grey,
+                                : Colors.grey.withAlpha(150),
                             splashRadius: 20,
                             iconSize: 20,
                           ),

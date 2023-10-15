@@ -47,6 +47,10 @@
     "no_active_accounts": "No active accounts found for this user",
     "default_error_message": "Couldn't load data"
   },
+  "root_screen": {
+    "private_mode_enabled": "Private mode enabled",
+    "private_mode_disabled": "Private mode disabled"
+  },
   "overview_screen": {
     "distribution": "DISTRIBUTION"
   },

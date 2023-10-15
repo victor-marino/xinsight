@@ -13,8 +13,12 @@ void main() async {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
   ));
-  runApp(ChangeNotifierProvider<ThemeProvider>(
-    create: (_) => ThemeProvider(),
+  runApp(MultiProvider(
+      providers: [
+        ChangeNotifierProvider<ThemeProvider>(create: (_) => ThemeProvider()),
+        ChangeNotifierProvider<BottomNavigationBarProvider>(create: (_) => BottomNavigationBarProvider()),
+        ChangeNotifierProvider<PrivateModeProvider>(create: (_) => PrivateModeProvider()),
+    ],
     child: EasyLocalization(
       supportedLocales: const [
         Locale('en', 'US'),
@@ -51,32 +55,25 @@ class MyApp extends StatelessWidget {
       onBackground: Colors.white54,
     );
 
-    return ChangeNotifierProvider<BottomNavigationBarProvider>(
-      create: (context) {
-        return BottomNavigationBarProvider();
-      },
-      child: ChangeNotifierProvider<PrivateModeProvider>(
-        create: (context) => PrivateModeProvider(),
-        child: Center(
-          child: MaterialApp(
-            title: 'Indexa X',
-            theme: ThemeData.from(
-              colorScheme: lightColorScheme,
-            ),
-            darkTheme: ThemeData.from(
-              colorScheme: darkColorScheme,
-              /* dark theme settings */
-            ).copyWith(
-                bottomSheetTheme:
-                    BottomSheetThemeData(backgroundColor: Colors.grey[900])),
-            localizationsDelegates: context.localizationDelegates,
-            themeMode: context.watch<ThemeProvider>().currentTheme,
-            supportedLocales: context.supportedLocales,
-            locale: context.locale,
-            debugShowCheckedModeBanner: false,
-            home: const LoginScreen(),
-          ),
+    return 
+    Center(
+      child: MaterialApp(
+        title: 'Indexa X',
+        theme: ThemeData.from(
+          colorScheme: lightColorScheme,
         ),
+        darkTheme: ThemeData.from(
+          colorScheme: darkColorScheme,
+          /* dark theme settings */
+        ).copyWith(
+            bottomSheetTheme:
+                BottomSheetThemeData(backgroundColor: Colors.grey[900])),
+        localizationsDelegates: context.localizationDelegates,
+        themeMode: context.watch<ThemeProvider>().currentTheme,
+        supportedLocales: context.supportedLocales,
+        locale: context.locale,
+        debugShowCheckedModeBanner: false,
+        home: const LoginScreen(),
       ),
     );
   }
