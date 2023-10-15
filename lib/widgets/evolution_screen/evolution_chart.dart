@@ -5,7 +5,9 @@ import 'package:indexax/models/amounts_datapoint.dart';
 import 'package:indexax/models/returns_datapoint.dart';
 import 'package:indexax/tools/number_formatting.dart';
 import 'package:indexax/tools/styles.dart' as text_styles;
+import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:indexax/tools/private_mode_provider.dart';
 
 // Draws the evolution chart.
 // If showReturns=true, it plots the returns (%). Otherwise it plots the amounts (€)
@@ -47,7 +49,9 @@ class EvolutionChart extends StatelessWidget {
     ];
     final List<double> stops = <double>[0, 1];
     final LinearGradient gradientColors = LinearGradient(
-        transform: const GradientRotation(pi * 1.5), colors: color, stops: stops);
+        transform: const GradientRotation(pi * 1.5),
+        colors: color,
+        stops: stops);
 
     return SfCartesianChart(
       margin: const EdgeInsets.fromLTRB(10, 0, 10, 0),
@@ -62,10 +66,14 @@ class EvolutionChart extends StatelessWidget {
           : NumericAxis(
               axisLabelFormatter: (AxisLabelRenderDetails details) =>
                   ChartAxisLabel(
-                      getAmountAsStringWithZeroDecimals(details.value),
+                      getAmountAsStringWithZeroDecimals(details.value,
+                          maskValue: context
+                              .watch<PrivateModeProvider>()
+                              .privateModeEnabled),
                       axisTextStyle),
               numberFormat: NumberFormat.currency(
-                  locale: getCurrentLocale(), symbol: '€', decimalDigits: 2)),
+                  locale: getCurrentLocale(), symbol: '€', decimalDigits: 2),
+            ),
       tooltipBehavior: TooltipBehavior(
         elevation: 10,
       ),
@@ -75,13 +83,18 @@ class EvolutionChart extends StatelessWidget {
         tooltipDisplayMode: TrackballDisplayMode.groupAllPoints,
         tooltipAlignment: ChartAlignment.far,
         tooltipSettings: InteractiveTooltip(
-          enable: true,
-          decimalPlaces: 2,
-          color: Theme.of(context).colorScheme.surfaceVariant,
-          borderColor: Theme.of(context).colorScheme.outline,
-          borderWidth: 1,
-          textStyle: TextStyle(color: Theme.of(context).colorScheme.onSurface),
-        ),
+            enable: true,
+            decimalPlaces: 2,
+            color: Theme.of(context).colorScheme.surfaceVariant,
+            borderColor: Theme.of(context).colorScheme.outline,
+            borderWidth: 1,
+            textStyle:
+                TextStyle(color: Theme.of(context).colorScheme.onSurface),
+            format: showReturns
+                ? 'series.name: point.y%'
+                : context.watch<PrivateModeProvider>().privateModeEnabled
+                    ? 'series.name: ${getAmountAsStringWithZeroDecimals(100, maskValue: true)}'
+                    : 'series.name: point.y'),
       ),
       zoomPanBehavior: ZoomPanBehavior(
           enablePinching: false, zoomMode: ZoomMode.x, enablePanning: false),
@@ -89,7 +102,7 @@ class EvolutionChart extends StatelessWidget {
         Colors.blue,
         Colors.black,
       ],
-      legend: Legend(
+      legend: const Legend(
           isVisible: true,
           position: LegendPosition.top,
           padding: 4,
@@ -97,8 +110,7 @@ class EvolutionChart extends StatelessWidget {
       primaryXAxis: DateTimeAxis(
         minimum: startDate,
         dateFormat: DateFormat("dd/MM/yy"),
-        labelStyle:
-            axisTextStyle,
+        labelStyle: axisTextStyle,
         intervalType: DateTimeIntervalType.months,
         majorGridLines: const MajorGridLines(
           width: 1,

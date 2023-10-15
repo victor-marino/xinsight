@@ -2,7 +2,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:indexax/models/account.dart';
 import 'package:indexax/tools/number_formatting.dart';
+import 'package:indexax/tools/private_mode_provider.dart';
 import 'package:indexax/tools/styles.dart' as text_styles;
+import 'package:provider/provider.dart';
 
 // Collapsed version of the account summary.
 // This is the default view in portrait mode, as well as landscape mode in smaller screens.
@@ -38,11 +40,15 @@ class CollapsedAccountSummary extends StatelessWidget {
                 RichText(
                   text: TextSpan(children: [
                     TextSpan(
-                      text: "${getInvestmentAsString(accountData.investment)} ",
+                      text:
+                          "${getInvestmentAsString(accountData.investment, maskValue: context.watch<PrivateModeProvider>().privateModeEnabled)} ",
                       style: cardHeaderTextStyle,
                     ),
                     TextSpan(
-                      text: getPLAsString(accountData.profitLoss),
+                      text: getPLAsString(accountData.profitLoss,
+                          maskValue: context
+                              .watch<PrivateModeProvider>()
+                              .privateModeEnabled),
                       style: cardHeaderTextStyle.copyWith(
                         color: accountData.profitLossColor,
                         fontWeight: FontWeight.bold,
@@ -55,12 +61,18 @@ class CollapsedAccountSummary extends StatelessWidget {
             RichText(
               text: TextSpan(children: [
                 TextSpan(
-                  text: getWholeBalanceAsString(accountData.totalAmount),
+                  text: getWholeBalanceAsString(accountData.totalAmount,
+                      maskValue: context
+                          .watch<PrivateModeProvider>()
+                          .privateModeEnabled),
                   style: largeBalanceTextStyle,
                 ),
                 TextSpan(
                   text: getDecimalSeparator() +
-                      getFractionalBalanceAsString(accountData.totalAmount),
+                      getFractionalBalanceAsString(accountData.totalAmount,
+                          maskValue: context
+                              .watch<PrivateModeProvider>()
+                              .privateModeEnabled),
                   style: smallBalanceTextStyle,
                 ),
               ]),

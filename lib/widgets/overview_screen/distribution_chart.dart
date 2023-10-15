@@ -2,6 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:indexax/models/portfolio_datapoint.dart';
 import 'package:indexax/tools/number_formatting.dart';
+import 'package:indexax/tools/private_mode_provider.dart';
+import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import '../../tools/styles.dart' as text_styles;
 
@@ -82,7 +84,13 @@ class DistributionChart extends StatelessWidget {
               int seriesIndex) {
             return Padding(
               padding: const EdgeInsets.all(5.0),
-              child: Text(point.x + "\n" + getInvestmentAsString(point.y),
+              child: Text(
+                  point.x +
+                      "\n" +
+                      getInvestmentAsString(point.y,
+                          maskValue: context
+                              .read<PrivateModeProvider>()
+                              .privateModeEnabled),
                   overflow: TextOverflow.ellipsis,
                   softWrap: false,
                   style: tooltipTextStyle),

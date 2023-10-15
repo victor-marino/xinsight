@@ -2,7 +2,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:indexax/models/portfolio_datapoint.dart';
 import 'package:indexax/tools/number_formatting.dart';
+import 'package:indexax/tools/private_mode_provider.dart';
 import 'package:indexax/tools/styles.dart' as text_styles;
+import 'package:provider/provider.dart';
 
 // Body of the expanded view of each asset tile for landscape orientation
 class ExpandedAssetTileBodyLandscape extends StatelessWidget {
@@ -62,7 +64,7 @@ class ExpandedAssetTileBodyLandscape extends StatelessWidget {
                   text: '${'asset_details.titles'.tr()}: ',
                   style: detailNameTextStyle),
               TextSpan(
-                  text: getNumberAsStringWithMaxDecimals(assetData.titles),
+                  text: getNumberAsStringWithMaxDecimals(assetData.titles, maskValue: context.watch<PrivateModeProvider>().privateModeEnabled),
                   style: detailValueTextStyle),
             ],
           ),
@@ -74,7 +76,9 @@ class ExpandedAssetTileBodyLandscape extends StatelessWidget {
                   text: '${'asset_details.cost'.tr()}: ',
                   style: detailNameTextStyle),
               TextSpan(
-                  text: getInvestmentAsString(assetData.cost!),
+                  text: getInvestmentAsString(assetData.cost!, maskValue: context
+                          .watch<PrivateModeProvider>()
+                          .privateModeEnabled),
                   style: detailValueTextStyle),
             ],
           ),
@@ -86,7 +90,9 @@ class ExpandedAssetTileBodyLandscape extends StatelessWidget {
                   text: '${'asset_details.current_value'.tr()}: ',
                   style: detailNameTextStyle),
               TextSpan(
-                  text: getInvestmentAsString(assetData.amount),
+                  text: getInvestmentAsString(assetData.amount, maskValue: context
+                          .watch<PrivateModeProvider>()
+                          .privateModeEnabled),
                   style: detailValueTextStyle),
             ],
           ),
@@ -98,7 +104,9 @@ class ExpandedAssetTileBodyLandscape extends StatelessWidget {
                   text: '${'asset_details.profit_loss'.tr()}: ',
                   style: detailNameTextStyle),
               TextSpan(
-                  text: getPLAsString(assetData.profitLoss!),
+                  text: getPLAsString(assetData.profitLoss!, maskValue: context
+                          .watch<PrivateModeProvider>()
+                          .privateModeEnabled),
                   style: detailValueTextStyle),
             ],
           ),

@@ -1,7 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:indexax/tools/number_formatting.dart';
+import 'package:indexax/tools/private_mode_provider.dart';
 import 'package:indexax/tools/styles.dart' as text_styles;
+import 'package:provider/provider.dart';
 
 // Text showing the minimum amount required for Indexa to make new fund purchases
 
@@ -25,7 +27,9 @@ class MinimumTransferCard extends StatelessWidget {
                 '${'minimum_transfer_card.minimum_transfer_to_invest'.tr()}: ',
             style: itemNameText),
         TextSpan(
-            text: getInvestmentAsString(additionalCashNeededToTrade),
+            text: getInvestmentAsString(additionalCashNeededToTrade,
+                maskValue:
+                    context.watch<PrivateModeProvider>().privateModeEnabled),
             style: itemValueText),
       ]),
     );

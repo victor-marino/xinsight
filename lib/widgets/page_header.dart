@@ -27,7 +27,7 @@ class PageHeader extends StatelessWidget {
       children: [
         Text(
           pageTitles[
-              Provider.of<BottomNavigationBarProvider>(context, listen: true)
+              context.watch<BottomNavigationBarProvider>()
                   .currentIndex],
           style: pageTitleTextStyle,
           overflow: TextOverflow.fade,
