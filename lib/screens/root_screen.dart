@@ -14,11 +14,13 @@ import 'package:indexax/tools/snackbar.dart' as snackbar;
 import 'package:indexax/tools/theme_operations.dart' as theme_operations;
 import 'package:provider/provider.dart';
 import '../tools/bottom_navigation_bar_provider.dart';
+import '../tools/private_mode_provider.dart';
 import '../widgets/bottom_navigation_bar.dart';
 import '../widgets/current_account_indicator.dart';
 import '../widgets/page_header.dart';
 import '../widgets/settings_popup_menu.dart';
 import 'login_screen.dart';
+import '../tools/local_authentication.dart';
 
 // Base screen where all other screens are loaded after loggin in
 
@@ -54,6 +56,8 @@ class RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
   late double availableHeight;
   double topPadding = 0;
 
+  bool hiddenAmounts = false;
+
   Future<void> _loadData({required int accountIndex}) async {
     // Main function that is called when account data is loaded
     try {
@@ -62,30 +66,34 @@ class RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
       if (_userAccounts.isEmpty) {
         _userAccounts = await widget.indexaData.getUserAccounts();
       }
-      if (_userAccounts.isNotEmpty) {
+      if (_userAccounts.isNotEmpty && context.mounted) {
         _accountData = widget.indexaData.populateAccountData(
             context: context,
             accountNumber: _userAccounts[accountIndex]['number']!);
         await _accountData;
         setState(() {});
       } else {
-        Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(
-                builder: (BuildContext context) =>
-                    LoginScreen(errorMessage: "login_screen.no_active_accounts".tr())),
-            (Route<dynamic> route) => false);
+        if (context.mounted) {
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                  builder: (BuildContext context) => LoginScreen(
+                      errorMessage: "login_screen.no_active_accounts".tr())),
+              (Route<dynamic> route) => false);
+        }
       }
     } on Exception catch (e) {
       if (kDebugMode) {
         print(e.toString());
       }
-      Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-              builder: (BuildContext context) =>
-                  LoginScreen(errorMessage: e.toString())),
-          (Route<dynamic> route) => false);
+      if (context.mounted) {
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+                builder: (BuildContext context) =>
+                    LoginScreen(errorMessage: e.toString())),
+            (Route<dynamic> route) => false);
+      }
     }
   }
 
@@ -98,7 +106,7 @@ class RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
       await _accountData;
       setState(() {});
     } on Exception catch (e) {
-      snackbar.showInSnackBar(context, e.toString());
+      if (context.mounted) snackbar.showInSnackBar(context, e.toString());
     }
   }
 
@@ -109,8 +117,7 @@ class RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
     });
     await _loadData(accountIndex: widget.accountIndex);
     if (!mounted) return;
-    Provider.of<BottomNavigationBarProvider>(context, listen: false)
-        .currentIndex = widget.pageIndex;
+    context.read<BottomNavigationBarProvider>().currentIndex;
   }
 
   void _reloadPage(int accountIndex, int pageIndex) async {
@@ -133,6 +140,19 @@ class RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
     // Called when the user taps the bottom navigation bar
     _pageController.animateToPage(value,
         duration: const Duration(milliseconds: 500), curve: Curves.ease);
+  }
+
+  void _togglePrivateMode() async {
+    if (context.read<PrivateModeProvider>().privateModeEnabled) {
+      bool isAuthenticated = await authenticateUserLocally(context);
+      if (isAuthenticated && context.mounted) {
+        context.read<PrivateModeProvider>().privateModeEnabled = false;
+        snackbar.showInSnackBar(context, "root_screen.private_mode_disabled".tr());
+      }
+    } else {
+      context.read<PrivateModeProvider>().privateModeEnabled = true;
+      snackbar.showInSnackBar(context, "root_screen.private_mode_enabled".tr());
+    }
   }
 
   @override
@@ -205,7 +225,29 @@ class RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const PageHeader(),
+                    Row(
+                      children: [
+                        const PageHeader(),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 7),
+                          child: IconButton(
+                            onPressed: _togglePrivateMode,
+                            icon: Icon(context
+                                    .watch<PrivateModeProvider>()
+                                    .privateModeEnabled
+                                ? Icons.visibility_off_rounded
+                                : Icons.visibility_rounded),
+                            color: context
+                                    .watch<PrivateModeProvider>()
+                                    .privateModeEnabled
+                                ? Theme.of(context).colorScheme.primary
+                                : Colors.grey.withAlpha(150),
+                            splashRadius: 20,
+                            iconSize: 20,
+                          ),
+                        )
+                      ],
+                    ),
                     if (!landscapeOrientation) ...[
                       CurrentAccountIndicator(
                           accountNumber: snapshot.data!.accountNumber,
@@ -278,8 +320,7 @@ class RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
                     currentAccountIndex: widget.accountIndex),
               ],
               onPageChanged: (page) {
-                Provider.of<BottomNavigationBarProvider>(context, listen: false)
-                    .currentIndex = page;
+                context.read<BottomNavigationBarProvider>().currentIndex = page;
               },
             ),
             bottomNavigationBar: MyBottomNavigationBar(onTapped: _onTappedBar),

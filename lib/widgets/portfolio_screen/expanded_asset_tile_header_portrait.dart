@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:indexax/models/portfolio_datapoint.dart';
 import 'package:indexax/tools/number_formatting.dart';
 import 'package:indexax/tools/styles.dart' as text_styles;
+import 'package:provider/provider.dart';
+import 'package:indexax/tools/private_mode_provider.dart';
 
 // Header of the expanded view of each asset tile for portrait orientation
 
@@ -32,12 +34,15 @@ class ExpandedAssetTileHeaderPortrait extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 20),
               child: Text(
-                getInvestmentAsString(assetData.amount),
+                getInvestmentAsString(assetData.amount,
+                    maskValue: context
+                        .watch<PrivateModeProvider>()
+                        .privateModeEnabled),
                 style: assetAmountTextStyle,
               ),
             ),
             Text(
-              "(${getPLAsString(assetData.profitLoss!)})",
+              "(${getPLAsString(assetData.profitLoss!, maskValue: context.watch<PrivateModeProvider>().privateModeEnabled)})",
               style: assetData.profitLoss! < 0
                   ? headerSubtitleTextStyle.copyWith(
                       color: Theme.of(context).colorScheme.error)

@@ -5,6 +5,8 @@ import 'package:indexax/tools/number_formatting.dart';
 import 'package:indexax/tools/styles.dart' as text_styles;
 import 'package:indexax/widgets/transactions_screen/transaction_details_popup_landscape.dart';
 import 'package:indexax/widgets/transactions_screen/transaction_details_popup_portrait.dart';
+import 'package:provider/provider.dart';
+import 'package:indexax/tools/private_mode_provider.dart';
 
 // Individual tiles for each transaction in the list
 
@@ -114,7 +116,10 @@ class TransactionTile extends StatelessWidget {
                 ),
               ),
               Text(
-                getAmountAsStringWithTwoDecimals(transactionData.amount),
+                getAmountAsStringWithTwoDecimals(transactionData.amount,
+                    maskValue: context
+                        .watch<PrivateModeProvider>()
+                        .privateModeEnabled),
                 textAlign: TextAlign.right,
                 style: transactionAmountTextStyle.copyWith(
                     color: Theme.of(context).colorScheme.onSurfaceVariant),

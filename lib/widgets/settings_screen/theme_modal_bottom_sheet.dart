@@ -40,7 +40,7 @@ class _ThemeModalBottomSheetState extends State<ThemeModalBottomSheet> {
     try {
       await theme_operations.storeThemePreference(value);
     } on Exception catch (e) {
-      snackbar.showInSnackBar(context, e.toString());
+      if (mounted) snackbar.showInSnackBar(context, e.toString());
     }
     setState(() {
       _currentThemePreference = value;

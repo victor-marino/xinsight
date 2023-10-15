@@ -41,12 +41,13 @@ class PortfolioScreenState extends State<PortfolioScreen>
         print("Couldn't refresh data");
         print(e);
       }
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text(e.toString()),
-      ));
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(e.toString()),
+        ));
+      }
     }
   }
-
 
   @override
   Widget build(BuildContext context) {

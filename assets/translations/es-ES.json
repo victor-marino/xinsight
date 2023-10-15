@@ -47,6 +47,10 @@
     "no_active_accounts": "No se encontraron cuentas activas para este usuario",
     "default_error_message": "No se pudieron cargar los datos"
   },
+  "root_screen": {
+    "private_mode_enabled": "Modo privado activado",
+    "private_mode_disabled": "Modo privado desactivado"
+  },
   "overview_screen": {
     "distribution": "DISTRIBUCIÓN"
   },

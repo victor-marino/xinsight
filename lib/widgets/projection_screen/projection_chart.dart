@@ -46,7 +46,7 @@ class PerformanceChart extends StatelessWidget {
         Colors.blue,
         Theme.of(context).colorScheme.onSurface,
       ],
-      legend: Legend(
+      legend: const Legend(
           isVisible: true,
           position: LegendPosition.top,
           padding: 4,

@@ -5,6 +5,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:provider/provider.dart';
 import 'tools/bottom_navigation_bar_provider.dart';
 import 'tools/theme_provider.dart';
+import 'tools/private_mode_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -12,8 +13,12 @@ void main() async {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
   ));
-  runApp(ChangeNotifierProvider<ThemeProvider>(
-    create: (_) => ThemeProvider(),
+  runApp(MultiProvider(
+      providers: [
+        ChangeNotifierProvider<ThemeProvider>(create: (_) => ThemeProvider()),
+        ChangeNotifierProvider<BottomNavigationBarProvider>(create: (_) => BottomNavigationBarProvider()),
+        ChangeNotifierProvider<PrivateModeProvider>(create: (_) => PrivateModeProvider()),
+    ],
     child: EasyLocalization(
       supportedLocales: const [
         Locale('en', 'US'),
@@ -50,30 +55,25 @@ class MyApp extends StatelessWidget {
       onBackground: Colors.white54,
     );
 
-    return ChangeNotifierProvider<BottomNavigationBarProvider>(
-      create: (context) {
-        return BottomNavigationBarProvider();
-      },
-      child: Center(
-        child: MaterialApp(
-          title: 'Indexa X',
-          theme: ThemeData.from(
-            colorScheme: lightColorScheme,
-          ),
-          darkTheme: ThemeData.from(
-            colorScheme: darkColorScheme,
-            /* dark theme settings */
-          ).copyWith(
-              bottomSheetTheme:
-                  BottomSheetThemeData(backgroundColor: Colors.grey[900])),
-          localizationsDelegates: context.localizationDelegates,
-          themeMode:
-              Provider.of<ThemeProvider>(context, listen: true).currentTheme,
-          supportedLocales: context.supportedLocales,
-          locale: context.locale,
-          debugShowCheckedModeBanner: false,
-          home: const LoginScreen(),
+    return 
+    Center(
+      child: MaterialApp(
+        title: 'Indexa X',
+        theme: ThemeData.from(
+          colorScheme: lightColorScheme,
         ),
+        darkTheme: ThemeData.from(
+          colorScheme: darkColorScheme,
+          /* dark theme settings */
+        ).copyWith(
+            bottomSheetTheme:
+                BottomSheetThemeData(backgroundColor: Colors.grey[900])),
+        localizationsDelegates: context.localizationDelegates,
+        themeMode: context.watch<ThemeProvider>().currentTheme,
+        supportedLocales: context.supportedLocales,
+        locale: context.locale,
+        debugShowCheckedModeBanner: false,
+        home: const LoginScreen(),
       ),
     );
   }

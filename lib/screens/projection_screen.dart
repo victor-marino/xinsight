@@ -46,12 +46,13 @@ class ProjectionScreenState extends State<ProjectionScreen>
         print("Couldn't refresh data");
         print(e);
       }
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text(e.toString()),
-      ));
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(e.toString()),
+        ));
+      }
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -116,8 +117,7 @@ class ProjectionScreenState extends State<ProjectionScreen>
                                         children: [
                                           TextSpan(
                                               text:
-                                                  '${'projection_screen.expected_annual_return'
-                                                          .tr()}: ',
+                                                  '${'projection_screen.expected_annual_return'.tr()}: ',
                                               style:
                                                   annualReturnDescriptionTextStyle),
                                           TextSpan(

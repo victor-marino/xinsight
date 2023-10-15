@@ -17,7 +17,7 @@ Future<void> storeToken(BuildContext context, String value) async {
     try {
       await _storage.storeKey(keyName: "indexaToken", value: value);
     } on Exception catch (e) {
-      snackbar.showInSnackBar(context, e.toString());
+      if (context.mounted) snackbar.showInSnackBar(context, e.toString());
     }
   } else {
     snackbar.showInSnackBar(
@@ -32,7 +32,7 @@ Future<String?> readToken(BuildContext context) async {
   try {
     token = await _storage.read("indexaToken");
   } on Exception catch (e) {
-    snackbar.showInSnackBar(context, e.toString());
+    if (context.mounted) snackbar.showInSnackBar(context, e.toString());
   }
   return token;
 }
@@ -41,7 +41,7 @@ Future<void> deleteToken(BuildContext context) async {
   try {
     await _storage.deleteKey(keyName: "indexaToken");
   } on Exception catch (e) {
-    snackbar.showInSnackBar(context, e.toString());
+    if (context.mounted) snackbar.showInSnackBar(context, e.toString());
   }
 }
 
@@ -53,7 +53,7 @@ Future<bool?> authenticateToken(BuildContext context, String token) async {
     buildLoading(context);
     IndexaData indexaData = IndexaData(token: token);
     try {
-      // Passing contexts across async calls can cause problems, so instead 
+      // Passing contexts across async calls can cause problems, so instead
       // we previously store the navigator in a variable and pass it later
       NavigatorState currentNavigator = Navigator.of(context);
       var userAccounts = await indexaData.getUserAccounts();
@@ -68,14 +68,16 @@ Future<bool?> authenticateToken(BuildContext context, String token) async {
         authenticatedToken = false;
       }
     } on Exception catch (e) {
-      Navigator.of(context).pop();
-      if (kDebugMode) {
-        print(e);
+      if (context.mounted) {
+        Navigator.of(context).pop();
+        if (kDebugMode) {
+          print(e);
+        }
+        snackbar.showInSnackBar(
+          context,
+          e.toString(),
+        );
       }
-      snackbar.showInSnackBar(
-        context,
-        e.toString(),
-      );
     }
   } else {
     snackbar.showInSnackBar(
