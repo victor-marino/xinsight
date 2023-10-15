@@ -68,8 +68,7 @@ class CollapsedAccountSummary extends StatelessWidget {
                   style: largeBalanceTextStyle,
                 ),
                 TextSpan(
-                  text: getDecimalSeparator() +
-                      getFractionalBalanceAsString(accountData.totalAmount,
+                  text: getFractionalBalanceAsString(accountData.totalAmount,
                           maskValue: context
                               .watch<PrivateModeProvider>()
                               .privateModeEnabled),
