@@ -143,13 +143,13 @@ class RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
   }
 
   void _togglePrivateMode() async {
-    if (context.read<PrivateModeProvider>().privateMode) {
+    if (context.read<PrivateModeProvider>().privateModeEnabled) {
       bool isAuthenticated = await authenticateUserLocally(context);
       if (isAuthenticated && context.mounted) {
-        context.read<PrivateModeProvider>().privateMode = false;
+        context.read<PrivateModeProvider>().privateModeEnabled = false;
       }
     } else {
-      context.read<PrivateModeProvider>().privateMode = true;
+      context.read<PrivateModeProvider>().privateModeEnabled = true;
     }
   }
 
@@ -230,12 +230,14 @@ class RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
                           padding: const EdgeInsets.only(top: 7),
                           child: IconButton(
                             onPressed: _togglePrivateMode,
-                            icon: Icon(context.watch<PrivateModeProvider>()
-                                    .privateMode
+                            icon: Icon(context
+                                    .watch<PrivateModeProvider>()
+                                    .privateModeEnabled
                                 ? Icons.visibility_off_rounded
                                 : Icons.visibility_rounded),
-                            color: context.watch<PrivateModeProvider>()
-                                    .privateMode
+                            color: context
+                                    .watch<PrivateModeProvider>()
+                                    .privateModeEnabled
                                 ? Theme.of(context).colorScheme.primary
                                 : Colors.grey,
                             splashRadius: 20,
@@ -316,8 +318,7 @@ class RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
                     currentAccountIndex: widget.accountIndex),
               ],
               onPageChanged: (page) {
-                context.read<BottomNavigationBarProvider>()
-                    .currentIndex = page;
+                context.read<BottomNavigationBarProvider>().currentIndex = page;
               },
             ),
             bottomNavigationBar: MyBottomNavigationBar(onTapped: _onTappedBar),

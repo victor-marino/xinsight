@@ -1,7 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:indexax/tools/number_formatting.dart';
+import 'package:indexax/tools/private_mode_provider.dart';
 import 'package:indexax/tools/styles.dart' as text_styles;
+import 'package:provider/provider.dart';
 
 // Text showing the fee-free assets due to referral promotions
 
@@ -25,7 +27,10 @@ class FeeFreeAmountCard extends StatelessWidget {
               text: '${'fee_free_amount_card.fee_free_amount'.tr()}: ',
               style: itemNameText),
           TextSpan(
-              text: protectValue(getInvestmentAsString(feeFreeAmount), context), style: itemValueText),
+              text: getInvestmentAsString(feeFreeAmount,
+                  maskValue:
+                      context.watch<PrivateModeProvider>().privateModeEnabled),
+              style: itemValueText),
         ],
       ),
     );

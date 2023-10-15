@@ -2,9 +2,11 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:indexax/models/portfolio_datapoint.dart';
 import 'package:indexax/tools/number_formatting.dart';
+import 'package:indexax/tools/private_mode_provider.dart';
 import 'package:indexax/widgets/portfolio_screen/asset_tile.dart';
 import 'package:indexax/widgets/reusable_card.dart';
 import 'package:indexax/tools/styles.dart' as text_styles;
+import 'package:provider/provider.dart';
 
 // The list of assets shown in the portfolio screen
 // Grouped by asset type:
@@ -234,7 +236,7 @@ class AssetList extends StatelessWidget {
                   ],
                 ),
                 Text(
-                  protectValue(getInvestmentAsString(cashAmount), context),
+                  getInvestmentAsString(cashAmount, maskValue: context.watch<PrivateModeProvider>().privateModeEnabled),
                   style: cashAmountTextStyle,
                 ),
               ],

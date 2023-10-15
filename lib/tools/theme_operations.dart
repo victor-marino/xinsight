@@ -19,7 +19,7 @@ Future<ThemePreference?> readStoredThemePreference(BuildContext context) async {
       themePreference = ThemePreference.values.byName(themePreferenceString);
     }
   } on Exception catch (e) {
-    snackbar.showInSnackBar(context, e.toString());
+    if (context.mounted) snackbar.showInSnackBar(context, e.toString());
   }
   return themePreference;
 }

@@ -1,8 +1,6 @@
 import 'package:intl/intl.dart' show NumberFormat;
 import 'package:intl/number_symbols_data.dart' show numberFormatSymbols;
 import 'package:flutter/material.dart';
-import 'package:indexax/tools/private_mode_provider.dart';
-import 'package:provider/provider.dart';
 
 // All operations regarding number and string formatting are grouped here
 
@@ -35,23 +33,31 @@ String getBalanceAsString(num number) {
   return numberString;
 }
 
-String getWholeBalanceAsString(num? number) {
+String getWholeBalanceAsString(num? number, {bool maskValue = false}) {
   String numberString = NumberFormat.currency(
           locale: getCurrentLocale(), symbol: '€', decimalDigits: 2)
       .format(number);
-  return numberString
+  numberString = numberString
       .split(numberFormatSymbols[getCurrentLocale()]?.DECIMAL_SEP ?? "")[0];
+
+  if (maskValue) numberString = maskMonetaryString(numberString);
+
+  return numberString;
 }
 
-String getFractionalBalanceAsString(num? number) {
+String getFractionalBalanceAsString(num? number, {bool maskValue = false}) {
   String numberString = NumberFormat.currency(
           locale: getCurrentLocale(), symbol: '€', decimalDigits: 2)
       .format(number);
-  return numberString
+  numberString = numberString
       .split(numberFormatSymbols[getCurrentLocale()]?.DECIMAL_SEP ?? "")[1];
+
+  if (maskValue) numberString = maskMonetaryString(numberString, length: 2);
+
+  return numberString;
 }
 
-String getInvestmentAsString(num number) {
+String getInvestmentAsString(num number, {bool maskValue = false}) {
   int decimalPlaces;
   if (number == number.roundToDouble()) {
     decimalPlaces = 0;
@@ -61,13 +67,19 @@ String getInvestmentAsString(num number) {
   String numberString = NumberFormat.currency(
           locale: getCurrentLocale(), symbol: '€', decimalDigits: decimalPlaces)
       .format(number);
+
+  if (maskValue) numberString = maskMonetaryString(numberString);
+
   return numberString;
 }
 
-String getAmountAsStringWithTwoDecimals(num? number) {
+String getAmountAsStringWithTwoDecimals(num? number, {bool maskValue = false}) {
   String numberString = NumberFormat.currency(
           locale: getCurrentLocale(), symbol: '€', decimalDigits: 2)
       .format(number);
+
+  if (maskValue) numberString = maskMonetaryString(numberString);
+
   return numberString;
 }
 
@@ -81,20 +93,25 @@ String getAmountAsStringWithMaxDecimals(num? number) {
   return numberString;
 }
 
-String getAmountAsStringWithZeroDecimals(num number) {
+String getAmountAsStringWithZeroDecimals(num number, {bool maskValue = false}) {
   String numberString = NumberFormat.currency(
           locale: getCurrentLocale(), symbol: '€', decimalDigits: 0)
       .format(number);
+
+  if (maskValue) numberString = maskMonetaryString(numberString);
+
   return numberString;
 }
 
-String getNumberAsStringWithMaxDecimals(num? number) {
+String getNumberAsStringWithMaxDecimals(num? number, {bool maskValue = false}) {
   int numberOfDecimals = number.toString().split(".")[1].length;
   String numberString = NumberFormat.currency(
           locale: getCurrentLocale(),
           symbol: '',
           decimalDigits: numberOfDecimals)
       .format(number);
+
+  if (maskValue) numberString = maskMonetaryString(numberString);
   return numberString;
 }
 
@@ -105,7 +122,7 @@ String getNumberAsStringWithTwoDecimals(num? number) {
   return numberString;
 }
 
-String getPLAsString(num number) {
+String getPLAsString(num number, {bool maskValue = false}) {
   String numberString;
   if (number < 0) {
     numberString = NumberFormat.currency(
@@ -115,6 +132,8 @@ String getPLAsString(num number) {
     numberString =
         '+${NumberFormat.currency(locale: getCurrentLocale(), symbol: '€', decimalDigits: 2).format(number)}';
   }
+  if (maskValue) numberString = maskMonetaryString(numberString);
+
   return numberString;
 }
 
@@ -191,10 +210,21 @@ String getDecimalSeparator() {
   return numberFormatSymbols[getCurrentLocale()]?.DECIMAL_SEP ?? "";
 }
 
-String protectValue(String text, BuildContext context) {
-  if (context.read<PrivateModeProvider>().privateMode) {
-    return "•••";
-  } else {
-    return text;
-  }
+String testParse(String amount) {
+  return amount.substring(0, 2);
 }
+
+String maskMonetaryString(String text, {int length = 3}) {
+  int firstDigit = text.split('').indexWhere((character) => isDigit(character));
+  int lastDigit = text
+      .split('')
+      .lastIndexWhere((character) => character.codeUnitAt(0) ^ 0x30 <= 9);
+
+  String maskedValue =
+      text.replaceRange(firstDigit, lastDigit + 1, "•" * length);
+
+  return maskedValue;
+}
+
+// Check if a character is a numerical digit
+bool isDigit(String s) => (s.codeUnitAt(0) ^ 0x30) <= 9;

@@ -98,8 +98,7 @@ class TransactionDetailsPopup extends StatelessWidget {
         style: detailNameTextStyle,
       ));
       transactionDetails.add(Text(
-        protectValue(
-            getNumberAsStringWithMaxDecimals(transactionData.titles), context),
+        getNumberAsStringWithMaxDecimals(transactionData.titles, maskValue: context.watch<PrivateModeProvider>().privateModeEnabled),
         style: detailValueTextStyle,
       ));
       transactionDetails.add(Text(
@@ -115,8 +114,7 @@ class TransactionDetailsPopup extends StatelessWidget {
         style: detailNameTextStyle,
       ));
       transactionDetails.add(Text(
-        protectValue(
-            getAmountAsStringWithTwoDecimals(transactionData.amount), context),
+        getAmountAsStringWithTwoDecimals(transactionData.amount, maskValue: context.watch<PrivateModeProvider>().privateModeEnabled),
         style: detailValueTextStyle,
       ));
       transactionDetails.add(
@@ -168,27 +166,33 @@ class TransactionDetailsPopup extends StatelessWidget {
       actions: [
         if (transactionData.downloadLink != null) ...[
           TextButton(
-            style: context.read<PrivateModeProvider>().privateMode ? ButtonStyle(
-              overlayColor: MaterialStateProperty.all(Colors.transparent)) : null,
+            style: context.read<PrivateModeProvider>().privateModeEnabled
+                ? ButtonStyle(
+                    overlayColor: MaterialStateProperty.all(Colors.transparent))
+                : null,
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(
-                  Icons.download_sharp,
-                  color: context.read<PrivateModeProvider>().privateMode
-                ? Colors.grey : null),
+                Icon(Icons.download_sharp,
+                    color:
+                        context.read<PrivateModeProvider>().privateModeEnabled
+                            ? Colors.grey
+                            : null),
                 Text(
                   'PDF',
                   style: TextStyle(
-                    color: context.read<PrivateModeProvider>().privateMode
-                ? Colors.grey : null
-                  ),),
+                      color:
+                          context.read<PrivateModeProvider>().privateModeEnabled
+                              ? Colors.grey
+                              : null),
+                ),
               ],
             ),
-            onPressed: () => context.read<PrivateModeProvider>().privateMode
-                ? null 
-                : launchUrl(transactionData.downloadLink!,
-                    mode: LaunchMode.externalApplication),
+            onPressed: () =>
+                context.read<PrivateModeProvider>().privateModeEnabled
+                    ? null
+                    : launchUrl(transactionData.downloadLink!,
+                        mode: LaunchMode.externalApplication),
           ),
         ],
         TextButton(

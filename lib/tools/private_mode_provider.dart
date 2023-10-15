@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 
 // Provider for toggling privacy mode
 class PrivateModeProvider with ChangeNotifier {
-  bool _privateMode = false;
+  bool _privateModeEnabled = false;
 
-  bool get privateMode => _privateMode;
+  bool get privateModeEnabled => _privateModeEnabled;
 
-  set privateMode(bool hidden) {
-    _privateMode = hidden;
+  set privateModeEnabled(bool hidden) {
+    _privateModeEnabled = hidden;
     notifyListeners();
   }
 }

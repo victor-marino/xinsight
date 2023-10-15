@@ -38,7 +38,7 @@ Future<bool> supportsBiometrics(BuildContext context) async {
     if (kDebugMode) {
       print(e);
     }
-    snackbar.showInSnackBar(context, e.toString());
+    if (context.mounted) snackbar.showInSnackBar(context, e.toString());
   }
   if (kDebugMode) {
     (isDeviceSupported)
@@ -71,8 +71,10 @@ Future<bool> authenticateUserLocally(BuildContext context) async {
         print("Biometrics not supported");
       }
       isAuthenticated = false;
-      snackbar.showInSnackBar(
-          context, "login_screen.screen_lock_required".tr());
+      if (context.mounted) {
+        snackbar.showInSnackBar(
+            context, "login_screen.screen_lock_required".tr());
+      }
     }
   } on Exception catch (e) {
     if (kDebugMode) {

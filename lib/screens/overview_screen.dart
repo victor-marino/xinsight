@@ -52,12 +52,13 @@ class OverviewScreenState extends State<OverviewScreen>
         print("Couldn't refresh data");
         print(e);
       }
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text(e.toString()),
-      ));
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(e.toString()),
+        ));
+      }
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -88,11 +89,14 @@ class OverviewScreenState extends State<OverviewScreen>
                           children: <Widget>[
                             if (!widget.landscapeOrientation ||
                                 widget.availableWidth <= 1000) ...[
-                                  if (!widget.accountData.isReconciledToday) ...[
-                                  NotReconciledCard(reconciledUntil: widget.accountData.reconciledUntil),
-                                  const SizedBox(
-                                height: 20,
-                              ),],
+                              if (!widget.accountData.isReconciledToday) ...[
+                                NotReconciledCard(
+                                    reconciledUntil:
+                                        widget.accountData.reconciledUntil),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                              ],
                               ReusableCard(
                                 childWidget: ExpandableNotifier(
                                   child: ScrollOnExpand(
@@ -132,10 +136,13 @@ class OverviewScreenState extends State<OverviewScreen>
                               ),
                             ] else ...[
                               if (!widget.accountData.isReconciledToday) ...[
-                                  NotReconciledCard(reconciledUntil: widget.accountData.reconciledUntil),
-                                  const SizedBox(
-                                height: 20,
-                              ),],
+                                NotReconciledCard(
+                                    reconciledUntil:
+                                        widget.accountData.reconciledUntil),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                              ],
                               SizedBox(
                                 height: 362,
                                 child: Row(

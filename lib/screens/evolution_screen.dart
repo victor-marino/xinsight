@@ -51,7 +51,7 @@ class EvolutionScreenState extends State<EvolutionScreen>
         print("Couldn't refresh data");
         print(e);
       }
-      snackbar.showInSnackBar(context, e.toString());
+      if (mounted) snackbar.showInSnackBar(context, e.toString());
     }
   }
 

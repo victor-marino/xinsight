@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:indexax/models/portfolio_datapoint.dart';
 import 'package:indexax/tools/number_formatting.dart';
 import 'package:indexax/tools/styles.dart' as text_styles;
+import 'package:provider/provider.dart';
+import 'package:indexax/tools/private_mode_provider.dart';
 
 // Body of the expanded view of each asset tile for portrait orientation
 
@@ -35,7 +37,7 @@ class ExpandedAssetTileBodyPortrait extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (assetData.instrumentCompany !="") ...[
+        if (assetData.instrumentCompany != "") ...[
           const Divider(),
           Text(assetData.instrumentCompany!, style: headerSubtitleTextStyle),
         ],
@@ -68,8 +70,10 @@ class ExpandedAssetTileBodyPortrait extends StatelessWidget {
                   text: '${'asset_details.titles'.tr()}: ',
                   style: detailNameTextStyle),
               TextSpan(
-                  text: protectValue(
-                      getNumberAsStringWithMaxDecimals(assetData.titles), context),
+                  text: getNumberAsStringWithMaxDecimals(assetData.titles,
+                      maskValue: context
+                          .watch<PrivateModeProvider>()
+                          .privateModeEnabled),
                   style: detailValueTextStyle),
             ],
           ),
@@ -81,8 +85,9 @@ class ExpandedAssetTileBodyPortrait extends StatelessWidget {
                   text: '${'asset_details.cost'.tr()}: ',
                   style: detailNameTextStyle),
               TextSpan(
-                  text: protectValue(
-                      getInvestmentAsString(assetData.cost!), context),
+                  text: getInvestmentAsString(assetData.cost!, maskValue: context
+                          .watch<PrivateModeProvider>()
+                          .privateModeEnabled),
                   style: detailValueTextStyle),
             ],
           ),
@@ -94,8 +99,9 @@ class ExpandedAssetTileBodyPortrait extends StatelessWidget {
                   text: '${'asset_details.current_value'.tr()}: ',
                   style: detailNameTextStyle),
               TextSpan(
-                  text: protectValue(
-                      getInvestmentAsString(assetData.amount), context),
+                  text: getInvestmentAsString(assetData.amount, maskValue: context
+                          .watch<PrivateModeProvider>()
+                          .privateModeEnabled),
                   style: detailValueTextStyle),
             ],
           ),
@@ -107,8 +113,9 @@ class ExpandedAssetTileBodyPortrait extends StatelessWidget {
                   text: '${'asset_details.profit_loss'.tr()}: ',
                   style: detailNameTextStyle),
               TextSpan(
-                  text: protectValue(
-                      getPLAsString(assetData.profitLoss!), context),
+                  text: getPLAsString(assetData.profitLoss!, maskValue: context
+                          .watch<PrivateModeProvider>()
+                          .privateModeEnabled),
                   style: detailValueTextStyle),
             ],
           ),

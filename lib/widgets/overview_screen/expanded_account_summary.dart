@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:indexax/models/account.dart';
 import 'package:indexax/tools/number_formatting.dart';
 import 'package:indexax/tools/styles.dart' as text_styles;
+import 'package:provider/provider.dart';
+import 'package:indexax/tools/private_mode_provider.dart';
 
 // Expanded version of the account summary.
 // Shown when the user clicks the expansion arrow in smaller screens (e.g.: phones).
@@ -40,12 +42,15 @@ class ExpandedAccountSummary extends StatelessWidget {
                 RichText(
                   text: TextSpan(children: [
                     TextSpan(
-                      text: "${protectValue(getInvestmentAsString(accountData.investment), context)} ",
+                      text:
+                          "${getInvestmentAsString(accountData.investment, maskValue: context.watch<PrivateModeProvider>().privateModeEnabled)} ",
                       style: cardHeaderTextStyle,
                     ),
                     TextSpan(
-                      text: protectValue(
-                          getPLAsString(accountData.profitLoss), context),
+                      text: getPLAsString(accountData.profitLoss,
+                          maskValue: context
+                              .watch<PrivateModeProvider>()
+                              .privateModeEnabled),
                       style: cardHeaderTextStyle.copyWith(
                         color: accountData.profitLossColor,
                         fontWeight: FontWeight.bold,
@@ -58,14 +63,18 @@ class ExpandedAccountSummary extends StatelessWidget {
             RichText(
               text: TextSpan(children: [
                 TextSpan(
-                  text: protectValue(
-                      getWholeBalanceAsString(accountData.totalAmount), context),
+                  text: getWholeBalanceAsString(accountData.totalAmount,
+                      maskValue: context
+                          .watch<PrivateModeProvider>()
+                          .privateModeEnabled),
                   style: largeBalanceTextStyle,
                 ),
                 TextSpan(
                   text: getDecimalSeparator() +
-                      protectValue(
-                          getFractionalBalanceAsString(accountData.totalAmount), context),
+                      getFractionalBalanceAsString(accountData.totalAmount,
+                          maskValue: context
+                              .watch<PrivateModeProvider>()
+                              .privateModeEnabled),
                   style: smallBalanceTextStyle,
                 ),
               ]),
@@ -137,8 +146,8 @@ class ExpandedAccountSummary extends StatelessWidget {
                           RichText(
                             text: TextSpan(children: [
                               TextSpan(
-                                text: "(${getPLPercentAsString(
-                                        accountData.timeReturnAnnual)} ${'account_summary.annual'.tr()})",
+                                text:
+                                    "(${getPLPercentAsString(accountData.timeReturnAnnual)} ${'account_summary.annual'.tr()})",
                                 style: annualReturnTextStyle,
                               ),
                             ]),
@@ -207,8 +216,8 @@ class ExpandedAccountSummary extends StatelessWidget {
                           RichText(
                             text: TextSpan(children: [
                               TextSpan(
-                                text: "(${getPLPercentAsString(
-                                        accountData.moneyReturnAnnual)} ${'account_summary.annual'.tr()})",
+                                text:
+                                    "(${getPLPercentAsString(accountData.moneyReturnAnnual)} ${'account_summary.annual'.tr()})",
                                 style: annualReturnTextStyle,
                               ),
                             ]),

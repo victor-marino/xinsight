@@ -41,12 +41,13 @@ class TransactionsScreenState extends State<TransactionsScreen>
         print("Couldn't refresh data");
         print(e);
       }
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text(e.toString()),
-      ));
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(e.toString()),
+        ));
+      }
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -65,8 +66,7 @@ class TransactionsScreenState extends State<TransactionsScreen>
               children: [
                 if (widget.accountData.hasPendingTransactions)
                   const Padding(
-                    padding:
-                        EdgeInsets.only(left: 20, right: 20, bottom: 10),
+                    padding: EdgeInsets.only(left: 20, right: 20, bottom: 10),
                     child: (PendingTransactionsCard()),
                   ),
                 Expanded(
@@ -84,26 +84,24 @@ class TransactionsScreenState extends State<TransactionsScreen>
                             firstTransactionOfMonth = true;
                           } else if (widget.accountData.transactionList[index]
                                   .date.month !=
-                              widget.accountData.transactionList[index - 1]
-                                  .date.month) {
+                              widget.accountData.transactionList[index - 1].date
+                                  .month) {
                             firstTransactionOfMonth = true;
                           }
                           if (index ==
-                              (widget.accountData.transactionList.length -
-                                  1)) {
+                              (widget.accountData.transactionList.length - 1)) {
                             lastTransactionOfMonth = true;
                           } else if (widget.accountData.transactionList[index]
                                   .date.month !=
-                              widget.accountData.transactionList[index + 1]
-                                  .date.month) {
+                              widget.accountData.transactionList[index + 1].date
+                                  .month) {
                             lastTransactionOfMonth = true;
                           }
                           return TransactionTile(
                               transactionData:
                                   widget.accountData.transactionList[index],
                               firstTransaction: firstTransaction,
-                              firstTransactionOfMonth:
-                                  firstTransactionOfMonth,
+                              firstTransactionOfMonth: firstTransactionOfMonth,
                               lastTransactionOfMonth: lastTransactionOfMonth,
                               landscapeOrientation:
                                   widget.landscapeOrientation);
