@@ -351,7 +351,9 @@ class RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
             );
           }
         } else {
-          child = const Center(child: CircularProgressIndicator());
+          child = Container(
+            color: Theme.of(context).colorScheme.background,
+            child: const Center(child: CircularProgressIndicator()));
         }
         return child;
       },
