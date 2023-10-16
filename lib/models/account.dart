@@ -116,7 +116,8 @@ class Account {
             accountPerformanceData['performance']['real']),
         profitLossSeries = account_operations.createProfitLossSeries(
             accountPerformanceData['performance']['period'],
-            accountPerformanceData['performance']['real']),
+            accountPerformanceData['performance']['real'],
+            accountPerformanceData['return']['cash_returns']),
         transactionList = account_operations.createTransactionList(
             accountInstrumentTransactionData, accountCashTransactionData),
         additionalCashNeededToTrade =

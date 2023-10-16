@@ -293,7 +293,7 @@ List<PerformanceDataPoint> createPerformanceSeries(
 }
 
 Map<int, List<List>> createProfitLossSeries(
-    performancePeriodList, realPerformanceList) {
+    performancePeriodList, realPerformanceList, cashReturnsSeries) {
   // Creates the profit-loss time series for the monthly chart
   Map<int, List<List>> profitLossSeries = {};
   List<String> monthList = [
@@ -330,7 +330,8 @@ Map<int, List<List>> createProfitLossSeries(
 
   for (int year in years) {
     profitLossSeries.putIfAbsent(year, () => []);
-    profitLossSeries[year] = List<List>.generate(13, (index) => ["", null]);
+    profitLossSeries[year] =
+        List<List>.generate(13, (index) => ["", null, null]);
     profitLossSeries[year]!.asMap().forEach((index, value) {
       profitLossSeries[year]![index][0] = monthList[index];
     });
@@ -360,6 +361,20 @@ Map<int, List<List>> createProfitLossSeries(
       }
     }
   }
+
+  // Add the cash return values to each month
+  cashReturnsSeries.keys.forEach((k) {
+    int year = DateTime.parse(k).year;
+    int month = DateTime.parse(k).month;
+    if (profitLossSeries[year]![month - 1][2] == null) {
+      profitLossSeries[year]![month - 1][2] = cashReturnsSeries[k].toDouble();
+    } else {
+      profitLossSeries[year]![month - 1][2] += cashReturnsSeries[k].toDouble();
+    }
+  });
+
+  print(profitLossSeries.toString());
+  
   return (profitLossSeries);
 }
 
@@ -451,14 +466,14 @@ List<Transaction> createTransactionList(
         }
         break;
     }
-    
+
     final Uri pdfDownloadLink = Uri(
         scheme: 'https',
         host: 'indexacapital.com',
         path:
             'es/u/view-document/${transaction['document']['name']}/${transaction['document']['clean_show_name']}',
         fragment: 'settings-apps');
-    
+
     Transaction newTransaction = Transaction(
         date: DateTime.parse(transaction['date']),
         valueDate: DateTime.parse(transaction['value_date']),
