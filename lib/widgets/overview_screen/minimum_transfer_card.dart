@@ -21,6 +21,7 @@ class MinimumTransferCard extends StatelessWidget {
     TextStyle itemValueText = text_styles.robotoBoldLighter(context, 15);
 
     return RichText(
+      overflow: TextOverflow.fade,
       text: TextSpan(children: [
         TextSpan(
             text:

@@ -8,39 +8,30 @@ import 'package:indexax/tools/styles.dart' as text_styles;
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:indexax/tools/private_mode_provider.dart';
+import 'package:indexax/tools/evolution_chart_provider.dart';
+import 'package:indexax/models/chart_series_type.dart';
 
-// Draws the evolution chart.
-// If showReturns=true, it plots the returns (%). Otherwise it plots the amounts (€)
+// Draws the evolution chart
+// It plots the amounts (€) or the returns (%) based on the 'seriesType' variable of the provider
 
 class EvolutionChart extends StatelessWidget {
   const EvolutionChart({
     Key? key,
     required this.amountsSeries,
     required this.returnsSeries,
-    required this.period,
-    required this.showReturns,
   }) : super(key: key);
 
   final List<AmountsDataPoint> amountsSeries;
   final List<ReturnsDataPoint> returnsSeries;
-  final Duration period;
-  final bool showReturns;
 
   @override
   Widget build(BuildContext context) {
-    DateTime? startDate;
-    TextStyle axisTextStyle = text_styles.roboto(context, 10);
+    DateTime? startDate = context.watch<EvolutionChartProvider>().startDate;
+    DateTime? endDate = context.watch<EvolutionChartProvider>().endDate;
+    ChartSeriesType seriesType =
+        context.watch<EvolutionChartProvider>().seriesType;
 
-    // If a period of 0 is passed, we plot the full history.
-    if (period == const Duration(seconds: 0)) {
-      startDate = amountsSeries[0].date;
-    } else if (amountsSeries.last.date
-        .subtract(period)
-        .isBefore(amountsSeries[0].date)) {
-      startDate = amountsSeries[0].date;
-    } else {
-      startDate = amountsSeries.last.date.subtract(period);
-    }
+    TextStyle axisTextStyle = text_styles.roboto(context, 10);
 
     // Color gradient for the area chart
     final List<Color> color = <Color>[
@@ -55,7 +46,8 @@ class EvolutionChart extends StatelessWidget {
 
     return SfCartesianChart(
       margin: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-      primaryYAxis: showReturns
+      primaryYAxis: seriesType ==
+              ChartSeriesType.returns
           ? NumericAxis(
               axisLabelFormatter: (AxisLabelRenderDetails details) =>
                   ChartAxisLabel(
@@ -90,7 +82,8 @@ class EvolutionChart extends StatelessWidget {
             borderWidth: 1,
             textStyle:
                 TextStyle(color: Theme.of(context).colorScheme.onSurface),
-            format: showReturns
+            format: seriesType ==
+                    ChartSeriesType.returns
                 ? 'series.name: point.y%'
                 : context.watch<PrivateModeProvider>().privateModeEnabled
                     ? 'series.name: ${getAmountAsStringWithZeroDecimals(100, maskValue: true)}'
@@ -109,6 +102,7 @@ class EvolutionChart extends StatelessWidget {
           itemPadding: 10),
       primaryXAxis: DateTimeAxis(
         minimum: startDate,
+        maximum: endDate,
         dateFormat: DateFormat("dd/MM/yy"),
         labelStyle: axisTextStyle,
         intervalType: DateTimeIntervalType.months,
@@ -118,7 +112,8 @@ class EvolutionChart extends StatelessWidget {
         ),
         enableAutoIntervalOnZooming: true,
       ),
-      series: showReturns
+      series: seriesType ==
+              ChartSeriesType.returns
           ? <ChartSeries<ReturnsDataPoint, DateTime>>[
               AreaSeries<ReturnsDataPoint, DateTime>(
                 name: 'evolution_chart.return'.tr(),

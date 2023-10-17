@@ -21,6 +21,7 @@ import '../widgets/page_header.dart';
 import '../widgets/settings_popup_menu.dart';
 import 'login_screen.dart';
 import '../tools/local_authentication.dart';
+import 'package:indexax/tools/evolution_chart_provider.dart';
 
 // Base screen where all other screens are loaded after loggin in
 
@@ -147,7 +148,8 @@ class RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
       bool isAuthenticated = await authenticateUserLocally(context);
       if (isAuthenticated && context.mounted) {
         context.read<PrivateModeProvider>().privateModeEnabled = false;
-        snackbar.showInSnackBar(context, "root_screen.private_mode_disabled".tr());
+        snackbar.showInSnackBar(
+            context, "root_screen.private_mode_disabled".tr());
       }
     } else {
       context.read<PrivateModeProvider>().privateModeEnabled = true;
@@ -297,13 +299,16 @@ class RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
                     availableWidth: availableWidth,
                     refreshData: _refreshData,
                     currentAccountIndex: widget.accountIndex),
-                EvolutionScreen(
-                    accountData: snapshot.data!,
-                    userAccounts: _userAccounts,
-                    refreshData: _refreshData,
-                    landscapeOrientation: landscapeOrientation,
-                    availableWidth: availableWidth,
-                    currentAccountIndex: widget.accountIndex),
+                ChangeNotifierProvider<EvolutionChartProvider>(
+                  create: (_) => EvolutionChartProvider(),
+                  child: EvolutionScreen(
+                      accountData: snapshot.data!,
+                      userAccounts: _userAccounts,
+                      refreshData: _refreshData,
+                      landscapeOrientation: landscapeOrientation,
+                      availableWidth: availableWidth,
+                      currentAccountIndex: widget.accountIndex),
+                ),
                 TransactionsScreen(
                     accountData: snapshot.data!,
                     userAccounts: _userAccounts,
@@ -352,8 +357,8 @@ class RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
           }
         } else {
           child = Container(
-            color: Theme.of(context).colorScheme.background,
-            child: const Center(child: CircularProgressIndicator()));
+              color: Theme.of(context).colorScheme.background,
+              child: const Center(child: CircularProgressIndicator()));
         }
         return child;
       },

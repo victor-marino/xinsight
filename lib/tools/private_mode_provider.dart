@@ -6,8 +6,8 @@ class PrivateModeProvider with ChangeNotifier {
 
   bool get privateModeEnabled => _privateModeEnabled;
 
-  set privateModeEnabled(bool hidden) {
-    _privateModeEnabled = hidden;
+  set privateModeEnabled(bool enabled) {
+    _privateModeEnabled = enabled;
     notifyListeners();
   }
 }
