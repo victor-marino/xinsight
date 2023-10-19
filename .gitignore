@@ -1,3 +1,6 @@
+# Sample data
+assets/test_json/
+
 # Miscellaneous
 *.class
 *.log
