@@ -46,8 +46,7 @@ class EvolutionChart extends StatelessWidget {
 
     return SfCartesianChart(
       margin: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-      primaryYAxis: seriesType ==
-              ChartSeriesType.returns
+      primaryYAxis: seriesType == ChartSeriesType.returns
           ? NumericAxis(
               axisLabelFormatter: (AxisLabelRenderDetails details) =>
                   ChartAxisLabel(
@@ -82,8 +81,7 @@ class EvolutionChart extends StatelessWidget {
             borderWidth: 1,
             textStyle:
                 TextStyle(color: Theme.of(context).colorScheme.onSurface),
-            format: seriesType ==
-                    ChartSeriesType.returns
+            format: seriesType == ChartSeriesType.returns
                 ? 'series.name: point.y%'
                 : context.watch<PrivateModeProvider>().privateModeEnabled
                     ? 'series.name: ${getAmountAsStringWithZeroDecimals(100, maskValue: true)}'
@@ -112,8 +110,7 @@ class EvolutionChart extends StatelessWidget {
         ),
         enableAutoIntervalOnZooming: true,
       ),
-      series: seriesType ==
-              ChartSeriesType.returns
+      series: seriesType == ChartSeriesType.returns
           ? <ChartSeries<ReturnsDataPoint, DateTime>>[
               AreaSeries<ReturnsDataPoint, DateTime>(
                 name: 'evolution_chart.return'.tr(),

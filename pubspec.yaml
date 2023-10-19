@@ -35,6 +35,7 @@ dependencies:
   google_fonts: ^5.0.1
   syncfusion_flutter_charts: ^23.1.40
   syncfusion_flutter_gauges: ^23.1.40
+  syncfusion_flutter_datepicker: ^23.1.41
   flutter_secure_storage: ^5.0.2
   provider: ^6.0.5
   url_launcher: ^6.1.5

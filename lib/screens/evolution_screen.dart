@@ -12,6 +12,7 @@ import 'package:indexax/widgets/evolution_screen/evolution_chart.dart';
 import 'package:provider/provider.dart';
 import 'package:indexax/tools/evolution_chart_provider.dart';
 import 'package:indexax/widgets/evolution_screen/evolution_series_type_toggle.dart';
+import 'package:indexax/widgets/evolution_screen/evolution_series_range_selector.dart';
 
 class EvolutionScreen extends StatefulWidget {
   const EvolutionScreen({
@@ -118,6 +119,23 @@ class EvolutionScreenState extends State<EvolutionScreen>
                                           textAlign: TextAlign.left,
                                           style: cardHeaderTextStyle,
                                         ),
+                                        TextButton(
+                                            onPressed: () {
+                                              showDialog(
+                                                  context: context,
+                                                  builder:
+                                                      (BuildContext context) {
+                                                    return Dialog(
+                                                        child: Container(
+                                                          child: Column(
+                                                            children: <Widget>[
+                                                              evolutionSeriesRangeSelector(context),
+                                                            ],
+                                                          ),
+                                                        ));
+                                                  });
+                                            },
+                                            child: Text("01/01/2000")),
                                         evolutionSeriesTypeToggle(context)
                                       ]),
                                   EvolutionChart(
