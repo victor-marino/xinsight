@@ -451,14 +451,17 @@ List<Transaction> createTransactionList(
         }
         break;
     }
-    
-    final Uri pdfDownloadLink = Uri(
-        scheme: 'https',
-        host: 'indexacapital.com',
-        path:
-            'es/u/view-document/${transaction['document']['name']}/${transaction['document']['clean_show_name']}',
-        fragment: 'settings-apps');
-    
+
+    Uri? pdfDownloadLink;
+    if (transaction['document'].isNotEmpty) {
+      pdfDownloadLink = Uri(
+          scheme: 'https',
+          host: 'indexacapital.com',
+          path:
+              'es/u/view-document/${transaction['document']['name']}/${transaction['document']['clean_show_name']}',
+          fragment: 'settings-apps');
+    }
+
     Transaction newTransaction = Transaction(
         date: DateTime.parse(transaction['date']),
         valueDate: DateTime.parse(transaction['value_date']),
