@@ -20,7 +20,6 @@ import '../widgets/current_account_indicator.dart';
 import '../widgets/page_header.dart';
 import '../widgets/settings_popup_menu.dart';
 import 'login_screen.dart';
-import '../tools/local_authentication.dart';
 
 // Base screen where all other screens are loaded after loggin in
 
@@ -142,19 +141,6 @@ class RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
         duration: const Duration(milliseconds: 500), curve: Curves.ease);
   }
 
-  void _togglePrivateMode() async {
-    if (context.read<PrivateModeProvider>().privateModeEnabled) {
-      bool isAuthenticated = await authenticateUserLocally(context);
-      if (isAuthenticated && context.mounted) {
-        context.read<PrivateModeProvider>().privateModeEnabled = false;
-        snackbar.showInSnackBar(context, "root_screen.private_mode_disabled".tr());
-      }
-    } else {
-      context.read<PrivateModeProvider>().privateModeEnabled = true;
-      snackbar.showInSnackBar(context, "root_screen.private_mode_enabled".tr());
-    }
-  }
-
   @override
   void initState() {
     WidgetsBinding.instance.addObserver(this);
@@ -228,24 +214,24 @@ class RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
                     Row(
                       children: [
                         const PageHeader(),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 7),
-                          child: IconButton(
-                            onPressed: _togglePrivateMode,
-                            icon: Icon(context
-                                    .watch<PrivateModeProvider>()
-                                    .privateModeEnabled
-                                ? Icons.visibility_off_rounded
-                                : Icons.visibility_rounded),
-                            color: context
-                                    .watch<PrivateModeProvider>()
-                                    .privateModeEnabled
-                                ? Theme.of(context).colorScheme.primary
-                                : Colors.grey.withAlpha(150),
-                            splashRadius: 20,
-                            iconSize: 20,
-                          ),
-                        )
+                        if (context
+                            .watch<PrivateModeProvider>()
+                            .privateModeEnabled) ...[
+                          Padding(
+                            padding: const EdgeInsets.only(top: 7),
+                            child: IconButton(
+                              onPressed: () => context
+                                  .read<PrivateModeProvider>()
+                                  .togglePrivateMode(context),
+                              icon: const Icon(Icons.visibility_off_rounded),
+                              visualDensity: VisualDensity.compact,
+                              constraints: const BoxConstraints(maxHeight: 35),
+                              color: Theme.of(context).colorScheme.primary,
+                              splashRadius: 20,
+                              iconSize: 20,
+                            ),
+                          )
+                        ]
                       ],
                     ),
                     if (!landscapeOrientation) ...[
@@ -352,8 +338,8 @@ class RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
           }
         } else {
           child = Container(
-            color: Theme.of(context).colorScheme.background,
-            child: const Center(child: CircularProgressIndicator()));
+              color: Theme.of(context).colorScheme.background,
+              child: const Center(child: CircularProgressIndicator()));
         }
         return child;
       },

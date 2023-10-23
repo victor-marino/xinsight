@@ -3,12 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:indexax/screens/settings_screen.dart';
 import 'package:indexax/tools/styles.dart' as text_styles;
 import 'package:indexax/widgets/settings_screen/logout_popup.dart';
+import 'package:indexax/tools/private_mode_provider.dart';
+import 'package:provider/provider.dart';
 
 // Pop-up menu that dropws down when clicking the settings wheel.
 // Allows the user to:
 // 1. Switch between accounts
-// 2. Access the settings menu
-// 3. Logout
+// 3. Activate private mode
+// 3. Access the settings menu
+// 4. Logout
 
 class SettingsPopupMenu extends StatelessWidget {
   const SettingsPopupMenu(
@@ -104,6 +107,27 @@ class SettingsPopupMenu extends StatelessWidget {
     itemList.add(const PopupMenuDivider());
     itemList.add(PopupMenuItem(
       height: itemHeight,
+      value: "private_mode",
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            "Modo privado",
+            style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
+          ),
+          IconButton(
+              icon: const Icon(Icons.visibility_off_rounded),
+              color: Theme.of(context).colorScheme.onSurface,
+              disabledColor:
+                  context.watch<PrivateModeProvider>().privateModeEnabled
+                      ? Theme.of(context).colorScheme.primary
+                      : Theme.of(context).colorScheme.onSurfaceVariant,
+              onPressed: null),
+        ],
+      ),
+    ));
+    itemList.add(PopupMenuItem(
+      height: itemHeight,
       value: "settings",
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -139,10 +163,15 @@ class SettingsPopupMenu extends StatelessWidget {
 
     return PopupMenuButton(
       color: Theme.of(context).colorScheme.background,
+      position: PopupMenuPosition.under,
+      tooltip: "",
       shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(10))),
       onSelected: (dynamic value) {
         switch (value) {
+          case "private_mode":
+            context.read<PrivateModeProvider>().togglePrivateMode(context);
+            break;
           case "settings":
             Navigator.push(
                 context,
