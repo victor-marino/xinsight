@@ -5,6 +5,7 @@ import 'package:indexax/tools/number_formatting.dart';
 import 'package:indexax/tools/styles.dart' as text_styles;
 import 'package:provider/provider.dart';
 import 'package:indexax/tools/private_mode_provider.dart';
+import 'package:indexax/widgets/not_reconciled_popup.dart';
 
 // Expanded version of the account summary.
 // Shown when the user clicks the expansion arrow in smaller screens (e.g.: phones).
@@ -34,10 +35,35 @@ class ExpandedAccountSummary extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  'account_summary.value'.tr(),
-                  textAlign: TextAlign.left,
-                  style: cardHeaderTextStyle,
+                Row(
+                  children: [
+                    Text(
+                      'account_summary.value'.tr(),
+                      textAlign: TextAlign.left,
+                      style: cardHeaderTextStyle,
+                    ),
+                    if (!accountData.isReconciledToday) ...[
+                      IconButton(
+                        splashRadius: 15,
+                        visualDensity: VisualDensity.compact,
+                        padding: EdgeInsets.zero,
+                        constraints: const BoxConstraints(minWidth: 40),
+                        iconSize: 18,
+                        color: Colors.amber[600],
+                        icon: const Icon(
+                          Icons.info_outline_rounded,
+                        ),
+                        onPressed: () {
+                          showDialog(
+                              context: context,
+                              builder: (BuildContext context) =>
+                                  NotReconciledCard(
+                                      reconciledUntil:
+                                          accountData.reconciledUntil));
+                        },
+                      ),
+                    ],
+                  ],
                 ),
                 RichText(
                   text: TextSpan(children: [
@@ -71,9 +97,9 @@ class ExpandedAccountSummary extends StatelessWidget {
                 ),
                 TextSpan(
                   text: getFractionalBalanceAsString(accountData.totalAmount,
-                          maskValue: context
-                              .watch<PrivateModeProvider>()
-                              .privateModeEnabled),
+                      maskValue: context
+                          .watch<PrivateModeProvider>()
+                          .privateModeEnabled),
                   style: smallBalanceTextStyle,
                 ),
               ]),

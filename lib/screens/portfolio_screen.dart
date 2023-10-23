@@ -2,7 +2,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:indexax/widgets/portfolio_screen/asset_list.dart';
 import 'package:indexax/models/account.dart';
-import 'package:indexax/widgets/not_reconciled_card.dart';
 
 class PortfolioScreen extends StatefulWidget {
   const PortfolioScreen({
@@ -74,14 +73,6 @@ class PortfolioScreenState extends State<PortfolioScreen>
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: <Widget>[
-                            if (!widget.accountData.isReconciledToday) ...[
-                              NotReconciledCard(
-                                  reconciledUntil:
-                                      widget.accountData.reconciledUntil),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                            ],
                             AssetList(
                                 portfolioData: widget.accountData.portfolioData,
                                 landscapeOrientation:

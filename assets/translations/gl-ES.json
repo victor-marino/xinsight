@@ -61,8 +61,9 @@
     "volatility": "VOLATILIDADE",
     "sharpe": "SHARPE"
   },
-  "not_reconciled_card": {
-    "not_reconciled_explanation": "Posicións pendentes de actualización. A data dos teus datos segue sendo o "
+  "not_reconciled_popup": {
+    "update_pending": "Actualización pendente",
+    "not_reconciled_explanation": "O proceso diario de conciliación aínda non rematou e a data das posicións da túa conta segue sendo o "
   },
   "minimum_transfer_card": {
     "minimum_transfer_to_invest": "Aportación mínima para investir"
