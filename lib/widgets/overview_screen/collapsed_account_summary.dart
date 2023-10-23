@@ -7,6 +7,7 @@ import 'package:indexax/tools/styles.dart' as text_styles;
 import 'package:provider/provider.dart';
 import 'package:indexax/widgets/not_reconciled_popup.dart';
 
+
 // Collapsed version of the account summary.
 // This is the default view in portrait mode, as well as landscape mode in smaller screens.
 
