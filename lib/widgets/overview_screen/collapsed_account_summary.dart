@@ -41,7 +41,7 @@ class CollapsedAccountSummary extends StatelessWidget {
                       textAlign: TextAlign.left,
                       style: cardHeaderTextStyle,
                     ),
-                    if (accountData.isReconciledToday) ...[
+                    if (!accountData.isReconciledToday) ...[
                       IconButton(
                         splashRadius: 15,                
                         visualDensity: VisualDensity.compact,
