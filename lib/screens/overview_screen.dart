@@ -176,18 +176,20 @@ class OverviewScreenState extends State<OverviewScreen>
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    MinimumTransferCard(
-                                        additionalCashNeededToTrade: widget
-                                            .accountData
-                                            .additionalCashNeededToTrade),
-                                    const SizedBox(height: 5),
-                                    FeeFreeAmountCard(
-                                        feeFreeAmount:
-                                            widget.accountData.feeFreeAmount),
-                                  ],
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      MinimumTransferCard(
+                                          additionalCashNeededToTrade: widget
+                                              .accountData
+                                              .additionalCashNeededToTrade),
+                                      const SizedBox(height: 5),
+                                      FeeFreeAmountCard(
+                                          feeFreeAmount:
+                                              widget.accountData.feeFreeAmount),
+                                    ],
+                                  ),
                                 ),
                                 MaterialButton(
                                   height: 40,
