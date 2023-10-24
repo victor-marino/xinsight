@@ -3,7 +3,7 @@ import 'package:indexax/models/chart_series_type.dart';
 import 'package:provider/provider.dart';
 import 'package:indexax/tools/evolution_chart_provider.dart';
 
-SizedBox evolutionSeriesTypeToggle(BuildContext context) {
+Widget evolutionSeriesTypeToggle(BuildContext context) {
   return SizedBox(
     width: 65,
     child: SegmentedButton<ChartSeriesType>(

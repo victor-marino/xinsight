@@ -113,30 +113,43 @@ class EvolutionScreenState extends State<EvolutionScreen>
                                   Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Text(
                                           'evolution_screen.evolution'.tr(),
                                           textAlign: TextAlign.left,
                                           style: cardHeaderTextStyle,
                                         ),
-                                        TextButton(
-                                            onPressed: () {
-                                              showDialog(
-                                                  context: context,
-                                                  builder:
-                                                      (BuildContext context) {
-                                                    return Dialog(
-                                                        child: Container(
-                                                          child: Column(
-                                                            children: <Widget>[
-                                                              evolutionSeriesRangeSelector(context),
-                                                            ],
-                                                          ),
-                                                        ));
-                                                  });
-                                            },
-                                            child: Text("01/01/2000")),
-                                        evolutionSeriesTypeToggle(context)
+                                        Row(
+                                          children: [
+                                            IconButton(
+                                              icon: Icon(Icons
+                                                  .calendar_month_outlined),
+                                              iconSize: 25,
+                                              padding: EdgeInsets.zero,
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .primary,
+                                              constraints:
+                                                  BoxConstraints(maxHeight: 40),
+                                              splashRadius: 20,
+                                              visualDensity:
+                                                  VisualDensity.compact,
+                                              onPressed: () {
+                                                showDialog(
+                                                    context: context,
+                                                    builder:
+                                                        (BuildContext context) {
+                                                      return Dialog(
+                                                          child: evolutionSeriesRangeSelector(
+                                                              context));
+                                                    });
+                                              },
+                                            ),
+                                            SizedBox(width: 20),
+                                            evolutionSeriesTypeToggle(context),
+                                          ],
+                                        )
                                       ]),
                                   EvolutionChart(
                                       amountsSeries:
