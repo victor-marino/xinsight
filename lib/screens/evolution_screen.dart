@@ -6,6 +6,7 @@ import 'package:indexax/tools/snackbar.dart' as snackbar;
 import 'package:indexax/tools/styles.dart' as text_styles;
 import 'package:indexax/widgets/evolution_screen/evolution_chart_zoom_chips.dart';
 import 'package:indexax/widgets/evolution_screen/profit_loss_chart.dart';
+import 'package:indexax/widgets/evolution_screen/profit_loss_series_type_toggle.dart';
 import 'package:indexax/widgets/evolution_screen/profit_loss_year_switcher.dart';
 import 'package:indexax/widgets/reusable_card.dart';
 import 'package:indexax/widgets/evolution_screen/evolution_chart.dart';
@@ -13,6 +14,7 @@ import 'package:provider/provider.dart';
 import 'package:indexax/tools/evolution_chart_provider.dart';
 import 'package:indexax/widgets/evolution_screen/evolution_series_type_toggle.dart';
 import 'package:indexax/widgets/evolution_screen/evolution_chart_date_selector.dart';
+import 'package:indexax/widgets/evolution_screen/profit_loss_year_switcher.dart';
 
 class EvolutionScreen extends StatefulWidget {
   const EvolutionScreen({
@@ -55,13 +57,6 @@ class EvolutionScreenState extends State<EvolutionScreen>
       }
       if (mounted) snackbar.showInSnackBar(context, e.toString());
     }
-  }
-
-  void _reloadProfitLossChart(int year) {
-    // Called when the user changes the year in the profit loss chart
-    setState(() {
-      _profitLossChartSelectedYear = year;
-    });
   }
 
   @override
@@ -129,7 +124,7 @@ class EvolutionScreenState extends State<EvolutionScreen>
                                         showEvolutionSeriesDateSelector(
                                             context),
                                       ]),
-                                  const SizedBox(height: 15),
+                                  const SizedBox(height: 10),
                                   showEvolutionSeriesTypeToggle(context),
                                   EvolutionChart(
                                       amountsSeries:
@@ -169,22 +164,18 @@ class EvolutionScreenState extends State<EvolutionScreen>
                                           textAlign: TextAlign.left,
                                           style: cardHeaderTextStyle),
                                       ProfitLossYearSwitcher(
-                                          currentYear:
-                                              _profitLossChartSelectedYear,
                                           yearList: widget
                                               .accountData.profitLossSeries.keys
-                                              .toList(),
-                                          reloadProfitLossChart:
-                                              _reloadProfitLossChart),
+                                              .toList()),
                                     ],
                                   ),
+                                  const SizedBox(height: 15),
+                                  showProfitLossSeriesTypeToggle(context),
                                   SizedBox(
                                     height: 150,
                                     child: ProfitLossChart(
-                                        profitLossSeries:
-                                            widget.accountData.profitLossSeries,
-                                        selectedYear:
-                                            _profitLossChartSelectedYear),
+                                        profitLossSeries: widget
+                                            .accountData.profitLossSeries),
                                   ),
                                 ],
                               ),

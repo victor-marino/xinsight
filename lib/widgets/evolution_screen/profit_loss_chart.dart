@@ -1,7 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:indexax/tools/number_formatting.dart';
 import 'package:indexax/tools/styles.dart' as text_styles;
+import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:indexax/tools/profit_loss_chart_provider.dart';
+import 'package:indexax/models/chart_series_type.dart';
 
 // Plots the profit-loss chart with the monthly returns
 
@@ -9,16 +13,18 @@ class ProfitLossChart extends StatelessWidget {
   const ProfitLossChart({
     Key? key,
     required this.profitLossSeries,
-    required this.selectedYear,
   }) : super(key: key);
 
   final Map<int, List<List>> profitLossSeries;
-  final int selectedYear;  
 
   @override
   Widget build(BuildContext context) {
     final TextStyle axisTextStyle = text_styles.roboto(context, 10);
     final TextStyle dataLabelTextStyle = text_styles.robotoBold(context, 8);
+
+    ChartSeriesType seriesType =
+        context.watch<ProfitLossChartProvider>().seriesType;
+    int currentYear = context.watch<ProfitLossChartProvider>().year;
 
     return SfCartesianChart(
         plotAreaBorderWidth: 0,
@@ -32,8 +38,10 @@ class ProfitLossChart extends StatelessWidget {
           labelStyle: axisTextStyle,
         ),
         primaryYAxis: NumericAxis(
-          numberFormat: NumberFormat("#0.0"),
-          labelFormat: ' {value}%',
+          numberFormat: seriesType == ChartSeriesType.returns? NumberFormat("#0.0") : NumberFormat.compactCurrency(decimalDigits: 1,
+  locale: getCurrentLocale(),
+  symbol: ''),
+          labelFormat: seriesType == ChartSeriesType.returns? ' {value}%' : ' {value}€',
           isVisible: false,
           crossesAt: 0,
         ),
@@ -47,9 +55,14 @@ class ProfitLossChart extends StatelessWidget {
               labelAlignment: ChartDataLabelAlignment.outer,
             ),
             enableTooltip: false,
-            dataSource: profitLossSeries[selectedYear]!,
+            dataSource: profitLossSeries[
+                currentYear]!,
             xValueMapper: (List month, _) => month[0],
-            yValueMapper: (List month, _) => month[1],
+            yValueMapper: (List month, _) =>
+                seriesType ==
+                        ChartSeriesType.returns
+                    ? month[1]
+                    : month[2],
             pointColorMapper: (List month, _) =>
                 month[1] == null || month[1] > 0
                     ? Colors.green[500]

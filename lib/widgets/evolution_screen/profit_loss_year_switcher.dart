@@ -1,19 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:indexax/tools/styles.dart' as text_styles;
+import 'package:indexax/tools/profit_loss_chart_provider.dart';
+import 'package:provider/provider.dart';
 
 // Dropdown year switcher for the profit-loss chart
 
 class ProfitLossYearSwitcher extends StatelessWidget {
   const ProfitLossYearSwitcher(
-      {Key? key,
-      required this.currentYear,
-      required this.yearList,
-      required this.reloadProfitLossChart})
+      {Key? key, required this.yearList})
       : super(key: key);
 
-  final int currentYear;
   final List<int> yearList;
-  final Function reloadProfitLossChart;
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +20,8 @@ class ProfitLossYearSwitcher extends StatelessWidget {
         text_styles.robotoBoldLighter(context, 15);
 
     bool dropdownEnabled = false;
+
+    int currentYear = context.watch<ProfitLossChartProvider>().year;
 
     if (yearList.length > 1) {
       dropdownEnabled = true;
@@ -84,7 +83,7 @@ class ProfitLossYearSwitcher extends StatelessWidget {
                   underline: const SizedBox(),
                   onChanged: dropdownEnabled
                       ? (dynamic value) {
-                          reloadProfitLossChart(value);
+                          context.read<ProfitLossChartProvider>().year = value;
                         }
                       : null,
                 ),

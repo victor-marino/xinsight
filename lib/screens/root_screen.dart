@@ -10,6 +10,7 @@ import 'package:indexax/screens/portfolio_screen.dart';
 import 'package:indexax/screens/projection_screen.dart';
 import 'package:indexax/screens/transactions_screen.dart';
 import 'package:indexax/tools/indexa_data.dart';
+import 'package:indexax/tools/profit_loss_chart_provider.dart';
 import 'package:indexax/tools/snackbar.dart' as snackbar;
 import 'package:indexax/tools/theme_operations.dart' as theme_operations;
 import 'package:provider/provider.dart';
@@ -299,8 +300,13 @@ class RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
                     availableWidth: availableWidth,
                     refreshData: _refreshData,
                     currentAccountIndex: widget.accountIndex),
-                ChangeNotifierProvider<EvolutionChartProvider>(
-                  create: (_) => EvolutionChartProvider(),
+                MultiProvider(
+                  providers: [
+                    ChangeNotifierProvider<EvolutionChartProvider>(
+                        create: (_) => EvolutionChartProvider()),
+                    ChangeNotifierProvider<ProfitLossChartProvider>(
+                        create: (_) => ProfitLossChartProvider()),
+                  ],
                   child: EvolutionScreen(
                       accountData: snapshot.data!,
                       userAccounts: _userAccounts,

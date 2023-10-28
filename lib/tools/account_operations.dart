@@ -373,7 +373,6 @@ Map<int, List<List>> createProfitLossSeries(
     }
   });
 
-  print(profitLossSeries.toString());
   
   return (profitLossSeries);
 }
