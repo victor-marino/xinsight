@@ -117,6 +117,8 @@
   },
   "evolution_screen": {
     "evolution": "EVOLUCIÓN",
+    "select_start_date": "Selecciona a data inicial",
+    "select_end_date": "Selecciona a data fin",
     "1m": "1m",
     "3m": "3m",
     "6m": "6m",

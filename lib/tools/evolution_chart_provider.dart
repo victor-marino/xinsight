@@ -11,37 +11,31 @@ class EvolutionChartProvider with ChangeNotifier {
   late DateTime lastDate;
   late DateTime startDate;
   late DateTime endDate;
-  late String rangeSelectorText;
 
   ChartSeriesType get seriesType => _seriesType;
 
   Duration? get zoomLevel => _zoomLevel;
 
-  void triggerListenersUpdate() {
-    notifyListeners();
-  }
-
   void updateStartDate(DateTime date) {
     startDate = date;
+    if (startDate.isAfter(endDate)) {
+      endDate = startDate.add(Duration(days: 1));
+    }
     _zoomLevel = null;
     notifyListeners();
   }
 
   void updateEndDate(DateTime date) {
     endDate = date;
+    if (endDate.isBefore(startDate)) {
+      startDate = endDate.subtract(Duration(days: 1));
+    }
     _zoomLevel = null;
     notifyListeners();
   }
 
   set seriesType(ChartSeriesType type) {
     _seriesType = type;
-    notifyListeners();
-  }
-
-  void updateRangeSelectorText(BuildContext context) {
-    String startDateText = DateFormat.yMd(getCurrentLocale()).format(startDate);
-    String endDateText = DateFormat.yMd(getCurrentLocale()).format(endDate);
-    rangeSelectorText = "$startDateText - $endDateText";
     notifyListeners();
   }
 

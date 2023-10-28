@@ -72,7 +72,7 @@ class EvolutionChart extends StatelessWidget {
       ),
       trackballBehavior: TrackballBehavior(
         enable: true,
-        activationMode: ActivationMode.longPress,
+        activationMode: ActivationMode.singleTap,
         tooltipDisplayMode: TrackballDisplayMode.groupAllPoints,
         tooltipAlignment: ChartAlignment.far,
         tooltipSettings: InteractiveTooltip(
@@ -90,19 +90,7 @@ class EvolutionChart extends StatelessWidget {
                     : 'series.name: point.y'),
       ),
       zoomPanBehavior: ZoomPanBehavior(
-          enablePinching: false, zoomMode: ZoomMode.x, enablePanning: true),
-      onActualRangeChanged: (newVisibleCoordinates) {
-        context.read<EvolutionChartProvider>().startDate =
-            DateTime.fromMillisecondsSinceEpoch(
-                newVisibleCoordinates.visibleMin.toInt());
-        context.read<EvolutionChartProvider>().endDate =
-            DateTime.fromMillisecondsSinceEpoch(
-                newVisibleCoordinates.visibleMax.toInt());
-        // context.read<EvolutionChartProvider>().updateRangeSelectorText(context);
-      },
-      // onChartTouchInteractionUp: (tapArgs) {
-      //   context.read<EvolutionChartProvider>().updateRangeSelectorText(context);
-      // },
+          enablePinching: false, zoomMode: ZoomMode.x, enablePanning: false),
       palette: const <Color>[
         Colors.blue,
         Colors.black,

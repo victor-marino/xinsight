@@ -1,4 +1,4 @@
-import 'package:intl/intl.dart' show NumberFormat;
+import 'package:intl/intl.dart' show DateFormat, NumberFormat;
 import 'package:intl/number_symbols_data.dart' show numberFormatSymbols;
 import 'package:flutter/material.dart';
 
@@ -205,6 +205,10 @@ String getFractionalPLPercentAsString(num number) {
     return ("${numberString.substring(0, numberString.length - 2)}%");
   }
   return numberString;
+}
+
+String getShortDateAsString(DateTime date) {
+  return DateFormat("dd/MM/yy").format(date);
 }
 
 String getDecimalSeparator() {
