@@ -23,7 +23,7 @@ class ProfitLossChart extends StatelessWidget {
 
     ChartSeriesType seriesType =
         context.watch<ProfitLossChartProvider>().seriesType;
-    int currentYear = context.watch<ProfitLossChartProvider>().year;
+    int currentYear = context.watch<ProfitLossChartProvider>().currentYear;
 
     return SfCartesianChart(
         plotAreaBorderWidth: 0,
@@ -41,8 +41,9 @@ class ProfitLossChart extends StatelessWidget {
               ? NumberFormat("#0.#")
               : NumberFormat.compactCurrency(
                   decimalDigits: 0, locale: "en_GB", symbol: ''),
-          labelFormat:
-              seriesType == ChartSeriesType.returns ? ' {value}%' : ' {value} €',
+          labelFormat: seriesType == ChartSeriesType.returns
+              ? ' {value}%'
+              : ' {value} €',
           isVisible: false,
           crossesAt: 0,
         ),

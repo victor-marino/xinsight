@@ -71,7 +71,7 @@ class EvolutionScreenState extends State<EvolutionScreen>
         widget.accountData.amountsSeries.last.date;
 
     // Show the current year by default in the profit loss chart
-    context.read<ProfitLossChartProvider>().year =
+    context.read<ProfitLossChartProvider>().currentYear =
         widget.accountData.profitLossSeries.keys.toList().last;
   }
 

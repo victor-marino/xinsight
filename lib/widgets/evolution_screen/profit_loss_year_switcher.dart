@@ -6,8 +6,7 @@ import 'package:provider/provider.dart';
 // Dropdown year switcher for the profit-loss chart
 
 class ProfitLossYearSwitcher extends StatelessWidget {
-  const ProfitLossYearSwitcher(
-      {Key? key, required this.yearList})
+  const ProfitLossYearSwitcher({Key? key, required this.yearList})
       : super(key: key);
 
   final List<int> yearList;
@@ -21,7 +20,7 @@ class ProfitLossYearSwitcher extends StatelessWidget {
 
     bool dropdownEnabled = false;
 
-    int currentYear = context.watch<ProfitLossChartProvider>().year;
+    int currentYear = context.watch<ProfitLossChartProvider>().currentYear;
 
     if (yearList.length > 1) {
       dropdownEnabled = true;
@@ -83,7 +82,7 @@ class ProfitLossYearSwitcher extends StatelessWidget {
                   underline: const SizedBox(),
                   onChanged: dropdownEnabled
                       ? (dynamic value) {
-                          context.read<ProfitLossChartProvider>().year = value;
+                          context.read<ProfitLossChartProvider>().updateCurrentYear(value);
                         }
                       : null,
                 ),
