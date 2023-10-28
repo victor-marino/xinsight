@@ -26,6 +26,8 @@ class EvolutionChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    DateTime? firstDate = context.watch<EvolutionChartProvider>().firstDate;
+    DateTime? lastDate = context.watch<EvolutionChartProvider>().lastDate;
     DateTime? startDate = context.watch<EvolutionChartProvider>().startDate;
     DateTime? endDate = context.watch<EvolutionChartProvider>().endDate;
     ChartSeriesType seriesType =
@@ -70,7 +72,7 @@ class EvolutionChart extends StatelessWidget {
       ),
       trackballBehavior: TrackballBehavior(
         enable: true,
-        activationMode: ActivationMode.singleTap,
+        activationMode: ActivationMode.longPress,
         tooltipDisplayMode: TrackballDisplayMode.groupAllPoints,
         tooltipAlignment: ChartAlignment.far,
         tooltipSettings: InteractiveTooltip(
@@ -88,7 +90,19 @@ class EvolutionChart extends StatelessWidget {
                     : 'series.name: point.y'),
       ),
       zoomPanBehavior: ZoomPanBehavior(
-          enablePinching: false, zoomMode: ZoomMode.x, enablePanning: false),
+          enablePinching: false, zoomMode: ZoomMode.x, enablePanning: true),
+      onActualRangeChanged: (newVisibleCoordinates) {
+        context.read<EvolutionChartProvider>().startDate =
+            DateTime.fromMillisecondsSinceEpoch(
+                newVisibleCoordinates.visibleMin.toInt());
+        context.read<EvolutionChartProvider>().endDate =
+            DateTime.fromMillisecondsSinceEpoch(
+                newVisibleCoordinates.visibleMax.toInt());
+        // context.read<EvolutionChartProvider>().updateRangeSelectorText(context);
+      },
+      // onChartTouchInteractionUp: (tapArgs) {
+      //   context.read<EvolutionChartProvider>().updateRangeSelectorText(context);
+      // },
       palette: const <Color>[
         Colors.blue,
         Colors.black,
@@ -99,8 +113,10 @@ class EvolutionChart extends StatelessWidget {
           padding: 4,
           itemPadding: 10),
       primaryXAxis: DateTimeAxis(
-        minimum: startDate,
-        maximum: endDate,
+        minimum: firstDate,
+        maximum: lastDate,
+        visibleMinimum: startDate,
+        visibleMaximum: endDate,
         dateFormat: DateFormat("dd/MM/yy"),
         labelStyle: axisTextStyle,
         intervalType: DateTimeIntervalType.months,

@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:indexax/models/account.dart';
+import 'package:indexax/tools/number_formatting.dart';
 import 'package:indexax/tools/snackbar.dart' as snackbar;
 import 'package:indexax/tools/styles.dart' as text_styles;
 import 'package:indexax/widgets/evolution_screen/evolution_chart_zoom_chips.dart';
@@ -12,7 +13,6 @@ import 'package:indexax/widgets/evolution_screen/evolution_chart.dart';
 import 'package:provider/provider.dart';
 import 'package:indexax/tools/evolution_chart_provider.dart';
 import 'package:indexax/widgets/evolution_screen/evolution_series_type_toggle.dart';
-import 'package:indexax/widgets/evolution_screen/evolution_series_range_selector.dart';
 
 class EvolutionScreen extends StatefulWidget {
   const EvolutionScreen({
@@ -44,6 +44,9 @@ class EvolutionScreenState extends State<EvolutionScreen>
 
   late int _profitLossChartSelectedYear;
 
+  TextEditingController evolutionChartDateTextController =
+      TextEditingController();
+
   Future<void> _onRefresh() async {
     // Monitor network fetch
     try {
@@ -64,6 +67,21 @@ class EvolutionScreenState extends State<EvolutionScreen>
     });
   }
 
+  Future<void> _selectEvolutionChartDateRange(BuildContext context) async {
+    final DateTimeRange? picked = await showDateRangePicker(
+      context: context,
+      firstDate: context.read<EvolutionChartProvider>().firstDate,
+      lastDate: context.read<EvolutionChartProvider>().lastDate,
+      initialDateRange: DateTimeRange(
+          start: context.read<EvolutionChartProvider>().startDate,
+          end: context.read<EvolutionChartProvider>().endDate),
+    );
+    if (picked != null && mounted) {
+      context.read<EvolutionChartProvider>().updateStartDate(picked.start);
+      context.read<EvolutionChartProvider>().updateEndDate(picked.end);
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -72,6 +90,11 @@ class EvolutionScreenState extends State<EvolutionScreen>
         widget.accountData.amountsSeries.first.date;
     context.read<EvolutionChartProvider>().lastDate =
         widget.accountData.amountsSeries.last.date;
+    context.read<EvolutionChartProvider>().startDate =
+        widget.accountData.amountsSeries.first.date;
+    context.read<EvolutionChartProvider>().endDate =
+        widget.accountData.amountsSeries.last.date;
+    context.read<EvolutionChartProvider>().updateRangeSelectorText(context);
     // Show the current year by default in the profit loss chart
     _profitLossChartSelectedYear =
         widget.accountData.profitLossSeries.keys.toList().last;
@@ -113,44 +136,63 @@ class EvolutionScreenState extends State<EvolutionScreen>
                                   Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
-                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Text(
                                           'evolution_screen.evolution'.tr(),
                                           textAlign: TextAlign.left,
                                           style: cardHeaderTextStyle,
                                         ),
-                                        Row(
-                                          children: [
-                                            IconButton(
-                                              icon: Icon(Icons
-                                                  .calendar_month_outlined),
-                                              iconSize: 25,
-                                              padding: EdgeInsets.zero,
+                                        evolutionSeriesTypeToggle(context)
+                                      ]),
+                                  SizedBox(
+                                    height: 35,
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              bottom: 4, right: 5),
+                                          child: Icon(
+                                              Icons.calendar_month_rounded,
                                               color: Theme.of(context)
                                                   .colorScheme
                                                   .primary,
-                                              constraints:
-                                                  BoxConstraints(maxHeight: 40),
-                                              splashRadius: 20,
-                                              visualDensity:
-                                                  VisualDensity.compact,
-                                              onPressed: () {
-                                                showDialog(
-                                                    context: context,
-                                                    builder:
-                                                        (BuildContext context) {
-                                                      return Dialog(
-                                                          child: evolutionSeriesRangeSelector(
-                                                              context));
-                                                    });
-                                              },
+                                              size: 20),
+                                        ),
+                                        IntrinsicWidth(
+                                          child: TextField(
+                                            controller: TextEditingController(
+                                                text: context
+                                                    .watch<
+                                                        EvolutionChartProvider>()
+                                                    .rangeSelectorText),
+                                            style:
+                                                const TextStyle(fontSize: 13),
+                                            textAlignVertical:
+                                                TextAlignVertical.center,
+                                            decoration: const InputDecoration(
+                                              contentPadding:
+                                                  EdgeInsets.only(bottom: 12),
                                             ),
-                                            SizedBox(width: 20),
-                                            evolutionSeriesTypeToggle(context),
-                                          ],
-                                        )
-                                      ]),
+                                            showCursor: false,
+                                            autofocus: true,
+                                            readOnly: true,
+                                            enableInteractiveSelection: false,
+                                            scrollPadding: EdgeInsets.zero,
+                                            onTap: () {
+                                              _selectEvolutionChartDateRange(
+                                                  context);
+                                            },
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  SizedBox(height: 5),
                                   EvolutionChart(
                                       amountsSeries:
                                           widget.accountData.amountsSeries,

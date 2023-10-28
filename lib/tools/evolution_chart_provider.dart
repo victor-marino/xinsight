@@ -1,44 +1,59 @@
 import 'package:flutter/material.dart';
 import 'package:indexax/models/chart_series_type.dart';
+import 'package:indexax/tools/number_formatting.dart';
+import 'package:intl/intl.dart';
 
 // Provider changing the evolution chart parameters
 class EvolutionChartProvider with ChangeNotifier {
   ChartSeriesType _seriesType = ChartSeriesType.amounts;
   Duration? _zoomLevel = const Duration(seconds: 0);
-  DateTime? _firstDate;
-  DateTime? _lastDate;
-  DateTime? _startDate;
-  DateTime? _endDate;
+  late DateTime firstDate;
+  late DateTime lastDate;
+  late DateTime startDate;
+  late DateTime endDate;
+  late String rangeSelectorText;
 
   ChartSeriesType get seriesType => _seriesType;
 
   Duration? get zoomLevel => _zoomLevel;
 
-  DateTime? get startDate => _startDate;
-  DateTime? get endDate => _endDate;
+  void triggerListenersUpdate() {
+    notifyListeners();
+  }
+
+  void updateStartDate(DateTime date) {
+    startDate = date;
+    _zoomLevel = null;
+    notifyListeners();
+  }
+
+  void updateEndDate(DateTime date) {
+    endDate = date;
+    _zoomLevel = null;
+    notifyListeners();
+  }
 
   set seriesType(ChartSeriesType type) {
     _seriesType = type;
     notifyListeners();
   }
 
-  set firstDate(DateTime date) {
-    _firstDate = date;
-  }
-
-  set lastDate(DateTime date) {
-    _lastDate = date;
+  void updateRangeSelectorText(BuildContext context) {
+    String startDateText = DateFormat.yMd(getCurrentLocale()).format(startDate);
+    String endDateText = DateFormat.yMd(getCurrentLocale()).format(endDate);
+    rangeSelectorText = "$startDateText - $endDateText";
+    notifyListeners();
   }
 
   set setPeriod(Duration period) {
     if (period == const Duration(seconds: 0)) {
-      _startDate = _firstDate;
-      _endDate = _lastDate;
-    } else if (_lastDate!.subtract(period).isBefore(_firstDate!)) {
-      _startDate = _firstDate;
+      startDate = firstDate;
+      endDate = lastDate;
+    } else if (lastDate.subtract(period).isBefore(firstDate)) {
+      startDate = firstDate;
     } else {
-      _startDate = _lastDate!.subtract(period);
-      _endDate = _lastDate;
+      startDate = lastDate.subtract(period);
+      endDate = lastDate;
     }
     _zoomLevel = period;
     notifyListeners();
