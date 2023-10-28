@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:indexax/models/account.dart';
+import 'package:indexax/tools/profit_loss_chart_provider.dart';
 import 'package:indexax/tools/snackbar.dart' as snackbar;
 import 'package:indexax/tools/styles.dart' as text_styles;
 import 'package:indexax/widgets/evolution_screen/evolution_chart_zoom_chips.dart';
@@ -14,7 +15,6 @@ import 'package:provider/provider.dart';
 import 'package:indexax/tools/evolution_chart_provider.dart';
 import 'package:indexax/widgets/evolution_screen/evolution_series_type_toggle.dart';
 import 'package:indexax/widgets/evolution_screen/evolution_chart_date_selector.dart';
-import 'package:indexax/widgets/evolution_screen/profit_loss_year_switcher.dart';
 
 class EvolutionScreen extends StatefulWidget {
   const EvolutionScreen({
@@ -44,8 +44,6 @@ class EvolutionScreenState extends State<EvolutionScreen>
   @override
   bool get wantKeepAlive => true;
 
-  late int _profitLossChartSelectedYear;
-
   Future<void> _onRefresh() async {
     // Monitor network fetch
     try {
@@ -73,7 +71,7 @@ class EvolutionScreenState extends State<EvolutionScreen>
         widget.accountData.amountsSeries.last.date;
 
     // Show the current year by default in the profit loss chart
-    _profitLossChartSelectedYear =
+    context.read<ProfitLossChartProvider>().year =
         widget.accountData.profitLossSeries.keys.toList().last;
   }
 

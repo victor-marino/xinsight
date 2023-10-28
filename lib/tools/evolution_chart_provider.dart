@@ -17,7 +17,7 @@ class EvolutionChartProvider with ChangeNotifier {
   void updateStartDate(DateTime date) {
     startDate = date;
     if (startDate.isAfter(endDate)) {
-      endDate = startDate.add(Duration(days: 1));
+      endDate = startDate.add(const Duration(days: 1));
     }
     _zoomLevel = null;
     notifyListeners();
@@ -26,7 +26,7 @@ class EvolutionChartProvider with ChangeNotifier {
   void updateEndDate(DateTime date) {
     endDate = date;
     if (endDate.isBefore(startDate)) {
-      startDate = endDate.subtract(Duration(days: 1));
+      startDate = endDate.subtract(const Duration(days: 1));
     }
     _zoomLevel = null;
     notifyListeners();

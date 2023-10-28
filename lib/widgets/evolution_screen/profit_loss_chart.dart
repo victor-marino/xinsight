@@ -1,6 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:indexax/tools/number_formatting.dart';
 import 'package:indexax/tools/styles.dart' as text_styles;
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -38,10 +37,12 @@ class ProfitLossChart extends StatelessWidget {
           labelStyle: axisTextStyle,
         ),
         primaryYAxis: NumericAxis(
-          numberFormat: seriesType == ChartSeriesType.returns? NumberFormat("#0.0") : NumberFormat.compactCurrency(decimalDigits: 1,
-  locale: getCurrentLocale(),
-  symbol: ''),
-          labelFormat: seriesType == ChartSeriesType.returns? ' {value}%' : ' {value}€',
+          numberFormat: seriesType == ChartSeriesType.returns
+              ? NumberFormat("#0.#")
+              : NumberFormat.compactCurrency(
+                  decimalDigits: 0, locale: "en_GB", symbol: ''),
+          labelFormat:
+              seriesType == ChartSeriesType.returns ? ' {value}%' : ' {value} €',
           isVisible: false,
           crossesAt: 0,
         ),
@@ -55,14 +56,10 @@ class ProfitLossChart extends StatelessWidget {
               labelAlignment: ChartDataLabelAlignment.outer,
             ),
             enableTooltip: false,
-            dataSource: profitLossSeries[
-                currentYear]!,
+            dataSource: profitLossSeries[currentYear]!,
             xValueMapper: (List month, _) => month[0],
             yValueMapper: (List month, _) =>
-                seriesType ==
-                        ChartSeriesType.returns
-                    ? month[1]
-                    : month[2],
+                seriesType == ChartSeriesType.returns ? month[1] : month[2],
             pointColorMapper: (List month, _) =>
                 month[1] == null || month[1] > 0
                     ? Colors.green[500]

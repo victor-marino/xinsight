@@ -344,13 +344,13 @@ Map<int, List<List>> createProfitLossSeries(
   }
 
   for (int year in years) {
-    double totalProfit = 1;
+    double totalReturn = 1;
     for (int i = 0; i < profitLossSeries[year]!.length - 1; i++) {
       if (profitLossSeries[year]![i][1] != null) {
-        totalProfit *= (profitLossSeries[year]![i][1]) + 1;
+        totalReturn *= (profitLossSeries[year]![i][1]) + 1;
       }
     }
-    profitLossSeries[year]![12][1] = totalProfit - 1;
+    profitLossSeries[year]![12][1] = totalReturn - 1;
   }
 
   for (int year in years) {
@@ -367,13 +367,24 @@ Map<int, List<List>> createProfitLossSeries(
     int year = DateTime.parse(k).year;
     int month = DateTime.parse(k).month;
     if (profitLossSeries[year]![month - 1][2] == null) {
-      profitLossSeries[year]![month - 1][2] = cashReturnsSeries[k].toDouble();
+      profitLossSeries[year]![month - 1][2] =
+          cashReturnsSeries[k].toDouble().round();
     } else {
-      profitLossSeries[year]![month - 1][2] += cashReturnsSeries[k].toDouble();
+      profitLossSeries[year]![month - 1][2] +=
+          cashReturnsSeries[k].toDouble().round();
     }
   });
 
-  
+  for (int year in years) {
+    double totalCashReturn = 0;
+    for (int i = 0; i < profitLossSeries[year]!.length - 1; i++) {
+      if (profitLossSeries[year]![i][2] != null) {
+        totalCashReturn += profitLossSeries[year]![i][2];
+      }
+    }
+    profitLossSeries[year]![12][2] = totalCashReturn;
+  }
+
   return (profitLossSeries);
 }
 
