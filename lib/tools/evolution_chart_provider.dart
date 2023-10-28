@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:indexax/models/chart_series_type.dart';
-import 'package:indexax/tools/number_formatting.dart';
-import 'package:intl/intl.dart';
 
 // Provider changing the evolution chart parameters
 class EvolutionChartProvider with ChangeNotifier {

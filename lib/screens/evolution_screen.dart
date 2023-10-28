@@ -126,7 +126,8 @@ class EvolutionScreenState extends State<EvolutionScreen>
                                           textAlign: TextAlign.left,
                                           style: cardHeaderTextStyle,
                                         ),
-                                        showEvolutionSeriesDateSelector(context),
+                                        showEvolutionSeriesDateSelector(
+                                            context),
                                       ]),
                                   const SizedBox(height: 15),
                                   showEvolutionSeriesTypeToggle(context),
@@ -201,6 +202,4 @@ class EvolutionScreenState extends State<EvolutionScreen>
       ),
     );
   }
-
-  
 }
