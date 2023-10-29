@@ -23,7 +23,44 @@ class ProfitLossChart extends StatelessWidget {
 
     ChartSeriesType seriesType =
         context.watch<ProfitLossChartProvider>().seriesType;
-    int currentYear = context.watch<ProfitLossChartProvider>().currentYear;
+    int selectedYear = context.watch<ProfitLossChartProvider>().selectedYear;
+
+    NumberFormat primaryYAxisNumberFormat;
+    String primaryYAxisLabelFormat;
+    List<List<dynamic>> dataSource;
+    String Function(List<dynamic>, int) xValueMapper =
+        (List month, _) => month[0];
+    num? Function(List<dynamic>, int) yValueMapper;
+
+    if (seriesType == ChartSeriesType.returns) {
+      primaryYAxisNumberFormat = NumberFormat("#0.#");
+      primaryYAxisLabelFormat = ' {value}%';
+      if (selectedYear != 0) {
+        dataSource = profitLossSeries[selectedYear]!;
+        yValueMapper = (List month, _) => month[1];
+      } else {
+        List<List<dynamic>> annualSeries = [];
+        profitLossSeries.keys.forEach((element) {
+          annualSeries
+              .add([element.toString(), profitLossSeries[element]![12][1], profitLossSeries[element]![12][2]
+          ]);
+        });
+        print(annualSeries.toString());
+        dataSource = annualSeries;
+        yValueMapper = (List year, _) => year[1];
+      }
+    } else {
+      primaryYAxisNumberFormat = NumberFormat.compactCurrency(
+          decimalDigits: 0, locale: "en_GB", symbol: '');
+      primaryYAxisLabelFormat = ' {value} €';
+      if (selectedYear != 0) {
+        dataSource = profitLossSeries[selectedYear]!;
+        yValueMapper = (List month, _) => month[2];
+      } else {
+        dataSource = profitLossSeries[selectedYear]!;
+        yValueMapper = (List month, _) => month[1];
+      }
+    }
 
     return SfCartesianChart(
         plotAreaBorderWidth: 0,
@@ -37,13 +74,8 @@ class ProfitLossChart extends StatelessWidget {
           labelStyle: axisTextStyle,
         ),
         primaryYAxis: NumericAxis(
-          numberFormat: seriesType == ChartSeriesType.returns
-              ? NumberFormat("#0.#")
-              : NumberFormat.compactCurrency(
-                  decimalDigits: 0, locale: "en_GB", symbol: ''),
-          labelFormat: seriesType == ChartSeriesType.returns
-              ? ' {value}%'
-              : ' {value} €',
+          numberFormat: primaryYAxisNumberFormat,
+          labelFormat: primaryYAxisLabelFormat,
           isVisible: false,
           crossesAt: 0,
         ),
@@ -57,10 +89,9 @@ class ProfitLossChart extends StatelessWidget {
               labelAlignment: ChartDataLabelAlignment.outer,
             ),
             enableTooltip: false,
-            dataSource: profitLossSeries[currentYear]!,
-            xValueMapper: (List month, _) => month[0],
-            yValueMapper: (List month, _) =>
-                seriesType == ChartSeriesType.returns ? month[1] : month[2],
+            dataSource: dataSource,
+            xValueMapper: xValueMapper,
+            yValueMapper: yValueMapper,
             pointColorMapper: (List month, _) =>
                 month[1] == null || month[1] > 0
                     ? Colors.green[500]

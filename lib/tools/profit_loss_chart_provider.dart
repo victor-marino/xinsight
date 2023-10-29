@@ -4,12 +4,12 @@ import 'package:indexax/models/chart_series_type.dart';
 // Provider changing the evolution chart parameters
 class ProfitLossChartProvider with ChangeNotifier {
   ChartSeriesType _seriesType = ChartSeriesType.returns;
-  late int currentYear;
+  late int selectedYear;
 
   ChartSeriesType get seriesType => _seriesType;
 
   void updateCurrentYear(int newYear) {
-    currentYear = newYear;
+    selectedYear = newYear;
     notifyListeners();
   }
 

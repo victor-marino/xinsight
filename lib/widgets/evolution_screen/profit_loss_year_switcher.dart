@@ -20,7 +20,7 @@ class ProfitLossYearSwitcher extends StatelessWidget {
 
     bool dropdownEnabled = false;
 
-    int currentYear = context.watch<ProfitLossChartProvider>().currentYear;
+    int currentYear = context.watch<ProfitLossChartProvider>().selectedYear;
 
     if (yearList.length > 1) {
       dropdownEnabled = true;
@@ -28,6 +28,7 @@ class ProfitLossYearSwitcher extends StatelessWidget {
 
     List<DropdownMenuItem> profitLossYearDropdownItems = [];
 
+    
     for (int i = 0; i < yearList.length; i++) {
       profitLossYearDropdownItems.add(
         DropdownMenuItem(
@@ -40,9 +41,19 @@ class ProfitLossYearSwitcher extends StatelessWidget {
         ),
       );
     }
+    
 
     profitLossYearDropdownItems.sort((b, a) => a.value.compareTo(b.value));
 
+    profitLossYearDropdownItems.insert(0, DropdownMenuItem(
+      value: 0,
+      enabled: 0 == currentYear ? false : true,
+      child: Text("Anual",
+          style: 0 == currentYear
+              ? selectedYearTextStyle
+              : nonSelectedYearTextStyle),
+    ));
+    
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -82,7 +93,9 @@ class ProfitLossYearSwitcher extends StatelessWidget {
                   underline: const SizedBox(),
                   onChanged: dropdownEnabled
                       ? (dynamic value) {
-                          context.read<ProfitLossChartProvider>().updateCurrentYear(value);
+                          context
+                              .read<ProfitLossChartProvider>()
+                              .updateCurrentYear(value);
                         }
                       : null,
                 ),
