@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:indexax/tools/styles.dart' as text_styles;
 import 'package:indexax/tools/profit_loss_chart_provider.dart';
@@ -48,7 +49,7 @@ class ProfitLossYearSwitcher extends StatelessWidget {
     profitLossYearDropdownItems.insert(0, DropdownMenuItem(
       value: 0,
       enabled: 0 == currentYear ? false : true,
-      child: Text("Anual",
+      child: Text('profit_loss_chart.annual'.tr(),
           style: 0 == currentYear
               ? selectedYearTextStyle
               : nonSelectedYearTextStyle),

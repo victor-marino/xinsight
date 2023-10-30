@@ -7,6 +7,7 @@ import 'package:indexax/models/transaction.dart';
 import 'package:indexax/tools/number_formatting.dart';
 import 'package:indexax/tools/sorting.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:indexax/models/profit_loss_datapoint.dart';
 
 /* This file groups all the functions that process the raw account data
 and create the final data structures stored in the Account class, to be used
@@ -292,10 +293,106 @@ List<PerformanceDataPoint> createPerformanceSeries(
   return (newPerformanceSeries);
 }
 
-Map<int, List<List>> createProfitLossSeries(
+// Map<int, List<List>> createProfitLossSeries(
+//     performancePeriodList, realPerformanceList, cashReturnsSeries) {
+//   // Creates the profit-loss time series for the monthly chart
+//   Map<int, List<List>> profitLossSeries = {};
+//   List<String> monthList = [
+//     'months_short.january'.tr(),
+//     'months_short.february'.tr(),
+//     'months_short.march'.tr(),
+//     'months_short.april'.tr(),
+//     'months_short.may'.tr(),
+//     'months_short.june'.tr(),
+//     'months_short.july'.tr(),
+//     'months_short.august'.tr(),
+//     'months_short.september'.tr(),
+//     'months_short.october'.tr(),
+//     'months_short.november'.tr(),
+//     'months_short.december'.tr(),
+//     "YTD"
+//   ];
+
+//   performancePeriodList =
+//       performancePeriodList.sublist(0, realPerformanceList.length);
+
+//   for (int i = realPerformanceList.length - 1; i > 0; i--) {
+//     realPerformanceList[i] =
+//         (realPerformanceList[i] / realPerformanceList[i - 1]) - 1;
+//   }
+//   realPerformanceList[0] = 0.0;
+
+//   List<int> years = [];
+//   performancePeriodList.forEach((element) {
+//     years.add(DateTime.parse(element).year);
+//   });
+
+//   years = years.toSet().toList();
+
+//   for (int year in years) {
+//     profitLossSeries.putIfAbsent(year, () => []);
+//     profitLossSeries[year] =
+//         List<List>.generate(13, (index) => ["", null, null]);
+//     profitLossSeries[year]!.asMap().forEach((index, value) {
+//       profitLossSeries[year]![index][0] = monthList[index];
+//     });
+//   }
+
+//   for (int i = 0; i < realPerformanceList.length; i++) {
+//     profitLossSeries[DateTime.parse(performancePeriodList[i]).year]![
+//             DateTime.parse(performancePeriodList[i]).month - 1][1] =
+//         realPerformanceList[i].toDouble();
+//   }
+
+//   for (int year in years) {
+//     double totalReturn = 1;
+//     for (int i = 0; i < profitLossSeries[year]!.length - 1; i++) {
+//       if (profitLossSeries[year]![i][1] != null) {
+//         totalReturn *= (profitLossSeries[year]![i][1]) + 1;
+//       }
+//     }
+//     profitLossSeries[year]![12][1] = totalReturn - 1;
+//   }
+
+//   for (int year in years) {
+//     for (int i = 0; i < profitLossSeries[year]!.length; i++) {
+//       if (profitLossSeries[year]![i][1] != null) {
+//         profitLossSeries[year]![i][1] =
+//             num.parse((profitLossSeries[year]![i][1] * 100).toStringAsFixed(1));
+//       }
+//     }
+//   }
+
+//   // Add the cash return values to each month
+//   cashReturnsSeries.keys.forEach((k) {
+//     int year = DateTime.parse(k).year;
+//     int month = DateTime.parse(k).month;
+//     if (profitLossSeries[year]![month - 1][2] == null) {
+//       profitLossSeries[year]![month - 1][2] =
+//           cashReturnsSeries[k].toDouble().round();
+//     } else {
+//       profitLossSeries[year]![month - 1][2] +=
+//           cashReturnsSeries[k].toDouble().round();
+//     }
+//   });
+
+//   for (int year in years) {
+//     double totalCashReturn = 0;
+//     for (int i = 0; i < profitLossSeries[year]!.length - 1; i++) {
+//       if (profitLossSeries[year]![i][2] != null) {
+//         totalCashReturn += profitLossSeries[year]![i][2];
+//       }
+//     }
+//     profitLossSeries[year]![12][2] = totalCashReturn;
+//   }
+//   return (profitLossSeries);
+// }
+
+Map<int, List<ProfitLossDataPoint?>> createProfitLossSeries(
     performancePeriodList, realPerformanceList, cashReturnsSeries) {
   // Creates the profit-loss time series for the monthly chart
-  Map<int, List<List>> profitLossSeries = {};
+
+  // Create list of strings containing all month names
   List<String> monthList = [
     'months_short.january'.tr(),
     'months_short.february'.tr(),
@@ -312,80 +409,134 @@ Map<int, List<List>> createProfitLossSeries(
     "YTD"
   ];
 
+  // Trim list of dates to be the same length as the list of returns data points
   performancePeriodList =
       performancePeriodList.sublist(0, realPerformanceList.length);
 
+    // Create the list of years
+  List<int> years = [];
+  performancePeriodList.forEach((element) {
+    years.add(DateTime.parse(element).year);
+  });
+
+  /* Create the profit-loss series. 
+  A map where each key is a year and each value is a list with 13 datapoint objects.
+  The first 12 datapoints represent the monthly values, whereas the last one is the sum for the whole year. */
+  Map<int, List<ProfitLossDataPoint?>> monthlyProfitLossSeries = {};
+
+  // Initialize each year list with 13 empty objects as placeholders.
+  // We need all 12 months to be present for the chart, even if some of them are empty.
+  for (int year in years) {
+    monthlyProfitLossSeries[year] = List.filled(
+        13,
+        ProfitLossDataPoint(
+            periodName: null, percentReturn: null, cashReturn: null));
+  }
+
+  // Temporary maps to store the monthly values, which need to be calculated from the daily values.
+  // Especially helpful for the cash returns, as the daily values need to be added one by one.
+  Map<int, List<double?>> monthlyPercentageReturnsData = {};
+  Map<int, List<double?>> monthlyCashReturnsData = {};
+
+  // Fill each yearly map with 13 placeholder values
+  for (int year in years) {
+    monthlyPercentageReturnsData[year] = List.filled(13, null);
+    monthlyCashReturnsData[year] = List.filled(13, null);
+  }
+  
+  // Calculate the compound percentage returns out of the simple daily values
+  // This allows us to take the last day of each month for the monthly charts
   for (int i = realPerformanceList.length - 1; i > 0; i--) {
     realPerformanceList[i] =
         (realPerformanceList[i] / realPerformanceList[i - 1]) - 1;
   }
   realPerformanceList[0] = 0.0;
 
-  List<int> years = [];
-  performancePeriodList.forEach((element) {
-    years.add(DateTime.parse(element).year);
-  });
-
-  years = years.toSet().toList();
-
-  for (int year in years) {
-    profitLossSeries.putIfAbsent(year, () => []);
-    profitLossSeries[year] =
-        List<List>.generate(13, (index) => ["", null, null]);
-    profitLossSeries[year]!.asMap().forEach((index, value) {
-      profitLossSeries[year]![index][0] = monthList[index];
-    });
-  }
-
+  // Add the monthly returns to the corresponding month in the temporary map
   for (int i = 0; i < realPerformanceList.length; i++) {
-    profitLossSeries[DateTime.parse(performancePeriodList[i]).year]![
-            DateTime.parse(performancePeriodList[i]).month - 1][1] =
+    int year = DateTime.parse(performancePeriodList[i]).year;
+    int month = DateTime.parse(performancePeriodList[i]).month;
+
+    monthlyPercentageReturnsData[year]![month - 1] =
         realPerformanceList[i].toDouble();
   }
 
-  for (int year in years) {
-    double totalReturn = 1;
-    for (int i = 0; i < profitLossSeries[year]!.length - 1; i++) {
-      if (profitLossSeries[year]![i][1] != null) {
-        totalReturn *= (profitLossSeries[year]![i][1]) + 1;
-      }
-    }
-    profitLossSeries[year]![12][1] = totalReturn - 1;
-  }
-
-  for (int year in years) {
-    for (int i = 0; i < profitLossSeries[year]!.length; i++) {
-      if (profitLossSeries[year]![i][1] != null) {
-        profitLossSeries[year]![i][1] =
-            num.parse((profitLossSeries[year]![i][1] * 100).toStringAsFixed(1));
-      }
-    }
-  }
-
-  // Add the cash return values to each month
+  // Calculate the aggregated monthly cash returns out of the daily values and add them to the temporary map
   cashReturnsSeries.keys.forEach((k) {
     int year = DateTime.parse(k).year;
     int month = DateTime.parse(k).month;
-    if (profitLossSeries[year]![month - 1][2] == null) {
-      profitLossSeries[year]![month - 1][2] =
-          cashReturnsSeries[k].toDouble().round();
+
+    if (monthlyCashReturnsData[year]![month - 1] == null) {
+      monthlyCashReturnsData[year]![month - 1] =
+          cashReturnsSeries[k].toDouble();
     } else {
-      profitLossSeries[year]![month - 1][2] +=
-          cashReturnsSeries[k].toDouble().round();
+      monthlyCashReturnsData[year]![month - 1] =
+          monthlyCashReturnsData[year]![month - 1]! +
+              cashReturnsSeries[k].toDouble();
     }
   });
 
   for (int year in years) {
+    // Calculate the aggregated annual values for each year
+    double totalPercentReturn = 1;
     double totalCashReturn = 0;
-    for (int i = 0; i < profitLossSeries[year]!.length - 1; i++) {
-      if (profitLossSeries[year]![i][2] != null) {
-        totalCashReturn += profitLossSeries[year]![i][2];
+
+    for (int i = 0; i < 12; i++) {
+      double? percentReturn;
+      double? cashReturn;
+      if (monthlyPercentageReturnsData[year]![i] != null) {
+        percentReturn = monthlyPercentageReturnsData[year]![i]!;
+        totalPercentReturn *= (percentReturn) + 1;
       }
+      if (monthlyCashReturnsData[year]![i] != null) {
+        cashReturn = monthlyCashReturnsData[year]![i]!;
+        totalCashReturn += cashReturn;
+      }
+
+      // Once we have all values for each month, add the object to the final profit-loss series.
+      monthlyProfitLossSeries[year]![i] = ProfitLossDataPoint(
+          periodName: monthList[i],
+          percentReturn: percentReturn,
+          cashReturn: cashReturn);
     }
-    profitLossSeries[year]![12][2] = totalCashReturn;
+
+    // Finally, add the object with the annual values for each year.
+    monthlyPercentageReturnsData[year]![12] = totalPercentReturn - 1;
+    monthlyCashReturnsData[year]![12] = totalCashReturn;
+
+    monthlyProfitLossSeries[year]![12] = ProfitLossDataPoint(
+        periodName: "YTD",
+        percentReturn: monthlyPercentageReturnsData[year]![12],
+        cashReturn: monthlyCashReturnsData[year]![12]);
   }
 
-  return (profitLossSeries);
+  // Create the annual series
+  List<ProfitLossDataPoint> annualProfitLossSeries = [];
+  double aggregatePercentReturn = 1;
+  double aggregateCashReturn = 0;
+
+  for (var year in monthlyProfitLossSeries.keys) {
+    String periodName = year.toString();
+    double? annualPercentReturn = monthlyProfitLossSeries[year]![12]!.percentReturn;
+    double? annualCashReturn = monthlyProfitLossSeries[year]![12]!.cashReturn;
+    annualProfitLossSeries.add(ProfitLossDataPoint(
+        periodName: periodName,
+        percentReturn: annualPercentReturn,
+        cashReturn: annualCashReturn));
+    if (monthlyProfitLossSeries[year]![12]!.percentReturn != null) {
+      aggregatePercentReturn *=
+          (monthlyProfitLossSeries[year]![12]!.percentReturn)! + 1;
+    }
+    if (monthlyProfitLossSeries[year]![12]!.cashReturn != null) {
+      aggregateCashReturn += monthlyProfitLossSeries[year]![12]!.cashReturn!;
+    }
+  }
+  annualProfitLossSeries.add(ProfitLossDataPoint(
+      periodName: "Total",
+      percentReturn: (aggregatePercentReturn - 1),
+      cashReturn: aggregateCashReturn));
+
+  return (monthlyProfitLossSeries);
 }
 
 List<Transaction> createTransactionList(

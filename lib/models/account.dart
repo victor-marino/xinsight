@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:indexax/models/profit_loss_datapoint.dart';
 import 'amounts_datapoint.dart';
 import 'performance_datapoint.dart';
 import 'portfolio_datapoint.dart';
@@ -46,7 +47,7 @@ class Account {
   final List<PortfolioDataPoint> portfolioData;
   final Map<InstrumentType, Map<ValueType, double>> portfolioDistribution;
   final List<PerformanceDataPoint> performanceSeries;
-  final Map<int, List<List>> profitLossSeries;
+  final Map<int, List<ProfitLossDataPoint?>> profitLossSeries;
   final List<Transaction> transactionList;
 
   Account(

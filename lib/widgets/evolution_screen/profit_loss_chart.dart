@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:indexax/models/profit_loss_datapoint.dart';
 import 'package:indexax/tools/styles.dart' as text_styles;
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -14,7 +15,7 @@ class ProfitLossChart extends StatelessWidget {
     required this.profitLossSeries,
   }) : super(key: key);
 
-  final Map<int, List<List>> profitLossSeries;
+  final Map<int, List<ProfitLossDataPoint?>> profitLossSeries;
 
   @override
   Widget build(BuildContext context) {
@@ -27,60 +28,97 @@ class ProfitLossChart extends StatelessWidget {
 
     NumberFormat primaryYAxisNumberFormat;
     String primaryYAxisLabelFormat;
-    List<List<dynamic>> dataSource;
-    String Function(List<dynamic>, int) xValueMapper =
-        (List month, _) => month[0];
-    num? Function(List<dynamic>, int) yValueMapper;
+    List<ProfitLossDataPoint?> dataSource;
+    String? xValueMapper(ProfitLossDataPoint? datapoint, _) =>
+        datapoint?.periodName;
+    num? Function(ProfitLossDataPoint? datapoint, int) yValueMapper;
+    Color? pointColorMapper(ProfitLossDataPoint? datapoint, _) =>
+        (datapoint != null) ? datapoint.color : null;
+    double chartOffset = 0;
 
+    List<ProfitLossDataPoint> annualSeries = [];
+    double totalPercentReturn = 1;
+    double totalCashReturn = 0;
+
+    // Create the annual series
+    for (var element in profitLossSeries.keys) {
+      String periodName = element.toString();
+      double? percentReturn = profitLossSeries[element]![12]!.percentReturn;
+      double? cashReturn = profitLossSeries[element]![12]!.cashReturn;
+      annualSeries.add(ProfitLossDataPoint(
+          periodName: periodName,
+          percentReturn: percentReturn,
+          cashReturn: cashReturn));
+      if (profitLossSeries[element]![12]!.percentReturn != null) {
+        totalPercentReturn *=
+            (profitLossSeries[element]![12]!.percentReturn)! + 1;
+      }
+      if (profitLossSeries[element]![12]!.cashReturn != null) {
+        totalCashReturn += profitLossSeries[element]![12]!.cashReturn!;
+      }
+    }
+    annualSeries.add(ProfitLossDataPoint(
+        periodName: "Total",
+        percentReturn: (totalPercentReturn - 1),
+        cashReturn: totalCashReturn));
+
+    // Prepare the chart depending on selected data
     if (seriesType == ChartSeriesType.returns) {
-      primaryYAxisNumberFormat = NumberFormat("#0.#");
-      primaryYAxisLabelFormat = ' {value}%';
-      if (selectedYear != 0) {
-        dataSource = profitLossSeries[selectedYear]!;
-        yValueMapper = (List month, _) => month[1];
-      } else {
-        List<List<dynamic>> annualSeries = [];
-        profitLossSeries.keys.forEach((element) {
-          annualSeries
-              .add([element.toString(), profitLossSeries[element]![12][1], profitLossSeries[element]![12][2]
-          ]);
-        });
-        print(annualSeries.toString());
+      // Percentage returns
+      primaryYAxisNumberFormat =
+          NumberFormat.decimalPercentPattern(decimalDigits: 1);
+      primaryYAxisLabelFormat = ' {value}';
+      if (selectedYear == 0) {
+        // Annual returns
         dataSource = annualSeries;
-        yValueMapper = (List year, _) => year[1];
+        yValueMapper =
+            (ProfitLossDataPoint? datapoint, _) => datapoint!.percentReturn;
+        chartOffset = annualSeries.length.toDouble() - 10;
+      } else {
+        // Monthly returns for selected year
+        dataSource = profitLossSeries[selectedYear]!;
+        yValueMapper =
+            (ProfitLossDataPoint? datapoint, _) => datapoint!.percentReturn;
       }
     } else {
+      // Cash returns
       primaryYAxisNumberFormat = NumberFormat.compactCurrency(
           decimalDigits: 0, locale: "en_GB", symbol: '');
       primaryYAxisLabelFormat = ' {value} €';
-      if (selectedYear != 0) {
-        dataSource = profitLossSeries[selectedYear]!;
-        yValueMapper = (List month, _) => month[2];
+      if (selectedYear == 0) {
+        // Annual returns
+        dataSource = annualSeries;
+        yValueMapper =
+            (ProfitLossDataPoint? datapoint, _) => datapoint!.cashReturn;
+        chartOffset = annualSeries.length.toDouble() - 10;
       } else {
+        // Monthly returns for selected year
         dataSource = profitLossSeries[selectedYear]!;
-        yValueMapper = (List month, _) => month[1];
+        yValueMapper =
+            (ProfitLossDataPoint? datapoint, _) => datapoint!.cashReturn;
       }
     }
 
     return SfCartesianChart(
         plotAreaBorderWidth: 0,
         axes: const [],
+        enableAxisAnimation: true,
         primaryXAxis: CategoryAxis(
-          interval: 1,
-          crossesAt: 0,
-          placeLabelsNearAxisLine: false,
-          majorGridLines: const MajorGridLines(width: 0),
-          majorTickLines: const MajorTickLines(size: 0),
-          labelStyle: axisTextStyle,
-        ),
+            interval: 1,
+            crossesAt: 0,
+            placeLabelsNearAxisLine: false,
+            majorGridLines: const MajorGridLines(width: 0),
+            majorTickLines: const MajorTickLines(size: 0),
+            labelStyle: axisTextStyle,
+            visibleMinimum: chartOffset),
         primaryYAxis: NumericAxis(
           numberFormat: primaryYAxisNumberFormat,
           labelFormat: primaryYAxisLabelFormat,
           isVisible: false,
           crossesAt: 0,
         ),
-        series: <ChartSeries<List, String>>[
-          ColumnSeries<List, String>(
+        series: <ChartSeries<ProfitLossDataPoint?, String>>[
+          ColumnSeries<ProfitLossDataPoint?, String>(
             spacing: 0,
             width: 0.7,
             dataLabelSettings: DataLabelSettings(
@@ -92,11 +130,8 @@ class ProfitLossChart extends StatelessWidget {
             dataSource: dataSource,
             xValueMapper: xValueMapper,
             yValueMapper: yValueMapper,
-            pointColorMapper: (List month, _) =>
-                month[1] == null || month[1] > 0
-                    ? Colors.green[500]
-                    : Colors.red[900],
-          ),
+            pointColorMapper: pointColorMapper,
+          )
         ]);
   }
 }

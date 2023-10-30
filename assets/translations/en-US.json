@@ -133,6 +133,9 @@
     "invested": "Invested",
     "return": "Return"
   },
+  "profit_loss_chart": {
+    "annual": "Annual"
+  },
   "transaction_info": {
     "fund_purchase": "Fund purchase",
     "fund_reimbursement": "Fund sale",

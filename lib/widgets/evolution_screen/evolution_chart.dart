@@ -48,6 +48,7 @@ class EvolutionChart extends StatelessWidget {
 
     return SfCartesianChart(
       margin: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+      enableAxisAnimation: true,
       primaryYAxis: seriesType == ChartSeriesType.returns
           ? NumericAxis(
               axisLabelFormatter: (AxisLabelRenderDetails details) =>
