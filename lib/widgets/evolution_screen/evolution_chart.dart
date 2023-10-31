@@ -8,8 +8,7 @@ import 'package:indexax/tools/styles.dart' as text_styles;
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:indexax/tools/private_mode_provider.dart';
-import 'package:indexax/tools/evolution_chart_provider.dart';
-import 'package:indexax/models/chart_series_type.dart';
+
 
 // Draws the evolution chart
 // It plots the amounts (€) or the returns (%) based on the 'seriesType' variable of the provider
@@ -84,7 +83,7 @@ class EvolutionChart extends StatelessWidget {
             borderWidth: 1,
             textStyle:
                 TextStyle(color: Theme.of(context).colorScheme.onSurface),
-            format: seriesType == ChartSeriesType.returns
+            format: showReturns
                 ? 'series.name: point.y%'
                 : context.watch<PrivateModeProvider>().privateModeEnabled
                     ? 'series.name: ${getAmountAsStringWithZeroDecimals(100, maskValue: true)}'

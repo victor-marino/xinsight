@@ -231,24 +231,24 @@ class RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
                     Row(
                       children: [
                         const PageHeader(),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 7),
-                          child: IconButton(
-                            onPressed: _togglePrivateMode,
-                            icon: Icon(context
-                                    .watch<PrivateModeProvider>()
-                                    .privateModeEnabled
-                                ? Icons.visibility_off_rounded
-                                : Icons.visibility_rounded),
-                            color: context
-                                    .watch<PrivateModeProvider>()
-                                    .privateModeEnabled
-                                ? Theme.of(context).colorScheme.primary
-                                : Colors.grey.withAlpha(150),
-                            splashRadius: 20,
-                            iconSize: 20,
-                          ),
-                        )
+                        if (context
+                            .watch<PrivateModeProvider>()
+                            .privateModeEnabled) ...[
+                          Padding(
+                            padding: const EdgeInsets.only(top: 7),
+                            child: IconButton(
+                              onPressed: () => context
+                                  .read<PrivateModeProvider>()
+                                  .togglePrivateMode(context),
+                              icon: const Icon(Icons.visibility_off_rounded),
+                              visualDensity: VisualDensity.compact,
+                              constraints: const BoxConstraints(maxHeight: 35),
+                              color: Theme.of(context).colorScheme.primary,
+                              splashRadius: 20,
+                              iconSize: 20,
+                            ),
+                          )
+                        ]
                       ],
                     ),
                     if (!landscapeOrientation) ...[

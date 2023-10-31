@@ -61,8 +61,9 @@
     "volatility": "VOLATILITY",
     "sharpe": "SHARPE"
   },
-  "not_reconciled_card": {
-    "not_reconciled_explanation": "Items pending update. The date of your data is still "
+  "not_reconciled_popup": {
+    "update_pending": "Update pending",
+    "not_reconciled_explanation": "The daily reconciliation process is not yet complete and the date of your portfolio items is still "
   },
   "minimum_transfer_card": {
     "minimum_transfer_to_invest": "Minimum deposit to invest"
