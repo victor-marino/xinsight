@@ -72,7 +72,7 @@ class EvolutionScreenState extends State<EvolutionScreen>
 
     // Show the current year by default in the profit loss chart
     context.read<ProfitLossChartProvider>().selectedYear =
-        widget.accountData.profitLossSeries.keys.toList().last;
+        widget.accountData.profitLossSeries.monthlySeries.keys.toList().last;
   }
 
   @override
@@ -162,8 +162,8 @@ class EvolutionScreenState extends State<EvolutionScreen>
                                           textAlign: TextAlign.left,
                                           style: cardHeaderTextStyle),
                                       ProfitLossYearSwitcher(
-                                          yearList: widget
-                                              .accountData.profitLossSeries.keys
+                                          yearList: widget.accountData
+                                              .profitLossSeries.monthlySeries.keys
                                               .toList()),
                                     ],
                                   ),
@@ -172,8 +172,8 @@ class EvolutionScreenState extends State<EvolutionScreen>
                                   SizedBox(
                                     height: 150,
                                     child: ProfitLossChart(
-                                        profitLossSeries: widget
-                                            .accountData.profitLossSeries),
+                                        profitLossSeries: widget.accountData
+                                            .profitLossSeries),
                                   ),
                                 ],
                               ),

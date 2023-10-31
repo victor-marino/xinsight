@@ -293,104 +293,13 @@ List<PerformanceDataPoint> createPerformanceSeries(
   return (newPerformanceSeries);
 }
 
-// Map<int, List<List>> createProfitLossSeries(
-//     performancePeriodList, realPerformanceList, cashReturnsSeries) {
-//   // Creates the profit-loss time series for the monthly chart
-//   Map<int, List<List>> profitLossSeries = {};
-//   List<String> monthList = [
-//     'months_short.january'.tr(),
-//     'months_short.february'.tr(),
-//     'months_short.march'.tr(),
-//     'months_short.april'.tr(),
-//     'months_short.may'.tr(),
-//     'months_short.june'.tr(),
-//     'months_short.july'.tr(),
-//     'months_short.august'.tr(),
-//     'months_short.september'.tr(),
-//     'months_short.october'.tr(),
-//     'months_short.november'.tr(),
-//     'months_short.december'.tr(),
-//     "YTD"
-//   ];
-
-//   performancePeriodList =
-//       performancePeriodList.sublist(0, realPerformanceList.length);
-
-//   for (int i = realPerformanceList.length - 1; i > 0; i--) {
-//     realPerformanceList[i] =
-//         (realPerformanceList[i] / realPerformanceList[i - 1]) - 1;
-//   }
-//   realPerformanceList[0] = 0.0;
-
-//   List<int> years = [];
-//   performancePeriodList.forEach((element) {
-//     years.add(DateTime.parse(element).year);
-//   });
-
-//   years = years.toSet().toList();
-
-//   for (int year in years) {
-//     profitLossSeries.putIfAbsent(year, () => []);
-//     profitLossSeries[year] =
-//         List<List>.generate(13, (index) => ["", null, null]);
-//     profitLossSeries[year]!.asMap().forEach((index, value) {
-//       profitLossSeries[year]![index][0] = monthList[index];
-//     });
-//   }
-
-//   for (int i = 0; i < realPerformanceList.length; i++) {
-//     profitLossSeries[DateTime.parse(performancePeriodList[i]).year]![
-//             DateTime.parse(performancePeriodList[i]).month - 1][1] =
-//         realPerformanceList[i].toDouble();
-//   }
-
-//   for (int year in years) {
-//     double totalReturn = 1;
-//     for (int i = 0; i < profitLossSeries[year]!.length - 1; i++) {
-//       if (profitLossSeries[year]![i][1] != null) {
-//         totalReturn *= (profitLossSeries[year]![i][1]) + 1;
-//       }
-//     }
-//     profitLossSeries[year]![12][1] = totalReturn - 1;
-//   }
-
-//   for (int year in years) {
-//     for (int i = 0; i < profitLossSeries[year]!.length; i++) {
-//       if (profitLossSeries[year]![i][1] != null) {
-//         profitLossSeries[year]![i][1] =
-//             num.parse((profitLossSeries[year]![i][1] * 100).toStringAsFixed(1));
-//       }
-//     }
-//   }
-
-//   // Add the cash return values to each month
-//   cashReturnsSeries.keys.forEach((k) {
-//     int year = DateTime.parse(k).year;
-//     int month = DateTime.parse(k).month;
-//     if (profitLossSeries[year]![month - 1][2] == null) {
-//       profitLossSeries[year]![month - 1][2] =
-//           cashReturnsSeries[k].toDouble().round();
-//     } else {
-//       profitLossSeries[year]![month - 1][2] +=
-//           cashReturnsSeries[k].toDouble().round();
-//     }
-//   });
-
-//   for (int year in years) {
-//     double totalCashReturn = 0;
-//     for (int i = 0; i < profitLossSeries[year]!.length - 1; i++) {
-//       if (profitLossSeries[year]![i][2] != null) {
-//         totalCashReturn += profitLossSeries[year]![i][2];
-//       }
-//     }
-//     profitLossSeries[year]![12][2] = totalCashReturn;
-//   }
-//   return (profitLossSeries);
-// }
-
-Map<int, List<ProfitLossDataPoint?>> createProfitLossSeries(
+({
+  Map<int, List<ProfitLossDataPoint?>> monthlySeries,
+  List<ProfitLossDataPoint> annualSeries
+}) createProfitLossSeries(
     performancePeriodList, realPerformanceList, cashReturnsSeries) {
-  // Creates the profit-loss time series for the monthly chart
+  // Creates the profit-loss time series for the chart
+  // The function returns a record containing both the monthly and annual series
 
   // Create list of strings containing all month names
   List<String> monthList = [
@@ -413,13 +322,13 @@ Map<int, List<ProfitLossDataPoint?>> createProfitLossSeries(
   performancePeriodList =
       performancePeriodList.sublist(0, realPerformanceList.length);
 
-    // Create the list of years
+  // Create the list of years
   List<int> years = [];
   performancePeriodList.forEach((element) {
     years.add(DateTime.parse(element).year);
   });
 
-  /* Create the profit-loss series. 
+  /* Create the monthly profit-loss series. 
   A map where each key is a year and each value is a list with 13 datapoint objects.
   The first 12 datapoints represent the monthly values, whereas the last one is the sum for the whole year. */
   Map<int, List<ProfitLossDataPoint?>> monthlyProfitLossSeries = {};
@@ -438,14 +347,14 @@ Map<int, List<ProfitLossDataPoint?>> createProfitLossSeries(
   Map<int, List<double?>> monthlyPercentageReturnsData = {};
   Map<int, List<double?>> monthlyCashReturnsData = {};
 
-  // Fill each yearly map with 13 placeholder values
+  // Fill each yearly list with 13 placeholder values
   for (int year in years) {
     monthlyPercentageReturnsData[year] = List.filled(13, null);
     monthlyCashReturnsData[year] = List.filled(13, null);
   }
-  
+
   // Calculate the compound percentage returns out of the simple daily values
-  // This allows us to take the last day of each month for the monthly charts
+  // Then we can take the last day of each month as the monthly value
   for (int i = realPerformanceList.length - 1; i > 0; i--) {
     realPerformanceList[i] =
         (realPerformanceList[i] / realPerformanceList[i - 1]) - 1;
@@ -461,7 +370,8 @@ Map<int, List<ProfitLossDataPoint?>> createProfitLossSeries(
         realPerformanceList[i].toDouble();
   }
 
-  // Calculate the aggregated monthly cash returns out of the daily values and add them to the temporary map
+  // Calculate the aggregated monthly cash returns out of the daily values and
+  // add them to the right month of the temporary map
   cashReturnsSeries.keys.forEach((k) {
     int year = DateTime.parse(k).year;
     int month = DateTime.parse(k).month;
@@ -493,14 +403,15 @@ Map<int, List<ProfitLossDataPoint?>> createProfitLossSeries(
         totalCashReturn += cashReturn;
       }
 
-      // Once we have all values for each month, add the object to the final profit-loss series.
+      // Once we have all values for each month, we finally add the objects
+      // to the final profit-loss series that will be returned.
       monthlyProfitLossSeries[year]![i] = ProfitLossDataPoint(
           periodName: monthList[i],
           percentReturn: percentReturn,
           cashReturn: cashReturn);
     }
 
-    // Finally, add the object with the annual values for each year.
+    // And we add the last datapoint to each year with the total annual values
     monthlyPercentageReturnsData[year]![12] = totalPercentReturn - 1;
     monthlyCashReturnsData[year]![12] = totalCashReturn;
 
@@ -511,13 +422,15 @@ Map<int, List<ProfitLossDataPoint?>> createProfitLossSeries(
   }
 
   // Create the annual series
+  // A map where each key is a year and each value is a datapoint object
   List<ProfitLossDataPoint> annualProfitLossSeries = [];
   double aggregatePercentReturn = 1;
   double aggregateCashReturn = 0;
 
   for (var year in monthlyProfitLossSeries.keys) {
     String periodName = year.toString();
-    double? annualPercentReturn = monthlyProfitLossSeries[year]![12]!.percentReturn;
+    double? annualPercentReturn =
+        monthlyProfitLossSeries[year]![12]!.percentReturn;
     double? annualCashReturn = monthlyProfitLossSeries[year]![12]!.cashReturn;
     annualProfitLossSeries.add(ProfitLossDataPoint(
         periodName: periodName,
@@ -531,12 +444,18 @@ Map<int, List<ProfitLossDataPoint?>> createProfitLossSeries(
       aggregateCashReturn += monthlyProfitLossSeries[year]![12]!.cashReturn!;
     }
   }
+
+  // Add the final datapoint to the annual series with the total returns to date
   annualProfitLossSeries.add(ProfitLossDataPoint(
       periodName: "Total",
       percentReturn: (aggregatePercentReturn - 1),
       cashReturn: aggregateCashReturn));
 
-  return (monthlyProfitLossSeries);
+  // Return both the monthly and annual series as a record
+  return (
+    monthlySeries: monthlyProfitLossSeries,
+    annualSeries: annualProfitLossSeries
+  );
 }
 
 List<Transaction> createTransactionList(

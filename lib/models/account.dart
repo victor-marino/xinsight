@@ -47,7 +47,10 @@ class Account {
   final List<PortfolioDataPoint> portfolioData;
   final Map<InstrumentType, Map<ValueType, double>> portfolioDistribution;
   final List<PerformanceDataPoint> performanceSeries;
-  final Map<int, List<ProfitLossDataPoint?>> profitLossSeries;
+  final ({
+    Map<int, List<ProfitLossDataPoint?>> monthlySeries,
+    List<ProfitLossDataPoint> annualSeries
+  }) profitLossSeries;
   final List<Transaction> transactionList;
 
   Account(
@@ -102,9 +105,10 @@ class Account {
         amountsSeries = account_operations.createAmountsSeries(
             accountPerformanceData['return']['net_amounts'],
             accountPerformanceData['return']['total_amounts']),
-        returnsSeries =
-            account_operations.createReturnsSeries(accountPerformanceData['return']['index']),
-        portfolioData = account_operations.createPortfolioData(accountPortfolioData['portfolio'],
+        returnsSeries = account_operations
+            .createReturnsSeries(accountPerformanceData['return']['index']),
+        portfolioData = account_operations.createPortfolioData(
+            accountPortfolioData['portfolio'],
             accountPortfolioData['instrument_accounts'][0]['positions']),
         portfolioDistribution = account_operations.createPortfolioDistribution(
             accountPortfolioData['portfolio'],
@@ -121,8 +125,8 @@ class Account {
             accountPerformanceData['return']['cash_returns']),
         transactionList = account_operations.createTransactionList(
             accountInstrumentTransactionData, accountCashTransactionData),
-        additionalCashNeededToTrade =
-            account_operations.getCashNeededToTrade(accountPortfolioData['extra']),
-        hasPendingTransactions =
-            account_operations.checkPendingTransactions(accountPendingTransactionData);
+        additionalCashNeededToTrade = account_operations
+            .getCashNeededToTrade(accountPortfolioData['extra']),
+        hasPendingTransactions = account_operations
+            .checkPendingTransactions(accountPendingTransactionData);
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class ProfitLossDataPoint {
   // Datapoint model for profit-loss series
+  // The color is calculated when the datapoint is instantiated
   ProfitLossDataPoint(
       {required this.periodName,
       required this.percentReturn,

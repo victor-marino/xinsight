@@ -15,17 +15,26 @@ class ProfitLossChart extends StatelessWidget {
     required this.profitLossSeries,
   }) : super(key: key);
 
-  final Map<int, List<ProfitLossDataPoint?>> profitLossSeries;
+  final ({
+    Map<int, List<ProfitLossDataPoint?>> monthlySeries,
+    List<ProfitLossDataPoint> annualSeries
+  }) profitLossSeries;
 
   @override
   Widget build(BuildContext context) {
+    // Text styles for the chart
     final TextStyle axisTextStyle = text_styles.roboto(context, 10);
     final TextStyle dataLabelTextStyle = text_styles.robotoBold(context, 8);
 
+    // Watch the necessary provider variables to update the chart
+    // whenever the user changes any filters.
     ChartSeriesType seriesType =
         context.watch<ProfitLossChartProvider>().seriesType;
     int selectedYear = context.watch<ProfitLossChartProvider>().selectedYear;
 
+    // Declaration of variables containing chart settings that will be modified
+    // depending on selected filters. Extracted up here to avoid cluttering
+    // the code of the chart with too many conditions and ternary operators.
     NumberFormat primaryYAxisNumberFormat;
     String primaryYAxisLabelFormat;
     List<ProfitLossDataPoint?> dataSource;
@@ -34,75 +43,50 @@ class ProfitLossChart extends StatelessWidget {
     num? Function(ProfitLossDataPoint? datapoint, int) yValueMapper;
     Color? pointColorMapper(ProfitLossDataPoint? datapoint, _) =>
         (datapoint != null) ? datapoint.color : null;
-    double chartOffset = 0;
+    double? chartOffset;
+    ZoomPanBehavior zoomPanBehavior;
 
-    List<ProfitLossDataPoint> annualSeries = [];
-    double totalPercentReturn = 1;
-    double totalCashReturn = 0;
-
-    // Create the annual series
-    for (var element in profitLossSeries.keys) {
-      String periodName = element.toString();
-      double? percentReturn = profitLossSeries[element]![12]!.percentReturn;
-      double? cashReturn = profitLossSeries[element]![12]!.cashReturn;
-      annualSeries.add(ProfitLossDataPoint(
-          periodName: periodName,
-          percentReturn: percentReturn,
-          cashReturn: cashReturn));
-      if (profitLossSeries[element]![12]!.percentReturn != null) {
-        totalPercentReturn *=
-            (profitLossSeries[element]![12]!.percentReturn)! + 1;
-      }
-      if (profitLossSeries[element]![12]!.cashReturn != null) {
-        totalCashReturn += profitLossSeries[element]![12]!.cashReturn!;
-      }
-    }
-    annualSeries.add(ProfitLossDataPoint(
-        periodName: "Total",
-        percentReturn: (totalPercentReturn - 1),
-        cashReturn: totalCashReturn));
-
-    // Prepare the chart depending on selected data
+    // Set and update chart settings depending on user-selected filters
     if (seriesType == ChartSeriesType.returns) {
       // Percentage returns
       primaryYAxisNumberFormat =
           NumberFormat.decimalPercentPattern(decimalDigits: 1);
       primaryYAxisLabelFormat = ' {value}';
-      if (selectedYear == 0) {
-        // Annual returns
-        dataSource = annualSeries;
-        yValueMapper =
-            (ProfitLossDataPoint? datapoint, _) => datapoint!.percentReturn;
-        chartOffset = annualSeries.length.toDouble() - 10;
-      } else {
-        // Monthly returns for selected year
-        dataSource = profitLossSeries[selectedYear]!;
-        yValueMapper =
-            (ProfitLossDataPoint? datapoint, _) => datapoint!.percentReturn;
-      }
+      yValueMapper =
+          (ProfitLossDataPoint? datapoint, _) => datapoint!.percentReturn;
     } else {
       // Cash returns
       primaryYAxisNumberFormat = NumberFormat.compactCurrency(
           decimalDigits: 0, locale: "en_GB", symbol: '');
       primaryYAxisLabelFormat = ' {value} €';
-      if (selectedYear == 0) {
-        // Annual returns
-        dataSource = annualSeries;
-        yValueMapper =
-            (ProfitLossDataPoint? datapoint, _) => datapoint!.cashReturn;
-        chartOffset = annualSeries.length.toDouble() - 10;
+      yValueMapper =
+          (ProfitLossDataPoint? datapoint, _) => datapoint!.cashReturn;
+    }
+
+    if (selectedYear == 0) {
+      // Annual returns
+      dataSource = profitLossSeries.annualSeries;
+      chartOffset = profitLossSeries.annualSeries.length.toDouble() - 10;
+      if (dataSource.length >= 10) {
+        zoomPanBehavior =
+            ZoomPanBehavior(enablePanning: true, zoomMode: ZoomMode.x);
       } else {
-        // Monthly returns for selected year
-        dataSource = profitLossSeries[selectedYear]!;
-        yValueMapper =
-            (ProfitLossDataPoint? datapoint, _) => datapoint!.cashReturn;
+        zoomPanBehavior =
+            ZoomPanBehavior(enablePanning: false, zoomMode: ZoomMode.x);
       }
+    } else {
+      // Monthly returns for selected year
+      dataSource = profitLossSeries.monthlySeries[selectedYear]!;
+      chartOffset = 0;
+      zoomPanBehavior =
+          ZoomPanBehavior(enablePanning: false, zoomMode: ZoomMode.x);
     }
 
     return SfCartesianChart(
         plotAreaBorderWidth: 0,
         axes: const [],
         enableAxisAnimation: true,
+        zoomPanBehavior: zoomPanBehavior,
         primaryXAxis: CategoryAxis(
             interval: 1,
             crossesAt: 0,
@@ -112,11 +96,11 @@ class ProfitLossChart extends StatelessWidget {
             labelStyle: axisTextStyle,
             visibleMinimum: chartOffset),
         primaryYAxis: NumericAxis(
-          numberFormat: primaryYAxisNumberFormat,
-          labelFormat: primaryYAxisLabelFormat,
-          isVisible: false,
-          crossesAt: 0,
-        ),
+            numberFormat: primaryYAxisNumberFormat,
+            labelFormat: primaryYAxisLabelFormat,
+            isVisible: false,
+            crossesAt: 0,
+            anchorRangeToVisiblePoints: false),
         series: <ChartSeries<ProfitLossDataPoint?, String>>[
           ColumnSeries<ProfitLossDataPoint?, String>(
             spacing: 0,
