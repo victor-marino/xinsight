@@ -2,13 +2,19 @@ import 'package:flutter/foundation.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:indexax/models/account.dart';
+import 'package:indexax/tools/profit_loss_chart_provider.dart';
 import 'package:indexax/tools/snackbar.dart' as snackbar;
 import 'package:indexax/tools/styles.dart' as text_styles;
 import 'package:indexax/widgets/evolution_screen/evolution_chart_zoom_chips.dart';
 import 'package:indexax/widgets/evolution_screen/profit_loss_chart.dart';
+import 'package:indexax/widgets/evolution_screen/profit_loss_series_type_toggle.dart';
 import 'package:indexax/widgets/evolution_screen/profit_loss_year_switcher.dart';
 import 'package:indexax/widgets/reusable_card.dart';
 import 'package:indexax/widgets/evolution_screen/evolution_chart.dart';
+import 'package:provider/provider.dart';
+import 'package:indexax/tools/evolution_chart_provider.dart';
+import 'package:indexax/widgets/evolution_screen/evolution_series_type_toggle.dart';
+import 'package:indexax/widgets/evolution_screen/evolution_chart_date_selector.dart';
 
 class EvolutionScreen extends StatefulWidget {
   const EvolutionScreen({
@@ -38,10 +44,6 @@ class EvolutionScreenState extends State<EvolutionScreen>
   @override
   bool get wantKeepAlive => true;
 
-  Duration _evolutionChartSelectedPeriod = const Duration(seconds: 0);
-  bool _evolutionChartShowReturns = false;
-  late int _profitLossChartSelectedYear;
-
   Future<void> _onRefresh() async {
     // Monitor network fetch
     try {
@@ -55,44 +57,23 @@ class EvolutionScreenState extends State<EvolutionScreen>
     }
   }
 
-  void _reloadEvolutionChart({Duration? period, bool? showReturns}) {
-    // Called when any setting in the evolution chart is changed by the user
-    if (period != null) {
-      setState(() {
-        _evolutionChartSelectedPeriod = period;
-      });
-    }
-    if (showReturns != null) {
-      setState(() {
-        _evolutionChartShowReturns = showReturns;
-      });
-    }
-  }
-
-  void _reloadProfitLossChart(int year) {
-    // Called when the user changes the year in the profit loss chart
-    setState(() {
-      _profitLossChartSelectedYear = year;
-    });
-  }
-
   @override
   void initState() {
     super.initState();
-    // Show the current year by default in the profit loss chart
-    _profitLossChartSelectedYear =
-        widget.accountData.profitLossSeries.keys.toList().last;
-  }
+    // Set the first and last dates of the series in the Evolution Chart Provider
+    context.read<EvolutionChartProvider>().firstDate =
+        widget.accountData.amountsSeries.first.date;
+    context.read<EvolutionChartProvider>().lastDate =
+        widget.accountData.amountsSeries.last.date;
+    context.read<EvolutionChartProvider>().startDate =
+        widget.accountData.amountsSeries.first.date;
+    context.read<EvolutionChartProvider>().endDate =
+        widget.accountData.amountsSeries.last.date;
 
-  // Zoom options for the evolution chart
-  final List<Map> _zoomLevels = [
-    {"label": "1m", "duration": const Duration(days: 30)},
-    {"label": "3m", "duration": const Duration(days: 90)},
-    {"label": "6m", "duration": const Duration(days: 180)},
-    {"label": "1y", "duration": const Duration(days: 365)},
-    {"label": "5y", "duration": const Duration(days: 1825)},
-    {"label": "all", "duration": const Duration(seconds: 0)},
-  ];
+    // Show the current year by default in the profit loss chart
+    context.read<ProfitLossChartProvider>().selectedYear =
+        widget.accountData.profitLossSeries.monthlySeries.keys.toList().last;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -123,7 +104,6 @@ class EvolutionScreenState extends State<EvolutionScreen>
                             ReusableCard(
                               paddingBottom:
                                   widget.landscapeOrientation ? 16 : 8,
-                              paddingTop: 16,
                               childWidget: Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -131,99 +111,24 @@ class EvolutionScreenState extends State<EvolutionScreen>
                                   Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Text(
                                           'evolution_screen.evolution'.tr(),
                                           textAlign: TextAlign.left,
                                           style: cardHeaderTextStyle,
                                         ),
-                                        !_evolutionChartShowReturns
-                                            ? Row(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                children: [
-                                                  const SizedBox(
-                                                    width: 30,
-                                                    height: 30,
-                                                    child: Icon(Icons.euro,
-                                                        size: 20),
-                                                  ),
-                                                  Text(
-                                                    " | ",
-                                                    style: TextStyle(
-                                                        fontSize: 18,
-                                                        height: 0.9,
-                                                        color: Theme.of(context)
-                                                            .colorScheme
-                                                            .onSurface),
-                                                  ),
-                                                  InkWell(
-                                                    child: SizedBox(
-                                                      width: 30,
-                                                      height: 30,
-                                                      child: Icon(
-                                                        Icons.percent,
-                                                        size: 20,
-                                                        color: Theme.of(context)
-                                                            .colorScheme
-                                                            .primary,
-                                                      ),
-                                                    ),
-                                                    onTap: () =>
-                                                        _reloadEvolutionChart(
-                                                            showReturns: true),
-                                                  ),
-                                                  const SizedBox(width: 7)
-                                                ],
-                                              )
-                                            : Row(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                children: [
-                                                  InkWell(
-                                                    child: SizedBox(
-                                                      width: 30,
-                                                      height: 30,
-                                                      child: Icon(
-                                                        Icons.euro,
-                                                        size: 20,
-                                                        color: Theme.of(context)
-                                                            .colorScheme
-                                                            .primary,
-                                                      ),
-                                                    ),
-                                                    onTap: () =>
-                                                        _reloadEvolutionChart(
-                                                            showReturns: false),
-                                                  ),
-                                                  Text(
-                                                    " | ",
-                                                    style: TextStyle(
-                                                        fontSize: 18,
-                                                        height: 0.9,
-                                                        color: Theme.of(context)
-                                                            .colorScheme
-                                                            .onSurface),
-                                                  ),
-                                                  const SizedBox(
-                                                    width: 30,
-                                                    height: 30,
-                                                    child: Icon(
-                                                      Icons.percent,
-                                                      size: 20,
-                                                    ),
-                                                  ),
-                                                  const SizedBox(width: 7)
-                                                ],
-                                              )
+                                        showEvolutionSeriesDateSelector(
+                                            context),
                                       ]),
+                                  const SizedBox(height: 10),
+                                  showEvolutionSeriesTypeToggle(context),
                                   EvolutionChart(
                                       amountsSeries:
                                           widget.accountData.amountsSeries,
                                       returnsSeries:
-                                          widget.accountData.returnsSeries,
-                                      period: _evolutionChartSelectedPeriod,
-                                      showReturns: _evolutionChartShowReturns),
+                                          widget.accountData.returnsSeries),
                                   SizedBox(
                                     width: double.infinity,
                                     child: Wrap(
@@ -235,11 +140,6 @@ class EvolutionScreenState extends State<EvolutionScreen>
                                           : WrapAlignment.end,
                                       spacing: 5,
                                       children: evolutionChartZoomChips(
-                                          selectedPeriod:
-                                              _evolutionChartSelectedPeriod,
-                                          zoomLevels: _zoomLevels,
-                                          reloadEvolutionChart:
-                                              _reloadEvolutionChart,
                                           context: context),
                                     ),
                                   ),
@@ -262,22 +162,18 @@ class EvolutionScreenState extends State<EvolutionScreen>
                                           textAlign: TextAlign.left,
                                           style: cardHeaderTextStyle),
                                       ProfitLossYearSwitcher(
-                                          currentYear:
-                                              _profitLossChartSelectedYear,
-                                          yearList: widget
-                                              .accountData.profitLossSeries.keys
-                                              .toList(),
-                                          reloadProfitLossChart:
-                                              _reloadProfitLossChart),
+                                          yearList: widget.accountData
+                                              .profitLossSeries.monthlySeries.keys
+                                              .toList()),
                                     ],
                                   ),
+                                  const SizedBox(height: 15),
+                                  showProfitLossSeriesTypeToggle(context),
                                   SizedBox(
                                     height: 150,
                                     child: ProfitLossChart(
-                                        profitLossSeries:
-                                            widget.accountData.profitLossSeries,
-                                        selectedYear:
-                                            _profitLossChartSelectedYear),
+                                        profitLossSeries: widget.accountData
+                                            .profitLossSeries),
                                   ),
                                 ],
                               ),

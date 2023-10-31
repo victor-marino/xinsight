@@ -10,6 +10,7 @@ import 'package:indexax/screens/portfolio_screen.dart';
 import 'package:indexax/screens/projection_screen.dart';
 import 'package:indexax/screens/transactions_screen.dart';
 import 'package:indexax/tools/indexa_data.dart';
+import 'package:indexax/tools/profit_loss_chart_provider.dart';
 import 'package:indexax/tools/snackbar.dart' as snackbar;
 import 'package:indexax/tools/theme_operations.dart' as theme_operations;
 import 'package:provider/provider.dart';
@@ -20,6 +21,8 @@ import '../widgets/current_account_indicator.dart';
 import '../widgets/page_header.dart';
 import '../widgets/settings_popup_menu.dart';
 import 'login_screen.dart';
+import '../tools/local_authentication.dart';
+import 'package:indexax/tools/evolution_chart_provider.dart';
 
 // Base screen where all other screens are loaded after loggin in
 
@@ -139,6 +142,20 @@ class RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
     // Called when the user taps the bottom navigation bar
     _pageController.animateToPage(value,
         duration: const Duration(milliseconds: 500), curve: Curves.ease);
+  }
+
+  void _togglePrivateMode() async {
+    if (context.read<PrivateModeProvider>().privateModeEnabled) {
+      bool isAuthenticated = await authenticateUserLocally(context);
+      if (isAuthenticated && context.mounted) {
+        context.read<PrivateModeProvider>().privateModeEnabled = false;
+        snackbar.showInSnackBar(
+            context, "root_screen.private_mode_disabled".tr());
+      }
+    } else {
+      context.read<PrivateModeProvider>().privateModeEnabled = true;
+      snackbar.showInSnackBar(context, "root_screen.private_mode_enabled".tr());
+    }
   }
 
   @override
@@ -283,13 +300,21 @@ class RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
                     availableWidth: availableWidth,
                     refreshData: _refreshData,
                     currentAccountIndex: widget.accountIndex),
-                EvolutionScreen(
-                    accountData: snapshot.data!,
-                    userAccounts: _userAccounts,
-                    refreshData: _refreshData,
-                    landscapeOrientation: landscapeOrientation,
-                    availableWidth: availableWidth,
-                    currentAccountIndex: widget.accountIndex),
+                MultiProvider(
+                  providers: [
+                    ChangeNotifierProvider<EvolutionChartProvider>(
+                        create: (_) => EvolutionChartProvider()),
+                    ChangeNotifierProvider<ProfitLossChartProvider>(
+                        create: (_) => ProfitLossChartProvider()),
+                  ],
+                  child: EvolutionScreen(
+                      accountData: snapshot.data!,
+                      userAccounts: _userAccounts,
+                      refreshData: _refreshData,
+                      landscapeOrientation: landscapeOrientation,
+                      availableWidth: availableWidth,
+                      currentAccountIndex: widget.accountIndex),
+                ),
                 TransactionsScreen(
                     accountData: snapshot.data!,
                     userAccounts: _userAccounts,

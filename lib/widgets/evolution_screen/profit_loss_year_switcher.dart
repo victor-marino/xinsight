@@ -1,19 +1,16 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:indexax/tools/styles.dart' as text_styles;
+import 'package:indexax/tools/profit_loss_chart_provider.dart';
+import 'package:provider/provider.dart';
 
 // Dropdown year switcher for the profit-loss chart
 
 class ProfitLossYearSwitcher extends StatelessWidget {
-  const ProfitLossYearSwitcher(
-      {Key? key,
-      required this.currentYear,
-      required this.yearList,
-      required this.reloadProfitLossChart})
+  const ProfitLossYearSwitcher({Key? key, required this.yearList})
       : super(key: key);
 
-  final int currentYear;
   final List<int> yearList;
-  final Function reloadProfitLossChart;
 
   @override
   Widget build(BuildContext context) {
@@ -24,12 +21,15 @@ class ProfitLossYearSwitcher extends StatelessWidget {
 
     bool dropdownEnabled = false;
 
+    int currentYear = context.watch<ProfitLossChartProvider>().selectedYear;
+
     if (yearList.length > 1) {
       dropdownEnabled = true;
     }
 
     List<DropdownMenuItem> profitLossYearDropdownItems = [];
 
+    
     for (int i = 0; i < yearList.length; i++) {
       profitLossYearDropdownItems.add(
         DropdownMenuItem(
@@ -42,9 +42,19 @@ class ProfitLossYearSwitcher extends StatelessWidget {
         ),
       );
     }
+    
 
     profitLossYearDropdownItems.sort((b, a) => a.value.compareTo(b.value));
 
+    profitLossYearDropdownItems.insert(0, DropdownMenuItem(
+      value: 0,
+      enabled: 0 == currentYear ? false : true,
+      child: Text('profit_loss_chart.annual'.tr(),
+          style: 0 == currentYear
+              ? selectedYearTextStyle
+              : nonSelectedYearTextStyle),
+    ));
+    
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -84,7 +94,9 @@ class ProfitLossYearSwitcher extends StatelessWidget {
                   underline: const SizedBox(),
                   onChanged: dropdownEnabled
                       ? (dynamic value) {
-                          reloadProfitLossChart(value);
+                          context
+                              .read<ProfitLossChartProvider>()
+                              .updateCurrentYear(value);
                         }
                       : null,
                 ),

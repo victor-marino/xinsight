@@ -118,6 +118,8 @@
   },
   "evolution_screen": {
     "evolution": "EVOLUCIÓN",
+    "select_start_date": "Selecciona la fecha inicial",
+    "select_end_date": "Selecciona la fecha final",
     "1m": "1m",
     "3m": "3m",
     "6m": "6m",
@@ -130,6 +132,9 @@
     "total": "Total",
     "invested": "Aportado",
     "return": "Rentabilidad"
+  },
+  "profit_loss_chart": {
+    "annual": "Anual"
   },
   "transaction_info": {
     "fund_purchase": "Compra de fondos",

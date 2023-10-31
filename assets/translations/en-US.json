@@ -119,6 +119,8 @@
   },
   "evolution_screen": {
     "evolution": "EVOLUTION",
+    "select_start_date": "Select the initial date",
+    "select_end_date": "Select the final date",
     "1m": "1m",
     "3m": "3m",
     "6m": "6m",
@@ -131,6 +133,9 @@
     "total": "Total",
     "invested": "Invested",
     "return": "Return"
+  },
+  "profit_loss_chart": {
+    "annual": "Annual"
   },
   "transaction_info": {
     "fund_purchase": "Fund purchase",
