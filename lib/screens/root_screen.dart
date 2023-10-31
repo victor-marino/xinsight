@@ -21,7 +21,6 @@ import '../widgets/current_account_indicator.dart';
 import '../widgets/page_header.dart';
 import '../widgets/settings_popup_menu.dart';
 import 'login_screen.dart';
-import '../tools/local_authentication.dart';
 import 'package:indexax/tools/evolution_chart_provider.dart';
 
 // Base screen where all other screens are loaded after loggin in
@@ -142,20 +141,6 @@ class RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
     // Called when the user taps the bottom navigation bar
     _pageController.animateToPage(value,
         duration: const Duration(milliseconds: 500), curve: Curves.ease);
-  }
-
-  void _togglePrivateMode() async {
-    if (context.read<PrivateModeProvider>().privateModeEnabled) {
-      bool isAuthenticated = await authenticateUserLocally(context);
-      if (isAuthenticated && context.mounted) {
-        context.read<PrivateModeProvider>().privateModeEnabled = false;
-        snackbar.showInSnackBar(
-            context, "root_screen.private_mode_disabled".tr());
-      }
-    } else {
-      context.read<PrivateModeProvider>().privateModeEnabled = true;
-      snackbar.showInSnackBar(context, "root_screen.private_mode_enabled".tr());
-    }
   }
 
   @override
