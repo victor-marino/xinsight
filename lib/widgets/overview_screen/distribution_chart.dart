@@ -5,7 +5,7 @@ import 'package:indexax/tools/number_formatting.dart';
 import 'package:indexax/tools/private_mode_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-import '../../tools/styles.dart' as text_styles;
+import 'package:indexax/tools/styles.dart' as text_styles;
 
 // Plots the chart showing the portfolio distribution in overview screen
 

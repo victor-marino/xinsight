@@ -14,13 +14,13 @@ import 'package:indexax/tools/profit_loss_chart_provider.dart';
 import 'package:indexax/tools/snackbar.dart' as snackbar;
 import 'package:indexax/tools/theme_operations.dart' as theme_operations;
 import 'package:provider/provider.dart';
-import '../tools/bottom_navigation_bar_provider.dart';
-import '../tools/private_mode_provider.dart';
-import '../widgets/bottom_navigation_bar.dart';
-import '../widgets/current_account_indicator.dart';
-import '../widgets/page_header.dart';
-import '../widgets/settings_popup_menu.dart';
-import 'login_screen.dart';
+import 'package:indexax/tools/bottom_navigation_bar_provider.dart';
+import 'package:indexax/tools/private_mode_provider.dart';
+import 'package:indexax/widgets/bottom_navigation_bar.dart';
+import 'package:indexax/widgets/current_account_indicator.dart';
+import 'package:indexax/widgets/page_header.dart';
+import 'package:indexax/widgets/settings_popup_menu.dart';
+import 'package:indexax/screens/login_screen.dart';
 import 'package:indexax/tools/evolution_chart_provider.dart';
 
 // Base screen where all other screens are loaded after loggin in

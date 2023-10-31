@@ -8,5 +8,4 @@ class PerformanceDataPoint {
   final double? realMonthlyReturn;
 
   PerformanceDataPoint({required this.date, required this.bestReturn, required this.worstReturn, required this.expectedReturn, required this.realReturn, required this.realMonthlyReturn});
-
 }

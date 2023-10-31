@@ -4,5 +4,4 @@ class ReturnsDataPoint {
   final double totalReturn;
 
   ReturnsDataPoint({required this.date, required this.totalReturn});
-
 }

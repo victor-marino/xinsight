@@ -13,7 +13,6 @@ class PortfolioDataPoint {
   final double percentage;
 
   PortfolioDataPoint({required this.instrumentType, required this.instrumentName, this.instrumentCodeType, this.instrumentCode, this.instrumentCompany, this.instrumentDescription, this.titles, required this.amount, this.cost, this.profitLoss, required this.percentage});
-
 }
 
 enum InstrumentType {

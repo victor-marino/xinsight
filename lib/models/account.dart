@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:indexax/models/profit_loss_datapoint.dart';
-import 'amounts_datapoint.dart';
-import 'performance_datapoint.dart';
-import 'portfolio_datapoint.dart';
-import 'returns_datapoint.dart';
-import 'transaction.dart';
+import 'package:indexax/models/amounts_datapoint.dart';
+import 'package:indexax/models/performance_datapoint.dart';
+import 'package:indexax/models/portfolio_datapoint.dart';
+import 'package:indexax/models/returns_datapoint.dart';
+import 'package:indexax/models/transaction.dart';
 import 'package:indexax/tools/number_formatting.dart';
 import 'package:indexax/tools/account_operations.dart' as account_operations;
 

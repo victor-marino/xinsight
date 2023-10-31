@@ -5,5 +5,4 @@ class AmountsDataPoint {
   final double totalAmount;
 
   AmountsDataPoint({required this.date, required this.netAmount, required this.totalAmount});
-
 }
