@@ -13,8 +13,7 @@ class PrivacyScreen extends StatefulWidget {
 
 class PrivacyScreenState extends State<PrivacyScreen> {
   bool _landscapeOrientation = false;
-  late double _availableWidth;
-  late double _availableHeight;
+  late double _availableWidth, _availableHeight;
 
   final Uri _flutterSecureStorageUrl = Uri(
       scheme: 'https',
@@ -96,7 +95,8 @@ class PrivacyScreenState extends State<PrivacyScreen> {
                         style: contentTextStyle.copyWith(color: Colors.blue),
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
-                            launchUrl(_flutterSecureStorageUrl, mode: LaunchMode.externalApplication);
+                            launchUrl(_flutterSecureStorageUrl,
+                                mode: LaunchMode.externalApplication);
                           },
                       ),
                       TextSpan(
@@ -138,7 +138,8 @@ class PrivacyScreenState extends State<PrivacyScreen> {
                         text: 'privacy_screen.text6'.tr(),
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
-                            launchUrl(_indexaApiUrl, mode: LaunchMode.externalApplication);
+                            launchUrl(_indexaApiUrl,
+                                mode: LaunchMode.externalApplication);
                           },
                         style: contentTextStyle.copyWith(color: Colors.blue),
                       ),
@@ -171,7 +172,8 @@ class PrivacyScreenState extends State<PrivacyScreen> {
                         text: 'privacy_screen.text10'.tr(),
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
-                            launchUrl(_userSettingsUrl, mode: LaunchMode.externalApplication);
+                            launchUrl(_userSettingsUrl,
+                                mode: LaunchMode.externalApplication);
                           },
                         style: contentTextStyle.copyWith(color: Colors.blue),
                       ),
@@ -204,7 +206,8 @@ class PrivacyScreenState extends State<PrivacyScreen> {
                         text: 'privacy_screen.text13'.tr(),
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
-                            launchUrl(_privacyPolicyUrl, mode: LaunchMode.externalApplication);
+                            launchUrl(_privacyPolicyUrl,
+                                mode: LaunchMode.externalApplication);
                           },
                         style: contentTextStyle.copyWith(color: Colors.blue),
                       ),

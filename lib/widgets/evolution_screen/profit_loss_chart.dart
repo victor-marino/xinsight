@@ -42,7 +42,7 @@ class ProfitLossChart extends StatelessWidget {
         datapoint?.periodName;
     num? Function(ProfitLossDataPoint? datapoint, int) yValueMapper;
     Color? pointColorMapper(ProfitLossDataPoint? datapoint, _) =>
-        (datapoint != null) ? datapoint.color : null;
+        datapoint?.color;
     double? chartOffset;
     ZoomPanBehavior zoomPanBehavior;
 

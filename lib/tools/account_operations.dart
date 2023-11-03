@@ -154,21 +154,23 @@ Map<InstrumentType, Map<ValueType, double>> createPortfolioDistribution(
   if (instruments.any((element) =>
       element['instrument']['asset_class'].toString().contains('equity'))) {
     portfolioDistribution[InstrumentType.equity] = {};
-    portfolioDistribution[InstrumentType.equity]![ValueType.percentage] = 0;
-    portfolioDistribution[InstrumentType.equity]![ValueType.amount] = 0;
+    portfolioDistribution[InstrumentType.equity]!
+      ..[ValueType.percentage] = 0
+      ..[ValueType.amount] = 0;
   }
   if (instruments.any((element) =>
       element['instrument']['asset_class'].toString().contains('fixed'))) {
     portfolioDistribution[InstrumentType.fixed] = {};
-    portfolioDistribution[InstrumentType.fixed]![ValueType.percentage] = 0;
-    portfolioDistribution[InstrumentType.fixed]![ValueType.amount] = 0;
+    portfolioDistribution[InstrumentType.fixed]!
+      ..[ValueType.percentage] = 0
+      ..[ValueType.amount] = 0;
   }
   if (instruments.any((element) =>
       element['instrument']['asset_class'].toString().contains('cash_euro'))) {
     portfolioDistribution[InstrumentType.moneymarket] = {};
-    portfolioDistribution[InstrumentType.moneymarket]![ValueType.percentage] =
-        0;
-    portfolioDistribution[InstrumentType.moneymarket]![ValueType.amount] = 0;
+    portfolioDistribution[InstrumentType.moneymarket]!
+      ..[ValueType.percentage] = 0
+      ..[ValueType.amount] = 0;
   }
   if (instruments.any((element) => (!(element['instrument']['asset_class']
           .toString()
@@ -178,21 +180,23 @@ Map<InstrumentType, Map<ValueType, double>> createPortfolioDistribution(
           .toString()
           .contains('cash_euro'))))) {
     portfolioDistribution[InstrumentType.other] = {};
-    portfolioDistribution[InstrumentType.other]![ValueType.amount] = 0;
-    portfolioDistribution[InstrumentType.other]![ValueType.percentage] = 0;
+    portfolioDistribution[InstrumentType.other]!
+      ..[ValueType.amount] = 0
+      ..[ValueType.percentage] = 0;
   }
 
   if (addTestEmergencyFund) {
     // Add fake money market category for testing
     portfolioDistribution[InstrumentType.moneymarket] = {};
-    portfolioDistribution[InstrumentType.moneymarket]![ValueType.amount] = 0;
-    portfolioDistribution[InstrumentType.moneymarket]![ValueType.percentage] =
-        0;
+    portfolioDistribution[InstrumentType.moneymarket]!
+      ..[ValueType.amount] = 0
+      ..[ValueType.percentage] = 0;
   }
 
   portfolioDistribution[InstrumentType.cash] = {};
-  portfolioDistribution[InstrumentType.cash]![ValueType.amount] = 0;
-  portfolioDistribution[InstrumentType.cash]![ValueType.percentage] = 0;
+  portfolioDistribution[InstrumentType.cash]!
+    ..[ValueType.amount] = 0
+    ..[ValueType.percentage] = 0;
 
   for (var instrument in instruments) {
     double? currentInstrumentAmount = instrument['amount'].toDouble();

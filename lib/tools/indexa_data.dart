@@ -3,7 +3,6 @@ import "package:indexax/tools/networking.dart";
 import "package:indexax/models/account.dart";
 import "package:flutter/material.dart";
 
-
 const indexaURL = 'https://api.indexacapital.com';
 
 class IndexaData {
@@ -58,8 +57,9 @@ class IndexaData {
         the string "Test", and that you enter a valid account type ('mutual',
         'pension', 'epsv' or 'employment_plan'). */
         if (addTestAccounts) {
-          userAccounts.add({"number": "Test1", "type": "pension"});
-          userAccounts.add({"number": "Test2", "type": "employment_plan"});
+          userAccounts
+            ..add({"number": "Test1", "type": "pension"})
+            ..add({"number": "Test2", "type": "employment_plan"});
         }
 
         return userAccounts;

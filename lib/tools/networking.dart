@@ -4,8 +4,7 @@ import 'dart:convert';
 
 class NetworkHelper {
   // Class that handles all network operations
-  final String url;
-  final String token;
+  final String url, token;
 
   NetworkHelper(this.url, this.token);
 
@@ -45,8 +44,7 @@ class NetworkHelper {
 }
 
 class CustomException implements Exception {
-  final dynamic _message;
-  final dynamic _prefix;
+  final dynamic _message, _prefix;
 
   CustomException([this._message, this._prefix]);
 
@@ -57,7 +55,7 @@ class CustomException implements Exception {
 }
 
 class FetchDataException extends CustomException {
-  FetchDataException([String message=""])
+  FetchDataException([String message = ""])
       : super(message, "Communication error: ");
 }
 
@@ -70,5 +68,6 @@ class UnauthorisedException extends CustomException {
 }
 
 class InvalidInputException extends CustomException {
-  InvalidInputException([String message=""]) : super(message, "Invalid input: ");
+  InvalidInputException([String message = ""])
+      : super(message, "Invalid input: ");
 }

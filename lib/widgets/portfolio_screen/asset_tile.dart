@@ -22,12 +22,10 @@ class AssetTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget collapsedView;
-    Widget expandedView;
-    Widget expandedHeader;
-    Widget expandedBody;
+    Widget collapsedView, expandedView, expandedHeader, expandedBody;
 
-    TextStyle assetPercentageTextStyle = text_styles.robotoBoldLighter(context, 17);
+    TextStyle assetPercentageTextStyle =
+        text_styles.robotoBoldLighter(context, 17);
 
     collapsedView = CollapsedAssetTileView(assetData: assetData);
     expandedHeader = landscapeOrientation

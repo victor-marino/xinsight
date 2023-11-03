@@ -14,7 +14,6 @@ class ProfitLossDataPoint {
             : null;
 
   final String? periodName;
-  final double? percentReturn;
-  final double? cashReturn;
+  final double? percentReturn, cashReturn;
   final Color? color;
 }

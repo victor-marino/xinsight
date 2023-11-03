@@ -25,8 +25,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
-  bool _storedToken = false;
-  bool _rememberToken = false;
+  bool _storedToken = false, _rememberToken = false;
 
   final _tokenTextController = TextEditingController();
 

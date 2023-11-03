@@ -11,8 +11,7 @@ class CurrentAccountIndicator extends StatelessWidget {
     required this.accountType,
   }) : super(key: key);
 
-  final String accountNumber;
-  final String accountType;
+  final String accountNumber, accountType;
 
   @override
   Widget build(BuildContext context) {

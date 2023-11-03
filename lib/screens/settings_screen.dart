@@ -19,11 +19,8 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class SettingsScreenState extends State<SettingsScreen> {
-  String _currentThemePreferenceText = "";
-  String _currentSystemThemeText = "";
-  String _currentAppVersion = "";
-  String _currentBuildNumber = "";
-
+  String _currentThemePreferenceText = "", _currentSystemThemeText = "", _currentAppVersion = "", _currentBuildNumber = "";
+  
   Future<ThemePreference?> findCurrentThemePreference() async {
     // Check if we already have a theme preference stored in the device.
     // If not, return 'System' as default preference.

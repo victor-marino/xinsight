@@ -60,15 +60,12 @@ class EvolutionScreenState extends State<EvolutionScreen>
   @override
   void initState() {
     super.initState();
-    // Set the first and last dates of the series in the Evolution Chart Provider
-    context.read<EvolutionChartProvider>().firstDate =
-        widget.accountData.amountsSeries.first.date;
-    context.read<EvolutionChartProvider>().lastDate =
-        widget.accountData.amountsSeries.last.date;
-    context.read<EvolutionChartProvider>().startDate =
-        widget.accountData.amountsSeries.first.date;
-    context.read<EvolutionChartProvider>().endDate =
-        widget.accountData.amountsSeries.last.date;
+    // Set the initial dates of the series in the Evolution Chart Provider
+    context.read<EvolutionChartProvider>()
+      ..firstDate = widget.accountData.amountsSeries.first.date
+      ..lastDate = widget.accountData.amountsSeries.last.date
+      ..startDate = widget.accountData.amountsSeries.first.date
+      ..endDate = widget.accountData.amountsSeries.last.date;
 
     // Show the current year by default in the profit loss chart
     context.read<ProfitLossChartProvider>().selectedYear =
@@ -162,8 +159,11 @@ class EvolutionScreenState extends State<EvolutionScreen>
                                           textAlign: TextAlign.left,
                                           style: cardHeaderTextStyle),
                                       ProfitLossYearSwitcher(
-                                          yearList: widget.accountData
-                                              .profitLossSeries.monthlySeries.keys
+                                          yearList: widget
+                                              .accountData
+                                              .profitLossSeries
+                                              .monthlySeries
+                                              .keys
                                               .toList()),
                                     ],
                                   ),
@@ -172,8 +172,8 @@ class EvolutionScreenState extends State<EvolutionScreen>
                                   SizedBox(
                                     height: 150,
                                     child: ProfitLossChart(
-                                        profitLossSeries: widget.accountData
-                                            .profitLossSeries),
+                                        profitLossSeries: widget
+                                            .accountData.profitLossSeries),
                                   ),
                                 ],
                               ),

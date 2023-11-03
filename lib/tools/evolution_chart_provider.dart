@@ -5,10 +5,7 @@ import 'package:indexax/models/chart_series_type.dart';
 class EvolutionChartProvider with ChangeNotifier {
   ChartSeriesType _seriesType = ChartSeriesType.amounts;
   Duration? _zoomLevel = const Duration(seconds: 0);
-  late DateTime firstDate;
-  late DateTime lastDate;
-  late DateTime startDate;
-  late DateTime endDate;
+  late DateTime firstDate, lastDate, startDate, endDate;
 
   ChartSeriesType get seriesType => _seriesType;
 

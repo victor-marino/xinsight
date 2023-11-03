@@ -98,7 +98,8 @@ class TransactionDetailsPopup extends StatelessWidget {
         style: detailNameTextStyle,
       ));
       transactionDetails.add(Text(
-        getNumberAsStringWithMaxDecimals(transactionData.titles, maskValue: context.watch<PrivateModeProvider>().privateModeEnabled),
+        getNumberAsStringWithMaxDecimals(transactionData.titles,
+            maskValue: context.watch<PrivateModeProvider>().privateModeEnabled),
         style: detailValueTextStyle,
       ));
       transactionDetails.add(Text(
@@ -114,7 +115,8 @@ class TransactionDetailsPopup extends StatelessWidget {
         style: detailNameTextStyle,
       ));
       transactionDetails.add(Text(
-        getAmountAsStringWithTwoDecimals(transactionData.amount, maskValue: context.watch<PrivateModeProvider>().privateModeEnabled),
+        getAmountAsStringWithTwoDecimals(transactionData.amount,
+            maskValue: context.watch<PrivateModeProvider>().privateModeEnabled),
         style: detailValueTextStyle,
       ));
       transactionDetails.add(

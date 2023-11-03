@@ -10,38 +10,33 @@ import 'package:indexax/tools/account_operations.dart' as account_operations;
 
 // Main class that stores all account data
 class Account {
-  final dynamic accountPerformanceData;
-  final dynamic accountPortfolioData;
-  final dynamic accountInfo;
-  final dynamic accountInstrumentTransactionData;
-  final dynamic accountCashTransactionData;
-  final dynamic accountPendingTransactionData;
-  final String accountNumber;
-  final String accountType;
+  final dynamic accountPerformanceData,
+      accountPortfolioData,
+      accountInfo,
+      accountInstrumentTransactionData,
+      accountCashTransactionData,
+      accountPendingTransactionData;
+  final String accountNumber, accountType;
   final int risk;
-  final double totalAmount;
-  final double investment;
-  final double timeReturn;
-  final Color timeReturnColor;
-  final double timeReturnAnnual;
-  final double moneyReturn;
-  final Color moneyReturnColor;
-  final double moneyReturnAnnual;
-  final double volatility;
-  final double sharpe;
-  final double profitLoss;
-  final Color profitLossColor;
-  final double expectedReturn;
-  final double bestReturn1yr;
-  final double worstReturn1yr;
-  final double bestReturn10yr;
-  final double worstReturn10yr;
-  final bool hasActiveRewards;
-  final bool hasPendingTransactions;
+  final double totalAmount,
+      investment,
+      timeReturn,
+      timeReturnAnnual,
+      moneyReturn,
+      moneyReturnAnnual,
+      volatility,
+      sharpe,
+      profitLoss,
+      expectedReturn,
+      bestReturn1yr,
+      worstReturn1yr,
+      bestReturn10yr,
+      worstReturn10yr,
+      feeFreeAmount,
+      additionalCashNeededToTrade;
+  final Color timeReturnColor, moneyReturnColor, profitLossColor;
+  final bool hasActiveRewards, hasPendingTransactions, isReconciledToday;
   final DateTime reconciledUntil;
-  final bool isReconciledToday;
-  final double feeFreeAmount;
-  final double additionalCashNeededToTrade;
   final List<AmountsDataPoint> amountsSeries;
   final List<ReturnsDataPoint> returnsSeries;
   final List<PortfolioDataPoint> portfolioData;

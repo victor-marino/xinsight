@@ -16,7 +16,6 @@ class RiskChart extends StatelessWidget {
       animationDuration: 1000,
       minimum: 1,
       maximum: 10,
-
       interval: 1,
       minorTicksPerInterval: 0,
       ranges: const <LinearGaugeRange>[
@@ -45,10 +44,12 @@ class RiskChart extends StatelessWidget {
             position: LinearElementPosition.cross,
             color: Colors.red)
       ],
-      markerPointers: [LinearShapePointer(
+      markerPointers: [
+        LinearShapePointer(
           value: risk.toDouble(),
-        shapeType: LinearShapePointerType.invertedTriangle,
-      )],
+          shapeType: LinearShapePointerType.invertedTriangle,
+        )
+      ],
     );
   }
 }

@@ -3,19 +3,13 @@ import 'package:flutter/material.dart';
 class Transaction {
   // Data model to hold the data of each transaction
   final DateTime date;
-  final DateTime? valueDate;
-  final DateTime? fiscalDate;
-  final String accountType;
+  final DateTime? valueDate, fiscalDate;
+  final String accountType, operationType, status;
+  final String? instrumentCodeType, instrumentCode, instrumentName;
   final int operationCode;
-  final String operationType;
-  final IconData icon;
-  final String? instrumentCodeType;
-  final String? instrumentCode;
-  final String? instrumentName;
-  final double? titles;
-  final double? price;
   final double amount;
-  final String status;
+  final double? titles, price;
+  final IconData icon;
   final Uri? downloadLink;
 
   Transaction(

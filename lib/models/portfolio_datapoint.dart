@@ -2,17 +2,25 @@ class PortfolioDataPoint {
   // Datapoint model for the list containing all portfolio assets
   final InstrumentType instrumentType;
   final String instrumentName;
-  final String? instrumentCodeType;
-  final String? instrumentCode;
-  final String? instrumentCompany;
-  final String? instrumentDescription;
-  final double? titles;
-  final double amount;
-  final double? cost;
-  final double? profitLoss;
-  final double percentage;
+  final String? instrumentCodeType,
+      instrumentCode,
+      instrumentCompany,
+      instrumentDescription;
+  final double amount, percentage;
+  final double? titles, cost, profitLoss;
 
-  PortfolioDataPoint({required this.instrumentType, required this.instrumentName, this.instrumentCodeType, this.instrumentCode, this.instrumentCompany, this.instrumentDescription, this.titles, required this.amount, this.cost, this.profitLoss, required this.percentage});
+  PortfolioDataPoint(
+      {required this.instrumentType,
+      required this.instrumentName,
+      this.instrumentCodeType,
+      this.instrumentCode,
+      this.instrumentCompany,
+      this.instrumentDescription,
+      this.titles,
+      required this.amount,
+      this.cost,
+      this.profitLoss,
+      required this.percentage});
 }
 
 enum InstrumentType {

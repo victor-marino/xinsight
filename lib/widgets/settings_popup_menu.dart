@@ -23,8 +23,7 @@ class SettingsPopupMenu extends StatelessWidget {
       : super(key: key);
 
   final List<Map<String, String>> userAccounts;
-  final int currentAccountIndex;
-  final int currentPage;
+  final int currentAccountIndex, currentPage;
   final Function reloadPage;
 
   @override

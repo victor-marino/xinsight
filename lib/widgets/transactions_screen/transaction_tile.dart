@@ -21,10 +21,10 @@ class TransactionTile extends StatelessWidget {
   }) : super(key: key);
 
   final Transaction transactionData;
-  final bool firstTransaction;
-  final bool firstTransactionOfMonth;
-  final bool lastTransactionOfMonth;
-  final bool landscapeOrientation;
+  final bool firstTransaction,
+      firstTransactionOfMonth,
+      lastTransactionOfMonth,
+      landscapeOrientation;
 
   @override
   Widget build(BuildContext context) {

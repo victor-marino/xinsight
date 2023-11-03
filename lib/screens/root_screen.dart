@@ -35,8 +35,7 @@ class RootScreen extends StatefulWidget {
   }) : super(key: key);
 
   final String token;
-  final int accountIndex;
-  final int pageIndex;
+  final int accountIndex, pageIndex;
   final List<Map<String, String>>? previousUserAccounts;
   late final IndexaData indexaData = IndexaData(token: token);
 
@@ -50,14 +49,9 @@ class RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
   List<Map<String, String>> _userAccounts = [];
   Future<Account>? _accountData;
 
-  bool _reloading = false;
-
-  bool landscapeOrientation = false;
-  late double availableWidth;
-  late double availableHeight;
+  bool _reloading = false, landscapeOrientation = false, hiddenAmounts = false;
   double topPadding = 0;
-
-  bool hiddenAmounts = false;
+  late double availableWidth, availableHeight;
 
   Future<void> _loadData({required int accountIndex}) async {
     // Main function that is called when account data is loaded

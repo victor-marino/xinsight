@@ -13,8 +13,7 @@ class AboutScreen extends StatefulWidget {
 
 class AboutScreenState extends State<AboutScreen> {
   bool _landscapeOrientation = false;
-  late double _availableWidth;
-  late double _availableHeight;
+  late double _availableWidth, _availableHeight;
   final Uri _githubRepository =
       Uri(scheme: 'https', host: 'github.com', path: '/victor-marino/indexax');
   final Uri _flutterURL = Uri(scheme: 'https', host: 'flutter.dev');
@@ -68,7 +67,8 @@ class AboutScreenState extends State<AboutScreen> {
                                   contentTextStyle.copyWith(color: Colors.blue),
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () {
-                                  launchUrl(_flutterURL, mode: LaunchMode.externalApplication);
+                                  launchUrl(_flutterURL,
+                                      mode: LaunchMode.externalApplication);
                                 },
                             ),
                             TextSpan(
@@ -110,7 +110,8 @@ class AboutScreenState extends State<AboutScreen> {
                                       color: Colors.blue),
                                   recognizer: TapGestureRecognizer()
                                     ..onTap = () {
-                                      launchUrl(_githubRepository, mode: LaunchMode.externalApplication);
+                                      launchUrl(_githubRepository,
+                                          mode: LaunchMode.externalApplication);
                                     },
                                 ),
                               ),

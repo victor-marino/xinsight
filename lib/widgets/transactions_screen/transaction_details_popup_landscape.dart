@@ -190,7 +190,7 @@ class TransactionDetailsPopupLandscape extends StatelessWidget {
       ));
     }
     return AlertDialog(
-            actionsAlignment: transactionData.downloadLink != null
+      actionsAlignment: transactionData.downloadLink != null
           ? MainAxisAlignment.spaceBetween
           : MainAxisAlignment.end,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
@@ -222,7 +222,8 @@ class TransactionDetailsPopupLandscape extends StatelessWidget {
                 Text('PDF'),
               ],
             ),
-            onPressed: () => launchUrl(transactionData.downloadLink!, mode: LaunchMode.externalApplication),
+            onPressed: () => launchUrl(transactionData.downloadLink!,
+                mode: LaunchMode.externalApplication),
           ),
         ],
         TextButton(

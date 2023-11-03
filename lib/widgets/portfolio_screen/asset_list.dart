@@ -236,7 +236,10 @@ class AssetList extends StatelessWidget {
                   ],
                 ),
                 Text(
-                  getInvestmentAsString(cashAmount, maskValue: context.watch<PrivateModeProvider>().privateModeEnabled),
+                  getInvestmentAsString(cashAmount,
+                      maskValue: context
+                          .watch<PrivateModeProvider>()
+                          .privateModeEnabled),
                   style: cashAmountTextStyle,
                 ),
               ],

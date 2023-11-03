@@ -18,8 +18,7 @@ class DistributionChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    int equityCount = 0;
-    int fixedCount = 0;
+    int equityCount = 0, fixedCount = 0;
     List<Color> colorList = [];
     TextStyle tooltipTextStyle = text_styles.roboto(context, 12);
 
