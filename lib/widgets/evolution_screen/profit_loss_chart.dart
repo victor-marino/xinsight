@@ -1,11 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:indexax/models/profit_loss_datapoint.dart';
+import 'package:indexax/tools/private_mode_provider.dart';
 import 'package:indexax/tools/styles.dart' as text_styles;
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:indexax/tools/profit_loss_chart_provider.dart';
 import 'package:indexax/models/chart_series_type.dart';
+import 'package:indexax/tools/number_formatting.dart';
 
 // Plots the profit-loss chart with the monthly returns
 
@@ -31,6 +33,8 @@ class ProfitLossChart extends StatelessWidget {
     ChartSeriesType seriesType =
         context.watch<ProfitLossChartProvider>().seriesType;
     int selectedYear = context.watch<ProfitLossChartProvider>().selectedYear;
+    bool privateModeEnabled =
+        context.watch<PrivateModeProvider>().privateModeEnabled;
 
     // Declaration of variables containing chart settings that will be modified
     // depending on selected filters. Extracted up here to avoid cluttering
@@ -51,14 +55,16 @@ class ProfitLossChart extends StatelessWidget {
       // Percentage returns
       primaryYAxisNumberFormat =
           NumberFormat.decimalPercentPattern(decimalDigits: 1);
-      primaryYAxisLabelFormat = ' {value}';
+      primaryYAxisLabelFormat = '{value}';
       yValueMapper =
           (ProfitLossDataPoint? datapoint, _) => datapoint!.percentReturn;
     } else {
       // Cash returns
       primaryYAxisNumberFormat = NumberFormat.compactCurrency(
           decimalDigits: 0, locale: "en_GB", symbol: '');
-      primaryYAxisLabelFormat = ' {value} €';
+      primaryYAxisLabelFormat = privateModeEnabled
+          ? getAmountAsStringWithZeroDecimals(100, maskValue: true)
+          : '{value} €';
       yValueMapper =
           (ProfitLossDataPoint? datapoint, _) => datapoint!.cashReturn;
     }
