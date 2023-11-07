@@ -14,6 +14,7 @@
     "pension_account": "Plan de pensiones",
     "epsv_account": "EPSV",
     "employment_plan_account": "Plan de pensiones de empresa",
+    "private_mode": "Modo privado",
     "settings": "@:page_titles.settings",
     "logout": "@:settings_screen.logout"
   },

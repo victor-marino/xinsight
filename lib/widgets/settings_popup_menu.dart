@@ -111,7 +111,7 @@ class SettingsPopupMenu extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            "Modo privado",
+            'header.private_mode'.tr(),
             style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
           ),
           IconButton(
