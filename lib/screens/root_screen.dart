@@ -171,8 +171,8 @@ class RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     // Get screen dimensions and orientation
-    availableWidth = MediaQuery.of(context).size.width;
-    availableHeight = MediaQuery.of(context).size.height;
+    availableWidth = MediaQuery.sizeOf(context).width;
+    availableHeight = MediaQuery.sizeOf(context).height;
 
     if (availableHeight <= availableWidth) {
       landscapeOrientation = true;

@@ -35,8 +35,8 @@ class PrivacyScreenState extends State<PrivacyScreen> {
   @override
   Widget build(BuildContext context) {
     // Get screen dimensions and orientation
-    _availableWidth = MediaQuery.of(context).size.width;
-    _availableHeight = MediaQuery.of(context).size.height;
+    _availableWidth = MediaQuery.sizeOf(context).width;
+    _availableHeight = MediaQuery.sizeOf(context).height;
 
     TextStyle headerTextStyle = text_styles.robotoBold(context, 20);
     TextStyle contentTextStyle = text_styles.roboto(context, 16);

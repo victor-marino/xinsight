@@ -161,8 +161,8 @@ class LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     theme_operations.updateTheme(context);
     bool landscapeOrientation = false;
-    double availableWidth = MediaQuery.of(context).size.width;
-    double availableHeight = MediaQuery.of(context).size.height;
+    double availableWidth = MediaQuery.sizeOf(context).width;
+    double availableHeight = MediaQuery.sizeOf(context).height;
 
     if (availableHeight <= availableWidth) {
       landscapeOrientation = true;
@@ -182,9 +182,9 @@ class LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     SizedBox(
-                        height: (MediaQuery.of(context).size.height * 0.15 < 60)
+                        height: (MediaQuery.sizeOf(context).height * 0.15 < 60)
                             ? 60
-                            : MediaQuery.of(context).size.height * 0.15),
+                            : MediaQuery.sizeOf(context).height * 0.15),
                     SizedBox(
                       width: landscapeOrientation
                           ? availableWidth * 0.5
@@ -210,10 +210,10 @@ class LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         SizedBox(
-                            height: (MediaQuery.of(context).size.height * 0.15 <
+                            height: (MediaQuery.sizeOf(context).height * 0.15 <
                                     60)
                                 ? 60
-                                : MediaQuery.of(context).size.height * 0.15),
+                                : MediaQuery.sizeOf(context).height * 0.15),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 5),
                           child: Row(

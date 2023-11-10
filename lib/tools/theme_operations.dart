@@ -37,7 +37,7 @@ Future<void> storeThemePreference(
 }
 
 Brightness getCurrentSystemTheme(BuildContext context) {
-  return MediaQuery.of(context).platformBrightness;
+  return MediaQuery.platformBrightnessOf(context);
 }
 
 void updateTheme(BuildContext context) async {
@@ -59,7 +59,7 @@ void updateTheme(BuildContext context) async {
   }
   if (currentThemePreference == ThemePreference.system && context.mounted) {
     context.read<ThemeProvider>().currentTheme = ThemeMode.values.byName(
-        MediaQuery.of(context).platformBrightness.toString().split(".").last);
+        MediaQuery.platformBrightnessOf(context).toString().split(".").last);
   } else {
     if (context.mounted) {
       context.read<ThemeProvider>().currentTheme = ThemeMode.values
