@@ -8,15 +8,14 @@ Indexa X es un cliente multiplataforma no oficial y de código abierto para Inde
 
 Está desarrollado en [Flutter](https://flutter.dev/), y utiliza la [API oficial de Indexa Capital](https://indexacapital.com/en/api-rest-v1) para leer los datos de tu cuenta de forma segura.
 
-Actualmente sólo está disponible para Android, ya que la versión de iOS tuvo que ser retirada del App Store a petición de Apple.
-
-Espero poder volver a ofrecer la app de iOS a los usuarios europeos en el futuro a través de tiendas alternativas a la oficial.
+Actualmente sólo está disponible para Android, dado que Apple ya no permite su publicación en el App Store.
 
 <img src="assets/readme/screenshot_01_500.png" width=160/><img src="assets/readme/screenshot_02_500.png" width=160/><img src="assets/readme/screenshot_03_500.png" width=160/><img src="assets/readme/screenshot_04_500.png" width=160/><img src="assets/readme/screenshot_05_500.png" width=160/>
 
 ## Descargar
 [![google_play_badge](assets/readme/google_play_badge_small.png)](https://play.google.com/store/apps/details?id=com.victormarino.indexax)
 
+La versión de iOS ha sido retirada del App Store, siguiendo la petición de Apple. Espero poder volver a ofrecer la app de iOS a los usuarios europeos en el futuro a través de tiendas alternativas a la oficial.
 
 ## Privacidad y seguridad
 Indexa X no recoge ningún tipo de información sobre ti ni tu cuenta de Indexa. Al identificarte, los datos de tu cuenta se cargan en memoria para poder mostrarlos en pantalla, pero nunca se almacenan de forma persistente en tu dispositivo. Por tanto, desaparecen junto con el resto de la app cuando se cierra el proceso.
@@ -31,3 +30,10 @@ Si quieres ayudar a mejorar Indexa X, puedes:
 - Trabajar en una propuesta existente y enviar un pull request
 
 Echa un ojo a la [página de issues](https://github.com/victor-marino/indexax/issues)!
+
+## Donar
+Indexa X es una app gratuita, sin anuncios ni monetización de ningún tipo, y siempre será así!
+
+Si te gustaría apoyar su desarollo continuado (o simplemente darme las gracias), puedes invitarme a una cerveza en Ko-fi ;-)
+
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/D1D1VS02X)
