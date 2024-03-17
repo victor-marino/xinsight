@@ -15,7 +15,7 @@ Actualmente sólo está disponible para Android, dado que Apple ya no permite su
 ## Descargar
 [![google_play_badge](assets/readme/google_play_badge_small.png)](https://play.google.com/store/apps/details?id=com.victormarino.indexax)
 
-La versión de iOS ha sido retirada del App Store, siguiendo la petición de Apple. Espero poder volver a ofrecer la app de iOS a los usuarios europeos en el futuro a través de tiendas alternativas a la oficial.
+La versión de iOS ha sido retirada del App Store a petición de Apple. Espero poder volver a ofrecer la app de iOS a los usuarios europeos en el futuro a través de tiendas alternativas a la oficial.
 
 ## Privacidad y seguridad
 Indexa X no recoge ningún tipo de información sobre ti ni tu cuenta de Indexa. Al identificarte, los datos de tu cuenta se cargan en memoria para poder mostrarlos en pantalla, pero nunca se almacenan de forma persistente en tu dispositivo. Por tanto, desaparecen junto con el resto de la app cuando se cierra el proceso.
