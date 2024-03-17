@@ -28,7 +28,7 @@ La API de Indexa sólo permite operaciones de lectura (métodos GET), por lo que
 Si quieres ayudar a mejorar Indexa X, puedes:
 - Proponer cambios o nuevas funcionalidades
 - Trabajar en una propuesta existente y enviar un pull request
-- Hace una donación
+- Hacer una donación
 
 Echa un ojo a la [página de issues](https://github.com/victor-marino/indexax/issues)!
 
