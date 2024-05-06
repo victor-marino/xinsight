@@ -77,6 +77,14 @@ TextStyle ubuntuBoldLighter(BuildContext context, double size) {
   );
 }
 
+TextStyle ubuntuMono(BuildContext context, double size) {
+  return GoogleFonts.ubuntuMono(
+    textStyle: TextStyle(
+        fontSize: size,
+        color: Theme.of(context).colorScheme.onSurfaceVariant),
+  );
+}
+
 // These are the colors used by the distribution chart in the overview screen.
 List<Color> equityColors = [
   Colors.purple.shade800,

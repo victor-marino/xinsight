@@ -67,6 +67,7 @@ flutter:
     - assets/images/
     - assets/fonts/Roboto/
     - assets/fonts/Ubuntu/
+    - assets/fonts/UbuntuMono/
     - assets/fonts/Oxygen/
     - assets/test_json/
 
