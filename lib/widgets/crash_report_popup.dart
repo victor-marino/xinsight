@@ -31,9 +31,10 @@ showCrashReport(BuildContext context, String errorMessage, String stack) {
             ),
             content: Column(
               mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
-                    "Oops! It looks like Indexa X had a problem.\n\nIf you want to help me solve this issue, please share the error log with me."),
+                    "Oops! Looks like there was a problem.\n\nIf you want me to fix this issue, please share the error log with me."),
                 SizedBox(height: 20),
                 Container(
                   height: 300,
@@ -53,16 +54,18 @@ showCrashReport(BuildContext context, String errorMessage, String stack) {
                       scrollController: scrollController,
                       style: text_styles.ubuntuMono(context, 16),
                       decoration: InputDecoration(
-                        suffixIcon: Align(
-                          alignment: Alignment.topRight,
-                          widthFactor: 1,
-                          child: IconButton(
-                              visualDensity: VisualDensity.compact,
-                              iconSize: 16,
-                              splashRadius: 20,
-                              icon: Icon(Icons.copy),
-                              onPressed:() => copyToClipboard(context, errorLogController.text)),
-                        ),
+                        // suffixIcon: Align(
+                        //   alignment: Alignment.topRight,
+                        //   widthFactor: 1,
+                        //   child: IconButton(
+                        //       visualDensity: VisualDensity.compact,
+                        //       iconSize: 16,
+                        //       splashRadius: 20,
+                        //       icon: Icon(Icons.copy,
+                        //           color: Theme.of(context).colorScheme.primary),
+                        //       onPressed: () => copyToClipboard(
+                        //           context, errorLogController.text)),
+                        // ),
                         isDense: true,
                         contentPadding: EdgeInsets.fromLTRB(12, 20, 12, 0),
                         enabled: true,
@@ -77,7 +80,27 @@ showCrashReport(BuildContext context, String errorMessage, String stack) {
                     ),
                   ),
                 ),
-                SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    IconButton(
+                        visualDensity: VisualDensity.compact,
+                        iconSize: 16,
+                        splashRadius: 20,
+                        icon: Icon(Icons.copy),
+                        color: Theme.of(context).colorScheme.primary,
+                        onPressed: () =>
+                            copyToClipboard(context, errorLogController.text)),
+                    IconButton(
+                      visualDensity: VisualDensity.compact,
+                      iconSize: 16,
+                      icon: Icon(Icons.share),
+                      splashRadius: 20,
+                      color: Theme.of(context).colorScheme.primary,
+                      onPressed: () => showInSnackBar(context, "Sharing..."),
+                    ),
+                  ],
+                ),
                 Text("I will only receive what you see in the text box."),
               ],
             ), // Padding(
