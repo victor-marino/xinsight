@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:indexax/screens/login_screen.dart';
@@ -6,6 +8,11 @@ import 'package:provider/provider.dart';
 import 'package:indexax/tools/bottom_navigation_bar_provider.dart';
 import 'package:indexax/tools/theme_provider.dart';
 import 'package:indexax/tools/private_mode_provider.dart';
+import 'package:indexax/widgets/crash_report_popup.dart';
+
+// We create a global key here so we have an available context outside the build method
+// Required so we can show a crash report dialogue from the code in main()
+final navigator = GlobalKey<NavigatorState>();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,11 +20,33 @@ void main() async {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
   ));
+  
+  // Show an crash report dialogue in case of any uncaught exceptions
+  FlutterError.onError = (details) {
+    FlutterError.presentError(details);
+    showCrashReport(
+      navigator.currentContext!,
+      details.exception.toString(),
+      details.stack.toString(),
+    );
+  };
+  PlatformDispatcher.instance.onError = (error, stack) {
+    showCrashReport(
+      navigator.currentContext!,
+      error.toString(),
+      stack.toString(),
+    );
+    return true;
+  };
+
+  // Run the actual app
   runApp(MultiProvider(
-      providers: [
-        ChangeNotifierProvider<ThemeProvider>(create: (_) => ThemeProvider()),
-        ChangeNotifierProvider<BottomNavigationBarProvider>(create: (_) => BottomNavigationBarProvider()),
-        ChangeNotifierProvider<PrivateModeProvider>(create: (_) => PrivateModeProvider()),
+    providers: [
+      ChangeNotifierProvider<ThemeProvider>(create: (_) => ThemeProvider()),
+      ChangeNotifierProvider<BottomNavigationBarProvider>(
+          create: (_) => BottomNavigationBarProvider()),
+      ChangeNotifierProvider<PrivateModeProvider>(
+          create: (_) => PrivateModeProvider()),
     ],
     child: EasyLocalization(
       supportedLocales: const [
@@ -55,9 +84,9 @@ class MyApp extends StatelessWidget {
       onBackground: Colors.white54,
     );
 
-    return 
-    Center(
+    return Center(
       child: MaterialApp(
+        navigatorKey: navigator,
         title: 'Indexa X',
         theme: ThemeData.from(
           colorScheme: lightColorScheme,
