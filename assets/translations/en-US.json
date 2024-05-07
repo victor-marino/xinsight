@@ -240,6 +240,16 @@
     "cancel_button": "Cancel",
     "logout_button": "Logout"
   },
+  "crash_report": {
+    "title": "Crash report",
+    "explanation": "Oops! Looks like there was a problem with Indexa X.\n\nIf you want me to fix this issue, you can share the error log with me.",
+    "error_log": "Error log",
+    "not_now": "Not now",
+    "send_by_email": "Send by email",
+    "copied_to_clipboard": "Text copied to clipboard",
+    "email_subject": "Indexa X crash report",
+    "could_not_email": "Could not open your email app. Please send the error log to indexax@victormarino.com."
+  },
   "months_short": {
     "january": "Jan",
     "february": "Feb",

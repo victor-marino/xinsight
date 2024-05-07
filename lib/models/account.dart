@@ -59,7 +59,7 @@ class Account {
         accountType = accountInfo['type'],
         risk = accountInfo['risk'],
         totalAmount =
-            accountPerformanceData['return']['total_amount111'].toDouble(),
+            accountPerformanceData['return']['total_amount'].toDouble(),
         investment = accountPerformanceData['return']['investment'].toDouble(),
         timeReturn = accountPerformanceData['return']['time_return'].toDouble(),
         timeReturnColor = getNumberColor(

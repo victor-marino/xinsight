@@ -8,6 +8,7 @@ import 'package:indexax/tools/styles.dart' as text_styles;
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:indexax/tools/snackbar.dart';
+import 'package:share_plus/share_plus.dart';
 
 // Pop-up window shown when the app crashes
 // Shows information about the error and the option to share it outside the app
@@ -26,7 +27,7 @@ showCrashReport(BuildContext context, String errorMessage, String stack) {
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
             title: Text(
-              "Crash report",
+              'crash_report.title'.tr(),
               style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
             ),
             content: Column(
@@ -34,16 +35,15 @@ showCrashReport(BuildContext context, String errorMessage, String stack) {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
-                    "Oops! Looks like there was a problem.\n\nIf you want me to fix this issue, please share the error log with me."),
-                SizedBox(height: 20),
-                Container(
+                    'crash_report.explanation'.tr()),
+                const SizedBox(height: 20),
+                SizedBox(
                   height: 300,
                   child: Scrollbar(
                     controller: scrollController,
                     // Prevent the scrollbar from being draggable, so it doesn't interfere with the copy button. This doesn't work on iOS.
                     interactive: false,
-                    // Auto-hide the scrollbar on iOS, as otherwise it remains draggable and interferes with the copy button.
-                    thumbVisibility: !Platform.isIOS,
+                    thumbVisibility: true,
                     child: TextFormField(
                       // scrollPhysics: AlwaysScrollableScrollPhysics(),
                       readOnly: true,
@@ -54,23 +54,11 @@ showCrashReport(BuildContext context, String errorMessage, String stack) {
                       scrollController: scrollController,
                       style: text_styles.ubuntuMono(context, 16),
                       decoration: InputDecoration(
-                        // suffixIcon: Align(
-                        //   alignment: Alignment.topRight,
-                        //   widthFactor: 1,
-                        //   child: IconButton(
-                        //       visualDensity: VisualDensity.compact,
-                        //       iconSize: 16,
-                        //       splashRadius: 20,
-                        //       icon: Icon(Icons.copy,
-                        //           color: Theme.of(context).colorScheme.primary),
-                        //       onPressed: () => copyToClipboard(
-                        //           context, errorLogController.text)),
-                        // ),
                         isDense: true,
-                        contentPadding: EdgeInsets.fromLTRB(12, 20, 12, 0),
+                        contentPadding: const EdgeInsets.fromLTRB(12, 20, 12, 0),
                         enabled: true,
                         border: const OutlineInputBorder(),
-                        labelText: "Error log",
+                        labelText: 'crash_report.error_log'.tr(),
                         filled: true,
                         fillColor: Theme.of(context)
                             .colorScheme
@@ -87,57 +75,54 @@ showCrashReport(BuildContext context, String errorMessage, String stack) {
                         visualDensity: VisualDensity.compact,
                         iconSize: 16,
                         splashRadius: 20,
-                        icon: Icon(Icons.copy),
+                        icon: const Icon(Icons.copy),
                         color: Theme.of(context).colorScheme.primary,
                         onPressed: () =>
                             copyToClipboard(context, errorLogController.text)),
                     IconButton(
-                      visualDensity: VisualDensity.compact,
-                      iconSize: 16,
-                      icon: Icon(Icons.share),
-                      splashRadius: 20,
-                      color: Theme.of(context).colorScheme.primary,
-                      onPressed: () => showInSnackBar(context, "Sharing..."),
-                    ),
+                        visualDensity: VisualDensity.compact,
+                        iconSize: 16,
+                        icon: const Icon(Icons.share),
+                        splashRadius: 20,
+                        color: Theme.of(context).colorScheme.primary,
+                        onPressed: () =>
+                            shareErrorLog(context, errorLogController.text)),
                   ],
                 ),
-                Text("I will only receive what you see in the text box."),
+                // Text("I will only receive what you see in the text box."),
               ],
             ), // Padding(
             contentPadding: const EdgeInsets.fromLTRB(24, 24, 24, 0),
             actions: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  TextButton(
-                    child: Text(
-                      'Not now',
-                      style: TextStyle(
-                          color: context
-                                  .read<PrivateModeProvider>()
-                                  .privateModeEnabled
-                              ? Colors.grey
-                              : null),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    TextButton(
+                      child: Text(
+                        'crash_report.not_now'.tr(),
+                        style: TextStyle(
+                            color: Theme.of(context).colorScheme.onSurface),
+                      ),
+                      onPressed: () {
+                        quitApp();
+                      },
                     ),
-                    onPressed: () {
-                      quitApp();
-                    },
-                  ),
-                  TextButton(
-                    child: Text(
-                      'Share',
-                      style: TextStyle(
-                          color: context
-                                  .read<PrivateModeProvider>()
-                                  .privateModeEnabled
-                              ? Colors.grey
-                              : null),
+                    TextButton(
+                      child: Text(
+                        'crash_report.send_by_email'.tr(),
+                        style: TextStyle(
+                            color: context
+                                    .read<PrivateModeProvider>()
+                                    .privateModeEnabled
+                                ? Colors.grey
+                                : null),
+                      ),
+                      onPressed: () => sendOverEmail(context, errorLogController.text),
                     ),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                ],
+                  ],
+                ),
               )
             ],
           ),
@@ -147,7 +132,26 @@ showCrashReport(BuildContext context, String errorMessage, String stack) {
 
 Future<void> copyToClipboard(BuildContext context, String text) async {
   await Clipboard.setData(ClipboardData(text: text));
-  showInSnackBar(context, "Text copied to clipboard");
+  showInSnackBar(context, 'crash_report.copied_to_clipboard'.tr());
+}
+
+Future<void> shareErrorLog(BuildContext context, String text) async {
+  await Share.share(text, subject: 'crash_report.email_subject'.tr());
+}
+
+void sendOverEmail(BuildContext context, String text) async {
+  final Uri emailLaunchUri = Uri(
+    scheme: 'mailto',
+    path: 'indexax@victormarino.com',
+    queryParameters: {'subject': 'crash_report.email_subject'.tr(), 'body': text},
+  );
+  if (await canLaunchUrl(emailLaunchUri)) {
+    await launchUrl(emailLaunchUri);
+    ;
+  } else {
+    showInSnackBar(context,
+        'crash_report.could_not_email'.tr());
+  }
 }
 
 void quitApp() {

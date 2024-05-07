@@ -89,9 +89,11 @@ class MyApp extends StatelessWidget {
         navigatorKey: navigator,
         title: 'Indexa X',
         theme: ThemeData.from(
+          useMaterial3: false,
           colorScheme: lightColorScheme,
         ),
         darkTheme: ThemeData.from(
+          useMaterial3: false,
           colorScheme: darkColorScheme,
           /* dark theme settings */
         ).copyWith(
