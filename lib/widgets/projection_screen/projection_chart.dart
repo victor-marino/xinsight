@@ -56,7 +56,7 @@ class PerformanceChart extends StatelessWidget {
         edgeLabelPlacement: EdgeLabelPlacement.shift,
         labelStyle: axisTextStyle,
       ),
-      series: <ChartSeries<PerformanceDataPoint, DateTime>>[
+      series: <CartesianSeries<PerformanceDataPoint, DateTime>>[
         LineSeries<PerformanceDataPoint, DateTime>(
           name: 'performance_chart.positive'.tr(),
           opacity: 1,
