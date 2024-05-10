@@ -239,6 +239,16 @@
     "cancel_button": "Cancelar",
     "logout_button": "Pechar sesión"
   },
+  "crash_report": {
+    "title": "Informe de erro",
+    "explanation": "Vaia! Parece que houbo un problema con Indexa X.\n\nSe queres que o solucione, podes compartir o rexistro de erro comigo.",
+    "error_log": "Rexistro de erro",
+    "not_now": "Agora non",
+    "send_by_email": "Enviar por correo",
+    "copied_to_clipboard": "Texto copiado",
+    "email_subject": "Informe de erro de Indexa",
+    "could_not_email": "Non se puido abrir a túa aplicación de correo electrónico. Por favor, envía o rexistro de erro a indexax@victormarino.com.."
+  },
   "months_short": {
     "january": "Xan",
     "february": "Feb",

@@ -8,9 +8,9 @@ import 'package:indexax/tools/snackbar.dart' as snackbar;
 
 class ThemeModalBottomSheet extends StatefulWidget {
   const ThemeModalBottomSheet({
-    Key? key,
+    super.key,
     required this.updateCurrentThemePreference,
-  }) : super(key: key);
+  });
   final Function updateCurrentThemePreference;
 
   @override

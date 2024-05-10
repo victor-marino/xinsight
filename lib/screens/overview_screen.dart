@@ -16,14 +16,14 @@ import 'package:indexax/widgets/reusable_card.dart';
 
 class OverviewScreen extends StatefulWidget {
   const OverviewScreen({
-    Key? key,
+    super.key,
     required this.accountData,
     required this.userAccounts,
     required this.landscapeOrientation,
     required this.availableWidth,
     required this.refreshData,
     required this.currentAccountIndex,
-  }) : super(key: key);
+  });
   final Account accountData;
   final List<Map<String, String>>? userAccounts;
   final bool landscapeOrientation;

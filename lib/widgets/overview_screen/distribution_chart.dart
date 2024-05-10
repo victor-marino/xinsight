@@ -11,9 +11,9 @@ import 'package:indexax/tools/styles.dart' as text_styles;
 
 class DistributionChart extends StatelessWidget {
   const DistributionChart({
-    Key? key,
+    super.key,
     required this.portfolioData,
-  }) : super(key: key);
+  });
   final List<PortfolioDataPoint> portfolioData;
 
   @override

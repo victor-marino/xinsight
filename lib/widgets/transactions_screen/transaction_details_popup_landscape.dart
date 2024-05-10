@@ -9,9 +9,9 @@ import 'package:url_launcher/url_launcher.dart';
 
 class TransactionDetailsPopupLandscape extends StatelessWidget {
   const TransactionDetailsPopupLandscape({
-    Key? key,
+    super.key,
     required this.transactionData,
-  }) : super(key: key);
+  });
 
   final Transaction transactionData;
 

@@ -5,13 +5,13 @@ import 'package:flutter/material.dart';
 
 class ReusableCard extends StatelessWidget {
   const ReusableCard({
-    Key? key,
+    super.key,
     required this.childWidget,
     this.paddingTop = 15.0,
     this.paddingBottom = 15.0,
     this.paddingLeft = 15.0,
     this.paddingRight = 15.0,
-  }) : super(key: key);
+  });
   final Widget childWidget;
   final double paddingTop, paddingBottom, paddingLeft, paddingRight;
 

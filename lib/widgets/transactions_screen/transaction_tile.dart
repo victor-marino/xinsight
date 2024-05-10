@@ -12,13 +12,13 @@ import 'package:indexax/tools/private_mode_provider.dart';
 
 class TransactionTile extends StatelessWidget {
   const TransactionTile({
-    Key? key,
+    super.key,
     required this.transactionData,
     required this.firstTransaction,
     required this.firstTransactionOfMonth,
     required this.lastTransactionOfMonth,
     required this.landscapeOrientation,
-  }) : super(key: key);
+  });
 
   final Transaction transactionData;
   final bool firstTransaction,

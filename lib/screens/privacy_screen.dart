@@ -5,7 +5,7 @@ import 'package:indexax/tools/styles.dart' as text_styles;
 import 'package:url_launcher/url_launcher.dart';
 
 class PrivacyScreen extends StatefulWidget {
-  const PrivacyScreen({Key? key}) : super(key: key);
+  const PrivacyScreen({super.key});
 
   @override
   PrivacyScreenState createState() => PrivacyScreenState();

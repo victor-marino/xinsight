@@ -9,9 +9,9 @@ import 'package:indexax/tools/styles.dart' as text_styles;
 
 class PerformanceChart extends StatelessWidget {
   const PerformanceChart({
-    Key? key,
+    super.key,
     required this.performanceSeries,
-  }) : super(key: key);
+  });
 
   final List<PerformanceDataPoint> performanceSeries;
 
@@ -56,7 +56,7 @@ class PerformanceChart extends StatelessWidget {
         edgeLabelPlacement: EdgeLabelPlacement.shift,
         labelStyle: axisTextStyle,
       ),
-      series: <ChartSeries<PerformanceDataPoint, DateTime>>[
+      series: <CartesianSeries<PerformanceDataPoint, DateTime>>[
         LineSeries<PerformanceDataPoint, DateTime>(
           name: 'performance_chart.positive'.tr(),
           opacity: 1,

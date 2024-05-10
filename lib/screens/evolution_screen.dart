@@ -18,14 +18,14 @@ import 'package:indexax/widgets/evolution_screen/evolution_chart_date_selector.d
 
 class EvolutionScreen extends StatefulWidget {
   const EvolutionScreen({
-    Key? key,
+    super.key,
     required this.accountData,
     required this.userAccounts,
     required this.refreshData,
     required this.currentAccountIndex,
     required this.landscapeOrientation,
     required this.availableWidth,
-  }) : super(key: key);
+  });
   final Account accountData;
   final List<Map<String, String>> userAccounts;
   final Function refreshData;

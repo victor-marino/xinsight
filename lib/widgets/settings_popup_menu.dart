@@ -15,12 +15,11 @@ import 'package:provider/provider.dart';
 
 class SettingsPopupMenu extends StatelessWidget {
   const SettingsPopupMenu(
-      {Key? key,
+      {super.key,
       required this.userAccounts,
       required this.currentAccountIndex,
       required this.currentPage,
-      required this.reloadPage})
-      : super(key: key);
+      required this.reloadPage});
 
   final List<Map<String, String>> userAccounts;
   final int currentAccountIndex, currentPage;

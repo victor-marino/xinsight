@@ -6,10 +6,10 @@ import 'package:indexax/tools/styles.dart' as text_styles;
 // First line shows the account number, second line shows the account type.
 class CurrentAccountIndicator extends StatelessWidget {
   const CurrentAccountIndicator({
-    Key? key,
+    super.key,
     required this.accountNumber,
     required this.accountType,
-  }) : super(key: key);
+  });
 
   final String accountNumber, accountType;
 

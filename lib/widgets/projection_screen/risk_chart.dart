@@ -5,9 +5,9 @@ import 'package:syncfusion_flutter_gauges/gauges.dart';
 
 class RiskChart extends StatelessWidget {
   const RiskChart({
-    Key? key,
+    super.key,
     required this.risk,
-  }) : super(key: key);
+  });
   final int risk;
 
   @override

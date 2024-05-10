@@ -27,12 +27,12 @@ import 'package:indexax/tools/evolution_chart_provider.dart';
 
 class RootScreen extends StatefulWidget {
   RootScreen({
-    Key? key,
+    super.key,
     required this.token,
     required this.accountIndex,
     required this.pageIndex,
     this.previousUserAccounts,
-  }) : super(key: key);
+  });
 
   final String token;
   final int accountIndex, pageIndex;
@@ -61,14 +61,14 @@ class RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
       if (_userAccounts.isEmpty) {
         _userAccounts = await widget.indexaData.getUserAccounts();
       }
-      if (_userAccounts.isNotEmpty && context.mounted) {
+      if (_userAccounts.isNotEmpty && mounted) {
         _accountData = widget.indexaData.populateAccountData(
             context: context,
             accountNumber: _userAccounts[accountIndex]['number']!);
         await _accountData;
         setState(() {});
       } else {
-        if (context.mounted) {
+        if (mounted) {
           Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(
@@ -81,7 +81,7 @@ class RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
       if (kDebugMode) {
         print(e.toString());
       }
-      if (context.mounted) {
+      if (mounted) {
         Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
@@ -101,7 +101,7 @@ class RootScreenState extends State<RootScreen> with WidgetsBindingObserver {
       await _accountData;
       setState(() {});
     } on Exception catch (e) {
-      if (context.mounted) snackbar.showInSnackBar(context, e.toString());
+      if (mounted) snackbar.showInSnackBar(context, e.toString());
     }
   }
 

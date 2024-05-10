@@ -9,9 +9,9 @@ import 'package:provider/provider.dart';
 // Body of the expanded view of each asset tile for landscape orientation
 class ExpandedAssetTileBodyLandscape extends StatelessWidget {
   const ExpandedAssetTileBodyLandscape({
-    Key? key,
+    super.key,
     required this.assetData,
-  }) : super(key: key);
+  });
 
   final PortfolioDataPoint assetData;
 

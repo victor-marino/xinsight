@@ -13,9 +13,9 @@ import 'package:indexax/widgets/not_reconciled_popup.dart';
 
 class CollapsedAccountSummary extends StatelessWidget {
   const CollapsedAccountSummary({
-    Key? key,
+    super.key,
     required this.accountData,
-  }) : super(key: key);
+  });
   final Account accountData;
 
   @override
@@ -122,49 +122,55 @@ class CollapsedAccountSummary extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: <Widget>[
-                      Align(
-                        alignment: Alignment.topLeft,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              '${'account_summary.return'.tr()} ',
-                              textAlign: TextAlign.left,
-                              style: cardHeaderTextStyle,
-                            ),
-                            Icon(
-                              Icons.access_time,
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .onSurfaceVariant,
-                              size: 15.0,
-                            ),
-                          ],
+                      SizedBox(
+                        height: 24,
+                        child: Align(
+                          alignment: Alignment.topLeft,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                '${'account_summary.return'.tr()} ',
+                                textAlign: TextAlign.left,
+                                style: cardHeaderTextStyle,
+                              ),
+                              Icon(
+                                Icons.access_time,
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onSurfaceVariant,
+                                size: 15.0,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Row(children: <Widget>[
-                            RichText(
-                              text: TextSpan(children: [
-                                TextSpan(
-                                  text: getWholePLPercentAsString(
-                                      accountData.timeReturn),
-                                  style: largeReturnTextStyle.copyWith(
-                                      color: accountData.timeReturnColor),
-                                ),
-                                TextSpan(
-                                  text: getDecimalSeparator() +
-                                      getFractionalPLPercentAsString(
-                                          accountData.timeReturn),
-                                  style: smallReturnTextStyle.copyWith(
-                                      color: accountData.timeReturnColor),
-                                ),
-                              ]),
-                            ),
-                          ]),
-                        ],
+                      SizedBox(
+                        height: 24,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Row(children: <Widget>[
+                              RichText(
+                                text: TextSpan(children: [
+                                  TextSpan(
+                                    text: getWholePLPercentAsString(
+                                        accountData.timeReturn),
+                                    style: largeReturnTextStyle.copyWith(
+                                        color: accountData.timeReturnColor),
+                                  ),
+                                  TextSpan(
+                                    text: getDecimalSeparator() +
+                                        getFractionalPLPercentAsString(
+                                            accountData.timeReturn),
+                                    style: smallReturnTextStyle.copyWith(
+                                        color: accountData.timeReturnColor),
+                                  ),
+                                ]),
+                              ),
+                            ]),
+                          ],
+                        ),
                       ),
                     ],
                   ),
@@ -178,47 +184,53 @@ class CollapsedAccountSummary extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: <Widget>[
-                      Align(
-                        alignment: Alignment.topLeft,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text('${'account_summary.return'.tr()} ',
-                                textAlign: TextAlign.left,
-                                style: cardHeaderTextStyle),
-                            Icon(
-                              Icons.euro_symbol,
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .onSurfaceVariant,
-                              size: 15.0,
-                            ),
-                          ],
+                      SizedBox(
+                        height: 24,
+                        child: Align(
+                          alignment: Alignment.topLeft,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text('${'account_summary.return'.tr()} ',
+                                  textAlign: TextAlign.left,
+                                  style: cardHeaderTextStyle),
+                              Icon(
+                                Icons.euro_symbol,
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onSurfaceVariant,
+                                size: 15.0,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Row(children: <Widget>[
-                            RichText(
-                              text: TextSpan(children: [
-                                TextSpan(
-                                  text: getWholePLPercentAsString(
-                                      accountData.moneyReturn),
-                                  style: largeReturnTextStyle.copyWith(
-                                      color: accountData.moneyReturnColor),
-                                ),
-                                TextSpan(
-                                  text: getDecimalSeparator() +
-                                      getFractionalPLPercentAsString(
-                                          accountData.moneyReturn),
-                                  style: smallReturnTextStyle.copyWith(
-                                      color: accountData.moneyReturnColor),
-                                ),
-                              ]),
-                            ),
-                          ]),
-                        ],
+                      SizedBox(
+                        height: 24,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Row(children: <Widget>[
+                              RichText(
+                                text: TextSpan(children: [
+                                  TextSpan(
+                                    text: getWholePLPercentAsString(
+                                        accountData.moneyReturn),
+                                    style: largeReturnTextStyle.copyWith(
+                                        color: accountData.moneyReturnColor),
+                                  ),
+                                  TextSpan(
+                                    text: getDecimalSeparator() +
+                                        getFractionalPLPercentAsString(
+                                            accountData.moneyReturn),
+                                    style: smallReturnTextStyle.copyWith(
+                                        color: accountData.moneyReturnColor),
+                                  ),
+                                ]),
+                              ),
+                            ]),
+                          ],
+                        ),
                       ),
                     ],
                   ),

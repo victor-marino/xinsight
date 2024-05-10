@@ -6,8 +6,8 @@ import 'package:indexax/tools/styles.dart' as text_styles;
 
 class ReturnsPopUp extends StatelessWidget {
   const ReturnsPopUp({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
