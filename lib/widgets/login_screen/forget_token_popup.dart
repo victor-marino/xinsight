@@ -5,8 +5,8 @@ import 'package:easy_localization/easy_localization.dart';
 
 class ForgetTokenPopup extends StatelessWidget {
   const ForgetTokenPopup({
-    Key? key, required this.forgetToken,
-  }) : super(key: key);
+    super.key, required this.forgetToken,
+  });
   final VoidCallback forgetToken;
 
   @override

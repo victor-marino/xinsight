@@ -5,7 +5,7 @@ import 'package:indexax/tools/styles.dart' as text_styles;
 import 'package:url_launcher/url_launcher.dart';
 
 class AboutScreen extends StatefulWidget {
-  const AboutScreen({Key? key}) : super(key: key);
+  const AboutScreen({super.key});
 
   @override
   AboutScreenState createState() => AboutScreenState();

@@ -4,11 +4,10 @@ import 'package:flutter/material.dart';
 
 class RadiantLinearMask extends StatelessWidget {
   const RadiantLinearMask(
-      {Key? key,
+      {super.key,
       required this.child,
       required this.color1,
-      required this.color2})
-      : super(key: key);
+      required this.color2});
   final Widget child;
   final Color color1, color2;
 

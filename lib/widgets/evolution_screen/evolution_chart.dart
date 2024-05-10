@@ -16,10 +16,10 @@ import 'package:indexax/models/chart_series_type.dart';
 
 class EvolutionChart extends StatelessWidget {
   const EvolutionChart({
-    Key? key,
+    super.key,
     required this.amountsSeries,
     required this.returnsSeries,
-  }) : super(key: key);
+  });
 
   final List<AmountsDataPoint> amountsSeries;
   final List<ReturnsDataPoint> returnsSeries;

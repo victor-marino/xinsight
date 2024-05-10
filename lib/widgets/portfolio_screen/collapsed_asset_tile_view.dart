@@ -8,9 +8,9 @@ import 'package:provider/provider.dart';
 // Collapsed view of each asset tile
 class CollapsedAssetTileView extends StatelessWidget {
   const CollapsedAssetTileView({
-    Key? key,
+    super.key,
     required this.assetData,
-  }) : super(key: key);
+  });
 
   final PortfolioDataPoint assetData;
 

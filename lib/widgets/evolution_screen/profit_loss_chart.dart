@@ -13,9 +13,9 @@ import 'package:indexax/tools/number_formatting.dart';
 
 class ProfitLossChart extends StatelessWidget {
   const ProfitLossChart({
-    Key? key,
+    super.key,
     required this.profitLossSeries,
-  }) : super(key: key);
+  });
 
   final ({
     Map<int, List<ProfitLossDataPoint?>> monthlySeries,

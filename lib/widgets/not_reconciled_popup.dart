@@ -6,9 +6,9 @@ import 'package:indexax/tools/styles.dart' as text_styles;
 
 class NotReconciledCard extends StatelessWidget {
   const NotReconciledCard({
-    Key? key,
+    super.key,
     required this.reconciledUntil,
-  }) : super(key: key);
+  });
 
   final DateTime reconciledUntil;
 

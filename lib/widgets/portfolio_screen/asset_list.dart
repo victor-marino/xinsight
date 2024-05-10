@@ -18,10 +18,10 @@ import 'package:provider/provider.dart';
 
 class AssetList extends StatelessWidget {
   const AssetList({
-    Key? key,
+    super.key,
     required this.portfolioData,
     required this.landscapeOrientation,
-  }) : super(key: key);
+  });
 
   final List<PortfolioDataPoint> portfolioData;
   final bool landscapeOrientation;

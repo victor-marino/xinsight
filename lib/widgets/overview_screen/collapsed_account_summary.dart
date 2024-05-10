@@ -13,9 +13,9 @@ import 'package:indexax/widgets/not_reconciled_popup.dart';
 
 class CollapsedAccountSummary extends StatelessWidget {
   const CollapsedAccountSummary({
-    Key? key,
+    super.key,
     required this.accountData,
-  }) : super(key: key);
+  });
   final Account accountData;
 
   @override

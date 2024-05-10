@@ -12,9 +12,9 @@ import 'package:indexax/widgets/not_reconciled_popup.dart';
 
 class ExpandedAccountSummarySingleView extends StatelessWidget {
   const ExpandedAccountSummarySingleView({
-    Key? key,
+    super.key,
     required this.accountData,
-  }) : super(key: key);
+  });
   final Account accountData;
 
   @override

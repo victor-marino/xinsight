@@ -10,8 +10,8 @@ import 'package:indexax/tools/bottom_navigation_bar_provider.dart';
 
 class LogoutPopup extends StatelessWidget {
   const LogoutPopup({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   void _logout(BuildContext context) async {
     Future<dynamic> futureNavigationRoute = Navigator.pushAndRemoveUntil(

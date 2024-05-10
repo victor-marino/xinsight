@@ -8,8 +8,8 @@ import 'package:indexax/tools/styles.dart' as text_styles;
 
 class PageHeader extends StatelessWidget {
   const PageHeader({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

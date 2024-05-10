@@ -6,9 +6,9 @@ import 'package:easy_localization/easy_localization.dart';
 class MyBottomNavigationBar extends StatelessWidget {
   @override
   const MyBottomNavigationBar({
-    Key? key,
+    super.key,
     required this.onTapped,
-  }) : super(key: key);
+  });
   final Function onTapped;
 
   @override

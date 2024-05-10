@@ -10,9 +10,9 @@ import 'package:indexax/tools/private_mode_provider.dart';
 
 class ExpandedAssetTileBodyPortrait extends StatelessWidget {
   const ExpandedAssetTileBodyPortrait({
-    Key? key,
+    super.key,
     required this.assetData,
-  }) : super(key: key);
+  });
 
   final PortfolioDataPoint assetData;
 

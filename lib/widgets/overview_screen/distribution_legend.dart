@@ -9,9 +9,9 @@ import 'package:indexax/tools/styles.dart' as text_styles;
 
 class DistributionChartLegend extends StatelessWidget {
   const DistributionChartLegend({
-    Key? key,
+    super.key,
     required this.portfolioDistribution,
-  }) : super(key: key);
+  });
   final Map<InstrumentType, Map<ValueType, double>> portfolioDistribution;
 
   @override

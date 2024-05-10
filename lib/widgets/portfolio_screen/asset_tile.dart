@@ -12,10 +12,10 @@ import 'package:indexax/widgets/portfolio_screen/expanded_asset_tile_header_port
 // Class containing each individual tile shown in the asset list in portfolio screen
 class AssetTile extends StatelessWidget {
   const AssetTile({
-    Key? key,
+    super.key,
     required this.assetData,
     required this.landscapeOrientation,
-  }) : super(key: key);
+  });
 
   final PortfolioDataPoint assetData;
   final bool landscapeOrientation;

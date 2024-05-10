@@ -34,8 +34,7 @@ showCrashReport(BuildContext context, String errorMessage, String stack) {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                Text(
-                    'crash_report.explanation'.tr()),
+                Text('crash_report.explanation'.tr()),
                 const SizedBox(height: 20),
                 SizedBox(
                   height: 300,
@@ -55,7 +54,8 @@ showCrashReport(BuildContext context, String errorMessage, String stack) {
                       style: text_styles.ubuntuMono(context, 16),
                       decoration: InputDecoration(
                         isDense: true,
-                        contentPadding: const EdgeInsets.fromLTRB(12, 20, 12, 0),
+                        contentPadding:
+                            const EdgeInsets.fromLTRB(12, 20, 12, 0),
                         enabled: true,
                         border: const OutlineInputBorder(),
                         labelText: 'crash_report.error_log'.tr(),
@@ -119,7 +119,8 @@ showCrashReport(BuildContext context, String errorMessage, String stack) {
                                 ? Colors.grey
                                 : null),
                       ),
-                      onPressed: () => sendOverEmail(context, errorLogController.text),
+                      onPressed: () =>
+                          sendOverEmail(context, errorLogController.text),
                     ),
                   ],
                 ),
@@ -132,7 +133,9 @@ showCrashReport(BuildContext context, String errorMessage, String stack) {
 
 Future<void> copyToClipboard(BuildContext context, String text) async {
   await Clipboard.setData(ClipboardData(text: text));
-  showInSnackBar(context, 'crash_report.copied_to_clipboard'.tr());
+  if (context.mounted) {
+    showInSnackBar(context, 'crash_report.copied_to_clipboard'.tr());
+  }
 }
 
 Future<void> shareErrorLog(BuildContext context, String text) async {
@@ -143,14 +146,17 @@ void sendOverEmail(BuildContext context, String text) async {
   final Uri emailLaunchUri = Uri(
     scheme: 'mailto',
     path: 'indexax@victormarino.com',
-    queryParameters: {'subject': 'crash_report.email_subject'.tr(), 'body': text},
+    queryParameters: {
+      'subject': 'crash_report.email_subject'.tr(),
+      'body': text
+    },
   );
   if (await canLaunchUrl(emailLaunchUri)) {
     await launchUrl(emailLaunchUri);
-    ;
   } else {
-    showInSnackBar(context,
-        'crash_report.could_not_email'.tr());
+    if (context.mounted) {
+      showInSnackBar(context, 'crash_report.could_not_email'.tr());
+    }
   }
 }
 

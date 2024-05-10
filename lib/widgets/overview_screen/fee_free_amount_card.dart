@@ -9,9 +9,9 @@ import 'package:provider/provider.dart';
 
 class FeeFreeAmountCard extends StatelessWidget {
   const FeeFreeAmountCard({
-    Key? key,
+    super.key,
     required this.feeFreeAmount,
-  }) : super(key: key);
+  });
 
   final double feeFreeAmount;
 

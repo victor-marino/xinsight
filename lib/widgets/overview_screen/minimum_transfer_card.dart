@@ -9,9 +9,9 @@ import 'package:provider/provider.dart';
 
 class MinimumTransferCard extends StatelessWidget {
   const MinimumTransferCard({
-    Key? key,
+    super.key,
     required this.additionalCashNeededToTrade,
-  }) : super(key: key);
+  });
 
   final double additionalCashNeededToTrade;
 

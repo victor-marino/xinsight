@@ -14,9 +14,9 @@ import 'package:indexax/widgets/login_screen/token_instructions_popup.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({
-    Key? key,
+    super.key,
     this.errorMessage,
-  }) : super(key: key);
+  });
 
   final String? errorMessage;
 
