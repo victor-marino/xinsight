@@ -43,10 +43,6 @@ Brightness getCurrentSystemTheme(BuildContext context) {
 void updateTheme(BuildContext context) async {
   // Applies theme based on current theme preference and current system theme.
   // Can be called from any screen by passing its context.
-  if (kDebugMode) {
-    print("Updating theme");
-  }
-
   ThemePreference? currentThemePreference =
       await readStoredThemePreference(context);
   if (currentThemePreference == null) {
