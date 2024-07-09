@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:indexax/models/theme_preference_data.dart';
 import 'package:indexax/tools/secure_storage.dart';
