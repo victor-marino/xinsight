@@ -30,7 +30,7 @@ Si quieres ayudar a mejorar X Insight, puedes:
 - Trabajar en una propuesta existente y enviar un pull request
 - Hacer una donación
 
-Echa un ojo a la [página de issues](https://github.com/victor-marino/indexax/issues)!
+Echa un ojo a la [página de issues](https://github.com/victor-marino/xinsight/issues)!
 
 ## Donar
 X Insight es una app gratuita, sin anuncios ni monetización de ningún tipo, y siempre será así!

@@ -105,7 +105,7 @@ class AboutScreenState extends State<AboutScreen> {
                               Text.rich(
                                 TextSpan(
                                   text:
-                                      "https://github.com/victor-marino/indexax",
+                                      "https://github.com/victor-marino/xinsight",
                                   style: contentTextStyle.copyWith(
                                       color: Colors.blue),
                                   recognizer: TapGestureRecognizer()
