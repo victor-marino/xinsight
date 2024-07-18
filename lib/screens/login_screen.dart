@@ -191,7 +191,7 @@ class LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
                           : double.infinity,
                       child: Column(
                         children: [
-                          Image.asset('assets/images/indexax_logo_wide.png'),
+                          Image.asset('assets/images/xinsight_logo_wide.png'),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             crossAxisAlignment: CrossAxisAlignment.center,

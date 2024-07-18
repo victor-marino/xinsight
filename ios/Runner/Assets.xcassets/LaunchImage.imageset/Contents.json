@@ -1,7 +1,6 @@
 {
   "images" : [
     {
-      "filename" : "LaunchImage.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
@@ -10,7 +9,7 @@
       "scale" : "2x"
     },
     {
-      "filename" : "indexax_ios_launch_image.png",
+      "filename" : "xinsight_ios_launch_image.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

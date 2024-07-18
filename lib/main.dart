@@ -89,7 +89,7 @@ class MyApp extends StatelessWidget {
     return Center(
       child: MaterialApp(
         navigatorKey: navigator,
-        title: 'Indexa X',
+        title: 'X Insight',
         theme: ThemeData.from(
           useMaterial3: false,
           colorScheme: lightColorScheme,
