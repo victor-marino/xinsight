@@ -36,7 +36,7 @@ class Account {
       additionalCashNeededToTrade;
   final Color timeReturnColor, moneyReturnColor, profitLossColor;
   final bool hasActiveRewards, hasPendingTransactions, isReconciledToday;
-  final DateTime reconciledUntil;
+  final DateTime? reconciledUntil;
   final List<AmountsDataPoint> amountsSeries;
   final List<ReturnsDataPoint> returnsSeries;
   final List<PortfolioDataPoint> portfolioData;
@@ -95,7 +95,7 @@ class Account {
             getNumberColor(accountPerformanceData['return']['pl'].toDouble()),
         hasActiveRewards = accountInfo['has_active_rewards'],
         feeFreeAmount = accountInfo['fee_free_amount'].toDouble(),
-        reconciledUntil = DateTime.parse(accountInfo['reconciled_until']),
+        reconciledUntil = accountInfo['reconciled_until'] != null ? DateTime.parse(accountInfo['reconciled_until']) : null,
         isReconciledToday = account_operations.isReconciledToday(accountInfo),
         amountsSeries = account_operations.createAmountsSeries(
             accountPerformanceData['return']['net_amounts'],

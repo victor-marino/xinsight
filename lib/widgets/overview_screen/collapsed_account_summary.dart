@@ -41,7 +41,7 @@ class CollapsedAccountSummary extends StatelessWidget {
                       textAlign: TextAlign.left,
                       style: cardHeaderTextStyle,
                     ),
-                    if (!accountData.isReconciledToday) ...[
+                    if (accountData.reconciledUntil != null && !accountData.isReconciledToday) ...[
                       IconButton(
                         splashRadius: 15,                
                         visualDensity: VisualDensity.compact,
@@ -58,7 +58,7 @@ class CollapsedAccountSummary extends StatelessWidget {
                               builder: (BuildContext context) =>
                                   NotReconciledCard(
                                       reconciledUntil:
-                                          accountData.reconciledUntil));
+                                          accountData.reconciledUntil!));
                         },
                       ),
                     ],
