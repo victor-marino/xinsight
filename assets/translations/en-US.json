@@ -248,7 +248,7 @@
     "send_by_email": "Send by email",
     "copied_to_clipboard": "Text copied to clipboard",
     "email_subject": "X Insight crash report",
-    "could_not_email": "Could not open your email app. Please send the error log to indexax@victormarino.com."
+    "could_not_email": "Could not open your email app. Please send the error log to xinsight@victormarino.com."
   },
   "months_short": {
     "january": "Jan",

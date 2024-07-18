@@ -30,7 +30,7 @@ class PrivacyScreenState extends State<PrivacyScreen> {
       scheme: 'https',
       host: 'victormarino.com',
       path:
-          "${'privacy_screen.privacy_policy_language'.tr()}/indexax/privacy-policy/");
+          "${'privacy_screen.privacy_policy_language'.tr()}/xinsight/privacy-policy/");
 
   @override
   Widget build(BuildContext context) {

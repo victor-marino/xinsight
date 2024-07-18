@@ -150,7 +150,7 @@ Future<void> shareErrorLog(BuildContext context, String text) async {
 void sendOverEmail(BuildContext context, String text) async {
   final Uri emailLaunchUri = Uri(
     scheme: 'mailto',
-    path: 'indexax@victormarino.com',
+    path: 'xinsight@victormarino.com',
     query: 'subject=${'crash_report.email_subject'.tr()}&body=$text',
   );
   if (await canLaunchUrl(emailLaunchUri)) {
