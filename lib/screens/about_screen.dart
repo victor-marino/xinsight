@@ -130,7 +130,7 @@ class AboutScreenState extends State<AboutScreen> {
                                   Container(
                                     alignment: Alignment.center,
                                     child: Image.asset(
-                                        'assets/images/indexax_logo_wide.png'),
+                                        'assets/images/xinsight_logo_wide.png'),
                                   ),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.end,

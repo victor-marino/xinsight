@@ -20,7 +20,7 @@
     </queries>
     <application
         android:name="${applicationName}"
-        android:label="Indexa X"
+        android:label="X Insight"
         android:icon="@mipmap/ic_launcher"
         android:allowBackup="false"
         android:fullBackupContent="false">

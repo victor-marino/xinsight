@@ -198,7 +198,7 @@
     "theme": "Theme",
     "information": "Information",
     "privacy": "Privacy and security",
-    "about": "About Indexa X",
+    "about": "About X Insight",
     "logout": "Log out",
     "system": "System",
     "light": "Light",
@@ -221,13 +221,13 @@
     "text11": " section.",
     "privacy_policy": "Privacy policy",
     "privacy_policy_language": "",
-    "text12": "You can read Indexa X's full privacy policy ",
+    "text12": "You can read X Insight' full privacy policy ",
     "text13": "here",
     "text14": "."
   },
   "about_screen": {
     "about": "@:settings_screen.about",
-    "text1": "Indexa X is an open source, cross-platform application developed with ",
+    "text1": "X Insight is an open source, cross-platform application developed with ",
     "text2": "Flutter",
     "text3": ".",
     "text4": "If you want to contribute to its development, propose a new feature, report a bug or just take a look at its code, head over to its GitHub repository:",
@@ -242,12 +242,12 @@
   },
   "crash_report": {
     "title": "Crash report",
-    "explanation": "Oops! Looks like there was a problem with Indexa X.\n\nIf you want me to fix this issue, you can share the error log with me.",
+    "explanation": "Oops! Looks like there was a problem with X Insight.\n\nIf you want me to fix this issue, you can share the error log with me.",
     "error_log": "Error log",
     "not_now": "Not now",
     "send_by_email": "Send by email",
     "copied_to_clipboard": "Text copied to clipboard",
-    "email_subject": "Indexa X crash report",
+    "email_subject": "X Insight crash report",
     "could_not_email": "Could not open your email app. Please send the error log to indexax@victormarino.com."
   },
   "months_short": {

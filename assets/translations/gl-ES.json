@@ -197,7 +197,7 @@
     "theme": "Tema",
     "information": "Información",
     "privacy": "Privacidade e seguridade",
-    "about": "Sobre Indexa X",
+    "about": "Sobre X Insight",
     "logout": "Pechar sesión",
     "system": "Sistema",
     "light": "Claro",
@@ -220,13 +220,13 @@
     "text11": " de Indexa Capital.",
     "privacy_policy": "Política de privacidade",
     "privacy_policy_language": "/es",
-    "text12": "Podes ler a política de privacidade completa de Indexa X ",
+    "text12": "Podes ler a política de privacidade completa de X Insight ",
     "text13": "aquí",
     "text14": "."
   },
   "about_screen": {
     "about": "@:settings_screen.about",
-    "text1": "Indexa X é unha aplicación multiplataforma e de código aberto desenvolta con ",
+    "text1": "X Insight é unha aplicación multiplataforma e de código aberto desenvolta con ",
     "text2": "Flutter",
     "text3": ".",
     "text4": "Se queres contribuír ao seu desenvolvemento, propor novas funcionalidades, informar dun erro ou simplemente botarlle unha ollada ao código, visita o repositorio de GitHub:",
@@ -241,7 +241,7 @@
   },
   "crash_report": {
     "title": "Informe de erro",
-    "explanation": "Vaia! Parece que houbo un problema con Indexa X.\n\nSe queres que o solucione, podes compartir o rexistro de erro comigo.",
+    "explanation": "Vaia! Parece que houbo un problema con X Insight.\n\nSe queres que o solucione, podes compartir o rexistro de erro comigo.",
     "error_log": "Rexistro de erro",
     "not_now": "Agora non",
     "send_by_email": "Enviar por correo",
