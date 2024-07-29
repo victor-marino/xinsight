@@ -246,7 +246,7 @@
     "not_now": "Ahora no",
     "send_by_email": "Enviar por correo",
     "copied_to_clipboard": "Texto copiado",
-    "email_subject": "Informe de error de Indexa",
+    "email_subject": "Informe de error de X Insight",
     "could_not_email": "No se pudo abrir tu aplicación de correo. Por favor, envía el registro de error a xinsight@victormarino.com."
   },
   "months_short": {
