@@ -30,7 +30,7 @@ String testEmergencyFundDescription =
 List<AmountsDataPoint> createAmountsSeries(netAmountsList, totalAmountsList) {
   // Creates a time series with the value of the portfolio overtime
   List<AmountsDataPoint> newAmountSeries = [];
-  netAmountsList.keys.forEach((k) {
+  totalAmountsList.keys.forEach((k) {
     AmountsDataPoint newPoint = AmountsDataPoint(
         date: DateTime.parse(k),
         netAmount: netAmountsList[k].toDouble(),
