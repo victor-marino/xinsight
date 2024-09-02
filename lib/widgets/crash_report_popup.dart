@@ -13,10 +13,10 @@ import 'package:share_plus/share_plus.dart';
 // Pop-up window shown when the app crashes
 // Shows information about the error and the option to share it outside the app
 
-showCrashReport(BuildContext context, String errorMessage, String stack,
+showCrashReport(BuildContext context, String appVersion, String errorMessage, String stack,
     [String? information]) {
   final errorLogController = TextEditingController();
-  errorLogController.text = "$errorMessage\n\n$stack";
+  errorLogController.text = "$appVersion\n\n$errorMessage\n\n$stack";
   if (information != null) {
     errorLogController.text += "\n\n$information";
   }
