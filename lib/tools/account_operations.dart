@@ -697,14 +697,15 @@ bool checkPendingTransactions(accountPendingTransactionData) {
   return (hasPendingTransactions);
 }
 
-bool isReconciledToday(accountInfo) {
+bool isReconciledToday(reconciledUntil) {
   // Returns false if the account isn't reconciled with the latest data yet.
   // Checked at build time to show the relevant indicator to the user if needed.
   DateTime today = DateTime.now();
   DateTime todayAtMidnight = DateTime(today.year, today.month, today.day);
   DateTime yesterday = todayAtMidnight.subtract(const Duration(days: 1));
-  DateTime reconciledUntil = DateTime.parse(accountInfo['reconciled_until']);
-
+  if (reconciledUntil == null) {
+    return true;
+  }
   return (reconciledUntil == yesterday);
 }
 

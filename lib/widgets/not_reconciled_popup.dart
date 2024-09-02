@@ -26,7 +26,7 @@ class NotReconciledCard extends StatelessWidget {
         children: [
           Expanded(
             child: Text(
-                "${'not_reconciled_popup.not_reconciled_explanation'.tr()}${reconciledUntil.day}/${reconciledUntil.month}/${reconciledUntil.year}.",
+                "${'not_reconciled_popup.not_reconciled_explanation'.tr()}${reconciledUntil.day.toString().padLeft(2, '0')}/${reconciledUntil.month.toString().padLeft(2, '0')}/${reconciledUntil.year}.",
                             style: notReconciledDescriptionTextStyle
                 ),
           ),

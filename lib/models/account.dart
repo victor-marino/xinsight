@@ -67,11 +67,11 @@ class Account {
         timeReturnAnnual =
             accountPerformanceData['return']['time_return_annual'].toDouble(),
         moneyReturn =
-            accountPerformanceData['return']['money_return'].toDouble(),
+            accountPerformanceData['return']['money_return']?.toDouble() ?? 0,
         moneyReturnColor = getNumberColor(
-            accountPerformanceData['return']['money_return'].toDouble()),
+            accountPerformanceData['return']['money_return']?.toDouble() ?? 0),
         moneyReturnAnnual =
-            accountPerformanceData['return']['money_return_annual'].toDouble(),
+            accountPerformanceData['return']['money_return_annual']?.toDouble() ?? 0,
         volatility = accountPerformanceData['return']['volatility'].toDouble(),
         sharpe =
             accountPerformanceData['return']['time_return_annual'].toDouble() /
@@ -96,7 +96,10 @@ class Account {
         hasActiveRewards = accountInfo['has_active_rewards'],
         feeFreeAmount = accountInfo['fee_free_amount'].toDouble(),
         reconciledUntil = accountInfo['reconciled_until'] != null ? DateTime.parse(accountInfo['reconciled_until']) : null,
-        isReconciledToday = account_operations.isReconciledToday(accountInfo),
+        isReconciledToday = account_operations.isReconciledToday(
+            accountInfo['reconciled_until'] != null
+                ? DateTime.parse(accountInfo['reconciled_until'])
+                : null),
         amountsSeries = account_operations.createAmountsSeries(
             accountPerformanceData['return']['net_amounts'],
             accountPerformanceData['return']['total_amounts']),
