@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:indexax/screens/login_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:indexax/tools/bottom_navigation_bar_provider.dart';
 import 'package:indexax/tools/theme_provider.dart';
@@ -20,24 +21,26 @@ void main() async {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
   ));
-  
+
   // Show a crash report dialogue in case of any uncaught exceptions
+  PackageInfo packageInfo = await PackageInfo.fromPlatform();
+  final appVersion =
+      "${packageInfo.appName} v${packageInfo.version} (${packageInfo.buildNumber})";
+
   FlutterError.onError = (details) {
     FlutterError.presentError(details);
     final information = details.informationCollector?.call() ?? [];
     showCrashReport(
       navigator.currentContext!,
+      appVersion,
       details.exception.toString(),
       details.stack.toString(),
       information.toString(),
     );
   };
   PlatformDispatcher.instance.onError = (error, stack) {
-    showCrashReport(
-      navigator.currentContext!,
-      error.toString(),
-      stack.toString()
-    );
+    showCrashReport(navigator.currentContext!, appVersion, error.toString(),
+        stack.toString());
     return true;
   };
 
