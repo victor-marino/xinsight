@@ -11,9 +11,11 @@ import 'package:indexax/tools/private_mode_provider.dart';
 import 'package:indexax/tools/evolution_chart_provider.dart';
 import 'package:indexax/models/chart_series_type.dart';
 
+// Controller required so the user can update the datetime axis range at runtime
+DateTimeAxisController? _evolutionChartXAxisController;
+
 // Draws the evolution chart
 // It plots the amounts (€) or the returns (%) based on the 'seriesType' variable of the provider
-
 class EvolutionChart extends StatelessWidget {
   const EvolutionChart({
     super.key,
@@ -26,10 +28,14 @@ class EvolutionChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     DateTime? firstDate = context.watch<EvolutionChartProvider>().firstDate;
     DateTime? lastDate = context.watch<EvolutionChartProvider>().lastDate;
-    DateTime? startDate = context.watch<EvolutionChartProvider>().startDate;
-    DateTime? endDate = context.watch<EvolutionChartProvider>().endDate;
+    _evolutionChartXAxisController?.visibleMinimum =
+        context.watch<EvolutionChartProvider>().startDate;
+    _evolutionChartXAxisController?.visibleMaximum =
+        context.watch<EvolutionChartProvider>().endDate;
+
     ChartSeriesType seriesType =
         context.watch<EvolutionChartProvider>().seriesType;
 
@@ -37,8 +43,8 @@ class EvolutionChart extends StatelessWidget {
 
     // Color gradient for the area chart
     final List<Color> color = <Color>[
-      Colors.blue.withOpacity(0),
-      Colors.blue.withOpacity(0.7)
+      Colors.blue.withValues(alpha: 0),
+      Colors.blue.withValues(alpha: 0.7)
     ];
     final List<double> stops = <double>[0, 1];
     final LinearGradient gradientColors = LinearGradient(
@@ -62,7 +68,7 @@ class EvolutionChart extends StatelessWidget {
                   ChartAxisLabel(
                       getAmountAsStringWithZeroDecimals(details.value,
                           maskValue: context
-                              .watch<PrivateModeProvider>()
+                              .read<PrivateModeProvider>()
                               .privateModeEnabled),
                       axisTextStyle),
               numberFormat: NumberFormat.currency(
@@ -79,7 +85,7 @@ class EvolutionChart extends StatelessWidget {
         tooltipSettings: InteractiveTooltip(
             enable: true,
             decimalPlaces: 2,
-            color: Theme.of(context).colorScheme.surfaceVariant,
+            color: Theme.of(context).colorScheme.surfaceContainerHighest,
             borderColor: Theme.of(context).colorScheme.outline,
             borderWidth: 1,
             textStyle:
@@ -104,8 +110,6 @@ class EvolutionChart extends StatelessWidget {
       primaryXAxis: DateTimeAxis(
         minimum: firstDate,
         maximum: lastDate,
-        visibleMinimum: startDate,
-        visibleMaximum: endDate,
         dateFormat: DateFormat("dd/MM/yy"),
         labelStyle: axisTextStyle,
         intervalType: DateTimeIntervalType.months,
@@ -114,9 +118,12 @@ class EvolutionChart extends StatelessWidget {
           color: Colors.black12,
         ),
         enableAutoIntervalOnZooming: true,
+        onRendererCreated: (DateTimeAxisController controller) {
+          _evolutionChartXAxisController = controller;
+        },
       ),
       series: seriesType == ChartSeriesType.returns
-          ? <ChartSeries<ReturnsDataPoint, DateTime>>[
+          ? <CartesianSeries<ReturnsDataPoint, DateTime>>[
               AreaSeries<ReturnsDataPoint, DateTime>(
                 name: 'evolution_chart.return'.tr(),
                 opacity: 1,
@@ -130,7 +137,7 @@ class EvolutionChart extends StatelessWidget {
                 gradient: gradientColors,
               ),
             ]
-          : <ChartSeries<AmountsDataPoint, DateTime>>[
+          : <CartesianSeries<AmountsDataPoint, DateTime>>[
               AreaSeries<AmountsDataPoint, DateTime>(
                 name: 'evolution_chart.total'.tr(),
                 opacity: 1,

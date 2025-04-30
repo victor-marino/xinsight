@@ -270,7 +270,7 @@ class LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
                                   fillColor: Theme.of(context)
                                       .colorScheme
                                       .onSurface
-                                      .withOpacity(0.1),
+                                      .withValues(alpha: 0.1),
                                 )
                               : InputDecoration(
                                   border: const OutlineInputBorder(),

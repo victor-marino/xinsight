@@ -8,9 +8,9 @@ Widget showEvolutionSeriesTypeToggle(BuildContext context) {
     width: 65,
     child: SegmentedButton<ChartSeriesType>(
         style: ButtonStyle(
-          foregroundColor: MaterialStateProperty.resolveWith<Color>(
-            (Set<MaterialState> states) {
-              if (states.contains(MaterialState.selected)) {
+          foregroundColor: WidgetStateProperty.resolveWith<Color>(
+            (Set<WidgetState> states) {
+              if (states.contains(WidgetState.selected)) {
                 return Theme.of(context).colorScheme.onPrimary;
               }
               return Theme.of(context).colorScheme.onSurface;

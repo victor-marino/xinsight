@@ -68,7 +68,7 @@ showCrashReport(BuildContext context, String appVersion, String errorMessage, St
                         fillColor: Theme.of(context)
                             .colorScheme
                             .onSurface
-                            .withOpacity(0.1),
+                            .withValues(alpha: 0.1),
                       ),
                     ),
                   ),

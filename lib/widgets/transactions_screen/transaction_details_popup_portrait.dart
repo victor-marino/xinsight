@@ -170,7 +170,7 @@ class TransactionDetailsPopup extends StatelessWidget {
           TextButton(
             style: context.read<PrivateModeProvider>().privateModeEnabled
                 ? ButtonStyle(
-                    overlayColor: MaterialStateProperty.all(Colors.transparent))
+                    overlayColor: WidgetStateProperty.all(Colors.transparent))
                 : null,
             child: Row(
               mainAxisSize: MainAxisSize.min,

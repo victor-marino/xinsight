@@ -34,7 +34,7 @@ class PerformanceChart extends StatelessWidget {
         tooltipSettings: InteractiveTooltip(
             enable: true,
             decimalPlaces: 2,
-            color: Theme.of(context).colorScheme.surfaceVariant,
+            color: Theme.of(context).colorScheme.surfaceContainerHighest,
             borderColor: Theme.of(context).colorScheme.outline,
             borderWidth: 1,
             textStyle:

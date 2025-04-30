@@ -58,12 +58,6 @@ class DistributionChart extends StatelessWidget {
           }
           break;
 
-        case InstrumentType.other:
-          {
-            colorList.add(text_styles.otherColor);
-          }
-          break;
-
         default:
           {
             colorList.add(text_styles.otherColor);
@@ -76,20 +70,17 @@ class DistributionChart extends StatelessWidget {
       tooltipBehavior: TooltipBehavior(
           enable: true,
           decimalPlaces: 2,
-          color: Theme.of(context).colorScheme.surfaceVariant,
+          color: Theme.of(context).colorScheme.surfaceContainerHighest,
           borderColor: Theme.of(context).colorScheme.outline,
           borderWidth: 1,
           builder: (dynamic data, dynamic point, dynamic series, int pointIndex,
               int seriesIndex) {
             return Padding(
               padding: const EdgeInsets.all(5.0),
-              child: Text(
-                  point.x +
-                      "\n" +
-                      getInvestmentAsString(point.y,
+              child: Text('${point.x}\n${getInvestmentAsString(point.y,
                           maskValue: context
                               .read<PrivateModeProvider>()
-                              .privateModeEnabled),
+                              .privateModeEnabled)}',
                   overflow: TextOverflow.ellipsis,
                   softWrap: false,
                   style: tooltipTextStyle),

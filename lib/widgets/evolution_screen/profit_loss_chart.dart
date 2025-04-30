@@ -83,7 +83,7 @@ class ProfitLossChart extends StatelessWidget {
     } else {
       // Monthly returns for selected year
       dataSource = profitLossSeries.monthlySeries[selectedYear]!;
-      chartOffset = 0;
+      chartOffset = -.5;
       zoomPanBehavior =
           ZoomPanBehavior(enablePanning: false, zoomMode: ZoomMode.x);
     }
@@ -100,14 +100,14 @@ class ProfitLossChart extends StatelessWidget {
             majorGridLines: const MajorGridLines(width: 0),
             majorTickLines: const MajorTickLines(size: 0),
             labelStyle: axisTextStyle,
-            visibleMinimum: chartOffset),
+            initialVisibleMinimum: chartOffset),
         primaryYAxis: NumericAxis(
             numberFormat: primaryYAxisNumberFormat,
             labelFormat: primaryYAxisLabelFormat,
             isVisible: false,
             crossesAt: 0,
             anchorRangeToVisiblePoints: false),
-        series: <ChartSeries<ProfitLossDataPoint?, String>>[
+        series: <CartesianSeries<ProfitLossDataPoint?, String>>[
           ColumnSeries<ProfitLossDataPoint?, String>(
             spacing: 0,
             width: 0.7,
