@@ -8,14 +8,12 @@ X Insight es un cliente multiplataforma no oficial y de código abierto para Ind
 
 Está desarrollado en [Flutter](https://flutter.dev/), y utiliza la [API oficial de Indexa Capital](https://indexacapital.com/en/api-rest-v1) para leer los datos de tu cuenta de forma segura.
 
-Actualmente sólo está disponible para Android, dado que Apple ya no permite su publicación en el App Store.
+Actualmente sólo está disponible para Android.
 
 <img src="assets/readme/screenshot_01_500.png" width=160/><img src="assets/readme/screenshot_02_500.png" width=160/><img src="assets/readme/screenshot_03_500.png" width=160/><img src="assets/readme/screenshot_04_500.png" width=160/><img src="assets/readme/screenshot_05_500.png" width=160/>
 
 ## Descargar
 [![google_play_badge](assets/readme/google_play_badge_small.png)](https://play.google.com/store/apps/details?id=com.victormarino.indexax)
-
-La versión de iOS ha sido retirada del App Store a petición de Apple. Espero poder volver a ofrecer la app de iOS a los usuarios europeos en el futuro a través de tiendas alternativas a la oficial.
 
 ## Privacidad y seguridad
 X Insight no recoge ningún tipo de información sobre ti ni tu cuenta de Indexa. Al identificarte, los datos de tu cuenta se cargan en memoria para poder mostrarlos en pantalla, pero nunca se almacenan de forma persistente en tu dispositivo. Por tanto, desaparecen junto con el resto de la app cuando se cierra el proceso.
