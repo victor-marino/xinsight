@@ -1,0 +1,1240 @@
+{
+    "manifestSchemaVersion": "1.0",
+    "distributionPackageRevision": 1,
+    "appleItemId": "6745303653",
+    "bundleId": "com.victormarino.xinsight",
+    "shortVersionString": "1.12.0",
+    "bundleVersion": "48",
+    "appleVersionId": "874436505",
+    "platforms": [
+        "ios"
+    ],
+    "minimumSystemVersions": {
+        "ios": "12.0"
+    },
+    "requiredDeviceCapabilities": [
+        "arm64"
+    ],
+    "appInstallDeterminants": [],
+    "hasMessagesExtension": false,
+    "isLaunchProhibited": false,
+    "variants": [
+        {
+            "publicId": "0741565a-9f32-3d8b-98ef-32d8781422be",
+            "assetPath": "variant/0741565a-9f32-3d8b-98ef-32d8781422be.ipa",
+            "installTargets": [
+                {
+                    "device": "iPhone14,7",
+                    "os": "18"
+                },
+                {
+                    "device": "iPhone17,2",
+                    "os": "18"
+                },
+                {
+                    "device": "iPhone15,4",
+                    "os": "18"
+                },
+                {
+                    "device": "iPhone14,5",
+                    "os": "18"
+                },
+                {
+                    "device": "iPhone17,4",
+                    "os": "18"
+                },
+                {
+                    "device": "iPhone12,5",
+                    "os": "18"
+                },
+                {
+                    "device": "iPhone14,3",
+                    "os": "18"
+                },
+                {
+                    "device": "iPhone13,4",
+                    "os": "18"
+                },
+                {
+                    "device": "iPhone11,6",
+                    "os": "18"
+                },
+                {
+                    "device": "iPhone13,2",
+                    "os": "18"
+                },
+                {
+                    "device": "iPhone12,3",
+                    "os": "18"
+                },
+                {
+                    "device": "iPhone16,1",
+                    "os": "18"
+                },
+                {
+                    "device": "iPhone15,2",
+                    "os": "18"
+                },
+                {
+                    "device": "iPhone11,4",
+                    "os": "18"
+                },
+                {
+                    "device": "iPhone11,2",
+                    "os": "18"
+                },
+                {
+                    "device": "iPhone15,5",
+                    "os": "18"
+                },
+                {
+                    "device": "iPhone14,8",
+                    "os": "18"
+                },
+                {
+                    "device": "iPhone17,3",
+                    "os": "18"
+                },
+                {
+                    "device": "iPhone17,5",
+                    "os": "18"
+                },
+                {
+                    "device": "iPhone14,4",
+                    "os": "18"
+                },
+                {
+                    "device": "iPhone16,2",
+                    "os": "18"
+                },
+                {
+                    "device": "iPhone15,3",
+                    "os": "18"
+                },
+                {
+                    "device": "iPhone13,3",
+                    "os": "18"
+                },
+                {
+                    "device": "iPhone14,2",
+                    "os": "18"
+                },
+                {
+                    "device": "iPhone17,1",
+                    "os": "18"
+                },
+                {
+                    "device": "iPhone13,1",
+                    "os": "18"
+                }
+            ],
+            "variantDetails": {
+                "compressedSize": 11302612,
+                "uncompressedSize": 25820160,
+                "hashes": [
+                    {
+                        "algorithm": "sha256",
+                        "chunkSize": 10485760,
+                        "encryptedChunkDigests": [],
+                        "unencryptedChunkDigests": [
+                            "f2ca928e29961a7979a1cd6bd5ca58bccaa5c7278f2add83d6a9b4f1b08db4dc",
+                            "9e23e19ee9c3e3ddd806cf0ea8241ee3b6718ad4f24763a574da974d725508d4"
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "publicId": "2b233bcf-c543-3a58-af0b-e43d56cb571a",
+            "assetPath": "variant/2b233bcf-c543-3a58-af0b-e43d56cb571a.ipa",
+            "installTargets": [
+                {
+                    "device": "iPhone11,8",
+                    "os": "18"
+                },
+                {
+                    "device": "iPhone12,1",
+                    "os": "18"
+                }
+            ],
+            "variantDetails": {
+                "compressedSize": 11303695,
+                "uncompressedSize": 25820160,
+                "hashes": [
+                    {
+                        "algorithm": "sha256",
+                        "chunkSize": 10485760,
+                        "encryptedChunkDigests": [],
+                        "unencryptedChunkDigests": [
+                            "323c3b726e069fa53f4a580a140a5e54f32db3566c0c24fbea4c5a8dcd0af29e",
+                            "8c2fb45085f4791ea99c4bc87e05bf4c8046f9489508c2e97530ba2a2d4ee490"
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "publicId": "c47d2163-4ae7-3c07-b9b7-0c33dd6acc43",
+            "assetPath": "variant/c47d2163-4ae7-3c07-b9b7-0c33dd6acc43.ipa",
+            "installTargets": [
+                {
+                    "device": "iPad8,7",
+                    "os": "18"
+                },
+                {
+                    "device": "iPad12,1",
+                    "os": "18"
+                },
+                {
+                    "device": "iPad13,16",
+                    "os": "18"
+                },
+                {
+                    "device": "iPad16,1",
+                    "os": "18"
+                },
+                {
+                    "device": "iPad13,6",
+                    "os": "18"
+                },
+                {
+                    "device": "iPad15,4",
+                    "os": "18"
+                },
+                {
+                    "device": "iPad14,3-B",
+                    "os": "18"
+                },
+                {
+                    "device": "iPad14,6-A",
+                    "os": "18"
+                },
+                {
+                    "device": "iPad11,4",
+                    "os": "18"
+                },
+                {
+                    "device": "iPad13,2",
+                    "os": "18"
+                },
+                {
+                    "device": "iPad14,3-A",
+                    "os": "18"
+                },
+                {
+                    "device": "iPad15,8",
+                    "os": "18"
+                },
+                {
+                    "device": "iPad16,5-B",
+                    "os": "18"
+                },
+                {
+                    "device": "iPad8,3",
+                    "os": "18"
+                },
+                {
+                    "device": "iPad16,4-A",
+                    "os": "18"
+                },
+                {
+                    "device": "iPad11,1",
+                    "os": "18"
+                },
+                {
+                    "device": "iPad7,12",
+                    "os": "18"
+                },
+                {
+                    "device": "iPad13,17",
+                    "os": "18"
+                },
+                {
+                    "device": "iPad14,4-B",
+                    "os": "18"
+                },
+                {
+                    "device": "iPad13,7",
+                    "os": "18"
+                },
+                {
+                    "device": "iPad15,5",
+                    "os": "18"
+                },
+                {
+                    "device": "iPad12,2",
+                    "os": "18"
+                },
+                {
+                    "device": "iPad16,2",
+                    "os": "18"
+                },
+                {
+                    "device": "iPad8,12",
+                    "os": "18"
+                },
+                {
+                    "device": "iPad14,8",
+                    "os": "18"
+                },
+                {
+                    "device": "iPad16,6-B",
+                    "os": "18"
+                },
+                {
+                    "device": "iPad8,2",
+                    "os": "18"
+                },
+                {
+                    "device": "iPad16,5-A",
+                    "os": "18"
+                },
+                {
+                    "device": "iPad8,6",
+                    "os": "18"
+                },
+                {
+                    "device": "iPad16,3-A",
+                    "os": "18"
+                },
+                {
+                    "device": "iPad11,2",
+                    "os": "18"
+                },
+                {
+                    "device": "iPad8,9",
+                    "os": "18"
+                },
+                {
+                    "device": "iPad16,4-B",
+                    "os": "18"
+                },
+                {
+                    "device": "iPad13,18",
+                    "os": "18"
+                },
+                {
+                    "device": "iPad7,11",
+                    "os": "18"
+                },
+                {
+                    "device": "iPad14,4-A",
+                    "os": "18"
+                },
+                {
+                    "device": "iPad14,5-B",
+                    "os": "18"
+                },
+                {
+                    "device": "iPad13,8",
+                    "os": "18"
+                },
+                {
+                    "device": "iPad15,6",
+                    "os": "18"
+                },
+                {
+                    "device": "iPad13,10",
+                    "os": "18"
+                },
+                {
+                    "device": "iPad14,1",
+                    "os": "18"
+                },
+                {
+                    "device": "iPad11,6",
+                    "os": "18"
+                },
+                {
+                    "device": "iPad13,4",
+                    "os": "18"
+                },
+                {
+                    "device": "iPad8,11",
+                    "os": "18"
+                },
+                {
+                    "device": "iPad14,9",
+                    "os": "18"
+                },
+                {
+                    "device": "iPad14,10",
+                    "os": "18"
+                },
+                {
+                    "device": "iPad8,1",
+                    "os": "18"
+                },
+                {
+                    "device": "iPad16,6-A",
+                    "os": "18"
+                },
+                {
+                    "device": "iPad8,5",
+                    "os": "18"
+                },
+                {
+                    "device": "iPad8,8",
+                    "os": "18"
+                },
+                {
+                    "device": "iPad16,3-B",
+                    "os": "18"
+                },
+                {
+                    "device": "iPad13,19",
+                    "os": "18"
+                },
+                {
+                    "device": "iPad13,5",
+                    "os": "18"
+                },
+                {
+                    "device": "iPad14,5-A",
+                    "os": "18"
+                },
+                {
+                    "device": "iPad15,3",
+                    "os": "18"
+                },
+                {
+                    "device": "iPad11,7",
+                    "os": "18"
+                },
+                {
+                    "device": "iPad14,6-B",
+                    "os": "18"
+                },
+                {
+                    "device": "iPad13,1",
+                    "os": "18"
+                },
+                {
+                    "device": "iPad13,11",
+                    "os": "18"
+                },
+                {
+                    "device": "iPad11,3",
+                    "os": "18"
+                },
+                {
+                    "device": "iPad14,2",
+                    "os": "18"
+                },
+                {
+                    "device": "iPad8,10",
+                    "os": "18"
+                },
+                {
+                    "device": "iPad13,9",
+                    "os": "18"
+                },
+                {
+                    "device": "iPad15,7",
+                    "os": "18"
+                },
+                {
+                    "device": "iPad14,11",
+                    "os": "18"
+                },
+                {
+                    "device": "iPad8,4",
+                    "os": "18"
+                }
+            ],
+            "variantDetails": {
+                "compressedSize": 11304096,
+                "uncompressedSize": 25824256,
+                "hashes": [
+                    {
+                        "algorithm": "sha256",
+                        "chunkSize": 10485760,
+                        "encryptedChunkDigests": [],
+                        "unencryptedChunkDigests": [
+                            "c265535776ed6dcd7985983c8705c58d548cc5ab0bf9ad6169f3611dd065e0e4",
+                            "8ea7742cef606ef054ac015f3e229f185892e49c9510e2632678b197dc9eb99a"
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "publicId": "3b11037c-f84b-3977-9da4-d4a67cc432c5",
+            "assetPath": "variant/3b11037c-f84b-3977-9da4-d4a67cc432c5.ipa",
+            "installTargets": [
+                {
+                    "device": "iPhone14,6",
+                    "os": "18"
+                },
+                {
+                    "device": "iPhone12,8",
+                    "os": "18"
+                }
+            ],
+            "variantDetails": {
+                "compressedSize": 11298565,
+                "uncompressedSize": 25811968,
+                "hashes": [
+                    {
+                        "algorithm": "sha256",
+                        "chunkSize": 10485760,
+                        "encryptedChunkDigests": [],
+                        "unencryptedChunkDigests": [
+                            "336e244feb1e3080ec41b1b419198ab8f2b3f4028b41a8597a447856b44a0c51",
+                            "d50723897516e40103d8e02fab6397bf6dc1e0e6cdd5a2507adde77518f512a8"
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "publicId": "9de89ed8-1726-3ef0-a347-981f61d0bb5b",
+            "assetPath": "variant/9de89ed8-1726-3ef0-a347-981f61d0bb5b.ipa",
+            "installTargets": [
+                {
+                    "device": "iPhone14,6",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPhone12,8",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPhone14,6",
+                    "os": "17"
+                },
+                {
+                    "device": "iPhone12,8",
+                    "os": "17"
+                }
+            ],
+            "variantDetails": {
+                "compressedSize": 11298586,
+                "uncompressedSize": 25811968,
+                "hashes": [
+                    {
+                        "algorithm": "sha256",
+                        "chunkSize": 10485760,
+                        "encryptedChunkDigests": [],
+                        "unencryptedChunkDigests": [
+                            "22bec3294899612d4ccdf8bfa8178db733705658857166310cdb6e084f92b193",
+                            "fb848e6bca4d65ff5db514e8d6e68b2eac4c3a11335d489f9831916dc45f4bf1"
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "publicId": "c195601f-9a2d-3cf5-91ba-284dc73bc803",
+            "assetPath": "variant/c195601f-9a2d-3cf5-91ba-284dc73bc803.ipa",
+            "installTargets": [
+                {
+                    "device": "iPhone11,8",
+                    "os": "17"
+                },
+                {
+                    "device": "iPhone12,1",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPhone11,8",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPhone12,1",
+                    "os": "17"
+                }
+            ],
+            "variantDetails": {
+                "compressedSize": 11303710,
+                "uncompressedSize": 25820160,
+                "hashes": [
+                    {
+                        "algorithm": "sha256",
+                        "chunkSize": 10485760,
+                        "encryptedChunkDigests": [],
+                        "unencryptedChunkDigests": [
+                            "2d89c90160bf294c1af5bb3fd4f923fcf48d97fb83bbe10e40ea5726b6f65689",
+                            "7b5ba5367cd43ced7c17a3326e0c936af2d111a74b259d0e09cceb1243d0db51"
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "publicId": "0efc5b5f-c04b-33fd-8ee2-b7c192fe22ec",
+            "assetPath": "variant/0efc5b5f-c04b-33fd-8ee2-b7c192fe22ec.ipa",
+            "installTargets": [
+                {
+                    "device": "iPhone14,5",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPhone13,4",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPhone15,2",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPhone11,6",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPhone15,4",
+                    "os": "17"
+                },
+                {
+                    "device": "iPhone14,7",
+                    "os": "17"
+                },
+                {
+                    "device": "iPhone14,3",
+                    "os": "17"
+                },
+                {
+                    "device": "iPhone12,5",
+                    "os": "17"
+                },
+                {
+                    "device": "iPhone11,4",
+                    "os": "17"
+                },
+                {
+                    "device": "iPhone16,1",
+                    "os": "17"
+                },
+                {
+                    "device": "iPhone13,2",
+                    "os": "17"
+                },
+                {
+                    "device": "iPhone15,3",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPhone14,2",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPhone14,8",
+                    "os": "17"
+                },
+                {
+                    "device": "iPhone16,2",
+                    "os": "17"
+                },
+                {
+                    "device": "iPhone11,2",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPhone14,4",
+                    "os": "17"
+                },
+                {
+                    "device": "iPhone15,5",
+                    "os": "17"
+                },
+                {
+                    "device": "iPhone13,3",
+                    "os": "17"
+                },
+                {
+                    "device": "iPhone12,3",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPhone14,7",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPhone15,4",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPhone12,5",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPhone16,1",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPhone14,3",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPhone14,5",
+                    "os": "17"
+                },
+                {
+                    "device": "iPhone11,6",
+                    "os": "17"
+                },
+                {
+                    "device": "iPhone13,4",
+                    "os": "17"
+                },
+                {
+                    "device": "iPhone13,1",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPhone15,2",
+                    "os": "17"
+                },
+                {
+                    "device": "iPhone12,3",
+                    "os": "17"
+                },
+                {
+                    "device": "iPhone11,2",
+                    "os": "17"
+                },
+                {
+                    "device": "iPhone14,8",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPhone15,5",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPhone16,2",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPhone14,4",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPhone13,3",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPhone15,3",
+                    "os": "17"
+                },
+                {
+                    "device": "iPhone11,4",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPhone14,2",
+                    "os": "17"
+                },
+                {
+                    "device": "iPhone13,2",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPhone13,1",
+                    "os": "17"
+                }
+            ],
+            "variantDetails": {
+                "compressedSize": 11302581,
+                "uncompressedSize": 25820160,
+                "hashes": [
+                    {
+                        "algorithm": "sha256",
+                        "chunkSize": 10485760,
+                        "encryptedChunkDigests": [],
+                        "unencryptedChunkDigests": [
+                            "95b4c9a92b725ff399fe6c0a164b87d7ee80a89abaad5b785c05192398ab8c20",
+                            "47aecbd71bbe864038e2680e2ae5e1c9188b9b56350441a14eebfd678c512cb3"
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "publicId": "16e85969-b3b9-3ef3-adc8-fd0c28e8a685",
+            "assetPath": "variant/16e85969-b3b9-3ef3-adc8-fd0c28e8a685.ipa",
+            "installTargets": [
+                {
+                    "device": "iPad14,2",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPad14,6-A",
+                    "os": "17"
+                },
+                {
+                    "device": "iPad13,6",
+                    "os": "17"
+                },
+                {
+                    "device": "iPad13,5",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPad14,5-B",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPad7,5",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPad8,3",
+                    "os": "17"
+                },
+                {
+                    "device": "iPad13,18",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPad7,6",
+                    "os": "17"
+                },
+                {
+                    "device": "iPad8,2",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPad8,12",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPad14,1",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPad13,7",
+                    "os": "17"
+                },
+                {
+                    "device": "iPad13,4",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPad8,12",
+                    "os": "17"
+                },
+                {
+                    "device": "iPad7,6",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPad16,5-B",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPad8,2",
+                    "os": "17"
+                },
+                {
+                    "device": "iPad8,3",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPad13,19",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPad7,5",
+                    "os": "17"
+                },
+                {
+                    "device": "iPad13,18",
+                    "os": "17"
+                },
+                {
+                    "device": "iPad13,7",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPad14,5-B",
+                    "os": "17"
+                },
+                {
+                    "device": "iPad14,6-A",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPad8,4",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPad8,11",
+                    "os": "17"
+                },
+                {
+                    "device": "iPad13,16",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPad13,8",
+                    "os": "17"
+                },
+                {
+                    "device": "iPad16,5-A",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPad13,19",
+                    "os": "17"
+                },
+                {
+                    "device": "iPad8,1",
+                    "os": "17"
+                },
+                {
+                    "device": "iPad7,4",
+                    "os": "17"
+                },
+                {
+                    "device": "iPad13,6",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPad14,5-A",
+                    "os": "17"
+                },
+                {
+                    "device": "iPad14,6-B",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPad7,11",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPad8,10",
+                    "os": "17"
+                },
+                {
+                    "device": "iPad8,5",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPad13,9",
+                    "os": "17"
+                },
+                {
+                    "device": "iPad13,17",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPad7,3",
+                    "os": "17"
+                },
+                {
+                    "device": "iPad8,7",
+                    "os": "17"
+                },
+                {
+                    "device": "iPad13,9",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPad14,11",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPad7,1",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPad8,6",
+                    "os": "17"
+                },
+                {
+                    "device": "iPad11,1",
+                    "os": "17"
+                },
+                {
+                    "device": "iPad14,10",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPad13,8",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPad14,4-B",
+                    "os": "17"
+                },
+                {
+                    "device": "iPad7,12",
+                    "os": "17"
+                },
+                {
+                    "device": "iPad7,2",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPad8,10",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPad7,11",
+                    "os": "17"
+                },
+                {
+                    "device": "iPad14,8",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPad14,4-A",
+                    "os": "17"
+                },
+                {
+                    "device": "iPad11,2",
+                    "os": "17"
+                },
+                {
+                    "device": "iPad11,1",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPad7,3",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPad8,5",
+                    "os": "17"
+                },
+                {
+                    "device": "iPad16,6-B",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPad11,3",
+                    "os": "17"
+                },
+                {
+                    "device": "iPad16,6-A",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPad8,1",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPad7,4",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPad8,4",
+                    "os": "17"
+                },
+                {
+                    "device": "iPad8,11",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPad14,3-B",
+                    "os": "17"
+                },
+                {
+                    "device": "iPad12,1",
+                    "os": "17"
+                },
+                {
+                    "device": "iPad11,3",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPad11,4",
+                    "os": "17"
+                },
+                {
+                    "device": "iPad13,10",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPad16,3-A",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPad14,9",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPad14,3-A",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPad14,3-A",
+                    "os": "17"
+                },
+                {
+                    "device": "iPad12,2",
+                    "os": "17"
+                },
+                {
+                    "device": "iPad11,2",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPad13,11",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPad8,9",
+                    "os": "17"
+                },
+                {
+                    "device": "iPad14,3-B",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPad11,6",
+                    "os": "17"
+                },
+                {
+                    "device": "iPad13,10",
+                    "os": "17"
+                },
+                {
+                    "device": "iPad12,2",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPad8,8",
+                    "os": "17"
+                },
+                {
+                    "device": "iPad13,11",
+                    "os": "17"
+                },
+                {
+                    "device": "iPad11,7",
+                    "os": "17"
+                },
+                {
+                    "device": "iPad11,4",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPad12,1",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPad13,1",
+                    "os": "17"
+                },
+                {
+                    "device": "iPad13,16",
+                    "os": "17"
+                },
+                {
+                    "device": "iPad11,7",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPad14,4-A",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPad13,2",
+                    "os": "17"
+                },
+                {
+                    "device": "iPad13,1",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPad7,12",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPad8,6",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPad16,4-B",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPad7,2",
+                    "os": "17"
+                },
+                {
+                    "device": "iPad13,17",
+                    "os": "17"
+                },
+                {
+                    "device": "iPad11,6",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPad14,4-B",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPad8,7",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPad16,4-A",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPad7,1",
+                    "os": "17"
+                },
+                {
+                    "device": "iPad13,4",
+                    "os": "17"
+                },
+                {
+                    "device": "iPad14,1",
+                    "os": "17"
+                },
+                {
+                    "device": "iPad8,8",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPad13,5",
+                    "os": "17"
+                },
+                {
+                    "device": "iPad13,2",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPad14,6-B",
+                    "os": "17"
+                },
+                {
+                    "device": "iPad14,5-A",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPad14,2",
+                    "os": "17"
+                },
+                {
+                    "device": "iPad8,9",
+                    "os": "17.4"
+                },
+                {
+                    "device": "iPad16,3-B",
+                    "os": "17.4"
+                }
+            ],
+            "variantDetails": {
+                "compressedSize": 11304101,
+                "uncompressedSize": 25824256,
+                "hashes": [
+                    {
+                        "algorithm": "sha256",
+                        "chunkSize": 10485760,
+                        "encryptedChunkDigests": [],
+                        "unencryptedChunkDigests": [
+                            "10198e96a90c51eb70d30f9cdf2660dcb7f9e51bce6a2817150ea3b537f0429a",
+                            "2532f0f096ffa983101037d758f4eaed4d16b5e825fd8cb14240e7bfac0b8365"
+                        ]
+                    }
+                ]
+            }
+        }
+    ],
+    "deltas": []
+}
