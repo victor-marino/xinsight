@@ -15,7 +15,7 @@ Actualmente está disponible para Android y iOS.
 <img src="assets/readme/screenshot_01_500.png" width=160/><img src="assets/readme/screenshot_02_500.png" width=160/><img src="assets/readme/screenshot_03_500.png" width=160/><img src="assets/readme/screenshot_04_500.png" width=160/><img src="assets/readme/screenshot_05_500.png" width=160/>
 
 ## Descargar
-[![google_play_badge](assets/readme/google_play_badge_small.png)](https://play.google.com/store/apps/details?id=com.victormarino.indexax) [![alstore_badge][assets/readme/altstore-badge-es.png](altstore://source?URL=https://victormarino.com/altstore-pal/source.json)
+[![google_play_badge](assets/readme/google_play_badge_small.png)](https://play.google.com/store/apps/details?id=com.victormarino.indexax) [![alstore_badge](assets/readme/altstore-badge-es.png)](altstore://source?URL=https://victormarino.com/altstore-pal/source.json)
 
 ## Privacidad y seguridad
 X Insight no recoge ningún tipo de información sobre ti ni tu cuenta de Indexa. Al identificarte, los datos de tu cuenta se cargan en memoria para poder mostrarlos en pantalla, pero nunca se almacenan de forma persistente en tu dispositivo. Por tanto, desaparecen junto con el resto de la app cuando se cierra el proceso.
