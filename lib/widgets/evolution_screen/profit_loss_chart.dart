@@ -90,17 +90,22 @@ class ProfitLossChart extends StatelessWidget {
 
     return SfCartesianChart(
         plotAreaBorderWidth: 0,
-        axes: const [],
         enableAxisAnimation: true,
         zoomPanBehavior: zoomPanBehavior,
         primaryXAxis: CategoryAxis(
-            interval: 1,
             crossesAt: 0,
-            placeLabelsNearAxisLine: false,
+            initialVisibleMinimum: chartOffset),
+        axes: <ChartAxis>[
+          CategoryAxis(
+            name: 'SecondaryXAxis',
+            interval: 1,
+            axisLine: const AxisLine(width: 0),
             majorGridLines: const MajorGridLines(width: 0),
             majorTickLines: const MajorTickLines(size: 0),
+            placeLabelsNearAxisLine: false,
             labelStyle: axisTextStyle,
-            initialVisibleMinimum: chartOffset),
+          ),
+        ],
         primaryYAxis: NumericAxis(
             numberFormat: primaryYAxisNumberFormat,
             labelFormat: primaryYAxisLabelFormat,
@@ -118,6 +123,7 @@ class ProfitLossChart extends StatelessWidget {
             ),
             enableTooltip: false,
             dataSource: dataSource,
+            xAxisName: 'SecondaryXAxis',
             xValueMapper: xValueMapper,
             yValueMapper: yValueMapper,
             pointColorMapper: pointColorMapper,
