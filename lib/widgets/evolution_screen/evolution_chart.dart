@@ -11,12 +11,11 @@ import 'package:indexax/tools/private_mode_provider.dart';
 import 'package:indexax/tools/evolution_chart_provider.dart';
 import 'package:indexax/models/chart_series_type.dart';
 
-// Controller required so the user can update the datetime axis range at runtime
-DateTimeAxisController? _evolutionChartXAxisController;
-
 // Draws the evolution chart
 // It plots the amounts (€) or the returns (%) based on the 'seriesType' variable of the provider
-class EvolutionChart extends StatelessWidget {
+// Since v24 of syncfusion_flutter_charts, a controller is required to change the chart range at runtime.
+// Changed the EvolutionChart to a StataefulWidget to handle this controller properly.
+class EvolutionChart extends StatefulWidget {
   const EvolutionChart({
     super.key,
     required this.amountsSeries,
@@ -27,15 +26,33 @@ class EvolutionChart extends StatelessWidget {
   final List<ReturnsDataPoint> returnsSeries;
 
   @override
-  Widget build(BuildContext context) {
+  State<EvolutionChart> createState() => _EvolutionChartState();
+}
 
+class _EvolutionChartState extends State<EvolutionChart> {
+  // Controller required to modify the range of the evolution chart at runtime
+  DateTimeAxisController? _evolutionChartXAxisController;
+
+  @override
+  void dispose() {
+    // Making sure we dispose of the controller when this chart is discarded
+    _evolutionChartXAxisController?.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // Set the first and last date of the series
     DateTime? firstDate = context.watch<EvolutionChartProvider>().firstDate;
     DateTime? lastDate = context.watch<EvolutionChartProvider>().lastDate;
+
+    // Set and update the visible chart range through the provider
     _evolutionChartXAxisController?.visibleMinimum =
         context.watch<EvolutionChartProvider>().startDate;
     _evolutionChartXAxisController?.visibleMaximum =
         context.watch<EvolutionChartProvider>().endDate;
 
+    // Switch between total amounts (€) and returns (%)
     ChartSeriesType seriesType =
         context.watch<EvolutionChartProvider>().seriesType;
 
@@ -129,7 +146,7 @@ class EvolutionChart extends StatelessWidget {
                 opacity: 1,
                 borderColor: Colors.lightBlue,
                 borderWidth: 2,
-                dataSource: returnsSeries,
+                dataSource: widget.returnsSeries,
                 xValueMapper: (ReturnsDataPoint performance, _) =>
                     performance.date,
                 yValueMapper: (ReturnsDataPoint performance, _) =>
@@ -143,7 +160,7 @@ class EvolutionChart extends StatelessWidget {
                 opacity: 1,
                 borderColor: Colors.lightBlue,
                 borderWidth: 2,
-                dataSource: amountsSeries,
+                dataSource: widget.amountsSeries,
                 xValueMapper: (AmountsDataPoint amounts, _) => amounts.date,
                 yValueMapper: (AmountsDataPoint amounts, _) =>
                     amounts.totalAmount,
@@ -155,7 +172,7 @@ class EvolutionChart extends StatelessWidget {
                 markerSettings: const MarkerSettings(
                   isVisible: false,
                 ),
-                dataSource: amountsSeries,
+                dataSource: widget.amountsSeries,
                 xValueMapper: (AmountsDataPoint amounts, _) => amounts.date,
                 yValueMapper: (AmountsDataPoint amounts, _) =>
                     amounts.netAmount,
