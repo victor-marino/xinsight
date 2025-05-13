@@ -21,7 +21,7 @@ class IndexaData {
 
   Any account number not named "local" must be a real account number under your user,
   as the data will be fetched from Indexa servers. */
-  final bool addTestAccounts = true;
+  final bool addTestAccounts = false;
   final testAccounts = [
     {"number": "FHGNB6LM", "type": "pension"},
     {"number": "local", "type": "mutual"}
