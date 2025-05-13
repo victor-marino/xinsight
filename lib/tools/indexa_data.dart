@@ -1,4 +1,7 @@
+import "dart:convert";
+
 import 'package:flutter/foundation.dart';
+import "package:flutter/services.dart";
 import "package:indexax/tools/networking.dart";
 import "package:indexax/models/account.dart";
 import "package:flutter/material.dart";
@@ -9,11 +12,70 @@ class IndexaData {
   // Class that fetches account data from API endpoint
 
   /* If you want to test support for multiple accounts, set 'addTestAccounts' to
-  true and enter a real account number in the 'testAccountNumber' variable.
-  This will load the same account data every time. */
-  final bool addTestAccounts = false;
-  final String testAccountNumber = "";
-  /* End of test account parameters */
+  true and populate the 'testAccounts' map below with the desired account numbers and types.
+  Valid types are 'mutual', 'pension', 'epsv' or 'employment_plan'. These accounts will be added after
+  the normal accounts that are present under your user.
+
+  If you want to load the data from local .json files instead, use 'local' as account number.
+  The 'Local' functions below will be used for this.
+
+  Any account number not named "local" must be a real account number under your user,
+  as the data will be fetched from Indexa servers. */
+  final bool addTestAccounts = true;
+  final testAccounts = [
+    {"number": "FHGNB6LM", "type": "pension"},
+    {"number": "local", "type": "mutual"}
+  ];
+  
+  Future getLocalAccounts() async {
+    final String response =
+        await rootBundle.loadString('assets/test_json/test_me.json');
+    final data = await json.decode(response);
+    return data;
+  }
+
+  Future getLocalAccountInfo() async {
+    final String response =
+        await rootBundle.loadString('assets/test_json/test_account_info.json');
+    final data = await json.decode(response);
+    return data;
+  }
+
+  Future getLocalPerformanceData() async {
+    final String response =
+        await rootBundle.loadString('assets/test_json/test_performance.json');
+    final data = await json.decode(response);
+    return data;
+  }
+
+  Future getLocalPortfolioData() async {
+    final String response =
+        await rootBundle.loadString('assets/test_json/test_portfolio.json');
+    final data = await json.decode(response);
+    return data;
+  }
+
+  Future getLocalInstrumentTransactions() async {
+    final String response = await rootBundle
+        .loadString('assets/test_json/test_instrument_transactions.json');
+    final data = await json.decode(response);
+    return data;
+  }
+
+    Future getLocalCashTransactions() async {
+    final String response = await rootBundle
+        .loadString('assets/test_json/test_cash_transactions.json');
+    final data = await json.decode(response);
+    return data;
+  }
+
+  Future getLocalPendingTransactions() async {
+    final String response = await rootBundle
+        .loadString('assets/test_json/test_pending_transactions.json');
+    final data = await json.decode(response);
+    return data;
+  }
+  /* End of test code */
 
   final String token;
 
@@ -27,13 +89,6 @@ class IndexaData {
   ];
 
   IndexaData({required this.token});
-
-  // Future getLocalAccounts() async {
-  //   final String response =
-  //       await rootBundle.loadString('assets/test_json/test_me.json');
-  //   final data = await json.decode(response);
-  //   return data;
-  // }
 
   Future<dynamic> getUserAccounts() async {
     String url = '$indexaURL/users/me';
@@ -52,16 +107,12 @@ class IndexaData {
             });
           }
         }
-        /* If 'addTestAccounts' has been set, we add the fake accounts here.
-        You can add as many as you want. Just make sure their names contain
-        the string "Test", and that you enter a valid account type ('mutual',
-        'pension', 'epsv' or 'employment_plan'). */
+        // If 'addTestAccounts' has been set, we add them here.
         if (addTestAccounts) {
-          userAccounts
-            ..add({"number": "Test1", "type": "pension"})
-            ..add({"number": "Test2", "type": "employment_plan"});
+          for (var testAccount in testAccounts) {
+            userAccounts.add(testAccount);
+          }
         }
-
         return userAccounts;
       }
     } on Exception catch (e) {
@@ -72,189 +123,152 @@ class IndexaData {
     }
   }
 
-  // Future getLocalAccountInfo() async {
-  //   final String response = await rootBundle
-  //       .loadString('assets/test_json/test_account_info.json');
-  //   final data = await json.decode(response);
-  //   return data;
-  // }
-
   Future<dynamic> getAccountInfo({required String accountNumber}) async {
-    String url;
-    if (addTestAccounts) {
-      url = '$indexaURL/accounts/$testAccountNumber';
+    dynamic accountInfo;
+    if (accountNumber.contains("local")) {
+      accountInfo = await getLocalAccountInfo();
     } else {
-      url = '$indexaURL/accounts/$accountNumber';
-    }
-    NetworkHelper networkHelper = NetworkHelper(url, token);
-    try {
-      var accountInfo = await networkHelper.getData();
-      // var accountInfo = await getLocalAccountInfo();
-      return accountInfo;
-    } on Exception catch (e) {
-      if (kDebugMode) {
-        print(e);
+      String url = '$indexaURL/accounts/$accountNumber';
+      NetworkHelper networkHelper = NetworkHelper(url, token);
+      try {
+        accountInfo = await networkHelper.getData();
+      } on Exception catch (e) {
+        if (kDebugMode) {
+          print(e);
+        }
+        rethrow;
       }
-      rethrow;
     }
+    return accountInfo;
   }
-
-  // Future getLocalPerformanceData() async {
-  //   final String response = await rootBundle
-  //       .loadString('assets/test_json/test_performance.json');
-  //   final data = await json.decode(response);
-  //   return data;
-  // }
 
   Future<dynamic> getAccountPerformanceData(
       {required String accountNumber}) async {
-    String url;
-    if (addTestAccounts) {
-      url = '$indexaURL/accounts/$testAccountNumber/performance';
+    dynamic accountPerformanceData;
+    if (accountNumber.contains("local")) {
+      accountPerformanceData = await getLocalPerformanceData();
     } else {
-      url = '$indexaURL/accounts/$accountNumber/performance';
+      String url = '$indexaURL/accounts/$accountNumber/performance';
+      NetworkHelper networkHelper = NetworkHelper(url, token);
+      try {
+        accountPerformanceData = await networkHelper.getData();
+        // // var accountPerformanceData = await getLocalPerformanceData();
+        // if (accountPerformanceData != null && !accountNumber.contains("Test")) {
+        //   return accountPerformanceData;
+        // } else if (accountPerformanceData != null &&
+        //     accountNumber.contains("Test")) {
+        //   /* We use fake, time-bound numbers as balance for the test accounts.
+        // This can be useful to check if reload/refresh functions are actually
+        // reloading the data when triggered (e.g.: pulling down to refresh),
+        // as the values keep changing every second. */
+        //   accountPerformanceData['return']['total_amount'] =
+        //       DateTime.now().second;
+        //   accountPerformanceData['return']['investment'] = 1000.00;
+        //   return accountPerformanceData;
+        // }
+      } on Exception catch (e) {
+        if (kDebugMode) {
+          print(e);
+        }
+        rethrow;
+      }
     }
-    NetworkHelper networkHelper = NetworkHelper(url, token);
-    try {
-      var accountPerformanceData = await networkHelper.getData();
-      // var accountPerformanceData = await getLocalPerformanceData();
-      if (accountPerformanceData != null && !accountNumber.contains("Test")) {
-        return accountPerformanceData;
-      } else if (accountPerformanceData != null &&
-          accountNumber.contains("Test")) {
-        /* We use fake, time-bound numbers as balance for the test accounts.
-        This can be useful to check if reload/refresh functions are actually
-        reloading the data when triggered (e.g.: pulling down to refresh),
-        as the values keep changing every second. */
-        accountPerformanceData['return']['total_amount'] =
-            DateTime.now().second;
-        accountPerformanceData['return']['investment'] = 1000.00;
-        return accountPerformanceData;
-      }
-    } on Exception catch (e) {
-      if (kDebugMode) {
-        print(e);
-      }
-      rethrow;
+    if (accountPerformanceData != null) {
+      return accountPerformanceData;
     }
   }
-
-  // Future getLocalPortfolioData() async {
-  //   final String response = await rootBundle
-  //       .loadString('assets/test_json/test_portfolio.json');
-  //   final data = await json.decode(response);
-  //   return data;
-  // }
 
   Future<dynamic> getAccountPortfolioData(
       {required String accountNumber}) async {
-    String url;
-    if (addTestAccounts) {
-      url = '$indexaURL/accounts/$testAccountNumber/portfolio';
+    dynamic accountPortfolioData;
+    if (accountNumber.contains("local")) {
+      accountPortfolioData = await getLocalPortfolioData();
     } else {
-      url = '$indexaURL/accounts/$accountNumber/portfolio';
+      String url = '$indexaURL/accounts/$accountNumber/portfolio';
+      NetworkHelper networkHelper = NetworkHelper(url, token);
+      try {
+        accountPortfolioData = await networkHelper.getData();
+      } on Exception catch (e) {
+        if (kDebugMode) {
+          print(e);
+        }
+        rethrow;
+      }
     }
-    NetworkHelper networkHelper = NetworkHelper(url, token);
-    try {
-      var accountPortfolioData = await networkHelper.getData();
-      // var accountPortfolioData = await getLocalPortfolioData();
-
-      if (accountPortfolioData != null) {
-        return accountPortfolioData;
-      }
-    } on Exception catch (e) {
-      if (kDebugMode) {
-        print(e);
-      }
-      rethrow;
+    if (accountPortfolioData != null) {
+      return accountPortfolioData;
     }
   }
-
-  // Future getLocalInstrumentTransactions() async {
-  //   final String response = await rootBundle
-  //       .loadString('assets/test_json/test_instrument_transactions.json');
-  //   final data = await json.decode(response);
-  //   return data;
-  // }
 
   Future<dynamic> getAccountInstrumentTransactionData(
       {required String accountNumber}) async {
-    String url;
-    if (addTestAccounts) {
-      url = '$indexaURL/accounts/$testAccountNumber/instrument-transactions';
+    dynamic accountInstrumentTransactionData;
+    if (accountNumber.contains("local")) {
+      accountInstrumentTransactionData = await getLocalInstrumentTransactions();
     } else {
-      url = '$indexaURL/accounts/$accountNumber/instrument-transactions';
+      String url = '$indexaURL/accounts/$accountNumber/instrument-transactions';
+      NetworkHelper networkHelper = NetworkHelper(url, token);
+      try {
+        accountInstrumentTransactionData = await networkHelper.getData();
+      } on Exception catch (e) {
+        if (kDebugMode) {
+          print(e);
+        }
+        rethrow;
+      }
     }
-    NetworkHelper networkHelper = NetworkHelper(url, token);
-    try {
-      var accountInstrumentTransactionData = await networkHelper.getData();
-      // var accountInstrumentTransactionData = await getLocalInstrumentTransactions();
-      if (accountInstrumentTransactionData != null) {
-        return accountInstrumentTransactionData;
-      }
-    } on Exception catch (e) {
-      if (kDebugMode) {
-        print(e);
-      }
-      rethrow;
+    if (accountInstrumentTransactionData != null) {
+      return accountInstrumentTransactionData;
     }
   }
 
-  // Future getLocalCashTransactions() async {
-  //   final String response = await rootBundle
-  //       .loadString('assets/test_json/test_cash_transactions.json');
-  //   final data = await json.decode(response);
-  //   return data;
-  // }
-
   Future<dynamic> getAccountCashTransactionData(
       {required String accountNumber}) async {
-    String url;
-    if (addTestAccounts) {
-      url = '$indexaURL/accounts/$testAccountNumber/cash-transactions';
+    dynamic accountCashTransactionData;
+    if (accountNumber.contains("local")) {
+      accountCashTransactionData = await getLocalCashTransactions();
     } else {
-      url = '$indexaURL/accounts/$accountNumber/cash-transactions';
+      String url = '$indexaURL/accounts/$accountNumber/cash-transactions';
+
+      NetworkHelper networkHelper = NetworkHelper(url, token);
+      try {
+        accountCashTransactionData = await networkHelper.getData();
+      } on Exception catch (e) {
+        if (kDebugMode) {
+          print(e);
+        }
+        rethrow;
+      }
     }
-    NetworkHelper networkHelper = NetworkHelper(url, token);
-    try {
-      var accountCashTransactionData = await networkHelper.getData();
-      // var accountCashTransactionData = await getLocalCashTransactions();
-      if (accountCashTransactionData != null) {
-        return accountCashTransactionData;
-      }
-    } on Exception catch (e) {
-      if (kDebugMode) {
-        print(e);
-      }
-      rethrow;
+    if (accountCashTransactionData != null) {
+      return accountCashTransactionData;
     }
   }
 
   Future<dynamic> getAccountPendingTransactionData(
       {required String accountNumber}) async {
-    String url;
-    if (addTestAccounts) {
-      url = '$indexaURL/accounts/$testAccountNumber/pending-transactions';
+    dynamic accountPendingTransactionData;
+    if (accountNumber.contains("local")) {
+      accountPendingTransactionData = await getLocalPendingTransactions();
     } else {
-      url = '$indexaURL/accounts/$accountNumber/pending-transactions';
+      String url = '$indexaURL/accounts/$accountNumber/pending-transactions';
+      NetworkHelper networkHelper = NetworkHelper(url, token);
+      try {
+        accountPendingTransactionData = await networkHelper.getData();
+      } on Exception catch (e) {
+        if (kDebugMode) {
+          print(e);
+        }
+        rethrow;
+      }
     }
-    NetworkHelper networkHelper = NetworkHelper(url, token);
-    try {
-      var accountPendingTransactionData = await networkHelper.getData();
-      if (accountPendingTransactionData != null) {
-        return accountPendingTransactionData;
-      }
-    } on Exception catch (e) {
-      if (kDebugMode) {
-        print(e);
-      }
-      rethrow;
+    if (accountPendingTransactionData != null) {
+      return accountPendingTransactionData;
     }
   }
 
   Future<Account> populateAccountData(
       {required BuildContext context, required String accountNumber}) async {
-    // Populates a new Account object with all fetched data
     Account currentAccount;
     try {
       var currentAccountInfo =
