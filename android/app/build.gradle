@@ -29,7 +29,7 @@ if (flutterMinSdkVersion == null) {
 
 def flutterTargetSdkVersion = localProperties.getProperty('flutter.flutterTargetSdkVersion')
 if (flutterTargetSdkVersion == null) {
-    flutterTargetSdkVersion = '34'
+    flutterTargetSdkVersion = '36'
 }
 
 def keystoreProperties = new Properties()
@@ -39,7 +39,13 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
-    compileSdkVersion 34
+    namespace = "com.victormarino.indexax"
+    compileSdkVersion 36
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_18
+        targetCompatibility = JavaVersion.VERSION_18
+    }
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
