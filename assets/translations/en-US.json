@@ -46,7 +46,8 @@
     "screen_lock_required": "An active screen lock must be enabled to store the token locally.",
     "invalid_token_format": "Invalid token format",
     "no_active_accounts": "No active accounts found for this user",
-    "default_error_message": "Couldn't load data"
+    "default_error_message": "Couldn't load data",
+    "account_not_ready": "Account data is not ready yet. This may happen if the account is still being opened."
   },
   "root_screen": {
     "private_mode_enabled": "Private mode enabled",
