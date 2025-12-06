@@ -46,7 +46,8 @@
     "screen_lock_required": "Para guardar el token en el dispositivo, el bloqueo de pantalla debe estar activado.",
     "invalid_token_format": "Formato de token no válido",
     "no_active_accounts": "No se encontraron cuentas activas para este usuario",
-    "default_error_message": "No se pudieron cargar los datos"
+    "default_error_message": "No se pudieron cargar los datos",
+    "account_not_ready": "Los datos de la cuenta aún no están listos. Esto puede ocurrir si la cuenta aún se está abriendo."
   },
   "root_screen": {
     "private_mode_enabled": "Modo privado activado",

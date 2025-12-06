@@ -28,6 +28,9 @@ String testEmergencyFundDescription =
 /* End of test settings for emergency fund */
 
 List<AmountsDataPoint> createAmountsSeries(netAmountsList, totalAmountsList) {
+  if (totalAmountsList?.keys == null || netAmountsList?.keys == null) {
+    throw Exception("login_screen.account_not_ready".tr());
+  }
   // Creates a time series with the value of the portfolio overtime
   List<AmountsDataPoint> newAmountSeries = [];
   totalAmountsList.keys.forEach((k) {
