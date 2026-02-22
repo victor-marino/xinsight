@@ -23,7 +23,9 @@
         android:label="X Insight"
         android:icon="@mipmap/ic_launcher"
         android:allowBackup="false"
-        android:fullBackupContent="false">
+        android:fullBackupContent="false"
+        android:localeConfig="@xml/locales_config">
+        >
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
