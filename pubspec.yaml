@@ -29,7 +29,7 @@ dependencies:
   local_auth_android: ^1.0.38
   local_auth_darwin: ^1.2.2
   easy_localization: ^3.0.1
-  google_fonts: ^6.2.1
+  google_fonts: ^8.1.0
   syncfusion_flutter_charts: ^29.1.37
   syncfusion_flutter_gauges: ^29.1.37
   flutter_secure_storage: ^9.2.4
