@@ -38,7 +38,7 @@ dependencies:
   url_launcher_ios: ^6.3.3
   settings_ui: ^2.0.2
   expandable: ^5.0.1
-  intl: ^0.19.0
+  intl: ^0.20.2
   package_info_plus: ^8.0.0
   share_plus: ^9.0.0
 
