@@ -19,7 +19,7 @@ kotlin {
     }
     
     android {
-       namespace = "com.victormarino.xinsight.shared"
+       namespace = "com.victormarino.indexax.shared"
        compileSdk = libs.versions.android.compileSdk.get().toInt()
        minSdk = libs.versions.android.minSdk.get().toInt()
     

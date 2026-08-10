@@ -1,7 +1,8 @@
 TEAM_ID=
 
 PRODUCT_NAME=XInsight
-PRODUCT_BUNDLE_IDENTIFIER=com.victormarino.xinsight.XInsight$(TEAM_ID)
+// Keep the existing bundle ID so the KMP rewrite updates the published app.
+PRODUCT_BUNDLE_IDENTIFIER=com.victormarino.xinsight
 
 CURRENT_PROJECT_VERSION=1
 MARKETING_VERSION=1.0

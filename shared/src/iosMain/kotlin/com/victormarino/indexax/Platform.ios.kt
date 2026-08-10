@@ -1,4 +1,4 @@
-package com.victormarino.xinsight
+package com.victormarino.indexax
 
 import platform.UIKit.UIDevice
 

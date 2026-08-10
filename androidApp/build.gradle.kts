@@ -20,11 +20,12 @@ dependencies {
 }
 
 android {
-    namespace = "com.victormarino.xinsight"
+    namespace = "com.victormarino.indexax"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
-        applicationId = "com.victormarino.xinsight"
+        // Keep the legacy ID so the KMP rewrite updates the existing Play listing.
+        applicationId = "com.victormarino.indexax"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1

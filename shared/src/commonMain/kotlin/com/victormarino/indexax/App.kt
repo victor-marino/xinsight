@@ -1,4 +1,4 @@
-package com.victormarino.xinsight
+package com.victormarino.indexax
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image

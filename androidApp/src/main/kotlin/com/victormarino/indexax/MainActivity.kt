@@ -1,4 +1,4 @@
-package com.victormarino.xinsight
+package com.victormarino.indexax
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

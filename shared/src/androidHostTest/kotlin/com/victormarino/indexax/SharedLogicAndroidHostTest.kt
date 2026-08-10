@@ -1,9 +1,9 @@
-package com.victormarino.xinsight
+package com.victormarino.indexax
 
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class SharedCommonTest {
+class SharedLogicAndroidHostTest {
 
     @Test
     fun example() {
