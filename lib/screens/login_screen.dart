@@ -257,7 +257,7 @@ class LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
                           controller: _tokenTextController,
                           keyboardType: TextInputType.text,
                           maxLines: null,
-                          maxLength: 400,
+                          maxLength: 8192,
                           style: TextStyle(
                               color: Theme.of(context).colorScheme.onSurface),
                           decoration: _storedToken
