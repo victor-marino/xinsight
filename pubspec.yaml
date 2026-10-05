@@ -18,7 +18,7 @@ publish_to: "none" # Remove this line if you wish to publish to pub.dev
 version: 1.13.1+57
 
 environment:
-  sdk: ">=3.0.0 <3.14.0"
+  sdk: ">=3.10.0 <3.14.0"
 
 dependencies:
   flutter:
@@ -32,15 +32,15 @@ dependencies:
   google_fonts: ^8.1.0
   syncfusion_flutter_charts: ^29.1.37
   syncfusion_flutter_gauges: ^29.1.37
-  flutter_secure_storage: ^9.2.4
+  flutter_secure_storage: ^10.3.1
   provider: ^6.0.5
   url_launcher: ^6.3.1
   url_launcher_ios: ^6.3.3
   settings_ui: ^2.0.2
   expandable: ^5.0.1
   intl: ^0.20.2
-  package_info_plus: ^8.0.0
-  share_plus: ^9.0.0
+  package_info_plus: ^10.2.2
+  share_plus: ^13.3.1
 
 dev_dependencies:
   flutter_lints: ^3.0.2

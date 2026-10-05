@@ -144,7 +144,9 @@ Future<void> copyToClipboard(BuildContext context, String text) async {
 }
 
 Future<void> shareErrorLog(BuildContext context, String text) async {
-  await Share.share(text, subject: 'crash_report.email_subject'.tr());
+  await SharePlus.instance.share(
+    ShareParams(text: text, subject: 'crash_report.email_subject'.tr()),
+  );
 }
 
 void sendOverEmail(BuildContext context, String text) async {
